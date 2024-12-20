@@ -1,0 +1,90 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+#header {
+  width: 100%;
+  height: 100px;
+  background-color: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#footer {
+  width: 100%;
+  height: 50px;
+  background-color: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#content {
+  display: flex;
+  position: absolute;
+  top: 100px;
+  /* Platz für den Header */
+  bottom: 50px;
+  /* Platz für den Footer */
+  left: 0;
+  right: 0;
+  width: 100%;
+  /* Volle Breite */
+  overflow: hidden;
+  /* Verhindert, dass Inhalt außerhalb des Bereichs fließt */
+}
+
+#navi {
+  width: 250px;
+  background-color: #242d46;
+  padding: 20px;
+  overflow-y: auto;
+  margin: 0;
+  /* Scrollbar bei Überlauf */
+}
+
+#main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  margin: 0;
+  /* Scrollbar bei Überlauf */
+}
+
+#charakter {
+  width: 250px;
+  background-color: #242d46;
+  padding: 20px;
+  overflow-y: auto;
+  margin: 0;
+  /* Scrollbar bei Überlauf */
+}
+
+
+@media (max-width: 768px) {
+  #content {
+    flex-direction: column;
+  }
+
+  #navi,
+  #charakter {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    padding: 10px 0 10px 0;
+  }
+}
