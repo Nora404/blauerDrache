@@ -9,7 +9,6 @@
 .background {
   width: 100%;
   height: 100vh;
-  /* Volle Höhe des Viewports */
   background-image: url('./assets/background.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -28,7 +27,6 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  /* padding-left: 20px; */
 }
 
 #footer {
@@ -48,16 +46,17 @@
   display: flex;
   position: absolute;
   top: 100px;
-  /* Platz für den Header */
   bottom: 50px;
-  /* Platz für den Footer */
-  left: 0;
-  right: 0;
+  left: 50%;
+  /* Verschiebt das Element zur Mitte des Containers */
+  transform: translateX(-50%);
+  /* Zieht das Element um die Hälfte seiner eigenen Breite zurück */
   width: 100%;
-  /* Volle Breite */
+  max-width: 1900px;
+  /* Maximale Breite des Hauptfensters */
   overflow: hidden;
-  /* Verhindert, dass Inhalt außerhalb des Bereichs fließt */
 }
+
 
 #navi {
   width: 250px;
@@ -101,6 +100,12 @@
   width: 450px;
 }
 
+@media (min-width: 1920px) {
+  #content {
+    width: 1920px;
+  }
+}
+
 @media (max-width: 1380px) {
 
   #navi,
@@ -112,6 +117,18 @@
 
   .dracheImg {
     width: 250px;
+  }
+}
+
+@media (max-height: 1050px) {
+  .dracheImg {
+    width: 250px;
+  }
+}
+
+@media (max-height: 900px) {
+  .drache {
+    display: none;
   }
 }
 
@@ -144,6 +161,8 @@
     display: none;
   }
 }
+
+
 
 .text-left {
   text-align: left;
