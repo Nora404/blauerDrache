@@ -3,6 +3,10 @@ import './App.css'
 import logo from './assets/logo.png';
 import drache from './assets/drache.png';
 import { GradientText } from './utility/GradientText';
+import Header from './layout/Header';
+import YouAre from './charakter/YouAre';
+import YouCan from './charakter/YouCan';
+import YouHave from './charakter/YouHave';
 
 function App() {
 
@@ -18,24 +22,9 @@ function App() {
           Main<br /> <p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test
         </div>
         <div id="charakter" className="custom-scrollbar">
-          Das bist du <br /><hr />
-          <p className='text-left'>
-            Name: Nora404<br />
-            Rasse: Entwickler<br />
-            Herkunft: Kinderzimmer<br />
-          </p>
-          Das kannst du <br /><hr />
-          <p className='text-left'>
-            Leben: 100<br />
-            Runden: 10<br />
-            Angriff: 10<br />
-            Verteidigung: 10<br />
-            Glück: 10<br />
-          </p>
-          Das hast du <br /><hr />
-          <p className='text-left'>
-            Nichts
-          </p>
+          <YouAre />
+          <YouCan />
+          <YouHave />
         </div>
       </div>
       <div id="footer">Diese Seite wurde inspiriert von der &nbsp;

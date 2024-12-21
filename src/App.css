@@ -105,13 +105,28 @@
 .text-left {
   text-align: left;
   padding-left: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+}
+
+td {
+  text-align: left;
+}
+
+.table {
+  padding-left: 20px;
+  margin-bottom: 30px;
 }
 
 hr {
   height: 0;
-  border: 1px solid rgba(98, 176, 212, 0.445);
+  border: 1px solid rgba(220, 210, 125);
   border-radius: 5px;
+}
+
+.header {
+  color: rgba(220, 210, 125);
+  margin: 2px;
+  font-size: large;
 }
 
 .drache {
