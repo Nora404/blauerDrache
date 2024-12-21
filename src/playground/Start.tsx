@@ -1,5 +1,7 @@
 import React from 'react';
 import { GradientText } from '../utility/GradientText';
+import RandomSentence from '../utility/RandomSentence';
+import { nameList, placeList, verbList } from '../data/randomSentenceData';
 
 type StartProps = {
     title?: string;
@@ -17,7 +19,11 @@ const Start: React.FC<StartProps> = () => {
                 Das Spiel ist absolut werbe- und kostenfrei!<br /><br />
 
                 Die aktuelle Uhrzeit in Lahtheim ist ... <br />
-                Nächster neuer Spieltag in ... <br />
+                Nächster neuer Spieltag in ... <br /><br />
+
+                <RandomSentence partOne={nameList} partTwo={verbList} partThree={placeList} />
+                <RandomSentence partOne={nameList} partTwo={verbList} partThree={placeList} />
+                <RandomSentence partOne={nameList} partTwo={verbList} partThree={placeList} />
             </p>
         </div>
     );
