@@ -1,14 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(98, 176, 212);
   background-color: #242424;
 
   font-synthesis: none;
@@ -22,6 +18,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -32,6 +29,10 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('./assets/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 h1 {
@@ -50,9 +51,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -63,10 +66,69 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* Basis-Stile für das scrollbare Element */
+.custom-scrollbar {
+  overflow: auto;
+  /* Ermöglicht das Scrollen */
+  /* Firefox-spezifische Eigenschaften */
+  scrollbar-width: thin;
+  /* Schmale Scrollbars */
+  scrollbar-color: rgb(98, 176, 212, 0.65) transparent;
+  /* Scrollbar-Farbe und Hintergrund */
+  position: relative;
+  /* Notwendig für das Überlagern der Scrollbar */
+}
+
+/* Webkit-basierte Browser (Chrome, Edge, Safari) */
+/* Versteckt die Scrollbar standardmäßig */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  /* Breite der vertikalen Scrollbar */
+  height: 8px;
+  /* Höhe der horizontalen Scrollbar */
+  opacity: 0;
+  /* Unsichtbar */
+  transition: opacity 0.3s;
+  /* Sanfter Übergang */
+}
+
+/* Scrollbar sichtbar beim Hover */
+.custom-scrollbar:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+
+/* Stil für die Scrollbar-Spur */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  /* Transparenter Hintergrund */
+}
+
+/* Stil für den Scrollbar-Daumen */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(98, 176, 212, 0.65);
+  /* Farbe des Daumens */
+  border-radius: 4px;
+  /* Abgerundete Ecken */
+  border: 2px solid transparent;
+  /* Abstand um den Daumen */
+  background-clip: padding-box;
+  /* Verhindert, dass die Border die Farbe beeinflusst */
+}
+
+/* Optional: Für bessere Unterstützung in Edge */
+@supports (-ms-overflow-style: none) {
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    /* Versteckt die Scrollbar in alten Edge-Versionen */
   }
 }
