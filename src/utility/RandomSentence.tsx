@@ -34,13 +34,10 @@ const RandomSentence: React.FC<RandomSentenceProps> = ({
 
     return (
         <div className="random-sentence">
-            <p>
-                {/* Kommentar: Erstes Wort wird in GradientText gekapselt */}
-                <GradientText colors={[color1, color2]}>
-                    {firstWord}
-                </GradientText>{' '}
-                {secondWord} {thirdWord} {fourthWord}
-            </p>
+            <GradientText colors={[color1, color2]}>
+                {firstWord}
+            </GradientText>{' '}
+            {secondWord} {thirdWord} {fourthWord}
         </div>
     );
 };

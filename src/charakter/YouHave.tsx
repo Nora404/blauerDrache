@@ -14,7 +14,7 @@ const YouHave: React.FC<YouHaveProps> = (
     return (
         <div>
             <Header>Das hast du</Header>
-            <p className='text-left'>
+            <p className='text-left padding-left'>
                 Gold: {gold}<br />
                 Waffe: {weapon}<br />
                 Rüstung: {armor}<br />

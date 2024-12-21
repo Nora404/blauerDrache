@@ -14,7 +14,7 @@ function App() {
   return (
     <div>
       <div id="header"><img src={logo} alt="logo" /></div>
-      <div id="drache" className='drache'><img src={drache} alt="drache" width={450} /></div>
+      <div id="drache" className='drache'><img src={drache} className='dracheImg' alt="drache" /></div>
       <div id="content">
         <div id="navi" className="custom-scrollbar">
           <NewPlayer />

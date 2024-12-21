@@ -11,6 +11,7 @@ const NewPlayer: React.FC<NewPlayerProps> = () => {
         <div>
             <Header>Neu hier ?</Header>
             <p className='text-left'>
+                Tor von Lahtheim<br /><br />
                 Erstelle neuen Charakter<br />
                 Was erwartet dich?<br />
             </p>

@@ -22,7 +22,7 @@ const YouAre: React.FC<YouAreProps> = (
     return (
         <div>
             <Header>Das bist du</Header>
-            <p className='text-left'>
+            <p className='text-left padding-left'>
                 Name: <GradientText colors={nameColor}>{name}</GradientText><br />
                 Rasse: <GradientText colors={raseColor}>{rase}</GradientText><br />
                 Herkunft: <GradientText colors={originColor}>{origin}</GradientText><br />

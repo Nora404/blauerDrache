@@ -42,6 +42,28 @@ export const verbList = [
     'verschanzt sich',
 ]
 
+export const battleList = [
+    'bekämpft',
+    'verzaubert',
+    'verteidigt sich gegen',
+    'schlägt',
+    'entwaffnet',
+    'umgeht',
+    'überlistet',
+    'attackiert',
+    'überwältigt',
+    'verwundet',
+    'verletzt',
+    'bezwingt',
+    'bedroht',
+    'blockt',
+    'besiegt',
+    'überrascht',
+    'pariert',
+    'durchbohrt',
+    'trifft',
+]
+
 export const placeList = [
     'im Wald',
     'auf dem Weg',
@@ -61,4 +83,48 @@ export const placeList = [
     'am Höhleneingang',
     'auf dem Feld',
     'am Friedhof',
+]
+
+export const enemieList = [
+    'den Kobold',
+    'den Schleim',
+    'die Ratte',
+    'den Troll',
+    'die Spinne',
+    'den Banditen',
+    'die Hexe',
+    'das Skelett',
+    'den Werwolf',
+    'den Vampir',
+    'den Golem',
+    'den Greif',
+    'das Phantom',
+    'den Dämon',
+    'den Geist',
+    'den Zombie',
+    'den Basilisken',
+    'die Harpyie',
+]
+
+export const weaponsList = [
+    'mit dem Schwert',
+    'mit der Flöte',
+    'mit dem Holzschild',
+    'mit dem Dolch',
+    'mit dem Langbogen',
+    'mit dem Speer',
+    'mit der Keule',
+    'mit der Armbrust',
+    'mit dem Zauberstab',
+    'mit der Peitsche',
+    'mit dem Streitkolben',
+    'mit dem Katana',
+    'mit dem Morgenstern',
+    'mit der Schleuder',
+    'mit dem Kampfstab',
+    'mit der Streitaxt',
+    'mit den Wurfmessern',
+    'mit dem Kriegshammer',
+    'mit der Hellebarde',
+    'mit dem Kristallamulett',
 ]
