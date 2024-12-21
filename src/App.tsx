@@ -8,6 +8,8 @@ import YouCan from './charakter/YouCan';
 import YouHave from './charakter/YouHave';
 import Start from './playground/Start';
 import NewPlayer from './navigation/NewPlayer';
+import { Route, Routes } from 'react-router-dom';
+import CreatePlayer from './playground/CreatePlayer';
 
 function App() {
 
@@ -20,7 +22,11 @@ function App() {
           <NewPlayer />
         </div>
         <div id="main" className="custom-scrollbar">
-          <Start />
+          <Routes>
+            <Route path="/" element={<Start />} />
+            <Route path="/start" element={<Start />} />
+            <Route path="/charakter" element={<CreatePlayer />} />
+          </Routes>
         </div>
         <div id="charakter" className="custom-scrollbar">
           <YouAre />
