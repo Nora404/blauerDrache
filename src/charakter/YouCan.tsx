@@ -3,6 +3,7 @@ import Header from '../layout/Header';
 import { GradientText } from '../utility/GradientText';
 
 type YouCanProps = {
+    level?: number;
     life?: number;
     rounds?: number;
     attack?: number;
@@ -11,7 +12,7 @@ type YouCanProps = {
 };
 
 const YouCan: React.FC<YouCanProps> = (
-    { life = 100, rounds = 10, attack = 10, defense = 10, luck = 0 }
+    { level = 1, life = 100, rounds = 10, attack = 10, defense = 10, luck = 0 }
 ) => {
 
     return (
@@ -19,6 +20,8 @@ const YouCan: React.FC<YouCanProps> = (
             <Header>Das kannst du</Header>
             <table className='table'>
                 <tr>
+                    <td width={125}><GradientText colors={['#F7A131', '#57C6DD']}>Level: </GradientText></td><td>{level}</td>
+                </tr><tr>
                     <td width={125}><GradientText colors={['#74dd4f', '#57C6DD']}>Leben: </GradientText></td><td>{life}</td>
                 </tr><tr>
                     <td><GradientText colors={['#C742DD', '#57C6DD']}>Runden: </GradientText></td><td>{rounds}</td>
