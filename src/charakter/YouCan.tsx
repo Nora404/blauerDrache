@@ -19,7 +19,7 @@ const YouCan: React.FC<YouCanProps> = (
             <Header>Das kannst du</Header>
             <table className='table'>
                 <tr>
-                    <td><GradientText colors={['#74dd4f', '#57C6DD']}>Leben: </GradientText></td><td>{life}</td>
+                    <td width={125}><GradientText colors={['#74dd4f', '#57C6DD']}>Leben: </GradientText></td><td>{life}</td>
                 </tr><tr>
                     <td><GradientText colors={['#C742DD', '#57C6DD']}>Runden: </GradientText></td><td>{rounds}</td>
                 </tr><tr>

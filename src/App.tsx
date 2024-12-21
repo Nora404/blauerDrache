@@ -3,10 +3,11 @@ import './App.css'
 import logo from './assets/logo.png';
 import drache from './assets/drache.png';
 import { GradientText } from './utility/GradientText';
-import Header from './layout/Header';
 import YouAre from './charakter/YouAre';
 import YouCan from './charakter/YouCan';
 import YouHave from './charakter/YouHave';
+import Start from './playground/Start';
+import NewPlayer from './navigation/NewPlayer';
 
 function App() {
 
@@ -16,10 +17,10 @@ function App() {
       <div id="drache" className='drache'><img src={drache} alt="drache" width={450} /></div>
       <div id="content">
         <div id="navi" className="custom-scrollbar">
-          Navi <br /> <p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test
+          <NewPlayer />
         </div>
         <div id="main" className="custom-scrollbar">
-          Main<br /> <p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test<p>Test</p>Test
+          <Start />
         </div>
         <div id="charakter" className="custom-scrollbar">
           <YouAre />
