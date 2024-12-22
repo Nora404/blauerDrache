@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GradientText } from '../utility/GradientText';
 import RandomSentence from '../utility/RandomSentence';
 import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../data/randomSentenceData';
@@ -12,6 +12,43 @@ type StartProps = {
 };
 
 const Start: React.FC<StartProps> = () => {
+    const [gameTime, setGameTime] = useState<string>("12:00")
+
+    useEffect(() => {
+        const updateGameTime = () => {
+            const now = new Date();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Gesamtsekunden seit Beginn der Stunde
+            const totalSeconds = minutes * 60 + seconds;
+
+            // Berechnung der neuen Stundenanzahl in gameTime
+            const gameHours = (totalSeconds / 3600) * 24; // 24 Stunden entsprechen 60 realen Minuten
+
+            const calculatedHours = Math.floor(gameHours) % 24;
+            let calculatedMinutes = Math.floor((gameHours - Math.floor(gameHours)) * 60);
+
+            // Runden der Minuten auf das nächste 10er-Multiplikum
+            calculatedMinutes = Math.floor(calculatedMinutes / 10) * 10;
+
+            // Formatierung mit führenden Nullen
+            const formattedHours = String(calculatedHours).padStart(2, '0');
+            const formattedMinutes = String(calculatedMinutes).padStart(2, '0');
+
+            // Erstellung des neuen Zeitstrings
+            const newGameTime = `${formattedHours}:${formattedMinutes}`;
+
+            // Aktualisierung des States, nur wenn sich die Zeit ändert
+            if (newGameTime !== gameTime) {
+                setGameTime(newGameTime);
+            }
+        };
+        updateGameTime();
+        const intervalId = setInterval(updateGameTime, 1000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
         <div className='max-width'>
@@ -21,7 +58,7 @@ const Start: React.FC<StartProps> = () => {
                 <a href="https://lotgd.de/home.php?" target='blank'><GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText></a><br />
                 Das Spiel ist absolut werbe- und kostenfrei!<br className='mb-1' />
 
-                Die aktuelle Uhrzeit in Lahtheim ist ... <br />
+                Die aktuelle Uhrzeit in Lahtheim ist <b>{gameTime} Uhr</b><br />
                 Es ist ...<br />
                 Das Wetter heute ist ... <br className='mb-1' />
             </div>
