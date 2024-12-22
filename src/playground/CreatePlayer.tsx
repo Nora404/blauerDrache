@@ -1,6 +1,7 @@
 import React from 'react';
 import { CREATURE } from '../data/colorfullStrings';
 import PlayerTalk from '../utility/PlayerTalk';
+import CreatureTalk from '../utility/CreaturTalk';
 
 type CreatePlayerProps = {
 
@@ -18,16 +19,16 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
 
                 <PlayerTalk>"Wa-wa-wa..."</PlayerTalk> stammelst du.<br />
 
-                "Du beherschst anscheinend nicht unsere Sprache. Dann werde ich l a n g s a m reden!"<br />
+                <CreatureTalk name="rotesWesen">"Du beherschst anscheinend nicht unsere Sprache. Dann werde ich l a n g s a m reden!"</CreatureTalk><br />
                 hörst du eine Stimme hinter dir. Erschrochen drehst du dich um und erkennst ein rotes Wesen.
                 Es setzt sich auf deine Schulter wärend das blaue Wesen zu sprechen beginnt.<br className='mb-1' />
 
-                "Also, wir sind hier, um dich mit diesem Reich vertraut zu machen, also tust du gut daran, uns ganz genau zuzuhören"<br className='mb-1' />
+                <CreatureTalk name="blauesWesen">"Also, wir sind hier, um dich mit diesem Reich vertraut zu machen, also tust du gut daran, uns ganz genau zuzuhören"</CreatureTalk><br className='mb-1' />
 
                 Du nickst stumm und schenkst diesen seltsamen Wesen deine volle Aufmerksamkeit.<br className='mb-1' />
 
-                "Gut, dann fangen wir mal an. Zuerst musst du dich hier anmelden.
-                Dafür brauchen wir deinen Namen, deine Herkunft und so weiter." beginnt das rote Wesen seinen Text herunter zu rattern.
+                <CreatureTalk name="rotesWesen">"Gut, dann fangen wir mal an. Zuerst musst du dich hier anmelden.
+                Dafür brauchen wir deinen Namen, deine Herkunft und so weiter."</CreatureTalk> beginnt das rote Wesen seinen Text herunter zu rattern.
                 Zeitgleich holt das braue Wesen einen Notizblock und zaubert eine Füllfeder aus dem Nichts heraus.
                 Es macht sich bereit zu schreiben ...
             </p>
