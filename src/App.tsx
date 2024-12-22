@@ -10,6 +10,7 @@ import Start from './playground/Start';
 import NewPlayer from './navigation/NewPlayer';
 import { Route, Routes } from 'react-router-dom';
 import CreatePlayer from './playground/CreatePlayer';
+import Map from './playground/Map';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<Start />} />
             <Route path="/start" element={<Start />} />
             <Route path="/charakter" element={<CreatePlayer />} />
+            <Route path="/map" element={<Map />} />
           </Routes>
         </div>
         <div id="charakter" className="custom-scrollbar">
