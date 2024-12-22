@@ -1,4 +1,4 @@
-export const nameList = [
+export const NAMELIST = [
     'ShadowFury',
     'ElvenBlade',
     'MysticWolf',
@@ -21,7 +21,7 @@ export const nameList = [
     'BloodFang',
 ]
 
-export const verbList = [
+export const VERBLIST = [
     'verläuft sich',
     'versteckt sich',
     'ruht sich aus',
@@ -42,7 +42,7 @@ export const verbList = [
     'verschanzt sich',
 ]
 
-export const battleList = [
+export const BATTLELIST = [
     'bekämpft',
     'verzaubert',
     'verteidigt sich gegen',
@@ -64,7 +64,7 @@ export const battleList = [
     'trifft',
 ]
 
-export const placeList = [
+export const PLACELIST = [
     'im Wald',
     'auf dem Weg',
     'am See',
@@ -85,7 +85,7 @@ export const placeList = [
     'am Friedhof',
 ]
 
-export const enemieList = [
+export const ENEMIELIST = [
     'den Kobold',
     'den Schleim',
     'die Ratte',
@@ -106,7 +106,7 @@ export const enemieList = [
     'die Harpyie',
 ]
 
-export const weaponsList = [
+export const WEAPONSLIST = [
     'mit dem Schwert',
     'mit der Flöte',
     'mit dem Holzschild',

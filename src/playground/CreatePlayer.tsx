@@ -1,4 +1,5 @@
 import React from 'react';
+import { CREATURE } from '../data/colorfullStrings';
 
 type CreatePlayerProps = {
 
@@ -11,7 +12,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             <h2>Als was werden dich die Bewohner dieser Welt erkennen?</h2>
 
             <p className='text-left'>
-                Ein kleines blaues Wesen fliegt direkt auf dich zu.
+                Ein kleines {CREATURE.blauesWesen} fliegt direkt auf dich zu.
                 Es hält nur wenige Zentimeter vor deinem Kopf an und betrachtet dich kritisch.<br className='mb-1' />
 
                 "Wa-wa-wa..." stammelst du.<br />

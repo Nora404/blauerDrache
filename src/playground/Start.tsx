@@ -1,7 +1,7 @@
 import React from 'react';
 import { GradientText } from '../utility/GradientText';
 import RandomSentence from '../utility/RandomSentence';
-import { battleList, enemieList, nameList, placeList, verbList, weaponsList } from '../data/randomSentenceData';
+import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../data/randomSentenceData';
 import Header from '../layout/Header';
 
 type StartProps = {
@@ -41,17 +41,17 @@ const Start: React.FC<StartProps> = () => {
 
             <div>
                 <Header>Erfolgreiche Entdecker</Header>
-                <RandomSentence partOne={nameList} partTwo={verbList} partThree={placeList} />
-                <RandomSentence partOne={nameList} partTwo={verbList} partThree={placeList} />
-                <RandomSentence partOne={nameList} partTwo={verbList} partThree={placeList} />
+                <RandomSentence partOne={NAMELIST} partTwo={VERBLIST} partThree={PLACELIST} />
+                <RandomSentence partOne={NAMELIST} partTwo={VERBLIST} partThree={PLACELIST} />
+                <RandomSentence partOne={NAMELIST} partTwo={VERBLIST} partThree={PLACELIST} />
                 <br className='mb-1' />
             </div>
 
             <div>
                 <Header>Mutige Kämpfer</Header>
-                <RandomSentence partOne={nameList} partTwo={battleList} partThree={enemieList} partFour={weaponsList} />
-                <RandomSentence partOne={nameList} partTwo={battleList} partThree={enemieList} partFour={weaponsList} />
-                <RandomSentence partOne={nameList} partTwo={battleList} partThree={enemieList} partFour={weaponsList} />
+                <RandomSentence partOne={NAMELIST} partTwo={BATTLELIST} partThree={ENEMIELIST} partFour={WEAPONSLIST} />
+                <RandomSentence partOne={NAMELIST} partTwo={BATTLELIST} partThree={ENEMIELIST} partFour={WEAPONSLIST} />
+                <RandomSentence partOne={NAMELIST} partTwo={BATTLELIST} partThree={ENEMIELIST} partFour={WEAPONSLIST} />
                 <br className='mb-1' />
             </div>
         </div>
