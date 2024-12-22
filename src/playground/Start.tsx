@@ -3,6 +3,7 @@ import { GradientText } from '../utility/GradientText';
 import RandomSentence from '../utility/RandomSentence';
 import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../data/randomSentenceData';
 import Header from '../layout/Header';
+import { CREATURE } from '../data/colorfullStrings';
 
 type StartProps = {
     title?: string;
@@ -31,8 +32,8 @@ const Start: React.FC<StartProps> = () => {
                     Im nächsten Moment fängt es mit schriller Stimme an zu reden:<br className='mb-1' />
 
                     <span style={{ color: '#7EF5F2' }}>
-                        „Willkommen in Lahtheim! Bist du hier, um vor den Bezwingern des <b><GradientText colors={['#46CF25', '#29CF72']}>grünen Drachen</GradientText></b> zu fliehen?
-                        In unserem Dorf ist Platz für dich. Sei nett, dann darfst du vielleicht einmal den <b><GradientText colors={['#1ECECF', '#1763CF']}>blauen Drachen</GradientText></b> besuchen.“
+                        „Willkommen in Lahtheim! Bist du hier, um vor den Bezwingern des {CREATURE.grünerDrache} zu fliehen?
+                        In unserem Dorf ist Platz für dich. Sei nett, dann darfst du vielleicht einmal den {CREATURE.blauerDrache} besuchen.“
                     </span><br className='mb-1' />
 
                     Ohne auf deine Antwort zu warten dreht sich das <GradientText colors={['#CF388F', '#8839CF']}>geflügelte Wesen</GradientText> um und flattert durch den Torbogen Richtung Brunnen davon.

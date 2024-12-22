@@ -1,5 +1,6 @@
 import React from 'react';
 import { CREATURE } from '../data/colorfullStrings';
+import PlayerTalk from '../utility/PlayerTalk';
 
 type CreatePlayerProps = {
 
@@ -15,7 +16,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 Ein kleines {CREATURE.blauesWesen} fliegt direkt auf dich zu.
                 Es hält nur wenige Zentimeter vor deinem Kopf an und betrachtet dich kritisch.<br className='mb-1' />
 
-                "Wa-wa-wa..." stammelst du.<br />
+                <PlayerTalk>"Wa-wa-wa..."</PlayerTalk> stammelst du.<br />
 
                 "Du beherschst anscheinend nicht unsere Sprache. Dann werde ich l a n g s a m reden!"<br />
                 hörst du eine Stimme hinter dir. Erschrochen drehst du dich um und erkennst ein rotes Wesen.
