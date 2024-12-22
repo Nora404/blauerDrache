@@ -126,6 +126,11 @@
   }
 }
 
+.mapImg {
+  width: 100%;
+  max-width: 900px;
+}
+
 @media (max-height: 900px) {
   .drache {
     display: none;

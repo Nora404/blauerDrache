@@ -6,14 +6,16 @@ type YouCanProps = {
     level?: number;
     exp?: number;
     life?: number;
+    maxLife?: number;
     rounds?: number;
+    maxRounds?: number;
     attack?: number;
     defense?: number;
     luck?: number;
 };
 
 const YouCan: React.FC<YouCanProps> = (
-    { level = 1, exp = 0, life = 100, rounds = 10, attack = 10, defense = 10, luck = 0 }
+    { level = 1, exp = 0, life = 100, maxLife = 100, rounds = 10, maxRounds = 10, attack = 10, defense = 10, luck = 0 }
 ) => {
 
     return (
@@ -25,9 +27,9 @@ const YouCan: React.FC<YouCanProps> = (
                 </tr><tr>
                     <td width={125}><GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung: </GradientText></td><td>{exp} / 100</td>
                 </tr><tr>
-                    <td width={125}><GradientText colors={['#74dd4f', '#57C6DD']}>Leben: </GradientText></td><td>{life}</td>
+                    <td width={125}><GradientText colors={['#74dd4f', '#57C6DD']}>Leben: </GradientText></td><td>{life} / {maxLife}</td>
                 </tr><tr>
-                    <td><GradientText colors={['#C742DD', '#57C6DD']}>Runden: </GradientText></td><td>{rounds}</td>
+                    <td><GradientText colors={['#C742DD', '#57C6DD']}>Runden: </GradientText></td><td>{rounds} / {maxRounds}</td>
                 </tr><tr>
                     <td><GradientText colors={['#DD2C2C', '#57C6DD']}>Angriff: </GradientText></td><td>{attack}</td>
                 </tr><tr>
