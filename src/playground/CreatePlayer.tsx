@@ -25,8 +25,8 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 Du nickst stumm und schenkst diesen seltsamen Wesen deine volle Aufmerksamkeit.<br className='mb-1' />
 
                 "Gut, dann fangen wir mal an. Zuerst musst du dich hier anmelden.
-                Dafür brauchen wir deinen Namen, deine Herkunft und so weiter." beginnt das rote Wesen seinen Text herunter zu rattern.<br />
-                Zeitgleich holt das braue Wesen einen Notizblock und zaubert einen Füllfeder aus dem Nichts heraus.
+                Dafür brauchen wir deinen Namen, deine Herkunft und so weiter." beginnt das rote Wesen seinen Text herunter zu rattern.
+                Zeitgleich holt das braue Wesen einen Notizblock und zaubert eine Füllfeder aus dem Nichts heraus.
                 Es macht sich bereit zu schreiben ...
             </p>
 
