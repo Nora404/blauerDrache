@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import './Header.css'
 
 type HeaderProps = {
     children: ReactNode;
@@ -7,7 +8,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ children }) => {
 
     return (
-        <div className="my-component">
+        <div>
             <h3 className='header'>{children}</h3>
             <hr />
         </div>

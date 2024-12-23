@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../layout/Header';
+import Header from '../layout/Header/Header';
 import { GradientText } from '../utility/GradientText';
 
 type YouAreProps = {

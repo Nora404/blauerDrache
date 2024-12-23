@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../layout/Header';
+import Header from '../layout/Header/Header';
 
 type YouHaveProps = {
     gold?: number;

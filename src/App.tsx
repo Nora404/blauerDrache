@@ -1,17 +1,14 @@
 import './index.css';
 import './App.css'
+import './layout/Responsiv.css'
 import logo from './assets/logo.svg';
 import { GradientText } from './utility/GradientText';
 import YouAre from './charakter/YouAre';
 import YouCan from './charakter/YouCan';
 import YouHave from './charakter/YouHave';
-import Start from './playground/Start';
 import NewPlayer from './navigation/NewPlayer';
-import { Route, Routes } from 'react-router-dom';
-import CreatePlayer from './playground/CreatePlayer';
-import Map from './playground/Map';
-import WhatIs from './playground/WhatIs';
 import NorthGate from './navigation/NorthGate';
+import RoutesList from './RoutesList';
 
 function App() {
 
@@ -24,13 +21,7 @@ function App() {
           <NorthGate />
         </div>
         <div id="main" className="custom-scrollbar milchglas">
-          <Routes>
-            <Route path="/" element={<Start />} />
-            <Route path="/start" element={<Start />} />
-            <Route path="/whatIs" element={<WhatIs />} />
-            <Route path="/charakter" element={<CreatePlayer />} />
-            <Route path="/map" element={<Map />} />
-          </Routes>
+          <RoutesList />
         </div>
         <div id="charakter" className="custom-scrollbar milchglas">
           <YouAre />

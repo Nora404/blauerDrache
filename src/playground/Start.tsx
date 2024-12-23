@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GradientText } from '../utility/GradientText';
 import RandomSentence from '../utility/RandomSentence';
 import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../data/randomSentenceData';
-import Header from '../layout/Header';
+import Header from '../layout/Header/Header';
 import { CREATURE } from '../data/colorfullStrings';
 import CreatureTalk from '../utility/CreaturTalk';
 import drache from '../assets/drache-01.png';
