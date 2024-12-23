@@ -1,7 +1,6 @@
 import './index.css';
 import './App.css'
 import logo from './assets/logo.svg';
-import drache from './assets/drache.png';
 import { GradientText } from './utility/GradientText';
 import YouAre from './charakter/YouAre';
 import YouCan from './charakter/YouCan';
@@ -19,13 +18,12 @@ function App() {
   return (
     <div>
       <div id="header"><img src={logo} className='logo' alt="logo" /></div>
-      {/* <div id="drache" className='drache'><img src={drache} className='dracheImg' alt="drache" /></div> */}
       <div id="content">
-        <div id="navi" className="custom-scrollbar">
+        <div id="navi" className="custom-scrollbar milchglas">
           <NewPlayer />
           <NorthGate />
         </div>
-        <div id="main" className="custom-scrollbar">
+        <div id="main" className="custom-scrollbar milchglas">
           <Routes>
             <Route path="/" element={<Start />} />
             <Route path="/start" element={<Start />} />
@@ -34,7 +32,7 @@ function App() {
             <Route path="/map" element={<Map />} />
           </Routes>
         </div>
-        <div id="charakter" className="custom-scrollbar">
+        <div id="charakter" className="custom-scrollbar milchglas">
           <YouAre />
           <YouCan />
           <YouHave />

@@ -29,7 +29,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-image: url('./assets/background2.png');
+  background-image: url('./assets/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#header {
+  background-image: url('./assets/verlauf.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
