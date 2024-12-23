@@ -14,7 +14,13 @@ function App() {
 
   return (
     <div>
-      <div id="header"><img src={logo} className='logo' alt="logo" /></div>
+      <div id="header">
+        <img
+          src={logo}
+          alt="logo"
+          style={{ maxWidth: '800px', marginTop: '20px' }}
+        />
+      </div>
       <div id="content">
         <div id="navi" className="custom-scrollbar milchglas">
           <NewPlayer />

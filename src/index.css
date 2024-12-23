@@ -3,7 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(98, 176, 212);
   background-color: #242424;
 
@@ -11,16 +10,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: rgba(98, 176, 212);
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: rgb(141, 204, 233);
 }
 
 body {
@@ -35,11 +24,18 @@ body {
   background-repeat: no-repeat;
 }
 
-#header {
-  background-image: url('./assets/verlauf.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+a {
+  font-weight: 500;
+  color: rgba(98, 176, 212);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: rgb(141, 204, 233);
+}
+
+td {
+  text-align: left;
 }
 
 h1 {
@@ -47,95 +43,39 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
 
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* Basis-Stile für das scrollbare Element */
+/* Scrollbalken soll für alle Browser gleich aussehen */
 .custom-scrollbar {
   overflow: auto;
-  /* Ermöglicht das Scrollen */
-  /* Firefox-spezifische Eigenschaften */
   scrollbar-width: thin;
-  /* Schmale Scrollbars */
   scrollbar-color: rgb(98, 176, 212, 0.65) transparent;
-  /* Scrollbar-Farbe und Hintergrund */
   position: relative;
-  /* Notwendig für das Überlagern der Scrollbar */
 }
 
-/* Webkit-basierte Browser (Chrome, Edge, Safari) */
-/* Versteckt die Scrollbar standardmäßig */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
-  /* Breite der vertikalen Scrollbar */
   height: 8px;
-  /* Höhe der horizontalen Scrollbar */
   opacity: 0;
-  /* Unsichtbar */
   transition: opacity 0.3s;
-  /* Sanfter Übergang */
 }
 
-/* Scrollbar sichtbar beim Hover */
 .custom-scrollbar:hover::-webkit-scrollbar {
   opacity: 1;
 }
 
-/* Stil für die Scrollbar-Spur */
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
-  /* Transparenter Hintergrund */
 }
 
-/* Stil für den Scrollbar-Daumen */
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(98, 176, 212, 0.65);
-  /* Farbe des Daumens */
   border-radius: 4px;
-  /* Abgerundete Ecken */
   border: 2px solid transparent;
-  /* Abstand um den Daumen */
   background-clip: padding-box;
-  /* Verhindert, dass die Border die Farbe beeinflusst */
 }
 
-/* Optional: Für bessere Unterstützung in Edge */
 @supports (-ms-overflow-style: none) {
   .custom-scrollbar {
     -ms-overflow-style: none;
-    /* Versteckt die Scrollbar in alten Edge-Versionen */
   }
 }

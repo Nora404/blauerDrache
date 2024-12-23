@@ -9,7 +9,11 @@ const Map: React.FC<MapProps> = () => {
 
     return (
         <div>
-            <img src={karte} className='mapImg' />
+            <img
+                src={karte}
+                style={{ width: '100%', maxWidth: '900px' }}
+                alt="Karte"
+            />
         </div>
     );
 };

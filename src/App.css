@@ -6,7 +6,12 @@
   height: 100vh;
 }
 
-
+#header {
+  background-image: url('./assets/verlauf.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 .milchglas {
   background: #1e2331ad;
@@ -15,18 +20,6 @@
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.mapImg {
-  width: 100%;
-  max-width: 900px;
-}
-
-
-
-.logo {
-  max-width: 800px;
-  margin-top: 20px;
 }
 
 .text-left {
@@ -40,15 +33,6 @@
 
 .padding-left {
   padding-left: 20px;
-}
-
-td {
-  text-align: left;
-}
-
-.table {
-  padding-left: 20px;
-  margin-bottom: 25px;
 }
 
 .mb-1 {
