@@ -2,12 +2,18 @@ import React from 'react';
 import { CREATURE } from '../data/colorfullStrings';
 import PlayerTalk from '../utility/PlayerTalk';
 import CreatureTalk from '../utility/CreaturTalk';
+import { useGameContext } from '../data/gameStore';
 
 type CreatePlayerProps = {
 
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
+    const { gameData, updateGameData } = useGameContext();
+
+    const handleRase = (rase: string) => {
+        updateGameData({ rase });
+    }
 
     return (
         <div className="max-width">
@@ -28,19 +34,19 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 Du nickst stumm und schenkst diesen seltsamen Wesen deine volle Aufmerksamkeit.<br className='mb-1' />
 
                 <CreatureTalk name="rotesWesen">"Gut, dann fangen wir mal an. Zuerst musst du dich hier anmelden.
-                Dafür brauchen wir deinen Namen, deine Herkunft und so weiter."</CreatureTalk> beginnt das rote Wesen seinen Text herunter zu rattern.
+                    Dafür brauchen wir deinen Namen, deine Herkunft und so weiter."</CreatureTalk> beginnt das rote Wesen seinen Text herunter zu rattern.
                 Zeitgleich holt das braue Wesen einen Notizblock und zaubert eine Füllfeder aus dem Nichts heraus.
                 Es macht sich bereit zu schreiben ...
             </p>
 
-            Mensch (+ Leben) Beschreibung warum Menschen mehr Leben haben...<br />
-            Elf (+ Level)<br />
-            Zwerg (+ Gold)<br />
-            Echse (+ Angriff)<br />
-            Troll (+ Verteidigung)<br />
-            Felkin (+ Glück)<br />
-            Fenril (+ Runden)<br />
-            Dryade (+ Leben)<br />
+            <button onClick={() => handleRase("Mensch")}>Mensch (+ Leben)</button><br />
+            <button onClick={() => handleRase("Elf")}>Elf (+ Level)</button><br />
+            <button onClick={() => handleRase("Zwerg")}>Zwerg (+ Gold)</button><br />
+            <button onClick={() => handleRase("Echse")}>Echse (+ Angriff)</button><br />
+            <button onClick={() => handleRase("Troll")}>Troll (+ Verteidigung)</button><br />
+            <button onClick={() => handleRase("Felkin")}>Felkin (+ Glück)</button><br />
+            <button onClick={() => handleRase("Fenril")}>Fenril (+ Runden)</button><br />
+            <button onClick={() => handleRase("Dryade")}>Dryade (+ Leben)</button><br />
 
 
             <h3>Herkunft</h3>

@@ -34,6 +34,18 @@ a:hover {
   color: rgb(141, 204, 233);
 }
 
+button {
+  background: none;
+  border: none;
+  font-size: medium;
+  color: rgba(98, 176, 212);
+  margin-bottom: 5px;
+}
+
+button:hover {
+  color: rgb(141, 204, 233);
+}
+
 td {
   text-align: left;
 }

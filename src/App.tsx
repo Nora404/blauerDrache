@@ -9,38 +9,41 @@ import YouHave from './charakter/YouHave';
 import NewPlayer from './navigation/NewPlayer';
 import NorthGate from './navigation/NorthGate';
 import RoutesList from './RoutesList';
+import { GameProvider } from './data/gameStore';
 
 function App() {
 
   return (
-    <div>
-      <div id="header">
-        <img
-          src={logo}
-          alt="logo"
-          style={{ maxWidth: '800px', marginTop: '20px' }}
-        />
-      </div>
-      <div id="content">
-        <div id="navi" className="custom-scrollbar milchglas">
-          <NewPlayer />
-          <NorthGate />
+    <GameProvider>
+      <div>
+        <div id="header">
+          <img
+            src={logo}
+            alt="logo"
+            style={{ maxWidth: '800px', marginTop: '20px' }}
+          />
         </div>
-        <div id="main" className="custom-scrollbar milchglas">
-          <RoutesList />
+        <div id="content">
+          <div id="navi" className="custom-scrollbar milchglas">
+            <NewPlayer />
+            <NorthGate />
+          </div>
+          <div id="main" className="custom-scrollbar milchglas">
+            <RoutesList />
+          </div>
+          <div id="charakter" className="custom-scrollbar milchglas">
+            <YouAre />
+            <YouCan />
+            <YouHave />
+          </div>
         </div>
-        <div id="charakter" className="custom-scrollbar milchglas">
-          <YouAre />
-          <YouCan />
-          <YouHave />
+        <div id="footer">Diese Seite wurde inspiriert von der &nbsp;
+          <a href="https://lotgd.de/home.php?" target='blank'>
+            <GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText>
+          </a>
         </div>
       </div>
-      <div id="footer">Diese Seite wurde inspiriert von der &nbsp;
-        <a href="https://lotgd.de/home.php?" target='blank'>
-          <GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText>
-        </a>
-      </div>
-    </div>
+    </GameProvider>
   )
 }
 
