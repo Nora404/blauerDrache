@@ -27,11 +27,11 @@ const YouAre: React.FC<YouAreProps> = (
         <div>
             <Header>Das bist du</Header>
             <p className='text-left padding-left'>
-                Name: <GradientText colors={nameColor}>{gameData.name}</GradientText><br />
-                Rasse: <GradientText colors={raseColor}>{gameData.rase}</GradientText><br />
-                Herkunft: <GradientText colors={originColor}>{gameData.origin}</GradientText><br />
-                Titel: <GradientText colors={titelColor}>{gameData.titel}</GradientText><br />
-                Stimmung: <GradientText colors={feelingColor}>{gameData.feeling}</GradientText><br />
+                Name: <GradientText colors={nameColor}>{gameData.meta.name}</GradientText><br />
+                Rasse: <GradientText colors={raseColor}>{gameData.meta.rase}</GradientText><br />
+                Herkunft: <GradientText colors={originColor}>{gameData.meta.origin}</GradientText><br />
+                Titel: <GradientText colors={titelColor}>{gameData.meta.titel}</GradientText><br />
+                Stimmung: <GradientText colors={feelingColor}>{gameData.meta.feeling}</GradientText><br />
             </p>
         </div>
     );

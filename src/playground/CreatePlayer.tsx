@@ -9,10 +9,10 @@ type CreatePlayerProps = {
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { gameData, updateGameData } = useGameContext();
+    const { updateMeta } = useGameContext();
 
     const handleRase = (rase: string) => {
-        updateGameData({ rase });
+        updateMeta({ rase });
     }
 
     return (

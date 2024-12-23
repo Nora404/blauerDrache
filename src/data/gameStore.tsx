@@ -1,11 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-type PlayerProps = {
+type PlayerMeta = {
     name: string;
     rase: string;
     origin: string;
     titel: string;
     feeling: string;
+  };
+  
+  type PlayerStats = {
     level: number;
     nextLevel: number;
     exp: number;
@@ -16,49 +19,86 @@ type PlayerProps = {
     attack: number;
     defense: number;
     luck: number;
+  };
+  
+  type PlayerEconomy = {
     gold: number;
     edelsteine: number;
+  };
+  
+  type PlayerEquipment = {
     weapon: string;
     armor: string;
-    items: Record<string, number>[];
-};
+    items: Record<string, number>;
+  };
+  
+  type PlayerProps = {
+    meta: PlayerMeta;
+    stats: PlayerStats;
+    economy: PlayerEconomy;
+    equipment: PlayerEquipment;
+  };
+
+//--------------------------------------------------------------
 
 const defaultPlayerData: PlayerProps = {
-    name: 'Nora404',
-    rase: 'Mensch',
-    origin: 'Kinderzimmer',
-    titel: 'Entwickler',
-    feeling: 'Normal',
-    level: 1,
-    exp: 0,
-    nextLevel: 100,
-    life: 100,
-    maxLife: 100,
-    rounds: 10,
-    maxRounds: 10,
-    attack: 10,
-    defense: 10,
-    luck: 10,
-    gold: 100,
-    edelsteine: 0,
-    weapon: "Nichts",
-    armor: "Nichts",
-    items: [],
-}
+    meta: {
+      name: "Nora404",
+      rase: "Mensch",
+      origin: "Kinderzimmer",
+      titel: "Entwickler",
+      feeling: "Normal",
+    },
+    stats: {
+      level: 1,
+      nextLevel: 100,
+      exp: 0,
+      life: 100,
+      maxLife: 100,
+      rounds: 10,
+      maxRounds: 10,
+      attack: 10,
+      defense: 10,
+      luck: 10,
+    },
+    economy: {
+      gold: 100,
+      edelsteine: 0,
+    },
+    equipment: {
+      weapon: "Nichts",
+      armor: "Nichts",
+      items: {}, 
+    },
+  };
+  
+//--------------------------------------------------------------
 
 type GameContextType = {
     gameData: PlayerProps;
+
     updateGameData: (data: Partial<PlayerProps>) => void;
-};
+    updateMeta: (meta: Partial<PlayerMeta>) => void;
+    updateStats: (stats: Partial<PlayerStats>) => void;
+    updateEconomy: (economy: Partial<PlayerEconomy>) => void;
+    updateEquipment: (equipment: Partial<PlayerEquipment>) => void;
+  };
 
 const GameContext = createContext<GameContextType>({
-    gameData: defaultPlayerData,
-    updateGameData: () => { },
+  gameData: defaultPlayerData,
+  updateGameData: () => {},
+  updateMeta: () => {},
+  updateStats: () => {},
+  updateEconomy: () => {},
+  updateEquipment: () => {},
 });
+
+//--------------------------------------------------------------
 
 export const useGameContext = () => useContext(GameContext);
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    
     const [gameData, setGameData] = useState<PlayerProps>(() => {
         const saved = localStorage.getItem("LdbD-gameData"); 
         return saved ? JSON.parse(saved) : defaultPlayerData;
@@ -68,6 +108,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem("LdbD-gameData", JSON.stringify(gameData));
     }, [gameData]);
 
+//--------------------------------------------------------------
+
     const updateGameData = (data: Partial<PlayerProps>) => {
         setGameData((prev) => ({
             ...prev,
@@ -75,8 +117,57 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }));
     };
 
+    const updateMeta = (meta: Partial<PlayerMeta>) => {
+    setGameData((prev) => ({
+        ...prev,
+        meta: {
+        ...prev.meta,
+        ...meta,
+        },
+    }));
+    };
+
+    const updateStats = (stats: Partial<PlayerStats>) => {
+    setGameData((prev) => ({
+        ...prev,
+        stats: {
+        ...prev.stats,
+        ...stats,
+        },
+    }));
+    };
+
+    const updateEconomy = (economy: Partial<PlayerEconomy>) => {
+    setGameData((prev) => ({
+        ...prev,
+        economy: {
+        ...prev.economy,
+        ...economy,
+        },
+    }));
+    };
+
+    const updateEquipment = (equipment: Partial<PlayerEquipment>) => {
+    setGameData((prev) => ({
+        ...prev,
+        equipment: {
+        ...prev.equipment,
+        ...equipment,
+        },
+    }));
+    };
+
     return (
-        <GameContext.Provider value={{ gameData, updateGameData }}>
+        <GameContext.Provider
+        value={{
+          gameData,
+          updateGameData,
+          updateMeta,
+          updateStats,
+          updateEconomy,
+          updateEquipment,
+        }}
+      >
             {children}
         </GameContext.Provider>
     );
@@ -94,15 +185,17 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 // BENUTZEN
 // export default function MyGameComponent() {
-//     const { gameData, updateGameData } = useGameContext();
+//     const { gameData, updateStats } = useGameContext();
   
 //     const handleLevelUp = () => {
-//       updateGameData({ level: (gameData.level ?? 0) + 1 });
+//       updateStats({
+//         level: gameData.stats.level + 1,
+//       });
 //     };
   
 //     return (
 //       <div>
-//         <p>Aktuelles Level: {gameData.level ?? 1}</p>
+//         <p>Aktuelles Level: {gameData.stats.level}</p>
 //         <button onClick={handleLevelUp}>Level Up!</button>
 //       </div>
 //     );
