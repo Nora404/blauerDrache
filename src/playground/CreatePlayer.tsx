@@ -3,16 +3,27 @@ import { CREATURE } from '../data/colorfullStrings';
 import PlayerTalk from '../utility/PlayerTalk';
 import CreatureTalk from '../utility/CreaturTalk';
 import { useGameContext } from '../data/gameStore';
+import { raceDefaults, RaceName, races } from '../data/raceDefaults';
+import { defaultPlayerData } from "../data/gameStore";
 
 type CreatePlayerProps = {
 
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { updateMeta } = useGameContext();
+    const { updateStats, updateMeta } = useGameContext();
 
-    const handleRase = (rase: string) => {
-        updateMeta({ rase });
+    const handleRase = (raceName: RaceName) => {
+        const raceBase = raceDefaults[raceName];
+
+        updateStats({
+            ...defaultPlayerData.stats,
+            ...raceBase.stats
+        });
+
+        updateMeta({
+            rase: raceName,
+        });
     }
 
     return (
@@ -39,14 +50,13 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 Es macht sich bereit zu schreiben ...
             </p>
 
-            <button onClick={() => handleRase("Mensch")}>Mensch (+ Leben)</button><br />
-            <button onClick={() => handleRase("Elf")}>Elf (+ Level)</button><br />
-            <button onClick={() => handleRase("Zwerg")}>Zwerg (+ Gold)</button><br />
-            <button onClick={() => handleRase("Echse")}>Echse (+ Angriff)</button><br />
-            <button onClick={() => handleRase("Troll")}>Troll (+ Verteidigung)</button><br />
-            <button onClick={() => handleRase("Felkin")}>Felkin (+ Glück)</button><br />
-            <button onClick={() => handleRase("Fenril")}>Fenril (+ Runden)</button><br />
-            <button onClick={() => handleRase("Dryade")}>Dryade (+ Leben)</button><br />
+            {races.map((r) => (
+                <span>
+                    <button key={r.name} onClick={() => handleRase(r.name as RaceName)}>
+                        {r.label}
+                    </button><br />
+                </span>
+            ))}
 
 
             <h3>Herkunft</h3>

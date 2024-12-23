@@ -41,7 +41,7 @@ type PlayerMeta = {
 
 //--------------------------------------------------------------
 
-const defaultPlayerData: PlayerProps = {
+export const defaultPlayerData: PlayerProps = {
     meta: {
       name: "Nora404",
       rase: "Mensch",
