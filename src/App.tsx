@@ -19,7 +19,7 @@ function App() {
   return (
     <div>
       <div id="header"><img src={logo} className='logo' alt="logo" /></div>
-      <div id="drache" className='drache'><img src={drache} className='dracheImg' alt="drache" /></div>
+      {/* <div id="drache" className='drache'><img src={drache} className='dracheImg' alt="drache" /></div> */}
       <div id="content">
         <div id="navi" className="custom-scrollbar">
           <NewPlayer />

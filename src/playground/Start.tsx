@@ -5,6 +5,7 @@ import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } fr
 import Header from '../layout/Header';
 import { CREATURE } from '../data/colorfullStrings';
 import CreatureTalk from '../utility/CreaturTalk';
+import drache from '../assets/drache-01.png';
 
 type StartProps = {
     title?: string;
@@ -62,6 +63,8 @@ const Start: React.FC<StartProps> = () => {
                 Es ist ...<br />
                 Das Wetter heute ist ... <br className='mb-1' />
             </div>
+
+            <img src={drache} width={"30%"} />
 
             <div>
                 <p className='text-left'>
