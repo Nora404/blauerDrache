@@ -1,6 +1,6 @@
 import './index.css';
 import './App.css'
-import logo from './assets/logo.png';
+import logo from './assets/logo.svg';
 import drache from './assets/drache.png';
 import { GradientText } from './utility/GradientText';
 import YouAre from './charakter/YouAre';
@@ -27,7 +27,7 @@ function App() {
         </div>
         <div id="main" className="custom-scrollbar">
           <Routes>
-            <Route path="/" element={<Start />} /> 
+            <Route path="/" element={<Start />} />
             <Route path="/start" element={<Start />} />
             <Route path="/whatIs" element={<WhatIs />} />
             <Route path="/charakter" element={<CreatePlayer />} />

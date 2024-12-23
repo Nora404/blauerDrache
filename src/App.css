@@ -167,7 +167,10 @@
   }
 }
 
-
+.logo {
+  width: 1000px;
+  margin-top: 20px;
+}
 
 .text-left {
   text-align: left;
