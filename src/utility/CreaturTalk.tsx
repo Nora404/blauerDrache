@@ -7,7 +7,7 @@ type CreatureTalkProps = {
 
 const creatureNames: Record<string, string> = {
     geflügeltesWesen: "#ff33ff",
-    blauesWesen: "#3333ff",
+    blauesWesen: "#A3D8FF",
     rotesWesen: "#ff3333",
 };
 

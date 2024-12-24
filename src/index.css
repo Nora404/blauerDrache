@@ -39,11 +39,17 @@ button {
   border: none;
   font-size: medium;
   color: rgba(98, 176, 212);
-  margin-bottom: 5px;
+  margin: 0;
+  padding: 0;
 }
 
 button:hover {
   color: rgb(141, 204, 233);
+  font-size: 110%;
+}
+
+button::before {
+  content: "--> ";
 }
 
 td {
