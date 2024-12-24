@@ -1,18 +1,16 @@
 import React from 'react';
 
 type MyComponentProps = {
-    title?: string;
-    onClick?: () => void;
 };
 
-const MyComponent: React.FC<MyComponentProps> = ({ title = 'Standard Titel', onClick }) => {
+const MyComponent: React.FC<MyComponentProps> = () => {
 
     return (
-        <div className="my-component">
-            <h2>{title}</h2>
-            <button onClick={onClick}>
-                Klicke mich
-            </button>
+        <div>
+            <Header>Nordtor</Header>
+            <p className='mb-1 text-left'>
+                
+            </p>
         </div>
     );
 };

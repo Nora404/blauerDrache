@@ -16,6 +16,7 @@ const NorthGate: React.FC<NorthGateProps> = () => {
                 <Link to="/start">Dem <ColoredLetter>Weg</ColoredLetter> folgen</Link><br />
             </p>
             <p className='text-left'>
+                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
                 <Link to="/start">Mit Wachen <ColoredLetter>sprechen</ColoredLetter></Link><br />
                 <Link to="/start"><ColoredLetter>Plakette</ColoredLetter> des Erfolges</Link><br />
             </p>
