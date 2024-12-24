@@ -9,7 +9,7 @@ import YouHave from './charakter/YouHave';
 import NorthGate from './playground/lahtheim/cityLimit/northGate/NorthGateNavi';
 import RoutesList from './RoutesList';
 import { GameProvider } from './data/gameStore';
-import NewPlayer from './playground/game/newPlayer/NewPlayer';
+import NewPlayer from './playground/game/newPlayer/CreatePlayerNavi';
 import OtherThings from './playground/game/otherThings/OtherThings';
 
 function App() {

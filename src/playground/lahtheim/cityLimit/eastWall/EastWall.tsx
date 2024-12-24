@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../../../../layout/Header/Header';
 
 type EastWallProps = {
 };
@@ -8,7 +7,7 @@ const EastWall: React.FC<EastWallProps> = () => {
 
     return (
       <div>
-        <Header>Ostmauer</Header>
+        <h2>Ostmauer</h2>
         <p className='mb-1 text-left'>
             
         </p>

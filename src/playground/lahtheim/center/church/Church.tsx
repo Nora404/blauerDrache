@@ -1,13 +1,13 @@
 import React from 'react';
 
-type SouthWallProps = {
+type ChurchProps = {
 };
 
-const SouthWall: React.FC<SouthWallProps> = () => {
+const Church: React.FC<ChurchProps> = () => {
 
     return (
       <div>
-        <h2>Südmauer</h2>
+        <h2>Kirche</h2>
         <p className='mb-1 text-left'>
             
         </p>
@@ -15,4 +15,4 @@ const SouthWall: React.FC<SouthWallProps> = () => {
     );
 };
 
-export default SouthWall;
+export default Church;
