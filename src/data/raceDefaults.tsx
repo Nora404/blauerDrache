@@ -57,15 +57,22 @@ export const raceDefaults = {
             life: 120,
             maxLife: 120,
         },
+        economy: {
+            gold: 100,
+        },
     },
     Elf: {
         stats: {
             level: 3,
         },
+        economy: {
+            gold: 100,
+        },
     },
-    //TODO Gold ist kein stats, sondern economy
     Zwerg: {
         stats: {
+        },
+        economy: {
             gold: 200,
         },
     },
@@ -73,27 +80,42 @@ export const raceDefaults = {
         stats: {
             attack: 15,
         },
+        economy: {
+            gold: 100,
+        },
     },
     Troll: {
         stats: {
             defense: 15,
         },
+        economy: {
+            gold: 100,
+        },
     },
     Felkin: {
         stats: {
             luck: 15,
-        }
+        },
+        economy: {
+            gold: 100,
+        },
     },
     Fenril: {
         stats: {
             rounds: 20,
             maxRounds: 20,
-        }
+        },
+        economy: {
+            gold: 100,
+        },
     },
     Dryade: {
         stats: {
             life: 150,
             maxLife: 150,
-        }
+        },
+        economy: {
+            gold: 100,
+        },
     },
 }

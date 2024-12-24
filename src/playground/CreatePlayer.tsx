@@ -12,7 +12,7 @@ type CreatePlayerProps = {
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { updateStats, updateMeta } = useGameContext();
+    const { updateStats, updateMeta, updateEconomy } = useGameContext();
 
     const handleRase = (raceName: RaceName) => {
         const raceBase = raceDefaults[raceName];
@@ -20,6 +20,11 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         updateStats({
             ...defaultPlayerData.stats,
             ...raceBase.stats
+        });
+
+        updateEconomy({
+            ...defaultPlayerData.economy,
+            ...raceBase.economy
         });
 
         updateMeta({

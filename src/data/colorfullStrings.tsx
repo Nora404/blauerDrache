@@ -13,7 +13,7 @@ export const CREATURE: Record<string, JSX.Element> = {
   export const RACES: Record<string, JSX.Element> = {
     Mensch: <GradientText colors={['#cf388f', '#8839cf']}>Mensch</GradientText>,
     Elf: <i><GradientText colors={['#FFE1C2', '#ff6644']}>Elf</GradientText></i>,
-    Zwerg: <b><GradientText colors={['#A3D8FF', '#ffffff']}>Zwerg</GradientText></b>,
+    Zwerg: <b style={{ fontSize: '85%' }}><GradientText colors={['#A3D8FF', '#ffffff']}>Zwerg</GradientText></b>,
     Echse: <GradientText colors={['#46CF25', '#29CF72']}>Echse</GradientText>,
     Troll: <b><MultiColoredLetters colors={[
       { index: 0, color: '#A1FA4F' },
