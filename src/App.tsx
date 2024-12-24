@@ -10,6 +10,7 @@ import NewPlayer from './navigation/NewPlayer';
 import NorthGate from './navigation/NorthGate';
 import RoutesList from './RoutesList';
 import { GameProvider } from './data/gameStore';
+import OtherThings from './navigation/OtherThings';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <div id="navi" className="custom-scrollbar milchglas">
             <NewPlayer />
             <NorthGate />
+            <OtherThings />
           </div>
           <div id="main" className="custom-scrollbar milchglas">
             <RoutesList />

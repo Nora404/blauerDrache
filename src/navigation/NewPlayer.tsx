@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
 import { Link } from 'react-router-dom';
+import ColoredLetter from '../utility/ColoredLetter';
 
 type NewPlayerProps = {
 
@@ -12,10 +13,10 @@ const NewPlayer: React.FC<NewPlayerProps> = () => {
         <div>
             <Header>Neu hier ?</Header>
             <p className='text-left'>
-                <Link to="/start">Tor von Lahtheim</Link><br /><br />
-                <Link to="/charakter">Erstelle neuen Charakter</Link><br />
-                <Link to="/whatIs"> Was erwartet dich?</Link><br />
-                <Link to="/map">Karte von Lahtheim</Link><br />
+                <Link to="/start"><ColoredLetter>Tor</ColoredLetter> von Lahtheim</Link><br /><br />
+                <Link to="/charakter">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br />
+                <Link to="/whatIs"> Was <ColoredLetter>erwartet</ColoredLetter> dich?</Link><br />
+                <Link to="/whatIs"> Über dieses <ColoredLetter>Spiel</ColoredLetter></Link><br />
             </p>
         </div>
     );

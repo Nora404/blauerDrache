@@ -1,0 +1,30 @@
+export const WEATHER = [
+  'neblig',
+  'sonnig',
+  'regnerisch',
+  'bewölkt',
+  'stürmisch',
+  'windig',
+  'gewittrig',
+  'trocken',
+  'leicht bewölkt',
+  'dunstig',
+  'schaudernd',
+  'orkanartig',
+  'tropisch',
+  'schauerhaft',
+]
+
+export const TEMPERATURE = [
+  'warm',
+  'heiß',
+  'kalt',
+  'eisig',
+  'mild',
+  'kühl',
+  'frisch',
+  'schneidend kalt',
+  'mäßig warm',
+  'frostig',
+  'feucht',
+]
