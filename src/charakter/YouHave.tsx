@@ -3,16 +3,9 @@ import Header from '../layout/Header/Header';
 import { useGameContext } from '../data/gameStore';
 
 type YouHaveProps = {
-    gold?: number;
-    edelsteine?: number;
-    weapon?: string;
-    armor?: string;
-    items?: number;
 };
 
-const YouHave: React.FC<YouHaveProps> = (
-    { gold = 100, edelsteine = 0, weapon = 'nothing', armor = 'nothing', items = 0 }
-) => {
+const YouHave: React.FC<YouHaveProps> = () => {
     const { gameData } = useGameContext();
 
     return (
