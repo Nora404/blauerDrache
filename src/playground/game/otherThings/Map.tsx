@@ -1,5 +1,5 @@
 import React from 'react';
-import karte from "../assets/karte.png";
+import karte from "../../../assets/karte.png";
 
 type MapProps = {
 

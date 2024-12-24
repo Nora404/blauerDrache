@@ -6,11 +6,11 @@ import { GradientText } from './utility/GradientText';
 import YouAre from './charakter/YouAre';
 import YouCan from './charakter/YouCan';
 import YouHave from './charakter/YouHave';
-import NewPlayer from './navigation/NewPlayer';
-import NorthGate from './navigation/NorthGate';
+import NorthGate from './playground/lahtheim/cityLimit/northGate/NorthGateNavi';
 import RoutesList from './RoutesList';
 import { GameProvider } from './data/gameStore';
-import OtherThings from './navigation/OtherThings';
+import NewPlayer from './playground/game/newPlayer/NewPlayer';
+import OtherThings from './playground/game/otherThings/OtherThings';
 
 function App() {
 

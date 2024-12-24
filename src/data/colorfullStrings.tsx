@@ -1,6 +1,10 @@
 import { GradientText } from "../utility/GradientText";
 import MultiColoredLetters from "../utility/MultiColoredLetters";
 
+export const SYSTEM: Record<string, JSX.Element> = {
+  weiter: <b className="weiter"><GradientText colors={['#4F9FFF','#A2FDF9','#4F9FFF']}>&#126;&#42;&#126; weiter &#126;&#42;&#126;</GradientText></b>,
+}
+
 export const CREATURE: Record<string, JSX.Element> = {
     geflügeltesWesen: <GradientText colors={['#cf388f', '#8839cf']}>geflügeltes Wesen</GradientText>,
     rotesWesen: <GradientText colors={['#FFE1C2', '#ff6644']}>rotes Wesen</GradientText>,
@@ -11,6 +15,7 @@ export const CREATURE: Record<string, JSX.Element> = {
   };
 
   export const RACES: Record<string, JSX.Element> = {
+    Entwickler: <GradientText colors={['#cf388f', '#8839cf']}>Entwickler</GradientText>,
     Mensch: <GradientText colors={['#cf388f', '#8839cf']}>Mensch</GradientText>,
     Elf: <i><GradientText colors={['#FFE1C2', '#ff6644']}>Elf</GradientText></i>,
     Zwerg: <b style={{ fontSize: '85%' }}><GradientText colors={['#A3D8FF', '#ffffff']}>Zwerg</GradientText></b>,

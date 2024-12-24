@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../layout/Header/Header';
 import { Link } from 'react-router-dom';
-import ColoredLetter from '../utility/ColoredLetter';
+import Header from '../../../layout/Header/Header';
+import ColoredLetter from '../../../utility/ColoredLetter';
 
 type NewPlayerProps = {
 

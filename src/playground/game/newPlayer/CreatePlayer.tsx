@@ -1,11 +1,12 @@
 import React from 'react';
-import { CREATURE } from '../data/colorfullStrings';
-import PlayerTalk from '../utility/PlayerTalk';
-import CreatureTalk from '../utility/CreaturTalk';
-import { useGameContext } from '../data/gameStore';
-import { defaultPlayerData } from "../data/gameStore";
-import Header from '../layout/Header/Header';
-import { raceDefaults, RaceName, races } from '../data/raceDefaults';
+import { useNavigate } from "react-router-dom";
+import { defaultPlayerData, useGameContext } from '../../../data/gameStore';
+import { raceDefaults, RaceName, races } from '../../../data/raceDefaults';
+import { CREATURE, SYSTEM } from '../../../data/colorfullStrings';
+import PlayerTalk from '../../../utility/PlayerTalk';
+import CreatureTalk from '../../../utility/CreaturTalk';
+import Header from '../../../layout/Header/Header';
+
 
 type CreatePlayerProps = {
 
@@ -31,6 +32,16 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             rase: raceName,
         });
     }
+
+    const handleNext = () => {
+        updateMeta({
+            creating: 1,
+        });
+
+        navigate("/chooseOrigin");
+    }
+
+    const navigate = useNavigate();
 
     return (
         <div className="max-width">
@@ -80,6 +91,8 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                         </p>
                 ))}
             </div>
+
+            <div onClick={handleNext}>{SYSTEM.weiter}</div>
         </div>
     );
 };

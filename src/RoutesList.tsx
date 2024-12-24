@@ -2,10 +2,11 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Lazy Imports 
-const Start = lazy(() => import('./playground/Start'));
-const WhatIs = lazy(() => import('./playground/WhatIs'));
-const CreatePlayer = lazy(() => import('./playground/CreatePlayer'));
-const Map = lazy(() => import('./playground/Map'));
+const Start = lazy(() => import('./playground/lahtheim/cityLimit/northGate/NorthGate'));
+const WhatIs = lazy(() => import('./playground/game/infos/WhatIs'));
+const CreatePlayer = lazy(() => import('./playground/game/newPlayer/CreatePlayer'));
+const Map = lazy(() => import('./playground/game/otherThings/Map'));
+const ChooseOrigin = lazy(() => import('./playground/game/newPlayer/ChooseOrigin'));
 
 function RoutesList() {
     return (
@@ -17,6 +18,7 @@ function RoutesList() {
                 <Route path="/whatIs" element={<WhatIs />} />
                 <Route path="/charakter" element={<CreatePlayer />} />
                 <Route path="/map" element={<Map />} />
+                <Route path="/chooseOrigin" element={<ChooseOrigin />} />
             </Routes>
         </Suspense>
     );

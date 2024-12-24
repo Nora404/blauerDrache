@@ -52,6 +52,15 @@ button::before {
   content: "--> ";
 }
 
+.weiter {
+  font-size: 110%;
+  cursor: pointer;
+}
+.weiter:hover {
+  font-size: 120%;
+  cursor: pointer;
+}
+
 td {
   text-align: left;
 }
