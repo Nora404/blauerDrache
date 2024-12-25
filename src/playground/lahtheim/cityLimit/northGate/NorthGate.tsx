@@ -94,8 +94,10 @@ const NorthGate: React.FC<NorthGateProps> = () => {
 
             <div className='text-left'>
                 <p className='mb-1'>
-                    Du stehst vor den Toren von Lahtheim, es ist ein warmer heller Tag. Bevor du auch nur einen Schritt gehen kannst,
-                    kommt ein kleines <GradientText colors={['#CF388F', '#8839CF']}>geflügeltes Wesen</GradientText> zu dir. Mit großen Augen schaut es erwartungsvoll zu dir hoch.
+                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {gameDay}, du spürst die {gameTemperature}e Luft auf deinem Gesicht. 
+                    Bevor du auch nur einen Schritt gehen kannst,
+                    kommt ein kleines <GradientText colors={['#CF388F', '#8839CF']}>geflügeltes Wesen</GradientText> zu dir. 
+                    Mit großen Augen schaut es erwartungsvoll zu dir hoch.
                     Im nächsten Moment fängt es mit schriller Stimme an zu reden:
                 </p>
 

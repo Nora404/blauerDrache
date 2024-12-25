@@ -1,0 +1,66 @@
+Schritte zur Erstellung von Snippets in VSCode:
+
+Öffne die Snippet-Einstellungen
+Drücke Strg + Shift + P (Windows/Linux) oder Cmd + Shift + P (macOS), um die Befehls-Palette zu öffnen.
+Gib Preferences: Configure User Snippets ein und wähle es aus.
+Wähle typescriptreact.json aus
+Füge die Snippets hinzu:
+
+Kopiere die folgenden Snippet-Definitionen und füge sie in die geöffnete JSON-Datei ein. Achte darauf, 
+dass du die vorhandenen Snippets nicht versehentlich überschreibst.
+
+
+{
+	"React Page Component": {
+    "prefix": "rpage",
+    "body": [
+      "import React from 'react';",
+      "",
+      "type ${1:ComponentName}Props = {",
+      "};",
+      "",
+      "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = () => {",
+      "    return (",
+      "        <div>",
+      "            <h2>${2:Deutscher Titel}</h2>",
+      "            <p className='mb-1 text-left'>",
+      "                ",
+      "            </p>",
+      "        </div>",
+      "    );",
+      "};",
+      "",
+      "export default ${1:ComponentName};"
+    ],
+    "description": "Erstellt eine React Page Komponente mit englischem Namen und deutschem Titel."
+  },
+	"React Navigation Component": {
+    "prefix": "rnavi",
+    "body": [
+      "import { Link } from 'react-router-dom';",
+      "import Header from '../../../../layout/Header/Header';",
+      "import ColoredLetter from '../../../../utility/ColoredLetter';",
+      "",
+      "type ${1:NavigationComponentName}Props = {",
+      "};",
+      "",
+      "const ${1:NavigationComponentName}: React.FC<${1:NavigationComponentName}Props> = () => {",
+      "    return (",
+      "        <div>",
+      "            <Header>${2:Deutscher Titel}</Header>",
+      "            <p className='mb-1 text-left'>",
+      "                <Link to=\"/start\">Richtung <ColoredLetter>...</ColoredLetter> gehen</Link><br />",
+      "                <Link to=\"/start\">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />",
+      "            </p>",
+      "            <p className='text-left'>",
+      "                <Link to=\"/start\"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>",
+      "            </p>",
+      "        </div>",
+      "    );",
+      "};",
+      "",
+      "export default ${1:NavigationComponentName};"
+    ],
+    "description": "Erstellt eine React Navigationskomponente mit englischem Namen und deutschem Titel."
+  }
+}
