@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
 import ColoredLetter from '../../../utility/ColoredLetter';
 
-type OtherThingsProps = {
+type OtherThingsNaviProps = {
 };
 
-const OtherThings: React.FC<OtherThingsProps> = () => {
+const OtherThingsNavi: React.FC<OtherThingsNaviProps> = () => {
 
     return (
         <div>
@@ -19,4 +19,4 @@ const OtherThings: React.FC<OtherThingsProps> = () => {
     );
 };
 
-export default OtherThings;
+export default OtherThingsNavi;

@@ -6,13 +6,24 @@ import { GradientText } from './utility/GradientText';
 import YouAre from './charakter/YouAre';
 import YouCan from './charakter/YouCan';
 import YouHave from './charakter/YouHave';
-import NorthGate from './playground/lahtheim/cityLimit/northGate/NorthGateNavi';
-import RoutesList from './RoutesList';
+
 import { GameProvider } from './data/gameStore';
 import NewPlayer from './playground/game/newPlayer/CreatePlayerNavi';
-import OtherThings from './playground/game/otherThings/OtherThings';
+import OtherThingsNavi from './playground/game/otherThings/OtherThingsNavi';
+import navigationMap from './NavigationList';
+import { useEffect, useState } from 'react';
+import RoutesList from './RoutesList';
+
 
 function App() {
+  const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
+
+  useEffect(() => {
+    const NavComponent = navigationMap[location.pathname];
+    if (NavComponent) {
+      setCurrentNav(<NavComponent />);
+    }
+  }, [location.pathname]);
 
   return (
     <GameProvider>
@@ -27,8 +38,8 @@ function App() {
         <div id="content">
           <div id="navi" className="custom-scrollbar milchglas">
             <NewPlayer />
-            <NorthGate />
-            <OtherThings />
+            {currentNav}
+            <OtherThingsNavi />
           </div>
           <div id="main" className="custom-scrollbar milchglas">
             <RoutesList />

@@ -8,12 +8,12 @@ import CreatureTalk from '../../../../utility/CreaturTalk';
 import drache from '../../../../assets/drache-01.png';
 import { TEMPERATURE, WEATHER } from '../../../../data/weatherStrings';
 
-type StartProps = {
+type NorthGateProps = {
     title?: string;
     onClick?: () => void;
 };
 
-const Start: React.FC<StartProps> = () => {
+const NorthGate: React.FC<NorthGateProps> = () => {
     const [gameTime, setGameTime] = useState<string>("12:00");
     const [gameDay, setGameDay] = useState<string>("Tag");
     const [gameWeather, setGameWeather] = useState<string>("sonnig");
@@ -130,4 +130,4 @@ const Start: React.FC<StartProps> = () => {
     );
 };
 
-export default Start;
+export default NorthGate;

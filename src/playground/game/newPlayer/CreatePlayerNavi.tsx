@@ -14,7 +14,7 @@ const NewPlayer: React.FC<NewPlayerProps> = () => {
             <Header>Neu hier ?</Header>
             <p className='text-left'>
                 <Link to="/start"><ColoredLetter>Tor</ColoredLetter> von Lahtheim</Link><br />
-                <Link to="/charakter">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br />
+                <Link to="/new-player">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br />
                 <Link to="/whatIs"> Was <ColoredLetter>erwartet</ColoredLetter> dich?</Link><br />
                 <Link to="/whatIs"> Über dieses <ColoredLetter>Spiel</ColoredLetter></Link><br />
             </p>

@@ -38,7 +38,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             creating: 1,
         });
 
-        navigate("/chooseOrigin");
+        navigate("/choose-origin");
     }
 
     const navigate = useNavigate();

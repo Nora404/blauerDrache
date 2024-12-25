@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import ColoredLetter from '../../../../utility/ColoredLetter';
 
-type NorthGateProps = {
+type NorthGateNaviProps = {
 };
 
-const NorthGate: React.FC<NorthGateProps> = () => {
+const NorthGateNavi: React.FC<NorthGateNaviProps> = () => {
 
     return (
         <div>
@@ -24,4 +24,4 @@ const NorthGate: React.FC<NorthGateProps> = () => {
     );
 };
 
-export default NorthGate;
+export default NorthGateNavi;
