@@ -41,6 +41,7 @@
     padding: 20px;
     overflow-y: auto;
     margin: 20px;
+    scrollbar-gutter: stable;
 }
 
 #main {
@@ -59,6 +60,7 @@
     padding: 20px;
     overflow-y: auto;
     margin: 20px;
+    scrollbar-gutter: stable;
 }
 
 @media (min-width: 1920px) {
