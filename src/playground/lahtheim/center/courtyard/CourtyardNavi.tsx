@@ -11,8 +11,9 @@ const CourtyardNavi: React.FC<CourtyardNaviProps> = () => {
         <div>
             <Header>Vorplatz</Header>
             <p className='mb-1 text-left'>
-                <Link to="/start">Richtung <ColoredLetter>...</ColoredLetter> gehen</Link><br />
-                <Link to="/start">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />
+                <Link to="/fountain">Richtung <ColoredLetter>Brunnen</ColoredLetter> gehen</Link><br />
+                <Link to="/church">In die <ColoredLetter>Kirche</ColoredLetter> gehen</Link><br />
+                <Link to="/graveyard">Den <ColoredLetter>Friedhof</ColoredLetter> besuchen</Link><br />
             </p>
             <p className='text-left'>
                 <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>

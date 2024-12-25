@@ -13,9 +13,11 @@ import OtherThingsNavi from './playground/game/otherThings/OtherThingsNavi';
 import navigationMap from './NavigationList';
 import { useEffect, useState } from 'react';
 import RoutesList from './RoutesList';
+import { useLocation } from 'react-router-dom';
 
 
 function App() {
+  const location = useLocation();
   const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
 
   useEffect(() => {

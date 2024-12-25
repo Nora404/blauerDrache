@@ -12,7 +12,7 @@ const NorthGateNavi: React.FC<NorthGateNaviProps> = () => {
         <div>
             <Header>Nordtor</Header>
             <p className='mb-1 text-left'>
-                <Link to="/start">Richtung <ColoredLetter>Brunnen</ColoredLetter> gehen</Link><br />
+                <Link to="/fountain">Richtung <ColoredLetter>Brunnen</ColoredLetter> gehen</Link><br />
                 <Link to="/start">Dem <ColoredLetter>Weg</ColoredLetter> folgen</Link><br />
             </p>
             <p className='text-left'>
