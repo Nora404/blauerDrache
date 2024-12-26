@@ -7,13 +7,14 @@ import YouAre from './charakter/YouAre';
 import YouCan from './charakter/YouCan';
 import YouHave from './charakter/YouHave';
 
-import { GameProvider } from './data/gameStore';
+import { GameStoreProvider } from './data/gameStore';
 import NewPlayer from './playground/game/newPlayer/CreatePlayerNavi';
 import OtherThingsNavi from './playground/game/otherThings/OtherThingsNavi';
 import navigationMap from './NavigationList';
 import { useEffect, useState } from 'react';
 import RoutesList from './RoutesList';
 import { useLocation } from 'react-router-dom';
+import { GameStateProvider } from './data/gameState';
 
 
 function App() {
@@ -28,37 +29,39 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <GameProvider>
-      <div>
-        <div id="header">
-          <img
-            src={logo}
-            alt="logo"
-            style={{ maxWidth: '800px', marginTop: '20px' }}
-          />
-        </div>
-        <div id="content">
-          <div id="navi" className="custom-scrollbar milchglas">
-            <NewPlayer />
-            {currentNav}
-            <OtherThingsNavi />
+    <GameStoreProvider>
+      <GameStateProvider>
+        <div>
+          <div id="header">
+            <img
+              src={logo}
+              alt="logo"
+              style={{ maxWidth: '800px', marginTop: '20px' }}
+            />
           </div>
-          <div id="main" className="custom-scrollbar milchglas">
-            <RoutesList />
+          <div id="content">
+            <div id="navi" className="custom-scrollbar milchglas">
+              <NewPlayer />
+              {currentNav}
+              <OtherThingsNavi />
+            </div>
+            <div id="main" className="custom-scrollbar milchglas">
+              <RoutesList />
+            </div>
+            <div id="charakter" className="custom-scrollbar milchglas">
+              <YouAre />
+              <YouCan />
+              <YouHave />
+            </div>
           </div>
-          <div id="charakter" className="custom-scrollbar milchglas">
-            <YouAre />
-            <YouCan />
-            <YouHave />
+          <div id="footer">Diese Seite wurde inspiriert von der &nbsp;
+            <a href="https://lotgd.de/home.php?" target='blank'>
+              <GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText>
+            </a>
           </div>
         </div>
-        <div id="footer">Diese Seite wurde inspiriert von der &nbsp;
-          <a href="https://lotgd.de/home.php?" target='blank'>
-            <GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText>
-          </a>
-        </div>
-      </div>
-    </GameProvider>
+      </GameStateProvider>
+    </GameStoreProvider>
   )
 }
 

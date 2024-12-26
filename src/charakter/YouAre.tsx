@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
 import { GradientText } from '../utility/GradientText';
-import { useGameContext } from '../data/gameStore';
+import { useGameStore } from '../data/gameStore';
 import { RACES } from '../data/colorfullStrings';
 
 type YouAreProps = {
@@ -21,7 +21,7 @@ const YouAre: React.FC<YouAreProps> = (
     }
 ) => {
 
-    const { gameData } = useGameContext();
+    const { gameData } = useGameStore();
 
     return (
         <div>

@@ -76,7 +76,7 @@ export const defaultPlayerData: PlayerProps = {
   
 //--------------------------------------------------------------
 
-type GameContextType = {
+type GameStoreContextType = {
     gameData: PlayerProps;
 
     updateGameData: (data: Partial<PlayerProps>) => void;
@@ -86,7 +86,7 @@ type GameContextType = {
     updateEquipment: (equipment: Partial<PlayerEquipment>) => void;
   };
 
-const GameContext = createContext<GameContextType>({
+const GameStoreContext = createContext<GameStoreContextType>({
   gameData: defaultPlayerData,
   updateGameData: () => {},
   updateMeta: () => {},
@@ -95,11 +95,9 @@ const GameContext = createContext<GameContextType>({
   updateEquipment: () => {},
 });
 
-//--------------------------------------------------------------
+export const useGameStore = () => useContext(GameStoreContext);
 
-export const useGameContext = () => useContext(GameContext);
-
-export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     
     const [gameData, setGameData] = useState<PlayerProps>(() => {
         const saved = localStorage.getItem("LdbD-gameData"); 
@@ -160,7 +158,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <GameContext.Provider
+        <GameStoreContext.Provider
         value={{
           gameData,
           updateGameData,
@@ -171,23 +169,23 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }}
       >
             {children}
-        </GameContext.Provider>
+        </GameStoreContext.Provider>
     );
 };
 
 // EINBAUEN
 // export default function App() {
 //     return (
-//       <GameProvider>
+//       <GameStoreProvider>
 //         <MyGameComponent />
-//       </GameProvider>
+//       </GameStoreProvider>
 //     );
 //   }
 
 
 // BENUTZEN
 // export default function MyGameComponent() {
-//     const { gameData, updateStats } = useGameContext();
+//     const { gameData, updateStats } = useGameStore();
   
 //     const handleLevelUp = () => {
 //       updateStats({

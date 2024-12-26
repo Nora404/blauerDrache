@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
 import { GradientText } from '../utility/GradientText';
-import { useGameContext } from '../data/gameStore';
+import { useGameStore } from '../data/gameStore';
 
 type YouCanProps = {
 };
 
 const YouCan: React.FC<YouCanProps> = () => {
-    const { gameData } = useGameContext();
+    const { gameData } = useGameStore();
 
     return (
         <div>

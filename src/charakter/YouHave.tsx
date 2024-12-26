@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
-import { useGameContext } from '../data/gameStore';
+import { useGameStore } from '../data/gameStore';
 
 type YouHaveProps = {
 };
 
 const YouHave: React.FC<YouHaveProps> = () => {
-    const { gameData } = useGameContext();
+    const { gameData } = useGameStore();
 
     return (
         <div>
