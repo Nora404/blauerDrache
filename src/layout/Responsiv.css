@@ -82,21 +82,29 @@
 @media (max-width: 800px) {
     #content {
         flex-direction: column;
+        flex-wrap: wrap;
+        top: 50px;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
-    #navi,
-    #charakter {
-        width: 100%;
-        height: auto;
-        max-height: 200px;
-        padding: 20px;
+    #header {
+        height: 50px;
     }
 
     #navi {
-        margin: 0 0 20px 0;
+        height: auto;
+        width: auto;
+        font-size: 110%;
+        line-height: 160%;
+        max-height: 150px;
+        padding: 20px;
+        margin: 0 0 10px 0;
     }
 
+    #footer,
     #charakter {
-        margin: 20px 0 0 0;
+        display: none;
     }
 }
