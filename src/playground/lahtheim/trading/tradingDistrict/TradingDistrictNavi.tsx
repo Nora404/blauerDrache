@@ -13,6 +13,7 @@ const TradingDistrictNavi: React.FC<TradingDistrictNaviProps> = () => {
                 <Link to="/general-shop">Zum <ColoredLetter>Krämer</ColoredLetter> gehen</Link><br />
                 <Link to="/equipment-shop">Den Laden für <ColoredLetter>Ausrüstung</ColoredLetter> besuchen</Link><br />
                 <Link to="/weapon-shop">Sich im <ColoredLetter>Waffen Laden</ColoredLetter> umsehen</Link><br />
+                <Link to="/east-wall">Die <ColoredLetter>Ostmauer</ColoredLetter> besichtigen</Link><br />
             </p>
             <p className='text-left'>
                 <Link to="/trading-district"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />

@@ -5,9 +5,9 @@ export enum PathsLahtheimCityLimit {
     NorthGate = '/north-gate',
     NorthGateGuardian = '/north-gate-guardian',
     NorthGatePlaque = '/north-gate-plaque',
-    SouthWall = '/southWall',
-    WestWall = '/westWall',
-    EastWall = '/eastWall',
+    SouthWall = '/south-wall',
+    WestWall = '/west-wall',
+    EastWall = '/east-wall',
 }
 
 const NorthGateNavi = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGateNavi'));

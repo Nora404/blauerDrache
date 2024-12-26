@@ -10,11 +10,11 @@ const HouseNavi: React.FC<HouseNaviProps> = () => {
         <div>
             <Header>Haus</Header>
             <p className='mb-1 text-left'>
-                <Link to="/start">Richtung <ColoredLetter>...</ColoredLetter> gehen</Link><br />
-                <Link to="/start">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />
+                <Link to="/house">Im <ColoredLetter>Bett</ColoredLetter> schlafen <br />(+max Runden)</Link>
             </p>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
+                <Link to="/house"><ColoredLetter>Raum</ColoredLetter> untersuchen</Link><br />
+                <Link to="/residential"><ColoredLetter>Haus</ColoredLetter> verlassen</Link><br />
             </p>
         </div>
     );

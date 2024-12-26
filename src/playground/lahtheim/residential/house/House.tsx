@@ -8,7 +8,8 @@ const House: React.FC<HouseProps> = () => {
         <div>
             <h2>Haus</h2>
             <p className='mb-1 text-left'>
-                
+                DAS IST NICHT DEIN HAUS!<br />
+                <b>RAUS HIER!!!</b>
             </p>
         </div>
     );
