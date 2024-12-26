@@ -9,7 +9,7 @@ export enum PathsGame {
     NewPlayer = '/new-player',
     ChooseOrigin = '/choose-origin',
     Map = '/map',
-    Transit = '/transit/:target/:from/:to',
+    Transit = '/transit/:target/:from/:to/:steps',
     NotFound = '*',
 }
 
