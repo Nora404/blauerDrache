@@ -99,12 +99,12 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
 
             <div className='text-left'>
                 {races.map((r) => (
-                    <p className='mb-1' key={r.name}>
+                    <div className='mb-1' key={r.name}>
                         <button key={r.name} onClick={() => handleRase(r.name as RaceName)}>
                             {r.label}
                         </button><br />
                         {r.description}
-                    </p>
+                    </div>
                 ))}
             </div>
 
