@@ -11,10 +11,12 @@ const ChurchNavi: React.FC<ChurchNaviProps> = () => {
         <div>
             <Header>Kirche</Header>
             <p className='mb-1 text-left'>
-                <Link to="/courtyard">Zurück zum <ColoredLetter>Vorplatz</ColoredLetter> gehen</Link><br />
+                <Link to="/church">Um <ColoredLetter>Segen</ColoredLetter> bitten<br />
+                    (-10 Gold +10 Leben)</Link>
             </p>
             <p className='text-left'>
                 <Link to="/church"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
+                <Link to="/courtyard">Zurück zum <ColoredLetter>Vorplatz</ColoredLetter> gehen</Link><br />
             </p>
         </div>
     );
