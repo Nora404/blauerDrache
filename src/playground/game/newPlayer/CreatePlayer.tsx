@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
 import { raceDefaults, RaceName, races } from '../../../data/raceDefaults';
-import { CREATURE, SYSTEM } from '../../../data/colorfullStrings';
+import { CREATURE, RACES, SYSTEM } from '../../../data/colorfullStrings';
 import PlayerTalk from '../../../utility/PlayerTalk';
 import CreatureTalk from '../../../utility/CreaturTalk';
 import Header from '../../../layout/Header/Header';
@@ -14,7 +14,7 @@ type CreatePlayerProps = {
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { updateStats, updateMeta, updateEconomy } = useGameStore();
+    const { gameData, updateStats, updateMeta, updateEconomy } = useGameStore();
 
     const handleRase = (raceName: RaceName) => {
         const raceBase = raceDefaults[raceName];
@@ -106,6 +106,10 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                         {r.description}
                     </div>
                 ))}
+            </div><br />
+
+            <div>
+                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin geboren als {RACES[gameData.meta.rase]}"</PlayerTalk><br />
             </div>
 
             <div onClick={handleNext}>{SYSTEM.weiter}</div>

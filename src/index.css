@@ -36,7 +36,7 @@ a:hover {
 
 button {
   background: none;
-  border: 1px solid transparent;
+  border: none;
   font-size: medium;
   color: rgba(98, 176, 212);
   margin: 0;
@@ -45,16 +45,11 @@ button {
 
 button:hover {
   color: rgb(130, 255, 234);
-  font-size: 105%;
-  padding: 2px;
-  border: 1px solid transparent
+  /* font-size: 105%; */
 }
 
 button:active {
-  background-color: #242424;
-  border: 1px solid rgba(130, 255, 234, 0.315);
-  padding: 2px;
-  border-radius: 10px;
+  color: rgb(255, 255, 255);
 }
 
 button::before {

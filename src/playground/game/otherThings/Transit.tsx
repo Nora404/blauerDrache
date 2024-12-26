@@ -39,6 +39,11 @@ const Transit: React.FC<TransitProps> = () => {
             <p className='mb-1 text-left'>
                 Es sind noch {currentSteps} Schritte bis zu deinem Ziel.
             </p>
+
+            <div>
+                ( )---( )---( )---( )---( )---( )
+            </div>
+
             {currentSteps > 0 && (
                 <div className='flex-row max-width'>
                     <div onClick={handleGoBack} style={{ width: "50%" }}>
