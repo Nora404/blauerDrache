@@ -15,7 +15,7 @@ const FountainNavi: React.FC<FountainNaviProps> = () => {
                 <Link to="/courtyard">Zum <ColoredLetter>Vorplatz</ColoredLetter> schlendern</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
+                <Link to="/fountain"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
             </p>
         </div>
     );

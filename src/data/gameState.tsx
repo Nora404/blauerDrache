@@ -104,16 +104,17 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 //  const gameState = useGameState();
 //
 //   // Wichtig: Falls gameState null ist, hier abfangen
-//   if (!gameState) {
-//     return null;
-//   }
+//   if (!gameState) return null;
+//
 //   const { gameTime, gameDay, gameWeather, gameTemperature } = gameState;
 //   return (
+//     <div>
 //     <div>
 //       <p>Time: {gameTime}</p>
 //       <p>Day/Night: {gameDay}</p>
 //       <p>Weather: {gameWeather}</p>
 //       <p>Temperature: {gameTemperature}</p>
+//     </div>
 //     </div>
 //   );
 // }

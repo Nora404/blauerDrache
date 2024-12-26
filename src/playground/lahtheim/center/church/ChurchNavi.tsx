@@ -14,7 +14,7 @@ const ChurchNavi: React.FC<ChurchNaviProps> = () => {
                 <Link to="/courtyard">Zurück zum <ColoredLetter>Vorplatz</ColoredLetter> gehen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
+                <Link to="/church"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
             </p>
         </div>
     );
