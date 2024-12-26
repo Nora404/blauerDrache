@@ -7,8 +7,10 @@ type TransitProps = {
 const Transit: React.FC<TransitProps> = () => {
     const initialSteps = 5;
     const navigate = useNavigate();
-    const { target } = useParams<{ target: string }>();
     const location = useLocation();
+    const { target } = useParams<{ target: string }>();
+    const { from } = useParams<{ from: string }>();
+    const { to } = useParams<{ to: string }>();
 
     const [steps, setSteps] = useState<number>(initialSteps);
 
@@ -31,7 +33,7 @@ const Transit: React.FC<TransitProps> = () => {
 
     return (
         <div>
-            <h2>Von {location.state?.from || 'Unbekannt'} nach {target}</h2>
+            <h2>Von {from} nach {to}</h2>
             <p className='mb-1 text-left'>
                 Es sind noch {steps} Schritte bis zu deinem Ziel.
             </p>
