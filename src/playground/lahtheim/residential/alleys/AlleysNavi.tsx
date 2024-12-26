@@ -10,11 +10,12 @@ const AlleysNavi: React.FC<AlleysNaviProps> = () => {
         <div>
             <Header>Gassen</Header>
             <p className='mb-1 text-left'>
-                <Link to="/start">Richtung <ColoredLetter>...</ColoredLetter> gehen</Link><br />
-                <Link to="/start">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />
+                <Link to="/alleys">Mit <ColoredLetter>zwielichtiger Person</ColoredLetter> sprechen</Link><br />
+                <Link to="/alleys">Den <ColoredLetter>Müll</ColoredLetter> durchsuchen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
+                <Link to="/alleys"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
+                <Link to="/residential">Zurück auf die <ColoredLetter>Straße</ColoredLetter> </Link><br />
             </p>
         </div>
     );
