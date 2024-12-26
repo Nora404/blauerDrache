@@ -9,6 +9,7 @@ export enum PathsGame {
     NewPlayer = '/new-player',
     ChooseOrigin = '/choose-origin',
     Map = '/map',
+    Transit = '/transit/:target',
     NotFound = '*',
 }
 
@@ -21,6 +22,7 @@ const ChooseOrigin = lazy(() => import('../playground/game/newPlayer/ChooseOrigi
 const WhatIs = lazy(() => import('../playground/game/infos/WhatIs'));
 const NewDay = lazy(() => import('../playground/game/infos/NewDay'));
 const Map = lazy(() => import('../playground/game/otherThings/Map'));
+const Transit = lazy(() => import('../playground/game/otherThings/Transit'));
 
 export const routesGame: RouteConfig[] = [
     {
@@ -56,5 +58,9 @@ export const routesGame: RouteConfig[] = [
     {
         path: PathsGame.Map,
         element: Map,
+    },
+    {
+        path: PathsGame.Transit,
+        element: Transit,
     },
 ];
