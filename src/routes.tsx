@@ -1,4 +1,4 @@
-import { routesGame, routesLahtheimCenter, routesLahtheimCityLimit } from "./routings";
+import { routesGame, routesLahtheimCenter, routesLahtheimCityLimit, routesLahtheimTrading, routesWorldCaves, routesWorldForest, routesWorldMountain, routesWorldSurroundings, routesWorldWaters } from "./routings";
 
 export interface RouteConfig {
   path: string;
@@ -11,4 +11,10 @@ export const routes: RouteConfig[] = [
   ...routesGame,
   ...routesLahtheimCenter,
   ...routesLahtheimCityLimit,
+  ...routesLahtheimTrading,
+  ...routesWorldCaves,
+  ...routesWorldForest,
+  ...routesWorldMountain,
+  ...routesWorldSurroundings,
+  ...routesWorldWaters,
 ];
