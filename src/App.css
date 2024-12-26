@@ -35,6 +35,11 @@
   padding-left: 20px;
 }
 
+.padding-x {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .mb-1 {
   margin-bottom: 15px;
 }
@@ -43,9 +48,11 @@
   font-family: monospace;
   text-align: center;
   line-height: 90%;
+  display: inline-block;
 }
 
 .flex-row {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
 }
