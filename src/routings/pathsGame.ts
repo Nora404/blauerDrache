@@ -35,6 +35,7 @@ export const routesGame: RouteConfig[] = [
     {
         path: PathsGame.NotFound,
         element: NotFoundPage,
+        navigation: NorthGateNavi,
     },
     {
         path: PathsGame.WhatsIs,

@@ -8,7 +8,6 @@ export interface RouteConfig {
 
 
 export const routes: RouteConfig[] = [
-  ...routesGame,
   ...routesLahtheimCenter,
   ...routesLahtheimCityLimit,
   ...routesLahtheimTrading,
@@ -17,4 +16,5 @@ export const routes: RouteConfig[] = [
   ...routesWorldMountain,
   ...routesWorldSurroundings,
   ...routesWorldWaters,
+  ...routesGame,
 ];

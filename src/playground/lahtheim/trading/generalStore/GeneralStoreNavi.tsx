@@ -10,11 +10,12 @@ const GeneralStoreNavi: React.FC<GeneralStoreNaviProps> = () => {
         <div>
             <Header>Krämer</Header>
             <p className='mb-1 text-left'>
-                <Link to="/start">Richtung <ColoredLetter>...</ColoredLetter> gehen</Link><br />
-                <Link to="/start">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />
+                <Link to="/general-shop">Das <ColoredLetter>Sortiment</ColoredLetter> betrachten</Link><br />
+                <Link to="/general-shop">Mit dem <ColoredLetter>Verkäufer</ColoredLetter> sprechen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
+                <Link to="/general-shop"><ColoredLetter>Laden</ColoredLetter> untersuchen</Link><br />
+                <Link to="/trading-district">Zurück zum <ColoredLetter>Handelsbezirk</ColoredLetter> gehen</Link><br />
             </p>
         </div>
     );
