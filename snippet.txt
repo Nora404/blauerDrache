@@ -49,6 +49,7 @@ dass du die vorhandenen Snippets nicht versehentlich überschreibst.
       "        <div>",
       "            <Header>${2:Deutscher Titel}</Header>",
       "            <p className='mb-1 text-left'>",
+      "                <Link to=\"/start\"><ColoredLetter>Sich</ColoredLetter> hier umschauen</Link><br/>",
       "                <Link to=\"/start\">Richtung <ColoredLetter>...</ColoredLetter> gehen</Link><br />",
       "                <Link to=\"/start\">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />",
       "            </p>",

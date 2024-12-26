@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import RandomSentence from '../../../../utility/RandomSentence';
 import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../../../../data/randomSentenceData';
@@ -6,7 +6,6 @@ import Header from '../../../../layout/Header/Header';
 import { CREATURE } from '../../../../data/colorfullStrings';
 import CreatureTalk from '../../../../utility/CreaturTalk';
 import drache from '../../../../assets/drache-01.png';
-import { TEMPERATURE, WEATHER } from '../../../../data/weatherStrings';
 import { useGameState } from '../../../../data/gameState';
 
 type NorthGateProps = {
@@ -50,7 +49,7 @@ const NorthGate: React.FC<NorthGateProps> = () => {
                     <CreatureTalk name="geflügeltesWesen">
                         „Willkommen in Lahtheim! Bist du hier, um vor den Bezwingern des {CREATURE.grünerDrache} zu fliehen?
                         In unserem Dorf ist Platz für dich. Sei nett, dann darfst du vielleicht einmal den {CREATURE.blauerDrache} besuchen.“
-                    </CreatureTalk><br className='mb-1' />
+                    </CreatureTalk>
                 </p>
 
                 <p className='mb-1'>

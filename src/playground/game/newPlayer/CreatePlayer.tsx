@@ -81,6 +81,22 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
 
             <Header>Beantworte die Frage der Wächter Wesen</Header>
 
+            <br />
+            <table width={"100%"}>
+                <tr>
+                    <td className='mono-text'>O<br />/|\<br />/ \</td>
+                    <td className='mono-text'>&lt;O&gt;<br />/X\<br />/ \</td>
+                    <td className='mono-text'>o<br />I&#8863;I<br />&#9553;&#9553;</td>
+                    <td className='mono-text'>&Ouml;&nbsp;<br />/|\<br />&nbsp;&nbsp;/\~~</td>
+
+                    <td className='mono-text'>&#168;&#937;&#168;<br />&#40;&#40;&#41;&#41;<br />| |</td>
+                    <td className='mono-text'>M&nbsp;&nbsp;&nbsp;<br />O&#8835;&#8767;<br />ww&nbsp;</td>
+                    <td className='mono-text'>&#10827; &#10630;<br />&#10918;&#8835;<br />ww</td>
+                    <td className='mono-text'>&#8250;O&#8249;<br />/&#0064;\<br />&#8768; &#8768;</td>
+                </tr>
+            </table>
+            <br />
+
             <div className='text-left'>
                 {races.map((r) => (
                     <p className='mb-1'>

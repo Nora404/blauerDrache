@@ -38,3 +38,9 @@
 .mb-1 {
   margin-bottom: 15px;
 }
+
+.mono-text {
+  font-family: monospace;
+  text-align: center;
+  line-height: 90%;
+}

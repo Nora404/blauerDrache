@@ -15,9 +15,11 @@ export enum Paths {
   Courtyard = '/courtyard',
   Graveyard = '/graveyard',
   Townhall = '/townhall',
-  
+
   // LAHTHEIM CITYLIMIT
   NorthGate = '/north-gate',
+  NorthGateGuardian = '/north-gate-guardian',
+  NorthGatePlaque = '/north-gate-plaque',
 
   NotFound = '*',
 }
@@ -47,11 +49,13 @@ const FountainNavi = lazy(() => import('./playground/lahtheim/center/fountain/Fo
 const Fountain = lazy(() => import('./playground/lahtheim/center/fountain/Fountain'));
 const GraveyardNavi = lazy(() => import('./playground/lahtheim/center/graveyard/GraveyardNavi'));
 const Graveyard = lazy(() => import('./playground/lahtheim/center/graveyard/Graveyard'));
-const TownhallNavi = lazy(() => import('./playground/lahtheim/center/townhall/TownHallNavi'));
-const Townhall = lazy(() => import('./playground/lahtheim/center/townhall/TownHall'));
+const TownhallNavi = lazy(() => import('./playground/lahtheim/center/townHall/TownHallNavi'));
+const Townhall = lazy(() => import('./playground/lahtheim/center/townHall/TownHall'));
 
 // LAHTHEIM CITYLIMIT ---------------------------------------------------------------------------------------
 const NorthGateNavi = lazy(() => import('./playground/lahtheim/cityLimit/northGate/NorthGateNavi'));
+const NorthGateGuardian = lazy(() => import('./playground/lahtheim/cityLimit/northGate/Guardian'));
+const NorthGatePlaque = lazy(() => import('./playground/lahtheim/cityLimit/northGate/Plaque'));
 
 // LAHTHEIM RESIDENTIAL -------------------------------------------------------------------------------------
 
@@ -97,6 +101,16 @@ export const routes: RouteConfig[] = [
   {
     path: Paths.NorthGate,
     element: Start,
+    navigation: NorthGateNavi,
+  },
+  {
+    path: Paths.NorthGateGuardian,
+    element: NorthGateGuardian,
+    navigation: NorthGateNavi,
+  },
+  {
+    path: Paths.NorthGatePlaque,
+    element: NorthGatePlaque,
     navigation: NorthGateNavi,
   },
   {

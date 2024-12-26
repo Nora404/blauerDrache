@@ -6,7 +6,7 @@ type ColoredLetterProps = {
     index?: number;
 };
 
-const ColoredLetter: React.FC<ColoredLetterProps> = ({ children, color = '#8DCCE9', index }) => {
+const ColoredLetter: React.FC<ColoredLetterProps> = ({ children, color = '#82FFEA', index }) => {
     const text = typeof children === 'string' ? children : '';
 
     const targetIndex = (index !== undefined && index >= 0 && index < text.length) ? index : 0;
