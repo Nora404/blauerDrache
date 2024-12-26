@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import ColoredLetter from '../../../utility/ColoredLetter';
+import { SYSTEM } from '../../../data/colorfullStrings';
 
 type TransitProps = {
 };
@@ -38,13 +40,13 @@ const Transit: React.FC<TransitProps> = () => {
                 Es sind noch {steps} Schritte bis zu deinem Ziel.
             </p>
             {steps > 0 && (
-                <div>
-                    <button onClick={handleGoBack}>
-                        Einen Schritt zurück
-                    </button><br />
-                    <button onClick={handleGoForward}>
-                        Einen Schritt weiter
-                    </button>
+                <div className='flex-row max-width'>
+                    <div onClick={handleGoBack} style={{ width: "50%" }}>
+                        {SYSTEM.zurück}
+                    </div>
+                    <div onClick={handleGoForward} style={{ width: "50%" }}>
+                        {SYSTEM.weiter}
+                    </div>
                 </div>
             )}
             {steps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
