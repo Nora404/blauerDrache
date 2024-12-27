@@ -37,7 +37,6 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
 
     return (
         <div className="max-width">
-            <h2>In deiner Vergangenheit gehörtests du zu?</h2>
             <div className='text-left'>
 
                 <p className='mb-1'>
