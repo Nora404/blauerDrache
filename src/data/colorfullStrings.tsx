@@ -28,7 +28,12 @@ type SystemKeys =
   | 'Runden'
   | 'Angriff'
   | 'Verteidigung'
-  | 'Glück';
+  | 'Glück'
+  | 'Gold'
+  | 'Edelsteine'
+  | 'Waffe'
+  | 'Rüstung'
+  | 'Inventar';
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   weiter: <b className="systemBtn"><GradientText colors={['#4F9FFF', '#A2FDF9', '#4F9FFF']}>&#126;&#42;&#126; weiter &#126;&#42;&#126;</GradientText></b>,
   zurück: <b className="systemBtn"><GradientText colors={['#C2FF69', '#A2FDF9', '#C2FF69']}>&#126;&#42;&#126; zurück &#126;&#42;&#126;</GradientText></b>,
@@ -39,6 +44,11 @@ export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   Angriff: <GradientText colors={['#DD2C2C', '#57C6DD']}>Angriff: </GradientText>,
   Verteidigung: <GradientText colors={['#6D36F2', '#C7F288', '#57C6DD']}>Verteidigung: </GradientText>,
   Glück: <GradientText colors={['#F2D828', '#57C6DD']}>Glück: </GradientText>,
+  Gold: <i><GradientText colors={['#FFC705', '#dddddd', '#FFC705']}>Gold</GradientText></i>,
+  Edelsteine: <i><GradientText colors={['#CB4BCF', '#dddddd', '#CB4BCF']}>Edelstein</GradientText></i>,
+  Waffe: <i><GradientText colors={['#BA4545', '#B97A57', '#BA4545']}>Waffe</GradientText></i>,
+  Rüstung: <i><GradientText colors={['#6f55E7', '#B97A57', '#6f55E7']}>Rüstung</GradientText></i>,
+  Inventar: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>Inventar</GradientText></i>,
 }
 
 type CreatureKeys =
