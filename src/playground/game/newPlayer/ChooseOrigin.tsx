@@ -1,55 +1,39 @@
 import React from 'react';
-import { CREATURE, SYSTEM } from '../../../data/colorfullStrings';
+import { CREATURE } from '../../../data/colorfullStrings';
 import CreatureTalk from '../../../utility/CreaturTalk';
-import { useGameStore } from '../../../data/gameStore';
-import { useNavigate } from 'react-router-dom';
 import PlayerTalk from '../../../utility/PlayerTalk';
-import { races, racesMap } from '../../../data/raceDefaults';
+import { OriginName, racesMap } from '../../../data/raceDefaults';
 import Header from '../../../layout/Header/Header';
+import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
+import { WizardData } from './CreatePlayer';
 
 type ChooseOriginProps = {
+    wizardData: WizardData;
+    setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
+    onBack: () => void;
+    onNext: () => void;
 };
 
-const ChooseOrigin: React.FC<ChooseOriginProps> = () => {
-    const { gameData, updateStats, updateMeta, updateEconomy } = useGameStore();
+const ChooseOrigin: React.FC<ChooseOriginProps> = ({
+    wizardData,
+    setWizardData,
+    onBack,
+    onNext,
+}) => {
 
-    const selectedRace = racesMap[gameData.meta.rase];
-    const selectedSubrace = gameData.meta.origin;
-
-    const handleOrigin = (originName: string) => {
-        // const raceBase = raceDefaults[raceName];
-
-        // updateStats({
-        //     ...defaultPlayerData.stats,
-        //     ...raceBase.stats
-        // });
-
-        // updateEconomy({
-        //     ...defaultPlayerData.economy,
-        //     ...raceBase.economy
-        // });
-
-        updateMeta({
+    const handleOrigin = (originName: OriginName) => {
+        setWizardData(prev => ({
+            ...prev,
             origin: originName,
-        });
-    }
+        }));
+    };
 
+    const selectedRace = racesMap[wizardData.race];
 
-    const handleBack = () => {
-        updateMeta({
-            creating: 1,
-        });
+    const selectedSubrace = selectedRace.subraces.find(
+        (subrace) => subrace.name === wizardData.origin
+    );
 
-        navigate("/new-player");
-    }
-    const handleNext = () => {
-        updateMeta({
-            creating: 2,
-        });
-
-        navigate("/choose-origin");
-    }
-    const navigate = useNavigate();
 
     return (
         <div className="max-width">
@@ -71,7 +55,7 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = () => {
 
             {selectedRace.subraces.map((subrace) => (
                 <div className='mb-1 text-left' key={subrace.name}>
-                    <button onClick={() => handleOrigin(subrace.name)}>
+                    <button onClick={() => handleOrigin(subrace.name as OriginName)}>
                         {subrace.label}
                     </button><br />
                     {subrace.description}
@@ -80,17 +64,10 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = () => {
             ))}
 
             <div>
-                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {selectedSubrace}"</PlayerTalk><br />
+                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {selectedSubrace?.label}"</PlayerTalk><br />
             </div><br />
 
-            <div className='flex-row max-width'>
-                <div onClick={handleBack} style={{ width: "50%" }}>
-                    {SYSTEM.zurück}
-                </div>
-                <div onClick={handleNext} style={{ width: "50%" }}>
-                    {SYSTEM.weiter}
-                </div>
-            </div>
+            <BackAndNextbtn onBack={onBack} onNext={onNext} />
 
         </div>
     );

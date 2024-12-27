@@ -1,15 +1,41 @@
-import React from 'react';
+import React from "react";
+import { WizardData } from "./CreatePlayer";
+import { EquipmentName } from "../../../data/raceDefaults";
 
-type ChooseEquipmentProps = {
-};
+interface ChooseEquipmentProps {
+    wizardData: WizardData;
+    setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
+    onBack: () => void;
+    onNext: () => void;
+}
 
-const ChooseEquipment: React.FC<ChooseEquipmentProps> = () => {
+const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
+    wizardData,
+    setWizardData,
+    onBack,
+    onNext,
+}) => {
+
+    const handleEquipment = (equipName: EquipmentName) => {
+        setWizardData(prev => ({
+            ...prev,
+            equipment: equipName,
+        }));
+    };
+
     return (
         <div>
-            <h2>Was trägst du bei dir?</h2>
-            <p className='mb-1 text-left'>
+            <h2>Ausrüstung wählen</h2>
+            <button onClick={() => handleEquipment("Bauer")}>Holzschwert</button>
+            <button onClick={() => handleEquipment("Söldner")}>Lederrüstung</button>
+            {/* ... usw. ... */}
 
-            </p>
+            <div>
+                <button onClick={onBack}>Zurück</button>
+                <button disabled={!wizardData.equipment} onClick={onNext}>
+                    Weiter
+                </button>
+            </div>
         </div>
     );
 };

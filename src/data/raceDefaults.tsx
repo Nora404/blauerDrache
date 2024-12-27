@@ -4,6 +4,34 @@ import { greenColors, SYSTEM } from "./colorfullStrings";
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./playerAscii";
 
 export type RaceName = "Mensch" | "Elf" | "Zwerg" | "Echse" | "Troll" | "Felkin" | "Fenril" | "Dryade";
+export type OriginName =
+    | "Stadtmensch"
+    | "Dörfler"
+    | "Wanderer"
+    | "Nachtelf"
+    | "Hochelf"
+    | "Waldelf"
+    | "Steinklopfer"
+    | "Metallschürfer"
+    | "Edelsteinfürst"
+    | "FelsImHimmel"
+    | "SandImWind"
+    | "KnochenImFels"
+    | "GeisterSchamane"
+    | "RunenWächter"
+    | "NebelSammler"
+    | "Goldfell"
+    | "Mondauge"
+    | "Schattenkralle"
+    | "Schattenjäger"
+    | "Blutkrieger"
+    | "Knochenleser"
+    | "Astläufer"
+    | "Blumenkind"
+    | "Lebenshüter";
+export type EquipmentName = "Bauer" | "Söldner" | "Tagelöhner" | "Entdecker";
+
+
 interface Subrace {
     name: string;
     label: JSX.Element;
@@ -316,6 +344,137 @@ export const raceDefaults = {
         },
         economy: {
             gold: 100,
+        },
+    },
+}
+
+export const originDefaults = {
+    Stadtmensch: {
+        stats: {},
+        economy: {},
+    },
+    Dörfler: {
+        stats: {},
+        economy: {},
+    },
+    Wanderer: {
+        stats: {},
+        economy: {},
+    },
+    Nachtelf: {
+        stats: {},
+        economy: {},
+    },
+    Hochelf: {
+        stats: {},
+        economy: {},
+    },
+    Waldelf: {
+        stats: {},
+        economy: {},
+    },
+    Steinklopfer: {
+        stats: {},
+        economy: {},
+    },
+    Metallschürfer: {
+        stats: {},
+        economy: {},
+    },
+    Edelsteinfürst: {
+        stats: {},
+        economy: {},
+    },
+    FelsImHimmel: {
+        stats: {},
+        economy: {},
+    },
+    SandImWind: {
+        stats: {},
+        economy: {},
+    },
+    KnochenImFels: {
+        stats: {},
+        economy: {},
+    },
+    GeisterSchamane: {
+        stats: {},
+        economy: {},
+    },
+    RunenWächter: {
+        stats: {},
+        economy: {},
+    },
+    NebelSammler: {
+        stats: {},
+        economy: {},
+    },
+    Goldfell: {
+        stats: {},
+        economy: {},
+    },
+    Mondauge: {
+        stats: {},
+        economy: {},
+    },
+    Schattenkralle: {
+        stats: {},
+        economy: {},
+    },
+    Schattenjäger: {
+        stats: {},
+        economy: {},
+    },
+    Blutkrieger: {
+        stats: {},
+        economy: {},
+    },
+    Knochenleser: {
+        stats: {},
+        economy: {},
+    },
+    Astläufer: {
+        stats: {},
+        economy: {},
+    },
+    Blumenkind: {
+        stats: {},
+        economy: {},
+    },
+    Lebenshüter: {
+        stats: {},
+        economy: {},
+    },
+};
+
+
+export const equipmentDefaults = {
+    Bauer: {
+        stats: {
+        },
+        economy: {
+            gold: +100,
+        },
+    },
+    Söldner: {
+        stats: {
+            life: +10,
+        },
+        economy: {
+        },
+    },
+    Tagelöhner: {
+        stats: {
+            level: +3
+        },
+        economy: {
+        },
+    },
+    Entdecker: {
+        stats: {
+            level: +3
+        },
+        economy: {
         },
     },
 }

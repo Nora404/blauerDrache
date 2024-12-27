@@ -6,7 +6,7 @@ type PlayerMeta = {
     origin: string;
     titel: string;
     feeling: string;
-    creating: number;
+    creating: boolean;
   };
   
   type PlayerStats = {
@@ -49,7 +49,7 @@ export const defaultPlayerData: PlayerProps = {
       origin: "Kinderzimmer",
       titel: "Keiner",
       feeling: "Normal",
-      creating: 0,
+      creating: false,
     },
     stats: {
       level: 1,
