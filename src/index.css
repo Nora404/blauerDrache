@@ -32,6 +32,8 @@ a {
 
 a:hover {
   color: rgb(130, 255, 234);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(98, 176, 212);
 }
 
 button {
@@ -40,12 +42,13 @@ button {
   font-size: medium;
   color: rgba(98, 176, 212);
   margin: 0;
-  padding: 2px;
+  padding: 4px;
 }
 
 button:hover {
   color: rgb(130, 255, 234);
-  /* font-size: 105%; */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(98, 176, 212);
 }
 
 button:active {

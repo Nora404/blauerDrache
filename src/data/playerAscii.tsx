@@ -1,3 +1,13 @@
+export const DeveloperAscii: React.FC = () => {
+    return (
+        <div className='mono-text'>
+            O<br />
+            &lt;|&gt;<br />
+            M
+        </div>
+    );
+}
+
 export const HumanAscii: React.FC = () => {
     return (
         <div className='mono-text'>
