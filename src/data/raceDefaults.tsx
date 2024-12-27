@@ -1,10 +1,9 @@
 import { GradientText } from "../utility/GradientText";
 import MultiColoredLetters from "../utility/MultiColoredLetters";
 import { greenColors } from "./colorfullStrings";
-import { DeveloperAscii, DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./playerAscii";
+import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./playerAscii";
 
 export type RaceName = "Mensch" | "Elf" | "Zwerg" | "Echse" | "Troll" | "Felkin" | "Fenril" | "Dryade";
-
 
 interface Subrace {
     name: string;
@@ -21,17 +20,6 @@ interface Race {
 
 
 export const races: Race[] = [
-    {
-        name: "Entwickler",
-        label: <GradientText colors={['#cf388f', '#8839cf']}>Entwickler</GradientText>,
-        ascii: <DeveloperAscii />,
-        description: "Ähm, eigentlich sollte das hier nicht zur Auswahl stehen! Aber meine Schleife zeigt diese 'Rasse' trozdem an. Ein Bug oder ein Feature, wer weiß?",
-        subraces: [
-            { name: "Kinderzimmer", description: "Beschreibung für Kinderzimmer." },
-            { name: "Keller", description: "Beschreibung für Keller." },
-            { name: "Büro", description: "Beschreibung für Büro." },
-        ],
-    },
     {
         name: "Mensch",
         label: <GradientText colors={['#fedcba', '#987654']}>Mensch</GradientText>,
@@ -127,6 +115,11 @@ export const racesMap: Record<string, Race> = races.reduce((map, race) => {
     map[race.name] = race;
     return map;
 }, {} as Record<string, Race>);
+
+// ANWENDUNG
+// const selectedRace = racesMap[gameData.meta.rase];
+// <PlayerTalk>"Ich bin geboren als {selectedRace.label}"</PlayerTalk>
+
 
 
 export const raceDefaults = {

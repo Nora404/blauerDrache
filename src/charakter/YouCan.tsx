@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
-import { GradientText } from '../utility/GradientText';
 import { useGameStore } from '../data/gameStore';
 import { SYSTEM } from '../data/colorfullStrings';
 

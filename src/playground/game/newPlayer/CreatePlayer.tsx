@@ -103,7 +103,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             <div className='text-left'>
                 {races.map((races) => (
                     <div className='mb-1' key={races.name}>
-                        <button key={races.name} onClick={() => handleRase(races.name as RaceName)}>
+                        <button onClick={() => handleRase(races.name as RaceName)}>
                             {races.label}
                         </button><br />
                         {races.description}
@@ -113,7 +113,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
 
             <div>
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin geboren als {selectedRace.label}"</PlayerTalk><br />
-            </div>
+            </div><br />
 
             <div onClick={handleNext}>{SYSTEM.weiter}</div>
         </div>
