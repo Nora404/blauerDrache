@@ -61,7 +61,7 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = () => {
                     Höhnt das {CREATURE.roteWesen} während es langsam um dich herum schwebt. Das {CREATURE.blaueWesen} flattert zu dir und schupst das {CREATURE.roteWesen} weg.
                 </p>
                 <p className='mb-1'>
-                    <CreatureTalk name="blauesWesen">"Er will nur wissen woher du kommst, zu welcher Gruppe zu gehörst."</CreatureTalk>
+                    <CreatureTalk name="blauesWesen">"Er will nur wissen woher du kommst, zu welcher Gruppe du gehörst."</CreatureTalk>
                 </p>
             </div><br />
 
@@ -72,9 +72,10 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = () => {
             {selectedRace.subraces.map((subrace) => (
                 <div className='mb-1 text-left' key={subrace.name}>
                     <button onClick={() => handleOrigin(subrace.name)}>
-                        {subrace.name}
+                        {subrace.label}
                     </button><br />
                     {subrace.description}
+                    <span style={{ color: '#4BC7AA' }}> {subrace.bonus} </span>
                 </div>
             ))}
 

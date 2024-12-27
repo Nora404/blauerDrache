@@ -107,6 +107,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                             {races.label}
                         </button><br />
                         {races.description}
+                        <span style={{ color: '#4BC7AA' }}> {races.bonus} </span>
                     </div>
                 ))}
             </div><br />
