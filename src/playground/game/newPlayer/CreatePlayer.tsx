@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
-import { callingDefaults, EquipmentName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
+import { callingDefaults, CallingName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
@@ -13,7 +13,7 @@ import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText } f
 export type WizardData = {
     race: RaceName;
     origin: OriginName;
-    calling: EquipmentName;
+    calling: CallingName;
     name: string;
 }
 

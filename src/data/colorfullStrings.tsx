@@ -22,6 +22,8 @@ export const greenColors: ColorMapping[] = [
 type SystemKeys =
   | 'weiter'
   | 'zurück'
+  | 'fertig'
+  | 'abbrechen'
   | 'Level'
   | 'Erfahrung'
   | 'Leben'
@@ -37,6 +39,8 @@ type SystemKeys =
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   weiter: <b className="systemBtn"><GradientText colors={['#4F9FFF', '#A2FDF9', '#4F9FFF']}>&#126;&#42;&#126; weiter &#126;&#42;&#126;</GradientText></b>,
   zurück: <b className="systemBtn"><GradientText colors={['#C2FF69', '#A2FDF9', '#C2FF69']}>&#126;&#42;&#126; zurück &#126;&#42;&#126;</GradientText></b>,
+  fertig: <b className="systemBtn"><GradientText colors={['#328A2B', '#A2FDF9', '#328A2B']}>&#126;&#42;&#126; fertig &#126;&#42;&#126;</GradientText></b>,
+  abbrechen: <b className="systemBtn"><GradientText colors={['#C86CFA', '#C2FF69', '#C86CFA']}>&#126;&#42;&#126; abbrechen &#126;&#42;&#126;</GradientText></b>,
   Level: <GradientText colors={['#F7A131', '#57C6DD']}>Level</GradientText>,
   Erfahrung: <GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung</GradientText>,
   Leben: <GradientText colors={['#74dd4f', '#57C6DD']}>Leben</GradientText>,

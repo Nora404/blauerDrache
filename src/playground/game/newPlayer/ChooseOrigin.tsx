@@ -34,19 +34,18 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
 
     return (
         <div className="max-width">
-            <Header>Beantworte die Frage der Wächter Wesen</Header>
-
-            <br />
+            <Header>Beantworte die Frage der Wächter Wesen</Header><br />
 
             {selectedRace.subraces.map((subrace) => (
-                <div className='mb-1 text-left' key={subrace.name}>
-                    <button onClick={() => handleOrigin(subrace.name as OriginName)}>
-                        {subrace.label}
-                    </button><br />
-                    {subrace.description}
-                    <span style={{ color: '#4BC7AA' }}> {subrace.bonus} </span>
+                <div className='mb-1 w-full' key={subrace.name}>
+                    <button className="text-left w-full" onClick={() => handleOrigin(subrace.name as OriginName)}>
+                        {subrace.label}<br />
+                        {subrace.description}
+                        <span style={{ color: '#4BC7AA' }}> {subrace.bonus} </span>
+                    </button>
                 </div>
             ))}
+            <br />
 
             <div><br />
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {selectedSubrace?.label}"</PlayerTalk><br />

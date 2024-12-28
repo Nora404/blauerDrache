@@ -27,26 +27,23 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ wizardData, setWizardData, onNe
         <div className="max-width">
             <Header>Beantworte die Frage der Wächter Wesen</Header><br />
 
-            <div className='text-left'>
-                {races.map((races) => (
-                    <div className='mb-1' key={races.name}>
-                        <button onClick={() => handleRase(races.name as RaceName)}>
-                            {races.label}
-                        </button><br />
+            {races.map((races) => (
+                <div className='mb-1 w-full' key={races.name}>
+                    <button className="text-left w-full" onClick={() => handleRase(races.name as RaceName)}>
+                        {races.label}<br />
                         {races.description}
                         <span style={{ color: '#4BC7AA' }}> {races.bonus} </span>
-                    </div>
-                ))}
-            </div><br />
+                    </button>
+                </div>
+            ))}
+            <br />
 
             <div>
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin geboren als {selectedRace.label}"</PlayerTalk><br />
             </div><br />
 
-            <div>
-                <button disabled={!wizardData.race} onClick={onNext}>
-                    {SYSTEM.weiter}
-                </button>
+            <div onClick={onNext}>
+                {SYSTEM.weiter}
             </div>
 
         </div>

@@ -1,5 +1,8 @@
 import React, { } from "react";
 import { WizardData } from "./CreatePlayer";
+import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
+import Header from "../../../layout/Header/Header";
+import PlayerTalk from "../../../utility/PlayerTalk";
 
 interface ChooseNameProps {
     wizardData: WizardData;
@@ -24,20 +27,22 @@ const ChooseName: React.FC<ChooseNameProps> = ({
 
     return (
         <div>
-            <h2>Gib deinem Helden einen Namen!</h2>
+            <Header>Beantworte die Frage der Wächter Wesen</Header>
+            <br />
+
             <input
                 type="text"
                 value={wizardData.name}
                 onChange={handleNameChange}
                 placeholder="z.B. Nora404"
             />
+            <br />
 
-            <div>
-                <button onClick={onBack}>Zurück</button>
-                <button disabled={!wizardData.name} onClick={onFinalize}>
-                    Fertigstellen
-                </button>
-            </div>
+            <div><br />
+                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich heiße {wizardData.name}"</PlayerTalk><br />
+            </div><br />
+
+            <BackAndNextbtn onBack={onBack} onNext={onFinalize} nextBtn="fertig" />
         </div>
     );
 };

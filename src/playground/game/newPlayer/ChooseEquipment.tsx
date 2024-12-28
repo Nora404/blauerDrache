@@ -1,6 +1,9 @@
 import React from "react";
 import { WizardData } from "./CreatePlayer";
-import { EquipmentName } from "../../../data/raceDefaults";
+import { emptyRaceObj, CallingName, callings, callingMap } from "../../../data/raceDefaults";
+import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
+import PlayerTalk from "../../../utility/PlayerTalk";
+import Header from "../../../layout/Header/Header";
 
 interface ChooseEquipmentProps {
     wizardData: WizardData;
@@ -16,26 +19,35 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
     onNext,
 }) => {
 
-    const handleEquipment = (equipName: EquipmentName) => {
+    const handleCalling = (equipName: CallingName) => {
         setWizardData(prev => ({
             ...prev,
             calling: equipName,
         }));
     };
 
-    return (
-        <div>
-            <h2>Ausrüstung wählen</h2>
-            <button onClick={() => handleEquipment("Bauer")}>Holzschwert</button>
-            <button onClick={() => handleEquipment("Söldner")}>Lederrüstung</button>
-            {/* ... usw. ... */}
+    const selectedCalling = callingMap[wizardData.calling] || emptyRaceObj;
 
-            <div>
-                <button onClick={onBack}>Zurück</button>
-                <button disabled={!wizardData.calling} onClick={onNext}>
-                    Weiter
-                </button>
-            </div>
+    return (
+        <div className="max-width">
+            <Header>Beantworte die Frage der Wächter Wesen</Header><br />
+
+            {callings.map((callings) => (
+                <div className='mb-1 w-full' key={callings.name}>
+                    <button className="text-left w-full" onClick={() => handleCalling(callings.name as CallingName)}>
+                        {callings.label}<br />
+                        {callings.description}
+                        <span style={{ color: '#4BC7AA' }}> {callings.bonus} </span>
+                    </button>
+                </div>
+            ))}
+            <br />
+
+            <div><br />
+                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin gekommen um {selectedCalling.label} zu werden"</PlayerTalk><br />
+            </div><br />
+
+            <BackAndNextbtn onBack={onBack} onNext={onNext} />
         </div>
     );
 };

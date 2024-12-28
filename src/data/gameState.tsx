@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { TEMPERATURE, WEATHER } from './weatherStrings';
 import { useGameStore } from './gameStore';
-import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj } from './raceDefaults';
+import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj, callingMap, emptyCallingObj, Calling } from './raceDefaults';
 
 type GameStateContextType = {
   gameTime: string;
@@ -12,6 +12,7 @@ type GameStateContextType = {
   gameTemperature: string;
   selectedRace: Race;
   selectedOrigin: Subrace;
+  selectedCalling: Calling;
 };
 
 export const GameStateContext = createContext<GameStateContextType | null>(null);
@@ -29,6 +30,7 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const { gameData } = useGameStore();
 
   const selectedRace = racesMap[gameData.meta.rase] || emptyRaceObj;
+  const selectedCalling = callingMap[gameData.meta.calling] || emptyCallingObj;
   const selectedOrigin = selectedRace.subraces.find(
     (subrace) => subrace.name === gameData.meta.origin
   ) || emptySubraceObj;
@@ -100,6 +102,7 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         gameTemperature,
         selectedRace,
         selectedOrigin,
+        selectedCalling,
       }}
     >
       {children}

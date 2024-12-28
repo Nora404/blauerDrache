@@ -4,9 +4,11 @@ import { SYSTEM } from '../../data/colorfullStrings';
 type BackAndNextBtnProps = {
     onBack: () => void;
     onNext: () => void;
+    backBtn?: "zurück" | "abbrechen";
+    nextBtn?: "weiter" | "fertig";
 };
 
-const BackAndNextbtn: React.FC<BackAndNextBtnProps> = ({ onBack, onNext }) => {
+const BackAndNextbtn: React.FC<BackAndNextBtnProps> = ({ onBack, onNext, backBtn = "zurück", nextBtn = "weiter" }) => {
 
     const handleBack = () => {
         onBack?.();
@@ -19,10 +21,10 @@ const BackAndNextbtn: React.FC<BackAndNextBtnProps> = ({ onBack, onNext }) => {
     return (
         <div className='flex-row max-width'>
             <div onClick={handleBack} style={{ width: "50%" }}>
-                {SYSTEM.zurück}
+                {backBtn === "zurück" ? SYSTEM.zurück : SYSTEM.abbrechen}
             </div>
             <div onClick={handleNext} style={{ width: "50%" }}>
-                {SYSTEM.weiter}
+                {nextBtn === "weiter" ? SYSTEM.weiter : SYSTEM.fertig}
             </div>
         </div>
     );
