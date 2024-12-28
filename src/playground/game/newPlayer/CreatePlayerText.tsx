@@ -58,12 +58,15 @@ export const ChooseCallingText: React.FC = () => {
         <div className='text-left'>
 
             <p className='mb-1'>
-                <CreatureTalk name="rotesWesen">"Blabla" </CreatureTalk>
-                Das {CREATURE.roteWesen} ist gemein und böse.
-                Das {CREATURE.blaueWesen} ist nett und bürokratisch.
+                <CreatureTalk name="blauesWesen">"Oh wie schön! Das hatten wir schon lange nicht mehr hier." </CreatureTalk>
+                Das {CREATURE.roteWesen} schaut ungläubig das {CREATURE.blaueWesen} an.
             </p>
             <p className='mb-1'>
-                <CreatureTalk name="blauesWesen">"Blabla"</CreatureTalk>
+                <CreatureTalk name="rotesWesen">"Das meinst du nicht ernst oder? Von denen hier laufen doch hunderte herum und tun so als wären sie einzigartig und die 'Auserwählten' um unser reich vor den Drachen zu retten!"</CreatureTalk>
+            </p>
+            <p className='mb-1'>
+                <CreatureTalk name="blauesWesen">"Drachen sind so freundliche Wesen, niemand braucht uns vor ihnen zu retten. Sei doch einmal etwas freundlicher!"</CreatureTalk> sagt das {CREATURE.blaueWesen} empört.
+                Die Beiden tauschen noch weitere nicht ganz so freundliche Worte aus. In der Zeit überlegst du warum es dich nach Lahtheim verschleppt hat. Was ist deine Berufung?
             </p>
         </div>
     );
@@ -74,12 +77,11 @@ export const ChooseNameText: React.FC = () => {
         <div className='text-left'>
 
             <p className='mb-1'>
-                <CreatureTalk name="rotesWesen">"Blabla" </CreatureTalk>
-                Das {CREATURE.roteWesen} ist gemein und böse.
-                Das {CREATURE.blaueWesen} ist nett und bürokratisch.
+                Nachdem du deine Berufung offenbart hast lassen die beiden streitenden Wesen von einander ab und wenden sich wieder dir zu. Das {CREATURE.blaueWesen} nickt zufrieden.
+                <CreatureTalk name="blauesWesen">"Sehr gut, ich notiere das ..." </CreatureTalk> Nachdem es mit dramatischer Bewegung den letzten Strich gezogen hat, das {CREATURE.roteWesen} rollt mit den Augen, fragt es dich mit verheißungsvoller Stimme:
             </p>
             <p className='mb-1'>
-                <CreatureTalk name="blauesWesen">"Blabla"</CreatureTalk>
+                <CreatureTalk name="blauesWesen">"Und wie ist dein Name?"</CreatureTalk>
             </p>
         </div>
     );

@@ -34,7 +34,8 @@ const ChooseName: React.FC<ChooseNameProps> = ({
                 type="text"
                 value={wizardData.name}
                 onChange={handleNameChange}
-                placeholder="z.B. Nora404"
+                placeholder="Name"
+                style={{ width: 250, textAlign: "center" }}
             />
             <br />
 
