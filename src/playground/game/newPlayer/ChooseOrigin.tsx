@@ -1,6 +1,4 @@
 import React from 'react';
-import { CREATURE } from '../../../data/colorfullStrings';
-import CreatureTalk from '../../../utility/CreaturTalk';
 import PlayerTalk from '../../../utility/PlayerTalk';
 import { emptyRaceObj, emptySubraceObj, OriginName, racesMap } from '../../../data/raceDefaults';
 import Header from '../../../layout/Header/Header';
@@ -36,17 +34,6 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
 
     return (
         <div className="max-width">
-            <div className='text-left'>
-
-                <p className='mb-1'>
-                    <CreatureTalk name="rotesWesen">"Glaubst du wir sind blind, das wir das nicht selbst schon erkannt haben?" </CreatureTalk>
-                    Höhnt das {CREATURE.roteWesen} während es langsam um dich herum schwebt. Das {CREATURE.blaueWesen} flattert zu dir und schupst das {CREATURE.roteWesen} weg.
-                </p>
-                <p className='mb-1'>
-                    <CreatureTalk name="blauesWesen">"Er will nur wissen woher du kommst, zu welcher Gruppe du gehörst."</CreatureTalk>
-                </p>
-            </div><br />
-
             <Header>Beantworte die Frage der Wächter Wesen</Header>
 
             <br />
@@ -61,7 +48,7 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
                 </div>
             ))}
 
-            <div>
+            <div><br />
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {selectedSubrace?.label}"</PlayerTalk><br />
             </div><br />
 

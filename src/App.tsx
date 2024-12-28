@@ -3,9 +3,6 @@ import './App.css'
 import './layout/Responsiv.css'
 import logo from './assets/logo.svg';
 import { GradientText } from './utility/GradientText';
-import YouAre from './charakter/YouAre';
-import YouCan from './charakter/YouCan';
-import YouHave from './charakter/YouHave';
 
 import { GameStoreProvider } from './data/gameStore';
 import NewPlayer from './playground/game/newPlayer/CreatePlayerNavi';

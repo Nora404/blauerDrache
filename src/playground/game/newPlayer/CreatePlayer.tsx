@@ -8,6 +8,7 @@ import ChooseOrigin from './ChooseOrigin';
 import ChooseEquipment from './ChooseEquipment';
 import ChooseName from './ChooseName';
 import PlayerPreview from './PlayerPreview';
+import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText } from './CreatePlayerText';
 
 export type WizardData = {
     race: RaceName;
@@ -79,7 +80,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             creating: true,
         });
 
-        navigate("/somewhere");
+        navigate("/new-day");
     };
 
     useEffect(() => {
@@ -94,17 +95,23 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         <div className="max-width">
             <h2>Als was werden dich die Bewohner dieser Welt erkennen?</h2>
 
-            <div className='flex-row max-width padding-x'>
-                <HumanAscii />
-                <ElfAscii />
-                <DwarfAscii />
-                <LizardAscii />
-                <TrollAscii />
-                <FelkinAscii />
-                <FenrilAscii />
-                <DryadAscii />
-            </div><br />
+            {currentStep === 0 && (<ChooseRaceText />)}
+            {currentStep === 1 && (<ChooseOriginText />)}
+            {currentStep === 2 && (<ChooseCallingText />)}
+            {currentStep === 3 && (<ChooseNameText />)}
 
+            {currentStep === 0 && (
+                <div className='flex-row max-width padding-x'>
+                    <HumanAscii />
+                    <ElfAscii />
+                    <DwarfAscii />
+                    <LizardAscii />
+                    <TrollAscii />
+                    <FelkinAscii />
+                    <FenrilAscii />
+                    <DryadAscii />
+                </div>
+            )}
 
             {currentStep > 0 && (
                 <><br />
@@ -141,7 +148,6 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                     wizardData={wizardData}
                     setWizardData={setWizardData}
                     onBack={goBack}
-                    // statt onNext=goNext machen wir hier schon Finalize
                     onFinalize={handleFinalize}
                 />
             )}
