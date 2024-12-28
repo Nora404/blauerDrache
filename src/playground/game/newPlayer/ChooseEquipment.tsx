@@ -34,7 +34,8 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
 
             {callings.map((callings) => (
                 <div className='mb-1 w-full' key={callings.name}>
-                    <button className="text-left w-full" onClick={() => handleCalling(callings.name as CallingName)}>
+                    <button className={`text-left w-full ${callings.name === selectedCalling.name ? 'glow' : ''}`}
+                        onClick={() => handleCalling(callings.name as CallingName)}>
                         {callings.label}<br />
                         {callings.description}<br />
                         <span style={{ color: '#4BC7AA' }}> {callings.bonus} </span>

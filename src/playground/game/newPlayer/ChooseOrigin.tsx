@@ -38,7 +38,8 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
 
             {selectedRace.subraces.map((subrace) => (
                 <div className='mb-1 w-full' key={subrace.name}>
-                    <button className="text-left w-full" onClick={() => handleOrigin(subrace.name as OriginName)}>
+                    <button className={`text-left w-full ${subrace.name === selectedSubrace.name ? 'glow' : ''}`}
+                        onClick={() => handleOrigin(subrace.name as OriginName)}>
                         {subrace.label}<br />
                         {subrace.description}<br />
                         <span style={{ color: '#4BC7AA' }}> {subrace.bonus} </span>

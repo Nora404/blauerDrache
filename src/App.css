@@ -60,3 +60,8 @@
 .w-full {
   width: 100%;
 }
+
+.glow {
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(98, 176, 212);
+}
