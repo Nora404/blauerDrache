@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
 import { equipmentDefaults, EquipmentName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
-import { CREATURE } from '../../../data/colorfullStrings';
-import PlayerTalk from '../../../utility/PlayerTalk';
-import CreatureTalk from '../../../utility/CreaturTalk';
-import Header from '../../../layout/Header/Header';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
@@ -20,6 +16,9 @@ export type WizardData = {
     name: string;
 }
 
+type MergeableObject = {
+    [key: string]: number;
+};
 
 type CreatePlayerProps = {
 
@@ -39,30 +38,40 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
     const goNext = () => setCurrentStep((prev) => prev + 1);
     const goBack = () => setCurrentStep((prev) => prev - 1);
 
-
-    useEffect(() => {
-        console.log(currentStep);
-    }, [currentStep]);
-
     const handleFinalize = () => {
-
         const raceBase = raceDefaults[wizardData.race] ?? {};
         const originBase = originDefaults[wizardData.origin] ?? {};
         const equipmentBase = equipmentDefaults[wizardData.equipment] ?? {};
 
-        // Kombiniere Stats/Economy
-        const combinedStats = {
-            ...defaultPlayerData.stats,
-            ...raceBase.stats,
-            ...originBase.stats,
-            ...equipmentBase.stats,
+        console.log(raceBase);
+        console.log(originBase);
+        console.log(equipmentBase);
+
+        // Hilfsfunktion zum Summieren der Eigenschaften
+        const sumProperties = (base: MergeableObject, ...others: MergeableObject[]) => {
+            return others.reduce((acc, obj) => {
+                for (let key in obj) {
+                    if (typeof obj[key] === 'number') {
+                        acc[key] = (acc[key] || 0) + obj[key];
+                    }
+                }
+                return acc;
+            }, { ...base });
         };
-        const combinedEconomy = {
-            ...defaultPlayerData.economy,
-            ...raceBase.economy,
-            ...originBase.economy,
-            ...equipmentBase.economy,
-        };
+
+        const combinedStats = sumProperties(
+            defaultPlayerData.stats,
+            raceBase.stats || {},
+            originBase.stats || {},
+            equipmentBase.stats || {}
+        );
+
+        const combinedEconomy = sumProperties(
+            defaultPlayerData.economy,
+            raceBase.economy || {},
+            originBase.economy || {},
+            equipmentBase.economy || {}
+        );
 
         updateStats(combinedStats);
         updateEconomy(combinedEconomy);
@@ -76,6 +85,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
 
         navigate("/somewhere");
     };
+
     const navigate = useNavigate();
 
     return (
@@ -94,11 +104,11 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             </div><br />
 
             <br />
-            {/* 
+
             <div>
                 <PlayerPreview wizardData={wizardData} />
             </div>
-            <br /> */}
+            <br />
 
             {currentStep === 0 && (
                 <ChooseRace
