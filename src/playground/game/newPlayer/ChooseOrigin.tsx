@@ -40,7 +40,7 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
                 <div className='mb-1 w-full' key={subrace.name}>
                     <button className="text-left w-full" onClick={() => handleOrigin(subrace.name as OriginName)}>
                         {subrace.label}<br />
-                        {subrace.description}
+                        {subrace.description}<br />
                         <span style={{ color: '#4BC7AA' }}> {subrace.bonus} </span>
                     </button>
                 </div>

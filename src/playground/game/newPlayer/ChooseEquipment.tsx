@@ -36,7 +36,7 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
                 <div className='mb-1 w-full' key={callings.name}>
                     <button className="text-left w-full" onClick={() => handleCalling(callings.name as CallingName)}>
                         {callings.label}<br />
-                        {callings.description}
+                        {callings.description}<br />
                         <span style={{ color: '#4BC7AA' }}> {callings.bonus} </span>
                     </button>
                 </div>
