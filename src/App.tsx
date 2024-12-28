@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import RoutesList from './RoutesList';
 import { useLocation } from 'react-router-dom';
 import { GameStateProvider } from './data/gameState';
+import CharakterNavi from './layout/CharakterNavi';
 
 
 function App() {
@@ -49,9 +50,7 @@ function App() {
               <RoutesList />
             </div>
             <div id="charakter" className="custom-scrollbar milchglas">
-              <YouAre />
-              <YouCan />
-              <YouHave />
+              <CharakterNavi />
             </div>
           </div>
           <div id="footer">Diese Seite wurde inspiriert von der &nbsp;

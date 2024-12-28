@@ -32,21 +32,38 @@ export type OriginName =
 export type EquipmentName = "Bauer" | "Söldner" | "Tagelöhner" | "Entdecker";
 
 
-interface Subrace {
-    name: string;
+export type Subrace = {
+    name: OriginName | string;
     label: JSX.Element;
     description: string;
     bonus: JSX.Element;
 }
 
-interface Race {
-    name: string;
+export type Race = {
+    name: RaceName | string;
     label: JSX.Element;
     ascii: JSX.Element;
     description: string;
     bonus: JSX.Element;
     subraces: Subrace[];
 }
+export const emptySubraceObj: Subrace = {
+    name: "Unbekant",
+    label: <GradientText colors={['#eeeeee', '#dddddd']}>Unbekant</GradientText>,
+    description: "Es gibt keine Beschreibung",
+    bonus: <>Du erhältst einen Bonus auf ... Nichts!</>
+}
+
+export const emptyRaceObj: Race = {
+    name: "Unbekant",
+    label: <GradientText colors={['#fedcba', '#987654']}>Unbekant</GradientText>,
+    ascii: <HumanAscii />,
+    description: "Es gibt keine Beschreibung",
+    bonus: <>Du erhältst einen Bonus auf ... Nichts?</>,
+    subraces: [emptySubraceObj],
+}
+
+
 
 export const races: Race[] = [
     {
@@ -277,8 +294,6 @@ export const racesMap: Record<string, Race> = races.reduce((map, race) => {
 // const selectedRace = racesMap[gameData.meta.rase];
 // <PlayerTalk>"Ich bin geboren als {selectedRace.label}"</PlayerTalk>
 
-
-
 export const raceDefaults = {
     Mensch: {
         stats: {
@@ -500,9 +515,7 @@ export const originDefaults = {
     },
 };
 
-
-
-export const equipmentDefaults = {
+export const callingDefaults = {
     Bauer: {
         stats: {
         },

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
-import { equipmentDefaults, EquipmentName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
+import { callingDefaults, EquipmentName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
@@ -12,7 +12,7 @@ import PlayerPreview from './PlayerPreview';
 export type WizardData = {
     race: RaceName;
     origin: OriginName;
-    equipment: EquipmentName;
+    calling: EquipmentName;
     name: string;
 }
 
@@ -31,8 +31,8 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
     const [wizardData, setWizardData] = useState<WizardData>({
         race: "Mensch",
         origin: "Stadtmensch",
-        equipment: "Bauer",
-        name: "Nora404",
+        calling: "Bauer",
+        name: "Unbekant",
     });
 
     const goNext = () => setCurrentStep((prev) => prev + 1);
@@ -41,13 +41,8 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
     const handleFinalize = () => {
         const raceBase = raceDefaults[wizardData.race] ?? {};
         const originBase = originDefaults[wizardData.origin] ?? {};
-        const equipmentBase = equipmentDefaults[wizardData.equipment] ?? {};
+        const callingBase = callingDefaults[wizardData.calling] ?? {};
 
-        console.log(raceBase);
-        console.log(originBase);
-        console.log(equipmentBase);
-
-        // Hilfsfunktion zum Summieren der Eigenschaften
         const sumProperties = (base: MergeableObject, ...others: MergeableObject[]) => {
             return others.reduce((acc, obj) => {
                 for (let key in obj) {
@@ -63,14 +58,14 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             defaultPlayerData.stats,
             raceBase.stats || {},
             originBase.stats || {},
-            equipmentBase.stats || {}
+            callingBase.stats || {}
         );
 
         const combinedEconomy = sumProperties(
             defaultPlayerData.economy,
             raceBase.economy || {},
             originBase.economy || {},
-            equipmentBase.economy || {}
+            callingBase.economy || {}
         );
 
         updateStats(combinedStats);
@@ -80,11 +75,18 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             name: wizardData.name,
             rase: wizardData.race,
             origin: wizardData.origin,
+            calling: wizardData.calling,
             creating: true,
         });
 
         navigate("/somewhere");
     };
+
+    useEffect(() => {
+        updateMeta({
+            creating: false,
+        })
+    }, []);
 
     const navigate = useNavigate();
 
@@ -103,11 +105,12 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 <DryadAscii />
             </div><br />
 
-            <br />
 
-            <div>
-                <PlayerPreview wizardData={wizardData} />
-            </div>
+            {currentStep > 0 && (
+                <><br />
+                    <div>
+                        <PlayerPreview wizardData={wizardData} />
+                    </div></>)}
             <br />
 
             {currentStep === 0 && (

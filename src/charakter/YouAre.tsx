@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../layout/Header/Header';
 import { GradientText } from '../utility/GradientText';
 import { useGameStore } from '../data/gameStore';
-import { racesMap } from '../data/raceDefaults';
+import { useGameState } from '../data/gameState';
 
 type YouAreProps = {
     nameColor?: string[],
@@ -20,17 +20,19 @@ const YouAre: React.FC<YouAreProps> = (
         feelingColor = ['#aaaaaa'],
     }
 ) => {
+    const gameState = useGameState();
+    if (!gameState) return null;
 
     const { gameData } = useGameStore();
-    const selectedRace = racesMap[gameData.meta.rase];
 
     return (
         <div>
             <Header>Das bist du</Header>
             <p className='text-left padding-left'>
                 Name: <GradientText colors={nameColor}>{gameData.meta.name}</GradientText><br />
-                Rasse: {selectedRace.label}<br />
-                Herkunft: <GradientText colors={originColor}>{gameData.meta.origin}</GradientText><br />
+                Rasse: {gameState.selectedRace.label}<br />
+                Herkunft: {gameState.selectedOrigin.label}<br />
+                Berufung: <GradientText colors={originColor}>{gameData.meta.calling}</GradientText><br />
                 Titel: <GradientText colors={titelColor}>{gameData.meta.titel}</GradientText><br />
                 Stimmung: <GradientText colors={feelingColor}>{gameData.meta.feeling}</GradientText><br />
             </p>

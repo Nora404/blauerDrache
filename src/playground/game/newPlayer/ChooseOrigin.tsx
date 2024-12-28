@@ -2,7 +2,7 @@ import React from 'react';
 import { CREATURE } from '../../../data/colorfullStrings';
 import CreatureTalk from '../../../utility/CreaturTalk';
 import PlayerTalk from '../../../utility/PlayerTalk';
-import { OriginName, racesMap } from '../../../data/raceDefaults';
+import { emptyRaceObj, emptySubraceObj, OriginName, racesMap } from '../../../data/raceDefaults';
 import Header from '../../../layout/Header/Header';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import { WizardData } from './CreatePlayer';
@@ -28,11 +28,10 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
         }));
     };
 
-    const selectedRace = racesMap[wizardData.race];
-
+    const selectedRace = racesMap[wizardData.race] || emptyRaceObj;
     const selectedSubrace = selectedRace.subraces.find(
         (subrace) => subrace.name === wizardData.origin
-    );
+    ) || emptySubraceObj;
 
 
     return (

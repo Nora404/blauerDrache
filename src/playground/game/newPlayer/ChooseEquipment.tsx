@@ -19,7 +19,7 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
     const handleEquipment = (equipName: EquipmentName) => {
         setWizardData(prev => ({
             ...prev,
-            equipment: equipName,
+            calling: equipName,
         }));
     };
 
@@ -32,7 +32,7 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
 
             <div>
                 <button onClick={onBack}>Zurück</button>
-                <button disabled={!wizardData.equipment} onClick={onNext}>
+                <button disabled={!wizardData.calling} onClick={onNext}>
                     Weiter
                 </button>
             </div>

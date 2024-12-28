@@ -4,6 +4,7 @@ type PlayerMeta = {
     name: string;
     rase: string;
     origin: string;
+    calling: string;
     titel: string;
     feeling: string;
     creating: boolean;
@@ -47,6 +48,7 @@ export const defaultPlayerData: PlayerProps = {
       name: "Nora404",
       rase: "Entwickler",
       origin: "Kinderzimmer",
+      calling: "Spaß haben",
       titel: "Keiner",
       feeling: "Normal",
       creating: false,
