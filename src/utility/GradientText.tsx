@@ -12,7 +12,7 @@ interface RGB {
 }
 
 export const GradientText: FC<GradientTextProps> = ({
-    colors = ["#000000"],
+    colors = ["#ffffff"],
     children,
 }) => {
     // 1) children in einen String umwandeln

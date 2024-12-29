@@ -17,7 +17,6 @@ const YouAre: React.FC<YouAreProps> = (
         nameColor = ['#abcdef', '#EE48F2', '#abcdef'],
         originColor = ['#E33030', '#E3D82F', '#2EE3D3', '#5B2EE3'],
         titelColor = ['#aaaaaa'],
-        feelingColor = ['#aaaaaa'],
     }
 ) => {
     const gameState = useGameState();
@@ -34,7 +33,7 @@ const YouAre: React.FC<YouAreProps> = (
                 Herkunft: {gameState.selectedOrigin.label}<br />
                 Berufung: <GradientText colors={originColor}>{gameData.meta.calling}</GradientText><br />
                 Titel: <GradientText colors={titelColor}>{gameData.meta.titel}</GradientText><br />
-                Stimmung: <GradientText colors={feelingColor}>{gameData.meta.feeling}</GradientText><br />
+                Stimmung: {gameState.selectedFeeling.label}<br />
             </p>
         </div>
     );

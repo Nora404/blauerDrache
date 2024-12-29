@@ -4,18 +4,19 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { TEMPERATURE, WEATHER } from './weatherStrings';
 import { PlayerStats, useGameStore } from './gameStore';
 import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj, callingMap, emptyCallingObj, Calling } from './raceDefaults';
+import { feelingMap, Feeling, emptyFeelingObj, getRandomFeeling } from './feelingData';
 
 type GameStateContextType = {
   gameTime: string;
   gameDay: string;
-  gameWeather: string;
-  gameTemperature: string;
   selectedRace: Race;
   selectedOrigin: Subrace;
   selectedCalling: Calling;
+  selectedFeeling: Feeling;
   ephemeralStats: Partial<PlayerStats>;
   combinedStats: PlayerStats;
   updateEphemeralStats: (stats: Partial<PlayerStats>) => void;
+  clearStast: () => void;
 };
 
 export const GameStateContext = createContext<GameStateContextType | null>(null);
@@ -25,22 +26,27 @@ export const useGameState = () => useContext(GameStateContext);
 export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [gameTime, setGameTime] = useState("12:00");
   const [gameDay, setGameDay] = useState("Tag");
-  const [gameWeather, setGameWeather] = useState("sonnig");
-  const [gameTemperature, setGameTemperature] = useState("warm");
+  // const [gameWeather, setGameWeather] = useState("sonnig");
+  // const [gameTemperature, setGameTemperature] = useState("warm");
+
+  const { gameData, updateMeta } = useGameStore();
 
   //-----------------------------------------------------------------------------------------------
-
-  const { gameData } = useGameStore();
 
   const selectedRace = racesMap[gameData.meta.rase] || emptyRaceObj;
   const selectedCalling = callingMap[gameData.meta.calling] || emptyCallingObj;
   const selectedOrigin = selectedRace.subraces.find(
     (subrace) => subrace.name === gameData.meta.origin
   ) || emptySubraceObj;
+  const selectedFeeling = feelingMap[gameData.meta.feeling] || emptyFeelingObj;
 
   const [ephemeralStats, setEphemeralStats] = useState<Partial<PlayerStats>>({});
 
   //-----------------------------------------------------------------------------------------------
+
+  const clearStast = () => {
+    setEphemeralStats({});
+  }
 
   const updateEphemeralStats = (stats: Partial<PlayerStats>) => {
     setEphemeralStats((prev) => {
@@ -62,13 +68,6 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const tempVal = ephemeralStats[key as keyof PlayerStats] ?? 0;
     combinedStats[key as keyof PlayerStats] = baseVal + tempVal;
   }
-
-  useEffect(() => {
-    if (gameDay === "Tag") {
-      setEphemeralStats({}); // reset der temporären Änderungen
-      console.log("Es ist ein neuer Tag!");
-    }
-  }, [gameDay]);
 
   //-----------------------------------------------------------------------------------------------
 
@@ -116,31 +115,43 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   useEffect(() => {
     if (gameDay === "Tag") {
-      const randomWeather = getRandomElement(WEATHER);
-      const randomTemperature = getRandomElement(TEMPERATURE);
-      setGameWeather(randomWeather);
-      setGameTemperature(randomTemperature);
+      clearStast();
+
+      const { feeling, data } = getRandomFeeling();
+      const weather = getRandomElement(WEATHER);
+      const temperature = getRandomElement(TEMPERATURE);
+      updateMeta({
+        weather,
+        temperature,
+        feeling: feeling.name
+      });
+
+      updateEphemeralStats(data);
     }
   }, [gameDay]);
+
+  //-----------------------------------------------------------------------------------------------
 
   const getRandomElement = (array: string[]) => {
     const randomIndex = Math.floor(Math.random() * array.length);
     return array[randomIndex];
   };
 
+  //-----------------------------------------------------------------------------------------------
+
   return (
     <GameStateContext.Provider
       value={{
         gameTime,
         gameDay,
-        gameWeather,
-        gameTemperature,
         selectedRace,
         selectedOrigin,
         selectedCalling,
+        selectedFeeling,
         ephemeralStats,
         combinedStats,
         updateEphemeralStats,
+        clearStast,
       }}
     >
       {children}

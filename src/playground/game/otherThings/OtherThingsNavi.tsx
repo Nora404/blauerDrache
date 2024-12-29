@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
 import ColoredLetter from '../../../utility/ColoredLetter';
 import { useGameState } from '../../../data/gameState';
+import { useGameStore } from '../../../data/gameStore';
 
 type OtherThingsNaviProps = {
 };
 
 const OtherThingsNavi: React.FC<OtherThingsNaviProps> = () => {
+    const { gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 
-    const { gameTime, gameDay, gameWeather, gameTemperature } = gameState;
+    const { gameTime, gameDay } = gameState;
 
     return (
         <div>
@@ -24,8 +26,8 @@ const OtherThingsNavi: React.FC<OtherThingsNaviProps> = () => {
             <p className='text-left'>
                 Zeit: <b>{gameTime}</b><br />
                 Es ist: <b>{gameDay}</b><br />
-                Wetter: <b>{gameWeather}</b><br />
-                Temperatur: <b>{gameTemperature}</b><br />
+                Wetter: <b>{gameData.meta.weather}</b><br />
+                Temperatur: <b>{gameData.meta.temperature}</b><br />
             </p>
         </div>
     );

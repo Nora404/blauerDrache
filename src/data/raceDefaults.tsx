@@ -481,6 +481,7 @@ export const originDefaults = {
     Waldelf: {
         stats: {
             rounds: 5,
+            maxRounds: 5,
         },
         economy: {},
     },
@@ -531,6 +532,7 @@ export const originDefaults = {
     RunenWächter: {
         stats: {
             rounds: 5,
+            maxRounds: 5,
         },
         economy: {},
     },
@@ -556,6 +558,7 @@ export const originDefaults = {
     Schattenkralle: {
         stats: {
             rounds: 5,
+            maxRounds: 5,
         },
         economy: {},
     },
@@ -586,6 +589,7 @@ export const originDefaults = {
     Blumenkind: {
         stats: {
             rounds: 5,
+            maxRounds: 5,
         },
         economy: {},
     },

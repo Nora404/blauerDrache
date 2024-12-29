@@ -7,8 +7,11 @@ type PlayerMeta = {
     calling: string;
     titel: string;
     feeling: string;
+    weather: string;
+    temperature: string;
     creating: boolean;
   };
+  
   
   export type PlayerStats = {
     level: number;
@@ -41,6 +44,7 @@ type PlayerMeta = {
     equipment: PlayerEquipment;
   };
 
+
 //--------------------------------------------------------------
 
 export const defaultPlayerData: PlayerProps = {
@@ -51,6 +55,8 @@ export const defaultPlayerData: PlayerProps = {
       calling: "Spaß haben",
       titel: "Keiner",
       feeling: "Normal",
+      weather: "sonnig",       
+      temperature: "warm",     
       creating: false,
     },
     stats: {

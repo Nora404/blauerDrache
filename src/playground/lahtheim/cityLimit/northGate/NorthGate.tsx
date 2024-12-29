@@ -7,6 +7,7 @@ import { CREATURE } from '../../../../data/colorfullStrings';
 import CreatureTalk from '../../../../utility/CreaturTalk';
 import drache from '../../../../assets/drache-01.png';
 import { useGameState } from '../../../../data/gameState';
+import { useGameStore } from '../../../../data/gameStore';
 
 type NorthGateProps = {
     title?: string;
@@ -14,10 +15,11 @@ type NorthGateProps = {
 };
 
 const NorthGate: React.FC<NorthGateProps> = () => {
+    const { gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 
-    const { gameTime, gameDay, gameWeather, gameTemperature } = gameState;
+    const { gameTime, gameDay } = gameState;
 
     return (
         <div className='max-width'>
@@ -30,7 +32,7 @@ const NorthGate: React.FC<NorthGateProps> = () => {
 
                 <p className='mb-1'>
                     Die aktuelle Uhrzeit in Lahtheim ist <b>{gameTime} Uhr.</b> Es ist <b>{gameDay}</b>.
-                    Das Wetter heute ist {gameWeather} und {gameTemperature}.
+                    Das Wetter heute ist {gameData.meta.weather} und {gameData.meta.temperature}.
                 </p>
             </div>
 
@@ -38,7 +40,7 @@ const NorthGate: React.FC<NorthGateProps> = () => {
 
             <div className='text-left'>
                 <p className='mb-1'>
-                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {gameDay}, du spürst die {gameTemperature}e Luft auf deinem Gesicht.
+                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {gameDay}, du spürst die {gameData.meta.temperature}e Luft auf deinem Gesicht.
                     Bevor du auch nur einen Schritt gehen kannst,
                     kommt ein kleines <GradientText colors={['#CF388F', '#8839CF']}>geflügeltes Wesen</GradientText> zu dir.
                     Mit großen Augen schaut es erwartungsvoll zu dir hoch.

@@ -1,5 +1,6 @@
-import React from 'react';
 import { useGameState } from '../../../data/gameState';
+import { SYSTEM } from '../../../data/colorfullStrings';
+import { GradientText } from '../../../utility/GradientText';
 
 type NewDayProps = {
 };
@@ -8,9 +9,6 @@ const NewDay: React.FC<NewDayProps> = () => {
     const gameState = useGameState();
     if (!gameState) return null;
 
-    const handleTest = (n: number) => {
-        gameState.updateEphemeralStats({ life: n })
-    }
 
     return (
         <div className="max-widht">
@@ -21,9 +19,10 @@ const NewDay: React.FC<NewDayProps> = () => {
                 </p>
 
                 <p className='mb-1'>
-                    Für heute hast du 20 Runden.<br />
-                    Deine Lebenspunkte wurden auf 10 aufgefüllt.<br />
-                    Dein Geist und deine Stimmung sind heute Normal!<br />
+                    Für heute hast du <GradientText>{gameState.combinedStats.rounds}</GradientText> {SYSTEM.Runden}.<br />
+                    Deine {SYSTEM.Leben} wurden auf <GradientText>{gameState.combinedStats.maxLife}</GradientText> aufgefüllt.<br />
+                    Dein Geist und deine Stimmung sind heute {gameState.selectedFeeling.label}<br />
+                    {gameState.selectedFeeling.bonus} <br />
                     Du wappnest dich mit Fäuste und ziehst auf neue Abenteuer aus.<br className='mb-1' />
                 </p>
 
@@ -37,10 +36,6 @@ const NewDay: React.FC<NewDayProps> = () => {
                     Dir dein Ruf völlig egal ist.<br />
                     Die Leute dich genauso ansehen wie gestern.<br className='mb-1' />
                 </p>
-
-                <button onClick={() => handleTest(20)}>Füge 20 Leben dazu</button><br />
-                <button onClick={() => handleTest(-15)}>Entferne 15 Leben</button><br />
-                Das aktuelle Leben ist: {gameState.combinedStats.life}
             </div>
         </div>
     );
