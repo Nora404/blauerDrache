@@ -5,10 +5,10 @@ import ColoredLetter from '../../../utility/ColoredLetter';
 import { useGameState } from '../../../data/gameState';
 import { useGameStore } from '../../../data/gameStore';
 
-type OtherThingsNaviProps = {
+type InfoNaviProps = {
 };
 
-const OtherThingsNavi: React.FC<OtherThingsNaviProps> = () => {
+const InfoNavi: React.FC<InfoNaviProps> = () => {
     const { gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
@@ -17,10 +17,11 @@ const OtherThingsNavi: React.FC<OtherThingsNaviProps> = () => {
 
     return (
         <div>
-            <Header>Anderes</Header>
+            <Header>Infos</Header>
             <p className='mb-1 text-left'>
                 <Link to="/map"><ColoredLetter>Karte</ColoredLetter> von Lahtheim</Link><br />
-                <Link to="/start"><ColoredLetter>Einstellungen</ColoredLetter></Link><br />
+                {gameData.meta.creating && <Link to="/new-day"><ColoredLetter>Aktueller Tag</ColoredLetter></Link>}<br />
+                {gameData.meta.creating && <Link to="/player-info"><ColoredLetter>Dein Steckbrief</ColoredLetter></Link>}<br />
             </p>
 
             <p className='text-left'>
@@ -33,4 +34,4 @@ const OtherThingsNavi: React.FC<OtherThingsNaviProps> = () => {
     );
 };
 
-export default OtherThingsNavi;
+export default InfoNavi;

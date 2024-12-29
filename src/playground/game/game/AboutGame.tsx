@@ -1,11 +1,11 @@
 import React from 'react';
 
-type WhatIsProps = {
+type AboutGame = {
     title?: string;
     onClick?: () => void;
 };
 
-const WhatIs: React.FC<WhatIsProps> = () => {
+const AboutGame: React.FC<AboutGame> = () => {
 
     return (
         <div className="max-widht">
@@ -15,4 +15,4 @@ const WhatIs: React.FC<WhatIsProps> = () => {
     );
 };
 
-export default WhatIs;
+export default AboutGame;

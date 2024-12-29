@@ -7,7 +7,8 @@ export enum PathsGame {
     WhatsIs = '/whatis',
     NewDay = '/new-day',
     NewPlayer = '/new-player',
-    ChooseOrigin = '/choose-origin',
+    PlayerInfo = '/player-info',
+    // ChooseOrigin = '/choose-origin',
     Map = '/map',
     Transit = '/transit/:target/:from/:to/:steps',
     NotFound = '*',
@@ -18,11 +19,12 @@ const NotFoundPage = lazy(() => import('../playground/lahtheim/cityLimit/northGa
 const NorthGateNavi = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGateNavi'));
 
 const CreatePlayer = lazy(() => import('../playground/game/newPlayer/CreatePlayer'));
-const ChooseOrigin = lazy(() => import('../playground/game/newPlayer/ChooseOrigin'));
-const WhatIs = lazy(() => import('../playground/game/infos/WhatIs'));
+const PlayerInfo = lazy(() => import('../playground/game/infos/PlayerInfo'));
+// const ChooseOrigin = lazy(() => import('../playground/game/newPlayer/ChooseOrigin'));
+const WhatIs = lazy(() => import('../playground/game/game/AboutGame'));
 const NewDay = lazy(() => import('../playground/game/infos/NewDay'));
-const Map = lazy(() => import('../playground/game/otherThings/Map'));
-const Transit = lazy(() => import('../playground/game/otherThings/Transit'));
+const Map = lazy(() => import('../playground/game/infos/Map'));
+const Transit = lazy(() => import('../playground/game/game/Transit'));
 
 export const routesGame: RouteConfig[] = [
     {
@@ -52,8 +54,8 @@ export const routesGame: RouteConfig[] = [
         element: CreatePlayer,
     },
     {
-        path: PathsGame.ChooseOrigin,
-        element: ChooseOrigin,
+        path: PathsGame.PlayerInfo,
+        element: PlayerInfo,
     },
     {
         path: PathsGame.Map,

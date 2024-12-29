@@ -1,5 +1,3 @@
-// /* Neuer File: GameContext.tsx */
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { TEMPERATURE, WEATHER } from './weatherStrings';
 import { PlayerStats, useGameStore } from './gameStore';

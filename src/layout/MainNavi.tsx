@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import navigationMap from '../NavigationList';
-import NewPlayer from '../playground/game/newPlayer/CreatePlayerNavi';
-import OtherThingsNavi from '../playground/game/otherThings/OtherThingsNavi';
+import GameNavi from '../playground/game/game/GameNavi';
+import InfoNavi from '../playground/game/infos/InfoNavi';
 import { useGameStore } from '../data/gameStore';
 
 type MainNaviProps = {
@@ -24,9 +24,9 @@ const MainNavi: React.FC<MainNaviProps> = () => {
 
     return (
         <div>
-            <NewPlayer />
+            <GameNavi />
             {gameData.meta.creating && (currentNav)}
-            <OtherThingsNavi />
+            <InfoNavi />
         </div>
     );
 };

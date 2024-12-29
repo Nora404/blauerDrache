@@ -13,18 +13,19 @@ export const WEATHER = [
   'orkanartig',
   'tropisch',
   'schauerhaft',
+  'feucht',
 ]
 
 export const TEMPERATURE = [
-  'warm',
-  'heiß',
-  'kalt',
+  'schneidend kalt',
   'eisig',
-  'mild',
+  'frostig',
+  'kalt',
   'kühl',
   'frisch',
-  'schneidend kalt',
+  'mild',
+  'warm',
   'mäßig warm',
-  'frostig',
-  'feucht',
+  'heiß',
+  'brennend heiß'
 ]
