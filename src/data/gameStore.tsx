@@ -10,7 +10,7 @@ type PlayerMeta = {
     creating: boolean;
   };
   
-  type PlayerStats = {
+  export type PlayerStats = {
     level: number;
     nextLevel: number;
     exp: number;

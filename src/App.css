@@ -6,12 +6,12 @@
   height: 100vh;
 }
 
-#header {
+/* #header {
   background-image: url('./assets/verlauf.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */
 
 .milchglas {
   background: #1e2331ad;

@@ -1,6 +1,6 @@
 import React from "react";
 import { WizardData } from "./CreatePlayer";
-import { callingMap, emptyRaceObj, emptySubraceObj, racesMap } from "../../../data/raceDefaults";
+import { callingMap, emptyCallingObj, emptyRaceObj, emptySubraceObj, racesMap } from "../../../data/raceDefaults";
 import Header from "../../../layout/Header/Header";
 
 interface PlayerPreviewProps {
@@ -12,7 +12,7 @@ const PlayerPreview: React.FC<PlayerPreviewProps> = ({
 }) => {
 
     const selectedRace = racesMap[wizardData.race] || emptyRaceObj;
-    const selectedCalling = callingMap[wizardData.calling] || emptyRaceObj;
+    const selectedCalling = callingMap[wizardData.calling] || emptyCallingObj;
     const selectedSubrace = selectedRace.subraces.find(
         (subrace) => subrace.name === wizardData.origin
     ) || emptySubraceObj;
@@ -25,7 +25,7 @@ const PlayerPreview: React.FC<PlayerPreviewProps> = ({
                 Name: {wizardData.name}<br />
                 Rasse: {selectedRace.label}, {selectedRace.bonus}<br />
                 Herkunft: {selectedSubrace?.label}, {selectedSubrace?.bonus}<br />
-                Berufung: {wizardData.calling}, {selectedCalling?.bonus}<br />
+                Berufung: {selectedCalling?.label}, {selectedCalling?.bonus}<br />
             </p>
         </div>
     );

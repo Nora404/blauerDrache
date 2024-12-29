@@ -86,3 +86,18 @@ export const ChooseNameText: React.FC = () => {
         </div>
     );
 }
+
+export const FinalText: React.FC = () => {
+    return (
+        <div className='text-left'>
+
+            <p className='mb-1'>
+                <CreatureTalk name="blauesWesen">"Ich habe alles notiert und werde es weiter leiten" </CreatureTalk> Das {CREATURE.blaueWesen} winkt zu jemanden am Tor zu. Kurz darauf kommt ein {CREATURE.geflügeltesWesen} herbei geschwebt und nimmt den Notizblock entgegen.
+                <CreatureTalk name="blauesWesen">"Bring das ins Rathaus zur Bearbeitung"</CreatureTalk> <CreatureTalk name="geflügeltesWesen">"Jawohl!"</CreatureTalk> sagt das {CREATURE.geflügelteWesen} und schwirrt davon.
+            </p>
+            <p className='mb-1'>
+                <CreatureTalk name="rotesWesen">"Endlich vorbei und jetzt hau schon ab."</CreatureTalk> Beide Wesen wenden sich von dir ab und fliegen davon.
+            </p>
+        </div>
+    );
+}

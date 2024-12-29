@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { TEMPERATURE, WEATHER } from './weatherStrings';
-import { useGameStore } from './gameStore';
+import { PlayerStats, useGameStore } from './gameStore';
 import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj, callingMap, emptyCallingObj, Calling } from './raceDefaults';
 
 type GameStateContextType = {
@@ -13,6 +13,9 @@ type GameStateContextType = {
   selectedRace: Race;
   selectedOrigin: Subrace;
   selectedCalling: Calling;
+  ephemeralStats: Partial<PlayerStats>;
+  combinedStats: PlayerStats;
+  updateEphemeralStats: (stats: Partial<PlayerStats>) => void;
 };
 
 export const GameStateContext = createContext<GameStateContextType | null>(null);
@@ -34,6 +37,38 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const selectedOrigin = selectedRace.subraces.find(
     (subrace) => subrace.name === gameData.meta.origin
   ) || emptySubraceObj;
+
+  const [ephemeralStats, setEphemeralStats] = useState<Partial<PlayerStats>>({});
+
+  //-----------------------------------------------------------------------------------------------
+
+  const updateEphemeralStats = (stats: Partial<PlayerStats>) => {
+    setEphemeralStats((prev) => {
+      const updated = { ...prev };
+      // Durch alle übertragenen Stats loopen und addieren
+      for (const key in stats) {
+        // Falls noch kein Wert existiert, 0 annehmen
+        const oldVal = updated[key as keyof PlayerStats] ?? 0;
+        const newVal = stats[key as keyof PlayerStats] ?? 0;
+        updated[key as keyof PlayerStats] = oldVal + newVal;
+      }
+      return updated;
+    });
+  };
+
+  const combinedStats: PlayerStats = { ...gameData.stats };
+  for (const key in ephemeralStats) {
+    const baseVal = combinedStats[key as keyof PlayerStats] ?? 0;
+    const tempVal = ephemeralStats[key as keyof PlayerStats] ?? 0;
+    combinedStats[key as keyof PlayerStats] = baseVal + tempVal;
+  }
+
+  useEffect(() => {
+    if (gameDay === "Tag") {
+      setEphemeralStats({}); // reset der temporären Änderungen
+      console.log("Es ist ein neuer Tag!");
+    }
+  }, [gameDay]);
 
   //-----------------------------------------------------------------------------------------------
 
@@ -103,6 +138,9 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         selectedRace,
         selectedOrigin,
         selectedCalling,
+        ephemeralStats,
+        combinedStats,
+        updateEphemeralStats,
       }}
     >
       {children}
@@ -137,4 +175,13 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 //     </div>
 //     </div>
 //   );
+// }
+
+// STATS
+// <button onClick={() => handleTest(20)}>Füge 20 Leben dazu</button><br />
+// <button onClick={() => handleTest(-15)}>Entferne 15 Leben</button><br />
+// Das aktuelle Leben ist: {gameState.combinedStats.life}
+//
+// const handleTest = (n: number) => {
+//   gameState.updateEphemeralStats({ life: n })
 // }

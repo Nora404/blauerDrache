@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
 import { callingDefaults, CallingName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
@@ -8,7 +7,8 @@ import ChooseOrigin from './ChooseOrigin';
 import ChooseEquipment from './ChooseEquipment';
 import ChooseName from './ChooseName';
 import PlayerPreview from './PlayerPreview';
-import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText } from './CreatePlayerText';
+import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, FinalText } from './CreatePlayerText';
+import { useNavigate } from 'react-router-dom';
 
 export type WizardData = {
     race: RaceName;
@@ -33,16 +33,23 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         race: "Mensch",
         origin: "Stadtmensch",
         calling: "Bauer",
-        name: "Unbekant",
+        name: "Namenloser Held",
     });
 
     const goNext = () => setCurrentStep((prev) => prev + 1);
     const goBack = () => setCurrentStep((prev) => prev - 1);
 
+    const handleLastBtn = () => {
+        navigate("/new-day");
+    }
+    const navigate = useNavigate();
+
     const handleFinalize = () => {
         const raceBase = raceDefaults[wizardData.race] ?? {};
         const originBase = originDefaults[wizardData.origin] ?? {};
         const callingBase = callingDefaults[wizardData.calling] ?? {};
+
+        setCurrentStep((prev) => prev + 1);
 
         const sumProperties = (base: MergeableObject, ...others: MergeableObject[]) => {
             return others.reduce((acc, obj) => {
@@ -79,8 +86,6 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             calling: wizardData.calling,
             creating: true,
         });
-
-        navigate("/new-day");
     };
 
     useEffect(() => {
@@ -88,8 +93,6 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             creating: false,
         })
     }, []);
-
-    const navigate = useNavigate();
 
     return (
         <div className="max-width">
@@ -99,6 +102,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             {currentStep === 1 && (<ChooseOriginText />)}
             {currentStep === 2 && (<ChooseCallingText />)}
             {currentStep === 3 && (<ChooseNameText />)}
+            {currentStep > 3 && (<FinalText />)}
 
             {currentStep === 0 && (
                 <div className='flex-row max-width padding-x'>
@@ -150,6 +154,11 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                     onBack={goBack}
                     onFinalize={handleFinalize}
                 />
+            )}
+            {currentStep > 3 && (
+                <>
+                    <button onClick={handleLastBtn}>Reise beginnen</button>
+                </>
             )}
         </div>
     );
