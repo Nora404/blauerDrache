@@ -1,6 +1,6 @@
 import React from "react";
 import { SYSTEM } from "../../../data/colorfullStrings";
-import { RaceName, races, racesMap } from "../../../data/raceDefaults";
+import { RaceName, races, racesMap } from "../../../data/raceData";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import { WizardData } from "./CreatePlayer";
 import Header from "../../../layout/Header/Header";

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
-import { callingDefaults, CallingName, originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceDefaults';
+import { originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceData';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
 import ChooseEquipment from './ChooseEquipment';
 import ChooseName from './ChooseName';
 import PlayerPreview from './PlayerPreview';
-import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, FinalText } from './CreatePlayerText';
+import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, FinalText } from './CreatePlayerStrings';
 import { useNavigate } from 'react-router-dom';
+import { callingDefaults, CallingName } from '../../../data/callingData';
 
 export type WizardData = {
     race: RaceName;

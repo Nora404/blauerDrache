@@ -1,9 +1,10 @@
 import React from "react";
 import { WizardData } from "./CreatePlayer";
-import { emptyRaceObj, CallingName, callings, callingMap } from "../../../data/raceDefaults";
+import { emptyRaceObj } from "../../../data/raceData";
 import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import Header from "../../../layout/Header/Header";
+import { callingMap, CallingName, callings } from "../../../data/callingData";
 
 interface ChooseEquipmentProps {
     wizardData: WizardData;

@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { TEMPERATURE, WEATHER } from './weatherStrings';
 import { PlayerStats, useGameStore } from './gameStore';
-import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj, callingMap, emptyCallingObj, Calling } from './raceDefaults';
+import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj } from './raceData';
 import { feelingMap, Feeling, emptyFeelingObj, getRandomFeeling } from './feelingData';
+import { Calling, callingMap, emptyCallingObj } from './callingData';
 
 type GameStateContextType = {
   gameTime: string;
@@ -33,10 +34,10 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const selectedRace = racesMap[gameData.meta.rase] || emptyRaceObj;
   const selectedCalling = callingMap[gameData.meta.calling] || emptyCallingObj;
+  const selectedFeeling = feelingMap[gameData.meta.feeling] || emptyFeelingObj;
   const selectedOrigin = selectedRace.subraces.find(
     (subrace) => subrace.name === gameData.meta.origin
   ) || emptySubraceObj;
-  const selectedFeeling = feelingMap[gameData.meta.feeling] || emptyFeelingObj;
 
   const [ephemeralStats, setEphemeralStats] = useState<Partial<PlayerStats>>({});
 

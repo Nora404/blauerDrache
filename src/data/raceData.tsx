@@ -3,7 +3,15 @@ import MultiColoredLetters from "../utility/MultiColoredLetters";
 import { greenColors, SYSTEM } from "./colorfullStrings";
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./playerAscii";
 
-export type RaceName = "Mensch" | "Elf" | "Zwerg" | "Echse" | "Troll" | "Felkin" | "Fenril" | "Dryade";
+export type RaceName =
+    | "Mensch"
+    | "Elf"
+    | "Zwerg"
+    | "Echse"
+    | "Troll"
+    | "Felkin"
+    | "Fenril"
+    | "Dryade";
 export type OriginName =
     | "Stadtmensch"
     | "Dörfler"
@@ -29,8 +37,6 @@ export type OriginName =
     | "Astläufer"
     | "Blumenkind"
     | "Lebenshüter";
-export type CallingName = "Bauer" | "Söldner" | "Entdecker" | "Händler" | "Handwerker" | "Alchemist" | "Barde" | "Jäger" | "Geistlicher" | "Geheimnis";
-
 
 export type Subrace = {
     name: OriginName | string;
@@ -39,13 +45,6 @@ export type Subrace = {
     bonus: JSX.Element;
 }
 
-export type Calling = {
-    name: CallingName | string;
-    label: JSX.Element;
-    description: string;
-    bonus: JSX.Element;
-};
-
 export type Race = {
     name: RaceName | string;
     label: JSX.Element;
@@ -53,13 +52,6 @@ export type Race = {
     description: string;
     bonus: JSX.Element;
     subraces: Subrace[];
-}
-
-export const emptyCallingObj: Calling = {
-    name: "Unbekant",
-    label: <GradientText colors={['#eeeeee', '#dddddd']}>Unbekant</GradientText>,
-    description: "Es gibt keine Beschreibung",
-    bonus: <>Du erhältst einen Bonus auf ... Nichts!</>
 }
 
 export const emptySubraceObj: Subrace = {
@@ -77,70 +69,6 @@ export const emptyRaceObj: Race = {
     bonus: <>Du erhältst einen Bonus auf ... Nichts?</>,
     subraces: [emptySubraceObj],
 }
-
-export const callings: Calling[] = [
-    {
-        name: "Bauer",
-        label: <GradientText colors={['#eeffbb', '#bbffee']}>Bauer</GradientText>,
-        description: "Beschreibung für Bauer.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben} und {SYSTEM.Gold}</>
-    },
-    {
-        name: "Söldner",
-        label: <GradientText colors={['#ffcccc', '#cc9999']}>Söldner</GradientText>,
-        description: "Beschreibung für Söldner.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff} und {SYSTEM.Verteidigung}</>
-    },
-    {
-        name: "Entdecker",
-        label: <GradientText colors={['#ccffdd', '#99bbcc']}>Entdecker</GradientText>,
-        description: "Beschreibung für Entdecker.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden} und {SYSTEM.Leben}</>
-    },
-    {
-        name: "Händler",
-        label: <GradientText colors={['#ffdd99', '#ffaa66']}>Händler</GradientText>,
-        description: "Beschreibung für Händler.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Gold} und {SYSTEM.Edelsteine}</>
-    },
-    {
-        name: "Handwerker",
-        label: <GradientText colors={['#ddddff', '#aaaaff']}>Handwerker</GradientText>,
-        description: "Beschreibung für Handwerker.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Gold} und {SYSTEM.Angriff}</>
-    },
-    {
-        name: "Alchemist",
-        label: <GradientText colors={['#ccccff', '#9999ff']}>Alchemist</GradientText>,
-        description: "Beschreibung für Alchemist.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben} und {SYSTEM.Glück}</>
-    },
-    {
-        name: "Barde",
-        label: <GradientText colors={['#ffeeaa', '#ffcc77']}>Barde</GradientText>,
-        description: "Beschreibung für Barde.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Glück} und {SYSTEM.Verteidigung}</>
-    },
-    {
-        name: "Jäger",
-        label: <GradientText colors={['#bbffaa', '#88cc88']}>Jäger</GradientText>,
-        description: "Beschreibung für Jäger.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff} und {SYSTEM.Glück}</>
-    },
-    {
-        name: "Geistlicher",
-        label: <GradientText colors={['#ffbbcc', '#ff99aa']}>Geistlicher</GradientText>,
-        description: "Beschreibung für Geistlicher.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung} und {SYSTEM.Leben}</>
-    },
-    {
-        name: "Geheimnis",
-        label: <GradientText colors={['#bbbbff', '#8888cc']}>Geheimnis</GradientText>,
-        description: "Beschreibung für Geheimnis.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden} und {SYSTEM.Glück}</>
-    },
-];
-
 
 export const races: Race[] = [
     {
@@ -367,14 +295,11 @@ export const racesMap: Record<string, Race> = races.reduce((map, race) => {
     return map;
 }, {} as Record<string, Race>);
 
-export const callingMap: Record<string, Calling> = callings.reduce((map, calling) => {
-    map[calling.name] = calling;
-    return map;
-}, {} as Record<string, Calling>);
+
 
 
 // ANWENDUNG
-// const selectedRace = racesMap[gameData.meta.rase];
+// const selectedRace = racesMap[gameData.meta.rase] || emptyRaceObj;
 // <PlayerTalk>"Ich bin geboren als {selectedRace.label}"</PlayerTalk>
 
 export const raceDefaults = {
@@ -602,91 +527,4 @@ export const originDefaults = {
     },
 };
 
-export const callingDefaults = {
-    Bauer: {
-        stats: {
-            life: 10,
-            maxLife: 10,
-        },
-        economy: {
-            gold: 10,
-        },
-    },
-    Söldner: {
-        stats: {
-            attack: 10,
-            defense: 5,
-        },
-        economy: {
-        },
-    },
-    Entdecker: {
-        stats: {
-            rounds: 5,
-            maxRounds: 5,
-            life: 5,
-            maxLife: 5,
-        },
-        economy: {
-        },
-    },
-    Händler: {
-        stats: {
-        },
-        economy: {
-            gold: 20,
-            edelsteine: 1,
-        },
-    },
-    Handwerker: {
-        stats: {
-            attack: 5,
-        },
-        economy: {
-            gold: 25,
-        },
-    },
-    Alchemist: {
-        stats: {
-            life: 10,
-            maxLife: 10,
-            luck: 5,
-        },
-        economy: {
-        },
-    },
-    Barde: {
-        stats: {
-            luck: 10,
-            defense: 5,
-        },
-        economy: {
-        },
-    },
-    Jäger: {
-        stats: {
-            attack: 10,
-            luck: 5,
-        },
-        economy: {
-        },
-    },
-    Geistlicher: {
-        stats: {
-            defense: 10,
-            life: 5,
-            maxLife: 5,
-        },
-        economy: {
-        },
-    },
-    Geheimnis: {
-        stats: {
-            luck: 5,
-            rounds: 5,
-            maxRounds: 5,
-        },
-        economy: {
-        },
-    },
-};
+

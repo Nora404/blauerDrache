@@ -1,6 +1,6 @@
 import React from 'react';
 import PlayerTalk from '../../../utility/PlayerTalk';
-import { emptyRaceObj, emptySubraceObj, OriginName, racesMap } from '../../../data/raceDefaults';
+import { emptyRaceObj, emptySubraceObj, OriginName, racesMap } from '../../../data/raceData';
 import Header from '../../../layout/Header/Header';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import { WizardData } from './CreatePlayer';

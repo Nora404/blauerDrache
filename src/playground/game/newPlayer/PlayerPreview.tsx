@@ -1,7 +1,8 @@
 import React from "react";
 import { WizardData } from "./CreatePlayer";
-import { callingMap, emptyCallingObj, emptyRaceObj, emptySubraceObj, racesMap } from "../../../data/raceDefaults";
+import { emptyRaceObj, emptySubraceObj, racesMap } from "../../../data/raceData";
 import Header from "../../../layout/Header/Header";
+import { callingMap, emptyCallingObj } from "../../../data/callingData";
 
 interface PlayerPreviewProps {
     wizardData: WizardData;
