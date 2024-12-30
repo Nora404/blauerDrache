@@ -61,12 +61,14 @@ export enum Paths {
 
 // stepp 2
 const NewDay = lazy(() => import('./playground/game/infos/NewDay'));
+const NewDayNavi = lazy(() => import('./playground/game/infos/NewDayNavi'));
 
 // stepp 3
 export const routes: RouteConfig[] = [
   {
     path: Paths.NewDay,
     element: NewDay,
+    navigation: NewDayNavi,
   },
 ];
 ```
