@@ -3,6 +3,7 @@ import { SYSTEM } from '../../../data/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
 import Header from '../../../layout/Header/Header';
 import { useGameStore } from '../../../data/gameStore';
+import { useEffect, useRef } from 'react';
 
 type NewDayProps = {
     onClose?: () => void
@@ -17,8 +18,19 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
         onClose?.();
     }
 
+
+    // Eigentlich sollte das hier bewirken das die Komponente immer 
+    // nach ganz oben zum Anfang der Seite gescollt ist.
+    // Aber es hat keine Wirkung
+    const newDayRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (newDayRef.current) {
+            newDayRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, []);
+
     return (
-        <div className="max-width">
+        <div className="max-width" ref={newDayRef}>
             <h2>Es ist ein neuer Tag</h2>
             <p className='mb-1 text-left'>
                 Du öffnest deine Augen und stellst fest, dass dir ein neuer Tag geschenkt wurde. Für dich ist es dein 1. Tag. Du fühlst dich wieder frisch genug, um die Welt zu erobern!<br />

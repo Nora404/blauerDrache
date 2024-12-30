@@ -90,6 +90,7 @@
     margin: 0;
     transition: height 0.5s ease-in-out;
     background: #1e2331ad;
+    overflow-y: auto;
 }
 
 /* Wenn der State "showNewDay" true ist, bekommt main-content zusätzlich .split */
@@ -106,6 +107,7 @@
     flex-direction: column;
     align-items: center;
 
+    overflow-y: auto;
 }
 
 
