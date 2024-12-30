@@ -7,7 +7,7 @@ type YouHaveProps = {
 };
 
 const YouHave: React.FC<YouHaveProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
 
     return (
         <div>

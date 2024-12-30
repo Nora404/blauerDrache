@@ -9,7 +9,7 @@ type InfoNaviProps = {
 };
 
 const InfoNavi: React.FC<InfoNaviProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 

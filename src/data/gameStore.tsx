@@ -85,7 +85,7 @@ export const defaultPlayerData: PlayerProps = {
 //--------------------------------------------------------------
 
 type GameStoreContextType = {
-    gameData: PlayerProps;
+    gameStore: PlayerProps;
 
     updateGameData: (data: Partial<PlayerProps>) => void;
     updateMeta: (meta: Partial<PlayerMeta>) => void;
@@ -95,7 +95,7 @@ type GameStoreContextType = {
   };
 
 const GameStoreContext = createContext<GameStoreContextType>({
-  gameData: defaultPlayerData,
+  gameStore: defaultPlayerData,
   updateGameData: () => {},
   updateMeta: () => {},
   updateStats: () => {},
@@ -168,7 +168,7 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return (
         <GameStoreContext.Provider
         value={{
-          gameData,
+          gameStore: gameData,
           updateGameData,
           updateMeta,
           updateStats,

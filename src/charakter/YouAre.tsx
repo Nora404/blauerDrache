@@ -22,7 +22,7 @@ const YouAre: React.FC<YouAreProps> = (
     const gameState = useGameState();
     if (!gameState) return null;
 
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
 
     return (
         <div>

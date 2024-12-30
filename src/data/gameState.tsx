@@ -28,15 +28,15 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   // const [gameWeather, setGameWeather] = useState("sonnig");
   // const [gameTemperature, setGameTemperature] = useState("warm");
 
-  const { gameData, updateMeta } = useGameStore();
+  const { gameStore, updateMeta } = useGameStore();
 
   //-----------------------------------------------------------------------------------------------
 
-  const selectedRace = racesMap[gameData.meta.rase] || emptyRaceObj;
-  const selectedCalling = callingMap[gameData.meta.calling] || emptyCallingObj;
-  const selectedFeeling = feelingMap[gameData.meta.feeling] || emptyFeelingObj;
+  const selectedRace = racesMap[gameStore.meta.rase] || emptyRaceObj;
+  const selectedCalling = callingMap[gameStore.meta.calling] || emptyCallingObj;
+  const selectedFeeling = feelingMap[gameStore.meta.feeling] || emptyFeelingObj;
   const selectedOrigin = selectedRace.subraces.find(
-    (subrace) => subrace.name === gameData.meta.origin
+    (subrace) => subrace.name === gameStore.meta.origin
   ) || emptySubraceObj;
 
   const [ephemeralStats, setEphemeralStats] = useState<Partial<PlayerStats>>({});
@@ -61,7 +61,7 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     });
   };
 
-  const combinedStats: PlayerStats = { ...gameData.stats };
+  const combinedStats: PlayerStats = { ...gameStore.stats };
   for (const key in ephemeralStats) {
     const baseVal = combinedStats[key as keyof PlayerStats] ?? 0;
     const tempVal = ephemeralStats[key as keyof PlayerStats] ?? 0;

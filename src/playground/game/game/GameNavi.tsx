@@ -9,7 +9,7 @@ type GameNaviProps = {
 };
 
 const GameNavi: React.FC<GameNaviProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
 
     return (
         <div>

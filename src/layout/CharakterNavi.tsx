@@ -9,7 +9,7 @@ type CharakterNaviProps = {
 };
 
 const CharakterNavi: React.FC<CharakterNaviProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
 
 
     return (

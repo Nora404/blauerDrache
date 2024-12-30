@@ -10,7 +10,7 @@ type MainNaviProps = {
 
 const MainNavi: React.FC<MainNaviProps> = () => {
     const location = useLocation();
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
 
     const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
 

@@ -7,7 +7,7 @@ type PlayerInfoProps = {
 };
 
 const PlayerInfo: React.FC<PlayerInfoProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 

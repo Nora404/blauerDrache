@@ -2,7 +2,17 @@ import { GradientText } from "../utility/GradientText";
 import { SYSTEM } from "./colorfullStrings";
 
 
-export type CallingName = "Bauer" | "Söldner" | "Entdecker" | "Händler" | "Handwerker" | "Alchemist" | "Barde" | "Jäger" | "Geistlicher" | "Geheimnis";
+export type CallingName =
+    | "Bauer"
+    | "Söldner"
+    | "Entdecker"
+    | "Händler"
+    | "Handwerker"
+    | "Alchemist"
+    | "Barde"
+    | "Jäger"
+    | "Geistlicher"
+    | "Geheimnis";
 
 export type Calling = {
     name: CallingName | string;

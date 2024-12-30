@@ -15,7 +15,7 @@ type NorthGateProps = {
 };
 
 const NorthGate: React.FC<NorthGateProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 

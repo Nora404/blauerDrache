@@ -8,7 +8,7 @@ type NewDayProps = {
 };
 
 const NewDay: React.FC<NewDayProps> = () => {
-    const { gameData } = useGameStore();
+    const { gameStore: gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 
