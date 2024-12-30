@@ -79,10 +79,11 @@ Schließlich muss es eingebunden werden. Das geht entweder direkt in einer Navig
 <Link to="/new-player">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br />
 ```
 
-Ein Buchstabe wird immer gefärbt, bei mir hat es keine Auswirkung. Im Orginal kann man das Spiel nur mit Tastatur spielen.  
-Eine andere Variante ist als ein Button mit einem handler. Hier muss die Seite innerhalb einer Funktion geladen werden.
+Ein Buchstabe wird immer gefärbt, bei mir hat es keine Auswirkung. Im Orginal kann man das Spiel nur mit Tastatur spielen. Eine andere Variante ist als ein Button mit einem handler. Hier muss die Seite innerhalb einer Funktion geladen werden.
 
 ```typescript
+const navigate = useNavigate();
+
 const handleCreatePlayer = () => {
     navigate("/new-player");
 }
