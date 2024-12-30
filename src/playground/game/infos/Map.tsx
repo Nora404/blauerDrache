@@ -9,6 +9,7 @@ const Map: React.FC<MapProps> = () => {
 
     return (
         <div>
+            <h2>Karte von Lahtheim</h2>
             <img
                 src={karte}
                 style={{ width: '100%', maxWidth: '900px' }}

@@ -18,6 +18,7 @@ const FountainNavi: React.FC<FountainNaviProps> = () => {
             <p className='text-left'>
                 <Link to="/tavern">Die <ColoredLetter>Taverne</ColoredLetter> besuchen</Link><br />
                 <Link to="/townhall">Das <ColoredLetter>Rathaus</ColoredLetter> besichtigen</Link><br />
+                <Link to="/fountain"><ColoredLetter>Schwarzes</ColoredLetter> Brett untersuchen</Link><br />
             </p>
             <p className='mb-1 text-left'>
                 <Link to="/fountain"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
