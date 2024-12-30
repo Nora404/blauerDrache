@@ -5,17 +5,21 @@ import Header from '../../../layout/Header/Header';
 import { useGameStore } from '../../../data/gameStore';
 
 type NewDayProps = {
+    onClose?: () => void
 };
 
-const NewDay: React.FC<NewDayProps> = () => {
+const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
     const { gameStore: gameData } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 
+    const handleClose = () => {
+        onClose?.();
+    }
 
     return (
         <div className="max-width">
-            <h3>Es ist ein neuer Tag</h3>
+            <h2>Es ist ein neuer Tag</h2>
             <p className='mb-1 text-left'>
                 Du öffnest deine Augen und stellst fest, dass dir ein neuer Tag geschenkt wurde. Für dich ist es dein 1. Tag. Du fühlst dich wieder frisch genug, um die Welt zu erobern!<br />
             </p>
@@ -39,6 +43,8 @@ const NewDay: React.FC<NewDayProps> = () => {
                 Dir dein Ruf völlig egal ist.<br />
                 Die Leute dich genauso ansehen wie gestern.<br className='mb-1' />
             </p>
+
+            {onClose && <button onClick={handleClose}>{SYSTEM.schließen}</button>}
         </div>
     );
 };

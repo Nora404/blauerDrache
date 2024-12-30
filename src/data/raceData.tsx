@@ -1,6 +1,7 @@
 import { GradientText } from "../utility/GradientText";
 import MultiColoredLetters from "../utility/MultiColoredLetters";
-import { greenColors, SYSTEM } from "./colorfullStrings";
+import { SYSTEM } from "./colorfullStrings";
+import { braunColors, grayColors, greenColors, lilaColors, rosaColors } from "./colorMappingData";
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./playerAscii";
 
 export type RaceName =
@@ -86,7 +87,7 @@ export const races: Race[] = [
             },
             {
                 name: "Dörfler",
-                label: <GradientText colors={['#a2d5c6', '#6fa8dc']}>Dörfler</GradientText>,
+                label: <GradientText colors={['#5BCF57', '#CFAD67', '#5BCF57']}>Dörfler</GradientText>,
                 description: "Weite Wiesen, Felder mit Gemüse und Obstbäume, freilaufende Tiere und du kanntest jedes mit Namen. Auch die Namen der Menschen, die dir tagtäglich „Guten Tag“ und „Guten Mittag“ und auch „Guten Abend“ sagten. Höhste Zeit hier von hier zu verschwinden.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>
             },
@@ -100,20 +101,20 @@ export const races: Race[] = [
     },
     {
         name: "Elf",
-        label: <i><GradientText colors={['#FFE1C2', '#ff6644']}>Elf</GradientText></i>,
+        label: <em><GradientText colors={['#BB4CFF', '#FF12BD']}>Elf</GradientText></em>,
         ascii: <ElfAscii />,
         description: "Hoch in den Bäumen des Waldes, in zerbrechlich aussehenden filigranen Strukturen, leben die Elfen. Mit den Drachen sind die das älteste Volg dieser Welt. Ihre dünnen, ewig jungen Körper lassen nicht vermuten, wie alt eine Elfe wirklich ist. Sie haben ein Gespür zu Magie, welches sie meist nur theoretisch erforschen, statt es selbst zu betreiben.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Level}</>,
         subraces: [
             {
                 name: "Nachtelf",
-                label: <GradientText colors={['#2E2E2E', '#5A5A5A']}>Nachtelf</GradientText>,
+                label: <GradientText colors={['#746FF5', '#6E5AB0']}>Nachtelf</GradientText>,
                 description: "Du hast ein besonders starkes Gespür zur Magie, gerade Nachts ist es besonders ausgeprägt. Die Auren der umgebenen Elfen strahlen so stark, dass du oft mit geschlossenen Augen ihnen Gegenüber tritts. Nun möchtest du dem Licht der Elfen entkommen.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>
             },
             {
                 name: "Hochelf",
-                label: <GradientText colors={['#E0FFFF', '#ADD8E6']}>Hochelf</GradientText>,
+                label: <GradientText colors={['#F1F586']}>Hochelf</GradientText>,
                 description: "Dein größtes Bestreben ist es Wissen zu sammeln und die Geschichte der Elfen zu bewahren. Um Neues zu lernen hast du öfter die Bäume und deren Schutz verlassen, dich aber nie allzu weit entfernt. Nun hast du alles Erfahren was es hier zu wissen gibt.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Level}</>
             },
@@ -134,7 +135,7 @@ export const races: Race[] = [
         subraces: [
             {
                 name: "Steinklopfer",
-                label: <GradientText colors={['#8B4513', '#A0522D']}>Steinklopfer</GradientText>,
+                label: <GradientText colors={['#D48960', '#D4B38D']}>Steinklopfer</GradientText>,
                 description: "Die Unterschicht der Zwerge. Du gehörst zu den Steinklopfern, diejenigen welche die härteste und gefährlichste Arbeit verrichten muss. Andere Zwerge schauen verächtlich auf dich. Sie werden deinen Einsatz nie zu würdigen wissen.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>
             },
@@ -154,14 +155,14 @@ export const races: Race[] = [
     },
     {
         name: "Echse",
-        label: <GradientText colors={['#46CF25', '#29CF72']}>Echse</GradientText>,
+        label: <GradientText colors={['#46CF25', '#FFEF67', '#29CF72']}>Echse</GradientText>,
         ascii: <LizardAscii />,
         description: "In der öden Landschaft hinter den Steppen, weit außerhalb jeder Siedlung, leben die Echsen in kleineren nomadischen Gruppen. Artverwandt mit den Drachen haben sie es nicht leicht in dieser Welt. Hinzu kommt das viele Wesen ihnen keine größere Intelligenz zutrauen. Da Echsen andere Wesen meiden, wird sich ihr Ruf nicht sonderlich bald verbessern.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>,
         subraces: [
             {
                 name: "Fels-im-Himmel",
-                label: <GradientText colors={['#708090', '#2F4F4F']}>Fels-im-Himmel</GradientText>,
+                label: <GradientText colors={['#eeeeee', '#bbbbbb', '#ffffff', '#cccccc']}>Fels-im-Himmel</GradientText>,
                 description: "Das Ödland besteht aus Sand und Stein, sehr harte und spitze Steine. Dank deiner harten beschuppten Haut können sie dir nichts anhaben. Doch diese Steine sind nicht sehr nahrhaft. Um deiner Familie ein hungriges Maul zu ersparen, machst du dich allein auf den Weg.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>
             },
@@ -173,7 +174,7 @@ export const races: Race[] = [
             },
             {
                 name: "Knochen-im-Fels",
-                label: <GradientText colors={['#A9A9A9', '#696969']}>Knochen-im-Fels</GradientText>,
+                label: <MultiColoredLetters colors={grayColors}>Knochen-im-Fels</MultiColoredLetters>,
                 description: "Links und Rechts vor dir ragen die steinernen Wände der Schlucht in die Höhe. Du erkennst nur einen schmalen Streifen Licht. Hier ist es dunkel und still, perfekt um kleinere Tiere zu jagen. Ihre Knochen sind dein Schmuck. Dich reizt der Rum außerhalb der Knochenschlucht.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>
             },
@@ -188,19 +189,19 @@ export const races: Race[] = [
         subraces: [
             {
                 name: "Geister Schamane",
-                label: <GradientText colors={['#4B0082', '#9370DB']}>Geister Schamane</GradientText>,
+                label: <MultiColoredLetters colors={lilaColors}>Geister Schamane</MultiColoredLetters>,
                 description: "Du gehörst der Bruderschaft der Geister an. Als Schamane ist es deine Aufgabe die Geister friedlich zu stimmen und ihren Willen zu erkennen. Dieser ist oft verschwommen, wie ein Traum. Der letzte Geist wollte das du etwas außerhalb des Sumpfes erledigst.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>
             },
             {
                 name: "Runen Wächter",
-                label: <GradientText colors={['#8A2BE2', '#BA55D3']}>Runen Wächter</GradientText>,
+                label: <GradientText colors={['#C2C2C2', '#DED968', '#C2C2C2']}>Runen Wächter</GradientText>,
                 description: "Du gehörst der Bruderschaft der Runen an. Als Wächter bewachst du die vergessenen Ruinen und deren Geheimnisse. Doch Plünderer haben die Ruinen geschändet. Es ist deine Aufgabe gestohlenes zurückzuholen.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>
             },
             {
                 name: "Nebel Sammler",
-                label: <GradientText colors={['#696969', '#A9A9A9']}>Nebel Sammler</GradientText>,
+                label: <GradientText colors={['#EB3F3F', '#A9A9A9']}>Nebel Sammler</GradientText>,
                 description: "Du gehörst der Bruderschaft der Nebel an. Als Sammler musst du Wertvolles finden, dass in Ritualen den Göttern geopfert werden kann. Dein letzter Besuch in den vergessenen Ruinen war ein großer Misserfolg. Du musst den Sumpf verlassen um etwas zu finden, das die Götter wieder gnädig stimmt.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Level}</>
             },
@@ -208,7 +209,7 @@ export const races: Race[] = [
     },
     {
         name: "Felkin",
-        label: <GradientText colors={['#E8E8E8', '#eeeeee', '#E8E8E8']}>Felkin</GradientText>,
+        label: <MultiColoredLetters colors={braunColors}>Felkin</MultiColoredLetters>,
         ascii: <FelkinAscii />,
         description: "Diese katzenhaften Wesen leben in den Bergen. Ihre Behausungen sind aus dem Stein geschlagen und mit Fellen geschmückt. Sie leben meist allein, oder in kleinen Familien. Felkin sind bekannt für ihre verspielte und freundliche Art. Sie treiben gerne Tauschhandel, Feilschen oder Täuschen (Was sie eher aus Spaß machen, nicht aus böser Absicht)",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Glück}</>,
@@ -221,13 +222,13 @@ export const races: Race[] = [
             },
             {
                 name: "Mondauge",
-                label: <GradientText colors={['#1E90FF', '#87CEFA']}>Mondauge</GradientText>,
+                label: <GradientText colors={['#1E90FF', '#87CEFA', '#BBDDFF', '#1E90FF']}>Mondauge</GradientText>,
                 description: "Du bist als Mondauge bekannt, Felkin die am liebsten nachts unterwegs sind und Schabernack treiben. Dabei bräuchtest du mehr als nur sieben Leben. Deine Suche nach Spaß und Nervenkitzel kennt keine Konsequenzen oder Grenzen. Selbst der Berg ist zu klein für dich.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>
             },
             {
                 name: "Schattenkralle",
-                label: <GradientText colors={['#4B0082', '#8A2BE2']}>Schattenkralle</GradientText>,
+                label: <GradientText colors={['#AC7CEB', '#EB3F3F', '#8A2BE2']}>Schattenkralle</GradientText>,
                 description: "Deine Zähne sind scharf, deine Klauen tödlich. Du bist für die Jagt verantwortlich, sogst für Essen und Felle. Mit den anderen Schattenkrallen stehst du in einen unausgesprochenen Wettkampf. Dieser führt dich auch außerhalb deines Revieres.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>
             },
@@ -235,26 +236,26 @@ export const races: Race[] = [
     },
     {
         name: "Fenril",
-        label: <b><GradientText colors={['#FFFCE4', '#E8CBA9']}>Fenril</GradientText></b>,
+        label: <b><GradientText colors={['#BFD3FF', '#B0B0B0']}>Fenril</GradientText></b>,
         ascii: <FenrilAscii />,
         description: "Diese wolfsähnlichen Wesen leben tief in den Wäldern, weniger weil sie so naturverbunden wären, sondern weil es die beste Tarnung bietet. Dank den Verträgen mit den Zwergen und Elfen haben sie Wissen und Material um eine hoch technisierte und streng organisierte Gesellschaft zu erschaffen, die im Verborgenen floriert.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>,
         subraces: [
             {
                 name: "Schattenjäger",
-                label: <GradientText colors={['#2F4F4F', '#708090']}>Schattenjäger</GradientText>,
+                label: <GradientText colors={['#9AA7C2', '#86DEE3', '#708090']}>Schattenjäger</GradientText>,
                 description: "Als Schattenjäger bist du berechtigt mit den Elfen und Zwergen in Verhandlungen zu treten. Deine eigentliche Aufgabe ist die Beobachtung der äußeren Grenzen und Meldung vor etwaigen Gefahren oder Eindringlingen. Diese Grenze ist dabei sehr grob gefasst.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Level}</>
             },
             {
                 name: "Blutkrieger",
-                label: <GradientText colors={['#8B0000', '#B22222']}>Blutkrieger</GradientText>,
+                label: <GradientText colors={['#ED4E4E', '#E36D34']}>Blutkrieger</GradientText>,
                 description: "Du gehörst zu den Kämpfern der Fenril. Dein Vorgesetzter schickt dich regelmäßig in gefährliche Missionen, auch außerhalb des Waldes. Ein Gerücht über die Ermordung des grünen Drachens führt dich bis nach Lahtheim.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>
             },
             {
                 name: "Knochenbrecher",
-                label: <GradientText colors={['#A52A2A', '#CD853F']}>Knochenbrecher</GradientText>,
+                label: <MultiColoredLetters colors={grayColors}>Knochenbrecher</MultiColoredLetters>,
                 description: "Der Begriff „Knochenbrecher“ ist eigentlich völlig veraltet. Du bist für die Technik und Entwicklung zuständig. Ein Unfall macht den Begriff Knochenbrecher jedoch wieder schmerzlich aktuell. Du wurdest bis auf weiteres „Beurlaubt“",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>
             },
@@ -269,19 +270,19 @@ export const races: Race[] = [
         subraces: [
             {
                 name: "Astläufer",
-                label: <GradientText colors={['#228B22', '#32CD32']}>Astläufer</GradientText>,
+                label: <GradientText colors={['#D99966', '#228B22', '#D99966', '#32CD32']}>Astläufer</GradientText>,
                 description: "Dein Körper besteht aus hölzernen Fasern und kleinen grünen Blättern auf deinem Kopf. Deine Familie sind die Bäume, deren Schutz und Pflege dein Lebensziel ist. Doch die Bäume sind unruhig. Sie flüstern von Gefahren außerhalb der Quelle.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>
             },
             {
                 name: "Blumenkind",
-                label: <GradientText colors={['#FF69B4', '#FFB6C1']}>Blumenkind</GradientText>,
+                label: <MultiColoredLetters colors={rosaColors}>Blumenkind</MultiColoredLetters>,
                 description: "Grüne dünne verschlungene Ranken formen deinen Körper. Bunte Blüten wachsen auf deinen Armen und Beinen. Dein Kopf ist ein Meer aus Blumen. Du genießt das Licht der Sonne und das leckere Wasser der Quelle. Du hattest dich bis eben nie gefragt, wohin das Wasser fließt.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>
             },
             {
                 name: "Lebenshüter",
-                label: <GradientText colors={['#32CD32', '#7CFC00']}>Lebenshüter</GradientText>,
+                label: <GradientText colors={['#84BD3A', '#31BD4A', '#9ABD39']}>Lebenshüter</GradientText>,
                 description: "Ein Gemisch aus Moose, Pilzen und Steinen formt deinen Körper. Du bist fasziniert von allen, was Lebt, genauer gesagt von allem was aus einem Samen wächst. Du pflegst einen großen Garten, doch eines Tages hörten deine Schützlinge auf zu wachsen. Du musst die Quelle verlassen, um Heilung zu finden.",
                 bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>
             },

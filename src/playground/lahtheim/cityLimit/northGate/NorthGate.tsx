@@ -23,18 +23,16 @@ const NorthGate: React.FC<NorthGateProps> = () => {
 
     return (
         <div className='max-width'>
-            <div>
-                <p className='mb-1'>
-                    Willkommen bei <b>Legende des blauen Drachen</b>, <br />
-                    ein browser-basiertes Rollenspiel, inspiriert von der &nbsp;
-                    <a href="https://lotgd.de/home.php?" target='blank'><GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText></a><br />
-                </p>
+            <p className='mb-1'>
+                Willkommen bei <b>Legende des blauen Drachen</b>, <br />
+                ein browser-basiertes Rollenspiel, inspiriert von der &nbsp;
+                <a href="https://lotgd.de/home.php?" target='blank'><GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText></a><br />
+            </p>
 
-                <p className='mb-1'>
-                    Die aktuelle Uhrzeit in Lahtheim ist <b>{gameTime} Uhr.</b> Es ist <b>{gameDay}</b>.
-                    Das Wetter heute ist {gameData.meta.weather} und {gameData.meta.temperature}.
-                </p>
-            </div>
+            <p className='mb-1'>
+                Die aktuelle Uhrzeit in Lahtheim ist <b>{gameTime} Uhr.</b> Es ist <b>{gameDay}</b>.
+                Das Wetter heute ist {gameData.meta.weather} und {gameData.meta.temperature}.
+            </p>
 
             <img src={drache} width={"30%"} />
 

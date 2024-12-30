@@ -1,29 +1,11 @@
 import { GradientText } from "../utility/GradientText";
 
-interface ColorMapping {
-  index: number;
-  color: string;
-}
-
-export const greenColors: ColorMapping[] = [
-  { index: 0, color: '#A1FA4F' },
-  { index: 1, color: '#54D650' },
-  { index: 2, color: '#B7D66A' },
-  { index: 3, color: '#60E8BC' },
-  { index: 4, color: '#54D650' },
-  { index: 5, color: '#A1FA4F' },
-  { index: 6, color: '#54D650' },
-  { index: 7, color: '#B7D66A' },
-  { index: 8, color: '#60E8BC' },
-  { index: 9, color: '#54D650' },
-];
-
-
 type SystemKeys =
   | 'weiter'
   | 'zurück'
   | 'fertig'
   | 'abbrechen'
+  | 'schließen'
   | 'Level'
   | 'Erfahrung'
   | 'Leben'
@@ -41,6 +23,7 @@ export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   zurück: <b className="systemBtn"><GradientText colors={['#C2FF69', '#A2FDF9', '#C2FF69']}>&#126;&#42;&#126; zurück &#126;&#42;&#126;</GradientText></b>,
   fertig: <b className="systemBtn"><GradientText colors={['#328A2B', '#A2FDF9', '#328A2B']}>&#126;&#42;&#126; fertig &#126;&#42;&#126;</GradientText></b>,
   abbrechen: <b className="systemBtn"><GradientText colors={['#C86CFA', '#C2FF69', '#C86CFA']}>&#126;&#42;&#126; abbrechen &#126;&#42;&#126;</GradientText></b>,
+  schließen: <b className="systemBtn"><GradientText colors={['#C86CFA', '#C2FF69', '#C86CFA']}>&#126;&#42;&#126; schließen &#126;&#42;&#126;</GradientText></b>,
   Level: <GradientText colors={['#F7A131', '#57C6DD']}>Level</GradientText>,
   Erfahrung: <GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung</GradientText>,
   Leben: <GradientText colors={['#74dd4f', '#57C6DD']}>Leben</GradientText>,

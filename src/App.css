@@ -6,15 +6,9 @@
   height: 100vh;
 }
 
-/* #header {
-  background-image: url('./assets/verlauf.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
-
 .milchglas {
   background: #1e2331ad;
+  /* halbdurchsichtiges Dunkelgrau/Blau */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;

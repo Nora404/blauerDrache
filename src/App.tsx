@@ -5,10 +5,10 @@ import logo from './assets/logo.svg';
 import { GradientText } from './utility/GradientText';
 
 import { GameStoreProvider } from './data/gameStore';
-import RoutesList from './RoutesList';
 import { GameStateProvider } from './data/gameState';
 import CharakterNavi from './layout/CharakterNavi';
 import MainNavi from './layout/MainNavi';
+import { MainContent } from './layout/MainContent';
 
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
             <div id="navi" className="custom-scrollbar milchglas">
               <MainNavi />
             </div>
-            <div id="main" className="custom-scrollbar milchglas">
-              <RoutesList />
+            <div id="main">
+              <MainContent />
             </div>
             <div id="charakter" className="custom-scrollbar milchglas">
               <CharakterNavi />
