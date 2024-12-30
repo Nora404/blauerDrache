@@ -5,9 +5,9 @@ export type Topic = {
 }
 
 export const npcNames: string[] = [
-    "Anna", "Peter", "Markus", "Lisa", "Elena", "Max", "Sophie", "Jonas",
-    "Laura", "Felix", "Tobias", "Julia", "Sarah", "Leon", "Mia", "Jan",
-    "Nina", "Tom", "Emma", "David"
+    "Bäuerin", "Bauer", "Tagelöhner", "Söldner", "Söldnerin", "Entdeckerin", "Händler", "Händlerin",
+    "Kräuterhexe", "Bettler", "Schmied", "Schmiedin", "Sängerin", "Tänzerin", "Schnerderin", "Schneider",
+    "Alchemist", "Barde", "Jäger", "Jägerin", "Geistlicher", "Wächterin", "Wächter"
 ];
 
 export const NpcActions: string[] = [
