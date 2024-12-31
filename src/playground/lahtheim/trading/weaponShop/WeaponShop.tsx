@@ -76,7 +76,7 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
                 {localWeapon.name !== "Nichts" && (
                     <>und liest auf einem kleinen Schild daneben den Preis von <GradientText colors={['#FFE452']}>{localWeapon.price}</GradientText>.
                         Nach einem Blick in deinen Goldbeutel ernnst du dass {showText()}.&nbsp;</>)}
-                Die Verkäuferin schaut dich erwartungsvoll an.
+                Der Verkäufer schaut dich erwartungsvoll an.
                 {localWeapon.name !== "Nichts" && (
                     <>
                         <GradientText colors={['#D1813B']}>"Für </GradientText>{gameState.selectedWeapon.label}
