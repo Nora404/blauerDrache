@@ -97,6 +97,8 @@ export const FinalText: React.FC = () => {
             </p>
             <p className='mb-1'>
                 <CreatureTalk name="rotesWesen">"Endlich vorbei und jetzt hau schon ab."</CreatureTalk> Beide Wesen wenden sich von dir ab und fliegen davon.
+                Plötzlich dreht das {CREATURE.roteWesen} noch einmal um, schwebt zu dir und sagt mit einem führ ihn seltsam wirkenden Lächeln:
+                <CreatureTalk name="rotesWesen">"Du solltest dem </CreatureTalk> {CREATURE.blauenDrachen} <CreatureTalk name="rotesWesen"> einen Besuch abstatten!"</CreatureTalk>
             </p>
         </div>
     );

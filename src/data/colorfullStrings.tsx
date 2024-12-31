@@ -54,7 +54,8 @@ type CreatureKeys =
   | 'blauesWesen'
   | 'blaueWesen'
   | 'grünerDrache'
-  | 'blauerDrache';
+  | 'blauerDrache'
+  | 'blauenDrachen'
 export const CREATURE: Record<CreatureKeys, JSX.Element> = {
   geflügeltesWesen: <GradientText colors={['#cf388f', '#8839cf']}>geflügeltes Wesen</GradientText>,
   geflügelteWesen: <GradientText colors={['#cf388f', '#8839cf']}>geflügelte Wesen</GradientText>,
@@ -65,6 +66,7 @@ export const CREATURE: Record<CreatureKeys, JSX.Element> = {
 
   grünerDrache: <b><GradientText colors={['#46CF25', '#29CF72']}>grüner Drache</GradientText></b>,
   blauerDrache: <b><GradientText colors={['#1ECECF', '#1763CF']}>blauer Drache</GradientText></b>,
+  blauenDrachen: <b><GradientText colors={['#1ECECF', '#1763CF']}>blauen Drachen</GradientText></b>,
 };
 
 
