@@ -92,6 +92,7 @@ type GameStoreContextType = {
     updateStats: (stats: Partial<PlayerStats>) => void;
     updateEconomy: (economy: Partial<PlayerEconomy>) => void;
     updateEquipment: (equipment: Partial<PlayerEquipment>) => void;
+    resetGameData: () => void;
   };
 
 const GameStoreContext = createContext<GameStoreContextType>({
@@ -101,6 +102,7 @@ const GameStoreContext = createContext<GameStoreContextType>({
   updateStats: () => {},
   updateEconomy: () => {},
   updateEquipment: () => {},
+  resetGameData: () => {},
 });
 
 export const useGameStore = () => useContext(GameStoreContext);
@@ -117,6 +119,12 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }, [gameData]);
 
 //--------------------------------------------------------------
+
+    const resetGameData = () => {
+      setGameData(defaultPlayerData);
+    };
+
+//---------------------------------------------------------------
 
     const updateGameData = (data: Partial<PlayerProps>) => {
         setGameData((prev) => ({
@@ -174,6 +182,7 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           updateStats,
           updateEconomy,
           updateEquipment,
+          resetGameData,
         }}
       >
             {children}

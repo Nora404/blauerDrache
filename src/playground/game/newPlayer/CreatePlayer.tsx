@@ -27,7 +27,7 @@ type CreatePlayerProps = {
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { updateStats, updateMeta, updateEconomy } = useGameStore();
+    const { updateStats, updateMeta, updateEconomy, resetGameData } = useGameStore();
 
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [wizardData, setWizardData] = useState<WizardData>({
@@ -90,9 +90,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
     };
 
     useEffect(() => {
-        updateMeta({
-            creating: false,
-        })
+        resetGameData();
     }, []);
 
     return (
