@@ -47,10 +47,9 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
         <div className="max-width">
             <h2>Waffen Laden</h2>
             <p className='mb-1 text-left'>
-                Du öffnest die Tür zum Ausrüstungs Laden. Es wirkt auf dich eher wie eine Abstellkammer oder einem Flohmarkt in einem viel zu kleinen Raum.
-                Hinter einem Berg von Ramsch und Pröll erkennst du eine Person.<br />
-                <GradientText colors={['#C237FF']}> „Willkommen in meiner Fundgrube von wertvollen Helfern und Lebensrettern. Ein Muss für jeden Helden und Nichthelden!“ </GradientText>
-                erklingt ihre Stimme. Du suchst nach diesen „Lebensrettern“, schaust dich um und entdeckst einen besonders chaotischen Haufen, der dich irgendwie anlächelt.
+                Schwerfällig und mit lautem Quietschen öffnet sich die Tür zum Waffenladen. Du bist dir nicht sicher ob hier Waffen oder Haushaltsgegenstände verkauft werden. Neben Messern liegen auch Löffel, Seile, ein Tischholzbein und Glasflaschen. Die offenen Regale, welche mitten im Raum stehen, führen dich weiter in den Raum hinein. In einer Ecke des Ladens steht ein Raumtrenner hinter dem ein sanftes grünes Leuchten schimmert. Bevor du dich ihm nähern kannst kommt ein stämmiger Mann, mittleren alters und frei von Kopfhaaren die dafür gleichmäßig auf seinem Arm verteil sind, auf dich zu.<br />
+                <GradientText colors={['#D1813B']}> „Wie kann ich dir helfen? Brauchst du Waffen, um auf's Feld zu ziehen oder finden deine Schlachten in der Küche statt, was meiner Meinung nach VIEL gefährlicher ist!“  </GradientText>
+                Er scheint sich sehr über seinen Witz zu amüsieren, breitet beide Arme aus und lädt dich ein in seinen Wahren zu stöbern, und vor allem zu kaufen.
             </p><br />
 
             <table width={'500px'}>
@@ -80,10 +79,10 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
                 Die Verkäuferin schaut dich erwartungsvoll an.
                 {localWeapon.name !== "Nichts" && (
                     <>
-                        <GradientText colors={['#C237FF']}>"Für </GradientText>{gameState.selectedWeapon.label}
-                        <GradientText colors={['#C237FF']}> währe ich bereit im Tausch </GradientText>
+                        <GradientText colors={['#D1813B']}>"Für </GradientText>{gameState.selectedWeapon.label}
+                        <GradientText colors={['#D1813B']}> währe ich bereit im Tausch </GradientText>
                         <GradientText colors={['#FFE452']}>{exchangePrice}</GradientText>
-                        <GradientText colors={['#C237FF']}> Gold zu bezahlen"</GradientText>
+                        <GradientText colors={['#D1813B']}> Gold zu bezahlen"</GradientText>
                     </>
                 )}
             </div><br />
