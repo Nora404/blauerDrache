@@ -69,6 +69,83 @@ export const CREATURE: Record<CreatureKeys, JSX.Element> = {
   blauenDrachen: <b><GradientText colors={['#1ECECF', '#1763CF']}>blauen Drachen</GradientText></b>,
 };
 
-
-
+type PlacesKeys =
+  | "Nordtor"
+  | "Westmauer"
+  | "Ostmauer"
+  | "Südmauer"
+  | "Brunnen"
+  | "Vorplatz"
+  | "Kirche"
+  | "Friedhof"
+  | "Rathaus"
+  | "Taverne"
+  | "Handelsbezirk"
+  | "Krämer"
+  | "Waffenladen"
+  | "Ausrüstungsladen"
+  | "Wohnbezirk"
+  | "Gassen"
+  | "Haus"
+  | "Weg"
+  | "Fluss"
+  | "Quelle"
+  | "See"
+  | "Sumpf"
+  | "Waldrand"
+  | "Wald"
+  | "Waldlichtung"
+  | "Dunkelwald"
+  | "Toilletenhaus"
+  | "Wiese"
+  | "Feld"
+  | "Steppe"
+  | "Ödland"
+  | "Hügelland"
+  | "Bergfuß"
+  | "Bergpfad"
+  | "Bergspitze"
+  | "Höhleneingang"
+  | "Höhle"
+  | "Schatzkammer"
+export const PLACES: Record<PlacesKeys, JSX.Element> = {
+  Nordtor: <b><GradientText colors={['#bbbbbb']}>Nordtor</GradientText></b>,
+  Westmauer: <b><GradientText colors={['#bbbbbb']}>Westmauer</GradientText></b>,
+  Ostmauer: <b><GradientText colors={['#bbbbbb']}>Ostmauer</GradientText></b>,
+  Südmauer: <b><GradientText colors={['#bbbbbb']}>Südmauer</GradientText></b>,
+  Brunnen: <b><GradientText colors={['#7ec0d8']}>Brunnen</GradientText></b>,
+  Vorplatz: <b><GradientText colors={['#b0bfbb']}>Vorplatz</GradientText></b>,
+  Kirche: <b><GradientText colors={['#b8b8e6']}>Kirche</GradientText></b>,
+  Friedhof: <b><GradientText colors={['#708bac']}>Friedhof</GradientText></b>,
+  Rathaus: <b><GradientText colors={['#b3a1da']}>Rathaus</GradientText></b>,
+  Taverne: <b><GradientText colors={['#c0afb0']}>Taverne</GradientText></b>,
+  Handelsbezirk: <b><GradientText colors={['#b1b58d']}>Handelsbezirk</GradientText></b>,
+  Krämer: <b><GradientText colors={['#938e91']}>Krämer</GradientText></b>,
+  Waffenladen: <b><GradientText colors={['#ba9db1']}>Waffenladen</GradientText></b>,
+  Ausrüstungsladen: <b><GradientText colors={['#5fa9b4']}>Ausrüstungsladen</GradientText></b>,
+  Wohnbezirk: <b><GradientText colors={['#9986da']}>Wohnbezirk</GradientText></b>,
+  Gassen: <b><GradientText colors={['#708bac']}>Gassen</GradientText></b>,
+  Haus: <b><GradientText colors={['#bad2c4']}>Haus</GradientText></b>,
+  Weg: <b><GradientText colors={['#DEB887']}>Weg</GradientText></b>,
+  Fluss: <b><GradientText colors={['#00BFFF']}>Fluss</GradientText></b>,
+  Quelle: <b><GradientText colors={['#ADD8E6']}>Quelle</GradientText></b>,
+  See: <b><GradientText colors={['#5F9EA0']}>See</GradientText></b>,
+  Sumpf: <b><GradientText colors={['#556B2F']}>Sumpf</GradientText></b>,
+  Waldrand: <b><GradientText colors={['#96c795']}>Waldrand</GradientText></b>,
+  Wald: <b><GradientText colors={['#228B22']}>Wald</GradientText></b>,
+  Waldlichtung: <b><GradientText colors={['#90EE90']}>Waldlichtung</GradientText></b>,
+  Dunkelwald: <b><GradientText colors={['#006400']}>Dunkelwald</GradientText></b>,
+  Toilletenhaus: <b><GradientText colors={['#806865']}>Toilletenhaus</GradientText></b>,
+  Wiese: <b><GradientText colors={['#83a168']}>Wiese</GradientText></b>,
+  Feld: <b><GradientText colors={['#F4A460']}>Feld</GradientText></b>,
+  Steppe: <b><GradientText colors={['#9B9B72']}>Steppe</GradientText></b>,
+  Ödland: <b><GradientText colors={['#A0522D']}>Ödland</GradientText></b>,
+  Hügelland: <b><GradientText colors={['#8B4513']}>Hügelland</GradientText></b>,
+  Bergfuß: <b><GradientText colors={['#4682B4']}>Bergfuß</GradientText></b>,
+  Bergpfad: <b><GradientText colors={['#708090']}>Bergpfad</GradientText></b>,
+  Bergspitze: <b><GradientText colors={['#778899']}>Bergspitze</GradientText></b>,
+  Höhleneingang: <b><GradientText colors={['#2F4F4F']}>Höhleneingang</GradientText></b>,
+  Höhle: <b><GradientText colors={['#696969']}>Höhle</GradientText></b>,
+  Schatzkammer: <b><GradientText colors={['#e1de9d']}>Schatzkammer</GradientText></b>,
+};
 

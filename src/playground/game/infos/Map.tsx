@@ -16,6 +16,8 @@ const Map: React.FC<MapProps> = () => {
                 alt="Karte"
             />
         </div>
+
+
     );
 };
 
