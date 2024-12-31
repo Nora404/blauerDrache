@@ -14,7 +14,7 @@ const EquipmentShopNavi: React.FC<EquipmentShopNaviProps> = () => {
                 <Link to="/equipment-shop">Mit dem <ColoredLetter>Verkäufer</ColoredLetter> sprechen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/equipment-shop'"><ColoredLetter>Laden</ColoredLetter> untersuchen</Link><br />
+                <Link to="/equipment-shop"><ColoredLetter>Laden</ColoredLetter> untersuchen</Link><br />
                 <Link to="/trading-district">Zurück zum <ColoredLetter>Handelsbezirk</ColoredLetter> gehen</Link><br />
             </p>
         </div>

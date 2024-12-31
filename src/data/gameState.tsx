@@ -4,6 +4,8 @@ import { PlayerStats, useGameStore } from './gameStore';
 import { Race, racesMap, Subrace, emptyRaceObj, emptySubraceObj } from './raceData';
 import { feelingMap, Feeling, emptyFeelingObj, getRandomFeeling } from './feelingData';
 import { Calling, callingMap, emptyCallingObj } from './callingData';
+import { Armor, armorMap, emptyArmorObj } from './armorData';
+import { emptyWeaponObj, Weapon, weaponMap } from './weaponData';
 
 type GameStateContextType = {
   gameTime: string;
@@ -12,6 +14,8 @@ type GameStateContextType = {
   selectedOrigin: Subrace;
   selectedCalling: Calling;
   selectedFeeling: Feeling;
+  selectedArmor: Armor;
+  selectedWeapon: Weapon;
   ephemeralStats: Partial<PlayerStats>;
   combinedStats: PlayerStats;
   updateEphemeralStats: (stats: Partial<PlayerStats>) => void;
@@ -35,6 +39,8 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const selectedRace = racesMap[gameStore.meta.rase] || emptyRaceObj;
   const selectedCalling = callingMap[gameStore.meta.calling] || emptyCallingObj;
   const selectedFeeling = feelingMap[gameStore.meta.feeling] || emptyFeelingObj;
+  const selectedArmor = armorMap[gameStore.equipment.armor] || emptyArmorObj;
+  const selectedWeapon = weaponMap[gameStore.equipment.weapon] || emptyWeaponObj;
   const selectedOrigin = selectedRace.subraces.find(
     (subrace) => subrace.name === gameStore.meta.origin
   ) || emptySubraceObj;
@@ -67,6 +73,8 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const tempVal = ephemeralStats[key as keyof PlayerStats] ?? 0;
     combinedStats[key as keyof PlayerStats] = baseVal + tempVal;
   }
+  combinedStats.attack += selectedWeapon.attack;
+  combinedStats.defense += selectedArmor.defense;
 
   //-----------------------------------------------------------------------------------------------
 
@@ -147,6 +155,8 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         selectedOrigin,
         selectedCalling,
         selectedFeeling,
+        selectedArmor,
+        selectedWeapon,
         ephemeralStats,
         combinedStats,
         updateEphemeralStats,

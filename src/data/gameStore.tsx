@@ -193,7 +193,7 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
 // BENUTZEN
 // export default function MyGameComponent() {
-//     const { gameData, updateStats } = useGameStore();
+//     const { gameStore } = useGameStore();
   
 //     const handleLevelUp = () => {
 //       updateStats({

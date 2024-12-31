@@ -26,7 +26,7 @@ const RandomNpcTalking: React.FC<RandomNpcTalkingProps> = () => {
 
     return (
         <span>
-            {name1} {action} {name2} {topic}: &#34;<GradientText colors={['#8CE0D5']}>{dialogue}</GradientText>&#34;
+            {name1} {action} {name2} {topic}: <br />&#34;<GradientText colors={['#8CE0D5']}>{dialogue}</GradientText>&#34;
         </span>
     );
 };

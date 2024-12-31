@@ -148,7 +148,7 @@ export const NpcTopics: Topic[] = [
         ]
     },
     {
-        topic: "über die neuesten Rüstungen und wie albern es ist, dass man immer nur ein Teil tragen darf",
+        topic: "über die neuesten Rüstungen",
         dialogues: [
             "Warum darf man nicht Helm und Brustpanzer gleichzeitig tragen?",
             "Die neue Rüstung glänzt so sehr, dass man sie aus der Ferne sehen kann.",
