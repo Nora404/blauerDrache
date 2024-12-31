@@ -16,10 +16,10 @@ type GameStateContextType = {
   selectedFeeling: Feeling;
   selectedArmor: Armor;
   selectedWeapon: Weapon;
-  ephemeralStats: Partial<PlayerStats>;
+  tempStats: Partial<PlayerStats>;
   combinedStats: PlayerStats;
-  updateEphemeralStats: (stats: Partial<PlayerStats>) => void;
-  clearStast: () => void;
+  updateTempStats: (stats: Partial<PlayerStats>) => void;
+  clearStats: () => void;
 };
 
 export const GameStateContext = createContext<GameStateContextType | null>(null);
@@ -29,8 +29,7 @@ export const useGameState = () => useContext(GameStateContext);
 export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [gameTime, setGameTime] = useState("12:00");
   const [gameDay, setGameDay] = useState("Tag");
-  // const [gameWeather, setGameWeather] = useState("sonnig");
-  // const [gameTemperature, setGameTemperature] = useState("warm");
+  const [tempStats, setTempStats] = useState<Partial<PlayerStats>>({});
 
   const { gameStore, updateMeta } = useGameStore();
 
@@ -41,36 +40,33 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const selectedFeeling = feelingMap[gameStore.meta.feeling] || emptyFeelingObj;
   const selectedArmor = armorMap[gameStore.equipment.armor] || emptyArmorObj;
   const selectedWeapon = weaponMap[gameStore.equipment.weapon] || emptyWeaponObj;
-  const selectedOrigin = selectedRace.subraces.find(
-    (subrace) => subrace.name === gameStore.meta.origin
-  ) || emptySubraceObj;
-
-  const [ephemeralStats, setEphemeralStats] = useState<Partial<PlayerStats>>({});
+  const selectedOrigin =
+    selectedRace.subraces.find((subrace) => subrace.name === gameStore.meta.origin) || emptySubraceObj;
 
   //-----------------------------------------------------------------------------------------------
 
   const clearStast = () => {
-    setEphemeralStats({});
+    setTempStats({});
   }
 
   const updateEphemeralStats = (stats: Partial<PlayerStats>) => {
-    setEphemeralStats((prev) => {
+    setTempStats((prev) => {
       const updated = { ...prev };
-      // Durch alle übertragenen Stats loopen und addieren
+
       for (const key in stats) {
-        // Falls noch kein Wert existiert, 0 annehmen
         const oldVal = updated[key as keyof PlayerStats] ?? 0;
         const newVal = stats[key as keyof PlayerStats] ?? 0;
         updated[key as keyof PlayerStats] = oldVal + newVal;
       }
+
       return updated;
     });
   };
 
   const combinedStats: PlayerStats = { ...gameStore.stats };
-  for (const key in ephemeralStats) {
+  for (const key in tempStats) {
     const baseVal = combinedStats[key as keyof PlayerStats] ?? 0;
-    const tempVal = ephemeralStats[key as keyof PlayerStats] ?? 0;
+    const tempVal = tempStats[key as keyof PlayerStats] ?? 0;
     combinedStats[key as keyof PlayerStats] = baseVal + tempVal;
   }
   combinedStats.attack += selectedWeapon.attack;
@@ -83,12 +79,8 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const now = new Date();
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
-
-      // Gesamtsekunden seit Beginn der Stunde
       const totalSeconds = minutes * 60 + seconds;
-
-      // Berechnung der neuen Stundenanzahl in gameTime
-      const gameHours = (totalSeconds / 3600) * 24; // 24 Stunden entsprechen 60 realen Minuten
+      const gameHours = (totalSeconds / 3600) * 24;
 
       if (gameHours < 6 || gameHours > 20) {
         setGameDay("Nacht");
@@ -99,17 +91,12 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const calculatedHours = Math.floor(gameHours) % 24;
       let calculatedMinutes = Math.floor((gameHours - Math.floor(gameHours)) * 60);
 
-      // Runden der Minuten auf das nächste 10er-Multiplikum
       calculatedMinutes = Math.floor(calculatedMinutes / 10) * 10;
 
-      // Formatierung mit führenden Nullen
       const formattedHours = String(calculatedHours).padStart(2, '0');
       const formattedMinutes = String(calculatedMinutes).padStart(2, '0');
-
-      // Erstellung des neuen Zeitstrings
       const newGameTime = `${formattedHours}:${formattedMinutes}`;
 
-      // Aktualisierung des States, nur wenn sich die Zeit ändert
       if (newGameTime !== gameTime) {
         setGameTime(newGameTime);
       }
@@ -157,10 +144,10 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         selectedFeeling,
         selectedArmor,
         selectedWeapon,
-        ephemeralStats,
+        tempStats: tempStats,
         combinedStats,
-        updateEphemeralStats,
-        clearStast,
+        updateTempStats: updateEphemeralStats,
+        clearStats: clearStast,
       }}
     >
       {children}
