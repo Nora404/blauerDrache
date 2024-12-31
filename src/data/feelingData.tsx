@@ -173,22 +173,22 @@ export const feelingsData: Record<FeelingName, { stats: Partial<PlayerStats> }> 
     },
     Angrifslustig: {
         stats: {
-            attack: 10,
+            attack: 5,
         }
     },
     Wütend: {
         stats: {
-            attack: 10,
+            attack: 5,
         }
     },
     Fröhlich: {
         stats: {
-            defense: 10,
+            defense: 5,
         }
     },
     Misstrauisch: {
         stats: {
-            defense: 10,
+            defense: 5,
         }
     },
 
@@ -228,22 +228,22 @@ export const feelingsData: Record<FeelingName, { stats: Partial<PlayerStats> }> 
     },
     Unsicher: {
         stats: {
-            attack: -10,
+            attack: -5,
         }
     },
     Skeptisch: {
         stats: {
-            attack: -10,
+            attack: -5,
         }
     },
     Leichtsinnig: {
         stats: {
-            defense: -10,
+            defense: -5,
         }
     },
     Erleichtert: {
         stats: {
-            defense: -10,
+            defense: -5,
         }
     }
 }
