@@ -1,14 +1,19 @@
 import { PlacesKeys } from "./colorfullStrings";
 import { PlayerEconomy, PlayerEquipment, PlayerMeta, PlayerStats } from "./gameStore";
 
+export type NextEventOption = {
+    name: string;        // Name des Folge-Events
+    probability: number; // z. B. 70 => 70%
+};
+
 export type GameAction = {
     itemsDelta?: Record<string, number>;
     metaDelta?: Partial<PlayerMeta>
     statsDelta?: Partial<PlayerStats>;
     economyDelta?: Partial<PlayerEconomy>;
     equipmentDelta?: Partial<PlayerEquipment>;
-    nextEvent?: string;  // Name eines weiteren Events, das direkt nach diesem kommt
-    message?: string;    // der Text der angezeigt werden soll
+    nextEvents?: NextEventOption[];
+    message?: string;
 }
 
 export type GameEvent = {
@@ -93,8 +98,12 @@ export const gameEvents: GameEvent[] = [
             {
                 label: "Fee verfolgen",
                 getAction: () => ({
-                    nextEvent: "Eine Schatztruhe!",
                     message: "Du folgst der Fee ... und sie führt dich zu einer Schatztruhe!",
+                    nextEvents: [
+                        { name: "Schatztruhe", probability: 10 },   // 10% Chance, Schatztruhe
+                        { name: "Reingelegt", probability: 60 },     // 60% Chance, Reingelegt
+                        { name: "Fee Verloren", probability: 30 },   // 30% Chance, Fee verloren
+                    ],
                 }),
             },
             {
@@ -117,7 +126,7 @@ export const gameEvents: GameEvent[] = [
     },
 
     {
-        name: "Eine Schatztruhe!",
+        name: "Schatztruhe",
         description: "Du findest eine alte hölzerne Schatztruhe.",
         buttons: [
             {
@@ -144,5 +153,31 @@ export const gameEvents: GameEvent[] = [
                 probability: 10
             }
         ]
+    },
+    {
+        name: "Fee Verloren",
+        description: "Du hast nur einen Augenblick geblinzelt, da war die Fee verschwunden",
+        buttons: [
+            {
+                label: "Mist!",
+                getAction: () => ({
+                    message: "Du drehst um und setzt deinen Weg fort",
+                }),
+            },
+        ],
+        places: []
+    },
+    {
+        name: "Reingelegt",
+        description: "Die Fee bleibt schweben, schaut dich an und verschwindet mit einem Gelächter",
+        buttons: [
+            {
+                label: "Mist",
+                getAction: () => ({
+                    message: "Man sollte keiner Feen vertrauen!",
+                }),
+            },
+        ],
+        places: []
     },
 ]

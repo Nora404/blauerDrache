@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getGameEventByName } from "../../../utility/TriggerEvent";
 import { useApplyGameAction } from "../../../utility/ApplyGameAction";
-import { GameAction } from "../../../data/eventData";
+import { GameAction, NextEventOption } from "../../../data/eventData";
 import Header from "../../../layout/Header/Header";
 import { SYSTEM } from "../../../data/colorfullStrings";
 
@@ -41,8 +41,19 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
         // outcomeMessage
         const newMessage = action.message ?? null;
 
-        // nextEvent
-        let nextEventName: string | null = action.nextEvent ?? null;
+        // ---------------------------------------------------------
+        // Hier kommt die Unterscheidung zwischen nextEvent (einzeln)
+        // und nextEvents[] (mehrere mit Wahrscheinlichkeiten)
+        // ---------------------------------------------------------
+        let nextEventName: string | null = null;
+
+        if (action.nextEvents && action.nextEvents.length > 0) {
+            // Mehrere mögliche Nachfolger => Weighted Random auswählen
+            nextEventName = pickRandomNextEvent(action.nextEvents);
+        } else if (action.nextEvents) {
+            // Nur ein einziger Nachfolger => Direkt übernehmen
+            nextEventName = action.nextEvents[0].name;
+        }
 
         // Kette klonen
         setEventsChain((prevChain) => {
@@ -65,6 +76,31 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
             return updated;
         });
     }
+
+
+    function pickRandomNextEvent(options: NextEventOption[]): string | null {
+        // Summiere alle Wahrscheinlichkeiten
+        const totalProb = options.reduce((sum, opt) => sum + opt.probability, 0);
+        if (totalProb <= 0) {
+            return null;
+        }
+
+        // Zufallszahl in [0..totalProb)
+        let r = Math.random() * totalProb;
+
+        // Iteriere durch die Options
+        for (const opt of options) {
+            if (r <= opt.probability) {
+                return opt.name;
+            }
+            r -= opt.probability;
+        }
+
+        // Fallback, falls irgendetwas schiefläuft
+        return null;
+    }
+
+
 
     return (
         <div className="max-width">
