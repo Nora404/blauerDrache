@@ -143,10 +143,10 @@ Bei einem Schritt nach vorne oder zurück wird immer auch `triggerPossibleEvent(
 Hier wird der Name des Ortes gebraucht, also nicht das Label und damit wird `getEventByPlace(placeName)` aufgerufen.
 Hier wird erst geprüft ob ein Event triggert oder nichts passiert. Bei einem Wert von 0.4 liegt die Warscheinlichkeit das etwas passiert bei 40%. Danach wird geschaut welche Events den Ortsnamen überhaupt haben. Und nun fallen die Würfel, 1-100 Die Liste wird mit dem Ergebnis gefiltert, alle Events deren "probability" unter dem gewürfelten Wert liegt fliegen raus. Aus dem Rest wird dann zufällig ein Event gezogen und Tada: Etwas passiert!
 
-**Eventketten**
+**Eventketten**  
 Und dann wurde ich größenwahnsinnig und wollte zufällige verkettete Ereignisse haben. Bei einer langen Kette sollte sich so eine Geschichte bilden, die auf der Seite zu lesen ist. Darum hat `GameAction` eine Eigenschaft die nextEvents heißt und ein Array von Objekten hat mit `name` und `probability` Der Name muss ein schon vorhandener Eventname sein. Ich werde da vermutlich mal Enums erstellen müssen. Und es wird sinnvoll sein Events nicht in eine Datei zu stecken sondern jedes Event/Eventkette in eine eigene Datei zu schreiben. 
 
-**Verarbeitung**
+**Verarbeitung**  
 Die Verarbeitung der ausgewählten Endscheidungen findet dann in `ApplyGameAction` statt. Es nutzt alle updates aus dem `gameStore` und arbeitet die Infos von `GameAction` ab. 
 
 > Diese Funktion wurde noch nicht ausreichend getestet! 
