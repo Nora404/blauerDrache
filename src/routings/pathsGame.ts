@@ -11,7 +11,7 @@ export enum PathsGame {
     Settings = '/setting',
     // ChooseOrigin = '/choose-origin',
     Map = '/map',
-    Transit = '/transit/:target/:from/:to/:steps',
+    Transit = '/transit/:targetPath/:startPath/:steps',
     NotFound = '*',
 }
 

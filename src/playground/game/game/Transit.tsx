@@ -5,6 +5,7 @@ import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import './Transit.css'
 import { GradientText } from '../../../utility/GradientText';
 import { PLACES, PlacesKeys } from '../../../data/colorfullStrings';
+import { getPlaceLabelFromRoute } from '../../../routings/mappingPathToLabel';
 //#endregion
 
 //#region [prepare]
@@ -14,24 +15,32 @@ type TransitProps = {
 const Transit: React.FC<TransitProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { target } = useParams<{ target: string }>();
-    const { from } = useParams<{ from: string }>();
-    const { to } = useParams<{ to: string }>();
-    const { steps } = useParams<{ steps: string }>();
-    const initialSteps = Number(steps) || 5;
 
+    const { targetPath, startPath, steps } = useParams<{
+        targetPath: string;     // z.B. "path"
+        startPath: string;      // z.B. "north-gate"
+        steps: string;
+    }>();
+
+    const initialSteps = Number(steps) || 5;
     const [currentSteps, setCurrentSteps] = useState<number>(initialSteps);
     //#endregion
 
     //#region [events]
     useEffect(() => {
         if (currentSteps <= 0) {
-            navigate(`/${target}`, { replace: true });
+            navigate(`/${targetPath}`, { replace: true });
         }
+
         if (currentSteps >= initialSteps + 1) {
-            navigate(`/${location}`, { replace: true });
+            const state = location.state as { from?: string } | undefined;
+            if (state?.from) {
+                navigate(state.from, { replace: true });
+            } else {
+                navigate(`/${startPath}`, { replace: true });
+            }
         }
-    }, [currentSteps, target, location]);
+    }, [currentSteps, startPath, targetPath, location, initialSteps, navigate]);
     //#endregion
 
     //#region [handler]
@@ -46,27 +55,15 @@ const Transit: React.FC<TransitProps> = () => {
 
     //#region [helpers]
     const currentStepIndex = initialSteps - currentSteps;
-
-    const getPlaceLabel = (place: string): JSX.Element => {
-        if (Object.prototype.hasOwnProperty.call(PLACES, place)) {
-            return PLACES[place as PlacesKeys];
-        }
-
-        return (
-            <span style={{ color: '#ffffff' }}>
-                <b><GradientText colors={['#ffffff']}>{place}</GradientText></b>
-            </span>
-        );
-    };
     //#endregion
 
     //#region [jsx]
     return (
         <div className='max-width'>
-            <h2>Von {getPlaceLabel(from || '')} nach {getPlaceLabel(to || '')}</h2>
+            <h2>Von {getPlaceLabelFromRoute(startPath || '')} nach {getPlaceLabelFromRoute(targetPath || '')}</h2>
             <p className='mb-1 text-left'>
-                Du ziehst los, um den nächsten Ort zu bereisen. Du stellst fest das du noch <b><GradientText>{currentSteps}</GradientText></b> Schritte brauchst um {getPlaceLabel(to || '')} zu erreichen.
-                Du könntest dich auch einfach umdrehen und zu {getPlaceLabel(from || '')} zurück gehen. Auf so einer Reise könntest du wertvolles finden: Reichtümer, Wissen oder einen qualvollen Tod.
+                Du ziehst los, um den nächsten Ort zu bereisen. Du stellst fest das du noch <b><GradientText>{currentSteps}</GradientText></b> Schritte brauchst um {getPlaceLabelFromRoute(targetPath || '')} zu erreichen.
+                Du kannst dich auch einfach umdrehen und zu {getPlaceLabelFromRoute(startPath || '')} zurück gehen. Auf so einer Reise könntest du wertvolles finden: Reichtümer, Wissen oder einen qualvollen Tod.
             </p><br />
 
             <div className="steps-container">
@@ -80,6 +77,10 @@ const Transit: React.FC<TransitProps> = () => {
                     </React.Fragment>
                 ))}
             </div><br />
+
+            <p className='mb-1 text-left'>
+                Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und unauffällig aus. Es ist schon fast langweilig wie ereignislos die letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzten.
+            </p><br />
 
             {currentSteps > 0 && (
                 <BackAndNextbtn onBack={handleGoBack} onNext={handleGoForward} />
