@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-type PlayerMeta = {
+//#region [prepare]
+export type PlayerMeta = {
     name: string;
     rase: string;
     origin: string;
@@ -13,7 +14,7 @@ type PlayerMeta = {
   };
   
   
-  export type PlayerStats = {
+export type PlayerStats = {
     level: number;
     nextLevel: number;
     exp: number;
@@ -26,27 +27,26 @@ type PlayerMeta = {
     luck: number;
   };
   
-  type PlayerEconomy = {
+export  type PlayerEconomy = {
     gold: number;
     edelsteine: number;
   };
   
-  type PlayerEquipment = {
+export type PlayerEquipment = {
     weapon: string;
     armor: string;
     items: Record<string, number>;
   };
   
-  type PlayerProps = {
+export type PlayerProps = {
     meta: PlayerMeta;
     stats: PlayerStats;
     economy: PlayerEconomy;
     equipment: PlayerEquipment;
   };
+//#endregion
 
-
-//--------------------------------------------------------------
-
+//#region [prepare]
 export const defaultPlayerData: PlayerProps = {
     meta: {
       name: "Nora404",
@@ -82,8 +82,6 @@ export const defaultPlayerData: PlayerProps = {
     },
   };
   
-//--------------------------------------------------------------
-
 type GameStoreContextType = {
     gameStore: PlayerProps;
 
@@ -113,18 +111,18 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         const saved = localStorage.getItem("LdbD-gameData"); 
         return saved ? JSON.parse(saved) : defaultPlayerData;
     });
+//#endregion
 
+//#region [events]
     useEffect(() => {
         localStorage.setItem("LdbD-gameData", JSON.stringify(gameData));
     }, [gameData]);
+//#endregion
 
-//--------------------------------------------------------------
-
+//#region
     const resetGameData = () => {
       setGameData(defaultPlayerData);
     };
-
-//---------------------------------------------------------------
 
     const updateGameData = (data: Partial<PlayerProps>) => {
         setGameData((prev) => ({
@@ -172,6 +170,7 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         },
     }));
     };
+//#endregion
 
     return (
         <GameStoreContext.Provider

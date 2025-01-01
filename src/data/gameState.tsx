@@ -1,3 +1,4 @@
+//#region [imports]
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { TEMPERATURE, WEATHER } from './weatherStrings';
 import { PlayerStats, useGameStore } from './gameStore';
@@ -6,7 +7,10 @@ import { feelingMap, Feeling, emptyFeelingObj, getRandomFeeling } from './feelin
 import { Calling, callingMap, emptyCallingObj } from './callingData';
 import { Armor, armorMap, emptyArmorObj } from './armorData';
 import { emptyWeaponObj, Weapon, weaponMap } from './weaponData';
+import { getRandomArrayElement } from '../utility/RandomArrayElement';
+//#endregion
 
+//#region [prepare]
 type GameStateContextType = {
   gameTime: string;
   gameDay: string;
@@ -33,8 +37,6 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const { gameStore, updateMeta } = useGameStore();
 
-  //-----------------------------------------------------------------------------------------------
-
   const selectedRace = racesMap[gameStore.meta.rase] || emptyRaceObj;
   const selectedCalling = callingMap[gameStore.meta.calling] || emptyCallingObj;
   const selectedFeeling = feelingMap[gameStore.meta.feeling] || emptyFeelingObj;
@@ -42,9 +44,9 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const selectedWeapon = weaponMap[gameStore.equipment.weapon] || emptyWeaponObj;
   const selectedOrigin =
     selectedRace.subraces.find((subrace) => subrace.name === gameStore.meta.origin) || emptySubraceObj;
+  //#endregion
 
-  //-----------------------------------------------------------------------------------------------
-
+  //#region
   const clearStast = () => {
     setTempStats({});
   }
@@ -71,9 +73,9 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }
   combinedStats.attack += selectedWeapon.attack;
   combinedStats.defense += selectedArmor.defense;
+  //#endregion
 
-  //-----------------------------------------------------------------------------------------------
-
+  //#region [events]
   useEffect(() => {
     const updateGameTime = () => {
       const now = new Date();
@@ -112,8 +114,8 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       clearStast();
 
       const { feeling, data } = getRandomFeeling();
-      const weather = getRandomElement(WEATHER);
-      const temperature = getRandomElement(TEMPERATURE);
+      const weather = getRandomArrayElement(WEATHER);
+      const temperature = getRandomArrayElement(TEMPERATURE);
       updateMeta({
         weather,
         temperature,
@@ -124,14 +126,7 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [gameDay]);
 
-  //-----------------------------------------------------------------------------------------------
-
-  const getRandomElement = (array: string[]) => {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-  };
-
-  //-----------------------------------------------------------------------------------------------
+  //#endregion
 
   return (
     <GameStateContext.Provider

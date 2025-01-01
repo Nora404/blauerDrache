@@ -4,8 +4,9 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import './Transit.css'
 import { GradientText } from '../../../utility/GradientText';
-import { PLACES, PlacesKeys } from '../../../data/colorfullStrings';
-import { getPlaceLabelFromRoute } from '../../../routings/mappingPathToLabel';
+import { getPlaceLabelFromRoute, getPlaceNameFromRoute } from '../../../routings/mappingPathToLabel';
+import { getEventByPlace } from '../../../utility/TriggerEvent';
+import GameEvent from './GameEvent';
 //#endregion
 
 //#region [prepare]
@@ -24,6 +25,7 @@ const Transit: React.FC<TransitProps> = () => {
 
     const initialSteps = Number(steps) || 5;
     const [currentSteps, setCurrentSteps] = useState<number>(initialSteps);
+    const [currentEventName, setCurrentEventName] = useState<string | null>(null);
     //#endregion
 
     //#region [events]
@@ -45,11 +47,30 @@ const Transit: React.FC<TransitProps> = () => {
 
     //#region [handler]
     const handleGoForward = () => {
-        setCurrentSteps(prev => prev - 1);
+        setCurrentSteps((prev) => prev - 1);
+        triggerPossibleEvent();
     };
 
     const handleGoBack = () => {
-        setCurrentSteps(prev => prev + 1);
+        setCurrentSteps((prev) => prev + 1);
+        triggerPossibleEvent();
+    };
+
+    function triggerPossibleEvent() {
+        const placeName = getPlaceNameFromRoute(startPath);
+        const gameEvent = getEventByPlace(placeName);
+        if (gameEvent) {
+            setCurrentEventName(gameEvent.name);
+        }
+    }
+
+    const handleCloseEvent = () => {
+        setCurrentEventName(null);
+    };
+
+    // Falls ein Event ein weiteres Event aufrufen will
+    const handleSetNextEvent = (eventName: string) => {
+        setCurrentEventName(eventName);
     };
     //#endregion
 
@@ -78,14 +99,25 @@ const Transit: React.FC<TransitProps> = () => {
                 ))}
             </div><br />
 
-            <p className='mb-1 text-left'>
-                Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und unauffällig aus. Es ist schon fast langweilig wie ereignislos die letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzten.
-            </p><br />
-
-            {currentSteps > 0 && (
+            {(currentSteps > 0 && !currentEventName) && (
                 <BackAndNextbtn onBack={handleGoBack} onNext={handleGoForward} />
             )}
             {currentSteps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
+
+            {currentEventName ? (
+                <GameEvent
+                    currentEventName={currentEventName}
+                    onCloseEvent={handleCloseEvent}
+                    onSetNextEvent={handleSetNextEvent}
+                />
+            ) : (
+                <p className="mb-1 text-left">
+                    Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig
+                    normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die
+                    letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzen.
+                </p>
+            )}
+            <br />
         </div>
     );
     //#endregion

@@ -32,59 +32,59 @@ export const routeToPlaceKey: Record<string, PlacesKeys> = {
 
     // Lahtheim City Limit
     [PathsLahtheimCityLimit.NorthGate.replace('/', '')]: 'Nordtor',
-    [PathsLahtheimCityLimit.WestWall]: 'Westmauer',
-    [PathsLahtheimCityLimit.EastWall]: 'Ostmauer',
-    [PathsLahtheimCityLimit.SouthWall]: 'Südmauer',
+    [PathsLahtheimCityLimit.WestWall.replace('/', '')]: 'Westmauer',
+    [PathsLahtheimCityLimit.EastWall.replace('/', '')]: 'Ostmauer',
+    [PathsLahtheimCityLimit.SouthWall.replace('/', '')]: 'Südmauer',
 
     // Lahtheim Center
-    [PathsLahtheimCenter.Fountain]: 'Brunnen',
-    [PathsLahtheimCenter.Church]: 'Kirche',
-    [PathsLahtheimCenter.Courtyard]: 'Vorplatz',
-    [PathsLahtheimCenter.Graveyard]: 'Friedhof',
-    [PathsLahtheimCenter.Townhall]: 'Rathaus',
+    [PathsLahtheimCenter.Fountain.replace('/', '')]: 'Brunnen',
+    [PathsLahtheimCenter.Church.replace('/', '')]: 'Kirche',
+    [PathsLahtheimCenter.Courtyard.replace('/', '')]: 'Vorplatz',
+    [PathsLahtheimCenter.Graveyard.replace('/', '')]: 'Friedhof',
+    [PathsLahtheimCenter.Townhall.replace('/', '')]: 'Rathaus',
 
     // Lahtheim Trading
-    [PathsLahtheimTrading.TradingDistrict]: 'Handelsbezirk',
-    [PathsLahtheimTrading.GeneralShop]: 'Krämer',
-    [PathsLahtheimTrading.WeaponShop]: 'Waffenladen',
-    [PathsLahtheimTrading.EquipmentShop]: 'Ausrüstungsladen',
-    [PathsLahtheimTrading.Tavern]: 'Taverne',
+    [PathsLahtheimTrading.TradingDistrict.replace('/', '')]: 'Handelsbezirk',
+    [PathsLahtheimTrading.GeneralShop.replace('/', '')]: 'Krämer',
+    [PathsLahtheimTrading.WeaponShop.replace('/', '')]: 'Waffenladen',
+    [PathsLahtheimTrading.EquipmentShop.replace('/', '')]: 'Ausrüstungsladen',
+    [PathsLahtheimTrading.Tavern.replace('/', '')]: 'Taverne',
 
     // Lahtheim Residential
-    [PathsLahtheimResidential.Residential]: 'Wohnbezirk',
-    [PathsLahtheimResidential.Alleys]: 'Gassen',
-    [PathsLahtheimResidential.House]: 'Haus',
+    [PathsLahtheimResidential.Residential.replace('/', '')]: 'Wohnbezirk',
+    [PathsLahtheimResidential.Alleys.replace('/', '')]: 'Gassen',
+    [PathsLahtheimResidential.House.replace('/', '')]: 'Haus',
 
     // Welt: Höhlen
-    [PathsWorldCaves.CaveEntrance]: 'Höhleneingang',
-    [PathsWorldCaves.Cave]: 'Höhle',
-    [PathsWorldCaves.TreasureChamber]: 'Schatzkammer',
+    [PathsWorldCaves.CaveEntrance.replace('/', '')]: 'Höhleneingang',
+    [PathsWorldCaves.Cave.replace('/', '')]: 'Höhle',
+    [PathsWorldCaves.TreasureChamber.replace('/', '')]: 'Schatzkammer',
 
     // Welt: Wälder
-    [PathsWorldForest.Forest]: 'Wald',
-    [PathsWorldForest.DarkForest]: 'Dunkelwald',
-    [PathsWorldForest.ForestClearing]: 'Waldlichtung',
-    [PathsWorldForest.ForestEdge]: 'Waldrand',
+    [PathsWorldForest.Forest.replace('/', '')]: 'Wald',
+    [PathsWorldForest.DarkForest.replace('/', '')]: 'Dunkelwald',
+    [PathsWorldForest.ForestClearing.replace('/', '')]: 'Waldlichtung',
+    [PathsWorldForest.ForestEdge.replace('/', '')]: 'Waldrand',
 
     // Welt: Berge
-    [PathsWorldMountain.HillCountry]: 'Hügelland',
-    [PathsWorldMountain.MountainBase]: 'Bergfuß',
-    [PathsWorldMountain.MountainPath]: 'Bergpfad',
-    [PathsWorldMountain.MountainPeak]: 'Bergspitze',
+    [PathsWorldMountain.HillCountry.replace('/', '')]: 'Hügelland',
+    [PathsWorldMountain.MountainBase.replace('/', '')]: 'Bergfuß',
+    [PathsWorldMountain.MountainPath.replace('/', '')]: 'Bergpfad',
+    [PathsWorldMountain.MountainPeak.replace('/', '')]: 'Bergspitze',
 
     // Welt: Umland
-    [PathsWorldSurroundings.Field]: 'Feld',
-    [PathsWorldSurroundings.Meadow]: 'Wiese',
-    [PathsWorldSurroundings.Outhouse]: 'Toilletenhaus',
+    [PathsWorldSurroundings.Field.replace('/', '')]: 'Feld',
+    [PathsWorldSurroundings.Meadow.replace('/', '')]: 'Wiese',
+    [PathsWorldSurroundings.Outhouse.replace('/', '')]: 'Toilletenhaus',
     [PathsWorldSurroundings.Path.replace('/', '')]: 'Weg',
-    [PathsWorldSurroundings.Steppe]: 'Steppe',
-    [PathsWorldSurroundings.Wasteland]: 'Ödland',
+    [PathsWorldSurroundings.Steppe.replace('/', '')]: 'Steppe',
+    [PathsWorldSurroundings.Wasteland.replace('/', '')]: 'Ödland',
 
     // Welt: Gewässer
-    [PathsWorldWaters.Lake]: 'See',
-    [PathsWorldWaters.River]: 'Fluss',
-    [PathsWorldWaters.Spring]: 'Quelle',
-    [PathsWorldWaters.Swamp]: 'Sumpf',
+    [PathsWorldWaters.Lake.replace('/', '')]: 'See',
+    [PathsWorldWaters.River.replace('/', '')]: 'Fluss',
+    [PathsWorldWaters.Spring.replace('/', '')]: 'Quelle',
+    [PathsWorldWaters.Swamp.replace('/', '')]: 'Sumpf',
 };
 
 /**
@@ -98,4 +98,12 @@ export function getPlaceLabelFromRoute(route: string): JSX.Element {
         <b><GradientText colors={['#ffffff']}>{route}</GradientText></b>
     }
     return PLACES[placeKey];
+}
+
+export function getPlaceNameFromRoute(route: string | undefined): PlacesKeys {
+    if (!route) {
+        return "Brunnen";
+    }
+    const placeKey = routeToPlaceKey[route];
+    return placeKey || "Unbekannt";
 }
