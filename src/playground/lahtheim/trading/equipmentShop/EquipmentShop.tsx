@@ -1,10 +1,13 @@
+//#region [imports]
 import React, { useState } from 'react';
 import { Armor, armors, emptyArmorObj } from '../../../../data/armorData';
 import { useGameState } from '../../../../data/gameState';
 import { GradientText } from '../../../../utility/GradientText';
 import { useGameStore } from '../../../../data/gameStore';
 import { SYSTEM } from '../../../../data/colorfullStrings';
+//#endregion
 
+//#region [prepare]
 type EquipmentShopProps = {
 };
 
@@ -15,7 +18,9 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
     if (!gameState) return null;
 
     const exchangePrice = (gameState.selectedArmor.price / 1.2).toFixed();
+    //#endregion
 
+    //#region [handler]
     const handleClick = (armor: Armor) => {
         setLocalArmor(armor);
     };
@@ -29,7 +34,9 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
             armor: localArmor.name
         })
     }
+    //endregion
 
+    //#region [helper]
     const canBuy = () => {
         const canBuy = gameStore.economy.gold - localArmor.price;
         return canBuy >= 0 ? true : false;
@@ -42,7 +49,9 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
                 : <GradientText colors={['#DB6575']}>du es dir nicht leisten kannst</GradientText>
         )
     }
+    //endregion
 
+    //#region [jsx]
     return (
         <div className="max-width">
             <h2>Ausrüstungs Laden</h2>
@@ -95,6 +104,7 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
 
         </div>
     );
+    //endregion
 };
 
 export default EquipmentShop;

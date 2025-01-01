@@ -1,3 +1,4 @@
+//#region [imports]
 import React from "react";
 import { WizardData } from "./CreatePlayer";
 import { emptyRaceObj } from "../../../data/raceData";
@@ -5,8 +6,10 @@ import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import Header from "../../../layout/Header/Header";
 import { callingMap, CallingName, callings } from "../../../data/callingData";
+//endregion
 
-interface ChooseEquipmentProps {
+//#region [prepare]
+type ChooseEquipmentProps = {
     wizardData: WizardData;
     setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
     onBack: () => void;
@@ -20,15 +23,19 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
     onNext,
 }) => {
 
+    const selectedCalling = callingMap[wizardData.calling] || emptyRaceObj;
+    //#endregion
+
+    //#region [handler]
     const handleCalling = (equipName: CallingName) => {
         setWizardData(prev => ({
             ...prev,
             calling: equipName,
         }));
     };
+    //#endregion
 
-    const selectedCalling = callingMap[wizardData.calling] || emptyRaceObj;
-
+    //#region [jsx]
     return (
         <div className="max-width">
             <Header>Beantworte die Frage der Wächter Wesen</Header><br />
@@ -52,6 +59,7 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
             <BackAndNextbtn onBack={onBack} onNext={onNext} />
         </div>
     );
+    //#endregion
 };
 
 export default ChooseEquipment;

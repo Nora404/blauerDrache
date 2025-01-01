@@ -1,3 +1,4 @@
+//#region [imports]
 import React, { useEffect, useState } from 'react';
 import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
 import { originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceData';
@@ -10,7 +11,9 @@ import PlayerPreview from './PlayerPreview';
 import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, FinalText } from './CreatePlayerStrings';
 import { useNavigate } from 'react-router-dom';
 import { callingDefaults, CallingName } from '../../../data/callingData';
+//#endregion
 
+//#region [prepare]
 export type WizardData = {
     race: RaceName;
     origin: OriginName;
@@ -37,13 +40,21 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         name: "Namenloser Held",
     });
 
-    const goNext = () => setCurrentStep((prev) => prev + 1);
-    const goBack = () => setCurrentStep((prev) => prev - 1);
+    const navigate = useNavigate();
+    //#endregion
 
+    //#region [events]
+    useEffect(() => {
+        resetGameData();
+    }, []);
+    //#endregion
+
+    //#region [handler]  
+    const handleGoNext = () => setCurrentStep((prev) => prev + 1);
+    const handleGoBack = () => setCurrentStep((prev) => prev - 1);
     const handleLastBtn = () => {
         navigate("/new-day");
     }
-    const navigate = useNavigate();
 
     const handleFinalize = () => {
         const raceBase = raceDefaults[wizardData.race] ?? {};
@@ -88,11 +99,9 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             creating: true,
         });
     };
+    //#endregion
 
-    useEffect(() => {
-        resetGameData();
-    }, []);
-
+    //#region [jsx]
     return (
         <div className="max-width">
             <h2>Als was werden dich die Bewohner dieser Welt erkennen?</h2>
@@ -127,30 +136,30 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 <ChooseRace
                     wizardData={wizardData}
                     setWizardData={setWizardData}
-                    onNext={goNext}
+                    onNext={handleGoNext}
                 />
             )}
             {currentStep === 1 && (
                 <ChooseOrigin
                     wizardData={wizardData}
                     setWizardData={setWizardData}
-                    onBack={goBack}
-                    onNext={goNext}
+                    onBack={handleGoBack}
+                    onNext={handleGoNext}
                 />
             )}
             {currentStep === 2 && (
                 <ChooseEquipment
                     wizardData={wizardData}
                     setWizardData={setWizardData}
-                    onBack={goBack}
-                    onNext={goNext}
+                    onBack={handleGoBack}
+                    onNext={handleGoNext}
                 />
             )}
             {currentStep === 3 && (
                 <ChooseName
                     wizardData={wizardData}
                     setWizardData={setWizardData}
-                    onBack={goBack}
+                    onBack={handleGoBack}
                     onFinalize={handleFinalize}
                 />
             )}
@@ -161,6 +170,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             )}
         </div>
     );
+    //#endregion
 };
 
 export default CreatePlayer;

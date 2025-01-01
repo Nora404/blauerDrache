@@ -1,10 +1,13 @@
+//#region [imports]
 import React, { useState } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import { useGameState } from '../../../../data/gameState';
 import { emptyWeaponObj, Weapon, weapons } from '../../../../data/weaponData';
 import { useGameStore } from '../../../../data/gameStore';
 import { SYSTEM } from '../../../../data/colorfullStrings';
+//#endregion
 
+//#region [prepare]
 type WeaponShopProps = {
 };
 
@@ -15,7 +18,9 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
     if (!gameState) return null;
 
     const exchangePrice = (gameState.selectedWeapon.price / 1.2).toFixed();
+    //#endregion
 
+    //#region [handler]
     const handleClick = (Weapon: Weapon) => {
         setLocalWeapon(Weapon);
     };
@@ -29,7 +34,9 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
             weapon: localWeapon.name
         })
     }
+    //#endregion
 
+    //#region [helper]
     const canBuy = () => {
         const canBuy = gameStore.economy.gold - localWeapon.price;
         return canBuy >= 0 ? true : false;
@@ -42,7 +49,9 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
                 : <GradientText colors={['#DB6575']}>du es dir nicht leisten kannst</GradientText>
         )
     }
+    //#endregion
 
+    //#region [jsx]
     return (
         <div className="max-width">
             <h2>Waffen Laden</h2>
@@ -98,6 +107,7 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
 
         </div>
     );
+    //#endregion
 };
 
 export default WeaponShop;

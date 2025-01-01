@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type CreatureTalkProps = {
+type NpcTalkProps = {
     name?: keyof typeof creatureNames;
     color?: string;
     children: ReactNode;
@@ -12,7 +12,7 @@ const creatureNames: Record<string, string> = {
     rotesWesen: "#ff3333",
 };
 
-const CreatureTalk: React.FC<CreatureTalkProps> = ({ name, color, children }) => {
+const NpcTalk: React.FC<NpcTalkProps> = ({ name, color, children }) => {
     const defaultColor = "#eeeeee";
     const textColor = name && creatureNames[name] ? creatureNames[name] : color || defaultColor;
 
@@ -23,5 +23,5 @@ const CreatureTalk: React.FC<CreatureTalkProps> = ({ name, color, children }) =>
     );
 };
 
-export default CreatureTalk;
+export default NpcTalk;
 

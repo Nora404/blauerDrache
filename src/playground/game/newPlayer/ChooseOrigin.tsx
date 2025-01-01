@@ -1,10 +1,13 @@
+//region [imports]
 import React from 'react';
 import PlayerTalk from '../../../utility/PlayerTalk';
 import { emptyRaceObj, emptySubraceObj, OriginName, racesMap } from '../../../data/raceData';
 import Header from '../../../layout/Header/Header';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import { WizardData } from './CreatePlayer';
+//#endregion
 
+//#region [prepare]
 type ChooseOriginProps = {
     wizardData: WizardData;
     setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
@@ -19,19 +22,22 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
     onNext,
 }) => {
 
+    const selectedRace = racesMap[wizardData.race] || emptyRaceObj;
+    const selectedSubrace = selectedRace.subraces.find(
+        (subrace) => subrace.name === wizardData.origin
+    ) || emptySubraceObj;
+    //#endregion
+
+    //#region [handler]
     const handleOrigin = (originName: OriginName) => {
         setWizardData(prev => ({
             ...prev,
             origin: originName,
         }));
     };
+    //#endregion
 
-    const selectedRace = racesMap[wizardData.race] || emptyRaceObj;
-    const selectedSubrace = selectedRace.subraces.find(
-        (subrace) => subrace.name === wizardData.origin
-    ) || emptySubraceObj;
-
-
+    //#region [jsx]
     return (
         <div className="max-width">
             <Header>Beantworte die Frage der Wächter Wesen</Header><br />
@@ -56,6 +62,7 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
 
         </div>
     );
+    //#endregion
 };
 
 export default ChooseOrigin;

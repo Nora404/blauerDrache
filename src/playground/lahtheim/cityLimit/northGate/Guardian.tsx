@@ -1,6 +1,6 @@
 import React from 'react';
 import { CREATURE } from '../../../../data/colorfullStrings';
-import CreatureTalk from '../../../../utility/CreaturTalk';
+import NpcTalk from '../../../../utility/NpcTalk';
 import Header from '../../../../layout/Header/Header';
 
 type GuardianProps = {
@@ -16,12 +16,12 @@ const Guardian: React.FC<GuardianProps> = () => {
             </p>
 
             <p className='mb-1 text-left'>
-                <CreatureTalk name="rotesWesen"> "Was willst du?" </CreatureTalk>
+                <NpcTalk name="rotesWesen"> "Was willst du?" </NpcTalk>
                 fragt {CREATURE.rotesWesen} und schaut dich grimmig an.
             </p>
 
             <p className='mb-1 text-left'>
-                <CreatureTalk name="blauesWesen"> "Können wir dir helfen?" </CreatureTalk>
+                <NpcTalk name="blauesWesen"> "Können wir dir helfen?" </NpcTalk>
                 fragt {CREATURE.blauesWesen} und zaubert aus dem Nichts ein Notizblock. Es schaut dich aufmerksam an.
             </p><br />
 

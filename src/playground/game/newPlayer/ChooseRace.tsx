@@ -1,28 +1,33 @@
+//#region [imports]
 import React from "react";
 import { SYSTEM } from "../../../data/colorfullStrings";
 import { RaceName, races, racesMap } from "../../../data/raceData";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import { WizardData } from "./CreatePlayer";
 import Header from "../../../layout/Header/Header";
+//#endregion
 
-
-interface ChooseRaceProps {
+//#region [prepare]
+type ChooseRaceProps = {
     wizardData: WizardData;
     setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
     onNext: () => void;
 }
 
 const ChooseRace: React.FC<ChooseRaceProps> = ({ wizardData, setWizardData, onNext }) => {
+    const selectedRace = racesMap[wizardData.race];
+    //#endregion
 
+    //#region [handler]
     const handleRase = (raceName: RaceName) => {
         setWizardData(prev => ({
             ...prev,
             race: raceName,
         }));
     };
+    //#endregion
 
-    const selectedRace = racesMap[wizardData.race];
-
+    //#region [jsx]
     return (
         <div className="max-width">
             <Header>Beantworte die Frage der Wächter Wesen</Header><br />
@@ -49,6 +54,7 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ wizardData, setWizardData, onNe
 
         </div>
     );
+    //#endregion
 };
 
 export default ChooseRace;

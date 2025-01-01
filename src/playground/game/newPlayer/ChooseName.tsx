@@ -1,10 +1,13 @@
+//#region [imports]
 import React, { } from "react";
 import { WizardData } from "./CreatePlayer";
 import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
 import Header from "../../../layout/Header/Header";
 import PlayerTalk from "../../../utility/PlayerTalk";
+//#endregion
 
-interface ChooseNameProps {
+//#region [prepare]
+type ChooseNameProps = {
     wizardData: WizardData;
     setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
     onBack: () => void;
@@ -17,14 +20,18 @@ const ChooseName: React.FC<ChooseNameProps> = ({
     onBack,
     onFinalize,
 }) => {
+    //#endregion
 
+    //#region [handler]
     const handleNameChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setWizardData(prev => ({
             ...prev,
             name: evt.target.value,
         }));
     };
+    //#endregion
 
+    //#region [jsx]
     return (
         <div>
             <Header>Beantworte die Frage der Wächter Wesen</Header>
@@ -46,6 +53,7 @@ const ChooseName: React.FC<ChooseNameProps> = ({
             <BackAndNextbtn onBack={onBack} onNext={onFinalize} nextBtn="fertig" />
         </div>
     );
+    //#endregion
 };
 
 export default ChooseName;

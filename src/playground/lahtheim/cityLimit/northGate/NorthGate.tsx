@@ -1,14 +1,17 @@
+//#region [imports]
 import React, { } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import RandomSentence from '../../../../utility/RandomSentence';
 import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../../../../data/randomSentenceData';
 import Header from '../../../../layout/Header/Header';
 import { CREATURE } from '../../../../data/colorfullStrings';
-import CreatureTalk from '../../../../utility/CreaturTalk';
+import NpcTalk from '../../../../utility/NpcTalk';
 import drache from '../../../../assets/drache-01.png';
 import { useGameState } from '../../../../data/gameState';
 import { useGameStore } from '../../../../data/gameStore';
+//#endregion
 
+//#region [prepare]
 type NorthGateProps = {
     title?: string;
     onClick?: () => void;
@@ -20,7 +23,9 @@ const NorthGate: React.FC<NorthGateProps> = () => {
     if (!gameState) return null;
 
     const { gameTime, gameDay } = gameState;
+    //#endregion
 
+    //#region [jsx]
     return (
         <div className='max-width'>
             <p className='mb-1'>
@@ -46,10 +51,10 @@ const NorthGate: React.FC<NorthGateProps> = () => {
                 </p>
 
                 <p className='mb-1'>
-                    <CreatureTalk name="geflügeltesWesen">
+                    <NpcTalk name="geflügeltesWesen">
                         „Willkommen in Lahtheim! Bist du hier, um vor den Bezwingern des {CREATURE.grünerDrache} zu fliehen?
                         In unserem Dorf ist Platz für dich. Sei nett, dann darfst du vielleicht einmal den {CREATURE.blauerDrache} besuchen.“
-                    </CreatureTalk>
+                    </NpcTalk>
                 </p>
 
                 <p className='mb-1'>
@@ -74,6 +79,7 @@ const NorthGate: React.FC<NorthGateProps> = () => {
             </div>
         </div>
     );
+    //#endregion
 };
 
 export default NorthGate;
