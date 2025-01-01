@@ -1,13 +1,12 @@
 //#region [imports]
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
-import './Transit.css'
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { GradientText } from '../../../utility/GradientText';
 import { getPlaceLabelFromRoute, getPlaceNameFromRoute } from '../../../routings/mappingPathToLabel';
 import { getEventByPlace } from '../../../utility/TriggerEvent';
-import GameEvent from './GameEvent';
 import { GameEventChain } from './GameEventChain';
+import './Transit.css'
 //#endregion
 
 //#region [prepare]
@@ -26,7 +25,6 @@ const Transit: React.FC<TransitProps> = () => {
 
     const initialSteps = Number(steps) || 5;
     const [currentSteps, setCurrentSteps] = useState<number>(initialSteps);
-    const [currentEventName, setCurrentEventName] = useState<string | null>(null);
     const [eventChainActive, setEventChainActive] = useState<string | null>(null);
     //#endregion
 
@@ -58,15 +56,7 @@ const Transit: React.FC<TransitProps> = () => {
         triggerPossibleEvent();
     };
 
-    const handleCloseEvent = () => {
-        setCurrentEventName(null);
-    };
-
-    const handleSetNextEvent = (eventName: string) => {
-        setCurrentEventName(eventName);
-    };
-
-    function handleFinishEventChain() {
+    const handleFinishEventChain = () => {
         setEventChainActive(null);
     }
     //#endregion

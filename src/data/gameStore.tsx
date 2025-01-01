@@ -107,7 +107,7 @@ export const useGameStore = () => useContext(GameStoreContext);
 
 export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     
-    const [gameData, setGameData] = useState<PlayerProps>(() => {
+    const [gameStore, setGameData] = useState<PlayerProps>(() => {
         const saved = localStorage.getItem("LdbD-gameData"); 
         return saved ? JSON.parse(saved) : defaultPlayerData;
     });
@@ -115,8 +115,8 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
 //#region [events]
     useEffect(() => {
-        localStorage.setItem("LdbD-gameData", JSON.stringify(gameData));
-    }, [gameData]);
+        localStorage.setItem("LdbD-gameData", JSON.stringify(gameStore));
+    }, [gameStore]);
 //#endregion
 
 //#region
@@ -175,7 +175,7 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return (
         <GameStoreContext.Provider
         value={{
-          gameStore: gameData,
+          gameStore,
           updateGameData,
           updateMeta,
           updateStats,
