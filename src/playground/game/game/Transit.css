@@ -1,0 +1,35 @@
+.steps-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    max-width: 600px;
+}
+
+.step {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(98, 176, 212);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    font-weight: bold;
+    position: relative;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.step.active {
+    border: 2px solid rgb(134, 129, 77);
+    background-color: rgba(220, 210, 125);
+    color: rgba(220, 210, 125);
+    transform: scale(1.2);
+}
+
+.step-line {
+    flex: 1;
+    height: 3px;
+    background-color: rgba(98, 176, 212);
+    transition: background-color 0.3s ease;
+}
