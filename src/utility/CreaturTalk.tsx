@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
 type CreatureTalkProps = {
-    name: string;
+    name?: keyof typeof creatureNames;
+    color?: string;
     children: ReactNode;
 };
 
@@ -11,16 +12,12 @@ const creatureNames: Record<string, string> = {
     rotesWesen: "#ff3333",
 };
 
-const CreatureTalk: React.FC<CreatureTalkProps> = ({ name, children }) => {
-    let color = creatureNames[name];
-
-    if (!color) {
-        console.error(`Unbekannter Creature-Name: ${name}`);
-        color = "#eeeeee"
-    }
+const CreatureTalk: React.FC<CreatureTalkProps> = ({ name, color, children }) => {
+    const defaultColor = "#eeeeee";
+    const textColor = name && creatureNames[name] ? creatureNames[name] : color || defaultColor;
 
     return (
-        <span style={{ color }}>
+        <span style={{ color: textColor }}>
             <i>{children}</i>
         </span>
     );

@@ -76,12 +76,12 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
                 Du zeigst interesse an {localArmor.label}&nbsp;
                 {localArmor.name !== "Nichts" && (
                     <>und liest auf einem kleinen Schild daneben den Preis von <GradientText colors={['#FFE452']}>{localArmor.price}</GradientText>.
-                        Nach einem Blick in deinen Goldbeutel ernnst du dass {showText()}.&nbsp;</>)}
+                        Nach einem Blick in deinen Goldbeutel ernnst du, dass {showText()}.&nbsp;</>)}
                 Die Verkäuferin schaut dich erwartungsvoll an.
                 {localArmor.name !== "Nichts" && (
                     <>
                         <GradientText colors={['#C237FF']}>"Für </GradientText>{gameState.selectedArmor.label}
-                        <GradientText colors={['#C237FF']}> währe ich bereit im Tausch </GradientText>
+                        <GradientText colors={['#C237FF']}> wäre ich bereit im Tausch </GradientText>
                         <GradientText colors={['#FFE452']}>{exchangePrice}</GradientText>
                         <GradientText colors={['#C237FF']}> Gold zu bezahlen"</GradientText>
                     </>

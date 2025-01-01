@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGameState } from '../../../../data/gameState';
-import { GradientText } from '../../../../utility/GradientText';
 import Header from '../../../../layout/Header/Header';
 import RandomNpcTalking from '../../../../utility/RandomNpcTalking';
 import { PLACES } from '../../../../data/colorfullStrings';
