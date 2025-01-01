@@ -19,7 +19,7 @@ const BackAndNextbtn: React.FC<BackAndNextBtnProps> = ({ onBack, onNext, backBtn
     }
 
     return (
-        <div className='flex-row max-width'>
+        <div className='flex-row max-width no-select'>
             <div onClick={handleBack} style={{ width: "50%" }}>
                 {backBtn === "zurück" ? SYSTEM.zurück : SYSTEM.abbrechen}
             </div>

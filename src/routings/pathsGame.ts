@@ -18,6 +18,7 @@ export enum PathsGame {
 const Start = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGate'));
 const NotFoundPage = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGate'));
 const NorthGateNavi = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGateNavi'));
+const EmptyNavi = lazy(() => import('../playground/game/infos/EmptyNavi'));
 
 const CreatePlayer = lazy(() => import('../playground/game/newPlayer/CreatePlayer'));
 const PlayerInfo = lazy(() => import('../playground/game/infos/PlayerInfo'));
@@ -70,5 +71,6 @@ export const routesGame: RouteConfig[] = [
     {
         path: PathsGame.Transit,
         element: Transit,
+        navigation: EmptyNavi,
     },
 ];
