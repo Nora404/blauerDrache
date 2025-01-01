@@ -98,15 +98,55 @@ In dem Enum welches den Path beschreibt müssen nur die Parameternamen genannt w
 
 ```typescript
 export enum PathsGame {
-    Transit = '/transit/:target/:from/:to/:steps',
+    Transit = '/transit/:targetPath/:startPath/:steps',
 }
 ```
 ```typescript
-<Link to="/transit/path/Nordtor/Weg/6" state={{ from: location.pathname }}>Dem Weg folgen</Link>
+<Link to="/transit/path/start/6" state={{ from: location.pathname }}>Dem Weg folgen</Link>
 ```
 ```typescript
-  const { target } = useParams<{ target: string }>();
-  const { from } = useParams<{ from: string }>();
-  const { to } = useParams<{ to: string }>();
-  const { steps } = useParams<{ steps: string }>();
+    const { targetPath, startPath, steps } = useParams<{
+        targetPath: string;
+        startPath: string;
+        steps: string;
+    }>();
 ```
+
+Jetzt wollte ich aber das die Namen der Orte aus `colorfullStrings` der Konstanten 'PLACES' genommen werden.
+Da in targetPath und startPath, wie der Name schon sagt, nur der "path" steckt, brauchte ich ein Mapping um meine bunten deutschen Wörter zu bekommen. Dafür nutze ich die Enums in den path-Dateien, ich muss nur den / weg bekommen.
+In useParam werden die interessanterweise nicht mitgeliefert. Mit `getPlaceLabelFromRoute` und `getPlaceNameFromRoute`
+bekommt man nun sowohl bunten, als auch normalen Text zurück
+
+> Wichtig! Denk daran beim erstellen einer neuen Route es auch mit ins Mapping aufzunehmen
+
+### Zufällige Events und Eventketten
+Beim "Transit" werden auch die `steps` angegeben. Das sind die Schritte bis zum nächsten Ort. Während dessen sollen zufällige Events erscheinen, oder auch nicht. Es gibt verschiedene Möglichkeiten mit ihnen zu interagieren und es passiert auch unterschiedliches. Es sollte sogar Ketten geben, folge Events die ebenfalls zufällig sind. Alle mit einer bestimmten Warscheinlichkeit. 
+Ich hatte eine konkrete Idee, aber bei der Umsetztung musste mir wieder ChatGpt helfen. 
+
+```typescript
+export type GameEvent = {
+    name: string;                       // Der Name des Events, wichtig bei Folge-Events!
+    description: string;                // Eine Beschreibung was passiert
+    buttons: {                          // Hiermit kann der Spieler interagieren
+        label: string;                  // Es kann beliebig viele Buttons haben
+        getAction: () => GameAction;    // Nur eine Auflisten was sich ändert, nicht wie es sich ändert
+    }[];                                // Das wird in einer seperaten Datei/Funktion gemacht
+    places: {                           // Hier werden die Orte und die Warscheinlichkeit aufgelistet
+        place: PlacesKeys;              // Der Ort ist immer `startPath`
+        probability:                    // Liegt zwischen 1 (unmöglich) und 100 (immer)
+    }[];
+}
+```
+
+**Zufällige Events**   
+Bei einem Schritt nach vorne oder zurück wird immer auch `triggerPossibleEvent()` aufgerufen.
+Hier wird der Name des Ortes gebraucht, also nicht das Label und damit wird `getEventByPlace(placeName)` aufgerufen.
+Hier wird erst geprüft ob ein Event triggert oder nichts passiert. Bei einem Wert von 0.4 liegt die Warscheinlichkeit das etwas passiert bei 40%. Danach wird geschaut welche Events den Ortsnamen überhaupt haben. Und nun fallen die Würfel, 1-100 Die Liste wird mit dem Ergebnis gefiltert, alle deren "probability" unter dem gewürfelten Event liegt fliegen raus. Aus dem Rest wird dann zufällig ein Event gezogen und Tada: Etwas passiert!
+
+**Eventketten**
+Und dann wurde ich größenwahnsinnig und wollte zufällige verkettete Ereignisse haben. Bei einer langen Kette sollte sich so eine Geschichte bilden, die auf der Seite zu lesen ist. Darum hat `GameAction` eine Eigenschaft die nextEvents heißt und ein Array von Objekten hat mit `name` und `probability` Der Name muss ein schon vorhandener Eventname sein. Ich werde da vermutlich mal Enums erstellen müssen. Und es wird sinnvoll sein Events nicht in eine Datei zu stecken sondern jedes Event/Eventkette in eine eigene Datei zu schreiben. 
+
+**Verarbeitung**
+Die Verarbeitung der ausgewählten Endscheidungen findet dann in `ApplyGameAction` statt. Es nutzt alle updates aus dem `gameStore` und arbeitet die Infos von `GameAction` ab. 
+
+> Diese Funktion wurde noch nicht ausreichend getestet! 
