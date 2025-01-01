@@ -6,8 +6,8 @@ import { GameEvent, gameEvents } from "../data/eventData";
  * wenn kein Event getriggert wird.
  */
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
-    // 60%-Chance dass überhaupt was passiert
-    if (Math.random() > 0.6) {
+    // 40%-Chance dass überhaupt was passiert
+    if (Math.random() > 0.4) {
         return null;
     }
 

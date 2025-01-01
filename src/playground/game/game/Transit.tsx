@@ -7,6 +7,7 @@ import { GradientText } from '../../../utility/GradientText';
 import { getPlaceLabelFromRoute, getPlaceNameFromRoute } from '../../../routings/mappingPathToLabel';
 import { getEventByPlace } from '../../../utility/TriggerEvent';
 import GameEvent from './GameEvent';
+import { GameEventChain } from './GameEventChain';
 //#endregion
 
 //#region [prepare]
@@ -26,6 +27,7 @@ const Transit: React.FC<TransitProps> = () => {
     const initialSteps = Number(steps) || 5;
     const [currentSteps, setCurrentSteps] = useState<number>(initialSteps);
     const [currentEventName, setCurrentEventName] = useState<string | null>(null);
+    const [eventChainActive, setEventChainActive] = useState<string | null>(null);
     //#endregion
 
     //#region [events]
@@ -56,26 +58,29 @@ const Transit: React.FC<TransitProps> = () => {
         triggerPossibleEvent();
     };
 
-    function triggerPossibleEvent() {
-        const placeName = getPlaceNameFromRoute(startPath);
-        const gameEvent = getEventByPlace(placeName);
-        if (gameEvent) {
-            setCurrentEventName(gameEvent.name);
-        }
-    }
-
     const handleCloseEvent = () => {
         setCurrentEventName(null);
     };
 
-    // Falls ein Event ein weiteres Event aufrufen will
     const handleSetNextEvent = (eventName: string) => {
         setCurrentEventName(eventName);
     };
+
+    function handleFinishEventChain() {
+        setEventChainActive(null);
+    }
     //#endregion
 
     //#region [helpers]
     const currentStepIndex = initialSteps - currentSteps;
+
+    const triggerPossibleEvent = () => {
+        const placeName = getPlaceNameFromRoute(startPath);
+        const gameEvent = getEventByPlace(placeName);
+        if (gameEvent) {
+            setEventChainActive(gameEvent.name);
+        }
+    }
     //#endregion
 
     //#region [jsx]
@@ -99,16 +104,15 @@ const Transit: React.FC<TransitProps> = () => {
                 ))}
             </div><br />
 
-            {(currentSteps > 0 && !currentEventName) && (
+            {(currentSteps > 0 && !eventChainActive) && (
                 <BackAndNextbtn onBack={handleGoBack} onNext={handleGoForward} />
             )}
             {currentSteps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
-
-            {currentEventName ? (
-                <GameEvent
-                    currentEventName={currentEventName}
-                    onCloseEvent={handleCloseEvent}
-                    onSetNextEvent={handleSetNextEvent}
+            <br />
+            {eventChainActive ? (
+                <GameEventChain
+                    initialEventName={eventChainActive}
+                    onFinishChain={handleFinishEventChain}
                 />
             ) : (
                 <p className="mb-1 text-left">

@@ -91,7 +91,7 @@ export const gameEvents: GameEvent[] = [
         description: "Eine Fee taucht auf und kichert leise.",
         buttons: [
             {
-                label: "Fehl verfolgen",
+                label: "Fee verfolgen",
                 getAction: () => ({
                     nextEvent: "Eine Schatztruhe!",
                     message: "Du folgst der Fee ... und sie führt dich zu einer Schatztruhe!",
@@ -111,7 +111,7 @@ export const gameEvents: GameEvent[] = [
             },
             {
                 place: "Nordtor",
-                probability: 5
+                probability: 90
             }
         ]
     },
@@ -123,7 +123,7 @@ export const gameEvents: GameEvent[] = [
             {
                 label: "Öffnen",
                 getAction: () => ({
-                    goldDelta: 50,
+                    economyDelta: { gold: 50 },
                     message: "Du findest 50 Gold!",
                 }),
             },
