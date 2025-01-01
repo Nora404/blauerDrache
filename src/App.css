@@ -71,6 +71,12 @@
   flex-direction: row;
 }
 
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .w-full {
   width: 100%;
 }

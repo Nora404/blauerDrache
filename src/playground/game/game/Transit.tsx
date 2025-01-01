@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import './Transit.css'
+import { GradientText } from '../../../utility/GradientText';
+import { PLACES, PlacesKeys } from '../../../data/colorfullStrings';
 //#endregion
 
 //#region [prepare]
@@ -44,15 +46,28 @@ const Transit: React.FC<TransitProps> = () => {
 
     //#region [helpers]
     const currentStepIndex = initialSteps - currentSteps;
+
+    const getPlaceLabel = (place: string): JSX.Element => {
+        if (Object.prototype.hasOwnProperty.call(PLACES, place)) {
+            return PLACES[place as PlacesKeys];
+        }
+
+        return (
+            <span style={{ color: '#ffffff' }}>
+                <b><GradientText colors={['#ffffff']}>{place}</GradientText></b>
+            </span>
+        );
+    };
     //#endregion
 
     //#region [jsx]
     return (
-        <div>
-            <h2>Von {from} nach {to}</h2>
+        <div className='max-width'>
+            <h2>Von {getPlaceLabel(from || '')} nach {getPlaceLabel(to || '')}</h2>
             <p className='mb-1 text-left'>
-                Es sind noch {currentSteps} Schritte bis zu deinem Ziel.
-            </p>
+                Du ziehst los, um den nächsten Ort zu bereisen. Du stellst fest das du noch <b><GradientText>{currentSteps}</GradientText></b> Schritte brauchst um {getPlaceLabel(to || '')} zu erreichen.
+                Du könntest dich auch einfach umdrehen und zu {getPlaceLabel(from || '')} zurück gehen. Auf so einer Reise könntest du wertvolles finden: Reichtümer, Wissen oder einen qualvollen Tod.
+            </p><br />
 
             <div className="steps-container">
                 {Array.from({ length: initialSteps }).map((_, index) => (

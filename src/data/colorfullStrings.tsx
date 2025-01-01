@@ -69,7 +69,7 @@ export const CREATURE: Record<CreatureKeys, JSX.Element> = {
   blauenDrachen: <b><GradientText colors={['#1ECECF', '#1763CF']}>blauen Drachen</GradientText></b>,
 };
 
-type PlacesKeys =
+export type PlacesKeys =
   | "Nordtor"
   | "Westmauer"
   | "Ostmauer"
