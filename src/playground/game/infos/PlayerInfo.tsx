@@ -2,9 +2,9 @@ import React from 'react';
 import { useGameStore } from '../../../data/gameStore';
 import { useGameState } from '../../../data/gameState';
 import Header from '../../../layout/Header/Header';
-import { useApplyGameAction } from '../../../utility/ApplyGameAction';
-import { getCombinedStats, useNewGameStore } from '../../../store/newGameStore';
+import { getCombinedStats, Item, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
+import { PlayerInventory } from './PlayerInventory';
 
 type PlayerInfoProps = {
 };
@@ -20,8 +20,18 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
 
     //TEST
-    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, newDay, resetGameData } = useNewGameStore();
+    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, consumeItem, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
+
+    const apple: Item = {
+        name: "Apfel",
+        description: "Ein saftiger roter Apfel. Heilt 5 Lebenspunkte.",
+        effects: { life: 5 },
+    };
+    const stick: Item = {
+        name: "Stock",
+        description: "Ein einfacher Stock",
+    };
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -57,6 +67,15 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     const handleBuff2 = () => {
         const newBuff = { name: "Glück", stats: { luck: 10 } };
         updatePlayerBuff(newBuff);
+    }
+    const handelAddAppel = () => {
+        updateItems(apple, 2);
+    }
+    const handleRemoveAppel = () => {
+        updateItems(apple, -1);
+    }
+    const handelAddStick = () => {
+        updateItems(stick, 1);
     }
 
     return (
@@ -127,6 +146,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 </ul>
             )}
 
+            <PlayerInventory />
+
             <GradientText>Feeling: {store.playerFlux.feeling.name}</GradientText> <br />
             <GradientText>angriff: {store.playerFlux.feeling.stats.attack}</GradientText><br />
             <GradientText>vert: {store.playerFlux.feeling.stats.defense}</GradientText><br />
@@ -149,6 +170,10 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <button onClick={handleWeaponOff}>Nimm die Waffe runter (-5 att)</button>
             <button onClick={handleBuff1}>Bekomme Buff Stärke</button>
             <button onClick={handleBuff2}>Bekomme Buff Glück</button>
+
+            <button onClick={handelAddStick}>Nimm Stock</button>
+            <button onClick={handelAddAppel}>Nimm 2 Äpfel</button>
+            <button onClick={handleRemoveAppel}>wirf einen Apfel weg</button>
         </div>
     );
 };

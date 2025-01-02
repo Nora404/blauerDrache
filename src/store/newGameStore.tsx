@@ -50,10 +50,15 @@ export type PlayerFlux = {
     armor: PlayerStatsObject;
 };
 
+export type Item = {
+    name: string; // Name des Items
+    description: string; // Mini-Beschreibung
+    effects?: Partial<PlayerStats>; // Optionale Effekte (z.B. Heilung)
+};
 export type PlayerEconomy = {
     gold: number;
     edelsteine: number;
-    items: Partial<Record<string, number>>;
+    items: Record<string, { item: Item, quantity: number }>;
 };
 //#endregion
 
@@ -130,11 +135,13 @@ type GameStoreContextType = {
     setPlayerEconomy: (val: Partial<PlayerEconomy>) => void;
 
     resetGameData: () => void;
+    consumeItem: (itemName: string) => void;
     newDay: () => void;
 
     updateGameSwitch: (key: string, value: boolean) => void; // oder (switchName: SwitchName, value: boolean)
     updatePlayerBuff: (buff: PlayerStatsObject) => void;
     updatePlayerDebuff: (debuff: PlayerStatsObject) => void;
+    updateItems: (item: Item, quantity: number) => void;
     updateLife: (delta: number) => void;
     updateRounds: (delta: number) => void;
 };
@@ -164,7 +171,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     useEffect(() => {
         const intervalId = setInterval(() => {
             updateGameTime();
-        }, 1000);
+        }, 10000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -348,7 +355,72 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         });
     };
 
-    // usw., je nach Bedarf
+    const updateItems = (item: Item, quantity: number) => {
+        setStore((prev) => {
+            const currentItem = prev.playerEconomy.items[item.name];
+            const currentQuantity = currentItem ? currentItem.quantity : 0;
+
+            const newQuantity = currentQuantity + quantity;
+
+            const updatedItems = { ...prev.playerEconomy.items };
+
+            if (newQuantity > 0) {
+                updatedItems[item.name] = { quantity: newQuantity, item }; // Item hinzufügen/aktualisieren
+            } else if (newQuantity <= 0) {
+                delete updatedItems[item.name]; // Item entfernen, wenn Menge <= 0
+            }
+
+            return {
+                ...prev,
+                playerEconomy: {
+                    ...prev.playerEconomy,
+                    items: updatedItems,
+                },
+            };
+        });
+    };
+
+    const consumeItem = (itemName: string) => {
+        setStore((prev) => {
+            const currentItem = prev.playerEconomy.items[itemName];
+            if (!currentItem || currentItem.quantity <= 0) {
+                console.log(`${itemName} ist nicht im Inventar.`);
+                return prev;
+            }
+
+            const { effects } = currentItem.item;
+
+            // Effekte anwenden
+            const newPlayerStats = { ...prev.playerStats };
+            if (effects) {
+                newPlayerStats.life = Math.min(
+                    newPlayerStats.life + (effects.life || 0),
+                    prev.playerInfo.maxLife
+                );
+                newPlayerStats.attack += effects.attack || 0;
+                newPlayerStats.defense += effects.defense || 0;
+                newPlayerStats.luck += effects.luck || 0;
+            }
+
+            // Menge reduzieren
+            const updatedItems = { ...prev.playerEconomy.items };
+            const newQuantity = currentItem.quantity - 1;
+            if (newQuantity > 0) {
+                updatedItems[itemName] = { ...currentItem, quantity: newQuantity };
+            } else {
+                delete updatedItems[itemName]; // Löschen, wenn keine mehr übrig
+            }
+
+            return {
+                ...prev,
+                playerEconomy: {
+                    ...prev.playerEconomy,
+                    items: updatedItems,
+                },
+                playerStats: newPlayerStats,
+            };
+        });
+    };
     //#endregion
 
     const contextValue: GameStoreContextType = {
@@ -362,9 +434,11 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setPlayerEconomy,
         resetGameData,
         newDay,
+        consumeItem,
         updateGameSwitch,
         updatePlayerBuff,
         updatePlayerDebuff,
+        updateItems,
         updateLife,
         updateRounds,
     };
