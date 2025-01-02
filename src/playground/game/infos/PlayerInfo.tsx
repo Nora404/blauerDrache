@@ -20,7 +20,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
 
     //TEST
-    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, newDay } = useNewGameStore();
+    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
 
     const handelLifeAdd = () => {
@@ -38,6 +38,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     }
     const handleNewDay = () => {
         newDay();
+    }
+    const handleReset = () => {
+        resetGameData();
     }
     const handleWeapon = () => {
         const weapon = { name: "Schwert", stats: { attack: 5 } }
@@ -100,11 +103,10 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <GradientText>Defence: {store.playerStats.defense}</GradientText> ---
             <GradientText>Defence von Combi: {combined.defense}</GradientText><br />
             <GradientText>Glück: {store.playerStats.luck}</GradientText> ---
-            <GradientText>Glück von Combi: {combined.luck}</GradientText><br />
+            <GradientText>Glück von Combi: {combined.luck}</GradientText><br /><br />
 
-            <GradientText>Temperatur: {store.gameState.temperature}</GradientText><br /><br />
+            <GradientText>Temperatur: {store.gameState.temperature}</GradientText><br />
             <GradientText>Wetter: {store.gameState.weather}</GradientText><br /><br />
-            <GradientText>Buff: {store.playerFlux.buff.length}</GradientText><br />
 
             {store.playerFlux.buff.length === 0 ? (
                 <p>Keine Buffs aktiv</p>
@@ -132,13 +134,16 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <GradientText>glück: {store.playerFlux.feeling.stats.luck}</GradientText><br />
             <GradientText>runden: {store.playerFlux.feeling.stats.rounds}</GradientText><br /><br />
 
-            <button onClick={handelRoundsAdd}>Runde +</button><br />
-            <button onClick={handelRoundsSub}>Runde -</button><br />
+            {combined.life <= 0 && <>TOT!!! <br /><br /></>}
 
-            <button onClick={handelLifeAdd}>Leben +</button><br />
-            <button onClick={handelLifeSub}>Leben -</button><br />
+            <button onClick={handelRoundsAdd}>Runde +</button>
+            <button onClick={handelRoundsSub}>Runde -</button>
 
-            <button onClick={handleNewDay}>Neuer Tag</button><br /><br />
+            <button onClick={handelLifeAdd}>Leben +</button>
+            <button onClick={handelLifeSub}>Leben -</button>
+
+            <button onClick={handleNewDay}>Neuer Tag</button>
+            <button onClick={handleReset}>Reset Data</button>
 
             <button onClick={handleWeapon}>Nimm eine Waffe (+5 att)</button>
             <button onClick={handleWeaponOff}>Nimm die Waffe runter (-5 att)</button>
