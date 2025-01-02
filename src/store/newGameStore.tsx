@@ -42,7 +42,7 @@ type PlayerStatsObject = {
     stats: Partial<PlayerStats>;
 };
 
-export type PlayerState = {
+export type PlayerFlux = {
     feeling: PlayerStatsObject;
     buff: PlayerStatsObject[];
     debuff: PlayerStatsObject[];
@@ -63,7 +63,7 @@ export type GameStore = {
     playerMeta: PlayerMeta;
     playerStats: PlayerStats;
     playerInfo: PlayerInfo;
-    playerState: PlayerState;
+    playerFlux: PlayerFlux;
     playerEconomy: PlayerEconomy;
 };
 
@@ -102,8 +102,8 @@ const defaultGameStore: GameStore = {
         maxLife: 100,
         maxRounds: 10,
     },
-    playerState: {
-        feeling: { name: "Normal", stats: {}},
+    playerFlux: {
+        feeling: { name: "Normal", stats: {} },
         buff: [],
         debuff: [],
         weapon: { name: "Nichts", stats: {} },
@@ -126,7 +126,7 @@ type GameStoreContextType = {
     setPlayerMeta: (val: Partial<PlayerMeta>) => void;
     setPlayerStats: (val: Partial<PlayerStats>) => void;
     setPlayerInfo: (val: Partial<PlayerInfo>) => void;
-    setPlayerState: (val: Partial<PlayerState>) => void;
+    setPlayerFlux: (val: Partial<PlayerFlux>) => void;
     setPlayerEconomy: (val: Partial<PlayerEconomy>) => void;
 
     resetGameData: () => void;
@@ -135,6 +135,8 @@ type GameStoreContextType = {
     updateGameSwitch: (key: string, value: boolean) => void; // oder (switchName: SwitchName, value: boolean)
     updatePlayerBuff: (buff: PlayerStatsObject) => void;
     updatePlayerDebuff: (debuff: PlayerStatsObject) => void;
+    updateLife: (delta: number) => void;
+    updateRounds: (delta: number) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext } from "react";
@@ -146,10 +148,10 @@ export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
 );
 
-export const useGameStore = () => useContext(GameStoreContext);
+export const useNewGameStore = () => useContext(GameStoreContext);
 //#endregion  
 
-export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [store, setStore] = useState<GameStore>(() => {
         const saved = localStorage.getItem("myGameStore");
         return saved ? JSON.parse(saved) : defaultGameStore;
@@ -228,10 +230,10 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         }));
     };
 
-    const setPlayerState = (val: Partial<PlayerState>) => {
+    const setPlayerFlux = (val: Partial<PlayerFlux>) => {
         setStore((prev) => ({
             ...prev,
-            playerState: { ...prev.playerState, ...val },
+            playerFlux: { ...prev.playerFlux, ...val },
         }));
     };
 
@@ -263,14 +265,14 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 luck: prev.playerStats.luck,
             },
 
-            playerState: {
-                ...prev.playerState, 
-                buff: [],             
-                debuff: [],         
-                feeling: {name: feeling.name, stats: data}
+            playerFlux: {
+                ...prev.playerFlux,
+                buff: [],
+                debuff: [],
+                feeling: { name: feeling.name, stats: data }
             },
 
-            gameState : {
+            gameState: {
                 ...prev.gameState,
                 weather: weather,
                 temperature: temperature,
@@ -297,9 +299,9 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const updatePlayerBuff = (buff: PlayerStatsObject) => {
         setStore((prev) => ({
             ...prev,
-            playerState: {
-                ...prev.playerState,
-                buff: [...prev.playerState.buff, buff],
+            playerFlux: {
+                ...prev.playerFlux,
+                buff: [...prev.playerFlux.buff, buff],
             },
         }));
     };
@@ -307,11 +309,43 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const updatePlayerDebuff = (debuff: PlayerStatsObject) => {
         setStore((prev) => ({
             ...prev,
-            playerState: {
-                ...prev.playerState,
-                debuff: [...prev.playerState.debuff, debuff],
+            playerFlux: {
+                ...prev.playerFlux,
+                debuff: [...prev.playerFlux.debuff, debuff],
             },
         }));
+    };
+
+    const updateLife = (delta: number) => {
+        setStore((prev) => {
+            const newLife = Math.min(
+                Math.max(prev.playerStats.life + delta, 0),
+                prev.playerInfo.maxLife
+            );
+            return {
+                ...prev,
+                playerStats: {
+                    ...prev.playerStats,
+                    life: newLife,
+                },
+            };
+        });
+    };
+
+    const updateRounds = (delta: number) => {
+        setStore((prev) => {
+            const newRounds = Math.min(
+                Math.max(prev.playerStats.rounds + delta, 0),
+                prev.playerInfo.maxRounds
+            );
+            return {
+                ...prev,
+                playerStats: {
+                    ...prev.playerStats,
+                    rounds: newRounds,
+                },
+            };
+        });
     };
 
     // usw., je nach Bedarf
@@ -324,13 +358,15 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setPlayerMeta,
         setPlayerStats,
         setPlayerInfo,
-        setPlayerState,
+        setPlayerFlux,
         setPlayerEconomy,
         resetGameData,
         newDay,
         updateGameSwitch,
         updatePlayerBuff,
         updatePlayerDebuff,
+        updateLife,
+        updateRounds,
     };
 
     return (
@@ -343,74 +379,81 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 //#region [combined stats]
 export function getCombinedStats(store: GameStore): PlayerStats {
     const base = store.playerStats;
-    
+
     let life = base.life;
     let rounds = base.rounds;
     let attack = base.attack;
     let defense = base.defense;
     let luck = base.luck;
-  
-    attack += store.playerState.weapon.stats.attack ?? 0;
-    defense += store.playerState.armor.stats.defense ?? 0;
-    
-    for (const buff of store.playerState.buff) {
-      life += buff.stats.life ?? 0;
-      rounds += buff.stats.rounds ?? 0;
-      attack += buff.stats.attack ?? 0;
-      defense += buff.stats.defense ?? 0;
-      luck += buff.stats.luck ?? 0;
+
+    attack += store.playerFlux.weapon.stats.attack ?? 0;
+    defense += store.playerFlux.armor.stats.defense ?? 0;
+
+    for (const buff of store.playerFlux.buff) {
+        life += buff.stats.life ?? 0;
+        rounds += buff.stats.rounds ?? 0;
+        attack += buff.stats.attack ?? 0;
+        defense += buff.stats.defense ?? 0;
+        luck += buff.stats.luck ?? 0;
     }
 
-    for (const debuff of store.playerState.debuff) {
+    for (const debuff of store.playerFlux.debuff) {
         life += debuff.stats.life ?? 0;
         rounds += debuff.stats.rounds ?? 0;
         attack += debuff.stats.attack ?? 0;
         defense += debuff.stats.defense ?? 0;
         luck += debuff.stats.luck ?? 0;
-      }
-    
-    life += store.playerState.feeling.stats.life ?? 0;
-    rounds += store.playerState.feeling.stats.rounds ?? 0;
-    attack += store.playerState.feeling.stats.attack ?? 0;
-    defense += store.playerState.feeling.stats.defense ?? 0;
-    luck += store.playerState.feeling.stats.luck ?? 0;
+    }
+
+    life += store.playerFlux.feeling.stats.life ?? 0;
+    rounds += store.playerFlux.feeling.stats.rounds ?? 0;
+    attack += store.playerFlux.feeling.stats.attack ?? 0;
+    defense += store.playerFlux.feeling.stats.defense ?? 0;
+    luck += store.playerFlux.feeling.stats.luck ?? 0;
+
+    // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
+    life = Math.min(Math.max(life, 0), store.playerInfo.maxLife);
+    rounds = Math.min(Math.max(rounds, 0), store.playerInfo.maxRounds);
+    attack = Math.max(attack, 0);
+    defense = Math.max(defense, 0);
+    luck = Math.max(luck, 0);
 
     return { life, rounds, attack, defense, luck };
-  }
-  
+}
+//#endregion
+
+
 // EINBINDEN
 //   function MyComponent() {
-//     const { store } = useGameStore();
+//     const { store } = useNewGameStore();
 //     const combined = getCombinedStats(store);
-  
+
 //     return <div>Leben: {combined.life}</div>;
 //   }
 
-// WERTE VERÄNDERN
+// HEILEN
 // function HealButton() {
-//     const { store, setPlayerStats } = useGameStore();
-  
+//     const { updateLife } = useNewGameStore();
 //     const heal = (amount: number) => {
-//       setPlayerStats((prev) => {
-//         // Den “nackten” Wert hochzählen
-//         const newLife = Math.min(prev.life + amount, store.playerInfo.maxLife);
-//         return { ...prev, life: newLife };
-//       });
+//         updateLife(amount);
 //     };
-  
 //     return <button onClick={() => heal(20)}>Heile um 20</button>;
-//   }
-  
-// WERTE ANZEIGEN
-// function CharacterStats() {
-//     const { store } = useGameStore();
-//     const combined = getCombinedStats(store);
-  
-//     return (
-//       <div>
-//         <p>Aktuelles Leben (inkl. Waffe/Buffs): {combined.life}</p>
-//         <p>Base Life (ohne Buffs): {store.playerStats.life}</p>
-//       </div>
-//     );
-//   }
-  
+// }
+
+// SCHADEN
+// function DamageButton() {
+//     const { updateLife } = useNewGameStore();
+//     const damage = (amount: number) => {
+//         updateLife(-amount);
+//     };
+//     return <button onClick={() => damage(15)}>Füge 15 Schaden zu</button>;
+// }
+
+// RUNDEN
+// function AdjustRoundsButton() {
+//     const { updateRounds } = useNewGameStore();
+//     const addRounds = (amount: number) => {
+//         updateRounds(amount);
+//     };
+//     return <button onClick={() => addRounds(1)}>Füge eine Runde hinzu</button>;
+// }

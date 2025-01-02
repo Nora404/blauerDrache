@@ -9,6 +9,7 @@ import { GameStateProvider } from './data/gameState';
 import CharakterNavi from './layout/CharakterNavi';
 import MainNavi from './layout/MainNavi';
 import { MainContent } from './layout/MainContent';
+import { NewGameStoreProvider } from './store/newGameStore';
 
 
 function App() {
@@ -16,31 +17,33 @@ function App() {
   return (
     <GameStoreProvider>
       <GameStateProvider>
-        <div>
-          <div id="header">
-            <img
-              src={logo}
-              alt="logo"
-              style={{ maxWidth: '800px', marginTop: '20px' }}
-            />
-          </div>
-          <div id="content">
-            <div id="navi" className="custom-scrollbar milchglas">
-              <MainNavi />
+        <NewGameStoreProvider>
+          <div>
+            <div id="header">
+              <img
+                src={logo}
+                alt="logo"
+                style={{ maxWidth: '800px', marginTop: '20px' }}
+              />
             </div>
-            <div id="main">
-              <MainContent />
+            <div id="content">
+              <div id="navi" className="custom-scrollbar milchglas">
+                <MainNavi />
+              </div>
+              <div id="main">
+                <MainContent />
+              </div>
+              <div id="charakter" className="custom-scrollbar milchglas">
+                <CharakterNavi />
+              </div>
             </div>
-            <div id="charakter" className="custom-scrollbar milchglas">
-              <CharakterNavi />
+            <div id="footer">Diese Seite wurde inspiriert von der &nbsp;
+              <a href="https://lotgd.de/home.php?" target='blank'>
+                <GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText>
+              </a>
             </div>
           </div>
-          <div id="footer">Diese Seite wurde inspiriert von der &nbsp;
-            <a href="https://lotgd.de/home.php?" target='blank'>
-              <GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText>
-            </a>
-          </div>
-        </div>
+        </NewGameStoreProvider>
       </GameStateProvider>
     </GameStoreProvider>
   )

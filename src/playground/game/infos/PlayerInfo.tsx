@@ -3,6 +3,8 @@ import { useGameStore } from '../../../data/gameStore';
 import { useGameState } from '../../../data/gameState';
 import Header from '../../../layout/Header/Header';
 import { useApplyGameAction } from '../../../utility/ApplyGameAction';
+import { getCombinedStats, useNewGameStore } from '../../../store/newGameStore';
+import { GradientText } from '../../../utility/GradientText';
 
 type PlayerInfoProps = {
 };
@@ -18,49 +20,63 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
 
     //TEST
-    const { applyGameAction } = useApplyGameAction();
+    const { store, updateLife, updateRounds, newDay } = useNewGameStore();
+    const combined = getCombinedStats(store);
 
     const handelLifeAdd = () => {
-        applyGameAction({ tempStatsDelta: { life: 1 } })
+        updateLife(1);
     }
     const handelLifeSub = () => {
-        applyGameAction({ tempStatsDelta: { life: -1 } })
+        updateLife(-1);
+    }
+
+    const handelRoundsAdd = () => {
+        updateRounds(1);
+    }
+    const handelRoundsSub = () => {
+        updateRounds(-1);
+    }
+    const handleNewDay = () => {
+        newDay();
+    }
+    const handleWeapon = () => {
+
+    }
+    const handleArmor = () => {
+
+    }
+    const handleBuff = () => {
+
+    }
+    const handleDebuff = () => {
+
     }
 
     return (
         <div className='max-width'>
             <h2>Dein Steckbrief</h2>
 
-            <p className='mb-1'>{gameState.selectedRace.ascii}</p>
+            <div className='mb-1'>{gameState.selectedRace.ascii}</div>
 
             <Header>{gameStore.meta.name}</Header>
-            <p className='mb-1 text-left'>
+            <div className='mb-1 text-left'>
                 {gameState.selectedRace.label}<br />
                 {gameState.selectedRace.description}
-            </p>
+            </div>
 
-            <p className='mb-1 text-left'>
+            <div className='mb-1 text-left'>
                 {gameState.selectedOrigin.label}<br />
                 {gameState.selectedOrigin.description}
-            </p>
+            </div>
 
-            <p className='mb-1 text-left'>
+            <div className='mb-1 text-left'>
                 {gameState.selectedCalling.label}<br />
                 {gameState.selectedCalling.description}
-            </p>
+            </div>
 
             <br />
             <Header>Werte</Header>
-
-            <p className='text-left'>
-                Level: {gameState.combinedStats.level}<br />
-
-                Grundleben: {gameStore.stats.life} Aktuelles Leben: {gameState.combinedStats.life} <br />
-
-                Grundangriff: {gameStore.stats.attack} Aktueller Angriff: {gameState.combinedStats.attack}<br />
-
-                Grundverteidigung: {gameStore.stats.defense} Aktuelle Verteidigung: {gameState.combinedStats.defense}
-            </p>
+            <p className='text-left'></p>
 
             <Header>Inventar</Header>
             <div className='text-left'>
@@ -71,17 +87,32 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 ))}
             </div>
 
-            <button>Runde +</button><br />
-            <button>Runde -</button><br />
+            <GradientText>Leben: {store.playerStats.life}</GradientText> ---
+            <GradientText>Leben von Combi: {combined.life}</GradientText><br /><br />
+            <GradientText>Runden: {store.playerStats.rounds}</GradientText> ---
+            <GradientText>Runden von Combi: {combined.rounds}</GradientText><br /><br />
+            <GradientText>Attack: {store.playerStats.attack}</GradientText> ---
+            <GradientText>Attack von Combi: {combined.attack}</GradientText><br /><br />
+            <GradientText>Defence: {store.playerStats.defense}</GradientText> ---
+            <GradientText>Defence von Combi: {combined.defense}</GradientText><br /><br />
+
+            <GradientText>Buff: {store.playerFlux.buff.length}</GradientText><br /><br />
+            <GradientText>Debuff: {store.gameState.temperature}</GradientText><br /><br />
+            <GradientText>Debuff: {store.gameState.weather}</GradientText><br /><br />
+            <GradientText>Debuff: {store.playerFlux.feeling.name}</GradientText><br /><br />
+
+            <button onClick={handelRoundsAdd}>Runde +</button><br />
+            <button onClick={handelRoundsSub}>Runde -</button><br />
 
             <button onClick={handelLifeAdd}>Leben +</button><br />
             <button onClick={handelLifeSub}>Leben -</button><br />
 
-            <button>Angriff (temp) +</button><br />
-            <button>Angriff (temp) -</button><br />
+            <button onClick={handleNewDay}>Neuer Tag</button><br /><br />
 
-            <button>Verteidigung +</button><br />
-            <button>Verteidigung -</button><br />
+            <button>Nimm eine Waffe</button>
+            <button>Nimm ein Schild</button>
+            <button>Bekomme einen Buff</button>
+            <button>Bekomme einen Debuff</button>
         </div>
     );
 };
