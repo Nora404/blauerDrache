@@ -68,7 +68,7 @@ const Transit: React.FC<TransitProps> = () => {
         const placeName = getPlaceNameFromRoute(startPath);
         const gameEvent = getEventByPlace(placeName);
         if (gameEvent) {
-            setEventChainActive(gameEvent.name);
+            setEventChainActive(gameEvent.id);
         }
     }
     //#endregion

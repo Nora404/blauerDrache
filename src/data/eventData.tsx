@@ -2,7 +2,7 @@ import { PlacesKeys } from "./colorfullStrings";
 import { PlayerEconomy, PlayerEquipment, PlayerMeta, PlayerStats } from "./gameStore";
 
 export type NextEventOption = {
-    name: string;        // Name des Folge-Events
+    eventId: string;      // Next event ID
     probability: number; // z. B. 70 => 70%
 };
 
@@ -17,7 +17,8 @@ export type GameAction = {
 }
 
 export type GameEvent = {
-    name: string;
+    id: string;             // z.B. 001Stone
+    label: string;          // z.B "Stein gefunden"
     description: string;
     buttons: {
         label: string;
@@ -31,7 +32,8 @@ export type GameEvent = {
 
 export const gameEvents: GameEvent[] = [
     {
-        name: "Stein",
+        id: "001Stone",
+        label: "Stein",
         description: "Ein Stein liegt auf dem Boden!",
         buttons: [
             {
@@ -62,7 +64,8 @@ export const gameEvents: GameEvent[] = [
     },
 
     {
-        name: "Pilz",
+        id: "002Stone",
+        label: "Pilz",
         description: "Ein Pilz wächst am Wegesrand.",
         buttons: [
             {
@@ -92,7 +95,8 @@ export const gameEvents: GameEvent[] = [
     },
 
     {
-        name: "Fee",
+        id: "003Stone",
+        label: "Fee",
         description: "Eine Fee taucht auf und kichert leise.",
         buttons: [
             {
@@ -100,9 +104,9 @@ export const gameEvents: GameEvent[] = [
                 getAction: () => ({
                     message: "Du folgst der Fee ... und sie führt dich zu einer Schatztruhe!",
                     nextEvents: [
-                        { name: "Schatztruhe", probability: 10 },   // 10% Chance, Schatztruhe
-                        { name: "Reingelegt", probability: 60 },     // 60% Chance, Reingelegt
-                        { name: "Fee Verloren", probability: 30 },   // 30% Chance, Fee verloren
+                        { eventId: "004Stone", probability: 10 },   // 10% Chance, Schatztruhe
+                        { eventId: "005Stone", probability: 60 },     // 60% Chance, Reingelegt
+                        { eventId: "006Stone", probability: 30 },   // 30% Chance, Fee verloren
                     ],
                 }),
             },
@@ -126,7 +130,8 @@ export const gameEvents: GameEvent[] = [
     },
 
     {
-        name: "Schatztruhe",
+        id: "004Stone",
+        label: "Schatztruhe",
         description: "Du findest eine alte hölzerne Schatztruhe.",
         buttons: [
             {
@@ -155,7 +160,8 @@ export const gameEvents: GameEvent[] = [
         ]
     },
     {
-        name: "Fee Verloren",
+        id: "005Stone",
+        label: "Fee Verloren",
         description: "Du hast nur einen Augenblick geblinzelt, da war die Fee verschwunden",
         buttons: [
             {
@@ -168,7 +174,8 @@ export const gameEvents: GameEvent[] = [
         places: []
     },
     {
-        name: "Reingelegt",
+        id: "006Stone",
+        label: "Reingelegt",
         description: "Die Fee bleibt schweben, schaut dich an und verschwindet mit einem Gelächter",
         buttons: [
             {

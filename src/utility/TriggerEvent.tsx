@@ -35,6 +35,6 @@ export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
     return filteredEvents[pickIndex];
 }
 
-export function getGameEventByName(name: string): GameEvent | undefined {
-    return gameEvents.find((event) => event.name === name);
+export function getGameEventById(id: string): GameEvent | undefined {
+    return gameEvents.find((event) => event.id === id);
 }
