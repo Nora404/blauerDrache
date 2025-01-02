@@ -245,7 +245,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
     //#endregion
 
-    //#region [reset]
+    //#region [new]
     const resetGameData = () => {
         setStore(defaultGameStore);
     };
@@ -412,8 +412,8 @@ export function getCombinedStats(store: GameStore): PlayerStats {
     luck += store.playerFlux.feeling.stats.luck ?? 0;
 
     // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
-    life = Math.min(Math.max(life, 0), store.playerInfo.maxLife);
-    rounds = Math.min(Math.max(rounds, 0), store.playerInfo.maxRounds);
+    life = Math.max(life, 0), store.playerInfo.maxLife;
+    rounds = Math.max(rounds, 0), store.playerInfo.maxRounds;
     attack = Math.max(attack, 0);
     defense = Math.max(defense, 0);
     luck = Math.max(luck, 0);
