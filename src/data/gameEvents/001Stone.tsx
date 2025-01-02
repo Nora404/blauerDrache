@@ -5,7 +5,7 @@ import { GameEvent } from "../eventData";
 //#region [events]
 export const event001Stone: GameEvent = {
     id: "001Stone",
-    label: "Stein",
+    label: "Ein Stein liegt am Boden",
     description: descriptionText(),
     buttons: [
         {
