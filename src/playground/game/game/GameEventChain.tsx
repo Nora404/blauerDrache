@@ -10,7 +10,7 @@ import { SYSTEM } from "../../../data/colorfullStrings";
 //#region [prepare]
 type ChainItem = {
     eventId: string;
-    outcomeMessage: string | null;
+    outcomeMessage: JSX.Element | null;
 }
 
 type GameEventChainProps = {
