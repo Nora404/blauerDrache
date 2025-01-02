@@ -82,6 +82,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
                         ) : (
                             event.buttons.map((btn) => (
                                 <button
+                                    className="btn-border"
                                     key={btn.label}
                                     onClick={() => handleButtonClick(idx, btn.getAction)}
                                 >

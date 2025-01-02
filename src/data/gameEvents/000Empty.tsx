@@ -3,6 +3,7 @@ import NpcTalk from "../../utility/NpcTalk";
 import PlayerTalk from "../../utility/PlayerTalk";
 import { GameEvent } from "../eventData";
 
+//#region [events]
 export const event001Stone: GameEvent = {
     id: "000",
     label: "name",
@@ -40,7 +41,7 @@ export const event001Stone: GameEvent = {
         },
     ],
 };
-
+//#endregion
 
 // Ja das ist gewollt, ich will alle Texte hier unten haben
 function descriptionText(): JSX.Element {

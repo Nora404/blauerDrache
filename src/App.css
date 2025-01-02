@@ -89,3 +89,8 @@
 .no-select {
   user-select: none;
 }
+
+.btn-border {
+  border: 1px dotted rgba(98, 176, 212, 0.473);
+  margin: 5px 0 5px 0;
+}

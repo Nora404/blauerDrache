@@ -165,7 +165,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             )}
             {currentStep > 3 && (
                 <>
-                    <button onClick={handleLastBtn}>Reise beginnen</button>
+                    <button className="btn-border" onClick={handleLastBtn}>Reise beginnen</button>
                 </>
             )}
         </div>
