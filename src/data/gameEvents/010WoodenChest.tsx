@@ -10,35 +10,35 @@ export const event010WoodenChest: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Holztruhe untersuchen",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
                 message: message1,
             }),
         },
         {
-            label: "some 2",
+            label: "Holztruhe schnell öffnen",
             getAction: () => ({
                 message: message2,
                 nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
+                    { eventId: "012ChestGold", probability: 10 },
+                    { eventId: "017ChestTrap", probability: 20 },
+                    { eventId: "013ChestEmpty", probability: 40 },
+                    { eventId: "011ChestJunk", probability: 80 },
                 ],
+            }),
+        },
+        {
+            label: "Holztruhe stehen lassen",
+            getAction: () => ({
+                message: message1,
             }),
         },
     ],
     places: [
         {
             place: "Wald",
-            probability: 50,
-        },
-        {
-            place: "Weg",
-            probability: 70,
-        },
+            probability: 10,
+        }
     ],
 };
 //#endregion

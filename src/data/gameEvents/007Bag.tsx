@@ -10,23 +10,19 @@ export const event007Bag: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Beutel aufheben und öffnen",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
                 message: message1,
+                nextEvents: [
+                    { eventId: "008BagFull", probability: 10 },
+                    { eventId: "009BagEmpty", probability: 50 },
+                ],
             }),
         },
         {
-            label: "some 2",
+            label: "Liegen lassen",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
-                ],
             }),
         },
     ],

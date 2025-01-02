@@ -10,34 +10,27 @@ export const event004Flower: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Blume pflücken",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
+                itemsDelta: { Blume: 1 },
                 message: message1,
             }),
         },
         {
-            label: "some 2",
+            label: "Anschauen und stehen lassen",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
-                ],
             }),
         },
     ],
     places: [
         {
-            place: "Wald",
+            place: "Weg",
             probability: 50,
         },
         {
-            place: "Weg",
-            probability: 70,
+            place: "Waldrand",
+            probability: 30,
         },
     ],
 };

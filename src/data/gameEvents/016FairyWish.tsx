@@ -10,36 +10,49 @@ export const event016FairyWish: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Für heute großes Glück",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
+                tempStatsDelta: { luck: 10 },
                 message: message1,
             }),
         },
         {
-            label: "some 2",
+            label: "Für heute viel mehr Angriff",
             getAction: () => ({
+                tempStatsDelta: { attack: 10 },
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
-                ],
+            }),
+        },
+        {
+            label: "Für heute viel größere Verteidigung",
+            getAction: () => ({
+                tempStatsDelta: { defense: 10 },
+                message: message3,
+            }),
+        },
+        {
+            label: "Dauerhaft wenig mehr Glück",
+            getAction: () => ({
+                statsDelta: { luck: 1 },
+                message: message4,
+            }),
+        },
+        {
+            label: "Dauerhaft wenig mehr Angriff",
+            getAction: () => ({
+                statsDelta: { attack: 1 },
+                message: message5,
+            }),
+        },
+        {
+            label: "Dauerhaft wenig mehr Verteidigung",
+            getAction: () => ({
+                statsDelta: { defense: 1 },
+                message: message6,
             }),
         },
     ],
-    places: [
-        {
-            place: "Wald",
-            probability: 50,
-        },
-        {
-            place: "Weg",
-            probability: 70,
-        },
-    ],
+    places: [],
 };
 //#endregion
 
@@ -60,5 +73,29 @@ const message1 = (
 const message2 = (
     <>
         <NpcTalk>Button 2 gedrückt</NpcTalk>
+    </>
+);
+
+const message3 = (
+    <>
+        <NpcTalk>Button 3 gedrückt</NpcTalk>
+    </>
+);
+
+const message4 = (
+    <>
+        <NpcTalk>Button 4 gedrückt</NpcTalk>
+    </>
+);
+
+const message5 = (
+    <>
+        <NpcTalk>Button 5 gedrückt</NpcTalk>
+    </>
+);
+
+const message6 = (
+    <>
+        <NpcTalk>Button 6 gedrückt</NpcTalk>
     </>
 );

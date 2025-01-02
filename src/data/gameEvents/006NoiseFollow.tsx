@@ -1,6 +1,6 @@
 import { GradientText } from "../../utility/GradientText";
 import NpcTalk from "../../utility/NpcTalk";
-import PlayerTalk from "../../utility/PlayerTalk";
+import { SYSTEM } from "../colorfullStrings";
 import { GameEvent } from "../eventData";
 
 //#region [events]
@@ -10,36 +10,20 @@ export const event006NoiseFollow: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Weiter suchen",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
+                statsDelta: { rounds: -1 },
                 message: message1,
             }),
         },
         {
-            label: "some 2",
+            label: "Aufgeben",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
-                ],
             }),
         },
     ],
-    places: [
-        {
-            place: "Wald",
-            probability: 50,
-        },
-        {
-            place: "Weg",
-            probability: 70,
-        },
-    ],
+    places: [],
 };
 //#endregion
 
@@ -53,7 +37,8 @@ function descriptionText(): JSX.Element {
 
 const message1 = (
     <>
-        <PlayerTalk>Button 1 gedrückt</PlayerTalk>
+        Vergeblich hast du nach der Quelle des Geräusches gesucht und nichts gefunden.
+        Dabei ist so viel Zeit vergangen, dass du 1 {SYSTEM.Runden} verloren hast.
     </>
 );
 

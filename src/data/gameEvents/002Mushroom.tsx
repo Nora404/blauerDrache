@@ -1,6 +1,4 @@
 import { GradientText } from "../../utility/GradientText";
-import NpcTalk from "../../utility/NpcTalk";
-import PlayerTalk from "../../utility/PlayerTalk";
 import { GameEvent } from "../eventData";
 
 //#region [events]
@@ -10,33 +8,26 @@ export const event002Mashroom: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Pilz pflücken",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
+                itemsDelta: { Pilz: 1 },
                 message: message1,
             }),
         },
         {
-            label: "some 2",
+            label: "Lieber nicht anfassen",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },   // 10% Chance
-                    { eventId: "002", probability: 50 },   // 50% Chance
-                    { eventId: "003", probability: 90 },   // 90% Chance
-                ],
             }),
         },
     ],
     places: [
         {
-            place: "Wald",
+            place: "Waldrand",
             probability: 50,
         },
         {
-            place: "Weg",
+            place: "Wald",
             probability: 70,
         },
     ],
@@ -47,19 +38,23 @@ export const event002Mashroom: GameEvent = {
 function descriptionText(): JSX.Element {
     return (
         <>
-            <GradientText>Beschreibung</GradientText>
+            Am Boden, zwischen Steinen und Moos, wächst ein kleiner <GradientText>Pilz</GradientText>.
+            Auf seinem kurzen, breiten Stiel sitzt eine fleischige, braune Kappe mit leichten, helleren Sprenkeln.
+            Dieser <GradientText>Pilz</GradientText> sieht zwar lecker aus, aber du kannst nicht erkennen, um welche Art von Pilz es sich handelt.
         </>
     );
 }
 
 const message1 = (
     <>
-        <PlayerTalk>Button 1 gedrückt</PlayerTalk>
+        Du beschließt, den <GradientText>Pilz</GradientText> für ungefährlich zu halten.
+        Mit einer gekonnten Handbewegung löst du den <GradientText>Pilz</GradientText> vom Boden
+        und steckst ihn in deinen Beutel. Was könnte man daraus machen? Tränke oder doch ein leckeres Mittagessen?
     </>
 );
 
 const message2 = (
     <>
-        <NpcTalk>Button 2 gedrückt</NpcTalk>
+        Du lässt den Pilz sicherheitshalber in Ruhe.
     </>
 );

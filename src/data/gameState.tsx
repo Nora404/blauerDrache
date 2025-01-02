@@ -8,21 +8,28 @@ import { Calling, callingMap, emptyCallingObj } from './callingData';
 import { Armor, armorMap, emptyArmorObj } from './armorData';
 import { emptyWeaponObj, Weapon, weaponMap } from './weaponData';
 import { getRandomArrayElement } from '../utility/RandomArrayElement';
+import { ItemName } from './ItemData';
 //#endregion
 
 //#region [prepare]
 type GameStateContextType = {
   gameTime: string;
   gameDay: string;
+
   selectedRace: Race;
   selectedOrigin: Subrace;
   selectedCalling: Calling;
   selectedFeeling: Feeling;
   selectedArmor: Armor;
   selectedWeapon: Weapon;
-  tempStats: Partial<PlayerStats>;
+
   combinedStats: PlayerStats;
+
+  tempStats: Partial<PlayerStats>;
+  tempItems: Partial<Record<ItemName, number>>;
+
   updateTempStats: (stats: Partial<PlayerStats>) => void;
+  updateTempItems: (items: Partial<Record<ItemName, number>>) => void;
   clearStats: () => void;
 };
 
@@ -33,9 +40,10 @@ export const useGameState = () => useContext(GameStateContext);
 export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [gameTime, setGameTime] = useState("12:00");
   const [gameDay, setGameDay] = useState("Tag");
-  const [tempStats, setTempStats] = useState<Partial<PlayerStats>>({});
-
   const { gameStore, updateMeta } = useGameStore();
+
+  const [tempStats, setTempStats] = useState<Partial<PlayerStats>>({});
+  const [tempItems, setTempItems] = useState<Partial<Record<ItemName, number>>>({});
 
   const selectedRace = racesMap[gameStore.meta.rase] || emptyRaceObj;
   const selectedCalling = callingMap[gameStore.meta.calling] || emptyCallingObj;
@@ -49,9 +57,10 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   //#region
   const clearStast = () => {
     setTempStats({});
+    setTempItems({});
   }
 
-  const updateEphemeralStats = (stats: Partial<PlayerStats>) => {
+  const updateTempStats = (stats: Partial<PlayerStats>) => {
     setTempStats((prev) => {
       const updated = { ...prev };
 
@@ -73,6 +82,25 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }
   combinedStats.attack += selectedWeapon.attack;
   combinedStats.defense += selectedArmor.defense;
+
+  const updateTempItems = (itemsDelta: Partial<Record<ItemName, number>>) => {
+    setTempItems((prev) => {
+      const copy = { ...prev };
+
+      for (const [rawKey, deltaVal] of Object.entries(itemsDelta) as [ItemName, number][]) {
+        // deltaVal kann undefined sein, falls Partial => fallback auf 0
+        const delta = deltaVal ?? 0;
+        // Erhöhe oder erzeuge das Item
+        copy[rawKey] = (copy[rawKey] || 0) + delta;
+        // Falls <= 0 => Item löschen
+        if (copy[rawKey]! <= 0) {
+          delete copy[rawKey];
+        }
+      }
+      return copy;
+    });
+  };
+
   //#endregion
 
   //#region [events]
@@ -122,7 +150,7 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         feeling: feeling.name
       });
 
-      updateEphemeralStats(data);
+      updateTempStats(data);
     }
   }, [gameDay]);
 
@@ -139,9 +167,11 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         selectedFeeling,
         selectedArmor,
         selectedWeapon,
-        tempStats: tempStats,
+        tempStats,
+        tempItems,
         combinedStats,
-        updateTempStats: updateEphemeralStats,
+        updateTempStats,
+        updateTempItems,
         clearStats: clearStast,
       }}
     >

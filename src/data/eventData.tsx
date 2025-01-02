@@ -1,6 +1,7 @@
 import { PlacesKeys } from "./colorfullStrings";
-import { event001Stone } from "./gameEvents/001Stone";
+import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { PlayerEconomy, PlayerEquipment, PlayerMeta, PlayerStats } from "./gameStore";
+import { ItemName } from "./ItemData";
 
 export type NextEventOption = {
     eventId: string;      // Next event ID
@@ -8,11 +9,15 @@ export type NextEventOption = {
 };
 
 export type GameAction = {
-    itemsDelta?: Record<string, number>;
+    itemsDelta?: Partial<Record<ItemName, number>>;
     metaDelta?: Partial<PlayerMeta>
     statsDelta?: Partial<PlayerStats>;
     economyDelta?: Partial<PlayerEconomy>;
     equipmentDelta?: Partial<PlayerEquipment>;
+
+    tempItemsDelta?: Partial<Record<ItemName, number>>;
+    tempStatsDelta?: Partial<PlayerStats>;
+
     nextEvents?: NextEventOption[];
     message?: JSX.Element;
 }
@@ -32,7 +37,7 @@ export type GameEvent = {
 }
 
 export const gameEvents: GameEvent[] = [
-    event001Stone,
+    event001StoneCoin,
 
     {
         id: "002Stone",

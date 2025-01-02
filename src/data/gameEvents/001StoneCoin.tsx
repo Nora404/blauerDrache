@@ -3,8 +3,8 @@ import { SYSTEM } from "../colorfullStrings";
 import { GameEvent } from "../eventData";
 
 //#region [events]
-export const event001Stone: GameEvent = {
-    id: "001Stone",
+export const event001StoneCoin: GameEvent = {
+    id: "001StoneCoin",
     label: "Ein Stein liegt am Boden",
     description: descriptionText(),
     buttons: [
@@ -26,6 +26,10 @@ export const event001Stone: GameEvent = {
     places: [
         {
             place: "Wald",
+            probability: 20,
+        },
+        {
+            place: "Weg",
             probability: 50,
         },
         {

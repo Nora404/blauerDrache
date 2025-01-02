@@ -10,34 +10,31 @@ export const event003Stick: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Stock aufheben",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
+                itemsDelta: { Stock: 1 },
                 message: message1,
             }),
         },
         {
-            label: "some 2",
+            label: "Stock liegen lassen",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },   // 10% Chance
-                    { eventId: "002", probability: 50 },   // 50% Chance
-                    { eventId: "003", probability: 90 },   // 90% Chance
-                ],
             }),
         },
     ],
     places: [
         {
-            place: "Wald",
+            place: "Weg",
+            probability: 20,
+        },
+        {
+            place: "Waldrand",
             probability: 50,
         },
         {
-            place: "Weg",
-            probability: 70,
+            place: "Wald",
+            probability: 80,
         },
     ],
 };

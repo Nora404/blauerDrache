@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { ItemName } from "./ItemData";
 
 //#region [prepare]
 export type PlayerMeta = {
@@ -35,7 +36,7 @@ export  type PlayerEconomy = {
 export type PlayerEquipment = {
     weapon: string;
     armor: string;
-    items: Record<string, number>;
+    items: Partial<Record<ItemName, number>>;
   };
   
 export type PlayerProps = {

@@ -1,7 +1,11 @@
 import { GradientText } from "../../utility/GradientText";
 import NpcTalk from "../../utility/NpcTalk";
-import PlayerTalk from "../../utility/PlayerTalk";
+import { SYSTEM } from "../colorfullStrings";
 import { GameEvent } from "../eventData";
+import { getRandomItem, ItemName } from "../ItemData";
+
+const possibleItems: ItemName[] = ['Plunder', 'Kupfererz', 'Leere Flasche', 'Wasserflasche', 'Lederstück'];
+const randomItem: ItemName = getRandomItem(possibleItems);
 
 //#region [events]
 export const event008BagFull: GameEvent = {
@@ -10,11 +14,10 @@ export const event008BagFull: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Inhalt einstecken",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
+                itemsDelta: { [randomItem]: 1 },
+                economyDelta: { gold: 5 },
                 message: message1,
             }),
         },
@@ -22,24 +25,10 @@ export const event008BagFull: GameEvent = {
             label: "some 2",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
-                ],
             }),
         },
     ],
-    places: [
-        {
-            place: "Wald",
-            probability: 50,
-        },
-        {
-            place: "Weg",
-            probability: 70,
-        },
-    ],
+    places: [],
 };
 //#endregion
 
@@ -53,7 +42,8 @@ function descriptionText(): JSX.Element {
 
 const message1 = (
     <>
-        <PlayerTalk>Button 1 gedrückt</PlayerTalk>
+        Du hast aus dem beutel 5 {SYSTEM.Gold} und <GradientText>{randomItem}</GradientText> erhalten.
+        Breit grinsend steckst du dir beides in deine Taschen.
     </>
 );
 
@@ -62,3 +52,5 @@ const message2 = (
         <NpcTalk>Button 2 gedrückt</NpcTalk>
     </>
 );
+
+

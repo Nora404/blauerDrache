@@ -1,8 +1,8 @@
 //#region [imports]
 import React, { useState } from "react";
-import { getGameEventById } from "../../../utility/TriggerEvent";
+import { getGameEventById, pickRandomNextEvent } from "../../../utility/TriggerEvent";
 import { useApplyGameAction } from "../../../utility/ApplyGameAction";
-import { GameAction, NextEventOption } from "../../../data/eventData";
+import { GameAction } from "../../../data/eventData";
 import Header from "../../../layout/Header/Header";
 import { SYSTEM } from "../../../data/colorfullStrings";
 //#endregion
@@ -100,27 +100,3 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
     );
     //#endregion
 };
-
-
-
-function pickRandomNextEvent(options: NextEventOption[]): string | null {
-    // Summiere alle Wahrscheinlichkeiten
-    const totalProb = options.reduce((sum, opt) => sum + opt.probability, 0);
-    if (totalProb <= 0) {
-        return null;
-    }
-
-    // Zufallszahl in [0..totalProb)
-    let r = Math.random() * totalProb;
-
-    // Iteriere durch die Options
-    for (const opt of options) {
-        if (r <= opt.probability) {
-            return opt.eventId;
-        }
-        r -= opt.probability;
-    }
-
-    // Fallback, falls irgendetwas schiefläuft
-    return null;
-}

@@ -10,34 +10,29 @@ export const event005NoiseHear: GameEvent = {
     description: descriptionText(),
     buttons: [
         {
-            label: "some 1",
+            label: "Dem Geräusch nach gehen",
             getAction: () => ({
-                itemsDelta: { Stein: 1 },
-                economyDelta: { gold: 1 },
-                statsDelta: { life: 1 },
                 message: message1,
+                nextEvents: [
+                    { eventId: "006NoiseFollow", probability: 100 },
+                ]
             }),
         },
         {
-            label: "some 2",
+            label: "Das Geräusch ignorieren",
             getAction: () => ({
                 message: message2,
-                nextEvents: [
-                    { eventId: "001", probability: 10 },
-                    { eventId: "002", probability: 50 },
-                    { eventId: "003", probability: 90 },
-                ],
             }),
         },
     ],
     places: [
         {
-            place: "Wald",
-            probability: 50,
+            place: "Waldrand",
+            probability: 30,
         },
         {
-            place: "Weg",
-            probability: 70,
+            place: "Wald",
+            probability: 50,
         },
     ],
 };

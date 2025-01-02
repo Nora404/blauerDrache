@@ -1,5 +1,7 @@
 import { GameAction } from "../data/eventData";
+import { useGameState } from "../data/gameState";
 import { useGameStore } from "../data/gameStore";
+import { ItemName } from "../data/ItemData";
 
 // Verarbeitet alle Deltas aus einem Event
 export function useApplyGameAction() {
@@ -10,6 +12,9 @@ export function useApplyGameAction() {
         updateEconomy,
         updateEquipment,
     } = useGameStore();
+
+    const gameState = useGameState();
+    if (!gameState) return null;
 
     function applyGameAction(action: GameAction) {
         // 1) Meta-Änderungen
@@ -42,12 +47,24 @@ export function useApplyGameAction() {
 
         // 4) Items-Delta
         if (action.itemsDelta) {
-            const itemsCopy = { ...gameStore.equipment.items };
+            // Erstelle eine Kopie der aktuellen Items
+            const itemsCopy: Partial<Record<ItemName, number>> = { ...gameStore.equipment.items };
+
+            // Iteriere über die Delta-Items
             for (const itemName in action.itemsDelta) {
-                const delta = action.itemsDelta[itemName];
-                itemsCopy[itemName] = (itemsCopy[itemName] || 0) + delta;
-                if (itemsCopy[itemName] <= 0) {
-                    delete itemsCopy[itemName];
+                // Stelle sicher, dass der Schlüssel ein gültiger ItemName ist
+                if (action.itemsDelta.hasOwnProperty(itemName)) {
+                    const delta = action.itemsDelta[itemName as ItemName];
+
+                    if (delta !== undefined) {
+                        // Aktualisiere den Wert des Items
+                        itemsCopy[itemName as ItemName] = (itemsCopy[itemName as ItemName] || 0) + delta;
+
+                        // Entferne das Item, wenn der Wert kleiner oder gleich 0 ist
+                        if (itemsCopy[itemName as ItemName]! <= 0) {
+                            delete itemsCopy[itemName as ItemName];
+                        }
+                    }
                 }
             }
             updateEquipment({ items: itemsCopy });
@@ -55,11 +72,17 @@ export function useApplyGameAction() {
 
         // 5) Equipment-Delta (z. B. Rüstung oder Waffe wechseln)
         if (action.equipmentDelta) {
-            // Hier wäre es das Gleiche Prinzip:
-            // Du könntest newEquipment = {...gameStore.equipment, ...action.equipmentDelta}
-            // und das dann per updateEquipment(newEquipment) setzen
             updateEquipment(action.equipmentDelta);
         }
+
+        if (action.tempStatsDelta) {
+            gameState?.updateTempStats(action.tempStatsDelta);
+        }
+
+        if (action.tempItemsDelta) {
+            gameState?.updateTempItems(action.tempItemsDelta)
+        }
+
     }
 
     return { applyGameAction };
