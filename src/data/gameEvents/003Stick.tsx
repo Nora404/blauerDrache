@@ -26,7 +26,7 @@ export const event003Stick: GameEvent = {
     places: [
         {
             place: "Weg",
-            probability: 20,
+            probability: 50,
         },
         {
             place: "Waldrand",

@@ -7,16 +7,17 @@ import { ItemName } from "../data/ItemData";
 export function useApplyGameAction() {
     const {
         gameStore,
-        updateMeta,
-        updateStats,
-        updateEconomy,
-        updateEquipment,
+        setMeta: updateMeta,
+        setStats: updateStats,
+        setEconomy: updateEconomy,
+        setEquipment: updateEquipment,
     } = useGameStore();
 
     const gameState = useGameState();
-    if (!gameState) return null;
 
     function applyGameAction(action: GameAction) {
+        if (!gameState) return;
+
         // 1) Meta-Änderungen
         if (action.metaDelta) {
             updateMeta(action.metaDelta);

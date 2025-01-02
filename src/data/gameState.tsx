@@ -40,7 +40,7 @@ export const useGameState = () => useContext(GameStateContext);
 export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [gameTime, setGameTime] = useState("12:00");
   const [gameDay, setGameDay] = useState("Tag");
-  const { gameStore, updateMeta } = useGameStore();
+  const { gameStore, setMeta: updateMeta, newDay } = useGameStore();
 
   const [tempStats, setTempStats] = useState<Partial<PlayerStats>>({});
   const [tempItems, setTempItems] = useState<Partial<Record<ItemName, number>>>({});
@@ -62,13 +62,15 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const updateTempStats = (stats: Partial<PlayerStats>) => {
     setTempStats((prev) => {
-      const updated = { ...prev };
+      const updated: Partial<PlayerStats> = { ...prev };
 
-      for (const key in stats) {
-        const oldVal = updated[key as keyof PlayerStats] ?? 0;
-        const newVal = stats[key as keyof PlayerStats] ?? 0;
-        updated[key as keyof PlayerStats] = oldVal + newVal;
-      }
+      (Object.keys(stats) as Array<keyof PlayerStats>).forEach((key) => {
+        const oldVal = updated[key] ?? 0;
+        const newVal = stats[key] ?? 0;
+        const combinedVal = oldVal + newVal;
+
+        updated[key] = combinedVal < 0 ? 0 : combinedVal;
+      });
 
       return updated;
     });
@@ -80,8 +82,8 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const tempVal = tempStats[key as keyof PlayerStats] ?? 0;
     combinedStats[key as keyof PlayerStats] = baseVal + tempVal;
   }
-  combinedStats.attack += selectedWeapon.attack;
-  combinedStats.defense += selectedArmor.defense;
+  combinedStats.attack = Math.max(0, combinedStats.attack + selectedWeapon.attack);
+  combinedStats.defense = Math.max(0, combinedStats.defense + selectedArmor.defense);
 
   const updateTempItems = (itemsDelta: Partial<Record<ItemName, number>>) => {
     setTempItems((prev) => {
@@ -144,12 +146,9 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const { feeling, data } = getRandomFeeling();
       const weather = getRandomArrayElement(WEATHER);
       const temperature = getRandomArrayElement(TEMPERATURE);
-      updateMeta({
-        weather,
-        temperature,
-        feeling: feeling.name
-      });
 
+      updateMeta({ weather, temperature, feeling: feeling.name });
+      newDay();
       updateTempStats(data);
     }
   }, [gameDay]);

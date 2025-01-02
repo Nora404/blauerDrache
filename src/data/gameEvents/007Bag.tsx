@@ -33,7 +33,7 @@ export const event007Bag: GameEvent = {
         },
         {
             place: "Weg",
-            probability: 70,
+            probability: 20,
         },
     ],
 };

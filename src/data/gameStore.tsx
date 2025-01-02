@@ -86,22 +86,24 @@ export const defaultPlayerData: PlayerProps = {
 type GameStoreContextType = {
     gameStore: PlayerProps;
 
-    updateGameData: (data: Partial<PlayerProps>) => void;
-    updateMeta: (meta: Partial<PlayerMeta>) => void;
-    updateStats: (stats: Partial<PlayerStats>) => void;
-    updateEconomy: (economy: Partial<PlayerEconomy>) => void;
-    updateEquipment: (equipment: Partial<PlayerEquipment>) => void;
+    // setGameData: (data: Partial<PlayerProps>) => void;
+    setMeta: (meta: Partial<PlayerMeta>) => void;
+    setStats: (stats: Partial<PlayerStats>) => void;
+    setEconomy: (economy: Partial<PlayerEconomy>) => void;
+    setEquipment: (equipment: Partial<PlayerEquipment>) => void;
     resetGameData: () => void;
+    newDay: () => void;
   };
 
 const GameStoreContext = createContext<GameStoreContextType>({
   gameStore: defaultPlayerData,
-  updateGameData: () => {},
-  updateMeta: () => {},
-  updateStats: () => {},
-  updateEconomy: () => {},
-  updateEquipment: () => {},
+  // setGameData: () => {},
+  setMeta: () => {},
+  setStats: () => {},
+  setEconomy: () => {},
+  setEquipment: () => {},
   resetGameData: () => {},
+  newDay: () => {},
 });
 
 export const useGameStore = () => useContext(GameStoreContext);
@@ -123,6 +125,17 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 //#region
     const resetGameData = () => {
       setGameData(defaultPlayerData);
+    };
+
+    const newDay = () => {
+      setGameData((prev) => ({
+        ...prev,
+        stats: {
+          ...prev.stats,
+          life: prev.stats.maxLife, 
+          rounds: prev.stats.maxRounds,
+        },
+      }));
     };
 
     const updateGameData = (data: Partial<PlayerProps>) => {
@@ -177,12 +190,13 @@ export const GameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         <GameStoreContext.Provider
         value={{
           gameStore,
-          updateGameData,
-          updateMeta,
-          updateStats,
-          updateEconomy,
-          updateEquipment,
+          // setGameData: updateGameData,
+          setMeta: updateMeta,
+          setStats: updateStats,
+          setEconomy: updateEconomy,
+          setEquipment: updateEquipment,
           resetGameData,
+          newDay
         }}
       >
             {children}

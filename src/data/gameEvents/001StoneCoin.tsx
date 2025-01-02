@@ -30,7 +30,7 @@ export const event001StoneCoin: GameEvent = {
         },
         {
             place: "Weg",
-            probability: 50,
+            probability: 70,
         },
         {
             place: "Nordtor",

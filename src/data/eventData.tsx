@@ -1,5 +1,21 @@
 import { PlacesKeys } from "./colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
+import { event002Mashroom } from "./gameEvents/002Mushroom";
+import { event003Stick } from "./gameEvents/003Stick";
+import { event004Flower } from "./gameEvents/004Flower";
+import { event005NoiseHear } from "./gameEvents/005NoiseHear";
+import { event006NoiseFollow } from "./gameEvents/006NoiseFollow";
+import { event007Bag } from "./gameEvents/007Bag";
+import { event008BagFull } from "./gameEvents/008BagFull";
+import { event009BagEmpty } from "./gameEvents/009BagEmpty";
+import { event010WoodenChest } from "./gameEvents/010WoodenChest";
+import { event011ChestJunk } from "./gameEvents/011ChestJunk";
+import { event012ChestGold } from "./gameEvents/012ChestGold";
+import { event013ChestEmpty } from "./gameEvents/013ChestEmpty";
+import { event014Fairy } from "./gameEvents/014Fairy";
+import { event015FairyLost } from "./gameEvents/015FairyLost";
+import { event016FairyWish } from "./gameEvents/016FairyWish";
+import { event017ChestTrap } from "./gameEvents/017ChestTrap";
 import { PlayerEconomy, PlayerEquipment, PlayerMeta, PlayerStats } from "./gameStore";
 import { ItemName } from "./ItemData";
 
@@ -38,129 +54,20 @@ export type GameEvent = {
 
 export const gameEvents: GameEvent[] = [
     event001StoneCoin,
-
-    {
-        id: "002Stone",
-        label: "Pilz",
-        description: <>Ein Pilz wächst am Wegesrand.</>,
-        buttons: [
-            {
-                label: "Pilz pflücken",
-                getAction: () => ({
-                    itemsDelta: { Pilz: 1 },
-                    message: <>Du hast einen Pilz gepflückt.</>,
-                }),
-            },
-            {
-                label: "Lieber nicht anfassen",
-                getAction: () => ({
-                    message: <>Du lässt den Pilz sicherheitshalber in Ruhe.</>,
-                }),
-            },
-        ],
-        places: [
-            {
-                place: "Nordtor",
-                probability: 70
-            },
-            {
-                place: "Weg",
-                probability: 40
-            }
-        ]
-    },
-
-    {
-        id: "003Stone",
-        label: "Fee",
-        description: <>Eine Fee taucht auf und kichert leise.</>,
-        buttons: [
-            {
-                label: "Fee verfolgen",
-                getAction: () => ({
-                    message: <>Du folgst der Fee ... und sie führt dich zu einer Schatztruhe!</>,
-                    nextEvents: [
-                        { eventId: "004Stone", probability: 10 },   // 10% Chance, Schatztruhe
-                        { eventId: "005Stone", probability: 60 },     // 60% Chance, Reingelegt
-                        { eventId: "006Stone", probability: 30 },   // 30% Chance, Fee verloren
-                    ],
-                }),
-            },
-            {
-                label: "Weglaufen",
-                getAction: () => ({
-                    message: <>Du rennst weg, die Fee verschwindet.</>,
-                }),
-            },
-        ],
-        places: [
-            {
-                place: "Weg",
-                probability: 20
-            },
-            {
-                place: "Nordtor",
-                probability: 90
-            }
-        ]
-    },
-
-    {
-        id: "004Stone",
-        label: "Schatztruhe",
-        description: <>Du findest eine alte hölzerne Schatztruhe.</>,
-        buttons: [
-            {
-                label: "Öffnen",
-                getAction: () => ({
-                    economyDelta: { gold: 50 },
-                    message: <>Du findest 50 Gold!</>,
-                }),
-            },
-            {
-                label: "Truhe in Ruhe lassen",
-                getAction: () => ({
-                    message: <>Du lässt die Truhe unberührt.</>,
-                }),
-            },
-        ],
-        places: [
-            {
-                place: "Nordtor",
-                probability: 10
-            },
-            {
-                place: "Weg",
-                probability: 10
-            }
-        ]
-    },
-    {
-        id: "005Stone",
-        label: "Fee Verloren",
-        description: <>Du hast nur einen Augenblick geblinzelt, da war die Fee verschwunden</>,
-        buttons: [
-            {
-                label: "Mist!",
-                getAction: () => ({
-                    message: <>Du drehst um und setzt deinen Weg fort</>,
-                }),
-            },
-        ],
-        places: []
-    },
-    {
-        id: "006Stone",
-        label: "Reingelegt",
-        description: <>Die Fee bleibt schweben, schaut dich an und verschwindet mit einem Gelächter</>,
-        buttons: [
-            {
-                label: "Mist",
-                getAction: () => ({
-                    message: <>Man sollte keiner Feen vertrauen!</>,
-                }),
-            },
-        ],
-        places: []
-    },
+    event002Mashroom,
+    event003Stick,
+    event004Flower,
+    event005NoiseHear,
+    event006NoiseFollow,
+    event007Bag,
+    event008BagFull,
+    event009BagEmpty,
+    event010WoodenChest,
+    event011ChestJunk,
+    event012ChestGold,
+    event013ChestEmpty,
+    event014Fairy,
+    event015FairyLost,
+    event016FairyWish,
+    event017ChestTrap,
 ]

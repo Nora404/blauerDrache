@@ -13,7 +13,7 @@ type WeaponShopProps = {
 
 const WeaponShop: React.FC<WeaponShopProps> = () => {
     const [localWeapon, setLocalWeapon] = useState<Weapon>(emptyWeaponObj);
-    const { gameStore, updateEconomy, updateEquipment } = useGameStore();
+    const { gameStore, setEconomy: updateEconomy, setEquipment: updateEquipment } = useGameStore();
     const gameState = useGameState();
     if (!gameState) return null;
 

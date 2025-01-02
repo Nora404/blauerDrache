@@ -2,6 +2,7 @@ import React from 'react';
 import { useGameStore } from '../../../data/gameStore';
 import { useGameState } from '../../../data/gameState';
 import Header from '../../../layout/Header/Header';
+import { useApplyGameAction } from '../../../utility/ApplyGameAction';
 
 type PlayerInfoProps = {
 };
@@ -14,6 +15,17 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     const items = gameStore.equipment.items;
     // Object.entries(items) gibt ein Array zurück, in dem jedes Element [itemName, count] ist.
     const entries = Object.entries(items);
+
+
+    //TEST
+    const { applyGameAction } = useApplyGameAction();
+
+    const handelLifeAdd = () => {
+        applyGameAction({ tempStatsDelta: { life: 1 } })
+    }
+    const handelLifeSub = () => {
+        applyGameAction({ tempStatsDelta: { life: -1 } })
+    }
 
     return (
         <div className='max-width'>
@@ -51,13 +63,25 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             </p>
 
             <Header>Inventar</Header>
-            <ul className='text-left'>
+            <div className='text-left'>
                 {entries.map(([itemName, count]) => (
-                    <li key={itemName}>
-                        {itemName} x {count}
-                    </li>
+                    <span key={itemName}>
+                        {itemName} x {count}<br />
+                    </span>
                 ))}
-            </ul>
+            </div>
+
+            <button>Runde +</button><br />
+            <button>Runde -</button><br />
+
+            <button onClick={handelLifeAdd}>Leben +</button><br />
+            <button onClick={handelLifeSub}>Leben -</button><br />
+
+            <button>Angriff (temp) +</button><br />
+            <button>Angriff (temp) -</button><br />
+
+            <button>Verteidigung +</button><br />
+            <button>Verteidigung -</button><br />
         </div>
     );
 };

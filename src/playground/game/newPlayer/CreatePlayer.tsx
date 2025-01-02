@@ -30,7 +30,7 @@ type CreatePlayerProps = {
 };
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { updateStats, updateMeta, updateEconomy, resetGameData } = useGameStore();
+    const { setStats: updateStats, setMeta: updateMeta, setEconomy: updateEconomy, resetGameData } = useGameStore();
 
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [wizardData, setWizardData] = useState<WizardData>({

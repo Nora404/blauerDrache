@@ -1,0 +1,93 @@
+GameTime
+    gameTime: string;
+    gameDay: string;
+
+GameState
+    weather: string;
+    temperature: string;
+    creating: boolean;
+    Switch: Record<SwitchName, boolean>
+
+PlayerMeta
+    name: string;
+    race: RaceName;
+    origin: OriginName;
+    calling: CallingName;
+    titel: TitleName;
+    colortype: ColortypeName;
+    colors: strings[];
+
+PlayerBaseStats 
+    life: number;
+    rounds: number;
+    attack: number;
+    defense: number;
+    luck: number;
+
+PlayerCurrentStats 
+    life: number;
+    rounds: number;
+    attack: number;
+    defense: number;
+    luck: number;
+
+PlayerInfo
+    level: number;
+    nextLevel: number;
+    exp: number;
+    maxLife: number;
+    maxRounds: number;
+
+PlayerState
+    feeling: {name: FeelingName, stats: <PlayerStats>, value: number}};
+    buff: {name: BuffName, stats: <PlayerStats>, value: number}};[];
+    debuff: {name: DebuffName, stats: <PlayerStats>, value: number}};[];
+    weapon: {name: WeaponName, stats: <PlayerStats>, value: number}};;
+    armor: {name: ArmorName, stats: <PlayerStats>, value: number}};;
+
+PlayerEconomy
+    gold: number;
+    edelsteine: number;
+    items: Partial<Record<ItemName, number>>;
+
+GameSave (localStorage)
+    GameState
+    PlayerMeta
+    PlayerBaseStats
+    PlayerCurrentStats
+    PlayerInfo
+    PlayerState
+    PlayerEconomy
+
+resetGameData()
+resetCurrentStats()
+newDay()
+
+setGameState(...)
+setPlayerMeta(...)
+setPlayerBaseStats(...)
+setPlayerCurrentStats(...)
+setPlayerInfo(...)
+setPlayerState(...)
+setPlayerEconomy(...)
+
+updateGameSwitch(...)
+updatePlayerBaseStats(...)
+updatePlayerCurrentStats(...)
+updatePlayerInfo(...)
+updatePlayerBuff(...)
+updatePlayerDebuff(...)
+updatePlayerEconomy(...)
+
+getFeelingObj()
+getBuffObj()
+getDebuffObj()
+getWeaponObj()
+getArmorObj()
+
+useEffect für Speichern in den localStorage
+useEffect für das behandeln eines neuen Tages
+useEffect für das setzten der GameTime
+
+Beim neuladen der Seite sollen sich die Werte nicht ändern!
+Darum wird alles bis auf die Zeit, welche immer neu berechnet wird, gespeichert
