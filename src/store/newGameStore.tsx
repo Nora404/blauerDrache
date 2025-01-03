@@ -48,13 +48,9 @@ export type PlayerFlux = {
     debuff: PlayerStatsObject[];
     weapon: PlayerStatsObject;
     armor: PlayerStatsObject;
+    item: PlayerStatsObject;
 };
 
-export type Item = {
-    name: string; // Name des Items
-    description: string; // Mini-Beschreibung
-    effects?: Partial<PlayerStats>; // Optionale Effekte (z.B. Heilung)
-};
 export type PlayerEconomy = {
     gold: number;
     edelsteine: number;
@@ -86,11 +82,11 @@ const defaultGameStore: GameStore = {
     },
     playerMeta: {
         name: "Name",
-        race: "Human",
-        origin: "Village",
-        calling: "Warrior",
-        titel: "None",
-        colortype: "SomeType",
+        race: "Felkin",
+        origin: "Mondauge",
+        calling: "Alchemist",
+        titel: "Keiner",
+        colortype: "Einfarbig",
         colors: [],
     },
     playerStats: {
@@ -113,6 +109,7 @@ const defaultGameStore: GameStore = {
         debuff: [],
         weapon: { name: "Nichts", stats: {} },
         armor: { name: "Nichts", stats: {} },
+        item: { name: "Nichts", stats: {} },
     },
     playerEconomy: {
         gold: 0,
@@ -125,7 +122,6 @@ const defaultGameStore: GameStore = {
 //#region [context]  
 type GameStoreContextType = {
     store: GameStore;
-    // Setter-Funktionen, z.B. partial updates
     setGameTime: (val: Partial<GameTime>) => void;
     setGameState: (val: Partial<GameState>) => void;
     setPlayerMeta: (val: Partial<PlayerMeta>) => void;
@@ -147,9 +143,16 @@ type GameStoreContextType = {
 };
 
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { getRandomFeeling } from "../data/feelingData";
+import { emptyFeelingObj, Feeling, feelingMap, getRandomFeeling } from "../data/feelingData";
 import { getRandomArrayElement } from "../utility/RandomArrayElement";
 import { TEMPERATURE, WEATHER } from "../data/weatherStrings";
+import { emptyRaceObj, emptySubraceObj, Race, racesMap, Subrace } from "../data/raceData";
+import { Calling, callingMap, emptyCallingObj } from "../data/callingData";
+import { Armor, armorMap, emptyArmorObj } from "../data/armorData";
+import { emptyWeaponObj, Weapon, weaponMap } from "../data/weaponData";
+import { emptyItemObj, Item, itemMap } from "../data/ItemData";
+import { Buff, buffMap } from "../data/buffData";
+import { Debuff, debuffMap } from "../data/debuffData";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -202,10 +205,10 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     //#endregion
 
     //#region [setter]
-    const setGameTime = (val: Partial<GameTime>) => {
-        setStore((prev) => ({
-            ...prev,
-            gameTime: { ...prev.gameTime, ...val },
+    const setGameTime = (val: Partial<GameTime>) => {  // Partial bedeutet alle Eigenschaften sind optional
+        setStore((prev) => ({                          // Es wird der gesamte aktuelle Store übergeben
+            ...prev,                                   // und wieder eingesetzt
+            gameTime: { ...prev.gameTime, ...val },    // dann überschreibt der neue Wert den alten Wert
         }));
     };
 
@@ -252,7 +255,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
     //#endregion
 
-    //#region [new]
+    //#region [new and reset]
     const resetGameData = () => {
         setStore(defaultGameStore);
     };
@@ -287,10 +290,6 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }));
     };
     //#endregion
-
-    // -------------------------------------------------
-    // 7) Weitere Update-Funktionen (deine "updateXyz")
-    // -------------------------------------------------
 
     //#region [updater]
     const updateGameSwitch = (key: string, value: boolean) => {
@@ -379,7 +378,9 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             };
         });
     };
+    //#endregion
 
+    //#region [helper]
     const consumeItem = (itemName: string) => {
         setStore((prev) => {
             const currentItem = prev.playerEconomy.items[itemName];
@@ -388,9 +389,9 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 return prev;
             }
 
-            const { effects } = currentItem.item;
+            const { effects, buff, debuff } = currentItem.item;
 
-            // Effekte anwenden
+            // Effekte des Gegenstandes anwenden
             const newPlayerStats = { ...prev.playerStats };
             if (effects) {
                 newPlayerStats.life = Math.min(
@@ -402,15 +403,24 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 newPlayerStats.luck += effects.luck || 0;
             }
 
-            // Menge reduzieren
+            if (buff) {
+                // updatePlayerBuff();
+            }
+
+            if (debuff) {
+                // updatePlayerDebuff();
+            }
+
+            // Verbrauchten Gegenstand abziehen
             const updatedItems = { ...prev.playerEconomy.items };
             const newQuantity = currentItem.quantity - 1;
             if (newQuantity > 0) {
                 updatedItems[itemName] = { ...currentItem, quantity: newQuantity };
             } else {
-                delete updatedItems[itemName]; // Löschen, wenn keine mehr übrig
+                delete updatedItems[itemName];
             }
 
+            // Und nun im Store speichern
             return {
                 ...prev,
                 playerEconomy: {
@@ -496,6 +506,42 @@ export function getCombinedStats(store: GameStore): PlayerStats {
 }
 //#endregion
 
+//#region [get object]
+type SelectedObj = {
+    race: Race;
+    calling: Calling;
+    origin: Subrace;
+    feeling: Feeling;
+    armor: Armor;
+    weapon: Weapon;
+    item: Item;
+    buff: Buff[];
+    debuff: Debuff[];
+};
+
+export function getSelectedObj(store: GameStore): SelectedObj {
+    const race = racesMap[store.playerMeta.race] || emptyRaceObj;
+    const calling = callingMap[store.playerMeta.calling] || emptyCallingObj;
+    const feeling = feelingMap[store.playerFlux.feeling.name] || emptyFeelingObj;
+    const armor = armorMap[store.playerFlux.armor.name] || emptyArmorObj;
+    const weapon = weaponMap[store.playerFlux.weapon.name] || emptyWeaponObj;
+    const item = itemMap[store.playerFlux.item.name] || emptyItemObj;
+
+    const buff = store.playerFlux.buff
+        .map((buffObj) => buffMap[buffObj.name] || null)
+        .filter(Boolean) as Buff[];
+
+    const debuff = store.playerFlux.debuff
+        .map((debuffObj) => debuffMap[debuffObj.name] || null)
+        .filter(Boolean) as Debuff[];
+
+    const origin =
+        race.subraces.find((subrace) => subrace.name === store.playerMeta.origin) || emptySubraceObj;
+
+    return { race, calling, feeling, armor, weapon, origin, item, buff, debuff };
+}
+
+//#endregion
 
 // EINBINDEN
 //   function MyComponent() {

@@ -2,9 +2,12 @@ import React from 'react';
 import { useGameStore } from '../../../data/gameStore';
 import { useGameState } from '../../../data/gameState';
 import Header from '../../../layout/Header/Header';
-import { getCombinedStats, Item, useNewGameStore } from '../../../store/newGameStore';
+import { getCombinedStats, getSelectedObj, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
 import PlayerInventory from './PlayerInventory';
+import { Item, itemMap } from '../../../data/ItemData';
+import { Buff, buffMap } from '../../../data/buffData';
+import { Debuff, debuffMap } from '../../../data/debuffData';
 
 
 type PlayerInfoProps = {
@@ -21,18 +24,12 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
 
     //TEST
-    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, updateItems, newDay, resetGameData } = useNewGameStore();
+    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
+    const selected = getSelectedObj(store);
 
-    const apple: Item = {
-        name: "Apfel",
-        description: "Ein saftiger roter Apfel. Heilt 5 Lebenspunkte.",
-        effects: { life: 5 },
-    };
-    const stick: Item = {
-        name: "Stock",
-        description: "Ein einfacher Stock",
-    };
+    const apple: Item = itemMap["Pilz"];
+    const stick: Item = itemMap["Stock"];
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -62,12 +59,20 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         setPlayerFlux({ weapon })
     }
     const handleBuff1 = () => {
-        const newBuff = { name: "Stärke", stats: { attack: 10 } };
-        updatePlayerBuff(newBuff);
+        const newBuff: Buff = buffMap["Eisenhaut"];
+        updatePlayerBuff({ name: "Eisenhaut", stats: newBuff.effects });
     }
     const handleBuff2 = () => {
-        const newBuff = { name: "Glück", stats: { luck: 10 } };
-        updatePlayerBuff(newBuff);
+        const newBuff: Buff = buffMap["Kampfgeist"];
+        updatePlayerBuff({ name: "Kampfgeist", stats: newBuff.effects });
+    }
+    const handleDeBuff1 = () => {
+        const newBuff: Debuff = debuffMap["Schwäche"];
+        updatePlayerDebuff({ name: "Schwäche", stats: newBuff.effects });
+    }
+    const handleDeBuff2 = () => {
+        const newBuff: Debuff = debuffMap["Pechvogel"];
+        updatePlayerDebuff({ name: "Pechvogel", stats: newBuff.effects });
     }
     const handelAddAppel = () => {
         updateItems(apple, 2);
@@ -128,23 +133,30 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <GradientText>Temperatur: {store.gameState.temperature}</GradientText><br />
             <GradientText>Wetter: {store.gameState.weather}</GradientText><br /><br />
 
-            {store.playerFlux.buff.length === 0 ? (
-                <p>Keine Buffs aktiv</p>
-            ) : (
+            <h3>Aktive Buffs</h3>
+            {selected.buff.length > 0 ? (
                 <ul>
-                    {store.playerFlux.buff.map((buff, index) => (
+                    {selected.buff.map((buff, index) => (
                         <li key={index}>
-                            <strong>{buff.name}</strong>
-                            <ul>
-                                {Object.entries(buff.stats).map(([stat, value]) => (
-                                    <li key={stat}>
-                                        {stat}: {value}
-                                    </li>
-                                ))}
-                            </ul>
+                            {buff.label} - {buff.description} (Dauer: {buff.duration} Runden)
                         </li>
                     ))}
                 </ul>
+            ) : (
+                <p>Keine aktiven Buffs</p>
+            )}
+
+            <h3>Aktive Debuffs</h3>
+            {selected.debuff.length > 0 ? (
+                <ul>
+                    {selected.debuff.map((debuff, index) => (
+                        <li key={index}>
+                            {debuff.label} - {debuff.description} (Dauer: {debuff.duration} Runden)
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>Keine aktiven Debuffs</p>
             )}
 
             <PlayerInventory />
@@ -158,23 +170,25 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             {combined.life <= 0 && <>TOT!!! <br /><br /></>}
 
-            <button onClick={handelRoundsAdd}>Runde +</button>
-            <button onClick={handelRoundsSub}>Runde -</button>
+            <button className='btn-border' onClick={handelRoundsAdd}>Runde +</button>
+            <button className='btn-border' onClick={handelRoundsSub}>Runde -</button>
 
-            <button onClick={handelLifeAdd}>Leben +</button>
-            <button onClick={handelLifeSub}>Leben -</button>
+            <button className='btn-border' onClick={handelLifeAdd}>Leben +</button>
+            <button className='btn-border' onClick={handelLifeSub}>Leben -</button>
 
-            <button onClick={handleNewDay}>Neuer Tag</button>
-            <button onClick={handleReset}>Reset Data</button>
+            <button className='btn-border' onClick={handleNewDay}>Neuer Tag</button>
+            <button className='btn-border' onClick={handleReset}>Reset Data</button>
 
-            <button onClick={handleWeapon}>Nimm eine Waffe (+5 att)</button>
-            <button onClick={handleWeaponOff}>Nimm die Waffe runter (-5 att)</button>
-            <button onClick={handleBuff1}>Bekomme Buff Stärke</button>
-            <button onClick={handleBuff2}>Bekomme Buff Glück</button>
+            <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe (+5 att)</button>
+            <button className='btn-border' onClick={handleWeaponOff}>Nimm die Waffe runter (-5 att)</button>
+            <button className='btn-border' onClick={handleBuff1}>Bekomme Buff Eisenhaut</button>
+            <button className='btn-border' onClick={handleBuff2}>Bekomme Buff Kampfgeist</button>
+            <button className='btn-border' onClick={handleDeBuff1}>Bekomme Debuff Schwäche</button>
+            <button className='btn-border' onClick={handleDeBuff2}>Bekomme Debuff Pechvogel</button>
 
-            <button onClick={handelAddStick}>Nimm Stock</button>
-            <button onClick={handelAddAppel}>Nimm 2 Äpfel</button>
-            <button onClick={handleRemoveAppel}>wirf einen Apfel weg</button>
+            <button className='btn-border' onClick={handelAddStick}>Nimm Stock</button>
+            <button className='btn-border' onClick={handelAddAppel}>Nimm 2 Pilze</button>
+            <button className='btn-border' onClick={handleRemoveAppel}>wirf einen Pilz weg</button>
         </div>
     );
 };

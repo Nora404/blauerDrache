@@ -3,6 +3,7 @@ import Header from '../layout/Header/Header';
 import { GradientText } from '../utility/GradientText';
 import { useGameStore } from '../data/gameStore';
 import { useGameState } from '../data/gameState';
+import { getSelectedObj, useNewGameStore } from '../store/newGameStore';
 
 type YouAreProps = {
 };
@@ -13,16 +14,20 @@ const YouAre: React.FC<YouAreProps> = ({ }) => {
 
     const { gameStore } = useGameStore();
 
+
+    const { store } = useNewGameStore();
+    const selected = getSelectedObj(store);
+
     return (
         <div>
             <Header>Das bist du</Header>
             <p className='text-left padding-left'>
-                Name: {gameStore.meta.name}<br />
-                Rasse: {gameState.selectedRace.label}<br />
-                Herkunft: {gameState.selectedOrigin.label}<br />
-                Berufung: {gameState.selectedCalling.label}<br />
+                Name: {store.playerMeta.name}<br />
+                Rasse: {selected.race.label}<br />
+                Herkunft: {selected.origin.label}<br />
+                Berufung: {selected.calling.label}<br />
                 Titel: <GradientText>{gameStore.meta.titel}</GradientText><br />
-                Stimmung: {gameState.selectedFeeling.label}<br />
+                Stimmung: {selected.feeling.label}<br />
             </p>
         </div>
     );
