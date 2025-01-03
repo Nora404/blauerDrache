@@ -6,9 +6,6 @@ import { getCombinedStats, getSelectedObj, useNewGameStore } from '../../../stor
 import { GradientText } from '../../../utility/GradientText';
 import PlayerInventory from './PlayerInventory';
 import { Item, itemMap } from '../../../data/ItemData';
-import { Buff, buffMap } from '../../../data/buffData';
-import { Debuff, debuffMap } from '../../../data/debuffData';
-
 
 type PlayerInfoProps = {
 };
@@ -134,7 +131,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 <ul>
                     {selected.buff.map((buff, index) => (
                         <li key={index}>
-                            {buff.label} - {buff.description} (Dauer: {buff.duration} Runden)
+                            {buff.label} - {buff.description}
+                            (Dauer: {buff.currentDuration} Runden)
                         </li>
                     ))}
                 </ul>
@@ -147,7 +145,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 <ul>
                     {selected.debuff.map((debuff, index) => (
                         <li key={index}>
-                            {debuff.label} - {debuff.description} (Dauer: {debuff.duration} Runden)
+                            {debuff.label} - {debuff.description}
+                            (Dauer: {debuff.currentDuration} Runden)
                         </li>
                     ))}
                 </ul>

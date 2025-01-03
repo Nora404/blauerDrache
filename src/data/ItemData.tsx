@@ -1,4 +1,6 @@
 import { GradientText } from "../utility/GradientText";
+import { BuffName } from "./buffData";
+import { DebuffName } from "./debuffData";
 import { PlayerStats } from "./gameStore";
 
 export type ItemName =
@@ -28,8 +30,8 @@ export type Item = {
     label: JSX.Element
     category: ItemCartegoryName
     effects?: Partial<PlayerStats>;
-    buff?: string
-    debuff?: string
+    buff?: BuffName
+    debuff?: DebuffName
     description: string
     ek: number
     vk: number

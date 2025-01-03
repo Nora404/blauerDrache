@@ -9,6 +9,7 @@ export type Buff = {
     description: string;
     effects: Partial<PlayerStats>;
     duration: number; // Dauer in Runden
+    currentDuration: number;
 };
 
 export const buffs: Buff[] = [
@@ -18,6 +19,7 @@ export const buffs: Buff[] = [
         description: "Erhöht die Verteidigung für eine begrenzte Zeit.",
         effects: { defense: 10 },
         duration: 5, // 5 Runden
+        currentDuration: 5, // 5 Runden
     },
     {
         name: "Kampfgeist",
@@ -25,6 +27,7 @@ export const buffs: Buff[] = [
         description: "Erhöht den Angriff für eine begrenzte Zeit.",
         effects: { attack: 8 },
         duration: 3, // 3 Runden
+        currentDuration: 3, // 3 Runden
     },
 ];
 

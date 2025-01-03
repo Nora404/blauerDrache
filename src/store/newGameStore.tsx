@@ -315,40 +315,68 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const buff = buffMap[name];
         if (!buff) return;
 
-        setStore((prev) => ({
-            ...prev,
-            playerFlux: {
-                ...prev.playerFlux,
-                buff: [
-                    ...prev.playerFlux.buff,
-                    {
-                        name: buff.name,
-                        stats: buff.effects,
-                        duration: buff.duration,
-                    },
-                ],
-            },
-        }));
+        setStore((prev) => {
+            // Schauen, ob bereits ein Buff mit gleichem Namen existiert
+            const existingIndex = prev.playerFlux.buff.findIndex((b) => b.name === name);
+            const updatedBuffs = [...prev.playerFlux.buff];
+
+            if (existingIndex >= 0) {
+                // Wenn schon da, Duration addieren
+                updatedBuffs[existingIndex] = {
+                    ...updatedBuffs[existingIndex],
+                    duration: (updatedBuffs[existingIndex].duration || 0)
+                        + buff.duration,
+                };
+            } else {
+                // Ansonsten neu hinzufügen
+                updatedBuffs.push({
+                    name: buff.name,
+                    stats: buff.effects,
+                    duration: buff.duration,
+                });
+            }
+
+            return {
+                ...prev,
+                playerFlux: {
+                    ...prev.playerFlux,
+                    buff: updatedBuffs,
+                },
+            };
+        });
     };
 
     const updatePlayerDebuff = (name: DebuffName) => {
         const debuff = debuffMap[name];
         if (!debuff) return;
 
-        setStore((prev) => ({
-            ...prev,
-            playerFlux: {
-                ...prev.playerFlux,
-                debuff: [
-                    ...prev.playerFlux.debuff,
-                    {
-                        name: debuff.name,
-                        stats: debuff.effects,
-                        duration: debuff.duration,
-                    },
-                ],
-            },
-        }));
+        setStore((prev) => {
+            const existingIndex = prev.playerFlux.debuff.findIndex((d) => d.name === name);
+
+            const updatedDebuffs = [...prev.playerFlux.debuff];
+
+            if (existingIndex >= 0) {
+                updatedDebuffs[existingIndex] = {
+                    ...updatedDebuffs[existingIndex],
+                    duration: (updatedDebuffs[existingIndex].duration || 0)
+                        + debuff.duration,
+                };
+            } else {
+                updatedDebuffs.push({
+                    name: debuff.name,
+                    stats: debuff.effects,
+                    duration: debuff.duration,
+                });
+            }
+
+            return {
+                ...prev,
+                playerFlux: {
+                    ...prev.playerFlux,
+                    debuff: updatedDebuffs,
+                },
+            };
+        });
     };
 
     const updateLife = (delta: number) => {
@@ -379,13 +407,15 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             if (delta < 0) {
                 // duration um 1 verringern
                 updatedBuffs = updatedBuffs
-                    .map((b) => ({ ...b, duration: b.duration ? b.duration - 1 : 0 }))
+                    .map((b) => ({ ...b, duration: b.duration ? b.duration - Math.abs(delta) : 0 }))
                     .filter((b) => b.duration === undefined || b.duration > 0);
 
                 updatedDebuffs = updatedDebuffs
-                    .map((d) => ({ ...d, duration: d.duration ? d.duration - 1 : 0 }))
+                    .map((d) => ({ ...d, duration: d.duration ? d.duration - Math.abs(delta) : 0 }))
                     .filter((d) => d.duration === undefined || d.duration > 0);
             }
+
+            console.log(store.playerFlux.buff);
 
             return {
                 ...prev,
@@ -452,11 +482,11 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             if (buff) {
-                // updatePlayerBuff();
+                updatePlayerBuff(buff);
             }
 
             if (debuff) {
-                // updatePlayerDebuff();
+                updatePlayerDebuff(debuff);
             }
 
             // Verbrauchten Gegenstand abziehen
@@ -576,12 +606,30 @@ export function getSelectedObj(store: GameStore): SelectedObj {
     const item = itemMap[store.playerFlux.item.name] || emptyItemObj;
 
     const buff = store.playerFlux.buff
-        .map((buffObj) => buffMap[buffObj.name] || null)
-        .filter(Boolean) as Buff[];
+        .map((activeBuff) => {
+            const baseBuff = buffMap[activeBuff.name];
+            if (!baseBuff) return null;
+
+            return {
+                ...baseBuff,
+                currentDuration: activeBuff.duration,
+            };
+        })
+        .filter(Boolean) as Buff[] & { currentDuration?: number }[];
+    // ^ Kleiner Trick, damit TypeScript nicht meckert
 
     const debuff = store.playerFlux.debuff
-        .map((debuffObj) => debuffMap[debuffObj.name] || null)
-        .filter(Boolean) as Debuff[];
+        .map((activeDebuff) => {
+            const baseDebuff = debuffMap[activeDebuff.name];
+            if (!baseDebuff) return null;
+
+            return {
+                ...baseDebuff,
+                currentDuration: activeDebuff.duration,
+            };
+        })
+        .filter(Boolean) as Debuff[] & { currentDuration?: number }[];
+
 
     const origin =
         race.subraces.find((subrace) => subrace.name === store.playerMeta.origin) || emptySubraceObj;
