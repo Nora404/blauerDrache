@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
-import { useGameStore } from '../data/gameStore';
 import { SYSTEM } from '../data/colorfullStrings';
+import { getSelectedObj, useNewGameStore } from '../store/newGameStore';
 
 type YouHaveProps = {
 };
 
 const YouHave: React.FC<YouHaveProps> = () => {
-    const { gameStore: gameData } = useGameStore();
+    const { store } = useNewGameStore();
+    const selected = getSelectedObj(store);
 
     return (
         <div>
@@ -15,15 +16,15 @@ const YouHave: React.FC<YouHaveProps> = () => {
             <table style={{ paddingLeft: '20px', marginBottom: '25px' }}>
                 <tbody>
                     <tr>
-                        <td width={125}>{SYSTEM.Gold}</td><td>{gameData.economy.gold}</td>
+                        <td width={125}>{SYSTEM.Gold}</td><td>{store.playerEconomy.gold}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Edelsteine}</td><td>{gameData.economy.edelsteine}</td>
+                        <td>{SYSTEM.Edelsteine}</td><td>{store.playerEconomy.edelsteine}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Waffe}</td><td>{gameData.equipment.weapon}</td>
+                        <td>{SYSTEM.Waffe}</td><td>{selected.weapon.label}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Rüstung}</td><td>{gameData.equipment.armor}</td>
+                        <td>{SYSTEM.Rüstung}</td><td>{selected.armor.label}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Inventar}</td><td>...</td>
+                        <td>{SYSTEM.Hand}</td><td>{selected.item.label}</td>
                     </tr>
                 </tbody>
             </table>

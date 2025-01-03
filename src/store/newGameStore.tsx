@@ -138,9 +138,11 @@ type GameStoreContextType = {
     updateGameSwitch: (key: string, value: boolean) => void; // oder (switchName: SwitchName, value: boolean)
     updatePlayerBuff: (name: BuffName) => void;
     updatePlayerDebuff: (name: DebuffName) => void;
-    updateItems: (item: Item, quantity: number) => void;
+    updateItems: (name: ItemName, quantity: number) => void;
     updateLife: (delta: number) => void;
     updateRounds: (delta: number) => void;
+    updateWeapon: (name: WeaponName) => void;
+    updateArmor: (name: ArmorName) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -149,9 +151,9 @@ import { getRandomArrayElement } from "../utility/RandomArrayElement";
 import { TEMPERATURE, WEATHER } from "../data/weatherStrings";
 import { emptyRaceObj, emptySubraceObj, Race, racesMap, Subrace } from "../data/raceData";
 import { Calling, callingMap, emptyCallingObj } from "../data/callingData";
-import { Armor, armorMap, emptyArmorObj } from "../data/armorData";
-import { emptyWeaponObj, Weapon, weaponMap } from "../data/weaponData";
-import { emptyItemObj, Item, itemMap } from "../data/ItemData";
+import { Armor, armorMap, ArmorName, emptyArmorObj } from "../data/armorData";
+import { emptyWeaponObj, Weapon, weaponMap, WeaponName } from "../data/weaponData";
+import { emptyItemObj, Item, itemMap, ItemName } from "../data/ItemData";
 import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 
@@ -432,7 +434,10 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         });
     };
 
-    const updateItems = (item: Item, quantity: number) => {
+    const updateItems = (name: ItemName, quantity: number) => {
+        const item = itemMap[name];
+        if (!item) return;
+
         setStore((prev) => {
             const currentItem = prev.playerEconomy.items[item.name];
             const currentQuantity = currentItem ? currentItem.quantity : 0;
@@ -456,6 +461,47 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             };
         });
     };
+
+    const updateWeapon = (name: WeaponName) => {
+        const weapon = weaponMap[name];
+        if (!weapon) return;
+
+        const weaponStats: Partial<PlayerStats> = {
+            attack: weapon.attack,
+        };
+
+        setStore((prev) => ({
+            ...prev,
+            playerFlux: {
+                ...prev.playerFlux,
+                weapon: {
+                    name: weapon.name,
+                    stats: weaponStats,
+                },
+            },
+        }));
+    };
+
+    const updateArmor = (name: ArmorName) => {
+        const armor = armorMap[name];
+        if (!armor) return;
+
+        const armorStats: Partial<PlayerStats> = {
+            defense: armor.defense,
+        }
+
+        setStore((prev) => ({
+            ...prev,
+            playerFlux: {
+                ...prev.playerFlux,
+                armor: {
+                    name: armor.name,
+                    stats: armorStats,
+                },
+            },
+        }));
+    };
+
     //#endregion
 
     //#region [helper]
@@ -529,6 +575,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updateItems,
         updateLife,
         updateRounds,
+        updateWeapon,
+        updateArmor,
     };
 
     return (

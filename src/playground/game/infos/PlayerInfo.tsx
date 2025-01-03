@@ -5,7 +5,6 @@ import Header from '../../../layout/Header/Header';
 import { getCombinedStats, getSelectedObj, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
 import PlayerInventory from './PlayerInventory';
-import { Item, itemMap } from '../../../data/ItemData';
 
 type PlayerInfoProps = {
 };
@@ -21,12 +20,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
 
     //TEST
-    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
+    const { store, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
     const selected = getSelectedObj(store);
-
-    const apple: Item = itemMap["Pilz"];
-    const stick: Item = itemMap["Stock"];
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -48,12 +44,10 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         resetGameData();
     }
     const handleWeapon = () => {
-        const weapon = { name: "Schwert", stats: { attack: 5 } }
-        setPlayerFlux({ weapon })
+        updateWeapon("Besenstiel");
     }
-    const handleWeaponOff = () => {
-        const weapon = { name: "Nichts", stats: {} }
-        setPlayerFlux({ weapon })
+    const handleWeapon2 = () => {
+        updateWeapon("Heugabel");
     }
     const handleBuff1 = () => {
         updatePlayerBuff("Eisenhaut");
@@ -68,13 +62,13 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         updatePlayerDebuff("Pechvogel");
     }
     const handelAddAppel = () => {
-        updateItems(apple, 2);
+        updateItems("Pilz", 2);
     }
     const handleRemoveAppel = () => {
-        updateItems(apple, -1);
+        updateItems("Pilz", -1);
     }
     const handelAddStick = () => {
-        updateItems(stick, 1);
+        updateItems("Stock", 1);
     }
 
     return (
@@ -174,8 +168,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <button className='btn-border' onClick={handleNewDay}>Neuer Tag</button>
             <button className='btn-border' onClick={handleReset}>Reset Data</button>
 
-            <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe (+5 att)</button>
-            <button className='btn-border' onClick={handleWeaponOff}>Nimm die Waffe runter (-5 att)</button>
+            <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe</button>
+            <button className='btn-border' onClick={handleWeapon2}>Nimm eine andere Waffe</button>
             <button className='btn-border' onClick={handleBuff1}>Bekomme Buff Eisenhaut</button>
             <button className='btn-border' onClick={handleBuff2}>Bekomme Buff Kampfgeist</button>
             <button className='btn-border' onClick={handleDeBuff1}>Bekomme Debuff Schwäche</button>
