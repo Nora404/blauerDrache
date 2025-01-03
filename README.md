@@ -150,3 +150,15 @@ Und dann wurde ich größenwahnsinnig und wollte zufällige verkettete Ereigniss
 Die Verarbeitung der ausgewählten Endscheidungen findet dann in `ApplyGameAction` statt. Es nutzt alle updates aus dem `gameStore` und arbeitet die Infos von `GameAction` ab. 
 
 > Diese Funktion wurde noch nicht ausreichend getestet! 
+
+### Tools und Plugins
+Ich nutze das Plugin Colored Regions von mihelcic um Bereiche des Codes mit einem schwachen farbigen Hintergund zu belegen. Das hat den Vorteil, dass auch in der rechten mini Übersicht die Bereiche deutlich erkennbar sind. Zur Strukturierung und Navigation im Code finde ich das sehr hilfreich. Ich habe für bestimmte Bereiche noch Snippets erstellt.
+
+Ein weiteres Plugin welches ich nutze ist Folder color von SergeyEgorov um Ordner im Editor einzufärben. Auch hier wieder der gleiche Grund, ich kann damit Bereiche besser erkennen und somit schneller Navigieren. 
+
+Wie viele auch nutzte ich mittlerweile ChatGPT, der mir beim Coden hilft. Ich verbringe so weniger Zeit mit Googeln und finden von Lösungen. Er Kompensiert meine fehlende Erfahrung oder nimmt mir zeitaufwendige Fleißaufgaben ab. Ich könnte ihn auch nuten um meine hunderten Rechtschreibfehler zu koregieren, das würde aber den Flow unterbrechen und es ist dann doch sehr aufwendig.
+
+### Fazit
+Ich merke das es wirklich sinnvoll ist als Team solche Projekte anzugehen. Jemand für die Texte, jemand zum Coden und auch jemand der super mit Architektur ist, dann noch einen Tester ... 
+
+Aber etwas das ich machen konnte, was im Arbeitsleben nie vorkommt, ist das Überdenhaufen werfen von vermeintlich funktionierenden Code um etwas besseres zu schreiben. Ich habe Tage damit verbracht den Context neu zu schreiben und einzubinden. Erstmal alle alten tief verwurzelten Fäden ziehen - dann funktioniert nichts mehr und hoffen den neuen Context richtig einzuweben. 
