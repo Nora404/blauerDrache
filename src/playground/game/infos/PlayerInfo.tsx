@@ -20,7 +20,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
 
     //TEST
-    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, consumeItem, updateItems, newDay, resetGameData } = useNewGameStore();
+    const { store, updateLife, updateRounds, setPlayerFlux, updatePlayerBuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
 
     const apple: Item = {

@@ -15,6 +15,13 @@ const MainNavi: React.FC<MainNaviProps> = () => {
     const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
 
     useEffect(() => {
+        let pathName = location.pathname.split("/");
+
+        if (pathName.length > 2) {
+            console.log(pathName);
+            console.log("Ein Transit!")
+        }
+
         const NavComponent = navigationMap[location.pathname];
         if (NavComponent) {
             setCurrentNav(<NavComponent />);
