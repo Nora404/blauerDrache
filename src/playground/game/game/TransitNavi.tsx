@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
 import ColoredLetter from '../../../utility/ColoredLetter';
+import { getPlaceLabelFromRoute } from '../../../routings/mappingPathToLabel';
 
-type NavigationComponentNameProps = {
+type TransitNaviProps = {
     target: string,
     start: string,
     steps: string,
 };
 
-const NavigationComponentName: React.FC<NavigationComponentNameProps> = ({ target, start, steps }) => {
-    const currentPath = "/transit/" + target + start + steps;
+const TansitNavi: React.FC<TransitNaviProps> = ({ target, start, steps }) => {
+    const currentPath = "/transit/" + target + "/" + start + "/" + steps;
 
     return (
         <div className='max-width'>
             <Header>Unterwegs</Header>
             <p className='mb-1 text-left'>
-                Du bist auf dem Weg nach {target}<br />
-                Du lässt {start} hinter dir<br />
+                Du bist auf dem Weg nach {getPlaceLabelFromRoute(target)}<br />
+                Du lässt {getPlaceLabelFromRoute(start)} hinter dir<br />
                 Deine Reise dauert {steps} Schritte<br />
             </p>
             <p className='text-left'>
@@ -26,4 +27,4 @@ const NavigationComponentName: React.FC<NavigationComponentNameProps> = ({ targe
     );
 };
 
-export default NavigationComponentName;
+export default TansitNavi;
