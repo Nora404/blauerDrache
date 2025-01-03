@@ -40,6 +40,7 @@ export type PlayerInfo = {
 type PlayerStatsObject = {
     name: string;
     stats: Partial<PlayerStats>;
+    duration?: number;
 };
 
 export type PlayerFlux = {
@@ -135,14 +136,14 @@ type GameStoreContextType = {
     newDay: () => void;
 
     updateGameSwitch: (key: string, value: boolean) => void; // oder (switchName: SwitchName, value: boolean)
-    updatePlayerBuff: (buff: PlayerStatsObject) => void;
-    updatePlayerDebuff: (debuff: PlayerStatsObject) => void;
+    updatePlayerBuff: (name: BuffName) => void;
+    updatePlayerDebuff: (name: DebuffName) => void;
     updateItems: (item: Item, quantity: number) => void;
     updateLife: (delta: number) => void;
     updateRounds: (delta: number) => void;
 };
 
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useRef } from "react";
 import { emptyFeelingObj, Feeling, feelingMap, getRandomFeeling } from "../data/feelingData";
 import { getRandomArrayElement } from "../utility/RandomArrayElement";
 import { TEMPERATURE, WEATHER } from "../data/weatherStrings";
@@ -151,8 +152,8 @@ import { Calling, callingMap, emptyCallingObj } from "../data/callingData";
 import { Armor, armorMap, emptyArmorObj } from "../data/armorData";
 import { emptyWeaponObj, Weapon, weaponMap } from "../data/weaponData";
 import { emptyItemObj, Item, itemMap } from "../data/ItemData";
-import { Buff, buffMap } from "../data/buffData";
-import { Debuff, debuffMap } from "../data/debuffData";
+import { Buff, buffMap, BuffName } from "../data/buffData";
+import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -202,6 +203,14 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }));
         }
     };
+
+    const previousGameDay = useRef(store.gameTime.gameDay);
+    useEffect(() => {
+        if (previousGameDay.current === "Nacht" && store.gameTime.gameDay === "Tag") {
+            newDay();
+        }
+        previousGameDay.current = store.gameTime.gameDay;
+    }, [store.gameTime.gameDay]);
     //#endregion
 
     //#region [setter]
@@ -302,22 +311,42 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }));
     };
 
-    const updatePlayerBuff = (buff: PlayerStatsObject) => {
+    const updatePlayerBuff = (name: BuffName) => {
+        const buff = buffMap[name];
+        if (!buff) return;
+
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                buff: [...prev.playerFlux.buff, buff],
+                buff: [
+                    ...prev.playerFlux.buff,
+                    {
+                        name: buff.name,
+                        stats: buff.effects,
+                        duration: buff.duration,
+                    },
+                ],
             },
         }));
     };
 
-    const updatePlayerDebuff = (debuff: PlayerStatsObject) => {
+    const updatePlayerDebuff = (name: DebuffName) => {
+        const debuff = debuffMap[name];
+        if (!debuff) return;
+
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                debuff: [...prev.playerFlux.debuff, debuff],
+                debuff: [
+                    ...prev.playerFlux.debuff,
+                    {
+                        name: debuff.name,
+                        stats: debuff.effects,
+                        duration: debuff.duration,
+                    },
+                ],
             },
         }));
     };
@@ -344,11 +373,30 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 Math.max(prev.playerStats.rounds + delta, 0),
                 prev.playerInfo.maxRounds
             );
+
+            let updatedBuffs = prev.playerFlux.buff;
+            let updatedDebuffs = prev.playerFlux.debuff;
+            if (delta < 0) {
+                // duration um 1 verringern
+                updatedBuffs = updatedBuffs
+                    .map((b) => ({ ...b, duration: b.duration ? b.duration - 1 : 0 }))
+                    .filter((b) => b.duration === undefined || b.duration > 0);
+
+                updatedDebuffs = updatedDebuffs
+                    .map((d) => ({ ...d, duration: d.duration ? d.duration - 1 : 0 }))
+                    .filter((d) => d.duration === undefined || d.duration > 0);
+            }
+
             return {
                 ...prev,
                 playerStats: {
                     ...prev.playerStats,
                     rounds: newRounds,
+                },
+                playerFlux: {
+                    ...prev.playerFlux,
+                    buff: updatedBuffs,
+                    debuff: updatedDebuffs,
                 },
             };
         });

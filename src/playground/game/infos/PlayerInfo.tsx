@@ -59,20 +59,16 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         setPlayerFlux({ weapon })
     }
     const handleBuff1 = () => {
-        const newBuff: Buff = buffMap["Eisenhaut"];
-        updatePlayerBuff({ name: "Eisenhaut", stats: newBuff.effects });
+        updatePlayerBuff("Eisenhaut");
     }
     const handleBuff2 = () => {
-        const newBuff: Buff = buffMap["Kampfgeist"];
-        updatePlayerBuff({ name: "Kampfgeist", stats: newBuff.effects });
+        updatePlayerBuff("Kampfgeist");
     }
     const handleDeBuff1 = () => {
-        const newBuff: Debuff = debuffMap["Schwäche"];
-        updatePlayerDebuff({ name: "Schwäche", stats: newBuff.effects });
+        updatePlayerDebuff("Schwäche");
     }
     const handleDeBuff2 = () => {
-        const newBuff: Debuff = debuffMap["Pechvogel"];
-        updatePlayerDebuff({ name: "Pechvogel", stats: newBuff.effects });
+        updatePlayerDebuff("Pechvogel");
     }
     const handelAddAppel = () => {
         updateItems(apple, 2);
