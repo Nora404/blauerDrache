@@ -1,13 +1,13 @@
-import Header from "../../../layout/Header/Header";
 import { useNewGameStore } from "../../../store/newGameStore";
 
-export const PlayerInventory: React.FC = () => {
+const PlayerInventory: React.FC = () => {
     const { store, consumeItem } = useNewGameStore();
     const items = store.playerEconomy.items;
 
     return (
         <div>
-            <Header>Inventar</Header>
+            <h2>Inventar</h2>
+            {/* <Header>Alles</Header> */}
             {Object.keys(items).length === 0 ? (
                 <p>Keine Items im Inventar.</p>
             ) : (
@@ -33,3 +33,4 @@ export const PlayerInventory: React.FC = () => {
     );
 };
 
+export default PlayerInventory;

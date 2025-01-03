@@ -22,6 +22,7 @@ const InfoNavi: React.FC<InfoNaviProps> = () => {
                 <Link to="/map"><ColoredLetter>Karte</ColoredLetter> von Lahtheim</Link><br />
                 {gameData.meta.creating && <Link to="/new-day">Aktueller <ColoredLetter>Tag</ColoredLetter></Link>}<br />
                 {gameData.meta.creating && <Link to="/player-info">Dein <ColoredLetter>Steckbrief</ColoredLetter></Link>}<br />
+                {gameData.meta.creating && <Link to="/player-inventar">Dein <ColoredLetter>Inventar</ColoredLetter></Link>}<br />
             </p>
 
             <p className='text-left'>

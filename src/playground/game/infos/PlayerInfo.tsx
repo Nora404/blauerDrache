@@ -4,7 +4,8 @@ import { useGameState } from '../../../data/gameState';
 import Header from '../../../layout/Header/Header';
 import { getCombinedStats, Item, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
-import { PlayerInventory } from './PlayerInventory';
+import PlayerInventory from './PlayerInventory';
+
 
 type PlayerInfoProps = {
 };
