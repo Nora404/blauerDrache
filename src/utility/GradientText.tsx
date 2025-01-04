@@ -1,4 +1,4 @@
-import React, { ReactNode, FC } from "react";
+import { ReactNode, FC } from "react";
 
 type GradientTextProps = {
     colors?: string[];       // Kann auch weggelassen werden, dann ['#000000']

@@ -1,27 +1,24 @@
 // MainContent.tsx
 import React, { useEffect, useState } from 'react'
-import { useGameState } from '../data/gameState'
 import RoutesList from '../RoutesList';
 import NewDay from '../playground/game/infos/NewDay';
-import { useGameStore } from '../data/gameStore';
+import { useNewGameStore } from '../store/newGameStore';
 
 
 type MainContentProps = {
 }
 
 export const MainContent: React.FC<MainContentProps> = () => {
-    const { gameStore } = useGameStore();
-    const gameState = useGameState();
-    if (!gameState) return null;
+    const { store } = useNewGameStore();
 
 
     const [showNewDay, setShowNewDay] = useState(false)
 
     useEffect(() => {
-        if (gameState.gameTime === "06:00" && gameStore.meta.creating) {
+        if (store.gameTime.gameTime === "06:00" && store.gameState.creating) {
             setShowNewDay(true)
         }
-    }, [gameState.gameTime])
+    }, [store.gameTime.gameTime])
 
     const closeNewDay = () => {
         setShowNewDay(false)

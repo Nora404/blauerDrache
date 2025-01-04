@@ -7,8 +7,7 @@ import Header from '../../../../layout/Header/Header';
 import { CREATURE } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import drache from '../../../../assets/drache-01.png';
-import { useGameState } from '../../../../data/gameState';
-import { useGameStore } from '../../../../data/gameStore';
+import { useNewGameStore } from '../../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
@@ -18,11 +17,7 @@ type NorthGateProps = {
 };
 
 const NorthGate: React.FC<NorthGateProps> = () => {
-    const { gameStore: gameData } = useGameStore();
-    const gameState = useGameState();
-    if (!gameState) return null;
-
-    const { gameTime, gameDay } = gameState;
+    const { store } = useNewGameStore();
     //#endregion
 
     //#region [jsx]
@@ -35,15 +30,15 @@ const NorthGate: React.FC<NorthGateProps> = () => {
             </p>
 
             <p className='mb-1'>
-                Die aktuelle Uhrzeit in Lahtheim ist <b>{gameTime} Uhr.</b> Es ist <b>{gameDay}</b>.
-                Das Wetter heute ist {gameData.meta.weather} und {gameData.meta.temperature}.
+                Die aktuelle Uhrzeit in Lahtheim ist <b>{store.gameTime.gameTime} Uhr.</b> Es ist <b>{store.gameTime.gameDay}</b>.
+                Das Wetter heute ist {store.gameState.weather} und {store.gameState.temperature}.
             </p>
 
             <img src={drache} width={"30%"} />
 
             <div className='text-left'>
                 <p className='mb-1'>
-                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {gameDay}, du spürst die {gameData.meta.temperature}e Luft auf deinem Gesicht.
+                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {store.gameTime.gameDay}, du spürst die {store.gameState.temperature}e Luft auf deinem Gesicht.
                     Bevor du auch nur einen Schritt gehen kannst,
                     kommt ein kleines <GradientText colors={['#CF388F', '#8839CF']}>geflügeltes Wesen</GradientText> zu dir.
                     Mit großen Augen schaut es erwartungsvoll zu dir hoch.

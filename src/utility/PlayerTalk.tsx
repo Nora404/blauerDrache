@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { GradientText } from './GradientText';
 
 type PlayerTalkProps = {
     children: ReactNode;
@@ -8,7 +7,7 @@ type PlayerTalkProps = {
 const PlayerTalk: React.FC<PlayerTalkProps> = ({ children }) => {
 
     return (
-        <span style={{color:'#C7FAFF'}}><i>{children}</i></span>
+        <span style={{ color: '#C7FAFF' }}><i>{children}</i></span>
     );
 };
 

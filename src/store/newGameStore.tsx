@@ -37,19 +37,19 @@ export type PlayerInfo = {
     maxRounds: number;
 };
 
-type PlayerStatsObject = {
-    name: string;
-    stats: Partial<PlayerStats>;
-    duration?: number;
-};
+// type PlayerStatsObject = {
+//     name: string;
+//     stats: Partial<PlayerStats>;
+//     duration?: number;
+// };
 
 export type PlayerFlux = {
-    feeling: PlayerStatsObject;
-    buff: PlayerStatsObject[];
-    debuff: PlayerStatsObject[];
-    weapon: PlayerStatsObject;
-    armor: PlayerStatsObject;
-    item: PlayerStatsObject;
+    feeling: Feeling;
+    buff: Buff[];
+    debuff: Debuff[];
+    weapon: Weapon;
+    armor: Armor;
+    item: Item;
 };
 
 export type PlayerEconomy = {
@@ -105,15 +105,15 @@ const defaultGameStore: GameStore = {
         maxRounds: 10,
     },
     playerFlux: {
-        feeling: { name: "Normal", stats: {} },
+        feeling: emptyFeelingObj,
         buff: [],
         debuff: [],
-        weapon: { name: "Nichts", stats: {} },
-        armor: { name: "Nichts", stats: {} },
-        item: { name: "Nichts", stats: {} },
+        weapon: emptyWeaponObj,
+        armor: emptyArmorObj,
+        item: emptyItemObj
     },
     playerEconomy: {
-        gold: 0,
+        gold: 100,
         edelsteine: 0,
         items: {},
     },
@@ -143,6 +143,9 @@ type GameStoreContextType = {
     updateRounds: (delta: number) => void;
     updateWeapon: (name: WeaponName) => void;
     updateArmor: (name: ArmorName) => void;
+    updateInHand: (name: ItemName) => void;
+    updatePlayerStats: (delta: Partial<PlayerStats>) => void;
+    updatePlayerEconomy: (delta: Partial<PlayerEconomy>) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -272,7 +275,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const newDay = () => {
-        const { feeling, data } = getRandomFeeling();
+        const feeling = getRandomFeeling();
         const weather = getRandomArrayElement(WEATHER);
         const temperature = getRandomArrayElement(TEMPERATURE);
 
@@ -290,7 +293,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 ...prev.playerFlux,
                 buff: [],
                 debuff: [],
-                feeling: { name: feeling.name, stats: data }
+                feeling: feeling
             },
 
             gameState: {
@@ -331,11 +334,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 };
             } else {
                 // Ansonsten neu hinzufügen
-                updatedBuffs.push({
-                    name: buff.name,
-                    stats: buff.effects,
-                    duration: buff.duration,
-                });
+                updatedBuffs.push(buff);
             }
 
             return {
@@ -364,11 +363,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         + debuff.duration,
                 };
             } else {
-                updatedDebuffs.push({
-                    name: debuff.name,
-                    stats: debuff.effects,
-                    duration: debuff.duration,
-                });
+                updatedDebuffs.push(debuff);
             }
 
             return {
@@ -466,18 +461,11 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const weapon = weaponMap[name];
         if (!weapon) return;
 
-        const weaponStats: Partial<PlayerStats> = {
-            attack: weapon.attack,
-        };
-
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                weapon: {
-                    name: weapon.name,
-                    stats: weaponStats,
-                },
+                weapon: weapon,
             },
         }));
     };
@@ -486,22 +474,56 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const armor = armorMap[name];
         if (!armor) return;
 
-        const armorStats: Partial<PlayerStats> = {
-            defense: armor.defense,
-        }
+        setStore((prev) => ({
+            ...prev,
+            playerFlux: {
+                ...prev.playerFlux,
+                armor: armor,
+            },
+        }));
+    };
+
+    const updateInHand = (name: ItemName) => {
+        const item = itemMap[name];
+        if (!item) return;
 
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                armor: {
-                    name: armor.name,
-                    stats: armorStats,
-                },
+                item: item,
             },
         }));
     };
 
+    const updatePlayerStats = (delta: Partial<PlayerStats>) => {
+        setStore((prev) => ({
+            ...prev,
+            playerStats: {
+                life: prev.playerStats.life + (delta.life || 0),
+                rounds: prev.playerStats.rounds + (delta.rounds || 0),
+                attack: prev.playerStats.attack + (delta.attack || 0),
+                defense: prev.playerStats.defense + (delta.defense || 0),
+                luck: prev.playerStats.luck + (delta.luck || 0),
+            },
+        }));
+    };
+
+    const updatePlayerEconomy = (delta: Partial<PlayerEconomy>) => {
+        setStore((prev) => {
+            const newGold = (delta.gold || 0) + prev.playerEconomy.gold;
+            const newEdelsteine = (delta.edelsteine || 0) + prev.playerEconomy.edelsteine;
+
+            return {
+                ...prev,
+                playerEconomy: {
+                    ...prev.playerEconomy,
+                    gold: Math.max(newGold, 0),
+                    edelsteine: Math.max(newEdelsteine, 0),
+                },
+            };
+        });
+    };
     //#endregion
 
     //#region [helper]
@@ -577,6 +599,9 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updateRounds,
         updateWeapon,
         updateArmor,
+        updateInHand,
+        updatePlayerStats,
+        updatePlayerEconomy,
     };
 
     return (
@@ -596,23 +621,23 @@ export function getCombinedStats(store: GameStore): PlayerStats {
     let defense = base.defense;
     let luck = base.luck;
 
-    attack += store.playerFlux.weapon.stats.attack ?? 0;
-    defense += store.playerFlux.armor.stats.defense ?? 0;
+    attack += store.playerFlux.weapon.attack ?? 0;
+    defense += store.playerFlux.armor.defense ?? 0;
 
     for (const buff of store.playerFlux.buff) {
-        life += buff.stats.life ?? 0;
-        rounds += buff.stats.rounds ?? 0;
-        attack += buff.stats.attack ?? 0;
-        defense += buff.stats.defense ?? 0;
-        luck += buff.stats.luck ?? 0;
+        life += buff.effects.life ?? 0;
+        rounds += buff.effects.rounds ?? 0;
+        attack += buff.effects.attack ?? 0;
+        defense += buff.effects.defense ?? 0;
+        luck += buff.effects.luck ?? 0;
     }
 
     for (const debuff of store.playerFlux.debuff) {
-        life += debuff.stats.life ?? 0;
-        rounds += debuff.stats.rounds ?? 0;
-        attack += debuff.stats.attack ?? 0;
-        defense += debuff.stats.defense ?? 0;
-        luck += debuff.stats.luck ?? 0;
+        life += debuff.effects.life ?? 0;
+        rounds += debuff.effects.rounds ?? 0;
+        attack += debuff.effects.attack ?? 0;
+        defense += debuff.effects.defense ?? 0;
+        luck += debuff.effects.luck ?? 0;
     }
 
     life += store.playerFlux.feeling.stats.life ?? 0;

@@ -1,6 +1,4 @@
 import React from 'react';
-import { useGameStore } from '../../../data/gameStore';
-import { useGameState } from '../../../data/gameState';
 import Header from '../../../layout/Header/Header';
 import { getCombinedStats, getSelectedObj, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
@@ -10,13 +8,13 @@ type PlayerInfoProps = {
 };
 
 const PlayerInfo: React.FC<PlayerInfoProps> = () => {
-    const { gameStore } = useGameStore();
-    const gameState = useGameState();
-    if (!gameState) return null;
+    // const { gameStore } = useGameStore();
+    // const gameState = useGameState();
+    // if (!gameState) return null;
 
-    const items = gameStore.equipment.items;
-    // Object.entries(items) gibt ein Array zurück, in dem jedes Element [itemName, count] ist.
-    const entries = Object.entries(items);
+    // const items = gameStore.equipment.items;
+    // // Object.entries(items) gibt ein Array zurück, in dem jedes Element [itemName, count] ist.
+    // const entries = Object.entries(items);
 
 
     //TEST
@@ -75,7 +73,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         <div className='max-width'>
             <h2>Dein Steckbrief</h2>
 
-            <div className='mb-1'>{gameState.selectedRace.ascii}</div>
+            {/* <div className='mb-1'>{gameState.selectedRace.ascii}</div>
 
             <Header>{gameStore.meta.name}</Header>
             <div className='mb-1 text-left'>
@@ -104,7 +102,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                         {itemName} x {count}<br />
                     </span>
                 ))}
-            </div>
+            </div> */}
 
             <GradientText>Leben: {store.playerStats.life}</GradientText> ---
             <GradientText>Leben von Combi: {combined.life}</GradientText><br />

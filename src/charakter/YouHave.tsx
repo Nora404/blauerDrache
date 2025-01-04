@@ -24,7 +24,7 @@ const YouHave: React.FC<YouHaveProps> = () => {
                     </tr><tr>
                         <td>{SYSTEM.Rüstung}</td><td>{selected.armor.label}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Hand}</td><td>{selected.item.label}</td>
+                        <td>{SYSTEM.HandDer}</td><td>{store.playerFlux.item.label}</td>
                     </tr>
                 </tbody>
             </table>

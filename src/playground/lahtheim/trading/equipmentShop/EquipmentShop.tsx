@@ -1,10 +1,9 @@
 //#region [imports]
 import React, { useState } from 'react';
-import { Armor, armors, emptyArmorObj } from '../../../../data/armorData';
-import { useGameState } from '../../../../data/gameState';
+import { Armor, ArmorName, armors, emptyArmorObj } from '../../../../data/armorData';
 import { GradientText } from '../../../../utility/GradientText';
-import { useGameStore } from '../../../../data/gameStore';
 import { SYSTEM } from '../../../../data/colorfullStrings';
+import { useNewGameStore } from '../../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
@@ -13,11 +12,10 @@ type EquipmentShopProps = {
 
 const EquipmentShop: React.FC<EquipmentShopProps> = () => {
     const [localArmor, setLocalArmor] = useState<Armor>(emptyArmorObj);
-    const { gameStore, setEconomy: updateEconomy, setEquipment: updateEquipment } = useGameStore();
-    const gameState = useGameState();
-    if (!gameState) return null;
+    const { store, updatePlayerEconomy, updateArmor } = useNewGameStore();
 
-    const exchangePrice = (gameState.selectedArmor.price / 1.2).toFixed();
+
+    const exchangePrice = (store.playerFlux.armor.price / 1.2).toFixed();
     //#endregion
 
     //#region [handler]
@@ -26,19 +24,16 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
     };
 
     const handleBuy = () => {
-        const currentGold = gameStore.economy.gold;
-        updateEconomy({
-            gold: (currentGold - localArmor.price) + Number(exchangePrice)
+        updatePlayerEconomy({
+            gold: Number(exchangePrice) - localArmor.price
         })
-        updateEquipment({
-            armor: localArmor.name
-        })
+        updateArmor(localArmor.name as ArmorName)
     }
     //endregion
 
     //#region [helper]
     const canBuy = () => {
-        const canBuy = gameStore.economy.gold - localArmor.price;
+        const canBuy = store.playerEconomy.gold - localArmor.price;
         return canBuy >= 0 ? true : false;
     }
 
@@ -89,7 +84,7 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
                 Die Verkäuferin schaut dich erwartungsvoll an.
                 {localArmor.name !== "Nichts" && (
                     <>
-                        <GradientText colors={['#C237FF']}>"Für </GradientText>{gameState.selectedArmor.label}
+                        <GradientText colors={['#C237FF']}>"Für </GradientText>{store.playerFlux.armor.label}
                         <GradientText colors={['#C237FF']}> wäre ich bereit im Tausch </GradientText>
                         <GradientText colors={['#FFE452']}>{exchangePrice}</GradientText>
                         <GradientText colors={['#C237FF']}> Gold zu bezahlen"</GradientText>

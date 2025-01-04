@@ -1,10 +1,9 @@
 //#region [imports]
 import React, { useState } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
-import { useGameState } from '../../../../data/gameState';
-import { emptyWeaponObj, Weapon, weapons } from '../../../../data/weaponData';
-import { useGameStore } from '../../../../data/gameStore';
+import { emptyWeaponObj, Weapon, WeaponName, weapons } from '../../../../data/weaponData';
 import { SYSTEM } from '../../../../data/colorfullStrings';
+import { useNewGameStore } from '../../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
@@ -13,11 +12,9 @@ type WeaponShopProps = {
 
 const WeaponShop: React.FC<WeaponShopProps> = () => {
     const [localWeapon, setLocalWeapon] = useState<Weapon>(emptyWeaponObj);
-    const { gameStore, setEconomy: updateEconomy, setEquipment: updateEquipment } = useGameStore();
-    const gameState = useGameState();
-    if (!gameState) return null;
+    const { store, updatePlayerEconomy, updateWeapon } = useNewGameStore();
 
-    const exchangePrice = (gameState.selectedWeapon.price / 1.2).toFixed();
+    const exchangePrice = (store.playerFlux.weapon.price / 1.2).toFixed();
     //#endregion
 
     //#region [handler]
@@ -26,19 +23,16 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
     };
 
     const handleBuy = () => {
-        const currentGold = gameStore.economy.gold;
-        updateEconomy({
-            gold: (currentGold - localWeapon.price) + Number(exchangePrice)
+        updatePlayerEconomy({
+            gold: Number(exchangePrice) - localWeapon.price
         })
-        updateEquipment({
-            weapon: localWeapon.name
-        })
+        updateWeapon(localWeapon.name as WeaponName)
     }
     //#endregion
 
     //#region [helper]
     const canBuy = () => {
-        const canBuy = gameStore.economy.gold - localWeapon.price;
+        const canBuy = store.playerEconomy.gold - localWeapon.price;
         return canBuy >= 0 ? true : false;
     }
 
@@ -92,7 +86,7 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
                 Der Verkäufer schaut dich erwartungsvoll an.
                 {localWeapon.name !== "Nichts" && (
                     <>
-                        <GradientText colors={['#D1813B']}>"Für </GradientText>{gameState.selectedWeapon.label}
+                        <GradientText colors={['#D1813B']}>"Für </GradientText>{store.playerFlux.weapon.label}
                         <GradientText colors={['#D1813B']}> wäre ich bereit im Tausch </GradientText>
                         <GradientText colors={['#FFE452']}>{exchangePrice}</GradientText>
                         <GradientText colors={['#D1813B']}> Gold zu bezahlen"</GradientText>

@@ -21,7 +21,8 @@ type SystemKeys =
   | 'Edelsteine'
   | 'Waffe'
   | 'Rüstung'
-  | 'Hand'
+  | 'HandDer'
+  | 'HandDie'
   | 'Inventar';
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   weiter: <b className="systemBtn"><GradientText colors={['#4F9FFF', '#A2FDF9', '#4F9FFF']}>&#126;&#42;&#126; weiter &#126;&#42;&#126;</GradientText></b>,
@@ -44,7 +45,8 @@ export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   Edelsteine: <i><GradientText colors={['#CB4BCF', '#dddddd', '#CB4BCF']}>Edelstein</GradientText></i>,
   Waffe: <i><GradientText colors={['#BA4545', '#B97A57', '#BA4545']}>Waffe</GradientText></i>,
   Rüstung: <i><GradientText colors={['#6f55E7', '#B97A57', '#6f55E7']}>Rüstung</GradientText></i>,
-  Hand: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>In der Hand</GradientText></i>,
+  HandDer: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>In der Hand</GradientText></i>,
+  HandDie: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>In die Hand</GradientText></i>,
   Inventar: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>Inventar</GradientText></i>,
 }
 

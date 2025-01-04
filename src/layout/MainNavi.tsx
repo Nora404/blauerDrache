@@ -3,15 +3,15 @@ import { useLocation } from 'react-router-dom';
 import navigationMap from '../NavigationList';
 import GameNavi from '../playground/game/game/GameNavi';
 import InfoNavi from '../playground/game/infos/InfoNavi';
-import { useGameStore } from '../data/gameStore';
 import TransitNavi from '../playground/game/game/TransitNavi';
+import { useNewGameStore } from '../store/newGameStore';
 
 type MainNaviProps = {
 };
 
 const MainNavi: React.FC<MainNaviProps> = () => {
     const location = useLocation();
-    const { gameStore: gameData } = useGameStore();
+    const { store } = useNewGameStore();
 
     const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
 
@@ -33,7 +33,7 @@ const MainNavi: React.FC<MainNaviProps> = () => {
     return (
         <div>
             <GameNavi />
-            {gameData.meta.creating && (currentNav)}
+            {store.gameState.creating && (currentNav)}
             <InfoNavi />
         </div>
     );

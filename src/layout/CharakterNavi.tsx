@@ -2,26 +2,26 @@ import React from 'react';
 import YouAre from '../charakter/YouAre';
 import YouCan from '../charakter/YouCan';
 import YouHave from '../charakter/YouHave';
-import { useGameStore } from '../data/gameStore';
 import Header from './Header/Header';
+import { useNewGameStore } from '../store/newGameStore';
 
 type CharakterNaviProps = {
 };
 
 const CharakterNavi: React.FC<CharakterNaviProps> = () => {
-    const { gameStore: gameData } = useGameStore();
+    const { store } = useNewGameStore();
 
 
     return (
         <div>
-            {gameData.meta.creating && (
+            {store.gameState.creating && (
                 <>
                     <YouAre />
                     <YouCan />
                     <YouHave />
                 </>
             )}
-            {!gameData.meta.creating && (
+            {!store.gameState.creating && (
                 <Header>Noch kein Charakter erstellt</Header>
             )
             }
