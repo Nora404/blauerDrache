@@ -1,3 +1,4 @@
+import { PlayerEconomy, PlayerFlux, PlayerStats } from "../store/newGameStore";
 import { PlacesKeys } from "./colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { event002Mashroom } from "./gameEvents/002Mushroom";
@@ -16,7 +17,6 @@ import { event014Fairy } from "./gameEvents/014Fairy";
 import { event015FairyLost } from "./gameEvents/015FairyLost";
 import { event016FairyWish } from "./gameEvents/016FairyWish";
 import { event017ChestTrap } from "./gameEvents/017ChestTrap";
-import { PlayerEconomy, PlayerEquipment, PlayerMeta, PlayerStats } from "./gameStore";
 import { ItemName } from "./ItemData";
 
 export type NextEventOption = {
@@ -26,13 +26,9 @@ export type NextEventOption = {
 
 export type GameAction = {
     itemsDelta?: Partial<Record<ItemName, number>>;
-    metaDelta?: Partial<PlayerMeta>
-    statsDelta?: Partial<PlayerStats>;
     economyDelta?: Partial<PlayerEconomy>;
-    equipmentDelta?: Partial<PlayerEquipment>;
-
-    tempItemsDelta?: Partial<Record<ItemName, number>>;
-    tempStatsDelta?: Partial<PlayerStats>;
+    fluxDelta?: Partial<PlayerFlux>                 // für buffs und debuffs
+    stateDelta?: Partial<PlayerStats>;              // für life and rounds
 
     nextEvents?: NextEventOption[];
     message?: JSX.Element;

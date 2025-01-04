@@ -607,14 +607,16 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
 };
 
 //#region [combined stats]
-export function getCombinedStats(store: GameStore): PlayerStats {
-    const base = store.playerStats;
+export function getCombinedStats(store: GameStore) {
+    const base = store;
 
-    let life = base.life;
-    let rounds = base.rounds;
-    let attack = base.attack;
-    let defense = base.defense;
-    let luck = base.luck;
+    let life = base.playerStats.life;
+    let rounds = base.playerStats.rounds;
+    let attack = base.playerStats.attack;
+    let defense = base.playerStats.defense;
+    let luck = base.playerStats.luck;
+    let maxLife = base.playerBase.maxLife;
+    let maxRounds = base.playerBase.maxRounds;
 
     attack += store.playerFlux.weapon.attack ?? 0;
     defense += store.playerFlux.armor.defense ?? 0;
@@ -625,6 +627,8 @@ export function getCombinedStats(store: GameStore): PlayerStats {
         attack += buff.effects.attack ?? 0;
         defense += buff.effects.defense ?? 0;
         luck += buff.effects.luck ?? 0;
+        maxLife += buff.effects.life ?? 0;
+        maxRounds += buff.effects.rounds ?? 0;
     }
 
     for (const debuff of store.playerFlux.debuff) {
@@ -633,6 +637,8 @@ export function getCombinedStats(store: GameStore): PlayerStats {
         attack += debuff.effects.attack ?? 0;
         defense += debuff.effects.defense ?? 0;
         luck += debuff.effects.luck ?? 0;
+        maxLife += debuff.effects.life ?? 0;
+        maxRounds += debuff.effects.rounds ?? 0;
     }
 
     life += store.playerFlux.feeling.stats.life ?? 0;
@@ -640,15 +646,17 @@ export function getCombinedStats(store: GameStore): PlayerStats {
     attack += store.playerFlux.feeling.stats.attack ?? 0;
     defense += store.playerFlux.feeling.stats.defense ?? 0;
     luck += store.playerFlux.feeling.stats.luck ?? 0;
+    maxLife += store.playerFlux.feeling.stats.life ?? 0;
+    maxRounds += store.playerFlux.feeling.stats.rounds ?? 0;
 
     // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
-    life = Math.max(life, 0), store.playerBase.maxLife;
-    rounds = Math.max(rounds, 0), store.playerBase.maxRounds;
+    life = Math.max(life, 0), maxLife;
+    rounds = Math.max(rounds, 0), maxRounds;
     attack = Math.max(attack, 0);
     defense = Math.max(defense, 0);
     luck = Math.max(luck, 0);
 
-    return { life, rounds, attack, defense, luck };
+    return { life, rounds, attack, defense, luck, maxLife, maxRounds };
 }
 //#endregion
 

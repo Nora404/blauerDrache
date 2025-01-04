@@ -21,9 +21,9 @@ const YouCan: React.FC<YouCanProps> = () => {
                     </tr><tr>
                         <td>{SYSTEM.Erfahrung}</td><td>{store.playerBase.exp} / {store.playerBase.nextLevel}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Leben}</td><td>{combined.life} / {store.playerBase.maxLife}</td>
+                        <td>{SYSTEM.Leben}</td><td>{combined.life} / {combined.maxLife}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Runden}</td><td>{combined.rounds} / {store.playerBase.maxRounds}</td>
+                        <td>{SYSTEM.Runden}</td><td>{combined.rounds} / {combined.maxRounds}</td>
                     </tr><tr>
                         <td>{SYSTEM.Angriff}</td><td>{combined.attack}</td>
                     </tr><tr>
