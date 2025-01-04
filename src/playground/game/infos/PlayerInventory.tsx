@@ -1,14 +1,29 @@
 import { SYSTEM } from "../../../data/colorfullStrings";
-import { ItemName } from "../../../data/ItemData";
-import { useNewGameStore } from "../../../store/newGameStore";
+import { Item, ItemName } from "../../../data/ItemData";
+import Header from "../../../layout/Header/Header";
+import { getPlayerObj, useNewGameStore } from "../../../store/newGameStore";
 
 const PlayerInventory: React.FC = () => {
-    const { store, consumeItem, updateInHand } = useNewGameStore();
+    const { store, updateInHand } = useNewGameStore();
+    const selected = getPlayerObj(store);
     const items = store.playerEconomy.items;
 
-    const handelClick = (name: ItemName) => {
+    const handleClick = (name: ItemName) => {
         updateInHand(name);
     }
+
+    const groupItemsByCategory = (items: Record<string, { item: Item; quantity: number }>) => {
+        return Object.values(items).reduce<Record<string, { item: Item; quantity: number }[]>>((acc, itemData) => {
+            const category = itemData.item.category;
+            if (!acc[category]) {
+                acc[category] = [];
+            }
+            acc[category].push(itemData);
+            return acc;
+        }, {});
+    };
+    const groupedItems = groupItemsByCategory(items);
+
 
     return (
         <div className="max-width">
@@ -23,24 +38,28 @@ const PlayerInventory: React.FC = () => {
             {Object.keys(items).length === 0 ? (
                 <p>Keine Items im Inventar.</p>
             ) : (
-                <div className="text-left">
-                    {Object.entries(items).map(([itemName, itemData]) => {
-                        if (!itemData || !itemData.item) return null;
-
-                        return (
-                            <button key={itemName} onClick={() => handelClick(itemName as ItemName)}>
-                                <strong>{itemData.item.name}:</strong> {itemData.quantity} <br />
-                                <small>{itemData.item.description}</small>
-                                {/* {itemData.item.effects && (
-                                    <button onClick={() => consumeItem(itemName)}>
-                                        Benutzen
-                                    </button>
-                                )} */}
-                            </button>
-                        );
-                    })}
+                <div>
+                    {Object.entries(groupedItems).map(([category, itemsInCategory]) => (
+                        <div key={category} className="category-section">
+                            <Header>{category}</Header>
+                            {itemsInCategory.map((itemData) => (
+                                <button
+                                    key={itemData.item.name}
+                                    className={`btn-border ${store.playerFlux.item === itemData.item.name ? 'glow' : ''}`}
+                                    onClick={() => handleClick(itemData.item.name)}>
+                                    <b>{itemData.item.name}:</b> {itemData.quantity} <br />
+                                    <small>{itemData.item.description}</small>
+                                </button>
+                            ))}
+                        </div>
+                    ))}
                 </div>
-            )}
+            )}<br />
+
+            <div>
+                Du hast {selected.item.label} in die Hand genommen und kannst es jederzeit nutzen,<br />
+                falls man es nutzten kann.
+            </div><br />
         </div>
     );
 };
