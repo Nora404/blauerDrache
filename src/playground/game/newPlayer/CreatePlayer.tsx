@@ -48,7 +48,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
     const handleGoNext = () => setCurrentStep((prev) => prev + 1);
     const handleGoBack = () => setCurrentStep((prev) => prev - 1);
     const handleLastBtn = () => {
-        navigate("/new-day");
+        navigate("/start");
     }
 
     const mergeAndSum = <T extends object>(...objs: Partial<T>[]): Partial<T> => {
