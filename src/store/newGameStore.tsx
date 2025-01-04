@@ -579,7 +579,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             updateInHand("Nichts");
-            // Und nun im Store speichern
+
             return {
                 ...prev,
                 playerEconomy: {
