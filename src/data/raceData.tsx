@@ -49,6 +49,7 @@ export const races: Race[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
             maxLife: 120,
+            maxRounds: 10,
         },
         stats: {
             life: 120,
@@ -70,8 +71,15 @@ export const races: Race[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Level}</>,
         base: {
             level: 3,
+            maxLife: 100,
+            maxRounds: 10,
         },
         stats: {
+            life: 100,
+            rounds: 10,
+            attack: 10,
+            defense: 5,
+            luck: 5,
         },
         economy: {
             gold: 100,
@@ -88,8 +96,17 @@ export const races: Race[] = [
         ascii: <DwarfAscii />,
         description: "Tief in den unterirdischen Höhlen ist die Heimat der edlen und mächtigen Zwerge, deren Bedürfnis nach Reichtum und Schätze in keinem Verhältnis zu ihrer Körpergröße steht. Es gibt keine besseren Handwerker und oder Kenner für Materialien und deren Eigenschaften. Ihre Gesellschaft ist in strengen Sozialen Klassen eingeteilt.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Gold}</>,
-        base: {},
-        stats: {},
+        base: {
+            maxLife: 100,
+            maxRounds: 10,
+        },
+        stats: {
+            life: 100,
+            rounds: 10,
+            attack: 10,
+            defense: 5,
+            luck: 5,
+        },
         economy: {
             gold: 200,
         },
@@ -105,9 +122,16 @@ export const races: Race[] = [
         ascii: <LizardAscii />,
         description: "In der öden Landschaft hinter den Steppen, weit außerhalb jeder Siedlung, leben die Echsen in kleineren nomadischen Gruppen. Artverwandt mit den Drachen haben sie es nicht leicht in dieser Welt. Hinzu kommt das viele Wesen ihnen keine größere Intelligenz zutrauen. Da Echsen andere Wesen meiden, wird sich ihr Ruf nicht sonderlich bald verbessern.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>,
-        base: {},
+        base: {
+            maxLife: 100,
+            maxRounds: 10,
+        },
         stats: {
+            life: 100,
             attack: 15,
+            rounds: 10,
+            defense: 5,
+            luck: 5,
         },
         economy: {
             gold: 100,
@@ -124,9 +148,16 @@ export const races: Race[] = [
         ascii: <TrollAscii />,
         description: "In den Sümpfen, nahe der vergessenen Ruinen, leben die Trolle. Wenn sie sich nicht gegen andere Bewohner des Sumpfes verteidigen müssen, zum Beispiel gegen Monster Mücken, beten sie zu ihren Göttern. Sie verrichten für diese verschiedene Dienste in sogenannten Bruderschaften. Dabei kommt es gelegentlich zu „Uneinigkeiten“",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
-        base: {},
+        base: {
+            maxLife: 100,
+            maxRounds: 10,
+        },
         stats: {
             defense: 15,
+            life: 100,
+            rounds: 10,
+            attack: 10,
+            luck: 5,
         },
         economy: {
             gold: 100,
@@ -143,9 +174,16 @@ export const races: Race[] = [
         ascii: <FelkinAscii />,
         description: "Diese katzenhaften Wesen leben in den Bergen. Ihre Behausungen sind aus dem Stein geschlagen und mit Fellen geschmückt. Sie leben meist allein, oder in kleinen Familien. Felkin sind bekannt für ihre verspielte und freundliche Art. Sie treiben gerne Tauschhandel, Feilschen oder Täuschen (Was sie eher aus Spaß machen, nicht aus böser Absicht)",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Glück}</>,
-        base: {},
+        base: {
+            maxLife: 100,
+            maxRounds: 10,
+        },
         stats: {
             luck: 15,
+            life: 100,
+            rounds: 10,
+            attack: 10,
+            defense: 5,
         },
         economy: {
             gold: 100,
@@ -164,9 +202,14 @@ export const races: Race[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>,
         base: {
             maxRounds: 20,
+            maxLife: 100,
         },
         stats: {
             rounds: 20,
+            life: 100,
+            attack: 10,
+            defense: 5,
+            luck: 5,
         },
         economy: {
             gold: 100,
@@ -185,9 +228,14 @@ export const races: Race[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
             maxLife: 150,
+            maxRounds: 10,
         },
         stats: {
             life: 150,
+            rounds: 10,
+            attack: 10,
+            defense: 5,
+            luck: 5,
         },
         economy: {
             gold: 100,
