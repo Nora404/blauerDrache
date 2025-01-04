@@ -1,42 +1,37 @@
 //#region [imports]
 import React, { useEffect, useState } from 'react';
-import { defaultPlayerData, useGameStore } from '../../../data/gameStore';
-import { originDefaults, OriginName, raceDefaults, RaceName } from '../../../data/raceData';
+import { emptyRaceObj, Race } from '../../../data/raceData';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
-import ChooseEquipment from './ChooseEquipment';
+import ChooseCalling from './ChooseCalling';
 import ChooseName from './ChooseName';
 import PlayerPreview from './PlayerPreview';
 import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, FinalText } from './CreatePlayerStrings';
 import { useNavigate } from 'react-router-dom';
-import { callingDefaults, CallingName } from '../../../data/callingData';
+import { Calling, emptyCallingObj } from '../../../data/callingData';
+import { emptyOriginObj, Origin } from '../../../data/originData';
+import { PlayerBase, PlayerEconomy, PlayerStats, useNewGameStore } from '../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
 export type WizardData = {
-    race: RaceName;
-    origin: OriginName;
-    calling: CallingName;
+    race: Race;
+    origin: Origin;
+    calling: Calling;
     name: string;
 }
 
-type MergeableObject = {
-    [key: string]: number;
-};
-
-type CreatePlayerProps = {
-
-};
+type CreatePlayerProps = {};
 
 const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { setStats: updateStats, setMeta: updateMeta, setEconomy: updateEconomy, resetGameData } = useGameStore();
+    const { setPlayerBase, setPlayerStats, setPlayerEconomy, setPlayerMeta, setGameState, resetGameData } = useNewGameStore();
 
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [wizardData, setWizardData] = useState<WizardData>({
-        race: "Mensch",
-        origin: "Stadtmensch",
-        calling: "Bauer",
+        race: emptyRaceObj,
+        origin: emptyOriginObj,
+        calling: emptyCallingObj,
         name: "Namenloser Held",
     });
 
@@ -56,48 +51,59 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         navigate("/new-day");
     }
 
-    const handleFinalize = () => {
-        const raceBase = raceDefaults[wizardData.race] ?? {};
-        const originBase = originDefaults[wizardData.origin] ?? {};
-        const callingBase = callingDefaults[wizardData.calling] ?? {};
+    const mergeAndSum = <T extends object>(...objs: Partial<T>[]): Partial<T> => {
+        const result: Partial<T> = {};
 
-        setCurrentStep((prev) => prev + 1);
+        objs.forEach(obj => {
+            if (!obj) return;
+            for (const key in obj) {
+                if (!obj.hasOwnProperty(key)) continue;
 
-        const sumProperties = (base: MergeableObject, ...others: MergeableObject[]) => {
-            return others.reduce((acc, obj) => {
-                for (let key in obj) {
-                    if (typeof obj[key] === 'number') {
-                        acc[key] = (acc[key] || 0) + obj[key];
-                    }
+                const typedKey = key as keyof T;
+                const newValue = obj[typedKey];
+
+                if (typeof newValue === 'number') {
+                    const currentValue = result[typedKey] as number | undefined;
+                    result[typedKey] = ((currentValue || 0) + newValue) as T[keyof T];
+                } else {
+                    result[typedKey] = newValue;
                 }
-                return acc;
-            }, { ...base });
-        };
+            }
+        });
 
-        const combinedStats = sumProperties(
-            defaultPlayerData.stats,
-            raceBase.stats || {},
-            originBase.stats || {},
-            callingBase.stats || {}
+        return result;
+    };
+
+    const handleFinalize = () => {
+        const combinedBase = mergeAndSum<PlayerBase>(
+            wizardData.race.base,
+            wizardData.origin.base,
+            wizardData.calling.base
         );
 
-        const combinedEconomy = sumProperties(
-            defaultPlayerData.economy,
-            raceBase.economy || {},
-            originBase.economy || {},
-            callingBase.economy || {}
+        const combinedStats = mergeAndSum<PlayerStats>(
+            wizardData.race.stats,
+            wizardData.origin.stats,
+            wizardData.calling.stats
         );
 
-        updateStats(combinedStats);
-        updateEconomy(combinedEconomy);
+        const combinedEconomy = mergeAndSum<PlayerEconomy>(
+            wizardData.race.economy,
+            wizardData.origin.economy,
+            wizardData.calling.economy
+        );
 
-        updateMeta({
+        setPlayerBase(combinedBase);
+        setPlayerStats(combinedStats);
+        setPlayerEconomy(combinedEconomy);
+        setPlayerMeta({
             name: wizardData.name,
-            rase: wizardData.race,
+            race: wizardData.race,
             origin: wizardData.origin,
             calling: wizardData.calling,
-            creating: true,
         });
+        setCurrentStep((prev) => prev + 1);
+        setGameState({ creating: true });
     };
     //#endregion
 
@@ -148,7 +154,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
                 />
             )}
             {currentStep === 2 && (
-                <ChooseEquipment
+                <ChooseCalling
                     wizardData={wizardData}
                     setWizardData={setWizardData}
                     onBack={handleGoBack}

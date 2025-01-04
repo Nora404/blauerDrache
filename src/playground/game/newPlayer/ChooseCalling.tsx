@@ -1,7 +1,6 @@
 //#region [imports]
-import React from "react";
+import React, { } from "react";
 import { WizardData } from "./CreatePlayer";
-import { emptyRaceObj } from "../../../data/raceData";
 import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import Header from "../../../layout/Header/Header";
@@ -9,28 +8,26 @@ import { callingMap, CallingName, callings } from "../../../data/callingData";
 //endregion
 
 //#region [prepare]
-type ChooseEquipmentProps = {
+type ChooseCallingProps = {
     wizardData: WizardData;
     setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
     onBack: () => void;
     onNext: () => void;
 }
 
-const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
+const ChooseCalling: React.FC<ChooseCallingProps> = ({
     wizardData,
     setWizardData,
     onBack,
     onNext,
 }) => {
-
-    const selectedCalling = callingMap[wizardData.calling] || emptyRaceObj;
     //#endregion
 
     //#region [handler]
-    const handleCalling = (equipName: CallingName) => {
+    const handleCalling = (callingName: CallingName) => {
         setWizardData(prev => ({
             ...prev,
-            calling: equipName,
+            calling: callingMap[callingName],
         }));
     };
     //#endregion
@@ -42,7 +39,7 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
 
             {callings.map((callings) => (
                 <div className='mb-1 w-full' key={callings.name}>
-                    <button className={`text-left w-full ${callings.name === selectedCalling.name ? 'glow' : ''}`}
+                    <button className={`text-left w-full ${callings.name === wizardData.calling.name ? 'glow' : ''}`}
                         onClick={() => handleCalling(callings.name as CallingName)}>
                         {callings.label}<br />
                         {callings.description}<br />
@@ -53,7 +50,7 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
             <br />
 
             <div><br />
-                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin gekommen um {selectedCalling.label} zu werden"</PlayerTalk><br />
+                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin gekommen um {wizardData.calling.label} zu werden"</PlayerTalk><br />
             </div><br />
 
             <BackAndNextbtn onBack={onBack} onNext={onNext} />
@@ -62,4 +59,4 @@ const ChooseEquipment: React.FC<ChooseEquipmentProps> = ({
     //#endregion
 };
 
-export default ChooseEquipment;
+export default ChooseCalling;

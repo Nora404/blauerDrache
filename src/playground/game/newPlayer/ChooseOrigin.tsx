@@ -1,10 +1,11 @@
 //region [imports]
 import React from 'react';
 import PlayerTalk from '../../../utility/PlayerTalk';
-import { emptyRaceObj, emptySubraceObj, OriginName, racesMap } from '../../../data/raceData';
+import { RaceName } from '../../../data/raceData';
 import Header from '../../../layout/Header/Header';
 import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import { WizardData } from './CreatePlayer';
+import { getOriginByRaces, originMap, OriginName } from '../../../data/originData';
 //#endregion
 
 //#region [prepare]
@@ -22,17 +23,14 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
     onNext,
 }) => {
 
-    const selectedRace = racesMap[wizardData.race] || emptyRaceObj;
-    const selectedSubrace = selectedRace.subraces.find(
-        (subrace) => subrace.name === wizardData.origin
-    ) || emptySubraceObj;
+    const origins = getOriginByRaces(wizardData.race.name as RaceName);
     //#endregion
 
     //#region [handler]
     const handleOrigin = (originName: OriginName) => {
         setWizardData(prev => ({
             ...prev,
-            origin: originName,
+            origin: originMap[originName],
         }));
     };
     //#endregion
@@ -42,20 +40,20 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
         <div className="max-width">
             <Header>Beantworte die Frage der Wächter Wesen</Header><br />
 
-            {selectedRace.subraces.map((subrace) => (
-                <div className='mb-1 w-full' key={subrace.name}>
-                    <button className={`text-left w-full ${subrace.name === selectedSubrace.name ? 'glow' : ''}`}
-                        onClick={() => handleOrigin(subrace.name as OriginName)}>
-                        {subrace.label}<br />
-                        {subrace.description}<br />
-                        <span style={{ color: '#4BC7AA' }}> {subrace.bonus} </span>
+            {origins.map((origin) => (
+                <div className='mb-1 w-full' key={origin.name}>
+                    <button className={`text-left w-full ${origin.name === wizardData.origin.name ? 'glow' : ''}`}
+                        onClick={() => handleOrigin(origin.name as OriginName)}>
+                        {origin.label}<br />
+                        {origin.description}<br />
+                        <span style={{ color: '#4BC7AA' }}> {origin.bonus} </span>
                     </button>
                 </div>
             ))}
             <br />
 
             <div><br />
-                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {selectedSubrace?.label}"</PlayerTalk><br />
+                Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {wizardData.origin.label}"</PlayerTalk><br />
             </div><br />
 
             <BackAndNextbtn onBack={onBack} onNext={onNext} />

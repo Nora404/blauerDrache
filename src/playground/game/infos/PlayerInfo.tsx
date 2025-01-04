@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../../layout/Header/Header';
-import { getCombinedStats, getSelectedObj, useNewGameStore } from '../../../store/newGameStore';
+import { getCombinedStats, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
 import PlayerInventory from './PlayerInventory';
 
@@ -20,7 +20,6 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     //TEST
     const { store, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
-    const selected = getSelectedObj(store);
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -73,36 +72,21 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         <div className='max-width'>
             <h2>Dein Steckbrief</h2>
 
-            {/* <div className='mb-1'>{gameState.selectedRace.ascii}</div>
-
-            <Header>{gameStore.meta.name}</Header>
+            <Header>{store.playerMeta.name}</Header>
             <div className='mb-1 text-left'>
-                {gameState.selectedRace.label}<br />
-                {gameState.selectedRace.description}
+                {store.playerMeta.race.label}<br />
+                {store.playerMeta.race.description}
             </div>
 
             <div className='mb-1 text-left'>
-                {gameState.selectedOrigin.label}<br />
-                {gameState.selectedOrigin.description}
+                {store.playerMeta.origin.label}<br />
+                {store.playerMeta.origin.description}
             </div>
 
             <div className='mb-1 text-left'>
-                {gameState.selectedCalling.label}<br />
-                {gameState.selectedCalling.description}
+                {store.playerMeta.calling.label}<br />
+                {store.playerMeta.calling.description}
             </div>
-
-            <br />
-            <Header>Werte</Header>
-            <p className='text-left'></p>
-
-            <Header>Inventar</Header>
-            <div className='text-left'>
-                {entries.map(([itemName, count]) => (
-                    <span key={itemName}>
-                        {itemName} x {count}<br />
-                    </span>
-                ))}
-            </div> */}
 
             <GradientText>Leben: {store.playerStats.life}</GradientText> ---
             <GradientText>Leben von Combi: {combined.life}</GradientText><br />
@@ -119,9 +103,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <GradientText>Wetter: {store.gameState.weather}</GradientText><br /><br />
 
             <h3>Aktive Buffs</h3>
-            {selected.buff.length > 0 ? (
+            {store.playerFlux.buff.length > 0 ? (
                 <ul>
-                    {selected.buff.map((buff, index) => (
+                    {store.playerFlux.buff.map((buff, index) => (
                         <li key={index}>
                             {buff.label} - {buff.description}
                             (Dauer: {buff.currentDuration} Runden)
@@ -133,9 +117,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             )}
 
             <h3>Aktive Debuffs</h3>
-            {selected.debuff.length > 0 ? (
+            {store.playerFlux.debuff.length > 0 ? (
                 <ul>
-                    {selected.debuff.map((debuff, index) => (
+                    {store.playerFlux.debuff.map((debuff, index) => (
                         <li key={index}>
                             {debuff.label} - {debuff.description}
                             (Dauer: {debuff.currentDuration} Runden)

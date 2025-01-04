@@ -13,9 +13,9 @@ export type GameState = {
 
 export type PlayerMeta = {
     name: string;
-    race: string;       // RaceName
-    origin: string;     // OriginName
-    calling: string;    // CallingName
+    race: Race;
+    origin: Origin;
+    calling: Calling;
     titel: string;      // TitleName
     colortype: string;  // ColortypeName
     colors: string[];
@@ -29,19 +29,13 @@ export type PlayerStats = {
     luck: number;
 };
 
-export type PlayerInfo = {
+export type PlayerBase = {
     level: number;
     nextLevel: number;
     exp: number;
     maxLife: number;
     maxRounds: number;
 };
-
-// type PlayerStatsObject = {
-//     name: string;
-//     stats: Partial<PlayerStats>;
-//     duration?: number;
-// };
 
 export type PlayerFlux = {
     feeling: Feeling;
@@ -64,7 +58,7 @@ export type GameStore = {
     gameState: GameState;
     playerMeta: PlayerMeta;
     playerStats: PlayerStats;
-    playerInfo: PlayerInfo;
+    playerBase: PlayerBase;
     playerFlux: PlayerFlux;
     playerEconomy: PlayerEconomy;
 };
@@ -83,9 +77,9 @@ const defaultGameStore: GameStore = {
     },
     playerMeta: {
         name: "Name",
-        race: "Felkin",
-        origin: "Mondauge",
-        calling: "Alchemist",
+        race: racesMap["Mensch"],
+        origin: originMap["Mondauge"],
+        calling: callingMap["Alchemist"],
         titel: "Keiner",
         colortype: "Einfarbig",
         colors: [],
@@ -97,7 +91,7 @@ const defaultGameStore: GameStore = {
         defense: 5,
         luck: 5,
     },
-    playerInfo: {
+    playerBase: {
         level: 1,
         nextLevel: 100,
         exp: 0,
@@ -127,7 +121,7 @@ type GameStoreContextType = {
     setGameState: (val: Partial<GameState>) => void;
     setPlayerMeta: (val: Partial<PlayerMeta>) => void;
     setPlayerStats: (val: Partial<PlayerStats>) => void;
-    setPlayerInfo: (val: Partial<PlayerInfo>) => void;
+    setPlayerBase: (val: Partial<PlayerBase>) => void;
     setPlayerFlux: (val: Partial<PlayerFlux>) => void;
     setPlayerEconomy: (val: Partial<PlayerEconomy>) => void;
 
@@ -149,16 +143,17 @@ type GameStoreContextType = {
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
-import { emptyFeelingObj, Feeling, feelingMap, getRandomFeeling } from "../data/feelingData";
+import { emptyFeelingObj, Feeling, getRandomFeeling } from "../data/feelingData";
 import { getRandomArrayElement } from "../utility/RandomArrayElement";
 import { TEMPERATURE, WEATHER } from "../data/weatherStrings";
-import { emptyRaceObj, emptySubraceObj, Race, racesMap, Subrace } from "../data/raceData";
-import { Calling, callingMap, emptyCallingObj } from "../data/callingData";
+import { Race, racesMap } from "../data/raceData";
+import { Calling, callingMap } from "../data/callingData";
 import { Armor, armorMap, ArmorName, emptyArmorObj } from "../data/armorData";
 import { emptyWeaponObj, Weapon, weaponMap, WeaponName } from "../data/weaponData";
 import { emptyItemObj, Item, itemMap, ItemName } from "../data/ItemData";
 import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
+import { Origin, originMap } from "../data/originData";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -247,10 +242,10 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }));
     };
 
-    const setPlayerInfo = (val: Partial<PlayerInfo>) => {
+    const setPlayerBase = (val: Partial<PlayerBase>) => {
         setStore((prev) => ({
             ...prev,
-            playerInfo: { ...prev.playerInfo, ...val },
+            playerBase: { ...prev.playerBase, ...val },
         }));
     };
 
@@ -282,8 +277,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setStore((prev) => ({
             ...prev,
             playerStats: {
-                life: prev.playerInfo.maxLife,
-                rounds: prev.playerInfo.maxRounds,
+                life: prev.playerBase.maxLife,
+                rounds: prev.playerBase.maxRounds,
                 attack: prev.playerStats.attack,
                 defense: prev.playerStats.defense,
                 luck: prev.playerStats.luck,
@@ -380,7 +375,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setStore((prev) => {
             const newLife = Math.min(
                 Math.max(prev.playerStats.life + delta, 0),
-                prev.playerInfo.maxLife
+                prev.playerBase.maxLife
             );
             return {
                 ...prev,
@@ -396,7 +391,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setStore((prev) => {
             const newRounds = Math.min(
                 Math.max(prev.playerStats.rounds + delta, 0),
-                prev.playerInfo.maxRounds
+                prev.playerBase.maxRounds
             );
 
             let updatedBuffs = prev.playerFlux.buff;
@@ -542,7 +537,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             if (effects) {
                 newPlayerStats.life = Math.min(
                     newPlayerStats.life + (effects.life || 0),
-                    prev.playerInfo.maxLife
+                    prev.playerBase.maxLife
                 );
                 newPlayerStats.attack += effects.attack || 0;
                 newPlayerStats.defense += effects.defense || 0;
@@ -585,7 +580,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setGameState,
         setPlayerMeta,
         setPlayerStats,
-        setPlayerInfo,
+        setPlayerBase,
         setPlayerFlux,
         setPlayerEconomy,
         resetGameData,
@@ -647,69 +642,14 @@ export function getCombinedStats(store: GameStore): PlayerStats {
     luck += store.playerFlux.feeling.stats.luck ?? 0;
 
     // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
-    life = Math.max(life, 0), store.playerInfo.maxLife;
-    rounds = Math.max(rounds, 0), store.playerInfo.maxRounds;
+    life = Math.max(life, 0), store.playerBase.maxLife;
+    rounds = Math.max(rounds, 0), store.playerBase.maxRounds;
     attack = Math.max(attack, 0);
     defense = Math.max(defense, 0);
     luck = Math.max(luck, 0);
 
     return { life, rounds, attack, defense, luck };
 }
-//#endregion
-
-//#region [get object]
-type SelectedObj = {
-    race: Race;
-    calling: Calling;
-    origin: Subrace;
-    feeling: Feeling;
-    armor: Armor;
-    weapon: Weapon;
-    item: Item;
-    buff: Buff[];
-    debuff: Debuff[];
-};
-
-export function getSelectedObj(store: GameStore): SelectedObj {
-    const race = racesMap[store.playerMeta.race] || emptyRaceObj;
-    const calling = callingMap[store.playerMeta.calling] || emptyCallingObj;
-    const feeling = feelingMap[store.playerFlux.feeling.name] || emptyFeelingObj;
-    const armor = armorMap[store.playerFlux.armor.name] || emptyArmorObj;
-    const weapon = weaponMap[store.playerFlux.weapon.name] || emptyWeaponObj;
-    const item = itemMap[store.playerFlux.item.name] || emptyItemObj;
-
-    const buff = store.playerFlux.buff
-        .map((activeBuff) => {
-            const baseBuff = buffMap[activeBuff.name];
-            if (!baseBuff) return null;
-
-            return {
-                ...baseBuff,
-                currentDuration: activeBuff.duration,
-            };
-        })
-        .filter(Boolean) as Buff[] & { currentDuration?: number }[];
-    // ^ Kleiner Trick, damit TypeScript nicht meckert
-
-    const debuff = store.playerFlux.debuff
-        .map((activeDebuff) => {
-            const baseDebuff = debuffMap[activeDebuff.name];
-            if (!baseDebuff) return null;
-
-            return {
-                ...baseDebuff,
-                currentDuration: activeDebuff.duration,
-            };
-        })
-        .filter(Boolean) as Debuff[] & { currentDuration?: number }[];
-
-
-    const origin =
-        race.subraces.find((subrace) => subrace.name === store.playerMeta.origin) || emptySubraceObj;
-
-    return { race, calling, feeling, armor, weapon, origin, item, buff, debuff };
-}
-
 //#endregion
 
 // EINBINDEN

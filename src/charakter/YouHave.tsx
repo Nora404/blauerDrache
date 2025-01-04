@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
 import { SYSTEM } from '../data/colorfullStrings';
-import { getSelectedObj, useNewGameStore } from '../store/newGameStore';
+import { useNewGameStore } from '../store/newGameStore';
 
 type YouHaveProps = {
 };
 
 const YouHave: React.FC<YouHaveProps> = () => {
     const { store } = useNewGameStore();
-    const selected = getSelectedObj(store);
 
     return (
         <div>
@@ -20,9 +19,9 @@ const YouHave: React.FC<YouHaveProps> = () => {
                     </tr><tr>
                         <td>{SYSTEM.Edelsteine}</td><td>{store.playerEconomy.edelsteine}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Waffe}</td><td>{selected.weapon.label}</td>
+                        <td>{SYSTEM.Waffe}</td><td>{store.playerFlux.weapon.label}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Rüstung}</td><td>{selected.armor.label}</td>
+                        <td>{SYSTEM.Rüstung}</td><td>{store.playerFlux.armor.label}</td>
                     </tr><tr>
                         <td>{SYSTEM.HandDer}</td><td>{store.playerFlux.item.label}</td>
                     </tr>
