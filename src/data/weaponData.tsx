@@ -2,6 +2,7 @@ import { GradientText } from "../utility/GradientText";
 
 
 export type WeaponName =
+    | "Nichts"
     | "Brotmeser"
     | "Glasflasche"
     | "Besenstiel"
@@ -34,6 +35,12 @@ export const emptyWeaponObj: Weapon = {
 };
 
 export const weapons: Weapon[] = [
+    {
+        name: "Nichts",
+        label: <GradientText>Nichts</GradientText>,
+        attack: 0,
+        price: 0,
+    },
     {
         name: "Brotmeser",
         label: <GradientText>Brotmeser</GradientText>,

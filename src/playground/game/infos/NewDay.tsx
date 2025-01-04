@@ -1,7 +1,7 @@
 import { SYSTEM } from '../../../data/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
 import { useEffect, useRef } from 'react';
-import { getCombinedStats, useNewGameStore } from '../../../store/newGameStore';
+import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
 
 type NewDayProps = {
     onClose?: () => void
@@ -10,6 +10,7 @@ type NewDayProps = {
 const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
     const { store } = useNewGameStore();
     const combined = getCombinedStats(store);
+    const selected = getPlayerObj(store);
 
     const handleClose = () => {
         onClose?.();
@@ -35,8 +36,8 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
 
                 Für heute hast du <GradientText>{combined.rounds}</GradientText> {SYSTEM.Runden}.
                 Dein {SYSTEM.Leben} wurden auf <GradientText>{combined.life}</GradientText> aufgefüllt.<br />
-                Dein Geist und deine Stimmung sind heute {store.playerFlux.feeling.label}. {store.playerFlux.feeling.bonus}. <br />
-                Du wappnest dich mit {store.playerFlux.weapon.label} und ziehst {store.playerFlux.armor.label} an.<br />
+                Dein Geist und deine Stimmung sind heute {selected.feeling.label}. {selected.feeling.bonus}. <br />
+                Du wappnest dich mit {selected.weapon.label} und ziehst {selected.armor.label} an.<br />
             </p>
 
             <br />

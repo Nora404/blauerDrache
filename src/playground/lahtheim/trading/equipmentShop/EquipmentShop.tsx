@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Armor, ArmorName, armors, emptyArmorObj } from '../../../../data/armorData';
 import { GradientText } from '../../../../utility/GradientText';
 import { SYSTEM } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
+import { getPlayerObj, useNewGameStore } from '../../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
@@ -13,9 +13,10 @@ type EquipmentShopProps = {
 const EquipmentShop: React.FC<EquipmentShopProps> = () => {
     const [localArmor, setLocalArmor] = useState<Armor>(emptyArmorObj);
     const { store, updatePlayerEconomy, updateArmor } = useNewGameStore();
+    const selected = getPlayerObj(store);
 
 
-    const exchangePrice = (store.playerFlux.armor.price / 1.2).toFixed();
+    const exchangePrice = (selected.armor.price / 1.2).toFixed();
     //#endregion
 
     //#region [handler]
@@ -84,7 +85,7 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
                 Die Verkäuferin schaut dich erwartungsvoll an.
                 {localArmor.name !== "Nichts" && (
                     <>
-                        <GradientText colors={['#C237FF']}>"Für </GradientText>{store.playerFlux.armor.label}
+                        <GradientText colors={['#C237FF']}>"Für </GradientText>{selected.armor.label}
                         <GradientText colors={['#C237FF']}> wäre ich bereit im Tausch </GradientText>
                         <GradientText colors={['#FFE452']}>{exchangePrice}</GradientText>
                         <GradientText colors={['#C237FF']}> Gold zu bezahlen"</GradientText>

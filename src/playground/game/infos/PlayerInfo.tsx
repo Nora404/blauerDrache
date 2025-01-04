@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../../layout/Header/Header';
-import { getCombinedStats, useNewGameStore } from '../../../store/newGameStore';
+import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
 import PlayerInventory from './PlayerInventory';
 
@@ -8,18 +8,9 @@ type PlayerInfoProps = {
 };
 
 const PlayerInfo: React.FC<PlayerInfoProps> = () => {
-    // const { gameStore } = useGameStore();
-    // const gameState = useGameState();
-    // if (!gameState) return null;
-
-    // const items = gameStore.equipment.items;
-    // // Object.entries(items) gibt ein Array zurück, in dem jedes Element [itemName, count] ist.
-    // const entries = Object.entries(items);
-
-
-    //TEST
     const { store, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
+    const selected = getPlayerObj(store);
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -74,18 +65,18 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             <Header>{store.playerMeta.name}</Header>
             <div className='mb-1 text-left'>
-                {store.playerMeta.race.label}<br />
-                {store.playerMeta.race.description}
+                {selected.race.label}<br />
+                {selected.race.description}
             </div>
 
             <div className='mb-1 text-left'>
-                {store.playerMeta.origin.label}<br />
-                {store.playerMeta.origin.description}
+                {selected.origin.label}<br />
+                {selected.origin.description}
             </div>
 
             <div className='mb-1 text-left'>
-                {store.playerMeta.calling.label}<br />
-                {store.playerMeta.calling.description}
+                {selected.calling.label}<br />
+                {selected.calling.description}
             </div>
 
             <GradientText>Leben: {store.playerStats.life}</GradientText> ---
@@ -132,12 +123,12 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             <PlayerInventory />
 
-            <GradientText>Feeling: {store.playerFlux.feeling.name}</GradientText> <br />
-            <GradientText>angriff: {store.playerFlux.feeling.stats.attack}</GradientText><br />
-            <GradientText>vert: {store.playerFlux.feeling.stats.defense}</GradientText><br />
-            <GradientText>leben: {store.playerFlux.feeling.stats.life}</GradientText><br />
-            <GradientText>glück: {store.playerFlux.feeling.stats.luck}</GradientText><br />
-            <GradientText>runden: {store.playerFlux.feeling.stats.rounds}</GradientText><br /><br />
+            <GradientText>Feeling: {selected.feeling.name}</GradientText> <br />
+            <GradientText>angriff: {selected.feeling.stats.attack}</GradientText><br />
+            <GradientText>vert: {selected.feeling.stats.defense}</GradientText><br />
+            <GradientText>leben: {selected.feeling.stats.life}</GradientText><br />
+            <GradientText>glück: {selected.feeling.stats.luck}</GradientText><br />
+            <GradientText>runden: {selected.feeling.stats.rounds}</GradientText><br /><br />
 
             {combined.life <= 0 && <>TOT!!! <br /><br /></>}
 

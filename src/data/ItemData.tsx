@@ -1,7 +1,7 @@
+import { PlayerStats } from "../store/newGameStore";
 import { GradientText } from "../utility/GradientText";
 import { BuffName } from "./buffData";
 import { DebuffName } from "./debuffData";
-import { PlayerStats } from "./gameStore";
 
 export type ItemName =
     | "Nichts"
@@ -47,6 +47,14 @@ export const emptyItemObj: Item = {
 }
 
 export const items: Item[] = [
+    {
+        name: "Nichts",
+        label: <GradientText>Nichts</GradientText>,
+        category: "Zeug",
+        description: "Nichts von Bedeutung.",
+        ek: 0,
+        vk: 0,
+    },
     {
         name: "Stein",
         label: <GradientText>Stein</GradientText>,

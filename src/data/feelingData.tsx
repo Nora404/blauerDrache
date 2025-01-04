@@ -9,7 +9,7 @@ export type Feeling = {
     stats: Partial<PlayerStats>
 }
 
-// type FeelingName = typeof feelings[number]['name'];
+export type FeelingName = typeof feelings[number]['name'];
 
 export const emptyFeelingObj: Feeling = {
     name: "Normal",

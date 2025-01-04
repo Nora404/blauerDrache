@@ -13,9 +13,9 @@ export type GameState = {
 
 export type PlayerMeta = {
     name: string;
-    race: Race;
-    origin: Origin;
-    calling: Calling;
+    race: RaceName;
+    origin: OriginName;
+    calling: CallingName;
     titel: string;      // TitleName
     colortype: string;  // ColortypeName
     colors: string[];
@@ -38,12 +38,12 @@ export type PlayerBase = {
 };
 
 export type PlayerFlux = {
-    feeling: Feeling;
+    feeling: FeelingName;
     buff: Buff[];
     debuff: Debuff[];
-    weapon: Weapon;
-    armor: Armor;
-    item: Item;
+    weapon: WeaponName;
+    armor: ArmorName;
+    item: ItemName;
 };
 
 export type PlayerEconomy = {
@@ -72,14 +72,14 @@ const defaultGameStore: GameStore = {
     gameState: {
         weather: "sonnig",
         temperature: "warm",
-        creating: false,
+        creating: true,
         Switch: {},
     },
     playerMeta: {
         name: "Name",
-        race: racesMap["Mensch"],
-        origin: originMap["Mondauge"],
-        calling: callingMap["Alchemist"],
+        race: "Mensch",
+        origin: "Mondauge",
+        calling: "Alchemist",
         titel: "Keiner",
         colortype: "Einfarbig",
         colors: [],
@@ -99,12 +99,12 @@ const defaultGameStore: GameStore = {
         maxRounds: 10,
     },
     playerFlux: {
-        feeling: emptyFeelingObj,
+        feeling: "Normal",
         buff: [],
         debuff: [],
-        weapon: emptyWeaponObj,
-        armor: emptyArmorObj,
-        item: emptyItemObj
+        weapon: "Nichts",
+        armor: "Nichts",
+        item: "Nichts"
     },
     playerEconomy: {
         gold: 100,
@@ -143,17 +143,17 @@ type GameStoreContextType = {
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
-import { emptyFeelingObj, Feeling, getRandomFeeling } from "../data/feelingData";
+import { emptyFeelingObj, feelingMap, FeelingName, getRandomFeeling } from "../data/feelingData";
 import { getRandomArrayElement } from "../utility/RandomArrayElement";
 import { TEMPERATURE, WEATHER } from "../data/weatherStrings";
-import { Race, racesMap } from "../data/raceData";
-import { Calling, callingMap } from "../data/callingData";
-import { Armor, armorMap, ArmorName, emptyArmorObj } from "../data/armorData";
-import { emptyWeaponObj, Weapon, weaponMap, WeaponName } from "../data/weaponData";
+import { emptyRaceObj, RaceName, racesMap } from "../data/raceData";
+import { callingMap, CallingName, emptyCallingObj } from "../data/callingData";
+import { armorMap, ArmorName, emptyArmorObj } from "../data/armorData";
+import { emptyWeaponObj, weaponMap, WeaponName } from "../data/weaponData";
 import { emptyItemObj, Item, itemMap, ItemName } from "../data/ItemData";
 import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
-import { Origin, originMap } from "../data/originData";
+import { emptyOriginObj, originMap, OriginName } from "../data/originData";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -162,20 +162,40 @@ export const GameStoreContext = createContext<GameStoreContextType>(
 export const useNewGameStore = () => useContext(GameStoreContext);
 //#endregion  
 
+//#region [save data]
 export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const validateGameStore = (data: any): GameStore => {
+        if (!data || typeof data !== "object") return defaultGameStore;
+
+        return {
+            gameTime: data.gameTime ?? defaultGameStore.gameTime,
+            gameState: data.gameState ?? defaultGameStore.gameState,
+            playerMeta: data.playerMeta ?? defaultGameStore.playerMeta,
+            playerStats: data.playerStats ?? defaultGameStore.playerStats,
+            playerBase: data.playerBase ?? defaultGameStore.playerBase,
+            playerFlux: data.playerFlux ?? defaultGameStore.playerFlux,
+            playerEconomy: data.playerEconomy ?? defaultGameStore.playerEconomy,
+        };
+    };
+
     const [store, setStore] = useState<GameStore>(() => {
         const saved = localStorage.getItem("myGameStore");
-        return saved ? JSON.parse(saved) : defaultGameStore;
+        const parsed = saved ? JSON.parse(saved) : null;
+        return validateGameStore(parsed);
     });
+
     useEffect(() => {
-        localStorage.setItem("myGameStore", JSON.stringify(store));
+        const validatedStore = validateGameStore(store);
+        localStorage.setItem("myGameStore", JSON.stringify(validatedStore));
     }, [store]);
+
+    //#endregion
 
     //#region [set time]  
     useEffect(() => {
         const intervalId = setInterval(() => {
             updateGameTime();
-        }, 10000);
+        }, 60000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -288,7 +308,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 ...prev.playerFlux,
                 buff: [],
                 debuff: [],
-                feeling: feeling
+                feeling: feeling.name
             },
 
             gameState: {
@@ -453,40 +473,37 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     const updateWeapon = (name: WeaponName) => {
-        const weapon = weaponMap[name];
-        if (!weapon) return;
+        if (!weaponMap[name]) return;
 
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                weapon: weapon,
+                weapon: name,
             },
         }));
     };
 
     const updateArmor = (name: ArmorName) => {
-        const armor = armorMap[name];
-        if (!armor) return;
+        if (!armorMap[name]) return;
 
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                armor: armor,
+                armor: name,
             },
         }));
     };
 
     const updateInHand = (name: ItemName) => {
-        const item = itemMap[name];
-        if (!item) return;
+        if (!itemMap[name]) return;
 
         setStore((prev) => ({
             ...prev,
             playerFlux: {
                 ...prev.playerFlux,
-                item: item,
+                item: name,
             },
         }));
     };
@@ -561,6 +578,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 delete updatedItems[itemName];
             }
 
+            updateInHand("Nichts");
             // Und nun im Store speichern
             return {
                 ...prev,
@@ -606,20 +624,18 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     );
 };
 
-//#region [combined stats]
+//#region [getter]
 export function getCombinedStats(store: GameStore) {
-    const base = store;
+    let life = store.playerStats.life;
+    let rounds = store.playerStats.rounds;
+    let attack = store.playerStats.attack;
+    let defense = store.playerStats.defense;
+    let luck = store.playerStats.luck;
+    let maxLife = store.playerBase.maxLife;
+    let maxRounds = store.playerBase.maxRounds;
 
-    let life = base.playerStats.life;
-    let rounds = base.playerStats.rounds;
-    let attack = base.playerStats.attack;
-    let defense = base.playerStats.defense;
-    let luck = base.playerStats.luck;
-    let maxLife = base.playerBase.maxLife;
-    let maxRounds = base.playerBase.maxRounds;
-
-    attack += store.playerFlux.weapon.attack ?? 0;
-    defense += store.playerFlux.armor.defense ?? 0;
+    attack += weaponMap[store.playerFlux.weapon].attack ?? 0;
+    defense += armorMap[store.playerFlux.armor].defense ?? 0;
 
     for (const buff of store.playerFlux.buff) {
         life += buff.effects.life ?? 0;
@@ -641,13 +657,14 @@ export function getCombinedStats(store: GameStore) {
         maxRounds += debuff.effects.rounds ?? 0;
     }
 
-    life += store.playerFlux.feeling.stats.life ?? 0;
-    rounds += store.playerFlux.feeling.stats.rounds ?? 0;
-    attack += store.playerFlux.feeling.stats.attack ?? 0;
-    defense += store.playerFlux.feeling.stats.defense ?? 0;
-    luck += store.playerFlux.feeling.stats.luck ?? 0;
-    maxLife += store.playerFlux.feeling.stats.life ?? 0;
-    maxRounds += store.playerFlux.feeling.stats.rounds ?? 0;
+    const feeling = feelingMap[store.playerFlux.feeling];
+    life += feeling.stats.life ?? 0;
+    rounds += feeling.stats.rounds ?? 0;
+    attack += feeling.stats.attack ?? 0;
+    defense += feeling.stats.defense ?? 0;
+    luck += feeling.stats.luck ?? 0;
+    maxLife += feeling.stats.life ?? 0;
+    maxRounds += feeling.stats.rounds ?? 0;
 
     // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
     life = Math.max(life, 0), maxLife;
@@ -658,39 +675,24 @@ export function getCombinedStats(store: GameStore) {
 
     return { life, rounds, attack, defense, luck, maxLife, maxRounds };
 }
+
+export function getPlayerObj(store: GameStore) {
+    const race = racesMap[store.playerMeta.race] ?? emptyRaceObj;
+    const origin = originMap[store.playerMeta.origin] ?? emptyOriginObj;
+    const calling = callingMap[store.playerMeta.calling] ?? emptyCallingObj;
+    const feeling = feelingMap[store.playerFlux.feeling] ?? emptyFeelingObj;
+    const weapon = weaponMap[store.playerFlux.weapon] ?? emptyWeaponObj;
+    const armor = armorMap[store.playerFlux.armor] ?? emptyArmorObj;
+    const item = itemMap[store.playerFlux.item] ?? emptyItemObj;
+
+    return { race, origin, calling, feeling, weapon, armor, item }
+}
 //#endregion
 
 // EINBINDEN
 //   function MyComponent() {
 //     const { store } = useNewGameStore();
 //     const combined = getCombinedStats(store);
-
+//     const selected = getPlayerObj(store);
 //     return <div>Leben: {combined.life}</div>;
 //   }
-
-// HEILEN
-// function HealButton() {
-//     const { updateLife } = useNewGameStore();
-//     const heal = (amount: number) => {
-//         updateLife(amount);
-//     };
-//     return <button onClick={() => heal(20)}>Heile um 20</button>;
-// }
-
-// SCHADEN
-// function DamageButton() {
-//     const { updateLife } = useNewGameStore();
-//     const damage = (amount: number) => {
-//         updateLife(-amount);
-//     };
-//     return <button onClick={() => damage(15)}>Füge 15 Schaden zu</button>;
-// }
-
-// RUNDEN
-// function AdjustRoundsButton() {
-//     const { updateRounds } = useNewGameStore();
-//     const addRounds = (amount: number) => {
-//         updateRounds(amount);
-//     };
-//     return <button onClick={() => addRounds(1)}>Füge eine Runde hinzu</button>;
-// }

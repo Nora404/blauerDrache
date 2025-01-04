@@ -2,6 +2,7 @@ import { GradientText } from "../utility/GradientText";
 
 
 export type ArmorName =
+    | "Nichts"
     | "Socken"
     | "Nachthemd "
     | "Handschuhe"
@@ -34,6 +35,12 @@ export const emptyArmorObj: Armor = {
 }
 
 export const armors: Armor[] = [
+    {
+        name: "Nichts",
+        label: <GradientText>Nichts</GradientText>,
+        defense: 0,
+        price: 0,
+    },
     {
         name: "Socken",
         label: <GradientText>Socken</GradientText>,

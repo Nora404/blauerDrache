@@ -1,6 +1,6 @@
 //#region [imports]
 import React, { useEffect, useState } from 'react';
-import { emptyRaceObj, Race } from '../../../data/raceData';
+import { emptyRaceObj, Race, RaceName } from '../../../data/raceData';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
@@ -9,8 +9,8 @@ import ChooseName from './ChooseName';
 import PlayerPreview from './PlayerPreview';
 import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, FinalText } from './CreatePlayerStrings';
 import { useNavigate } from 'react-router-dom';
-import { Calling, emptyCallingObj } from '../../../data/callingData';
-import { emptyOriginObj, Origin } from '../../../data/originData';
+import { Calling, CallingName, emptyCallingObj } from '../../../data/callingData';
+import { emptyOriginObj, Origin, OriginName } from '../../../data/originData';
 import { PlayerBase, PlayerEconomy, PlayerStats, useNewGameStore } from '../../../store/newGameStore';
 //#endregion
 
@@ -98,9 +98,9 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         setPlayerEconomy(combinedEconomy);
         setPlayerMeta({
             name: wizardData.name,
-            race: wizardData.race,
-            origin: wizardData.origin,
-            calling: wizardData.calling,
+            race: wizardData.race.name as RaceName,
+            origin: wizardData.origin.name as OriginName,
+            calling: wizardData.calling.name as CallingName,
         });
         setCurrentStep((prev) => prev + 1);
         setGameState({ creating: true });

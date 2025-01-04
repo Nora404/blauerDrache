@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import { emptyWeaponObj, Weapon, WeaponName, weapons } from '../../../../data/weaponData';
 import { SYSTEM } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
+import { getPlayerObj, useNewGameStore } from '../../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
@@ -13,8 +13,9 @@ type WeaponShopProps = {
 const WeaponShop: React.FC<WeaponShopProps> = () => {
     const [localWeapon, setLocalWeapon] = useState<Weapon>(emptyWeaponObj);
     const { store, updatePlayerEconomy, updateWeapon } = useNewGameStore();
+    const selected = getPlayerObj(store);
 
-    const exchangePrice = (store.playerFlux.weapon.price / 1.2).toFixed();
+    const exchangePrice = (selected.weapon.price / 1.2).toFixed();
     //#endregion
 
     //#region [handler]
@@ -86,7 +87,7 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
                 Der Verkäufer schaut dich erwartungsvoll an.
                 {localWeapon.name !== "Nichts" && (
                     <>
-                        <GradientText colors={['#D1813B']}>"Für </GradientText>{store.playerFlux.weapon.label}
+                        <GradientText colors={['#D1813B']}>"Für </GradientText>{selected.weapon.label}
                         <GradientText colors={['#D1813B']}> wäre ich bereit im Tausch </GradientText>
                         <GradientText colors={['#FFE452']}>{exchangePrice}</GradientText>
                         <GradientText colors={['#D1813B']}> Gold zu bezahlen"</GradientText>
