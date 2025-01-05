@@ -68,63 +68,25 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <Header>{store.playerMeta.name}</Header>
             <div className='mb-1 text-left'>
                 {selected.race.label}<br />
-                {selected.race.description}
+                {selected.race.description}<br />
+                {selected.race.bonus}
             </div>
 
             <div className='mb-1 text-left'>
                 {selected.origin.label}<br />
-                {selected.origin.description}
+                {selected.origin.description}<br />
+                {selected.origin.bonus}
             </div>
 
             <div className='mb-1 text-left'>
                 {selected.calling.label}<br />
-                {selected.calling.description}
-            </div>
-
-
-
-            <GradientText>Feeling: {selected.feeling.name}</GradientText> <br />
-            <GradientText>Temperatur: {store.gameState.temperature}</GradientText><br />
-            <GradientText>Wetter: {store.gameState.weather}</GradientText><br /><br />
-
-            Aktuelles scaling bei einem Wert von 10: {10 * getScalingFactor(store.playerBase.level)}
-
-            <div>
-                {/* Aktive Buffs */}
-                <h3>Aktive Buffs</h3>
-                {selected.buffs.length > 0 ? (
-                    <ul>
-                        {selected.buffs.map((buff) => (
-                            <li key={buff.name}>
-                                {buff.label} - {buff.description}
-                                (Dauer: {buff.currentDuration} Runden)
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>Keine aktiven Buffs</p>
-                )}
-
-                {/* Aktive Debuffs */}
-                <h3>Aktive Debuffs</h3>
-                {selected.debuffs.length > 0 ? (
-                    <ul>
-                        {selected.debuffs.map((debuff) => (
-                            <li key={debuff.name}>
-                                {debuff.label} - {debuff.description}
-                                (Dauer: {debuff.currentDuration} Runden)
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>Keine aktiven Debuffs</p>
-                )}
-            </div><br />
-
+                {selected.calling.description}<br />
+                {selected.calling.bonus}
+            </div><br /><br />
 
             <Header>Kombinierte Statistiken</Header><br />
             <div className='flex-center '>
-                <table width={'600px'}>
+                <table className='w-full'>
                     <thead>
                         <tr>
                             <th className='border-bs'>Attribut</th>
@@ -180,9 +142,42 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 </table>
             </div><br />
 
+            <div>
+                {/* Aktive Buffs */}
+                <h3>Aktive Buffs</h3>
+                {selected.buffs.length > 0 ? (
+                    <>
+                        {selected.buffs.map((buff) => (
+                            <div key={buff.name}>
+                                {buff.label} - {buff.description}
+                                (Dauer: {buff.currentDuration} Runden)
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <p>Keine aktiven Buffs</p>
+                )}
+
+                {/* Aktive Debuffs */}
+                <h3>Aktive Debuffs</h3>
+                {selected.debuffs.length > 0 ? (
+                    <>
+                        {selected.debuffs.map((debuff) => (
+                            <div key={debuff.name}>
+                                {debuff.label} - {debuff.description}
+                                (Dauer: {debuff.currentDuration} Runden)
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <p>Keine aktiven Debuffs</p>
+                )}
+            </div><br /><br />
+
             <Header>Meine Cheats</Header>
 
-            {combined.life <= 0 && <>TOT!!! <br /><br /></>}
+            {combined.life <= 0 && <>TOT!!! <br /><br /></>}<br />
+            Aktuelles scaling bei einem Wert von 10: {10 * getScalingFactor(store.playerBase.level)}<br />
 
             <table>
                 <tbody>
