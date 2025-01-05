@@ -2,6 +2,7 @@ import { SYSTEM } from '../../../data/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
 import { useEffect, useRef } from 'react';
 import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
+import PlayerTalk from '../../../utility/PlayerTalk';
 
 type NewDayProps = {
     onClose?: () => void
@@ -37,7 +38,10 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
                 Für heute hast du <GradientText>{combined.rounds}</GradientText> {SYSTEM.Runden}.
                 Dein {SYSTEM.Leben} wurden auf <GradientText>{combined.life}</GradientText> aufgefüllt.<br />
                 Dein Geist und deine Stimmung sind heute {selected.feeling.label}. {selected.feeling.bonus}. <br />
-                Du wappnest dich mit {selected.weapon.label} und ziehst {selected.armor.label} an.<br />
+                Du stellst fest das alle <b>Buffs</b> und <b>Debuffs</b> sich aufgelöst haben<br />
+                Du wappnest dich mit {selected.weapon.label} und ziehst {selected.armor.label} an.<br /><br />
+
+                <PlayerTalk>"Ein neuer Tag, ein neues Abendteuer!"</PlayerTalk>
             </p>
 
             <br />
