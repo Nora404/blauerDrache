@@ -3,6 +3,7 @@ import Header from '../../../layout/Header/Header';
 import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
 import { getDelta } from '../../../utility/GetDelta';
+import FormattedByValue from '../../../utility/FormattedByValue';
 
 
 type PlayerInfoProps = {
@@ -85,7 +86,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             </div><br /><br />
 
             <Header>Kombinierte Statistiken</Header><br />
-            <div className='flex-center '>
+            <div className='flex-center'>
                 <table className='w-full'>
                     <thead>
                         <tr>
@@ -103,56 +104,57 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                         <tr>
                             <td className='border-bd padding-left'>Leben</td>
                             <td className='text-center border-bd'>{store.playerStats.life}</td>
-                            <td className='text-center border-bd'>{delta.life.buffs}</td>
-                            <td className='text-center border-bd'>{delta.life.debuffs}</td>
-                            <td className='text-center border-bd'>{delta.life.feeling}</td>
-                            <td className='text-center border-bd'>0</td>
-                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.life.buffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.life.debuffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.life.feeling} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
                             <td className='text-center border-bd'><GradientText>{combined.life}</GradientText></td>
                         </tr>
                         <tr>
                             <td className='border-bd padding-left'>Runden</td>
                             <td className='text-center border-bd'>{store.playerStats.rounds}</td>
-                            <td className='text-center border-bd'>{delta.rounds.buffs}</td>
-                            <td className='text-center border-bd'>{delta.rounds.debuffs}</td>
-                            <td className='text-center border-bd'>{delta.rounds.feeling}</td>
-                            <td className='text-center border-bd'>0</td>
-                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.rounds.buffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.rounds.debuffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.rounds.feeling} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
                             <td className='text-center border-bd'><GradientText>{combined.rounds}</GradientText></td>
                         </tr>
                         <tr>
                             <td className='border-bd padding-left'>Angriff</td>
                             <td className='text-center border-bd'>{store.playerStats.attack}</td>
-                            <td className='text-center border-bd'>{delta.attack.buffs}</td>
-                            <td className='text-center border-bd'>{delta.attack.debuffs}</td>
-                            <td className='text-center border-bd'>{delta.attack.feeling}</td>
-                            <td className='text-center border-bd'>{selected.weapon.attack}</td>
-                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.attack.buffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.attack.debuffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.attack.feeling} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={selected.weapon.attack} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
                             <td className='text-center border-bd'><GradientText>{combined.attack}</GradientText></td>
                         </tr>
                         <tr>
                             <td className='border-bd padding-left'>Verteidigung</td>
                             <td className='text-center border-bd'>{store.playerStats.defense}</td>
-                            <td className='text-center border-bd'>{delta.defense.buffs}</td>
-                            <td className='text-center border-bd'>{delta.defense.debuffs}</td>
-                            <td className='text-center border-bd'>{delta.defense.feeling}</td>
-                            <td className='text-center border-bd'>0</td>
-                            <td className='text-center border-bd'>{selected.armor.defense}</td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.defense.buffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.defense.debuffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.defense.feeling} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={selected.armor.defense} /></td>
                             <td className='text-center border-bd'><GradientText>{combined.defense}</GradientText></td>
                         </tr>
                         <tr>
                             <td className='border-bd padding-left'>Glück</td>
                             <td className='text-center border-bd'>{store.playerStats.luck}</td>
-                            <td className='text-center border-bd'>{delta.luck.buffs}</td>
-                            <td className='text-center border-bd'>{delta.luck.debuffs}</td>
-                            <td className='text-center border-bd'>{delta.luck.feeling}</td>
-                            <td className='text-center border-bd'>0</td>
-                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.luck.buffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.luck.debuffs} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={delta.luck.feeling} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
+                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
                             <td className='text-center border-bd'><GradientText>{combined.luck}</GradientText></td>
                         </tr>
                     </tbody>
                 </table>
-            </div><br />
+            </div>
+            <br />
 
             <div>
                 {/* Aktive Buffs */}

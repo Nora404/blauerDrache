@@ -29,6 +29,22 @@
   text-align: center;
 }
 
+.text-green {
+  color: green;
+}
+
+.text-red {
+  color: rgb(209, 47, 47);
+}
+
+.text-gray {
+  color: gray;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
 .border-bd {
   border-bottom: 1px dotted rgba(255, 255, 255, 0.4);
 }
