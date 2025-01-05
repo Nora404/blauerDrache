@@ -543,10 +543,14 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setStore((prev) => {
             let newExp = prev.playerBase.exp + earnedExp;
             let { level, nextLevel } = prev.playerBase;
+            let { attack, defense, luck } = prev.playerStats;
 
             while (newExp >= nextLevel) {
-                newExp = newExp - nextLevel;
-                level = level + 1;
+                newExp -= nextLevel; // Überschüssige EXP abziehen
+                level += 1;
+                attack += 2;
+                defense += 2;
+                luck += 1;
                 nextLevel = requiredExpForLevel(level);
             }
 
@@ -558,9 +562,16 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     exp: newExp,
                     nextLevel,
                 },
+                playerStats: {
+                    ...prev.playerStats,
+                    attack,
+                    defense,
+                    luck,
+                },
             };
         });
     };
+
     //#endregion
 
     //#region [helper]
