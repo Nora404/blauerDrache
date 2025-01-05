@@ -11,7 +11,7 @@ import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, Fi
 import { useNavigate } from 'react-router-dom';
 import { Calling, CallingName, emptyCallingObj } from '../../../data/callingData';
 import { emptyOriginObj, Origin, OriginName } from '../../../data/originData';
-import { PlayerBase, PlayerEconomy, PlayerStats, useNewGameStore } from '../../../store/newGameStore';
+import { PlayerBase, PlayerEconomy, PlayerStats, requiredExpForLevel, useNewGameStore } from '../../../store/newGameStore';
 //#endregion
 
 //#region [prepare]
@@ -93,7 +93,13 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
             wizardData.calling.economy
         );
 
-        setPlayerBase(combinedBase);
+        const initialLevel = combinedBase.level;
+        const initialNextLevel = requiredExpForLevel(initialLevel ?? 1);
+
+        setPlayerBase({
+            ...combinedBase,
+            nextLevel: initialNextLevel,
+        });
         setPlayerStats(combinedStats);
         setPlayerEconomy(combinedEconomy);
         setPlayerMeta({

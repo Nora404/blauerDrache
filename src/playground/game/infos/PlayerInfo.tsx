@@ -8,7 +8,7 @@ type PlayerInfoProps = {
 };
 
 const PlayerInfo: React.FC<PlayerInfoProps> = () => {
-    const { store, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
+    const { store, updateExp, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
     const selected = getPlayerObj(store);
 
@@ -28,8 +28,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     const handleNewDay = () => {
         newDay();
     }
-    const handleReset = () => {
-        resetGameData();
+    const handleExp = () => {
+        updateExp(50);
     }
     const handleWeapon = () => {
         updateWeapon("Besenstiel");
@@ -135,18 +135,19 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
             <button className='btn-border' onClick={handelRoundsAdd}>Runde +</button>
             <button className='btn-border' onClick={handelRoundsSub}>Runde -</button>
 
-            <button className='btn-border' onClick={handelLifeAdd}>Leben +</button>
-            <button className='btn-border' onClick={handelLifeSub}>Leben -</button>
+            <button className='btn-border' onClick={handleExp}>Erfahrung +</button>
 
-            <button className='btn-border' onClick={handleNewDay}>Neuer Tag</button>
-            <button className='btn-border' onClick={handleReset}>Reset Data</button>
+            <button className='btn-border' onClick={handelLifeAdd}>Leben +</button>
+            <button className='btn-border' onClick={handelLifeSub}>Leben -</button><br /><br />
+
+            <button className='btn-border' onClick={handleNewDay}>Neuer Tag</button><br /><br />
 
             <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe</button>
             <button className='btn-border' onClick={handleWeapon2}>Nimm eine andere Waffe</button>
             <button className='btn-border' onClick={handleBuff1}>Bekomme Buff Eisenhaut</button>
             <button className='btn-border' onClick={handleBuff2}>Bekomme Buff Kampfgeist</button>
             <button className='btn-border' onClick={handleDeBuff1}>Bekomme Debuff Schwäche</button>
-            <button className='btn-border' onClick={handleDeBuff2}>Bekomme Debuff Pechvogel</button>
+            <button className='btn-border' onClick={handleDeBuff2}>Bekomme Debuff Pechvogel</button><br /><br />
 
             <button className='btn-border' onClick={handelAddStick}>Nimm Stock</button>
             <button className='btn-border' onClick={handelAddAppel}>Nimm 2 Pilze</button>

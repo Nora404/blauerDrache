@@ -140,6 +140,7 @@ type GameStoreContextType = {
     updateInHand: (name: ItemName) => void;
     updatePlayerStats: (delta: Partial<PlayerStats>) => void;
     updatePlayerEconomy: (delta: Partial<PlayerEconomy>) => void;
+    updateExp: (earnedExp: number) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -154,6 +155,7 @@ import { emptyItemObj, Item, itemMap, ItemName } from "../data/ItemData";
 import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 import { emptyOriginObj, originMap, OriginName } from "../data/originData";
+import { calculateProgression } from "../utility/Progression";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -536,6 +538,29 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             };
         });
     };
+
+    const updateExp = (earnedExp: number) => {
+        setStore((prev) => {
+            let newExp = prev.playerBase.exp + earnedExp;
+            let { level, nextLevel } = prev.playerBase;
+
+            while (newExp >= nextLevel) {
+                newExp = newExp - nextLevel;
+                level = level + 1;
+                nextLevel = requiredExpForLevel(level);
+            }
+
+            return {
+                ...prev,
+                playerBase: {
+                    ...prev.playerBase,
+                    level,
+                    exp: newExp,
+                    nextLevel,
+                },
+            };
+        });
+    };
     //#endregion
 
     //#region [helper]
@@ -615,6 +640,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updateInHand,
         updatePlayerStats,
         updatePlayerEconomy,
+        updateExp,
     };
 
     return (
@@ -688,6 +714,12 @@ export function getPlayerObj(store: GameStore) {
     return { race, origin, calling, feeling, weapon, armor, item }
 }
 //#endregion
+
+export const requiredExpForLevel = (level: number) => {
+    return Math.round(
+        calculateProgression(100, 9999, 14, level - 1, 'geometric')
+    );
+}
 
 // EINBINDEN
 //   function MyComponent() {
