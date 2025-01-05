@@ -2,7 +2,8 @@ import React from 'react';
 import Header from '../../../layout/Header/Header';
 import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
-import PlayerInventory from './PlayerInventory';
+import { getDelta } from '../../../utility/GetDelta';
+
 
 type PlayerInfoProps = {
 };
@@ -11,6 +12,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     const { store, updateExp, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
     const combined = getCombinedStats(store);
     const selected = getPlayerObj(store);
+    const delta = getDelta(store);
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -79,17 +81,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 {selected.calling.description}
             </div>
 
-            <GradientText>Leben: {store.playerStats.life}</GradientText> ---
-            <GradientText>Leben von Combi: {combined.life}</GradientText><br />
-            <GradientText>Runden: {store.playerStats.rounds}</GradientText> ---
-            <GradientText>Runden von Combi: {combined.rounds}</GradientText><br />
-            <GradientText>Attack: {store.playerStats.attack}</GradientText> ---
-            <GradientText>Attack von Combi: {combined.attack}</GradientText><br />
-            <GradientText>Defence: {store.playerStats.defense}</GradientText> ---
-            <GradientText>Defence von Combi: {combined.defense}</GradientText><br />
-            <GradientText>Glück: {store.playerStats.luck}</GradientText> ---
-            <GradientText>Glück von Combi: {combined.luck}</GradientText><br /><br />
 
+
+            <GradientText>Feeling: {selected.feeling.name}</GradientText> <br />
             <GradientText>Temperatur: {store.gameState.temperature}</GradientText><br />
             <GradientText>Wetter: {store.gameState.weather}</GradientText><br /><br />
 
@@ -127,36 +121,100 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 )}
             </div>
 
+            <div className='text-left'>
+                <h2>Kombinierte Statistiken</h2>
+                <table width={'500px'}>
+                    <thead>
+                        <tr>
+                            <th>Attribut</th>
+                            <th>Grundwerte</th>
+                            <th>Buffs</th>
+                            <th>Debuffs</th>
+                            <th>Feeling</th>
+                            <th>Gesamt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Leben</td>
+                            <td>{store.playerStats.life}</td>
+                            <td>{delta.life.buffs}</td>
+                            <td>{delta.life.debuffs}</td>
+                            <td>{delta.life.feeling}</td>
+                            <td><GradientText>{combined.life}</GradientText></td>
+                        </tr>
+                        <tr>
+                            <td>Runden</td>
+                            <td>{store.playerStats.rounds}</td>
+                            <td>{delta.rounds.buffs}</td>
+                            <td>{delta.rounds.debuffs}</td>
+                            <td>{delta.rounds.feeling}</td>
+                            <td><GradientText>{combined.rounds}</GradientText></td>
+                        </tr>
+                        <tr>
+                            <td>Angriff</td>
+                            <td>{store.playerStats.attack}</td>
+                            <td>{delta.attack.buffs}</td>
+                            <td>{delta.attack.debuffs}</td>
+                            <td>{delta.attack.feeling}</td>
+                            <td><GradientText>{combined.attack}</GradientText></td>
+                        </tr>
+                        <tr>
+                            <td>Verteidigung</td>
+                            <td>{store.playerStats.defense}</td>
+                            <td>{delta.defense.buffs}</td>
+                            <td>{delta.defense.debuffs}</td>
+                            <td>{delta.defense.feeling}</td>
+                            <td><GradientText>{combined.defense}</GradientText></td>
+                        </tr>
+                        <tr>
+                            <td>Glück</td>
+                            <td>{store.playerStats.luck}</td>
+                            <td>{delta.luck.buffs}</td>
+                            <td>{delta.luck.debuffs}</td>
+                            <td>{delta.luck.feeling}</td>
+                            <td><GradientText>{combined.luck}</GradientText></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <GradientText>Feeling: {selected.feeling.name}</GradientText> <br />
-            <GradientText>angriff: {selected.feeling.stats.attack}</GradientText><br />
-            <GradientText>vert: {selected.feeling.stats.defense}</GradientText><br />
-            <GradientText>leben: {selected.feeling.stats.life}</GradientText><br />
-            <GradientText>glück: {selected.feeling.stats.luck}</GradientText><br />
-            <GradientText>runden: {selected.feeling.stats.rounds}</GradientText><br /><br />
+            </div>
 
             {combined.life <= 0 && <>TOT!!! <br /><br /></>}
 
-            <button className='btn-border' onClick={handelRoundsAdd}>Runde +</button>
-            <button className='btn-border' onClick={handelRoundsSub}>Runde -</button>
+            <table>
+                <tbody>
+                    <tr>
+                        <td width={'50%'} style={{ verticalAlign: "top" }}>
+                            <button className='btn-border' onClick={handleNewDay}>Neuer Tag</button><br /><br />
 
-            <button className='btn-border' onClick={handleExp}>Erfahrung +</button>
+                            <button className='btn-border' onClick={handelRoundsAdd}>Runde +</button>
+                            <button className='btn-border' onClick={handelRoundsSub}>Runde -</button>
 
-            <button className='btn-border' onClick={handelLifeAdd}>Leben +</button>
-            <button className='btn-border' onClick={handelLifeSub}>Leben -</button><br /><br />
+                            <button className='btn-border' onClick={handleExp}>Erfahrung +</button>
 
-            <button className='btn-border' onClick={handleNewDay}>Neuer Tag</button><br /><br />
+                            <button className='btn-border' onClick={handelLifeAdd}>Leben +</button>
+                            <button className='btn-border' onClick={handelLifeSub}>Leben -</button>
 
-            <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe</button>
-            <button className='btn-border' onClick={handleWeapon2}>Nimm eine andere Waffe</button>
-            <button className='btn-border' onClick={handleBuff1}>Bekomme Buff Eisenhaut</button>
-            <button className='btn-border' onClick={handleBuff2}>Bekomme Buff Kampfgeist</button>
-            <button className='btn-border' onClick={handleDeBuff1}>Bekomme Debuff Schwäche</button>
-            <button className='btn-border' onClick={handleDeBuff2}>Bekomme Debuff Pechvogel</button><br /><br />
+                        </td>
+                        <td>
+                            <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe</button>
+                            <button className='btn-border' onClick={handleWeapon2}>Nimm eine andere Waffe</button>
+                            <button className='btn-border' onClick={handleBuff1}>Bekomme Buff Eisenhaut</button>
+                            <button className='btn-border' onClick={handleBuff2}>Bekomme Buff Kampfgeist</button>
+                            <button className='btn-border' onClick={handleDeBuff1}>Bekomme Debuff Schwäche</button>
+                            <button className='btn-border' onClick={handleDeBuff2}>Bekomme Debuff Pechvogel</button><br /><br />
 
-            <button className='btn-border' onClick={handelAddStick}>Nimm Stock</button>
-            <button className='btn-border' onClick={handelAddAppel}>Nimm 2 Pilze</button>
-            <button className='btn-border' onClick={handleRemoveAppel}>wirf einen Pilz weg</button>
+                            <button className='btn-border' onClick={handelAddStick}>Nimm Stock</button>
+                            <button className='btn-border' onClick={handelAddAppel}>Nimm 2 Pilze</button>
+                            <button className='btn-border' onClick={handleRemoveAppel}>wirf einen Pilz weg</button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
         </div>
     );
 };

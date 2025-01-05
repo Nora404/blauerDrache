@@ -417,8 +417,6 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 );
             }
 
-            console.log(store.playerFlux.buff);
-
             return {
                 ...prev,
                 playerStats: {
