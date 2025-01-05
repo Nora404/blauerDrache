@@ -95,35 +95,38 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             Aktuelles scaling bei einem Wert von 10: {10 * getScalingFactor(store.playerBase.level)}
 
-            <h3>Aktive Buffs</h3>
-            {store.playerFlux.buff.length > 0 ? (
-                <ul>
-                    {store.playerFlux.buff.map((buff, index) => (
-                        <li key={index}>
-                            {buff.label} - {buff.description}
-                            (Dauer: {buff.currentDuration} Runden)
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Keine aktiven Buffs</p>
-            )}
+            <div>
+                {/* Aktive Buffs */}
+                <h3>Aktive Buffs</h3>
+                {selected.buffs.length > 0 ? (
+                    <ul>
+                        {selected.buffs.map((buff) => (
+                            <li key={buff.name}>
+                                {buff.label} - {buff.description}
+                                (Dauer: {buff.currentDuration} Runden)
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>Keine aktiven Buffs</p>
+                )}
 
-            <h3>Aktive Debuffs</h3>
-            {store.playerFlux.debuff.length > 0 ? (
-                <ul>
-                    {store.playerFlux.debuff.map((debuff, index) => (
-                        <li key={index}>
-                            {debuff.label} - {debuff.description}
-                            (Dauer: {debuff.currentDuration} Runden)
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Keine aktiven Debuffs</p>
-            )}
+                {/* Aktive Debuffs */}
+                <h3>Aktive Debuffs</h3>
+                {selected.debuffs.length > 0 ? (
+                    <ul>
+                        {selected.debuffs.map((debuff) => (
+                            <li key={debuff.name}>
+                                {debuff.label} - {debuff.description}
+                                (Dauer: {debuff.currentDuration} Runden)
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>Keine aktiven Debuffs</p>
+                )}
+            </div>
 
-            <PlayerInventory />
 
             <GradientText>Feeling: {selected.feeling.name}</GradientText> <br />
             <GradientText>angriff: {selected.feeling.stats.attack}</GradientText><br />

@@ -8,7 +8,7 @@ export type GameState = {
     weather: string;
     temperature: string;
     creating: boolean;
-    Switch: Record<string, boolean>; // Oder Record<SwitchName, boolean>
+    switch: Record<string, boolean>;
 };
 
 export type PlayerMeta = {
@@ -16,8 +16,8 @@ export type PlayerMeta = {
     race: RaceName;
     origin: OriginName;
     calling: CallingName;
-    titel: string;      // TitleName
-    colortype: string;  // ColortypeName
+    titel: string;
+    colortype: string;
     colors: string[];
 };
 
@@ -39,8 +39,8 @@ export type PlayerBase = {
 
 export type PlayerFlux = {
     feeling: FeelingName;
-    buff: Buff[];
-    debuff: Debuff[];
+    buff: Partial<Record<BuffName, number>>;
+    debuff: Partial<Record<DebuffName, number>>;
     weapon: WeaponName;
     armor: ArmorName;
     item: ItemName;
@@ -73,7 +73,7 @@ const defaultGameStore: GameStore = {
         weather: "sonnig",
         temperature: "warm",
         creating: false,
-        Switch: {},
+        switch: {},
     },
     playerMeta: {
         name: "Name",
@@ -100,8 +100,8 @@ const defaultGameStore: GameStore = {
     },
     playerFlux: {
         feeling: "Normal",
-        buff: [],
-        debuff: [],
+        buff: {},
+        debuff: {},
         weapon: "Nichts",
         armor: "Nichts",
         item: "Nichts"
@@ -308,8 +308,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
             playerFlux: {
                 ...prev.playerFlux,
-                buff: [],
-                debuff: [],
+                buff: {},
+                debuff: {},
                 feeling: feeling.name
             },
 
@@ -328,7 +328,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             ...prev,
             gameState: {
                 ...prev.gameState,
-                Switch: { ...prev.gameState.Switch, [key]: value },
+                switch: { ...prev.gameState.switch, [key]: value },
             },
         }));
     };
@@ -338,21 +338,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (!buff) return;
 
         setStore((prev) => {
-            // Schauen, ob bereits ein Buff mit gleichem Namen existiert
-            const existingIndex = prev.playerFlux.buff.findIndex((b) => b.name === name);
-            const updatedBuffs = [...prev.playerFlux.buff];
-
-            if (existingIndex >= 0) {
-                // Wenn schon da, Duration addieren
-                updatedBuffs[existingIndex] = {
-                    ...updatedBuffs[existingIndex],
-                    duration: (updatedBuffs[existingIndex].duration || 0)
-                        + buff.duration,
-                };
-            } else {
-                // Ansonsten neu hinzufügen
-                updatedBuffs.push(buff);
-            }
+            const updatedBuffs = { ...prev.playerFlux.buff };
+            updatedBuffs[name] = (updatedBuffs[name] || 0) + buff.duration;
 
             return {
                 ...prev,
@@ -369,19 +356,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         if (!debuff) return;
 
         setStore((prev) => {
-            const existingIndex = prev.playerFlux.debuff.findIndex((d) => d.name === name);
-
-            const updatedDebuffs = [...prev.playerFlux.debuff];
-
-            if (existingIndex >= 0) {
-                updatedDebuffs[existingIndex] = {
-                    ...updatedDebuffs[existingIndex],
-                    duration: (updatedDebuffs[existingIndex].duration || 0)
-                        + debuff.duration,
-                };
-            } else {
-                updatedDebuffs.push(debuff);
-            }
+            const updatedDebuffs = { ...prev.playerFlux.debuff };
+            updatedDebuffs[name] = (updatedDebuffs[name] || 0) + debuff.duration;
 
             return {
                 ...prev,
@@ -416,17 +392,29 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 prev.playerBase.maxRounds
             );
 
-            let updatedBuffs = prev.playerFlux.buff;
-            let updatedDebuffs = prev.playerFlux.debuff;
-            if (delta < 0) {
-                // duration um 1 verringern
-                updatedBuffs = updatedBuffs
-                    .map((b) => ({ ...b, duration: b.duration ? b.duration - Math.abs(delta) : 0 }))
-                    .filter((b) => b.duration === undefined || b.duration > 0);
+            let updatedBuffs = { ...prev.playerFlux.buff };
+            let updatedDebuffs = { ...prev.playerFlux.debuff };
 
-                updatedDebuffs = updatedDebuffs
-                    .map((d) => ({ ...d, duration: d.duration ? d.duration - Math.abs(delta) : 0 }))
-                    .filter((d) => d.duration === undefined || d.duration > 0);
+            if (delta < 0) {
+                const absolute = Math.abs(delta);
+                updatedBuffs = Object.fromEntries(
+                    Object.entries(updatedBuffs)
+                        .map(([buffName, duration]) => {
+                            const newDuration = duration - absolute;
+                            return [buffName, newDuration];
+                        })
+                        .filter(([_, d]) => (d as number) > 0)
+                );
+
+                // Debuffs kürzen und rauswerfen, wenn sie <= 0
+                updatedDebuffs = Object.fromEntries(
+                    Object.entries(updatedDebuffs)
+                        .map(([debuffName, duration]) => {
+                            const newDuration = duration - absolute;
+                            return [debuffName, newDuration];
+                        })
+                        .filter(([_, d]) => (d as number) > 0)
+                );
             }
 
             console.log(store.playerFlux.buff);
@@ -683,7 +671,11 @@ export function getCombinedStats(store: GameStore) {
     // mit Math.trunc werden alle Nachkommazahlen abgeschnitten
     // Durch die Klammern wird die richtige Reihenfolge der berechnung garantiert
     // der scalingFactor mit dem Level soll verhindern das Elemente unwichtig werden
-    for (const buff of store.playerFlux.buff) {
+    for (const [buffName, currDuration] of Object.entries(store.playerFlux.buff)) {
+        if (!currDuration) continue;
+        const buff = buffMap[buffName as BuffName];
+        if (!buff) continue;
+
         life += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
         rounds += Math.trunc((buff.effects.rounds ?? 0) * scalingFactor);
         attack += Math.trunc((buff.effects.attack ?? 0) * scalingFactor);
@@ -693,7 +685,11 @@ export function getCombinedStats(store: GameStore) {
         maxRounds += Math.trunc((buff.effects.rounds ?? 0) * scalingFactor);
     }
 
-    for (const debuff of store.playerFlux.debuff) {
+    for (const [debuffName, currDuration] of Object.entries(store.playerFlux.debuff)) {
+        if (!currDuration) continue;
+        const debuff = debuffMap[debuffName as DebuffName];
+        if (!debuff) continue;
+
         life += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
         rounds += Math.trunc((debuff.effects.rounds ?? 0) * scalingFactor);
         attack += Math.trunc((debuff.effects.attack ?? 0) * scalingFactor);
@@ -722,6 +718,9 @@ export function getCombinedStats(store: GameStore) {
     return { life, rounds, attack, defense, luck, maxLife, maxRounds };
 }
 
+export type ActiveBuff = Buff & { currentDuration: number };
+export type ActiveDebuff = Debuff & { currentDuration: number };
+
 export function getPlayerObj(store: GameStore) {
     const race = racesMap[store.playerMeta.race] ?? emptyRaceObj;
     const origin = originMap[store.playerMeta.origin] ?? emptyOriginObj;
@@ -731,7 +730,24 @@ export function getPlayerObj(store: GameStore) {
     const armor = armorMap[store.playerFlux.armor] ?? emptyArmorObj;
     const item = itemMap[store.playerFlux.item] ?? emptyItemObj;
 
-    return { race, origin, calling, feeling, weapon, armor, item }
+    const buffs: ActiveBuff[] = Object.entries(store.playerFlux.buff)
+        .map(([buffName, duration]) => {
+            const buff = buffMap[buffName as BuffName];
+            if (!buff) return null;
+            return { ...buff, currentDuration: duration };
+        })
+        .filter((buff): buff is ActiveBuff => buff !== null) ?? []; // Type Guard, um null-Werte zu entfernen
+
+    const debuffs: ActiveDebuff[] = Object.entries(store.playerFlux.debuff)
+        .map(([debuffName, duration]) => {
+            const debuff = debuffMap[debuffName as DebuffName];
+            if (!debuff) return null;
+            return { ...debuff, currentDuration: duration };
+        })
+        .filter((debuff): debuff is ActiveDebuff => debuff !== null) ?? [];
+
+
+    return { race, origin, calling, feeling, weapon, armor, item, buffs, debuffs }
 }
 //#endregion
 
