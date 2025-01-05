@@ -542,8 +542,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const updateExp = (earnedExp: number) => {
         setStore((prev) => {
             let newExp = prev.playerBase.exp + earnedExp;
-            let { level, nextLevel } = prev.playerBase;
-            let { attack, defense, luck } = prev.playerStats;
+            let { level, nextLevel, maxLife } = prev.playerBase;
+            let { attack, defense, luck, life } = prev.playerStats;
 
             while (newExp >= nextLevel) {
                 newExp -= nextLevel; // Überschüssige EXP abziehen
@@ -551,6 +551,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 attack += 2;
                 defense += 2;
                 luck += 1;
+                life += 10;
+                maxLife += 10;
                 nextLevel = requiredExpForLevel(level);
             }
 
@@ -561,12 +563,14 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     level,
                     exp: newExp,
                     nextLevel,
+                    maxLife,
                 },
                 playerStats: {
                     ...prev.playerStats,
                     attack,
                     defense,
                     luck,
+                    life,
                 },
             };
         });
@@ -674,34 +678,39 @@ export function getCombinedStats(store: GameStore) {
     attack += weaponMap[store.playerFlux.weapon].attack ?? 0;
     defense += armorMap[store.playerFlux.armor].defense ?? 0;
 
+    const scalingFactor = getScalingFactor(store.playerBase.level);
+
+    // mit Math.trunc werden alle Nachkommazahlen abgeschnitten
+    // Durch die Klammern wird die richtige Reihenfolge der berechnung garantiert
+    // der scalingFactor mit dem Level soll verhindern das Elemente unwichtig werden
     for (const buff of store.playerFlux.buff) {
-        life += buff.effects.life ?? 0;
-        rounds += buff.effects.rounds ?? 0;
-        attack += buff.effects.attack ?? 0;
-        defense += buff.effects.defense ?? 0;
-        luck += buff.effects.luck ?? 0;
-        maxLife += buff.effects.life ?? 0;
-        maxRounds += buff.effects.rounds ?? 0;
+        life += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
+        rounds += Math.trunc((buff.effects.rounds ?? 0) * scalingFactor);
+        attack += Math.trunc((buff.effects.attack ?? 0) * scalingFactor);
+        defense += Math.trunc((buff.effects.defense ?? 0) * scalingFactor);
+        luck += Math.trunc((buff.effects.luck ?? 0) * scalingFactor);
+        maxLife += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
+        maxRounds += Math.trunc((buff.effects.rounds ?? 0) * scalingFactor);
     }
 
     for (const debuff of store.playerFlux.debuff) {
-        life += debuff.effects.life ?? 0;
-        rounds += debuff.effects.rounds ?? 0;
-        attack += debuff.effects.attack ?? 0;
-        defense += debuff.effects.defense ?? 0;
-        luck += debuff.effects.luck ?? 0;
-        maxLife += debuff.effects.life ?? 0;
-        maxRounds += debuff.effects.rounds ?? 0;
+        life += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
+        rounds += Math.trunc((debuff.effects.rounds ?? 0) * scalingFactor);
+        attack += Math.trunc((debuff.effects.attack ?? 0) * scalingFactor);
+        defense += Math.trunc((debuff.effects.defense ?? 0) * scalingFactor);
+        luck += Math.trunc((debuff.effects.luck ?? 0) * scalingFactor);
+        maxLife += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
+        maxRounds += Math.trunc((debuff.effects.rounds ?? 0) * scalingFactor);
     }
 
     const feeling = feelingMap[store.playerFlux.feeling];
-    life += feeling.stats.life ?? 0;
-    rounds += feeling.stats.rounds ?? 0;
-    attack += feeling.stats.attack ?? 0;
-    defense += feeling.stats.defense ?? 0;
-    luck += feeling.stats.luck ?? 0;
-    maxLife += feeling.stats.life ?? 0;
-    maxRounds += feeling.stats.rounds ?? 0;
+    life += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
+    rounds += Math.trunc((feeling.stats.rounds ?? 0) * scalingFactor);
+    attack += Math.trunc((feeling.stats.attack ?? 0) * scalingFactor);
+    defense += Math.trunc((feeling.stats.defense ?? 0) * scalingFactor);
+    luck += Math.trunc((feeling.stats.luck ?? 0) * scalingFactor);
+    maxLife += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
+    maxRounds += Math.trunc((feeling.stats.rounds ?? 0) * scalingFactor);
 
     // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
     life = Math.max(life, 0), maxLife;
@@ -730,6 +739,11 @@ export const requiredExpForLevel = (level: number) => {
     return Math.round(
         calculateProgression(100, 9999, 14, level - 1, 'geometric')
     );
+}
+
+export function getScalingFactor(level: number): number {
+    // Jede Levelerhöhung erhöht den Faktor um 10%
+    return 1 + (level - 1) * 0.1;
 }
 
 // EINBINDEN

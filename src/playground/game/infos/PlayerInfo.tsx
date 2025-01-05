@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../../layout/Header/Header';
-import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
+import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } from '../../../store/newGameStore';
 import { GradientText } from '../../../utility/GradientText';
 import PlayerInventory from './PlayerInventory';
 
@@ -92,6 +92,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             <GradientText>Temperatur: {store.gameState.temperature}</GradientText><br />
             <GradientText>Wetter: {store.gameState.weather}</GradientText><br /><br />
+
+            Aktuelles scaling bei einem Wert von 10: {10 * getScalingFactor(store.playerBase.level)}
 
             <h3>Aktive Buffs</h3>
             {store.playerFlux.buff.length > 0 ? (
