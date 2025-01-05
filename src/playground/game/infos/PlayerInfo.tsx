@@ -94,6 +94,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <th className='text-center border-bs'>Buffs</th>
                             <th className='text-center border-bs'>Debuffs</th>
                             <th className='text-center border-bs'>Feeling</th>
+                            <th className='text-center border-bs'>Waffe</th>
+                            <th className='text-center border-bs'>Rüstung</th>
                             <th className='text-center border-bs'>Gesamt</th>
                         </tr>
                     </thead>
@@ -104,6 +106,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'>{delta.life.buffs}</td>
                             <td className='text-center border-bd'>{delta.life.debuffs}</td>
                             <td className='text-center border-bd'>{delta.life.feeling}</td>
+                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'>0</td>
                             <td className='text-center border-bd'><GradientText>{combined.life}</GradientText></td>
                         </tr>
                         <tr>
@@ -112,6 +116,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'>{delta.rounds.buffs}</td>
                             <td className='text-center border-bd'>{delta.rounds.debuffs}</td>
                             <td className='text-center border-bd'>{delta.rounds.feeling}</td>
+                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'>0</td>
                             <td className='text-center border-bd'><GradientText>{combined.rounds}</GradientText></td>
                         </tr>
                         <tr>
@@ -120,6 +126,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'>{delta.attack.buffs}</td>
                             <td className='text-center border-bd'>{delta.attack.debuffs}</td>
                             <td className='text-center border-bd'>{delta.attack.feeling}</td>
+                            <td className='text-center border-bd'>{selected.weapon.attack}</td>
+                            <td className='text-center border-bd'>0</td>
                             <td className='text-center border-bd'><GradientText>{combined.attack}</GradientText></td>
                         </tr>
                         <tr>
@@ -128,6 +136,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'>{delta.defense.buffs}</td>
                             <td className='text-center border-bd'>{delta.defense.debuffs}</td>
                             <td className='text-center border-bd'>{delta.defense.feeling}</td>
+                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'>{selected.armor.defense}</td>
                             <td className='text-center border-bd'><GradientText>{combined.defense}</GradientText></td>
                         </tr>
                         <tr>
@@ -136,6 +146,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'>{delta.luck.buffs}</td>
                             <td className='text-center border-bd'>{delta.luck.debuffs}</td>
                             <td className='text-center border-bd'>{delta.luck.feeling}</td>
+                            <td className='text-center border-bd'>0</td>
+                            <td className='text-center border-bd'>0</td>
                             <td className='text-center border-bd'><GradientText>{combined.luck}</GradientText></td>
                         </tr>
                     </tbody>
