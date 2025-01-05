@@ -16,14 +16,14 @@ export const buffs: Buff[] = [
         name: "Eisenhaut",
         label: <GradientText>Eisenhaut</GradientText>,
         description: "Erhöht die Verteidigung für eine begrenzte Zeit.",
-        effects: { defense: 10 },
+        effects: { defense: 5 },
         duration: 5, // 5 Runden
     },
     {
         name: "Kampfgeist",
         label: <GradientText>Kampfgeist</GradientText>,
         description: "Erhöht den Angriff für eine begrenzte Zeit.",
-        effects: { attack: 8 },
+        effects: { attack: 5 },
         duration: 3, // 3 Runden
     },
 ];

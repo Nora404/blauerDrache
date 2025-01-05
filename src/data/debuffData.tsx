@@ -23,7 +23,7 @@ export const debuffs: Debuff[] = [
         name: "Pechvogel",
         label: <GradientText>Pechvogel</GradientText>,
         description: "Verringert das Glück für eine begrenzte Zeit.",
-        effects: { luck: -7 },
+        effects: { luck: -5 },
         duration: 6, // 6 Runden
     },
 ];

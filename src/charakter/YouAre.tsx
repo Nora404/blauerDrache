@@ -21,6 +21,8 @@ const YouAre: React.FC<YouAreProps> = ({ }) => {
                 Berufung: {selected.calling.label}<br />
                 Titel: <GradientText>{store.playerMeta.titel}</GradientText><br />
                 Stimmung: {selected.feeling.label}<br />
+                Buff: {selected.buffs.length} aktiv<br />
+                Debuff: {selected.debuffs.length} aktiv<br />
             </p>
         </div>
     );
