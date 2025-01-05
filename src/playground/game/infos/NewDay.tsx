@@ -1,6 +1,5 @@
 import { SYSTEM } from '../../../data/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
-import { useEffect, useRef } from 'react';
 import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
 import PlayerTalk from '../../../utility/PlayerTalk';
 
@@ -17,19 +16,8 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
         onClose?.();
     }
 
-
-    // Eigentlich sollte das hier bewirken das die Komponente immer 
-    // nach ganz oben zum Anfang der Seite gescollt ist.
-    // Aber es hat keine Wirkung
-    const newDayRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (newDayRef.current) {
-            newDayRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }, []);
-
     return (
-        <div className="max-width" ref={newDayRef}>
+        <div className="max-width">
             <h2>Es ist ein neuer Tag</h2>
 
             <p className='mb-1 text-left'>

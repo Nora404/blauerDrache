@@ -10,7 +10,7 @@ type PlayerInfoProps = {
 };
 
 const PlayerInfo: React.FC<PlayerInfoProps> = () => {
-    const { store, updateExp, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay, resetGameData } = useNewGameStore();
+    const { store, updateExp, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay } = useNewGameStore();
     const combined = getCombinedStats(store);
     const selected = getPlayerObj(store);
     const delta = getDelta(store);

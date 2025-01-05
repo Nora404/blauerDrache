@@ -197,7 +197,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     useEffect(() => {
         const intervalId = setInterval(() => {
             updateGameTime();
-        }, 60000);
+        }, 10000);
 
         return () => clearInterval(intervalId);
     }, []);
