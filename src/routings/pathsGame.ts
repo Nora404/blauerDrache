@@ -34,6 +34,7 @@ export const routesGame: RouteConfig[] = [
     {
         path: PathsGame.Home,
         element: Start,
+        navigation: NorthGateNavi,
     },
     {
         path: PathsGame.Start,

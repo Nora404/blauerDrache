@@ -48,14 +48,20 @@ export const races: Race[] = [
         description: "In den Ebenen der Stadt Lahtheim ist die Heimat der Menschen zu finden. Viele leben in der Stadt selbst oder in den kleineren Dörfern. Sie treiben gerne Handel untereinander, sind aber Fremden gegenüber eher misstrauisch. Sie können sehr viel, aber nichts wirklich außergewöhnlich gut. Ein Sprichwort lautet: Menschen sind das Wasser der Suppe",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
+            level: 1,
             maxLife: 120,
-            maxRounds: 10,
+            maxRounds: 20,
         },
         stats: {
             life: 120,
+            rounds: 20,
+            attack: 5,
+            defense: 5,
+            luck: 5,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "Stadtmensch",
@@ -72,17 +78,18 @@ export const races: Race[] = [
         base: {
             level: 3,
             maxLife: 100,
-            maxRounds: 10,
+            maxRounds: 20,
         },
         stats: {
             life: 100,
-            rounds: 10,
-            attack: 10,
+            rounds: 20,
+            attack: 5,
             defense: 5,
             luck: 5,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "Nachtelf",
@@ -97,18 +104,20 @@ export const races: Race[] = [
         description: "Tief in den unterirdischen Höhlen ist die Heimat der edlen und mächtigen Zwerge, deren Bedürfnis nach Reichtum und Schätze in keinem Verhältnis zu ihrer Körpergröße steht. Es gibt keine besseren Handwerker und oder Kenner für Materialien und deren Eigenschaften. Ihre Gesellschaft ist in strengen Sozialen Klassen eingeteilt.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Gold}</>,
         base: {
+            level: 1,
             maxLife: 100,
-            maxRounds: 10,
+            maxRounds: 20,
         },
         stats: {
             life: 100,
-            rounds: 10,
-            attack: 10,
+            rounds: 20,
+            attack: 5,
             defense: 5,
             luck: 5,
         },
         economy: {
             gold: 200,
+            edelsteine: 0,
         },
         subraces: [
             "Steinklopfer",
@@ -123,18 +132,20 @@ export const races: Race[] = [
         description: "In der öden Landschaft hinter den Steppen, weit außerhalb jeder Siedlung, leben die Echsen in kleineren nomadischen Gruppen. Artverwandt mit den Drachen haben sie es nicht leicht in dieser Welt. Hinzu kommt das viele Wesen ihnen keine größere Intelligenz zutrauen. Da Echsen andere Wesen meiden, wird sich ihr Ruf nicht sonderlich bald verbessern.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>,
         base: {
+            level: 1,
             maxLife: 100,
-            maxRounds: 10,
+            maxRounds: 20,
         },
         stats: {
             life: 100,
-            attack: 15,
-            rounds: 10,
+            rounds: 20,
+            attack: 7,
             defense: 5,
             luck: 5,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "FelsImHimmel",
@@ -149,18 +160,20 @@ export const races: Race[] = [
         description: "In den Sümpfen, nahe der vergessenen Ruinen, leben die Trolle. Wenn sie sich nicht gegen andere Bewohner des Sumpfes verteidigen müssen, zum Beispiel gegen Monster Mücken, beten sie zu ihren Göttern. Sie verrichten für diese verschiedene Dienste in sogenannten Bruderschaften. Dabei kommt es gelegentlich zu „Uneinigkeiten“",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {
+            level: 1,
             maxLife: 100,
-            maxRounds: 10,
+            maxRounds: 20,
         },
         stats: {
-            defense: 15,
             life: 100,
-            rounds: 10,
-            attack: 10,
+            rounds: 20,
+            attack: 5,
+            defense: 7,
             luck: 5,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "GeisterSchamane",
@@ -175,18 +188,20 @@ export const races: Race[] = [
         description: "Diese katzenhaften Wesen leben in den Bergen. Ihre Behausungen sind aus dem Stein geschlagen und mit Fellen geschmückt. Sie leben meist allein, oder in kleinen Familien. Felkin sind bekannt für ihre verspielte und freundliche Art. Sie treiben gerne Tauschhandel, Feilschen oder Täuschen (Was sie eher aus Spaß machen, nicht aus böser Absicht)",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Glück}</>,
         base: {
+            level: 1,
             maxLife: 100,
-            maxRounds: 10,
+            maxRounds: 20,
         },
         stats: {
-            luck: 15,
             life: 100,
-            rounds: 10,
-            attack: 10,
+            rounds: 20,
+            attack: 5,
             defense: 5,
+            luck: 7,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "Goldfell",
@@ -201,18 +216,20 @@ export const races: Race[] = [
         description: "Diese wolfsähnlichen Wesen leben tief in den Wäldern, weniger weil sie so naturverbunden wären, sondern weil es die beste Tarnung bietet. Dank den Verträgen mit den Zwergen und Elfen haben sie Wissen und Material um eine hoch technisierte und streng organisierte Gesellschaft zu erschaffen, die im Verborgenen floriert.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>,
         base: {
-            maxRounds: 20,
+            level: 1,
             maxLife: 100,
+            maxRounds: 25,
         },
         stats: {
-            rounds: 20,
             life: 100,
-            attack: 10,
+            rounds: 25,
+            attack: 5,
             defense: 5,
             luck: 5,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "Schattenjäger",
@@ -227,18 +244,20 @@ export const races: Race[] = [
         description: "Dryaden brauchen Licht, sauberes Wasser und gute Erde. Sie fanden dies in der nähe der Quelle. Als Pflanzenwesen werden sie oft nur als solches wahrgenommen, als einfache Pflanze. Einige Wesen glauben nicht einmal das sie ein Bewusstsein haben. Sie brauchen keine Häuser, Technik oder Gold.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
-            maxLife: 150,
-            maxRounds: 10,
+            level: 1,
+            maxLife: 120,
+            maxRounds: 20,
         },
         stats: {
-            life: 150,
-            rounds: 10,
-            attack: 10,
+            life: 120,
+            rounds: 20,
+            attack: 5,
             defense: 5,
             luck: 5,
         },
         economy: {
             gold: 100,
+            edelsteine: 0,
         },
         subraces: [
             "Astläufer",

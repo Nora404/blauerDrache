@@ -41,13 +41,13 @@ export const callings: Calling[] = [
         description: "Tiere pflegen, Gemüse anbauen und Obst sammeln. All das dann zu leckeren Speisen verarbeiten und auf dem Markt verkaufen. Bei dem Gedanken fängst du an verträumt in den Himmel zu starren. Ja, das ist ein Leben wie du es dir erhoffst.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben} und {SYSTEM.Gold}</>,
         base: {
-            maxLife: 10,
+            maxLife: 20,
         },
         stats: {
-            life: 10,
+            life: 20,
         },
         economy: {
-            gold: 10,
+            gold: 50,
         },
     },
     {
@@ -57,7 +57,7 @@ export const callings: Calling[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff} und {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            attack: 10,
+            attack: 5,
             defense: 5,
         },
         economy: {},
@@ -69,11 +69,11 @@ export const callings: Calling[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden} und {SYSTEM.Leben}</>,
         base: {
             maxRounds: 5,
-            maxLife: 5,
+            maxLife: 20,
         },
         stats: {
             rounds: 5,
-            life: 5,
+            life: 20,
         },
         economy: {},
     },
@@ -85,7 +85,7 @@ export const callings: Calling[] = [
         base: {},
         stats: {},
         economy: {
-            gold: 20,
+            gold: 50,
             edelsteine: 1,
         },
     },
@@ -99,7 +99,7 @@ export const callings: Calling[] = [
             attack: 5,
         },
         economy: {
-            gold: 25,
+            gold: 50,
         },
     },
     {
@@ -108,10 +108,10 @@ export const callings: Calling[] = [
         description: "Die Kunst des Heilens und der Transmutation ist nicht nur faszinierend, sondern auch nützlich. Du möchtest anderen Helfen und dir dabei genügend Gold verdienen um deine eigenen Forschungen betreiben. Zusammen mit Kollegen aus allen Regionen könntest du mächtige noch nie dagewesene Tränke erschaffen.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben} und {SYSTEM.Glück}</>,
         base: {
-            maxLife: 10,
+            maxLife: 20,
         },
         stats: {
-            life: 10,
+            life: 20,
             luck: 5,
         },
         economy: {},
@@ -123,7 +123,7 @@ export const callings: Calling[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Glück} und {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            luck: 10,
+            luck: 5,
             defense: 5,
         },
         economy: {},
@@ -135,7 +135,7 @@ export const callings: Calling[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff} und {SYSTEM.Glück}</>,
         base: {},
         stats: {
-            attack: 10,
+            attack: 5,
             luck: 5,
         },
         economy: {},
@@ -146,11 +146,11 @@ export const callings: Calling[] = [
         description: "Du möchtest dein Wissen mehren, erfahren was andere Wesen denken und woran sie glauben. Dein Interesse gilt nicht der materiellen Welt, das Leben besteht aus mehr als nur Gold, wobei es durchaus hilfreich ist welches zu haben.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung} und {SYSTEM.Leben}</>,
         base: {
-            maxLife: 5,
+            maxLife: 20,
         },
         stats: {
-            defense: 10,
-            life: 5,
+            defense: 5,
+            life: 20,
         },
         economy: {},
     },

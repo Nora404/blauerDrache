@@ -72,7 +72,7 @@ const defaultGameStore: GameStore = {
     gameState: {
         weather: "sonnig",
         temperature: "warm",
-        creating: true,
+        creating: false,
         Switch: {},
     },
     playerMeta: {
@@ -86,8 +86,8 @@ const defaultGameStore: GameStore = {
     },
     playerStats: {
         life: 100,
-        rounds: 10,
-        attack: 10,
+        rounds: 20,
+        attack: 5,
         defense: 5,
         luck: 5,
     },
@@ -96,7 +96,7 @@ const defaultGameStore: GameStore = {
         nextLevel: 100,
         exp: 0,
         maxLife: 100,
-        maxRounds: 10,
+        maxRounds: 20,
     },
     playerFlux: {
         feeling: "Normal",

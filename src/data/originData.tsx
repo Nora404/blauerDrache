@@ -61,7 +61,7 @@ export const origin: Origin[] = [
         base: {},
         stats: {},
         economy: {
-            gold: 25,
+            gold: 50,
         },
     },
     {
@@ -70,10 +70,10 @@ export const origin: Origin[] = [
         description: "Weite Wiesen, Felder mit Gemüse und Obstbäume, freilaufende Tiere und du kanntest jedes mit Namen. Auch die Namen der Menschen, die dir tagtäglich „Guten Tag“ und „Guten Mittag“ und auch „Guten Abend“ sagten. Höhste Zeit hier von hier zu verschwinden.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
-            maxLife: 10,
+            maxLife: 20,
         },
         stats: {
-            life: 10,
+            life: 20,
         },
         economy: {},
     },
@@ -96,7 +96,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            defense: 10,
+            defense: 5,
         },
         economy: {},
     },
@@ -132,7 +132,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            defense: 10,
+            defense: 5,
         },
         economy: {},
     },
@@ -144,7 +144,7 @@ export const origin: Origin[] = [
         base: {},
         stats: {},
         economy: {
-            gold: 25,
+            gold: 50,
         },
     },
     {
@@ -165,7 +165,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            defense: 10,
+            defense: 5,
         },
         economy: {},
     },
@@ -175,10 +175,10 @@ export const origin: Origin[] = [
         description: "Sand am Boden, Sand in der Luft. Deine Augen sehen kaum etwas anders als Sand. Du wanderst mit deiner Gruppe von Oase zu Oase, rastet dort und wandert weiter. Am Horizont sind die Berge zu erkennen „Warum wandern wir nicht einmal dort hin?“",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
-            maxLife: 10,
+            maxLife: 20,
         },
         stats: {
-            life: 10,
+            life: 20,
         },
         economy: {},
     },
@@ -189,7 +189,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>,
         base: {},
         stats: {
-            attack: 10,
+            attack: 5,
         },
         economy: {},
     },
@@ -199,10 +199,10 @@ export const origin: Origin[] = [
         description: "Du gehörst der Bruderschaft der Geister an. Als Schamane ist es deine Aufgabe die Geister friedlich zu stimmen und ihren Willen zu erkennen. Dieser ist oft verschwommen, wie ein Traum. Der letzte Geist wollte das du etwas außerhalb des Sumpfes erledigst.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
-            maxLife: 10,
+            maxLife: 20,
         },
         stats: {
-            life: 10,
+            life: 20,
         },
         economy: {},
     },
@@ -239,7 +239,7 @@ export const origin: Origin[] = [
         base: {},
         stats: {},
         economy: {
-            gold: 20,
+            gold: 50,
         },
     },
     {
@@ -248,10 +248,10 @@ export const origin: Origin[] = [
         description: "Du bist als Mondauge bekannt, Felkin die am liebsten nachts unterwegs sind und Schabernack treiben. Dabei bräuchtest du mehr als nur sieben Leben. Deine Suche nach Spaß und Nervenkitzel kennt keine Konsequenzen oder Grenzen. Selbst der Berg ist zu klein für dich.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
         base: {
-            maxLife: 10,
+            maxLife: 20,
         },
         stats: {
-            life: 10,
+            life: 20,
         },
         economy: {},
     },
@@ -274,7 +274,7 @@ export const origin: Origin[] = [
         description: "Als Schattenjäger bist du berechtigt mit den Elfen und Zwergen in Verhandlungen zu treten. Deine eigentliche Aufgabe ist die Beobachtung der äußeren Grenzen und Meldung vor etwaigen Gefahren oder Eindringlingen. Diese Grenze ist dabei sehr grob gefasst.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Level}</>,
         base: {
-            level: 2,
+            level: 3,
         },
         stats: {
         },
@@ -287,7 +287,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Angriff}</>,
         base: {},
         stats: {
-            attack: 15,
+            attack: 5,
         },
         economy: {},
     },
@@ -298,7 +298,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            defense: 10,
+            defense: 5,
         },
         economy: {},
     },
@@ -309,7 +309,7 @@ export const origin: Origin[] = [
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {},
         stats: {
-            defense: 10,
+            defense: 5,
         },
         economy: {},
     },
