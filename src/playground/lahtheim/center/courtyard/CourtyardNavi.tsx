@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
-import ColoredLetter from '../../../../utility/ColoredLetter';
+import { PLACES } from '../../../../data/colorfullStrings';
 
 type CourtyardNaviProps = {
 };
@@ -11,12 +11,12 @@ const CourtyardNavi: React.FC<CourtyardNaviProps> = () => {
         <div>
             <Header>Vorplatz</Header>
             <p className='mb-1 text-left'>
-                <Link to="/fountain">Richtung <ColoredLetter>Brunnen</ColoredLetter> gehen</Link><br />
-                <Link to="/graveyard">Den <ColoredLetter>Friedhof</ColoredLetter> besuchen</Link><br />
-                <Link to="/church">In die <ColoredLetter>Kirche</ColoredLetter> gehen</Link><br />
+                <Link to="/church">In die {PLACES.Kirche} gehen</Link><br />
+                <Link to="/graveyard">Den {PLACES.Friedhof} besuchen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/courtyard"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
+                <Link to="/courtyard"><b>Umgebung</b> untersuchen</Link><br />
+                <Link to="/fountain">Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>
     );

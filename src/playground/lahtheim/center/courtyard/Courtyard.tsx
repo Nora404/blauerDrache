@@ -1,18 +1,65 @@
 import React from 'react';
+import { PLACES, SYSTEM } from '../../../../data/colorfullStrings';
+import { useNewGameStore } from '../../../../store/newGameStore';
+import { GradientText } from '../../../../utility/GradientText';
+import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
+import { lilaColors } from '../../../../data/colorMappingData';
+import ActionButton from '../../../../layout/ActionButton/ActionButton';
 
 type CourtyardProps = {
 };
 
 const Courtyard: React.FC<CourtyardProps> = () => {
+  const { store } = useNewGameStore();
 
-    return (
-      <div>
-        <h2>Vorplatz</h2>
-        <p className='mb-1 text-left'>
-            
-        </p>
-      </div>
-    );
+  return (
+    <div className='max-width'>
+      <h2>{PLACES.Vorplatz}</h2>
+      <p className='mb-1 text-left'>
+        Vom {PLACES.Brunnen} aus führt ein Weg zu einem weiten {PLACES.Vorplatz}, dessen gepflasterter Boden aus groben,
+        grau-beigen Steinplatten besteht. Der Platz endet an breiten, abgetretenen Steinstufen,
+        die zur imposanten Eingangstür der {PLACES.Kirche} von Lahtheim hochführen.
+        Hohe Bäume säumen den Platz links und rechts, ihre dichten Kronen spenden angenehmen Schatten.
+        Unter ihnen laden robuste Holzbänke zum Verweilen ein. Eine halbhohe Steinmauer umrahmt den Platz,
+        durchbrochen von einem kunstvollen Rundbogen, der den Eingang zum angrenzenden {PLACES.Friedhof} markiert.
+      </p>
+
+      {store.gameTime.gameDay === "Tag" && (
+        <>
+          <p className='mb-1 text-left'>
+            Wie auch beim {PLACES.Brunnen} ist es hier sehr belebt. Kinder spielen auf den breiten Stufen,
+            während <GradientText>Straßenmusiker</GradientText> mit heiteren Melodien das Treiben untermalen.
+            Aufgeregte Rufe hallen von <GradientText>kleinen Ständen</GradientText>,
+            an denen Verkäufer ihre Ware anpreisen: bunte Steine, die {SYSTEM.Glück} versprechen sollen, und
+            <MultiColoredLetters colors={lilaColors}> Talismane</MultiColoredLetters>,
+            die angeblich böse Geister vertreiben. Neugierige Touristen schlendern von Stand zu Stand,
+            während die Einheimischen in Ruhe auf den Bänken verweilen
+          </p><br />
+
+          <ActionButton>Zu einem der Stände gehen</ActionButton>
+          <ActionButton>Auf eine Bank setzten</ActionButton>
+          <ActionButton>Dem Musiker zuhören</ActionButton>
+        </>
+      )}
+
+
+      {store.gameTime.gameDay === "Nacht" && (
+        <>
+          <p className='mb-1 text-left'>
+            Die Straßenlaternen leuchten hell, als wollten sie dem <b><GradientText>Mond</GradientText></b> Konkurrenz machen.
+            Doch ihr Licht reicht nicht bis zur Spitze des Kirchturms, der im Dunkel verschwindet.
+            Schatten huschen über den {PLACES.Vorplatz} – vermutlich Katzen oder anderes Getier, auf der Suche nach Nahrung.
+            Plötzlich hörst du ein seltsames Geräusch aus der Richtung des {PLACES.Friedhof}s.
+            Es klingt wie ein Knarren, oder war es ein Flüstern? Du blickst zum Rundbogen, doch dahinter erkennst du nur
+            eine undurchdringliche Schwärze. Selbst das Licht der Straßenlaternen wagt es nicht, diesen Ort zu betreten.
+          </p><br />
+
+          <ActionButton>Nach verlorenen „Schätzen“ suchen</ActionButton>
+          <ActionButton>Auf eine Bank setzten</ActionButton>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Courtyard;

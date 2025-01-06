@@ -37,6 +37,19 @@ export const greenColors: string[] = [
   '#54D650',
 ];
 
+export const blueColors: string[] = [
+  '#62B0D4',
+  '#5E91D4',
+  '#5EB0D4',
+  '#6EC5D4',
+  '#62B0D4',
+  '#57ABD4',
+  '#4ED0D4',
+  '#5BB7D4',
+  '#62B0D4',
+  '#6C97D4',
+];
+
 export const braunColors: string[] = [
   '#D0B8A0',
   '#AD8563',
@@ -73,4 +86,17 @@ export const rainbowColors: string[] = [
   '#5BD8D9', // Türkis 
   '#5CE06D', // Grün
   '#9EE05C', // Gelbgrün
+];
+
+export const yellowColors: string[] = [
+  '#F8FF86',
+  '#F6FF64',
+  '#EDFFA5',
+  '#FFFB8E',
+  '#FFED5B',
+  '#E1FF77',
+  '#FBFFAF',
+  '#FBFF7A',
+  '#F9FFCF',
+  '#FFF9A3',
 ];

@@ -1,7 +1,7 @@
 //#region [definition]
 export type GameTime = {
     gameTime: string;   // z.B. "12:00"
-    gameDay: string;    // "Tag" | "Nacht"
+    gameDay: "Tag" | "Nacht";
 };
 
 export type GameState = {
