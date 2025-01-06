@@ -2,6 +2,7 @@ import { SYSTEM } from "../../../data/colorfullStrings";
 import { Item, ItemName } from "../../../data/ItemData";
 import Header from "../../../layout/Header/Header";
 import { getPlayerObj, useNewGameStore } from "../../../store/newGameStore";
+import { GradientText } from "../../../utility/GradientText";
 
 const PlayerInventory: React.FC = () => {
     const { store, updateInHand } = useNewGameStore();
@@ -32,7 +33,8 @@ const PlayerInventory: React.FC = () => {
             <p className="mb-1 text-left">
                 Du öffnest deinen Beutel und stellst mal wieder fest das dort unglaublich viele Gegenstände Platz haben.
                 Von Außen nicht zu erkennen hat dieses, anscheinend magische Stück Stoff, mehrere Innentaschen mit deren Hilfe du dein Hab und Gut sortieren kannst.
-                Aber um einen dieser Gegenstände zu nutzten, oder anderen zu zeigen, musst du ihn wohl leider aus dem Beutel und {SYSTEM.HandDie} nehmen.
+                Aber um einen dieser Gegenstände zu nutzten, oder anderen zu zeigen, musst du ihn wohl leider aus dem Beutel und {SYSTEM.HandDie} nehmen.<br /><br />
+                Du besitzt <GradientText>{store.playerEconomy.gold}</GradientText> {SYSTEM.Gold} und <GradientText>{store.playerEconomy.edelsteine}</GradientText> {SYSTEM.Edelsteine}.
             </p>
 
             {Object.keys(items).length === 0 ? (

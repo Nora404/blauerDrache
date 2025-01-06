@@ -4,6 +4,7 @@ import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } fro
 import { GradientText } from '../../../utility/GradientText';
 import { getDelta } from '../../../utility/GetDelta';
 import FormattedByValue from '../../../utility/FormattedByValue';
+import { SYSTEM } from '../../../data/colorfullStrings';
 
 
 type PlayerInfoProps = {
@@ -66,7 +67,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         <div className='max-width'>
             <h2>Dein Steckbrief</h2>
 
-            <Header>{store.playerMeta.name}</Header>
+            <Header>{store.playerMeta.name} (Level {store.playerBase.level})</Header>
             <div className='mb-1 text-left'>
                 {selected.race.label}<br />
                 {selected.race.description}<br />
@@ -102,7 +103,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className='border-bd padding-left'>Leben</td>
+                            <td className='border-bd padding-left'>{SYSTEM.Leben}</td>
                             <td className='text-center border-bd'>{store.playerStats.life}</td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.life.buffs} /></td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.life.debuffs} /></td>
@@ -112,7 +113,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'><GradientText>{combined.life}</GradientText></td>
                         </tr>
                         <tr>
-                            <td className='border-bd padding-left'>Runden</td>
+                            <td className='border-bd padding-left'>{SYSTEM.Runden}</td>
                             <td className='text-center border-bd'>{store.playerStats.rounds}</td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.rounds.buffs} /></td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.rounds.debuffs} /></td>
@@ -122,7 +123,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'><GradientText>{combined.rounds}</GradientText></td>
                         </tr>
                         <tr>
-                            <td className='border-bd padding-left'>Angriff</td>
+                            <td className='border-bd padding-left'>{SYSTEM.Angriff}</td>
                             <td className='text-center border-bd'>{store.playerStats.attack}</td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.attack.buffs} /></td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.attack.debuffs} /></td>
@@ -132,7 +133,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'><GradientText>{combined.attack}</GradientText></td>
                         </tr>
                         <tr>
-                            <td className='border-bd padding-left'>Verteidigung</td>
+                            <td className='border-bd padding-left'>{SYSTEM.Verteidigung}</td>
                             <td className='text-center border-bd'>{store.playerStats.defense}</td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.defense.buffs} /></td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.defense.debuffs} /></td>
@@ -142,7 +143,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <td className='text-center border-bd'><GradientText>{combined.defense}</GradientText></td>
                         </tr>
                         <tr>
-                            <td className='border-bd padding-left'>Glück</td>
+                            <td className='border-bd padding-left'>{SYSTEM.Glück}</td>
                             <td className='text-center border-bd'>{store.playerStats.luck}</td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.luck.buffs} /></td>
                             <td className='text-center border-bd'><FormattedByValue value={delta.luck.debuffs} /></td>
