@@ -675,7 +675,7 @@ export function getCombinedStats(store: GameStore) {
         if (!buff) continue;
 
         life += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
-        rounds += Math.trunc((buff.effects.rounds ?? 0) * scalingFactor);
+        rounds += Math.trunc(buff.effects.rounds ?? 0);
         attack += Math.trunc((buff.effects.attack ?? 0) * scalingFactor);
         defense += Math.trunc((buff.effects.defense ?? 0) * scalingFactor);
         luck += Math.trunc((buff.effects.luck ?? 0) * scalingFactor);
@@ -689,7 +689,7 @@ export function getCombinedStats(store: GameStore) {
         if (!debuff) continue;
 
         life += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
-        rounds += Math.trunc((debuff.effects.rounds ?? 0) * scalingFactor);
+        rounds += Math.trunc(debuff.effects.rounds ?? 0);
         attack += Math.trunc((debuff.effects.attack ?? 0) * scalingFactor);
         defense += Math.trunc((debuff.effects.defense ?? 0) * scalingFactor);
         luck += Math.trunc((debuff.effects.luck ?? 0) * scalingFactor);
@@ -699,7 +699,7 @@ export function getCombinedStats(store: GameStore) {
 
     const feeling = feelingMap[store.playerFlux.feeling];
     life += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
-    rounds += Math.trunc((feeling.stats.rounds ?? 0) * scalingFactor);
+    rounds += Math.trunc(feeling.stats.rounds ?? 0);
     attack += Math.trunc((feeling.stats.attack ?? 0) * scalingFactor);
     defense += Math.trunc((feeling.stats.defense ?? 0) * scalingFactor);
     luck += Math.trunc((feeling.stats.luck ?? 0) * scalingFactor);
