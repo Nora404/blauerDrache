@@ -57,11 +57,11 @@ const Transit: React.FC<TransitProps> = () => {
     };
 
     const handleFastForward = () => {
-        setCurrentSteps((prev) => prev - 1);
+        setCurrentSteps(1);
     };
 
     const handleFastBack = () => {
-        setCurrentSteps((prev) => prev + 1);
+        setCurrentSteps(initialSteps);
     };
 
     const handleFinishEventChain = () => {
