@@ -6,7 +6,7 @@ import NpcTalk from '../../../../utility/NpcTalk';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { yellowColors } from '../../../../data/colorMappingData';
 import PlayerTalk from '../../../../utility/PlayerTalk';
-import { CREATURE } from '../../../../data/colorfullStrings';
+import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
 
 type TownHallProps = {
 };
@@ -27,7 +27,7 @@ const TownHall: React.FC<TownHallProps> = () => {
 
   return (
     <div className='max-width'>
-      <h2>Rathaus</h2>
+      <h2>{PLACES.Rathaus}</h2>
       <p className='mb-1 text-left'>
         Die großen schweren Türen öffnen sich träge, bis sie dir das innere vom Rathaus offenbaren.
         Dir fällt direkt der flauschige rote Teppich auf und die weißen verzierten Säulen,

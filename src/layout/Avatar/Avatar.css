@@ -6,7 +6,7 @@
     top: 0px;
     background-color: #33373B;
     border: 2px solid rgb(52, 87, 104);
-    outline: 2px solid rgba(220, 210, 125);
+    outline: 4px solid rgba(220, 210, 125);
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -14,4 +14,12 @@
     font-size: 120%;
     position: absolute;
     color: rgba(98, 176, 212);
+}
+
+.day {
+    outline: 4px solid rgba(220, 210, 125);
+}
+
+.night {
+    outline: 4px solid rgb(34, 57, 68);
 }
