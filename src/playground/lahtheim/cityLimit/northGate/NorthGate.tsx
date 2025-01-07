@@ -1,13 +1,12 @@
 //#region [imports]
 import React, { } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
-import RandomSentence from '../../../../utility/RandomSentence';
-import { BATTLELIST, ENEMIELIST, NAMELIST, PLACELIST, VERBLIST, WEAPONSLIST } from '../../../../data/randomSentenceData';
 import Header from '../../../../layout/Header/Header';
-import { CREATURE } from '../../../../data/colorfullStrings';
+import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
-import drache from '../../../../assets/drache-01.png';
 import { useNewGameStore } from '../../../../store/newGameStore';
+import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import { useNavigate } from 'react-router-dom';
 //#endregion
 
 //#region [prepare]
@@ -18,23 +17,23 @@ type NorthGateProps = {
 
 const NorthGate: React.FC<NorthGateProps> = () => {
     const { store } = useNewGameStore();
+    const navigate = useNavigate();
+    //#endregion
+
+    //#region [handler]
+    const handleGuardian = () => {
+        navigate("/north-gate-guardian");
+    }
+
+    const handlePlaque = () => {
+        navigate("/north-gate-plaque");
+    }
     //#endregion
 
     //#region [jsx]
     return (
         <div className='max-width'>
-            <p className='mb-1'>
-                Willkommen bei <b>Legende des blauen Drachen</b>, <br />
-                ein browser-basiertes Rollenspiel, inspiriert von der &nbsp;
-                <a href="https://lotgd.de/home.php?" target='blank'><GradientText colors={["#0066ff", "#00ff00"]}>Legende des grünen Drachen</GradientText></a><br />
-            </p>
-
-            <p className='mb-1'>
-                Die aktuelle Uhrzeit in Lahtheim ist <b>{store.gameTime.gameTime} Uhr.</b> Es ist <b>{store.gameTime.gameDay}</b>.
-                Das Wetter heute ist {store.gameState.weather} und {store.gameState.temperature}.
-            </p>
-
-            <img src={drache} width={"30%"} />
+            <Header>{PLACES.Nordtor}</Header>
 
             <div className='text-left'>
                 <p className='mb-1'>
@@ -54,23 +53,10 @@ const NorthGate: React.FC<NorthGateProps> = () => {
 
                 <p className='mb-1'>
                     Ohne auf deine Antwort zu warten dreht sich das <GradientText colors={['#CF388F', '#8839CF']}>geflügelte Wesen</GradientText> um und flattert durch den Torbogen Richtung Brunnen davon.
-                </p>
-            </div>
+                </p><br />
 
-            <div>
-                <Header>Erfolgreiche Entdecker</Header>
-                <RandomSentence partOne={NAMELIST} partTwo={VERBLIST} partThree={PLACELIST} />
-                <RandomSentence partOne={NAMELIST} partTwo={VERBLIST} partThree={PLACELIST} />
-                <RandomSentence partOne={NAMELIST} partTwo={VERBLIST} partThree={PLACELIST} />
-                <br className='mb-1' />
-            </div>
-
-            <div>
-                <Header>Mutige Kämpfer</Header>
-                <RandomSentence partOne={NAMELIST} partTwo={BATTLELIST} partThree={ENEMIELIST} partFour={WEAPONSLIST} />
-                <RandomSentence partOne={NAMELIST} partTwo={BATTLELIST} partThree={ENEMIELIST} partFour={WEAPONSLIST} />
-                <RandomSentence partOne={NAMELIST} partTwo={BATTLELIST} partThree={ENEMIELIST} partFour={WEAPONSLIST} />
-                <br className='mb-1' />
+                <ActionButton onClick={handleGuardian}>Die Wachen um Hilfe bitten</ActionButton>
+                <ActionButton onClick={handlePlaque}>Die Plakette des Erfolgs betrachten</ActionButton>
             </div>
         </div>
     );

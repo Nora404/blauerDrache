@@ -13,6 +13,10 @@ import ActionButton from './layout/ActionButton/ActionButton';
 
 function App() {
 
+  const handleTest = () => {
+    console.log("piep");
+  }
+
   return (
     <NewGameStoreProvider>
       <div>
@@ -48,10 +52,10 @@ function App() {
           </a>
         </div>
         <div id="mobileFooter">
-          <ActionButton>Game</ActionButton>
-          <ActionButton>Info</ActionButton>
-          <ActionButton>Navi</ActionButton>
-          <ActionButton>Player</ActionButton>
+          <ActionButton onClick={handleTest}>Game</ActionButton>
+          <ActionButton onClick={handleTest}>Info</ActionButton>
+          <ActionButton onClick={handleTest}>Navi</ActionButton>
+          <ActionButton onClick={handleTest}>Player</ActionButton>
         </div>
       </div>
     </NewGameStoreProvider>

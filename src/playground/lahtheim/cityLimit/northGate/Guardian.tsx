@@ -2,11 +2,19 @@ import React from 'react';
 import { CREATURE } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import Header from '../../../../layout/Header/Header';
+import { useNavigate } from 'react-router-dom';
+import ActionButton from '../../../../layout/ActionButton/ActionButton';
 
 type GuardianProps = {
 };
 
 const Guardian: React.FC<GuardianProps> = () => {
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        navigate("/north-gate");
+    }
+
     return (
         <div className='max-width'>
             <h2>Wächter</h2>
@@ -28,13 +36,13 @@ const Guardian: React.FC<GuardianProps> = () => {
             <Header>Wichtige Orte in Lahtheim</Header>
 
             <p className='mb-1 text-left'>
-                <ul>
-                    <li><b>Nordtor</b>: Von hier aus kannst du die Stadt verlassen und in die große weite Welt</li>
-                    <li><b>Rathaus</b>: Beantrage Farben oder kaufe ein Haus</li>
-                    <li><b>Handelsbezirk</b>: Kaufe und verkaufe Sachen und Dinge und Zeugs und Kram und ...</li>
-                    <li><b>Friedhof</b>: Tote liegen hier begraben oder erwachen zu neuem Leben</li>
-                </ul>
-            </p>
+                <b>Nordtor</b>: Von hier aus kannst du die Stadt verlassen und in die große weite Welt<br />
+                <b>Rathaus</b>: Beantrage Farben oder kaufe ein Haus<br />
+                <b>Handelsbezirk</b>: Kaufe und verkaufe Sachen und Dinge und Zeugs und Kram und ...<br />
+                <b>Friedhof</b>: Tote liegen hier begraben oder erwachen zu neuem Leben<br />
+            </p><br />
+
+            <ActionButton onClick={handleBack}>Zurück gehen</ActionButton>
         </div>
     );
 };

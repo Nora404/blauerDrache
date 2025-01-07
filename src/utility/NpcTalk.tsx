@@ -10,7 +10,7 @@ const creatureNames: Record<string, string> = {
     geflügeltesWesen: "#ff33ff",
     blauesWesen: "#A3D8FF",
     rotesWesen: "#ff3333",
-};
+} as const;
 
 const NpcTalk: React.FC<NpcTalkProps> = ({ name, color, children }) => {
     const defaultColor = "#eeeeee";

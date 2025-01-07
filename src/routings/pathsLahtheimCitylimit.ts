@@ -10,6 +10,7 @@ export enum PathsLahtheimCityLimit {
     EastWall = '/east-wall',
 }
 
+const NorthGate = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGate'));
 const NorthGateNavi = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGateNavi'));
 const NorthGateGuardian = lazy(() => import('../playground/lahtheim/cityLimit/northGate/Guardian'));
 const NorthGatePlaque = lazy(() => import('../playground/lahtheim/cityLimit/northGate/Plaque'));
@@ -26,7 +27,7 @@ const EastWall = lazy(() => import('../playground/lahtheim/cityLimit/eastWall/Ea
 export const routesLahtheimCityLimit: RouteConfig[] = [
     {
         path: PathsLahtheimCityLimit.NorthGate,
-        element: NorthGateNavi,
+        element: NorthGate,
         navigation: NorthGateNavi,
     },
     {

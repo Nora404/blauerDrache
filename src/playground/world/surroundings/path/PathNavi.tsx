@@ -14,7 +14,7 @@ const PathNavi: React.FC<PathNaviProps> = () => {
             </p>
             <p className='text-left'>
                 <Link to="/path"><b>Umgebung</b> untersuchen</Link><br />
-                <Link to="/transit/start/path/6">Zum {PLACES.Nordtor} zurück gehen</Link><br />
+                <Link to="/transit/north-gate/path/6">Zum {PLACES.Nordtor} zurück gehen</Link><br />
             </p>
         </div>
     );

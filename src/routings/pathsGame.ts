@@ -15,8 +15,8 @@ export enum PathsGame {
     NotFound = '*',
 }
 
-const Start = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGate'));
-const NotFoundPage = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGate'));
+const Start = lazy(() => import('../playground/game/game/Start'));
+const NotFoundPage = lazy(() => import('../playground/game/game/Start'));
 const NorthGateNavi = lazy(() => import('../playground/lahtheim/cityLimit/northGate/NorthGateNavi'));
 const EmptyNavi = lazy(() => import('../playground/game/infos/EmptyNavi'));
 

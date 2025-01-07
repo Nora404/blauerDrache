@@ -13,13 +13,11 @@ const NorthGateNavi: React.FC<NorthGateNaviProps> = () => {
         <div>
             <Header>Nordtor</Header>
             <p className='mb-1 text-left'>
-                <Link to="/transit/path/start/6" state={{ from: location.pathname }}>Dem {PLACES.Weg} folgen</Link><br />
+                <Link to="/transit/path/north-gate/6" state={{ from: location.pathname }}>Dem {PLACES.Weg} folgen</Link><br />
                 <Link to="/fountain">Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/start"><b><GradientText colors={['#bbbbbb']}>Umgebung</GradientText></b> untersuchen</Link><br />
-                <Link to="/north-gate-guardian">Mit <b>Wachen</b> sprechen</Link><br />
-                <Link to="/north-gate-plaque"><b>Plakette</b> des Erfolges</Link><br />
+                <Link to="/north-gate"><b><GradientText colors={['#bbbbbb']}>Umgebung</GradientText></b> untersuchen</Link><br />
             </p>
         </div>
     );

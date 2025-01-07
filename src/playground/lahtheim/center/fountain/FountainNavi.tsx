@@ -21,7 +21,7 @@ const FountainNavi: React.FC<FountainNaviProps> = () => {
             </p>
             <p className='mb-1 text-left'>
                 <Link to="/fountain"><b>Umgebung</b> untersuchen</Link><br />
-                <Link to="/start">Richtung {PLACES.Nordtor} gehen</Link><br />
+                <Link to="/north-gate">Richtung {PLACES.Nordtor} gehen</Link><br />
             </p>
         </div>
     );

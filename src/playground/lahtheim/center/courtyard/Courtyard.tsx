@@ -1,3 +1,4 @@
+//#region [imports]
 import React from 'react';
 import { PLACES, SYSTEM } from '../../../../data/colorfullStrings';
 import { useNewGameStore } from '../../../../store/newGameStore';
@@ -5,13 +6,36 @@ import { GradientText } from '../../../../utility/GradientText';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { lilaColors } from '../../../../data/colorMappingData';
 import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import { useNavigate } from 'react-router-dom';
+//#endregion
 
+//#region [prepare]
 type CourtyardProps = {
 };
 
 const Courtyard: React.FC<CourtyardProps> = () => {
   const { store } = useNewGameStore();
+  const navigate = useNavigate();
+  //#endregion
 
+  //#region [handler]
+  const handleBench = () => {
+    navigate("/courtyard");
+  }
+
+  const handleDayStand = () => {
+    navigate("/courtyard");
+  }
+  const handleDayBard = () => {
+    navigate("/courtyard");
+  }
+
+  const handleNightTreasure = () => {
+    navigate("/courtyard");
+  }
+  //#endregion
+
+  //#region [jsx]
   return (
     <div className='max-width'>
       <h2>{PLACES.Vorplatz}</h2>
@@ -36,9 +60,9 @@ const Courtyard: React.FC<CourtyardProps> = () => {
             während die Einheimischen in Ruhe auf den Bänken verweilen
           </p><br />
 
-          <ActionButton>Zu einem der Stände gehen</ActionButton>
-          <ActionButton>Auf eine Bank setzten</ActionButton>
-          <ActionButton>Dem Musiker zuhören</ActionButton>
+          <ActionButton onClick={handleDayStand}>Zu einem der Stände gehen</ActionButton>
+          <ActionButton onClick={handleBench}>Auf eine Bank setzten</ActionButton>
+          <ActionButton onClick={handleDayBard}>Dem Musiker zuhören</ActionButton>
         </>
       )}
 
@@ -54,12 +78,13 @@ const Courtyard: React.FC<CourtyardProps> = () => {
             eine undurchdringliche Schwärze. Selbst das Licht der Straßenlaternen wagt es nicht, diesen Ort zu betreten.
           </p><br />
 
-          <ActionButton>Nach verlorenen „Schätzen“ suchen</ActionButton>
-          <ActionButton>Auf eine Bank setzten</ActionButton>
+          <ActionButton onClick={handleNightTreasure}>Nach verlorenen „Schätzen“ suchen</ActionButton>
+          <ActionButton onClick={handleBench}>Auf eine Bank setzten</ActionButton>
         </>
       )}
     </div>
   );
+  //#endregion
 };
 
 export default Courtyard;
