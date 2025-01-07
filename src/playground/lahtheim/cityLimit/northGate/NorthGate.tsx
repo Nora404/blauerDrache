@@ -1,7 +1,6 @@
 //#region [imports]
 import React, { } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
-import Header from '../../../../layout/Header/Header';
 import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import { useNewGameStore } from '../../../../store/newGameStore';

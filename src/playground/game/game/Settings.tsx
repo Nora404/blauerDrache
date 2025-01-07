@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../../layout/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { GradientText } from '../../../utility/GradientText';
+import FullscreenToggleButton from '../../../layout/FullscreenButton';
 
 type SettingsProps = {
 };
@@ -23,8 +24,11 @@ const Settings: React.FC<SettingsProps> = () => {
                 Aber <GradientText colors={['#ff0000']}>Achtung!</GradientText> Das wird deinen aktuellen Charakter löschen.
             </p>
 
-            <button onClick={handleResetCharakter}>Neuer Charakter (Dein aktueller Charakter wird gelöscht)</button><br />
+            <button className="btn-border" onClick={handleResetCharakter}>Neuer Charakter (Dein aktueller Charakter wird gelöscht)</button><br />
 
+            <Header>Anzeige</Header>
+
+            <FullscreenToggleButton />
         </div>
     );
 };
