@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
-import ColoredLetter from '../../../utility/ColoredLetter';
 import { getPlaceLabelFromRoute } from '../../../routings/mappingPathToLabel';
 
 type TransitNaviProps = {
@@ -21,7 +20,7 @@ const TansitNavi: React.FC<TransitNaviProps> = ({ target, start, steps }) => {
                 Deine Reise dauert {steps} Schritte<br />
             </p>
             <p className='text-left'>
-                <Link to={currentPath}><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
+                <Link to={currentPath}><b>Umgebung</b> untersuchen</Link><br />
             </p>
         </div>
     );

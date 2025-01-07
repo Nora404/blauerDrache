@@ -56,6 +56,14 @@ const Transit: React.FC<TransitProps> = () => {
         triggerPossibleEvent();
     };
 
+    const handleFastForward = () => {
+        setCurrentSteps((prev) => prev - 1);
+    };
+
+    const handleFastBack = () => {
+        setCurrentSteps((prev) => prev + 1);
+    };
+
     const handleFinishEventChain = () => {
         setEventChainActive(null);
     }
@@ -80,6 +88,7 @@ const Transit: React.FC<TransitProps> = () => {
             <p className='mb-1 text-left'>
                 Du ziehst los, um den nächsten Ort zu bereisen. Du stellst fest das du noch <b><GradientText>{currentSteps}</GradientText></b> Schritte brauchst um {getPlaceLabelFromRoute(targetPath || '')} zu erreichen.
                 Du kannst dich auch einfach umdrehen und zu {getPlaceLabelFromRoute(startPath || '')} zurück gehen. Auf so einer Reise könntest du wertvolles finden: Reichtümer, Wissen oder einen qualvollen Tod.
+                Du kannst auch schnell laufen, aber dann wird vermutlich nichts auf deinem Weg passieren.
             </p><br />
 
             <div className="steps-container">
@@ -95,7 +104,10 @@ const Transit: React.FC<TransitProps> = () => {
             </div><br /><br />
 
             {(currentSteps > 0 && !eventChainActive) && (
-                <TwoActionButton onLeftAction={handleGoBack} leftBtn='zurück' onRightAction={handleGoForward} rightBtn='weiter' />
+                <>
+                    <TwoActionButton onLeftAction={handleGoBack} leftBtn='zurück' onRightAction={handleGoForward} rightBtn='weiter' />
+                    <TwoActionButton onLeftAction={handleFastBack} leftBtn='schnell zurück' onRightAction={handleFastForward} rightBtn='schnell weiter' />
+                </>
             )}
             {currentSteps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
             <br />
