@@ -25,13 +25,13 @@ export const MainContent: React.FC<MainContentProps> = () => {
     }
 
     return (
-        <div className={`main-content ${showNewDay ? 'split' : ''}`}>
+        <div id="mainContent" className={`main-content ${showNewDay ? 'split' : ''}`}>
             <div className="routes-list milchglas custom-scrollbar">
                 <RoutesList />
             </div>
 
 
-            <div className="new-day milchglas custom-scrollbar">
+            <div id="newDayPop" className="new-day milchglas custom-scrollbar">
                 {showNewDay && <NewDay onClose={closeNewDay} />}
             </div>
         </div>

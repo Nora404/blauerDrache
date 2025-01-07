@@ -219,6 +219,12 @@
     #charakter {
         display: none;
     }
+
+    #newDayPop {
+        box-sizing: border-box;
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
 }
 
 #header0,
