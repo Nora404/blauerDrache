@@ -29,12 +29,12 @@ const TwoActionButton: React.FC<TwoActionButtonProps> = ({
         <div className='flex-row max-width no-select'>
             <button className="btn-border" onClick={handleLeft} style={{ width: "50%", margin: '10px' }}>
                 {leftDisable
-                    ? <GradientText colors={['#999999']}>{leftBtn} geht nicht</GradientText>
+                    ? <GradientText colors={['#999999']}>{leftBtn}</GradientText>
                     : <MultiColoredLetters colors={blueColors}>{leftBtn}</MultiColoredLetters>}
             </button>
             <button className="btn-border" onClick={handleRight} style={{ width: "50%", margin: '10px' }}>
                 {rightDisable
-                    ? <GradientText colors={['#999999']}>{rightBtn} geht nicht</GradientText>
+                    ? <GradientText colors={['#999999']}>{rightBtn}</GradientText>
                     : <MultiColoredLetters colors={blueColors}>{rightBtn}</MultiColoredLetters>}
             </button>
         </div>

@@ -10,10 +10,10 @@ const MobileFooter: React.FC<MobileFooterProps> = () => {
     }
     return (
         <>
-            <ActionButton onClick={handleTest}>Game</ActionButton>
-            <ActionButton onClick={handleTest}>Info</ActionButton>
-            <ActionButton onClick={handleTest}>Navi</ActionButton>
-            <ActionButton onClick={handleTest}>Player</ActionButton>
+            <ActionButton onClick={handleTest} label='Game' />
+            <ActionButton onClick={handleTest} label='Info' />
+            <ActionButton onClick={handleTest} label='Navi' />
+            <ActionButton onClick={handleTest} label='Player' />
         </>
     );
 };
