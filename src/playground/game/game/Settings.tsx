@@ -16,14 +16,15 @@ const Settings: React.FC<SettingsProps> = () => {
     return (
         <div className='max-width'>
             <h2>Einstellungen</h2>
-            <p className='mb-1 text-left'>
-                Ich lass mir noch einen sinnvollen Text einfallen! Du kannst hier deinen Charakter zurück setzten.
-                Aber <GradientText colors={['#ff0000']}>Achtung!</GradientText> Das wird deinen aktuellen Charakter löschen.
-
-            </p>
 
             <Header>Charakter</Header>
-            <button onClick={handleResetCharakter}>Neuer Charakter (Dein aktueller Charakter wird gelöscht)</button>
+            <p className='mb-1 text-left'>
+                Du kannst hier deinen Charakter zurück setzten.
+                Aber <GradientText colors={['#ff0000']}>Achtung!</GradientText> Das wird deinen aktuellen Charakter löschen.
+            </p>
+
+            <button onClick={handleResetCharakter}>Neuer Charakter (Dein aktueller Charakter wird gelöscht)</button><br />
+
         </div>
     );
 };

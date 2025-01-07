@@ -91,6 +91,8 @@
 }
 
 
+
+
 /* Auf und zuklappen von New Day */
 .main-content {
     display: flex;
@@ -154,7 +156,7 @@
 @media (max-width: 1380px) {
 
     #navi {
-        width: 224px;
+        width: 270px;
         padding: 10px;
         overflow-y: auto;
     }
@@ -215,6 +217,31 @@
     #header,
     #navi,
     #charakter {
+        display: none;
+    }
+}
+
+#header1,
+#header2,
+#header3,
+#header4 {
+    display: block;
+}
+
+@media (max-width: 1050px) {
+    #header4 {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    #header3 {
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+    #header2 {
         display: none;
     }
 }
