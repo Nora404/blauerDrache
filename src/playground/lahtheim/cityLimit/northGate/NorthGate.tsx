@@ -33,7 +33,7 @@ const NorthGate: React.FC<NorthGateProps> = () => {
     //#region [jsx]
     return (
         <div className='max-width'>
-            <Header>{PLACES.Nordtor}</Header>
+            <h2>{PLACES.Nordtor}</h2>
 
             <div className='text-left'>
                 <p className='mb-1'>

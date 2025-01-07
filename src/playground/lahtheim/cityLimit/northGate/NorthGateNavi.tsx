@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { GradientText } from '../../../../utility/GradientText';
 
 type NorthGateNaviProps = {
 };
@@ -17,7 +16,7 @@ const NorthGateNavi: React.FC<NorthGateNaviProps> = () => {
                 <Link to="/fountain">Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/north-gate"><b><GradientText colors={['#bbbbbb']}>Umgebung</GradientText></b> untersuchen</Link><br />
+                <Link to="/north-gate"><b>Umgebung</b> untersuchen</Link><br />
             </p>
         </div>
     );
