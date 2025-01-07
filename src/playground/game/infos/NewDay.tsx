@@ -2,6 +2,7 @@ import { SYSTEM } from '../../../data/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
 import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
 import PlayerTalk from '../../../utility/PlayerTalk';
+import ActionButton from '../../../layout/ActionButtons/ActionButton';
 
 type NewDayProps = {
     onClose?: () => void
@@ -34,7 +35,7 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
 
             <br />
 
-            {onClose && <button onClick={handleClose}>{SYSTEM.schließen}</button>}
+            {onClose && <ActionButton onClick={handleClose} label='schließen' />}
         </div>
     );
 };

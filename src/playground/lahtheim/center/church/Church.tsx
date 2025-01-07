@@ -4,7 +4,7 @@ import NpcTalk from '../../../../utility/NpcTalk';
 import { PLACES } from '../../../../data/colorfullStrings';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { yellowColors } from '../../../../data/colorMappingData';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 //#endregion
 
@@ -53,9 +53,9 @@ const Church: React.FC<ChurchProps> = () => {
         tritt langsam eine Gestalt hervor und spricht: <NpcTalk color='#878740'>"Was kann ich für dich tun, mein Kind?"</NpcTalk>
       </p><br />
 
-      <ActionButton onClick={handleTalk}>Mit dunkler Gestalt sprechen</ActionButton> {/*(als geistlicher gibt es mehr)*/}
-      <ActionButton onClick={handleDonate}>Etwas der Kirche spenden</ActionButton> {/*(Buff: Fromm)*/}
-      <ActionButton onClick={handlePeace}>Inneren Frieden suchen</ActionButton> {/*(Stimmung ändern)*/}
+      <ActionButton onClick={handleTalk} label='Mit dunkler Gestalt sprechen' /> {/*(als geistlicher gibt es mehr)*/}
+      <ActionButton onClick={handleDonate} label='Etwas der Kirche spenden' /> {/*(Buff: Fromm)*/}
+      <ActionButton onClick={handlePeace} label='Inneren Frieden suchen' /> {/*(Stimmung ändern)*/}
     </div>
   );
   //#endregion

@@ -2,7 +2,7 @@
 import React from 'react';
 import { PLACES } from '../../../../data/colorfullStrings';
 import { useNewGameStore } from '../../../../store/newGameStore';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 //#endregion
 
@@ -53,9 +53,9 @@ const Fountain: React.FC<FountainProps> = () => {
             Das wird echt teuer werden, wie alles was mit Bürokratie zu tun hat.
           </p><br />
 
-          <ActionButton onClick={handleBoard}>Schwarzes Brett untersuchen</ActionButton>
-          <ActionButton onClick={handleDayPeople}>Mit einem der Leute sprechen</ActionButton>
-          <ActionButton onClick={handleDayWarrior}>Mit einem der Krieger sprechen</ActionButton>
+          <ActionButton onClick={handleBoard} label='Schwarzes Brett untersuchen' />
+          <ActionButton onClick={handleDayPeople} label='Mit einem der Leute sprechen' />
+          <ActionButton onClick={handleDayWarrior} label='Mit einem der Krieger sprechen' />
         </>
       )}
 
@@ -73,8 +73,8 @@ const Fountain: React.FC<FountainProps> = () => {
             Das wird echt teuer werden, wie alles was mit Bürokratie zu tun hat.
           </p><br />
 
-          <ActionButton onClick={handleBoard}>Schwarzes Brett untersuchen</ActionButton>
-          <ActionButton onClick={handleNightTreasure}>Nach verlorenen „Schätzen“ suchen</ActionButton>
+          <ActionButton onClick={handleBoard} label='Schwarzes Brett untersuchen' />
+          <ActionButton onClick={handleNightTreasure} label='Nach verlorenen „Schätzen“ suchen' />
         </>
       )}
 

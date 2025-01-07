@@ -5,7 +5,7 @@ import Header from '../../../../layout/Header/Header';
 import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import { useNewGameStore } from '../../../../store/newGameStore';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 //#endregion
 
@@ -55,8 +55,8 @@ const NorthGate: React.FC<NorthGateProps> = () => {
                     Ohne auf deine Antwort zu warten dreht sich das <GradientText colors={['#CF388F', '#8839CF']}>geflügelte Wesen</GradientText> um und flattert durch den Torbogen Richtung Brunnen davon.
                 </p><br />
 
-                <ActionButton onClick={handleGuardian}>Die Wachen um Hilfe bitten</ActionButton>
-                <ActionButton onClick={handlePlaque}>Die Plakette des Erfolgs betrachten</ActionButton>
+                <ActionButton onClick={handleGuardian} label='Die Wachen um Hilfe bitten' />
+                <ActionButton onClick={handlePlaque} label='Die Plakette des Erfolgs betrachten' />
             </div>
         </div>
     );

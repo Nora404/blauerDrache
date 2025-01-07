@@ -1,7 +1,7 @@
 //#region [imports]
 import React from 'react';
 import { PLACES } from '../../../../data/colorfullStrings';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNewGameStore } from '../../../../store/newGameStore';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { greenColors } from '../../../../data/colorMappingData';
@@ -66,10 +66,10 @@ const Graveyard: React.FC<GraveyardProps> = () => {
             Kurz darauf hörst du das Rascheln von Blättern, gefolgt von einem dumpfen Laut, als wäre etwas zu Boden gefallen.
           </p><br />
 
-          <ActionButton onClick={handleDayPath}>Den Weg entlang gehen</ActionButton>
-          <ActionButton onClick={handleDayTreasure}>Nach verlorenen „Schätzen“ suchen</ActionButton>
-          <ActionButton onClick={handleDayHole}>Die Löcher genauer betrachten</ActionButton>
-          <ActionButton onClick={handleDayGrave}>Die Gräber genauer betrachten</ActionButton>
+          <ActionButton onClick={handleDayPath} label='Den Weg entlang gehen' />
+          <ActionButton onClick={handleDayTreasure} label='Nach verlorenen „Schätzen“ suchen' />
+          <ActionButton onClick={handleDayHole} label='Die Löcher genauer betrachten' />
+          <ActionButton onClick={handleDayGrave} label='Die Gräber genauer betrachten' />
         </>
       )}
 
@@ -88,8 +88,8 @@ const Graveyard: React.FC<GraveyardProps> = () => {
             Die Luft um dich scheint schwerer zu werden, als hättest du einen unsichtbaren Schwellenpunkt überschritten.
           </p><br />
 
-          <ActionButton onClick={handleNightZombie}>Gegen Zombies Kämpfen</ActionButton>
-          <ActionButton onClick={handleNightGrave}>Versuchen Gräber zu plündern</ActionButton>
+          <ActionButton onClick={handleNightZombie} label='Gegen Zombies Kämpfen' />
+          <ActionButton onClick={handleNightGrave} label='Versuchen Gräber zu plündern' />
         </>
       )}
 

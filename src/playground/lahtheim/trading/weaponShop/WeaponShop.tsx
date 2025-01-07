@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import { emptyWeaponObj, Weapon, WeaponName, weapons } from '../../../../data/weaponData';
-import { SYSTEM } from '../../../../data/colorfullStrings';
 import { getPlayerObj, useNewGameStore } from '../../../../store/newGameStore';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 //#endregion
 
 //#region [prepare]
@@ -96,8 +96,8 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
             </div><br />
 
             {localWeapon.name !== "Nichts" && canBuy()
-                ? <div onClick={handleBuy}> {SYSTEM.kaufen} </div>
-                : <div> {SYSTEM.disableKaufen} </div>
+                ? <ActionButton onClick={handleBuy} label='kaufen' />
+                : <ActionButton disable={true} label='kaufen' />
             }
 
         </div>

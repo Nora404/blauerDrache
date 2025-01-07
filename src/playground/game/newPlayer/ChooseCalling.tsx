@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { } from "react";
 import { WizardData } from "./CreatePlayer";
-import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
+import BackAndNextbtn from "../../../layout/ActionButtons/BackAndNextBtn";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import Header from "../../../layout/Header/Header";
 import { callingMap, CallingName, callings } from "../../../data/callingData";
@@ -53,7 +53,7 @@ const ChooseCalling: React.FC<ChooseCallingProps> = ({
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin gekommen um {wizardData.calling.label} zu werden"</PlayerTalk><br />
             </div><br />
 
-            <BackAndNextbtn onBack={onBack} onNext={onNext} />
+            <BackAndNextbtn onOneAction={onBack} onSecAction={onNext} />
         </div>
     );
     //#endregion

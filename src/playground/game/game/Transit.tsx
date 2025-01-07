@@ -1,12 +1,12 @@
 //#region [imports]
 import React, { useEffect, useState } from 'react';
-import BackAndNextbtn from '../../../layout/NavBtn/BackAndNextBtn';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { GradientText } from '../../../utility/GradientText';
 import { getPlaceLabelFromRoute, getPlaceNameFromRoute } from '../../../routings/mappingPathToLabel';
 import { getEventByPlace } from '../../../utility/TriggerEvent';
 import { GameEventChain } from './GameEventChain';
 import './Transit.css'
+import TwoActionButton from '../../../layout/ActionButtons/TwoActionButton';
 //#endregion
 
 //#region [prepare]
@@ -92,10 +92,10 @@ const Transit: React.FC<TransitProps> = () => {
                         {index < initialSteps - 1 && <div className="step-line"></div>}
                     </React.Fragment>
                 ))}
-            </div><br />
+            </div><br /><br />
 
             {(currentSteps > 0 && !eventChainActive) && (
-                <BackAndNextbtn onBack={handleGoBack} onNext={handleGoForward} />
+                <TwoActionButton onLeftAction={handleGoBack} leftBtn='zurück' onRightAction={handleGoForward} rightBtn='weiter' />
             )}
             {currentSteps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
             <br />

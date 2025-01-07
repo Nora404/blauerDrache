@@ -1,7 +1,7 @@
 import React from 'react';
 import PlayerTalk from '../../../../utility/PlayerTalk';
 import { useNavigate } from 'react-router-dom';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 
 type PlaqueProps = {
 };
@@ -30,7 +30,7 @@ const Plaque: React.FC<PlaqueProps> = () => {
                 Der Rest besteht nur noch aus Linien die beim besten Willen keine Buchstaben mehr werden wollen.
             </p><br />
 
-            <ActionButton onClick={handleBack}>Zurück gehen</ActionButton>
+            <ActionButton onClick={handleBack} label='Zurück gehen' />
         </div>
     );
 };

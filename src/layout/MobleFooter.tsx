@@ -1,5 +1,5 @@
 import React from 'react';
-import ActionButton from './ActionButton/ActionButton';
+import ActionButton from './ActionButtons/ActionButton';
 
 type MobileFooterProps = {
 };

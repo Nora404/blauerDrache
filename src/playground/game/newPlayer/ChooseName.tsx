@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { } from "react";
 import { WizardData } from "./CreatePlayer";
-import BackAndNextbtn from "../../../layout/NavBtn/BackAndNextBtn";
+import BackAndNextbtn from "../../../layout/ActionButtons/BackAndNextBtn";
 import Header from "../../../layout/Header/Header";
 import PlayerTalk from "../../../utility/PlayerTalk";
 //#endregion
@@ -50,7 +50,7 @@ const ChooseName: React.FC<ChooseNameProps> = ({
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich heiße {wizardData.name}"</PlayerTalk><br />
             </div><br />
 
-            <BackAndNextbtn onBack={onBack} onNext={onFinalize} nextBtn="fertig" />
+            <BackAndNextbtn onOneAction={onBack} onSecAction={onFinalize} secBtn="fertig" />
         </div>
     );
     //#endregion

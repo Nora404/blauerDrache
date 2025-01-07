@@ -4,7 +4,9 @@ import { getGameEventById, pickRandomNextEvent } from "../../../utility/TriggerE
 import { useApplyGameAction } from "../../../utility/ApplyGameAction";
 import { GameAction } from "../../../data/eventData";
 import Header from "../../../layout/Header/Header";
-import { SYSTEM } from "../../../data/colorfullStrings";
+import ActionButton from "../../../layout/ActionButtons/ActionButton";
+import MultiColoredLetters from "../../../utility/MultiColoredLetters";
+import { blueColors } from "../../../data/colorMappingData";
 //#endregion
 
 //#region [prepare]
@@ -86,7 +88,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
                                     key={btn.label}
                                     onClick={() => handleButtonClick(idx, btn.getAction)}
                                 >
-                                    {btn.label}
+                                    <MultiColoredLetters colors={blueColors}>{btn.label}</MultiColoredLetters>
                                 </button>
                             ))
                         )}
@@ -95,7 +97,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
                 );
             })}
             <br />
-            <div onClick={onFinishChain}>{SYSTEM.schließen}</div>
+            <ActionButton onClick={onFinishChain} label="schließen" />
         </div>
     );
     //#endregion

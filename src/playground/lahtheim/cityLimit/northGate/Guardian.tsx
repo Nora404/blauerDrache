@@ -3,7 +3,7 @@ import { CREATURE } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import Header from '../../../../layout/Header/Header';
 import { useNavigate } from 'react-router-dom';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 
 type GuardianProps = {
 };
@@ -42,7 +42,7 @@ const Guardian: React.FC<GuardianProps> = () => {
                 <b>Friedhof</b>: Tote liegen hier begraben oder erwachen zu neuem Leben<br />
             </p><br />
 
-            <ActionButton onClick={handleBack}>Zurück gehen</ActionButton>
+            <ActionButton onClick={handleBack} label='Zurück gehen' />
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNewGameStore } from '../../../../store/newGameStore';
 import { useNavigate } from 'react-router-dom';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import NpcTalk from '../../../../utility/NpcTalk';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { yellowColors } from '../../../../data/colorMappingData';
@@ -48,9 +48,9 @@ const TownHall: React.FC<TownHallProps> = () => {
             <NpcTalk name='geflügeltesWesen'>"Wie kann ich dir heute helfen?"</NpcTalk> fragt es freundlich mit einer piepsigen, aber erstaunlich klaren Stimme
           </p><br />
 
-          <ActionButton onClick={handleColor}>Namen mit Farben anpassen</ActionButton>
-          <ActionButton onClick={handleHome}>Eigenes Haus kaufen</ActionButton>
-          <ActionButton onClick={handleCalling}>Berufung ändern</ActionButton>
+          <ActionButton onClick={handleColor} label='Namen mit Farben anpassen' />
+          <ActionButton onClick={handleHome} label='Eigenes Haus kaufen' />
+          <ActionButton onClick={handleCalling} label='Berufung ändern' />
         </>
       )}
 

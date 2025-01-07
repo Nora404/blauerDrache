@@ -5,7 +5,7 @@ import { useNewGameStore } from '../../../../store/newGameStore';
 import { GradientText } from '../../../../utility/GradientText';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { lilaColors } from '../../../../data/colorMappingData';
-import ActionButton from '../../../../layout/ActionButton/ActionButton';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 //#endregion
 
@@ -60,9 +60,9 @@ const Courtyard: React.FC<CourtyardProps> = () => {
             während die Einheimischen in Ruhe auf den Bänken verweilen
           </p><br />
 
-          <ActionButton onClick={handleDayStand}>Zu einem der Stände gehen</ActionButton>
-          <ActionButton onClick={handleBench}>Auf eine Bank setzten</ActionButton>
-          <ActionButton onClick={handleDayBard}>Dem Musiker zuhören</ActionButton>
+          <ActionButton onClick={handleDayStand} label='Zu einem der Stände gehen' />
+          <ActionButton onClick={handleBench} label='Auf eine Bank setzten' />
+          <ActionButton onClick={handleDayBard} label='Dem Musiker zuhören' />
         </>
       )}
 
@@ -78,8 +78,8 @@ const Courtyard: React.FC<CourtyardProps> = () => {
             eine undurchdringliche Schwärze. Selbst das Licht der Straßenlaternen wagt es nicht, diesen Ort zu betreten.
           </p><br />
 
-          <ActionButton onClick={handleNightTreasure}>Nach verlorenen „Schätzen“ suchen</ActionButton>
-          <ActionButton onClick={handleBench}>Auf eine Bank setzten</ActionButton>
+          <ActionButton onClick={handleNightTreasure} label='Nach verlorenen „Schätzen“ suchen' />
+          <ActionButton onClick={handleBench} label='Auf eine Bank setzten' />
         </>
       )}
     </div>

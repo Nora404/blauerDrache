@@ -1,15 +1,6 @@
 import { GradientText } from "../utility/GradientText";
 
 type SystemKeys =
-  | 'weiter'
-  | 'zurück'
-  | 'fertig'
-  | 'abbrechen'
-  | 'schließen'
-  | 'verkaufen'
-  | 'kaufen'
-  | 'disableKaufen'
-
   | 'Level'
   | 'Erfahrung'
   | 'Leben'
@@ -25,15 +16,6 @@ type SystemKeys =
   | 'HandDie'
   | 'Inventar';
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
-  weiter: <b className="systemBtn"><GradientText colors={['#4F9FFF', '#A2FDF9', '#4F9FFF']}>&#126;&#42;&#126; weiter &#126;&#42;&#126;</GradientText></b>,
-  zurück: <b className="systemBtn"><GradientText colors={['#C2FF69', '#A2FDF9', '#C2FF69']}>&#126;&#42;&#126; zurück &#126;&#42;&#126;</GradientText></b>,
-  fertig: <b className="systemBtn"><GradientText colors={['#328A2B', '#A2FDF9', '#328A2B']}>&#126;&#42;&#126; fertig &#126;&#42;&#126;</GradientText></b>,
-  abbrechen: <b className="systemBtn"><GradientText colors={['#C86CFA', '#C2FF69', '#C86CFA']}>&#126;&#42;&#126; abbrechen &#126;&#42;&#126;</GradientText></b>,
-  schließen: <b className="systemBtn"><GradientText colors={['#C86CFA', '#C2FF69', '#C86CFA']}>&#126;&#42;&#126; schließen &#126;&#42;&#126;</GradientText></b>,
-  verkaufen: <b className="systemBtn"><GradientText colors={['#C9BE46', '#C2FF69', '#C9BE46']}>&#126;&#42;&#126; verkaufen &#126;&#42;&#126;</GradientText></b>,
-  kaufen: <b className="systemBtn"><GradientText colors={['#59B334', '#C2FF69', '#59B334']}>&#126;&#42;&#126; kaufen &#126;&#42;&#126;</GradientText></b>,
-  disableKaufen: <b className="systemBtn"><GradientText colors={['#666666', '#999999', '#666666']}>&#126;&#42;&#126; Das kannst du nicht kaufen &#126;&#42;&#126;</GradientText></b>,
-
   Level: <GradientText colors={['#F7A131', '#57C6DD']}>Level</GradientText>,
   Erfahrung: <GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung</GradientText>,
   Leben: <GradientText colors={['#74dd4f', '#57C6DD']}>Leben</GradientText>,

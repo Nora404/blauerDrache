@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { Armor, ArmorName, armors, emptyArmorObj } from '../../../../data/armorData';
 import { GradientText } from '../../../../utility/GradientText';
-import { SYSTEM } from '../../../../data/colorfullStrings';
 import { getPlayerObj, useNewGameStore } from '../../../../store/newGameStore';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 //#endregion
 
 //#region [prepare]
@@ -94,8 +94,8 @@ const EquipmentShop: React.FC<EquipmentShopProps> = () => {
             </div><br />
 
             {localArmor.name !== "Nichts" && canBuy()
-                ? <div onClick={handleBuy}> {SYSTEM.kaufen} </div>
-                : <div> {SYSTEM.disableKaufen} </div>
+                ? <ActionButton onClick={handleBuy} label='kaufen' />
+                : <ActionButton disable={true} label='kaufen' />
             }
 
         </div>
