@@ -26,6 +26,9 @@ const Transit: React.FC<TransitProps> = () => {
     const initialSteps = Number(steps) || 5;
     const [currentSteps, setCurrentSteps] = useState<number>(initialSteps);
     const [eventChainActive, setEventChainActive] = useState<string | null>(null);
+
+    const isAtStart = currentSteps === initialSteps;
+    const isAtEnd = currentSteps === 1;
     //#endregion
 
     //#region [events]
@@ -105,8 +108,12 @@ const Transit: React.FC<TransitProps> = () => {
 
             {(currentSteps > 0 && !eventChainActive) && (
                 <>
-                    <TwoActionButton onLeftAction={handleGoBack} leftBtn='zurück' onRightAction={handleGoForward} rightBtn='weiter' />
-                    <TwoActionButton onLeftAction={handleFastBack} leftBtn='schnell zurück' onRightAction={handleFastForward} rightBtn='schnell weiter' />
+                    <TwoActionButton
+                        onLeftAction={handleGoBack} leftBtn={isAtStart ? 'vorheriges Gebiet' : 'zurück'}
+                        onRightAction={handleGoForward} rightBtn={isAtEnd ? 'nächstes Gebiet' : 'weiter'} />
+                    <TwoActionButton
+                        onLeftAction={handleFastBack} leftBtn='schnell zurück' leftDisable={isAtStart}
+                        onRightAction={handleFastForward} rightBtn='schnell weiter' rightDisable={isAtEnd} />
                 </>
             )}
             {currentSteps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
