@@ -225,6 +225,10 @@
         margin-top: -10px;
         margin-bottom: 20px;
     }
+
+    h2 {
+        margin-top: 0;
+    }
 }
 
 #header0,
