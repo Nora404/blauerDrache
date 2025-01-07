@@ -10,7 +10,7 @@ type MainContentProps = {
 
 export const MainContent: React.FC<MainContentProps> = () => {
     const { store } = useNewGameStore();
-
+    if (!store) return;
 
     const [showNewDay, setShowNewDay] = useState(false)
 

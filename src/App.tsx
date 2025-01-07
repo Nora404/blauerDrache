@@ -8,14 +8,11 @@ import CharakterNavi from './layout/CharakterNavi';
 import MainNavi from './layout/MainNavi';
 import { MainContent } from './layout/MainContent';
 import { NewGameStoreProvider } from './store/newGameStore';
-import ActionButton from './layout/ActionButton/ActionButton';
+import MobileFooter from './layout/MobleFooter';
+import MobileHeader from './layout/MobileHeader';
 
 
 function App() {
-
-  const handleTest = () => {
-    console.log("piep");
-  }
 
   return (
     <NewGameStoreProvider>
@@ -28,7 +25,7 @@ function App() {
           />
         </div>
         <div id="mobileHeader" className='milchglas'>
-          Hallo Oben
+          <MobileHeader />
         </div>
 
 
@@ -52,10 +49,7 @@ function App() {
           </a>
         </div>
         <div id="mobileFooter">
-          <ActionButton onClick={handleTest}>Game</ActionButton>
-          <ActionButton onClick={handleTest}>Info</ActionButton>
-          <ActionButton onClick={handleTest}>Navi</ActionButton>
-          <ActionButton onClick={handleTest}>Player</ActionButton>
+          <MobileFooter />
         </div>
       </div>
     </NewGameStoreProvider>

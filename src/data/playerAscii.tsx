@@ -61,9 +61,9 @@ export const TrollAscii: React.FC = () => {
 export const FelkinAscii: React.FC = () => {
     return (
         <div className='mono-text'>
-            M&nbsp;&nbsp;&nbsp;<br />
-            O&#8835;&#8767;<br />
-            ww&nbsp;
+            &nbsp;M&nbsp;&nbsp;&nbsp;<br />
+            &nbsp;O&#8835;&#8767;<br />
+            &nbsp;ww&nbsp;
         </div>
     );
 }
