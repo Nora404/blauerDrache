@@ -3,9 +3,9 @@ import React from 'react';
 import PlayerTalk from '../../../utility/PlayerTalk';
 import { RaceName } from '../../../data/raceData';
 import Header from '../../../layout/Header/Header';
-import BackAndNextbtn from '../../../layout/ActionButtons/BackAndNextBtn';
 import { WizardData } from './CreatePlayer';
 import { getOriginByRaces, originMap, OriginName } from '../../../data/originData';
+import TwoActionButton from '../../../layout/ActionButtons/TwoActionButton';
 //#endregion
 
 //#region [prepare]
@@ -56,7 +56,7 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin ein {wizardData.origin.label}"</PlayerTalk><br />
             </div><br />
 
-            <BackAndNextbtn onOneAction={onBack} onSecAction={onNext} />
+            <TwoActionButton onLeftAction={onBack} leftBtn='zurück' onRightAction={onNext} rightBtn='weiter' />
 
         </div>
     );

@@ -8,6 +8,8 @@ import Header from '../../../layout/Header/Header';
 import { GradientText } from '../../../utility/GradientText';
 import NpcTalk from '../../../utility/NpcTalk';
 import RandomSentence from '../../../utility/RandomSentence';
+import ActionButton from '../../../layout/ActionButtons/ActionButton';
+import { useNavigate } from 'react-router-dom';
 //#endregion
 
 //#region [prepare]
@@ -18,6 +20,13 @@ type StartProps = {
 
 const Start: React.FC<StartProps> = () => {
     const { store } = useNewGameStore();
+    //#endregion
+
+    //#region [handler]
+    const handleCreateCharakter = () => {
+        navigation("/new-player")
+    }
+    const navigation = useNavigate();
     //#endregion
 
     //#region [jsx]
@@ -56,6 +65,8 @@ const Start: React.FC<StartProps> = () => {
                     Ohne auf deine Antwort zu warten dreht sich das <GradientText colors={['#CF388F', '#8839CF']}>geflügelte Wesen</GradientText> um und flattert durch den Torbogen Richtung Brunnen davon.
                 </p>
             </div>
+
+            {!store.gameState.creating && (<ActionButton onClick={handleCreateCharakter} label='Charater erstellen' />)}<br /><br />
 
             <div>
                 <Header>Erfolgreiche Entdecker</Header>

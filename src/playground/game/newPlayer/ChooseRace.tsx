@@ -1,10 +1,10 @@
 //#region [imports]
 import React from "react";
-import { SYSTEM } from "../../../data/colorfullStrings";
 import { RaceName, races, racesMap } from "../../../data/raceData";
 import PlayerTalk from "../../../utility/PlayerTalk";
 import { WizardData } from "./CreatePlayer";
 import Header from "../../../layout/Header/Header";
+import ActionButton from "../../../layout/ActionButtons/ActionButton";
 //#endregion
 
 //#region [prepare]
@@ -47,9 +47,7 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ wizardData, setWizardData, onNe
                 Du schaust selbstsicher zu den beiden Wesen und sagst: <PlayerTalk>"Ich bin geboren als {wizardData.race.label}"</PlayerTalk><br />
             </div><br />
 
-            <div onClick={onNext}>
-                {SYSTEM.weiter}
-            </div>
+            <ActionButton onClick={onNext} label="weiter" />
 
         </div>
     );

@@ -25,7 +25,7 @@ const Settings: React.FC<SettingsProps> = () => {
             </p>
 
             <button className="btn-border" onClick={handleResetCharakter}>Neuer Charakter (Dein aktueller Charakter wird gelöscht)</button><br />
-
+            <br />
             <Header>Anzeige</Header>
 
             <FullscreenToggleButton />
