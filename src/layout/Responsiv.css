@@ -62,6 +62,7 @@
     width: 100%;
     max-width: 1900px;
     overflow: hidden;
+    z-index: 10;
 }
 
 #navi {
@@ -70,6 +71,7 @@
     overflow-y: auto;
     margin: 20px;
     scrollbar-gutter: stable;
+    line-height: 200%;
 }
 
 #main {
@@ -88,6 +90,7 @@
     overflow-y: auto;
     margin: 20px;
     scrollbar-gutter: stable;
+    line-height: 200%;
 }
 
 
@@ -216,7 +219,8 @@
     #footer,
     #header,
     #navi,
-    #charakter {
+    #charakter,
+    .falling-canvas {
         display: none;
     }
 

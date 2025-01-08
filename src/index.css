@@ -32,6 +32,7 @@ a {
   font-weight: 500;
   color: rgba(98, 176, 212);
   text-decoration: inherit;
+  padding: 3px;
 }
 
 a:hover {
