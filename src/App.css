@@ -131,23 +131,40 @@
   /* nach hinten legen */
 }
 
-.arrow {
+/* .arrow {
   display: inline-flex;
-  /* Inline-Element mit Flexbox-Eigenschaften */
   align-items: center;
-  /* Vertikale Zentrierung */
   justify-content: center;
-  /* Horizontale Zentrierung */
-  padding: 5px;
-  margin: 0 8px 4px 0;
+  padding: 2px;
+  margin-right: 5px;
   color: rgb(131, 205, 240);
   font-size: larger;
   font-weight: 600;
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
   border: 1px dotted rgba(98, 176, 212);
   border-radius: 50%;
-  /* Besser für runde Formen */
   vertical-align: middle;
-  /* Richtet es auf Textlinie aus */
+  position: relative;
+  top: -2px;
+} */
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  margin-right: 5px;
+  color: rgb(131, 205, 240);
+  width: 20px;
+  height: 20px;
+  border: 1px dotted rgba(98, 176, 212);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.arrow-icon {
+  width: 14px;
+  /* Größe des SVGs */
+  height: 14px;
 }
