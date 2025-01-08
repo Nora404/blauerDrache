@@ -18,8 +18,8 @@ const TansitNavi: React.FC<TransitNaviProps> = ({ target, start, steps }) => {
                 Du bist auf dem Weg nach {getPlaceLabelFromRoute(target)}<br />
                 Du lässt {getPlaceLabelFromRoute(start)} hinter dir<br />
                 Deine Reise dauert {steps} Schritte<br />
-            </p>
-            <p className='text-left'>
+            </p><br />
+            <p className='mb-1 text-left'>
                 <Link to={currentPath} className='mobileBtn'><b>Umgebung</b> untersuchen</Link><br />
             </p>
         </div>
