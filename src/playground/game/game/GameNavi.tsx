@@ -5,20 +5,24 @@ import ColoredLetter from '../../../utility/ColoredLetter';
 import { useNewGameStore } from '../../../store/newGameStore';
 
 type GameNaviProps = {
-
+    mobilePop?: () => void;
 };
 
-const GameNavi: React.FC<GameNaviProps> = () => {
+const GameNavi: React.FC<GameNaviProps> = ({ mobilePop }) => {
     const { store } = useNewGameStore();
+
+    const handleClick = () => {
+        mobilePop?.();
+    }
 
     return (
         <div>
             <Header>Spiel</Header>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Tor</ColoredLetter> von Lahtheim</Link><br />
-                {!store.gameState.creating && <><Link to="/new-player">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br /></>}
-                <Link to="/whatIs"> Über dieses <ColoredLetter>Spiel</ColoredLetter></Link><br />
-                <Link to="/setting"><ColoredLetter>Einstellungen</ColoredLetter></Link><br />
+                <Link onClick={handleClick} to="/start"><ColoredLetter>Tor</ColoredLetter> von Lahtheim</Link><br />
+                {!store.gameState.creating && <><Link onClick={handleClick} to="/new-player">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br /></>}
+                <Link onClick={handleClick} to="/whatIs"> Über dieses <ColoredLetter>Spiel</ColoredLetter></Link><br />
+                <Link onClick={handleClick} to="/setting"><ColoredLetter>Einstellungen</ColoredLetter></Link><br />
             </p>
         </div>
     );

@@ -229,6 +229,25 @@
     h2 {
         margin-top: 0;
     }
+
+    .mobileBtn {
+        box-sizing: border-box;
+        border: 1px solid rgba(95, 173, 209, 0.2);
+        border-radius: 8px;
+        background: linear-gradient(135deg,
+                rgba(0, 0, 0, 0.25),
+                rgba(0, 0, 0, 0.12) 20%,
+                rgba(0, 0, 0, 0.15) 50%,
+                rgba(0, 0, 0, 0.12) 80%,
+                rgba(0, 0, 0, 0.25));
+        width: 100%;
+        font-size: large;
+        color: rgba(98, 176, 212);
+        padding: 8px;
+        margin-top: -5px;
+        display: block;
+        text-align: center;
+    }
 }
 
 #header0,

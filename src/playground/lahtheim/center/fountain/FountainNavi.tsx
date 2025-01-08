@@ -11,17 +11,17 @@ const FountainNavi: React.FC<FountainNaviProps> = () => {
         <div>
             <Header>Brunnen</Header>
             <p className='mb-1 text-left'>
-                <Link to="/residential">Das {PLACES.Wohnbezirk} besuchen</Link><br />
-                <Link to="/trading-district">Richtung {PLACES.Handelsbezirk} gehen</Link><br />
-                <Link to="/courtyard">Zum {PLACES.Vorplatz} schlendern</Link><br />
+                <Link to="/residential" className='mobileBtn'>Das {PLACES.Wohnbezirk} besuchen</Link><br />
+                <Link to="/trading-district" className='mobileBtn'>Richtung {PLACES.Handelsbezirk} gehen</Link><br />
+                <Link to="/courtyard" className='mobileBtn'>Zum {PLACES.Vorplatz} schlendern</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/tavern">Die {PLACES.Taverne} besuchen</Link><br />
-                <Link to="/townhall">Das {PLACES.Rathaus} besichtigen</Link><br />
+                <Link to="/tavern" className='mobileBtn'>Die {PLACES.Taverne} besuchen</Link><br />
+                <Link to="/townhall" className='mobileBtn'>Das {PLACES.Rathaus} besichtigen</Link><br />
             </p>
             <p className='mb-1 text-left'>
-                <Link to="/fountain"><b>Umgebung</b> untersuchen</Link><br />
-                <Link to="/north-gate">Richtung {PLACES.Nordtor} gehen</Link><br />
+                <Link to="/fountain" className='mobileBtn'><b>Umgebung</b> untersuchen</Link><br />
+                <Link to="/north-gate" className='mobileBtn'>Richtung {PLACES.Nordtor} gehen</Link><br />
             </p>
         </div>
     );

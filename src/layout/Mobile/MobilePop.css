@@ -1,4 +1,4 @@
-#handyPop {
+.handyPop {
     box-sizing: border-box;
     position: fixed;
     width: 100%;
@@ -20,13 +20,13 @@
     /* Verhindert Interaktionen, wenn geschlossen */
 }
 
-#handyPop.open {
+.handyPop.open {
     opacity: 1;
     pointer-events: auto;
     /* Ermöglicht Interaktionen, wenn geöffnet */
 }
 
-#handyPop.closed {
+.handyPop.closed {
     opacity: 0;
     pointer-events: none;
 }
