@@ -230,6 +230,11 @@
         margin-top: 0;
     }
 
+    button {
+        padding: 8px;
+        font-size: large;
+    }
+
     .mobileBtn {
         box-sizing: border-box;
         border: 1px solid rgba(95, 173, 209, 0.2);
@@ -244,7 +249,7 @@
         font-size: large;
         color: rgba(98, 176, 212);
         padding: 8px;
-        margin-top: -5px;
+        margin-bottom: -20px;
         display: block;
         text-align: center;
     }

@@ -20,10 +20,10 @@ const InfoNavi: React.FC<InfoNaviProps> = ({ mobilePop }) => {
         <div>
             <Header>Infos</Header>
             <p className='mb-1 text-left'>
-                <Link onClick={handleClick} to="/map"><ColoredLetter>Karte</ColoredLetter> von Lahtheim</Link><br />
-                {store.gameState.creating && <Link onClick={handleClick} to="/new-day">Aktueller <ColoredLetter>Tag</ColoredLetter></Link>}<br />
-                {store.gameState.creating && <Link onClick={handleClick} to="/player-info">Dein <ColoredLetter>Steckbrief</ColoredLetter></Link>}<br />
-                {store.gameState.creating && <Link onClick={handleClick} to="/player-inventar">Dein <ColoredLetter>Inventar</ColoredLetter></Link>}<br />
+                <Link onClick={handleClick} to="/map" className='mobileBtn'><ColoredLetter>Karte</ColoredLetter> von Lahtheim</Link><br />
+                {store.gameState.creating && <Link onClick={handleClick} to="/new-day" className='mobileBtn'>Aktueller <ColoredLetter>Tag</ColoredLetter></Link>}<br />
+                {store.gameState.creating && <Link onClick={handleClick} to="/player-info" className='mobileBtn'>Dein <ColoredLetter>Steckbrief</ColoredLetter></Link>}<br />
+                {store.gameState.creating && <Link onClick={handleClick} to="/player-inventar" className='mobileBtn'>Dein <ColoredLetter>Inventar</ColoredLetter></Link>}<br />
             </p>
 
             <p className='text-left'>

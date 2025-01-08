@@ -20,7 +20,7 @@ const TansitNavi: React.FC<TransitNaviProps> = ({ target, start, steps }) => {
                 Deine Reise dauert {steps} Schritte<br />
             </p>
             <p className='text-left'>
-                <Link to={currentPath}><b>Umgebung</b> untersuchen</Link><br />
+                <Link to={currentPath} className='mobileBtn'><b>Umgebung</b> untersuchen</Link><br />
             </p>
         </div>
     );

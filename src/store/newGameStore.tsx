@@ -8,6 +8,7 @@ export type GameState = {
     weather: string;
     temperature: string;
     creating: boolean;
+    mobilePop: boolean;
     switch: Record<string, boolean>;
 };
 
@@ -73,6 +74,7 @@ const defaultGameStore: GameStore = {
         weather: "sonnig",
         temperature: "warm",
         creating: false,
+        mobilePop: false,
         switch: {},
     },
     playerMeta: {

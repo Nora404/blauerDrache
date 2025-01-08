@@ -1,6 +1,5 @@
 //#region [imports]
 import React, { useEffect, useState } from 'react';
-import ActionButton from '../ActionButtons/ActionButton';
 import './MobilePop.css'
 import GameNavi from '../../playground/game/game/GameNavi';
 import InfoNavi from '../../playground/game/infos/InfoNavi';
@@ -26,31 +25,48 @@ const MobileFooter: React.FC<MobileFooterProps> = () => {
     const { store } = useNewGameStore();
     if (!store) return;
 
+    const closePop = () => {
+        setShowGame(false);
+        setShowInfo(false);
+        setShowNavi(false);
+        setShowPlayer(false);
+    }
+
     const handleGame = () => {
         setShowGame(prev => !prev);
         setShowInfo(false);
         setShowNavi(false);
         setShowPlayer(false);
+        store.gameState.mobilePop = true;
     }
     const handleInfo = () => {
         setShowInfo(prev => !prev);
         setShowPlayer(false);
         setShowNavi(false);
         setShowGame(false);
+        store.gameState.mobilePop = true;
     }
     const handleNavi = () => {
         setShowNavi(prev => !prev);
         setShowInfo(false);
         setShowPlayer(false);
         setShowGame(false);
+        store.gameState.mobilePop = true;
     }
     const handlePlayer = () => {
         setShowPlayer(prev => !prev);
         setShowInfo(false);
         setShowNavi(false);
         setShowGame(false);
+        store.gameState.mobilePop = true;
     }
     //#endregion
+
+    useEffect(() => {
+        if (!store.gameState.mobilePop) {
+            closePop();
+        }
+    }, [store.gameState.mobilePop]);
 
     //#region [events]
     useEffect(() => {

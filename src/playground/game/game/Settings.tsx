@@ -24,7 +24,7 @@ const Settings: React.FC<SettingsProps> = () => {
                 Aber <GradientText colors={['#ff0000']}>Achtung!</GradientText> Das wird deinen aktuellen Charakter löschen.
             </p>
 
-            <button className="btn-border" onClick={handleResetCharakter}>Neuer Charakter (Dein aktueller Charakter wird gelöscht)</button><br />
+            <button className="btn-border" onClick={handleResetCharakter}>Neuer Charakter<br />(Dein aktueller Charakter wird gelöscht)</button><br />
             <br />
             <Header>Anzeige</Header>
 
