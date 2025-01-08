@@ -1,0 +1,32 @@
+#handyPop {
+    box-sizing: border-box;
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 170px);
+    overflow-y: auto;
+    bottom: 80px;
+    padding: 10px;
+
+    background: rgba(30, 35, 49, 0.68);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    pointer-events: none;
+    /* Verhindert Interaktionen, wenn geschlossen */
+}
+
+#handyPop.open {
+    opacity: 1;
+    pointer-events: auto;
+    /* Ermöglicht Interaktionen, wenn geöffnet */
+}
+
+#handyPop.closed {
+    opacity: 0;
+    pointer-events: none;
+}

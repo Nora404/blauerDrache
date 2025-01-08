@@ -10,6 +10,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  height: 100%;
 }
 
 body {
@@ -22,6 +24,8 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  height: 100%;
 }
 
 a {

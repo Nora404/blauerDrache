@@ -1,7 +1,7 @@
 import React from 'react';
-import Avatar from './Avatar/Avatar';
-import { getCombinedStats, getPlayerObj, useNewGameStore } from '../store/newGameStore';
-import { SYSTEM } from '../data/colorfullStrings';
+import Avatar from '../Avatar/Avatar';
+import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../store/newGameStore';
+import { SYSTEM } from '../../data/colorfullStrings';
 
 type MobileHeaderProps = {
 };

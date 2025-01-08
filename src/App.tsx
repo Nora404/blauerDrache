@@ -8,8 +8,8 @@ import CharakterNavi from './layout/CharakterNavi';
 import MainNavi from './layout/MainNavi';
 import { MainContent } from './layout/MainContent';
 import { NewGameStoreProvider } from './store/newGameStore';
-import MobileFooter from './layout/MobleFooter';
-import MobileHeader from './layout/MobileHeader';
+import MobileFooter from './layout/Mobile/MobleFooter';
+import MobileHeader from './layout/Mobile/MobileHeader';
 
 
 function App() {
