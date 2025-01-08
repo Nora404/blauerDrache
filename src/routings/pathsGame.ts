@@ -21,7 +21,7 @@ const NorthGateNavi = lazy(() => import('../playground/lahtheim/cityLimit/northG
 const EmptyNavi = lazy(() => import('../playground/game/infos/EmptyNavi'));
 
 const CreatePlayer = lazy(() => import('../playground/game/newPlayer/CreatePlayer'));
-const PlayerInfo = lazy(() => import('../playground/game/infos/PlayerInfo'));
+const PlayerInfo = lazy(() => import('../playground/game/infos/PlayerInfo/PlayerInfo'));
 const PlayerInventory = lazy(() => import('../playground/game/infos/PlayerInventory'));
 
 const WhatIs = lazy(() => import('../playground/game/game/AboutGame'));

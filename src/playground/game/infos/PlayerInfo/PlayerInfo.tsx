@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from '../../../layout/Header/Header';
-import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } from '../../../store/newGameStore';
-import { GradientText } from '../../../utility/GradientText';
-import { getDelta } from '../../../utility/GetDelta';
-import FormattedByValue from '../../../utility/FormattedByValue';
-import { SYSTEM } from '../../../data/colorfullStrings';
-
+import Header from '../../../../layout/Header/Header';
+import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } from '../../../../store/newGameStore';
+import { getDelta } from '../../../../utility/GetDelta';
+import { SYSTEM } from '../../../../data/colorfullStrings';
+import './PlayerInfo.css'
+import TableRow from './TableRow';
 
 type PlayerInfoProps = {
 };
@@ -15,6 +14,64 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
     const combined = getCombinedStats(store);
     const selected = getPlayerObj(store);
     const delta = getDelta(store);
+
+    const statsData = [
+        {
+            key: "startData1",
+            label: SYSTEM.Leben,
+            base: store.playerStats.life,
+            buff: delta.life.buffs,
+            debuff: delta.life.debuffs,
+            feeling: delta.life.feeling,
+            weapon: 0,
+            armor: 0,
+            total: combined.life,
+        },
+        {
+            key: "startData2",
+            label: SYSTEM.Runden,
+            base: store.playerStats.rounds,
+            buff: delta.rounds.buffs,
+            debuff: delta.rounds.debuffs,
+            feeling: delta.rounds.feeling,
+            weapon: 0,
+            armor: 0,
+            total: combined.rounds,
+        },
+        {
+            key: "startData3",
+            label: SYSTEM.Angriff,
+            base: store.playerStats.attack,
+            buff: delta.attack.buffs,
+            debuff: delta.attack.debuffs,
+            feeling: delta.attack.feeling,
+            weapon: selected.weapon.attack,
+            armor: 0,
+            total: combined.attack,
+        },
+        {
+            key: "startData4",
+            label: SYSTEM.Verteidigung,
+            base: store.playerStats.defense,
+            buff: delta.defense.buffs,
+            debuff: delta.defense.debuffs,
+            feeling: delta.defense.feeling,
+            weapon: 0,
+            armor: selected.armor.defense,
+            total: combined.defense,
+        },
+        {
+            key: "startData5",
+            label: SYSTEM.Glück,
+            base: store.playerStats.luck,
+            buff: delta.luck.buffs,
+            debuff: delta.luck.debuffs,
+            feeling: delta.luck.feeling,
+            weapon: 0,
+            armor: 0,
+            total: combined.luck,
+        },
+    ];
 
     const handelLifeAdd = () => {
         updateLife(10);
@@ -88,7 +145,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             <Header>Kombinierte Statistiken</Header><br />
             <div className='flex-center'>
-                <table className='w-full'>
+                <table className='w-full stats-table'>
                     <thead>
                         <tr>
                             <th className='border-bs'>Attribut</th>
@@ -102,56 +159,19 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className='border-bd padding-left'>{SYSTEM.Leben}</td>
-                            <td className='text-center border-bd'>{store.playerStats.life}</td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.life.buffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.life.debuffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.life.feeling} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><GradientText>{combined.life}</GradientText></td>
-                        </tr>
-                        <tr>
-                            <td className='border-bd padding-left'>{SYSTEM.Runden}</td>
-                            <td className='text-center border-bd'>{store.playerStats.rounds}</td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.rounds.buffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.rounds.debuffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.rounds.feeling} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><GradientText>{combined.rounds}</GradientText></td>
-                        </tr>
-                        <tr>
-                            <td className='border-bd padding-left'>{SYSTEM.Angriff}</td>
-                            <td className='text-center border-bd'>{store.playerStats.attack}</td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.attack.buffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.attack.debuffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.attack.feeling} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={selected.weapon.attack} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><GradientText>{combined.attack}</GradientText></td>
-                        </tr>
-                        <tr>
-                            <td className='border-bd padding-left'>{SYSTEM.Verteidigung}</td>
-                            <td className='text-center border-bd'>{store.playerStats.defense}</td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.defense.buffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.defense.debuffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.defense.feeling} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={selected.armor.defense} /></td>
-                            <td className='text-center border-bd'><GradientText>{combined.defense}</GradientText></td>
-                        </tr>
-                        <tr>
-                            <td className='border-bd padding-left'>{SYSTEM.Glück}</td>
-                            <td className='text-center border-bd'>{store.playerStats.luck}</td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.luck.buffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.luck.debuffs} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={delta.luck.feeling} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><FormattedByValue value={0} /></td>
-                            <td className='text-center border-bd'><GradientText>{combined.luck}</GradientText></td>
-                        </tr>
+                        {statsData.map((stat) => (
+                            <TableRow
+                                key={stat.key}
+                                label={stat.label}
+                                base={stat.base}
+                                buff={stat.buff}
+                                debuff={stat.debuff}
+                                feeling={stat.feeling}
+                                weapon={stat.weapon}
+                                armor={stat.armor}
+                                total={stat.total}
+                            />
+                        ))}
                     </tbody>
                 </table>
             </div>

@@ -537,8 +537,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 attack += 2;
                 defense += 2;
                 luck += 1;
-                life += 10;
-                maxLife += 10;
+                life += 5;
+                maxLife += 5;
                 nextLevel = requiredExpForLevel(level);
             }
 

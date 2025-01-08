@@ -1,0 +1,42 @@
+/* Standard-Tabelle für große Bildschirme */
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Karten-Layout für kleine Bildschirme */
+@media (max-width: 800px) {
+
+    .stats-table,
+    .stats-table thead,
+    .stats-table tbody,
+    .stats-table tr,
+    .stats-table th,
+    .stats-table td {
+        display: block;
+    }
+
+    .stats-table thead {
+        display: none;
+    }
+
+    .stats-table tr {
+        margin-bottom: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 1px;
+    }
+
+    .stats-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 1px 0;
+    }
+
+    .stats-table td::before {
+        content: attr(data-label);
+        /* Nutzt den "data-label"-Wert */
+        font-weight: bold;
+        margin-right: 10px;
+        color: #666;
+    }
+}
