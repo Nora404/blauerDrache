@@ -10,7 +10,6 @@ import { MainContent } from './layout/MainContent';
 import { NewGameStoreProvider } from './store/newGameStore';
 import MobileFooter from './layout/Mobile/MobleFooter';
 import MobileHeader from './layout/Mobile/MobileHeader';
-import FallingParticles from './layout/FallingParticles';
 
 
 function App() {
@@ -53,7 +52,6 @@ function App() {
           <MobileFooter />
         </div>
       </div>
-      <FallingParticles />
     </NewGameStoreProvider>
   )
 }
