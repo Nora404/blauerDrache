@@ -1,18 +1,26 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
-import ColoredLetter from '../../../../utility/ColoredLetter';
+import { useNewGameStore } from '../../../../store/newGameStore';
+import { PLACES } from '../../../../data/colorfullStrings';
 
 type EastWallNaviProps = {
 };
 
 const EastWallNavi: React.FC<EastWallNaviProps> = () => {
+    const { store } = useNewGameStore();
+
+    const handleCloseMobilePop = () => {
+        store.gameState.mobilePop = false;
+    }
 
     return (
         <div>
             <Header>Ostmauer</Header>
-            <p className='text-left'>
-                <Link to="/east-wall"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
-                <Link to="/trading-district">Zurück zum <ColoredLetter>Handelsbezirk</ColoredLetter> gehen</Link><br />
+            <p className='mb-1 text-left'>
+                <Link to="/east-wall" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
+            </p>
+            <p className='mb-1 text-left'>
+                <Link to="/trading-district" className='mobileBtn'>Zurück zum {PLACES.Handelsbezirk} gehen</Link><br />
             </p>
         </div>
     );
