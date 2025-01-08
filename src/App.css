@@ -154,13 +154,15 @@
   align-items: center;
   justify-content: center;
   padding: 2px;
-  margin-right: 5px;
+  margin-right: 8px;
   color: rgb(131, 205, 240);
   width: 20px;
   height: 20px;
   border: 1px dotted rgba(98, 176, 212);
   border-radius: 50%;
   vertical-align: middle;
+  position: relative;
+  top: -2px;
 }
 
 .arrow-icon {
