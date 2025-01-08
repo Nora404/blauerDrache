@@ -18,8 +18,6 @@ const TownHallNavi: React.FC<TownHallNaviProps> = () => {
             <Header>Rathaus</Header>
             <p className='mb-1 text-left'>
                 <Link to="/townhall" className='mobileBtn' onClick={handleCloseMobilePop}><b>Halle</b> untersuchen</Link><br />
-            </p>
-            <p className='text-left'>
                 <Link to="/fountain" className='mobileBtn'>Richtung {PLACES.Brunnen} verlassen</Link><br />
             </p>
         </div>

@@ -130,3 +130,24 @@
   z-index: 0;
   /* nach hinten legen */
 }
+
+.arrow {
+  display: inline-flex;
+  /* Inline-Element mit Flexbox-Eigenschaften */
+  align-items: center;
+  /* Vertikale Zentrierung */
+  justify-content: center;
+  /* Horizontale Zentrierung */
+  padding: 5px;
+  margin: 0 8px 4px 0;
+  color: rgb(131, 205, 240);
+  font-size: larger;
+  font-weight: 600;
+  width: 12px;
+  height: 12px;
+  border: 1px dotted rgba(98, 176, 212);
+  border-radius: 50%;
+  /* Besser für runde Formen */
+  vertical-align: middle;
+  /* Richtet es auf Textlinie aus */
+}

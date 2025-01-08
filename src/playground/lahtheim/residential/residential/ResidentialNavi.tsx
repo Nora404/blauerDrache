@@ -18,13 +18,9 @@ const ResidentialNavi: React.FC<ResidentialNaviProps> = () => {
             <Header>Wohnviertel</Header>
             <p className='mb-1 text-left'>
                 <Link to="/residential" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/house" className='mobileBtn'>Zum {PLACES.Haus} gehen</Link><br />
                 <Link to="/west-wall" className='mobileBtn'>Die {PLACES.Westmauer} besichtigen</Link><br />
                 <Link to="/alleys" className='mobileBtn'>In den {PLACES.Gassen} umher schleichen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/fountain" className='mobileBtn'>Zurück zum {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>

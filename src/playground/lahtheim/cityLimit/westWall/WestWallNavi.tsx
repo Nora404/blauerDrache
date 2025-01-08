@@ -18,8 +18,6 @@ const WestWallNavi: React.FC<WestWallNaviProps> = () => {
             <Header>Westmauer</Header>
             <p className='mb-1 text-left'>
                 <Link to="/west-wall" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/residential" className='mobileBtn'>Zum {PLACES.Wohnbezirk} zurück gehen</Link><br />
             </p>
         </div>

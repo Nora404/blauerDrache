@@ -18,8 +18,6 @@ const TavernNavi: React.FC<TavernNaviProps> = () => {
             <Header>Taverne</Header>
             <p className='mb-1 text-left'>
                 <Link to="/tavern" className='mobileBtn' onClick={handleCloseMobilePop}><b>Raum</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/fountain" className='mobileBtn'>Zurück zum {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>

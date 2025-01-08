@@ -18,8 +18,6 @@ const EastWallNavi: React.FC<EastWallNaviProps> = () => {
             <Header>Ostmauer</Header>
             <p className='mb-1 text-left'>
                 <Link to="/east-wall" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/trading-district" className='mobileBtn'>Zurück zum {PLACES.Handelsbezirk} gehen</Link><br />
             </p>
         </div>

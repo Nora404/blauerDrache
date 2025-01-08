@@ -18,8 +18,6 @@ const SouthWallNavi: React.FC<SouthWallNaviProps> = () => {
             <Header>Südmauer</Header>
             <p className='mb-1 text-left'>
                 <Link to="/south-wall" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/courtyard" className='mobileBtn'>Zurück zum {PLACES.Vorplatz} gehen</Link><br />
             </p>
         </div>

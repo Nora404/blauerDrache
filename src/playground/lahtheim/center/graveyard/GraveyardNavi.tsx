@@ -18,8 +18,6 @@ const GraveyardNavi: React.FC<GraveyardNaviProps> = () => {
             <Header>Friedhof</Header>
             <p className='mb-1 text-left'>
                 <Link to="/graveyard" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/courtyard" className='mobileBtn'>Zurück zum {PLACES.Vorplatz} gehen</Link><br />
             </p>
         </div>

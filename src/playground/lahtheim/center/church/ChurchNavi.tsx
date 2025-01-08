@@ -18,8 +18,6 @@ const ChurchNavi: React.FC<ChurchNaviProps> = () => {
             <Header>Kirche</Header>
             <p className='mb-1 text-left'>
                 <Link to="/church" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/courtyard" className='mobileBtn'>Zurück zum {PLACES.Vorplatz} gehen</Link><br />
             </p>
         </div>

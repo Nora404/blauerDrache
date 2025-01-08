@@ -18,13 +18,9 @@ const CourtyardNavi: React.FC<CourtyardNaviProps> = () => {
             <Header>Vorplatz</Header>
             <p className='mb-1 text-left'>
                 <Link to="/courtyard" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/church" className='mobileBtn'>In die {PLACES.Kirche} gehen</Link><br />
                 <Link to="/graveyard" className='mobileBtn'>Den {PLACES.Friedhof} besuchen</Link><br />
                 <Link to="/south-wall" className='mobileBtn'>Zum {PLACES.Vorplatz} gehen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/fountain" className='mobileBtn'>Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>

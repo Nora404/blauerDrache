@@ -18,8 +18,6 @@ const WeaponShopNavi: React.FC<WeaponShopNaviProps> = () => {
             <Header>Waffenladen</Header>
             <p className='mb-1 text-left'>
                 <Link to="/weapon-shop" className='mobileBtn' onClick={handleCloseMobilePop}><b>Laden</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/trading-district" className='mobileBtn'>Zurück zum {PLACES.Handelsbezirk} gehen</Link><br />
             </p>
         </div>

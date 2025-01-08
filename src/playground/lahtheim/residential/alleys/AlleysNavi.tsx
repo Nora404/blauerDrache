@@ -18,8 +18,6 @@ const AlleysNavi: React.FC<AlleysNaviProps> = () => {
             <Header>Gassen</Header>
             <p className='mb-1 text-left'>
                 <Link to="/alleys" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
-            </p>
-            <p className='mb-1 text-left'>
                 <Link to="/residential" className='mobileBtn'>Zurück zum {PLACES.Wohnbezirk} </Link><br />
             </p>
         </div>
