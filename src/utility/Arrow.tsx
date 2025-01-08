@@ -44,22 +44,30 @@ type ArrowProps = {
     type?: keyof typeof arrowMap;
 };
 
-const Arrow: React.FC<ArrowProps> = ({ type = "n" }) => {
+const Arrow: React.FC<ArrowProps> = ({ type }) => {
+    const defaultSymbol = (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="arrow-icon">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" />
+        </svg>
+    );
+
     return (
-        <span
-            className="arrow"
-            style={{
-                transform: arrowMap[type],
-            }}
-        >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="arrow-icon"
-            >
-                <path d="M12 2l7 7h-5v12h-4v-12h-5z" fill="currentColor" />
-            </svg>
-        </span>
+        <>
+            {type ?
+                <span className="arrow" style={{ transform: arrowMap[type], }} >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        className="arrow-icon"
+                    >
+                        <path d="M12 2l7 7h-5v12h-4v-12h-5z" fill="currentColor" />
+                    </svg>
+                </span> :
+                <span className="arrow" >
+                    {defaultSymbol}
+                </span>
+            }
+        </>
     );
 };
 
