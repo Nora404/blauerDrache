@@ -8,6 +8,10 @@ export enum PathsLahtheimCenter {
     ChurchDonate = '/church-donate',
     ChurchPeace = '/church-peace',
     Courtyard = '/courtyard',
+    CourtyardBench = '/courtyard-bench',
+    CourtyardStand = '/courtyard-stand',
+    CourtyardBard = '/courtyard-bard',
+    CourtyardTreasure = '/courtyard-Treasure',
     Graveyard = '/graveyard',
     Townhall = '/townhall',
 }
@@ -20,6 +24,10 @@ const ChurchPeace = lazy(() => import('../playground/lahtheim/center/church/Chur
 
 const CourtyardNavi = lazy(() => import('../playground/lahtheim/center/courtyard/CourtyardNavi'));
 const Courtyard = lazy(() => import('../playground/lahtheim/center/courtyard/Courtyard'));
+const CourtyardBench = lazy(() => import('../playground/lahtheim/center/courtyard/CourtyardBench'));
+const CourtyardBard = lazy(() => import('../playground/lahtheim/center/courtyard/CourtyardBard'));
+const CourtyardStand = lazy(() => import('../playground/lahtheim/center/courtyard/CourtyardStand'));
+const CourtyardTreasure = lazy(() => import('../playground/lahtheim/center/courtyard/CourtyardTreasure'));
 
 const FountainNavi = lazy(() => import('../playground/lahtheim/center/fountain/FountainNavi'));
 const Fountain = lazy(() => import('../playground/lahtheim/center/fountain/Fountain'));
@@ -54,6 +62,26 @@ export const routesLahtheimCenter: RouteConfig[] = [
     {
         path: PathsLahtheimCenter.Courtyard,
         element: Courtyard,
+        navigation: CourtyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.CourtyardBench,
+        element: CourtyardBench,
+        navigation: CourtyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.CourtyardBard,
+        element: CourtyardBard,
+        navigation: CourtyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.CourtyardStand,
+        element: CourtyardStand,
+        navigation: CourtyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.CourtyardTreasure,
+        element: CourtyardTreasure,
         navigation: CourtyardNavi,
     },
     {

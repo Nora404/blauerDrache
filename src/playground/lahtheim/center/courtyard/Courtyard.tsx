@@ -22,18 +22,18 @@ const Courtyard: React.FC<CourtyardProps> = () => {
 
   //#region [handler]
   const handleBench = () => {
-    navigate("/courtyard");
+    navigate("/courtyard-bench");
   }
 
   const handleDayStand = () => {
-    navigate("/courtyard");
+    navigate("/courtyard-stand");
   }
   const handleDayBard = () => {
-    navigate("/courtyard");
+    navigate("/courtyard-bard");
   }
 
   const handleNightTreasure = () => {
-    navigate("/courtyard");
+    navigate("/courtyard-treasure");
   }
   //#endregion
 
