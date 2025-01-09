@@ -9,6 +9,10 @@ export enum PathsLahtheimCityLimit {
     SouthWallSymbol = '/south-wall-symbol',
     SouthWallTreasure = '/south-wall-treasure',
     WestWall = '/west-wall',
+    WestWallHunter = '/west-wall-hunter',
+    WestWallDor = '/west-wall-dor',
+    WestWallFlower = '/west-wall-flower',
+    WestWallKick = '/west-wall-kick',
     EastWall = '/east-wall',
     EastWallTower = '/east-wall-tower',
     EastWallBox = '/east-wall-box',
@@ -28,6 +32,10 @@ const SouthWallTreasure = lazy(() => import('../playground/lahtheim/cityLimit/so
 
 const WestWallNavi = lazy(() => import('../playground/lahtheim/cityLimit/westWall/WestWallNavi'));
 const WestWall = lazy(() => import('../playground/lahtheim/cityLimit/westWall/WestWall'));
+const WestWallHunter = lazy(() => import('../playground/lahtheim/cityLimit/westWall/WestWallHunter'));
+const WestWallDor = lazy(() => import('../playground/lahtheim/cityLimit/westWall/WestWallDor'));
+const WestWallFlower = lazy(() => import('../playground/lahtheim/cityLimit/westWall/WestWallFlower'));
+const WestWallKick = lazy(() => import('../playground/lahtheim/cityLimit/westWall/WestWallKick'));
 
 const EastWallNavi = lazy(() => import('../playground/lahtheim/cityLimit/eastWall/EastWallNavi'));
 const EastWall = lazy(() => import('../playground/lahtheim/cityLimit/eastWall/EastWall'));
@@ -70,6 +78,26 @@ export const routesLahtheimCityLimit: RouteConfig[] = [
     {
         path: PathsLahtheimCityLimit.WestWall,
         element: WestWall,
+        navigation: WestWallNavi,
+    },
+    {
+        path: PathsLahtheimCityLimit.WestWallHunter,
+        element: WestWallHunter,
+        navigation: WestWallNavi,
+    },
+    {
+        path: PathsLahtheimCityLimit.WestWallDor,
+        element: WestWallDor,
+        navigation: WestWallNavi,
+    },
+    {
+        path: PathsLahtheimCityLimit.WestWallFlower,
+        element: WestWallFlower,
+        navigation: WestWallNavi,
+    },
+    {
+        path: PathsLahtheimCityLimit.WestWallKick,
+        element: WestWallKick,
         navigation: WestWallNavi,
     },
     {

@@ -5,13 +5,27 @@ import { useNewGameStore } from '../../../../store/newGameStore';
 import { GradientText } from '../../../../utility/GradientText';
 import { yellowColors } from '../../../../data/colorMappingData';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
+import { useNavigate } from 'react-router-dom';
 
 type WestWallProps = {
 };
 
 const WestWall: React.FC<WestWallProps> = () => {
   const { store } = useNewGameStore();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const handleHunter = () => {
+    navigate("/west-wall-hunter");
+  }
+  const handleDor = () => {
+    navigate("/west-wall-dor");
+  }
+  const handleFlower = () => {
+    navigate("/west-wall-flower");
+  }
+  const handleKick = () => {
+    navigate("/west-wall-kick");
+  }
 
   return (
     <div className='max-width'>
@@ -43,9 +57,9 @@ const WestWall: React.FC<WestWallProps> = () => {
             Sie hält einen gespannten Bogen in der Hand, ihr Ziel ist ein Heu Block, der vor einem Baum steht.
           </p><br />
 
-          <ActionButton label='Mit der Jägerin sprechen' />
-          <ActionButton label='Eine der Blumen pflücken' />
-          <ActionButton label='Gegen einen der Bäume treten' />
+          <ActionButton onClick={handleHunter} label='Mit der Jägerin sprechen' />
+          <ActionButton onClick={handleFlower} label='Eine der Blumen pflücken' />
+          <ActionButton onClick={handleKick} label='Gegen einen der Bäume treten' />
         </>
       )}
 
@@ -67,9 +81,9 @@ const WestWall: React.FC<WestWallProps> = () => {
             Hause und wach zu sein.
           </p><br />
 
-          <ActionButton label='An die Tür klopfen' />
-          <ActionButton label='Eine der Blumen pflücken' />
-          <ActionButton label='Gegen einen der Bäume treten' />
+          <ActionButton onClick={handleDor} label='An die Tür klopfen' />
+          <ActionButton onClick={handleFlower} label='Eine der Blumen pflücken' />
+          <ActionButton onClick={handleKick} label='Gegen einen der Bäume treten' />
         </>
       )}
 
