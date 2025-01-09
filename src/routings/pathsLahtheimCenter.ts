@@ -3,6 +3,10 @@ import { RouteConfig } from "../routes";
 
 export enum PathsLahtheimCenter {
     Fountain = '/fountain',
+    FountainBoard = '/fountain-board',
+    FountainPeople = '/fountain-people',
+    FountainWarrior = '/fountain-warrior',
+    FountainTreasure = '/fountain-treasure',
     Church = '/church',
     ChurchTalk = '/church-talk',
     ChurchDonate = '/church-donate',
@@ -13,6 +17,12 @@ export enum PathsLahtheimCenter {
     CourtyardBard = '/courtyard-bard',
     CourtyardTreasure = '/courtyard-Treasure',
     Graveyard = '/graveyard',
+    GraveyardPath = '/graveyard-path',
+    GraveyardTreasure = '/graveyard-treasure',
+    GraveyardHole = '/graveyard-hole',
+    GraveyardDGrave = '/graveyard-dgrave',
+    GraveyardZombie = '/graveyard-zombie',
+    GraveyardNGrave = '/graveyard-ngrave',
     Townhall = '/townhall',
 }
 
@@ -31,9 +41,19 @@ const CourtyardTreasure = lazy(() => import('../playground/lahtheim/center/court
 
 const FountainNavi = lazy(() => import('../playground/lahtheim/center/fountain/FountainNavi'));
 const Fountain = lazy(() => import('../playground/lahtheim/center/fountain/Fountain'));
+const FountainBoard = lazy(() => import('../playground/lahtheim/center/fountain/FountainBoard'));
+const FountainPeople = lazy(() => import('../playground/lahtheim/center/fountain/FountainPeople'));
+const FountainWarrior = lazy(() => import('../playground/lahtheim/center/fountain/FountainWarrior'));
+const FountainTreasure = lazy(() => import('../playground/lahtheim/center/fountain/FountainTreasure'));
 
 const GraveyardNavi = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardNavi'));
 const Graveyard = lazy(() => import('../playground/lahtheim/center/graveyard/Graveyard'));
+const GraveyardPath = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardPath'));
+const GraveyardTreasure = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardTreasure'));
+const GraveyardHole = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardHole'));
+const GraveyardDGrave = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardDGrave'));
+const GraveyardZombie = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardZombie'));
+const GraveyardNGrave = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardNGrave'));
 
 const TownhallNavi = lazy(() => import('../playground/lahtheim/center/townHall/TownHallNavi'));
 const Townhall = lazy(() => import('../playground/lahtheim/center/townHall/TownHall'));
@@ -90,8 +110,58 @@ export const routesLahtheimCenter: RouteConfig[] = [
         navigation: FountainNavi,
     },
     {
+        path: PathsLahtheimCenter.FountainBoard,
+        element: FountainBoard,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainPeople,
+        element: FountainPeople,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainWarrior,
+        element: FountainWarrior,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainTreasure,
+        element: FountainTreasure,
+        navigation: FountainNavi,
+    },
+    {
         path: PathsLahtheimCenter.Graveyard,
         element: Graveyard,
+        navigation: GraveyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.GraveyardPath,
+        element: GraveyardPath,
+        navigation: GraveyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.GraveyardTreasure,
+        element: GraveyardTreasure,
+        navigation: GraveyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.GraveyardHole,
+        element: GraveyardHole,
+        navigation: GraveyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.GraveyardDGrave,
+        element: GraveyardDGrave,
+        navigation: GraveyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.GraveyardZombie,
+        element: GraveyardZombie,
+        navigation: GraveyardNavi,
+    },
+    {
+        path: PathsLahtheimCenter.GraveyardNGrave,
+        element: GraveyardNGrave,
         navigation: GraveyardNavi,
     },
     {

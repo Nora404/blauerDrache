@@ -5,23 +5,23 @@ import { useNavigate } from 'react-router-dom';
 // #endregion
 
 // #region [prepare]
-type CourtyardTreasureProps = {
+type GraveyardNGraveProps = {
 };
 
-const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
+const GraveyardNGrave: React.FC<GraveyardNGraveProps> = () => {
     const navigate = useNavigate();
     // #endregion
 
     // #region [handler]
     const handleBack = () => {
-        navigate('/courtyard');
+        navigate('/graveyard');
     };
     // #endregion
 
     // #region [jsx]
     return (
         <div className='max-width'>
-            <h2>Nach einem verlorenen Schatz suchen</h2>
+            <h2>Versuchen Gräber zu plündern</h2>
             <p className='mb-1 text-left'>
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p><br />
@@ -31,4 +31,4 @@ const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
     // #endregion
 };
 
-export default CourtyardTreasure;
+export default GraveyardNGrave;

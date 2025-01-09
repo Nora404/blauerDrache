@@ -19,24 +19,24 @@ const Graveyard: React.FC<GraveyardProps> = () => {
   //#endregion
 
   //#region [handler]
-  const handleDayPath = () => {
-    navigate("/graveyard");
+  const handlePath = () => {
+    navigate("/graveyard-path");
   }
-  const handleDayTreasure = () => {
-    navigate("/graveyard");
+  const handleTreasure = () => {
+    navigate("/graveyard-treasure");
   }
-  const handleDayHole = () => {
-    navigate("/graveyard");
+  const handleHole = () => {
+    navigate("/graveyard-hole");
   }
   const handleDayGrave = () => {
-    navigate("/graveyard");
+    navigate("/graveyard-dgrave");
   }
 
-  const handleNightZombie = () => {
-    navigate("/graveyard");
+  const handleZombie = () => {
+    navigate("/graveyard-zombie");
   }
   const handleNightGrave = () => {
-    navigate("/graveyard");
+    navigate("/graveyard-ngrave");
   }
   //#endregion
 
@@ -66,9 +66,9 @@ const Graveyard: React.FC<GraveyardProps> = () => {
             Kurz darauf hörst du das Rascheln von Blättern, gefolgt von einem dumpfen Laut, als wäre etwas zu Boden gefallen.
           </p><br />
 
-          <ActionButton onClick={handleDayPath} label='Den Weg entlang gehen' />
-          <ActionButton onClick={handleDayTreasure} label='Nach verlorenen „Schätzen“ suchen' />
-          <ActionButton onClick={handleDayHole} label='Die Löcher genauer betrachten' />
+          <ActionButton onClick={handlePath} label='Den Weg entlang gehen' />
+          <ActionButton onClick={handleTreasure} label='Nach verlorenen „Schätzen“ suchen' />
+          <ActionButton onClick={handleHole} label='Die Löcher genauer betrachten' />
           <ActionButton onClick={handleDayGrave} label='Die Gräber genauer betrachten' />
         </>
       )}
@@ -88,7 +88,8 @@ const Graveyard: React.FC<GraveyardProps> = () => {
             Die Luft um dich scheint schwerer zu werden, als hättest du einen unsichtbaren Schwellenpunkt überschritten.
           </p><br />
 
-          <ActionButton onClick={handleNightZombie} label='Gegen Zombies Kämpfen' />
+          <ActionButton onClick={handleZombie} label='Gegen Zombies kämpfen' />
+          <ActionButton onClick={handleTreasure} label='Nach verlorenen „Schätzen“ suchen' />
           <ActionButton onClick={handleNightGrave} label='Versuchen Gräber zu plündern' />
         </>
       )}

@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 // #endregion
 
 // #region [prepare]
-type CourtyardTreasureProps = {
+type FountainTreasureProps = {
 };
 
-const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
+const FountainTreasure: React.FC<FountainTreasureProps> = () => {
     const navigate = useNavigate();
     // #endregion
 
     // #region [handler]
     const handleBack = () => {
-        navigate('/courtyard');
+        navigate('/fountain');
     };
     // #endregion
 
@@ -31,4 +31,4 @@ const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
     // #endregion
 };
 
-export default CourtyardTreasure;
+export default FountainTreasure;

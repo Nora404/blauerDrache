@@ -17,18 +17,18 @@ const Fountain: React.FC<FountainProps> = () => {
 
   //#region [handler]
   const handleBoard = () => {
-    navigate("/fountain");
+    navigate("/fountain-board");
   }
 
   const handleDayPeople = () => {
-    navigate("/fountain");
+    navigate("/fountain-people");
   }
   const handleDayWarrior = () => {
-    navigate("/fountain");
+    navigate("/fountain-warrior");
   }
 
   const handleNightTreasure = () => {
-    navigate("/fountain");
+    navigate("/fountain-treasure");
   }
   //#endregion
 
