@@ -28,13 +28,31 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-image: url('./assets/background.png');
+  /* background-image: url('./assets/background.png'); */
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background-position: center;
+  background-repeat: no-repeat; */
+  transition: background 2s ease-in-out, opacity 2s ease-in-out;
 
   height: 100%;
 }
+
+.body-day {
+  background: url('./assets/background.png') center/cover no-repeat;
+}
+
+.body-evening {
+  background: url('./assets/background2.png') center/cover no-repeat;
+}
+
+.body-night {
+  background: url('./assets/background3.png') center/cover no-repeat;
+}
+
+.body-morning {
+  background: url('./assets/background.png') center/cover no-repeat;
+}
+
 
 a {
   font-weight: 500;
