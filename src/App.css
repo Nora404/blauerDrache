@@ -118,19 +118,6 @@
       rgba(60, 120, 150, 0.15));
 }
 
-.falling-canvas {
-  position: fixed;
-  /* immer im Vordergrund/Hintergrund fixiert */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  /* verhinder Klick-Interaktionen auf dem Canvas */
-  z-index: 0;
-  /* nach hinten legen */
-}
-
 /* .arrow {
   display: inline-flex;
   align-items: center;

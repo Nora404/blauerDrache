@@ -18,6 +18,10 @@ b {
   color: rgb(121, 217, 241);
 }
 
+em {
+  color: rgb(157, 121, 241);
+}
+
 body {
   margin: 0;
   display: flex;

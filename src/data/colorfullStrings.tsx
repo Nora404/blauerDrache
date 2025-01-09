@@ -55,6 +55,30 @@ export const CREATURE: Record<CreatureKeys, JSX.Element> = {
   blauenDrachen: <b><GradientText colors={['#1ECECF', '#1763CF']}>blauen Drachen</GradientText></b>,
 };
 
+type NpcKeys =
+  | 'Bäuerin'
+  | 'Krieger'
+  | 'Jägerin'
+  | 'Barde'
+  | 'Alchemistin'
+  | 'Verkäuferin'
+  | 'Verkäufer'
+  | 'dunkleGestalt'
+  | 'finstereGestalt'
+  | 'Krämer'
+export const NPC: Record<NpcKeys, JSX.Element> = {
+  Bäuerin: <GradientText colors={['#eeffbb', '#bbffee']}>Bäuerin</GradientText>,
+  Krieger: <GradientText colors={['#ffcccc', '#cc9999']}>Kriegern</GradientText>,
+  Jägerin: <GradientText colors={['#bbffaa', '#88cc88']}>Jägerin</GradientText>,
+  Barde: <GradientText colors={['#ffeeaa', '#ffcc77']}>Barde</GradientText>,
+  Alchemistin: <GradientText colors={['#ccccff', '#9999ff']}>Alchemistin</GradientText>,
+  Verkäuferin: <GradientText colors={['#C237FF', '#d257dF']}>Verkäuferin</GradientText>,
+  Verkäufer: <GradientText colors={['#D1813B', '#a1615B']}>Verkäufer</GradientText>,
+  dunkleGestalt: <GradientText colors={['#ffbbcc', '#ff99aa']}>dunkle Gestalt</GradientText>,
+  finstereGestalt: <GradientText colors={['#bbbbff', '#8888cc']}>finstere Gestalt</GradientText>,
+  Krämer: <GradientText colors={['#ffdd99', '#ffaa66']}>Krämer</GradientText>,
+};
+
 export type PlacesKeys =
   | "Nordtor"
   | "Westmauer"

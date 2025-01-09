@@ -20,7 +20,7 @@ const CourtyardNavi: React.FC<CourtyardNaviProps> = () => {
                 <Link to="/courtyard" className='mobileBtn' onClick={handleCloseMobilePop}><b>Umgebung</b> untersuchen</Link><br />
                 <Link to="/church" className='mobileBtn'>In die {PLACES.Kirche} gehen</Link><br />
                 <Link to="/graveyard" className='mobileBtn'>Den {PLACES.Friedhof} besuchen</Link><br />
-                <Link to="/south-wall" className='mobileBtn'>Zum {PLACES.Vorplatz} gehen</Link><br />
+                <Link to="/south-wall" className='mobileBtn'>Zur {PLACES.Südmauer} gehen</Link><br />
                 <Link to="/fountain" className='mobileBtn'>Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>
