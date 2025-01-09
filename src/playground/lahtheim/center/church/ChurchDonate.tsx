@@ -1,18 +1,25 @@
+//#region [imports]
 import React from 'react';
 import { PLACES } from '../../../../data/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+//#endregion
 
+//#region [prepare]
 type ChurchDonateProps = {
 };
 
 const ChurchDonate: React.FC<ChurchDonateProps> = () => {
     const navigate = useNavigate();
+    //#endregion
 
+    //#region [handler]
     const handleBack = () => {
         navigate('/church');
     };
+    //#endregion
 
+    //#region [jsx]
     return (
         <div className='max-width'>
             <h2>Etwas der {PLACES.Kirche} spenden</h2>
@@ -22,6 +29,7 @@ const ChurchDonate: React.FC<ChurchDonateProps> = () => {
             <ActionButton onClick={handleBack} label='Sich abwenden' />
         </div>
     );
+    //#endregion
 };
 
 export default ChurchDonate;

@@ -1,18 +1,27 @@
+//#region [imports]
 import React from 'react';
 import { NPC } from '../../../../data/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+//#endregion
 
+//#region [prepare]
 type ChurchTalkProps = {
 };
+//#endregion
 
+//#region [prepare]
 const ChurchTalk: React.FC<ChurchTalkProps> = () => {
     const navigate = useNavigate();
+    //#endregion
 
+    //#region [handler]
     const handleBack = () => {
         navigate("/church");
     }
+    //#endregion
 
+    //#region [jsx]
     return (
         <div className='max-width'>
             <h2>Mit {NPC.dunkleGestalt} sprechen</h2>
@@ -22,6 +31,7 @@ const ChurchTalk: React.FC<ChurchTalkProps> = () => {
             <ActionButton onClick={handleBack} label='Sich abwenden' />
         </div>
     );
+    //#endregion
 };
 
 export default ChurchTalk;
