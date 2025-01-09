@@ -7,6 +7,8 @@ import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { lilaColors } from '../../../../data/colorMappingData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../../../layout/Header/Header';
+import RandomNpcTalking from '../../../../utility/RandomNpcTalking';
 //#endregion
 
 //#region [prepare]
@@ -59,6 +61,16 @@ const Courtyard: React.FC<CourtyardProps> = () => {
             die angeblich böse Geister vertreiben. Neugierige Touristen schlendern von Stand zu Stand,
             während die Einheimischen in Ruhe auf den Bänken verweilen
           </p><br />
+
+          <Header>Echos der Gespräche</Header>
+
+          <p className='mb-1 text-left'><RandomNpcTalking /></p>
+          <p className='mb-1 text-left'><RandomNpcTalking /></p>
+          <p className='mb-1 text-left'><RandomNpcTalking /></p>
+          <p className='mb-1 text-left'><RandomNpcTalking /></p>
+          <p className='mb-1 text-left'><RandomNpcTalking /></p>
+
+          <br />
 
           <ActionButton onClick={handleDayStand} label='Zu einem der Stände gehen' />
           <ActionButton onClick={handleBench} label='Auf eine Bank setzten' />

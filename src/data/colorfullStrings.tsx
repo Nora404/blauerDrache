@@ -66,9 +66,38 @@ type NpcKeys =
   | 'dunkleGestalt'
   | 'finstereGestalt'
   | 'Krämer'
+  | 'Bauer'
+  | 'Tagelöhner'
+  | 'Söldner'
+  | 'Söldnerin'
+  | 'Entdeckerin'
+  | 'Händler'
+  | 'Händlerin'
+  | 'Kräuterhexe'
+  | 'Bettler'
+  | 'Schmied'
+  | 'Schmiedin'
+  | 'Sängerin'
+  | 'Tänzerin'
+  | 'Schneiderin'
+  | 'Schneider'
+  | 'Geistlicher'
+  | 'Wächterin'
+  | 'Wächter'
+  | 'Magier'
+  | 'Hexer'
+  | 'Seherin'
+  | 'Runenmeister'
+  | 'Gladiator'
+  | 'Kapitän'
+  | 'Waldläufer'
+  | 'Assassine'
+  | 'Heilerin'
+  | 'Druide';
+
 export const NPC: Record<NpcKeys, JSX.Element> = {
   Bäuerin: <GradientText colors={['#eeffbb', '#bbffee']}>Bäuerin</GradientText>,
-  Krieger: <GradientText colors={['#ffcccc', '#cc9999']}>Kriegern</GradientText>,
+  Krieger: <GradientText colors={['#ffcccc', '#cc9999']}>Krieger</GradientText>,
   Jägerin: <GradientText colors={['#bbffaa', '#88cc88']}>Jägerin</GradientText>,
   Barde: <GradientText colors={['#ffeeaa', '#ffcc77']}>Barde</GradientText>,
   Alchemistin: <GradientText colors={['#ccccff', '#9999ff']}>Alchemistin</GradientText>,
@@ -77,6 +106,34 @@ export const NPC: Record<NpcKeys, JSX.Element> = {
   dunkleGestalt: <GradientText colors={['#ffbbcc', '#ff99aa']}>dunkle Gestalt</GradientText>,
   finstereGestalt: <GradientText colors={['#bbbbff', '#8888cc']}>finstere Gestalt</GradientText>,
   Krämer: <GradientText colors={['#ffdd99', '#ffaa66']}>Krämer</GradientText>,
+  Bauer: <GradientText colors={['#77dd77', '#55bb55']}>Bauer</GradientText>,
+  Tagelöhner: <GradientText colors={['#ffee99', '#ffaa77']}>Tagelöhner</GradientText>,
+  Söldner: <GradientText colors={['#aa5555', '#ff7777']}>Söldner</GradientText>,
+  Söldnerin: <GradientText colors={['#ff8888', '#ffaaaa']}>Söldnerin</GradientText>,
+  Entdeckerin: <GradientText colors={['#bbddff', '#88bbff']}>Entdeckerin</GradientText>,
+  Händler: <GradientText colors={['#ffaa99', '#dd8877']}>Händler</GradientText>,
+  Händlerin: <GradientText colors={['#ffaa88', '#cc7755']}>Händlerin</GradientText>,
+  Kräuterhexe: <GradientText colors={['#88bb88', '#55aa55']}>Kräuterhexe</GradientText>,
+  Bettler: <GradientText colors={['#999999', '#777777']}>Bettler</GradientText>,
+  Schmied: <GradientText colors={['#ffaa77', '#cc7755']}>Schmied</GradientText>,
+  Schmiedin: <GradientText colors={['#ff8866', '#cc6655']}>Schmiedin</GradientText>,
+  Sängerin: <GradientText colors={['#ffccff', '#dd99dd']}>Sängerin</GradientText>,
+  Tänzerin: <GradientText colors={['#ffaaee', '#dd88cc']}>Tänzerin</GradientText>,
+  Schneiderin: <GradientText colors={['#bbbbcc', '#9999aa']}>Schneiderin</GradientText>,
+  Schneider: <GradientText colors={['#ccaa88', '#997755']}>Schneider</GradientText>,
+  Geistlicher: <GradientText colors={['#ffffff', '#dddddd']}>Geistlicher</GradientText>,
+  Wächterin: <GradientText colors={['#7788ff', '#5566dd']}>Wächterin</GradientText>,
+  Wächter: <GradientText colors={['#5566cc', '#3344aa']}>Wächter</GradientText>,
+  Magier: <GradientText colors={['#aabbff', '#8899ff']}>Magier</GradientText>,
+  Hexer: <GradientText colors={['#aa88dd', '#8866cc']}>Hexer</GradientText>,
+  Seherin: <GradientText colors={['#ddeeff', '#aaccee']}>Seherin</GradientText>,
+  Runenmeister: <GradientText colors={['#ddaa88', '#bb8866']}>Runenmeister</GradientText>,
+  Gladiator: <GradientText colors={['#ffaa55', '#cc7733']}>Gladiator</GradientText>,
+  Kapitän: <GradientText colors={['#77aaff', '#5588dd']}>Kapitän</GradientText>,
+  Waldläufer: <GradientText colors={['#55aa77', '#338855']}>Waldläufer</GradientText>,
+  Assassine: <GradientText colors={['#777777', '#555555']}>Assassine</GradientText>,
+  Heilerin: <GradientText colors={['#ffddcc', '#ffbbaa']}>Heilerin</GradientText>,
+  Druide: <GradientText colors={['#88bb88', '#66aa66']}>Druide</GradientText>,
 };
 
 export type PlacesKeys =
