@@ -73,6 +73,7 @@ const Courtyard: React.FC<CourtyardProps> = () => {
           <br />
 
           <ActionButton onClick={handleDayStand} label='Zu einem der Stände gehen' />
+          <ActionButton onClick={handleNightTreasure} label='Nach verlorenen „Schätzen“ suchen' />
           <ActionButton onClick={handleBench} label='Auf eine Bank setzten' />
           <ActionButton onClick={handleDayBard} label='Dem Musiker zuhören' />
         </>

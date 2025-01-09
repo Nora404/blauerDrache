@@ -158,6 +158,63 @@ Ein weiteres Plugin welches ich nutze ist Folder color von SergeyEgorov um Ordne
 
 Wie viele auch nutzte ich mittlerweile ChatGPT, der mir beim Coden hilft. Ich verbringe so weniger Zeit mit Googeln und finden von Lösungen. Er Kompensiert meine fehlende Erfahrung oder nimmt mir zeitaufwendige Fleißaufgaben ab. Ich könnte ihn auch nuten um meine hunderten Rechtschreibfehler zu koregieren, das würde aber den Flow unterbrechen und es ist dann doch sehr aufwendig.
 
+### Neue Seite(Ort) erstellen
+- Ordne den Ort in die geografische Kategorie ein, erstelle dort einen Ordner mit dem Namen des Ortes
+- Mit dem Snippet `rpage` wird das Grundgerüst erstellt, gebe den gleichen Namen ein wie den Dateinamen
+- Lege in der passenden Routing Datei (gleiche geografische Kategorie) den Ort an.
+- Unterseiten sollen per ActionButton erreichbar sein (Wegen besserer Handybedienung)
+- Die Actionbuttons haben einen passenden Handler der zur Unterseite (useNavigate) führt.
+- Name des Ortes + Thema der Unterseite als Namen. Ein D oder N um Tageszeit anzugeben, wenn nötig.
+- Nach dem Muster wie Hauptseite dem Routing hinzufügen `/place-theme`
+
+### Event einer Unterseite hinzufügen
+- Erstelle ein Array mit EventIds und Warscheinlichkeiten
+- Erstelle useState mit dem aktuellen Event `eventChainActive`
+- Erstelle ein useEffect das pickRandomEvent benutzt und den State auf das Event setzt
+- Füge im jsx die Komponente `<GameEventChain>` hinzu
+
+```typescript
+const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
+    const [eventChainActive, setEventChainActive] = useState<string | null>(null);
+
+    const possibleEvents = [
+        { eventId: "001StoneCoin", probability: 50 },
+        { eventId: "004Flower", probability: 60 },
+        { eventId: "007Bag", probability: 20 },
+    ];
+
+    const handleBack = () => {
+        navigate('/courtyard');
+    };
+
+    const handleFinishEventChain = () => {
+        setEventChainActive(null);
+    }
+
+    useEffect(() => {
+        const eventId = pickRandomEvent(possibleEvents, 0.8);
+        setEventChainActive(eventId);
+    }, []);
+
+    return (
+        <div className='max-width'>
+            {eventChainActive ? (
+                <GameEventChain
+                    initialEventName={eventChainActive}
+                    onFinishChain={handleFinishEventChain}
+                />
+            ) : (
+                <p className="mb-1 text-left">
+                    Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig
+                    normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die
+                    letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzen.
+                </p>
+            )}
+        </div>
+    );
+};
+```
+
 ### Fazit
 Ich merke das es wirklich sinnvoll ist als Team solche Projekte anzugehen. Jemand für die Texte, jemand zum Coden und auch jemand der super mit Architektur ist, dann noch einen Tester ... 
 
