@@ -21,7 +21,7 @@ const CourtyardNavi: React.FC<CourtyardNaviProps> = () => {
                 <Link to="/courtyard" className='mobileBtn' onClick={handleCloseMobilePop}><Arrow /><b>Umgebung</b> untersuchen</Link><br />
                 <Link to="/church" className='mobileBtn'><Arrow type='s' />In die {PLACES.Kirche} gehen</Link><br />
                 <Link to="/graveyard" className='mobileBtn'><Arrow type='sw' />Den {PLACES.Friedhof} besuchen</Link><br />
-                <Link to="/south-wall" className='mobileBtn'><Arrow type='sq' />Zur {PLACES.Südmauer} gehen</Link><br />
+                <Link to="/south-wall" className='mobileBtn'><Arrow type='so' />Zur {PLACES.Südmauer} gehen</Link><br />
                 <Link to="/fountain" className='mobileBtn'><Arrow type='n' />Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>
