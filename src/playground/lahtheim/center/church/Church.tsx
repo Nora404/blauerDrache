@@ -1,7 +1,7 @@
 //#region [imports]
 import React from 'react';
 import NpcTalk from '../../../../utility/NpcTalk';
-import { PLACES } from '../../../../data/colorfullStrings';
+import { NPC, PLACES } from '../../../../data/colorfullStrings';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { yellowColors } from '../../../../data/colorMappingData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
@@ -18,13 +18,13 @@ const Church: React.FC<ChurchProps> = () => {
 
   //#region [handler]
   const handleTalk = () => {
-    navigate("/church");
+    navigate("/church-talk");
   }
   const handleDonate = () => {
-    navigate("/church");
+    navigate("/church-donate");
   }
   const handlePeace = () => {
-    navigate("/church");
+    navigate("/church-peace");
   }
   //#endregion
 
@@ -46,11 +46,11 @@ const Church: React.FC<ChurchProps> = () => {
       </p>
 
       <p className='mb-1 text-left'>
-        <NpcTalk color='#878740'>"Besuch?"</NpcTalk> flüstert sie, so sanft, dass du nicht sicher bist,
+        <NpcTalk color='#8C6570'>"Besuch?"</NpcTalk> flüstert sie, so sanft, dass du nicht sicher bist,
         ob du dir das nur eingebildet hast.
-        <NpcTalk color='#878740'>"Es kommt nicht oft vor, dass dieses Haus Besuch bekommt."</NpcTalk>
+        <NpcTalk color='#8C6570'>"Es kommt nicht oft vor, dass dieses Haus Besuch bekommt."</NpcTalk>
         Du drehst dich um, verwirrt, suchend nach dem Ursprung der Stimme. Dann, aus der Dunkelheit,
-        tritt langsam eine Gestalt hervor und spricht: <NpcTalk color='#878740'>"Was kann ich für dich tun, mein Kind?"</NpcTalk>
+        tritt langsam eine {NPC.dunkleGestalt} hervor und spricht: <NpcTalk color='#8C6570'>"Was kann ich für dich tun, mein Kind?"</NpcTalk>
       </p><br />
 
       <ActionButton onClick={handleTalk} label='Mit dunkler Gestalt sprechen' /> {/*(als geistlicher gibt es mehr)*/}
