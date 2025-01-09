@@ -1,11 +1,20 @@
 import React from 'react';
 import { PLACES } from '../../../../data/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
+import { useNavigate } from 'react-router-dom';
 
 type SouthWallProps = {
 };
 
 const SouthWall: React.FC<SouthWallProps> = () => {
+  const navigate = useNavigate();
+
+  const handleSymbol = () => {
+    navigate("/south-wall-symbol");
+  }
+  const handleTreasure = () => {
+    navigate("/south-wall-treasure");
+  }
 
   return (
     <div className='max-width'>
@@ -30,8 +39,8 @@ const SouthWall: React.FC<SouthWallProps> = () => {
         einen geheimen Weg oder Eingang, der gefunden werden will
       </p><br />
 
-      <ActionButton label='Symbol untersuchen' />
-      <ActionButton label='Nach verlorenen „Schätzen“ suchen' />
+      <ActionButton onClick={handleSymbol} label='Symbol untersuchen' />
+      <ActionButton onClick={handleTreasure} label='Nach verlorenen „Schätzen“ suchen' />
     </div>
   );
 };
