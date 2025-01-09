@@ -1,7 +1,6 @@
 import React from 'react';
 import { NPC, PLACES } from '../../../../data/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import { useNavigate } from 'react-router-dom';
 import { useNewGameStore } from '../../../../store/newGameStore';
 import { GradientText } from '../../../../utility/GradientText';
 import { yellowColors } from '../../../../data/colorMappingData';
@@ -12,7 +11,7 @@ type WestWallProps = {
 
 const WestWall: React.FC<WestWallProps> = () => {
   const { store } = useNewGameStore();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className='max-width'>

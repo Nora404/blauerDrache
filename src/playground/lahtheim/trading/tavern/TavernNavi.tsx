@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { useNewGameStore } from '../../../../store/newGameStore';
 import { PLACES } from '../../../../data/colorfullStrings';
+import Arrow from '../../../../utility/Arrow';
 
 type TavernNaviProps = {
 };
@@ -17,8 +18,8 @@ const TavernNavi: React.FC<TavernNaviProps> = () => {
         <div>
             <Header>Taverne</Header>
             <p className='mb-1 text-left'>
-                <Link to="/tavern" className='mobileBtn' onClick={handleCloseMobilePop}><b>Raum</b> untersuchen</Link><br />
-                <Link to="/fountain" className='mobileBtn'>Zurück zum {PLACES.Brunnen} gehen</Link><br />
+                <Link to="/tavern" className='mobileBtn' onClick={handleCloseMobilePop}><Arrow /><b>Raum</b> untersuchen</Link><br />
+                <Link to="/fountain" className='mobileBtn'><Arrow type='sw' />Zurück zum {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>
     );
