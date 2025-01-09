@@ -24,6 +24,9 @@ export enum PathsLahtheimCenter {
     GraveyardZombie = '/graveyard-zombie',
     GraveyardNGrave = '/graveyard-ngrave',
     Townhall = '/townhall',
+    TownhallColor = '/townhall-color',
+    TownhallHome = '/townhall-home',
+    TownhallCalling = '/townhall-calling',
 }
 
 const ChurchNavi = lazy(() => import('../playground/lahtheim/center/church/ChurchNavi'));
@@ -57,6 +60,9 @@ const GraveyardNGrave = lazy(() => import('../playground/lahtheim/center/graveya
 
 const TownhallNavi = lazy(() => import('../playground/lahtheim/center/townHall/TownHallNavi'));
 const Townhall = lazy(() => import('../playground/lahtheim/center/townHall/TownHall'));
+const TownhallColor = lazy(() => import('../playground/lahtheim/center/townHall/TownHallColor'));
+const TownhallHome = lazy(() => import('../playground/lahtheim/center/townHall/TownHallHome'));
+const TownhallCalling = lazy(() => import('../playground/lahtheim/center/townHall/TownHallCalling'));
 
 export const routesLahtheimCenter: RouteConfig[] = [
     {
@@ -167,6 +173,21 @@ export const routesLahtheimCenter: RouteConfig[] = [
     {
         path: PathsLahtheimCenter.Townhall,
         element: Townhall,
+        navigation: TownhallNavi,
+    },
+    {
+        path: PathsLahtheimCenter.TownhallColor,
+        element: TownhallColor,
+        navigation: TownhallNavi,
+    },
+    {
+        path: PathsLahtheimCenter.TownhallHome,
+        element: TownhallHome,
+        navigation: TownhallNavi,
+    },
+    {
+        path: PathsLahtheimCenter.TownhallCalling,
+        element: TownhallCalling,
         navigation: TownhallNavi,
     },
 ];

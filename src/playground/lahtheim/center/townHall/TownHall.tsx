@@ -16,13 +16,13 @@ const TownHall: React.FC<TownHallProps> = () => {
   const navigate = useNavigate();
 
   const handleColor = () => {
-    navigate("/townhall");
+    navigate("/townhall-color");
   }
   const handleHome = () => {
-    navigate("/townhall");
+    navigate("/townhall-home");
   }
   const handleCalling = () => {
-    navigate("/townhall");
+    navigate("/townhall-calling");
   }
 
   return (
