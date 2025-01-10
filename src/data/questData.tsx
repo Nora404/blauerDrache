@@ -1,47 +1,74 @@
 import { PlayerStats, PlayerBase, PlayerFlux, PlayerMeta, PlayerEconomy } from "../store/newGameStore";
 import { GameEvent } from "./eventData";
+import { event001ThreeStoneEnd } from "./gameQuests/001TheeStones/001ThreeStoneEnd";
 import { quest001ThreeStone } from "./gameQuests/001TheeStones/001ThreeStones";
 import { event001ThreeStoneTrigger } from "./gameQuests/001TheeStones/001ThreeStoneTrigger";
 import { ItemName } from "./ItemData";
 
+export type QuestTypeNames =
+    | "Begegnung" // talk
+    | "Besorgen" // item
+    | "Benutzten" // use
+    | "Besuchen" // go
+    | "Besiegen" // kill
+    | "Erfahrung" // base
+    | "Besser werden" // stats
+    | "Geheimnis"; //switch
+
+//region
 export type GameQuest = {
     id: string;
     label: string;
     description: JSX.Element;
-    triggerEvent: string,
+    path: string, // Hier beendet man die Quest
+    eventByEnd: string, // Dieses Event verteilt die Belohnung
     conditions?: {
-        requiredDaytime?: "Tag" | "Nacht";
         requiredSwitches?: { [key: string]: boolean };
-        requiredQuestDone?: string[];
         requiredStats?: Partial<PlayerStats>;
         requiredBase?: Partial<PlayerBase>;
         requiredFlux?: Partial<PlayerFlux>;
         requiredMeta?: Partial<PlayerMeta>;
     }
-    progress: Progress[],
-    rewards: {
-        base?: Partial<PlayerBase>
-        economy?: Partial<PlayerEconomy>
-        items?: { itemName: ItemName; quantity: number }[];
-    }
-    followQuestId: string,
+    progress: Progress,
+    rewards: Rewards,
     repeat: boolean,
 }
+//#endregion
 
-export type QuestTypeNames = "talk" | "item" | "use" | "kill" | "stats" | "base" | "switch";
-
+//#region
+export type Task = {
+    haveItem?: { item: ItemName, need: number, count: number }[],
+    useItem?: ItemName,
+    goTo?: string; // path
+    enemy?: { enemy: string, need: number, count: number }[],
+    stats?: { attack: number }[],
+    base?: { level: number }[],
+    switch?: { name: string, state: boolean }[],
+}
 export type Progress = {
     type: QuestTypeNames,
-    target: string,
-    triggerEvent: string,
+    path: string, // Hier beendet man die Aufgabe
+    eventByEnd: string, // EventID
     isDone: boolean,
-    haveItem?: { item: ItemName, need: number },
-    useItem?: ItemName,
-    enemy?: { enemy: string, need: number, count: number },
-    stats?: { attack: number },
-    base?: { level: number },
-    switch?: { name: string, state: true },
+    task: Task;
 }
+export type Rewards = {
+    base?: Partial<PlayerBase>;
+    economy?: Partial<PlayerEconomy>;
+    items?: { itemName: ItemName; quantity: number }[];
+};
+
+export const emptyQuest = {
+    id: "000",
+    label: "Nichts",
+    description: <></>,
+    path: "/",
+    eventByEnd: "000",
+    progress: [{}],
+    rewards: {},
+    repeat: false,
+}
+//#endregion
 
 export const gameQuests: GameQuest[] = [
     quest001ThreeStone,
@@ -49,6 +76,7 @@ export const gameQuests: GameQuest[] = [
 
 export const gameQuestTrigger: GameEvent[] = [
     event001ThreeStoneTrigger,
+    event001ThreeStoneEnd,
 ]
 
 // const exampleProgress = [

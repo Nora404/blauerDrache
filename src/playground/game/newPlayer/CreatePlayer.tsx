@@ -1,5 +1,5 @@
 //#region [imports]
-import React, { useEffect, useState } from 'react';
+import React, { startTransition, useEffect, useState } from 'react';
 import { emptyRaceObj, Race, RaceName } from '../../../data/raceData';
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
 import ChooseRace from './ChooseRace';
@@ -96,20 +96,24 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         const initialLevel = combinedBase.level;
         const initialNextLevel = requiredExpForLevel(initialLevel ?? 1);
 
-        setPlayerBase({
-            ...combinedBase,
-            nextLevel: initialNextLevel,
+        // Diese Funktion verarbeitet mehrere asynchrone Aufgaben
+        // Ohne dass das UI dabei durcheinander kommt
+        startTransition(() => {
+            setPlayerBase({
+                ...combinedBase,
+                nextLevel: initialNextLevel,
+            });
+            setPlayerStats(combinedStats);
+            setPlayerEconomy(combinedEconomy);
+            setPlayerMeta({
+                name: wizardData.name,
+                race: wizardData.race.name as RaceName,
+                origin: wizardData.origin.name as OriginName,
+                calling: wizardData.calling.name as CallingName,
+            });
+            setCurrentStep((prev) => prev + 1);
+            setGameState({ creating: true });
         });
-        setPlayerStats(combinedStats);
-        setPlayerEconomy(combinedEconomy);
-        setPlayerMeta({
-            name: wizardData.name,
-            race: wizardData.race.name as RaceName,
-            origin: wizardData.origin.name as OriginName,
-            calling: wizardData.calling.name as CallingName,
-        });
-        setCurrentStep((prev) => prev + 1);
-        setGameState({ creating: true });
     };
     //#endregion
 

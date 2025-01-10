@@ -2,7 +2,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNewGameStore } from '../../../store/newGameStore';
-import { getGameQuestById } from '../../../utility/TriggerQuest';
+import { getGameQuestById, renderQuestRewards, renderQuestType } from '../../../utility/TriggerQuest';
+import { RewardsDisplay } from '../../../layout/RewardDisplay';
+import { emptyQuest } from '../../../data/questData';
 // #endregion
 
 // #region [prepare]
@@ -11,6 +13,7 @@ type QuestlogProps = {
 
 const Questlog: React.FC<QuestlogProps> = () => {
     const { store } = useNewGameStore();
+    if (!store) return;
     const navigate = useNavigate();
 
     const activeQuests = store.playerQuest.activeQuests || {};
@@ -31,37 +34,39 @@ const Questlog: React.FC<QuestlogProps> = () => {
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p><br />
 
-            <h3>Aktive Aufgaben</h3>
             {store.playerQuest.activeQuests ? (
-                <>
-                    <h2>Aktive Quests</h2>
-                    {activeQuestEntries.map(([questId, progressSteps]) => {
-                        const questDef = getGameQuestById(questId);
-                        { questDef?.description }
+                <> <p>Du hast aktive Aufgaben</p>
+                    {/* {activeQuestEntries.map(([questId, progressSteps]) => {
+                        const quest = getGameQuestById(questId) ?? emptyQuest;
 
                         return (
-                            <div key={questId} className="border p-2 m-2">
-                                <h3>{questDef?.label ?? questId}</h3>
+                            <div key={questId}>
+                                <h3>{quest?.label ?? questId}</h3>
+                                {quest?.description}<br />
+
                                 {progressSteps.map((step, idx) => (
                                     <div key={idx}>
                                         {step.isDone ? (
-                                            <span className="text-green-500 line-through">
-                                                Schritt {idx + 1}: {step.type}
+                                            <span className="text-green">
+                                                {step.type}: {renderQuestType({ questType: step.type, task: step.task })}
                                             </span>
                                         ) : (
-                                            <span className="text-blue-500">
-                                                Schritt {idx + 1}: {step.type}
+                                            <span>
+                                                {step.type}: {renderQuestType({ questType: step.type, task: step.task })}
                                             </span>
                                         )}
                                     </div>
                                 ))}
+                                Belohnung: {renderQuestRewards(quest?.rewards)}
                             </div>
                         );
-                    })}
+                    })} */}
                 </>
             ) : (
-                <p>Keine aktiven Buffs</p>
+                <p>Keine aktiven Aufgaben</p>
             )}
+
+            <br /> <hr />
             <button onClick={handleAbandon}>Alles löschen</button>
         </div>
     );
