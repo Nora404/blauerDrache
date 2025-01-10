@@ -178,7 +178,7 @@ const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
     const [eventChainActive, setEventChainActive] = useState<string | null>(null);
 
     const possibleEvents = [
-        { eventId: "001StoneCoin", probability: 50 },
+        { eventId: "E001ThreeStoneTrigger", probability: 50, questId: "Q001ThreeStone"  },
         { eventId: "004Flower", probability: 60 },
         { eventId: "007Bag", probability: 20 },
     ];
@@ -192,28 +192,41 @@ const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
     }
 
     useEffect(() => {
-        const eventId = pickRandomEvent(possibleEvents, 0.8);
-        setEventChainActive(eventId);
+        const randomEventId = pickRandomEvent(possibleEvents, 0.8);
+        if (!randomEventId) return;
+
+        const foundEvent = possibleEvents.find(e => e.eventId === randomEventId);
+
+        if (foundEvent?.questId) {
+            const isQuestActive = !!store.playerQuest.activeQuests?.[foundEvent.questId];
+            if (isQuestActive) {
+                setEventChainActive(null);
+                return;
+            }
+        }
+        setEventChainActive(randomEventId);
     }, []);
 
     return (
         <div className='max-width'>
-            {eventChainActive ? (
+            {eventChainActive && (
                 <GameEventChain
                     initialEventName={eventChainActive}
                     onFinishChain={handleFinishEventChain}
                 />
-            ) : (
-                <p className="mb-1 text-left">
-                    Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig
-                    normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die
-                    letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzen.
-                </p>
             )}
+            {!eventChainActive &&
+                <ActionButton onClick={handleBack} label='Sich abwenden' />
+            }
         </div>
     );
 };
 ```
+
+### Quests hinzufügen
+In dem oberen Beispiel hat eines der possibleEvents eine weitere Eigenschaft: `questId` Das heißt dieses Event
+würde eine Quest triggern. Im `useEffect` wird überprüft ob die Quest aktiv ist, wenn ja wird kein Event aktiviert.
+Du musst aber dringend noch auf die möglichen conditions eingehen! 
 
 ### Fazit
 Ich merke das es wirklich sinnvoll ist als Team solche Projekte anzugehen. Jemand für die Texte, jemand zum Coden und auch jemand der super mit Architektur ist, dann noch einen Tester ... 

@@ -45,7 +45,6 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
                 return;
             }
         }
-
         setEventChainActive(randomEventId);
     }, []);
     //#endregion

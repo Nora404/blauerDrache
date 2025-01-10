@@ -37,6 +37,7 @@ const Questlog: React.FC<QuestlogProps> = () => {
                     <h2>Aktive Quests</h2>
                     {activeQuestEntries.map(([questId, progressSteps]) => {
                         const questDef = getGameQuestById(questId);
+                        { questDef?.description }
 
                         return (
                             <div key={questId} className="border p-2 m-2">
