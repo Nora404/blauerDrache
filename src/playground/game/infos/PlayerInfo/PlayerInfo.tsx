@@ -10,7 +10,7 @@ type PlayerInfoProps = {
 };
 
 const PlayerInfo: React.FC<PlayerInfoProps> = () => {
-    const { store, updateExp, updateLife, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay } = useNewGameStore();
+    const { store, updateExp, updateLife, updateReputation, updateRounds, updateWeapon, updatePlayerBuff, updatePlayerDebuff, updateItems, newDay } = useNewGameStore();
     const combined = getCombinedStats(store);
     const selected = getPlayerObj(store);
     const delta = getDelta(store);
@@ -120,6 +120,13 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         updateItems("Stock", 1);
     }
 
+    const handelAddRep = () => {
+        updateReputation(50);
+    }
+    const handelSubRep = () => {
+        updateReputation(-50);
+    }
+
     return (
         <div className='max-width'>
             <h2>Dein Steckbrief</h2>
@@ -226,8 +233,10 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                             <button className='btn-border' onClick={handleExp}>Erfahrung +</button>
 
                             <button className='btn-border' onClick={handelLifeAdd}>Leben +</button>
-                            <button className='btn-border' onClick={handelLifeSub}>Leben -</button>
+                            <button className='btn-border' onClick={handelLifeSub}>Leben -</button><br /><br />
 
+                            <button className='btn-border' onClick={handelAddRep}>Respekt +</button>
+                            <button className='btn-border' onClick={handelSubRep}>Respekt -</button>
                         </td>
                         <td>
                             <button className='btn-border' onClick={handleWeapon}>Nimm eine Waffe</button>

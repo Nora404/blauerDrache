@@ -34,6 +34,9 @@ export type PlayerBase = {
     level: number;
     nextLevel: number;
     exp: number;
+    standing: number;
+    reputation: number;
+    nextReputation: number;
     maxLife: number;
     maxRounds: number;
 };
@@ -52,6 +55,12 @@ export type PlayerEconomy = {
     edelsteine: number;
     items: Record<string, { item: Item, quantity: number }>;
 };
+
+export type PlayerQuest = {
+    activeQuests: Record<string, Progress>;
+    completedQuest: string[];
+    abandonedQuest: string[];
+}
 //#endregion
 
 export type GameStore = {
@@ -62,6 +71,7 @@ export type GameStore = {
     playerBase: PlayerBase;
     playerFlux: PlayerFlux;
     playerEconomy: PlayerEconomy;
+    playerQuest: PlayerQuest;
 };
 
 //#region [default]
@@ -97,6 +107,9 @@ const defaultGameStore: GameStore = {
         level: 1,
         nextLevel: 100,
         exp: 0,
+        standing: 0,
+        reputation: 0,
+        nextReputation: 100,
         maxLife: 100,
         maxRounds: 20,
     },
@@ -113,6 +126,11 @@ const defaultGameStore: GameStore = {
         edelsteine: 0,
         items: {},
     },
+    playerQuest: {
+        activeQuests: {},
+        completedQuest: [],
+        abandonedQuest: [],
+    }
 };
 //#endregion 
 
@@ -143,6 +161,7 @@ type GameStoreContextType = {
     updatePlayerStats: (delta: Partial<PlayerStats>) => void;
     updatePlayerEconomy: (delta: Partial<PlayerEconomy>) => void;
     updateExp: (earnedExp: number) => void;
+    updateReputation: (earnedRep: number) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -158,6 +177,7 @@ import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 import { emptyOriginObj, originMap, OriginName } from "../data/originData";
 import { calculateProgression } from "../utility/Progression";
+import { Progress } from "../data/questData";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -179,6 +199,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             playerBase: data.playerBase ?? defaultGameStore.playerBase,
             playerFlux: data.playerFlux ?? defaultGameStore.playerFlux,
             playerEconomy: data.playerEconomy ?? defaultGameStore.playerEconomy,
+            playerQuest: data.playerEconomy ?? defaultGameStore.playerQuest,
         };
     };
 
@@ -564,6 +585,49 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         });
     };
 
+    const updateReputation = (earnedRep: number) => {
+        setStore((prev) => {
+            let newRep = prev.playerBase.reputation + earnedRep;
+            let standing = prev.playerBase.standing;
+
+            const getRequiredExp = (currentStanding: number) => {
+                return requiredExpForLevel(Math.abs(currentStanding) || 1);
+            };
+
+            let currentReq = getRequiredExp(standing);
+
+            while (true) {
+                // Prüfe, ob ein Level aufsteigen
+                if (newRep >= currentReq) {
+                    newRep -= currentReq;
+                    standing += 1;
+                    currentReq = getRequiredExp(standing);
+                }
+                // Prüfe, ob ein Level absteigen
+                else if (newRep < 0) {
+                    standing -= 1;
+                    const negativeReq = getRequiredExp(standing);
+                    newRep += negativeReq;
+                    currentReq = getRequiredExp(standing);
+                }
+                else {
+                    break;
+                }
+            }
+
+            return {
+                ...prev,
+                playerBase: {
+                    ...prev.playerBase,
+                    standing,
+                    nextReputation: currentReq,
+                    reputation: newRep,
+                },
+            };
+        });
+    };
+
+
     //#endregion
 
     //#region [helper]
@@ -644,6 +708,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updatePlayerStats,
         updatePlayerEconomy,
         updateExp,
+        updateReputation,
     };
 
     return (

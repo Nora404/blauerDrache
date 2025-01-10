@@ -1,7 +1,6 @@
 import { GradientText } from "../../utility/GradientText";
 import NpcTalk from "../../utility/NpcTalk";
 import PlayerTalk from "../../utility/PlayerTalk";
-import { buffMap } from "../buffData";
 import { GameEvent } from "../eventData";
 
 //#region [events]
@@ -16,7 +15,7 @@ export const event001Stone: GameEvent = {
                 itemsDelta: { Stein: 1 },
                 economyDelta: { gold: 1 },
                 statsDelta: { life: 1 },
-                fluxDelta: { buff: [buffMap["Eisenhaut"]] },
+                fluxDelta: { buff: { "Eisenhaut": 3 } },
                 message: message1,
             }),
         },

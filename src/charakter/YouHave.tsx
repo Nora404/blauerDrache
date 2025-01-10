@@ -24,6 +24,10 @@ const YouHave: React.FC<YouHaveProps> = () => {
                     </tr><tr>
                         <td>{SYSTEM.Edelsteine}</td><td>{store.playerEconomy.edelsteine || '0'}</td>
                     </tr><tr>
+                        <td>{SYSTEM.Ruf}</td><td>{store.playerBase.standing}</td>
+                    </tr><tr>
+                        <td>{SYSTEM.Respekt}</td><td>{store.playerBase.reputation} / {store.playerBase.nextReputation}</td>
+                    </tr><tr>
                         <td>{SYSTEM.Waffe}</td><td>{selected.weapon.label || 'Nichts'}</td>
                     </tr><tr>
                         <td>{SYSTEM.Rüstung}</td><td>{selected.armor.label || 'Nichts'}</td>

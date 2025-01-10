@@ -3,6 +3,8 @@ import { GradientText } from "../utility/GradientText";
 type SystemKeys =
   | 'Level'
   | 'Erfahrung'
+  | 'Ruf'
+  | 'Respekt'
   | 'Leben'
   | 'Runden'
   | 'Angriff'
@@ -18,6 +20,8 @@ type SystemKeys =
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   Level: <GradientText colors={['#F7A131', '#57C6DD']}>Level</GradientText>,
   Erfahrung: <GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung</GradientText>,
+  Ruf: <GradientText colors={['#E54387', '#57C6DD']}>Ruf</GradientText>,
+  Respekt: <GradientText colors={['#45DBA0', '#57C6DD']}>Respekt</GradientText>,
   Leben: <GradientText colors={['#74dd4f', '#57C6DD']}>Leben</GradientText>,
   Runden: <GradientText colors={['#C742DD', '#57C6DD']}>Runden</GradientText>,
   Angriff: <GradientText colors={['#DD2C2C', '#57C6DD']}>Angriff</GradientText>,
