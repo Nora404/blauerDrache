@@ -1,5 +1,5 @@
 // #region [imports]
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNewGameStore } from '../../../store/newGameStore';
 import { getGameQuestById, renderQuestRewards, renderQuestType } from '../../../utility/TriggerQuest';
@@ -18,6 +18,10 @@ const Questlog: React.FC<QuestlogProps> = () => {
 
     const activeQuests = store.playerQuest.activeQuests || {};
     const activeQuestEntries = Object.entries(activeQuests);
+
+    useEffect(() => {
+        console.log(store.playerQuest.activeQuests);
+    }, []);
     // #endregion
 
     // #region [handler]
