@@ -47,7 +47,7 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
         }
 
         setEventChainActive(randomEventId);
-    }, [store]);
+    }, []);
     //#endregion
 
     // #region [jsx]
@@ -57,19 +57,15 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
             <p className='mb-1 text-left'>
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p><br />
-            {eventChainActive ? (
+            {eventChainActive && (
                 <GameEventChain
                     initialEventName={eventChainActive}
                     onFinishChain={handleFinishEventChain}
                 />
-            ) : (
-                <p className="mb-1 text-left">
-                    Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig
-                    normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die
-                    letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzen.
-                </p>
             )}
-            <ActionButton onClick={handleBack} label='Sich abwenden' />
+            {!eventChainActive &&
+                <ActionButton onClick={handleBack} label='Sich abwenden' />
+            }
         </div>
     );
     // #endregion

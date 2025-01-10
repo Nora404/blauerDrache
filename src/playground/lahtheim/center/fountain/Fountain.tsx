@@ -75,6 +75,8 @@ const Fountain: React.FC<FountainProps> = () => {
 
           <ActionButton onClick={handleBoard} label='Schwarzes Brett untersuchen' />
           <ActionButton onClick={handleNightTreasure} label='Nach verlorenen „Schätzen“ suchen' />
+          <ActionButton onClick={handleDayPeople} label='Mit einem der Leute sprechen' />
+
         </>
       )}
 
