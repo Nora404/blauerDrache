@@ -1,7 +1,10 @@
 import { PlayerStats, PlayerBase, PlayerFlux, PlayerMeta, PlayerEconomy } from "../store/newGameStore";
+import { GameEvent } from "./eventData";
+import { quest001ThreeStone } from "./gameQuests/001TheeStones/001ThreeStones";
+import { event001ThreeStoneTrigger } from "./gameQuests/001TheeStones/001ThreeStoneTrigger";
 import { ItemName } from "./ItemData";
 
-export type Quest = {
+export type GameQuest = {
     id: string;
     label: string;
     description: JSX.Element;
@@ -40,6 +43,13 @@ export type Progress = {
     switch?: { name: string, state: true },
 }
 
+export const gameQuests: GameQuest[] = [
+    quest001ThreeStone,
+]
+
+export const gameQuestTrigger: GameEvent[] = [
+    event001ThreeStoneTrigger,
+]
 
 // const exampleProgress = [
 //     {

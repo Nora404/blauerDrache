@@ -57,7 +57,7 @@ export type PlayerEconomy = {
 };
 
 export type PlayerQuest = {
-    activeQuests: Record<string, Progress>;
+    activeQuests: Record<string, Progress[]>;
     completedQuest: string[];
     abandonedQuest: string[];
 }
@@ -162,6 +162,7 @@ type GameStoreContextType = {
     updatePlayerEconomy: (delta: Partial<PlayerEconomy>) => void;
     updateExp: (earnedExp: number) => void;
     updateReputation: (earnedRep: number) => void;
+    updateQuest: (questId: string) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -178,6 +179,7 @@ import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 import { emptyOriginObj, originMap, OriginName } from "../data/originData";
 import { calculateProgression } from "../utility/Progression";
 import { Progress } from "../data/questData";
+import { getGameQuestById } from "../utility/TriggerQuest";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -627,7 +629,62 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         });
     };
 
+    const updateQuest = (questId: string) => {
+        setStore((prevStore) => {
+            // 1) Quest-Objekt holen:
+            const questToAdd = getGameQuestById(questId);
+            if (!questToAdd) {
+                console.warn("Quest nicht gefunden:", questId);
+                return prevStore; // abbrechen, Rückgabe ohne Änderung
+            }
 
+            // 2) Prüfen, ob die Quest bereits aktiv ist:
+            const alreadyActive = !!prevStore.playerQuest.activeQuests[questId];
+            const alreadyDone = prevStore.playerQuest.completedQuest.includes(questId);
+            const alreadyAbandoned = prevStore.playerQuest.abandonedQuest.includes(questId);
+
+            // Falls sie abgeschlossen ist und die Quest NICHT wiederholbar:
+            if (alreadyDone && !questToAdd.repeat) {
+                console.warn("Quest schon abgeschlossen und nicht wiederholbar:", questId);
+                return prevStore; // keine Änderung
+            }
+
+            // Falls du sie nochmal aktivieren willst, 
+            // checken ob 'repeat: true' oder wie du es handhaben willst.
+            // ...
+
+            // 3) Falls noch nicht aktiv, wir legen sie jetzt an:
+            if (!alreadyActive) {
+                // wir kopieren das progress[]-Array, um `count: 0` zu initialisieren etc.
+                const initialProgress = questToAdd.progress.map((step) => {
+                    return {
+                        ...step,
+                        // Falls 'haveItem' existiert, setz den count auf 0:
+                        haveItem: step.haveItem
+                            ? { ...step.haveItem, count: 0 }
+                            : undefined,
+                        // isDone = false, falls du es zurücksetzen willst
+                        isDone: false,
+                    };
+                });
+
+                // 4) Unsere neue Store-Struktur bauen
+                return {
+                    ...prevStore,
+                    playerQuest: {
+                        ...prevStore.playerQuest,
+                        activeQuests: {
+                            ...prevStore.playerQuest.activeQuests,
+                            [questId]: initialProgress, // QuestId als Key, Array als Value
+                        },
+                    },
+                };
+            }
+
+            // Wenn schon aktiv, geben wir einfach prevStore zurück
+            return prevStore;
+        });
+    }
     //#endregion
 
     //#region [helper]
@@ -709,6 +766,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updatePlayerEconomy,
         updateExp,
         updateReputation,
+        updateQuest,
     };
 
     return (

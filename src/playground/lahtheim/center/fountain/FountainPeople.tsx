@@ -1,7 +1,10 @@
 // #region [imports]
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+import { pickRandomEvent } from '../../../../utility/RandomPickedEvent';
+import { GameEventChain } from '../../../game/game/GameEventChain';
+import { useNewGameStore } from '../../../../store/newGameStore';
 // #endregion
 
 // #region [prepare]
@@ -9,14 +12,43 @@ type FountainPeopleProps = {
 };
 
 const FountainPeople: React.FC<FountainPeopleProps> = () => {
+    const { store } = useNewGameStore();
     const navigate = useNavigate();
+    const [eventChainActive, setEventChainActive] = useState<string | null>(null);
+
+    const possibleEvents = [
+        { eventId: "E001ThreeStoneTrigger", probability: 50, questId: "Q001ThreeStone" },
+        { eventId: "004Flower", probability: 60 },
+    ];
     // #endregion
 
     // #region [handler]
     const handleBack = () => {
         navigate('/fountain');
     };
+    const handleFinishEventChain = () => {
+        setEventChainActive(null);
+    }
     // #endregion
+
+    //#region [events]
+    useEffect(() => {
+        const randomEventId = pickRandomEvent(possibleEvents, 0.8);
+        if (!randomEventId) return;
+
+        const foundEvent = possibleEvents.find(e => e.eventId === randomEventId);
+
+        if (foundEvent?.questId) {
+            const isQuestActive = !!store.playerQuest.activeQuests?.[foundEvent.questId];
+            if (isQuestActive) {
+                setEventChainActive(null);
+                return;
+            }
+        }
+
+        setEventChainActive(randomEventId);
+    }, [store]);
+    //#endregion
 
     // #region [jsx]
     return (
@@ -25,6 +57,18 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
             <p className='mb-1 text-left'>
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p><br />
+            {eventChainActive ? (
+                <GameEventChain
+                    initialEventName={eventChainActive}
+                    onFinishChain={handleFinishEventChain}
+                />
+            ) : (
+                <p className="mb-1 text-left">
+                    Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig
+                    normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die
+                    letzten Schritte waren. Du kannst deinen Weg unbeirrt weiter fortsetzen.
+                </p>
+            )}
             <ActionButton onClick={handleBack} label='Sich abwenden' />
         </div>
     );

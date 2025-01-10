@@ -12,6 +12,7 @@ export function useApplyGameAction() {
         updateRounds,
         updatePlayerBuff,
         updatePlayerDebuff,
+        updateQuest,
     } = useNewGameStore();
 
     function applyGameAction(action: GameAction) {
@@ -34,6 +35,10 @@ export function useApplyGameAction() {
 
         if (action.economyDelta) {
             updatePlayerEconomy(action.economyDelta);
+        }
+
+        if (action.triggerQuest) {
+            updateQuest(action.triggerQuest);
         }
 
         if (action.fluxDelta?.buff) {

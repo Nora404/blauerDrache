@@ -9,6 +9,7 @@ export enum PathsGame {
     NewPlayer = '/new-player',
     PlayerInfo = '/player-info',
     PlayerInventar = '/player-inventar',
+    QuestLog = '/questlog',
     Settings = '/setting',
     Map = '/map',
     Transit = '/transit/:targetPath/:startPath/:steps',
@@ -23,6 +24,7 @@ const EmptyNavi = lazy(() => import('../playground/game/infos/EmptyNavi'));
 const CreatePlayer = lazy(() => import('../playground/game/newPlayer/CreatePlayer'));
 const PlayerInfo = lazy(() => import('../playground/game/infos/PlayerInfo/PlayerInfo'));
 const PlayerInventory = lazy(() => import('../playground/game/infos/PlayerInventory'));
+const QuestLog = lazy(() => import('../playground/game/infos/QuestLog'));
 
 const WhatIs = lazy(() => import('../playground/game/game/AboutGame'));
 const NewDay = lazy(() => import('../playground/game/infos/NewDay'));
@@ -69,6 +71,10 @@ export const routesGame: RouteConfig[] = [
     {
         path: PathsGame.PlayerInventar,
         element: PlayerInventory,
+    },
+    {
+        path: PathsGame.QuestLog,
+        element: QuestLog,
     },
     {
         path: PathsGame.Map,

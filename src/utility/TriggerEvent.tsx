@@ -1,5 +1,6 @@
 import { PlacesKeys } from "../data/colorfullStrings";
 import { GameEvent, gameEvents, NextEventOption } from "../data/eventData";
+import { gameQuestTrigger } from "../data/questData";
 
 //#region [gray]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
@@ -29,6 +30,10 @@ export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
 //#region [gray]
 export function getGameEventById(id: string): GameEvent | undefined {
     return gameEvents.find((event) => event.id === id);
+}
+
+export function getQuestTriggerById(id: string): GameEvent | undefined {
+    return gameQuestTrigger.find((event) => event.id === id);
 }
 //#endregion
 
