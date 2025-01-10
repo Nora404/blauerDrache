@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Header from '../../../../layout/Header/Header';
 import { getCombinedStats, getPlayerObj, getScalingFactor, useNewGameStore } from '../../../../store/newGameStore';
 import { getDelta } from '../../../../utility/GetDelta';
@@ -127,6 +127,31 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
         updateReputation(-50);
     }
 
+    const reputationMessage = useCallback(() => {
+        let message;
+        let value = store.playerBase.standing;
+
+        if (value >= 20) {
+            message = "unglaublich! Du wirst von Allen verehrt und vergöttert.";
+        } else if (value >= 10) {
+            message = "sehr gut. Du bist berühmt, sehr viele kennen und mögen dich.";
+        } else if (value >= 5) {
+            message = "positiv, man kennt dich und grüßt dich.";
+        } else if (value > 0) {
+            message = "neutral. Man nimmt dich wahr, aber nicht besonders.";
+        } else if (value === 0) {
+            message = "nicht vorhanden. Du wirst meistens ignoriert";
+        } else if (value > -5) {
+            message = "eher schlecht. Man meidet dich, wenn es nur irgendwie geht";
+        } else if (value > -10) {
+            message = "sehr schlecht. Du wirst von den meisten Wesen gehasst";
+        } else {
+            message = "so schlecht wie es nur irgendwie geht. Jeder will dich tot sehen";
+        }
+
+        return <div className='mb-1 text-left'>Dein {SYSTEM.Ruf} ist {message}</div>;
+    }, [store.playerBase.standing]);
+
     return (
         <div className='max-width'>
             <h2>Dein Steckbrief</h2>
@@ -148,7 +173,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
                 {selected.calling.label}<br />
                 {selected.calling.description}<br />
                 {selected.calling.bonus}
-            </div><br /><br />
+            </div><br />
+
+            {reputationMessage()}<br />
 
             <Header>Kombinierte Statistiken</Header><br />
             <div className='flex-center'>
@@ -261,3 +288,5 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 };
 
 export default PlayerInfo;
+
+
