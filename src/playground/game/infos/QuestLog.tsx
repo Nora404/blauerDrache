@@ -1,10 +1,9 @@
 // #region [imports]
-import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNewGameStore } from '../../../store/newGameStore';
-import { getGameQuestById, renderQuestRewards, renderQuestType } from '../../../utility/TriggerQuest';
-import { RewardsDisplay } from '../../../layout/RewardDisplay';
-import { emptyQuest } from '../../../data/questData';
+import { getGameQuestById } from '../../../utility/TriggerQuest';
+import { emptyQuest, renderTask } from '../../../data/questData';
+import { useEffect } from 'react';
 // #endregion
 
 // #region [prepare]
@@ -17,11 +16,11 @@ const Questlog: React.FC<QuestlogProps> = () => {
     const navigate = useNavigate();
 
     const activeQuests = store.playerQuest.activeQuests || {};
-    const activeQuestEntries = Object.entries(activeQuests);
 
     useEffect(() => {
-        console.log(store.playerQuest.activeQuests);
+        console.log(store.playerQuest);
     }, []);
+
     // #endregion
 
     // #region [handler]
@@ -39,33 +38,18 @@ const Questlog: React.FC<QuestlogProps> = () => {
             </p><br />
 
             {store.playerQuest.activeQuests ? (
-                <> <p>Du hast aktive Aufgaben</p>
-                    {/* {activeQuestEntries.map(([questId, progressSteps]) => {
-                        const quest = getGameQuestById(questId) ?? emptyQuest;
-
+                <div>
+                    {Object.entries(activeQuests).map(([key, value]) => {
+                        const quest = getGameQuestById(key) || emptyQuest;
                         return (
-                            <div key={questId}>
-                                <h3>{quest?.label ?? questId}</h3>
-                                {quest?.description}<br />
-
-                                {progressSteps.map((step, idx) => (
-                                    <div key={idx}>
-                                        {step.isDone ? (
-                                            <span className="text-green">
-                                                {step.type}: {renderQuestType({ questType: step.type, task: step.task })}
-                                            </span>
-                                        ) : (
-                                            <span>
-                                                {step.type}: {renderQuestType({ questType: step.type, task: step.task })}
-                                            </span>
-                                        )}
-                                    </div>
-                                ))}
-                                Belohnung: {renderQuestRewards(quest?.rewards)}
+                            <div key={key}>
+                                <strong>{quest.label}</strong>
+                                <br />
+                                <p>{renderTask(quest.progress)}</p>
                             </div>
                         );
-                    })} */}
-                </>
+                    })}
+                </div>
             ) : (
                 <p>Keine aktiven Aufgaben</p>
             )}

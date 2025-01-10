@@ -199,7 +199,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             playerBase: data.playerBase ?? defaultGameStore.playerBase,
             playerFlux: data.playerFlux ?? defaultGameStore.playerFlux,
             playerEconomy: data.playerEconomy ?? defaultGameStore.playerEconomy,
-            playerQuest: data.playerEconomy ?? defaultGameStore.playerQuest,
+            playerQuest: data.playerQuest ?? defaultGameStore.playerQuest,
         };
     };
 
@@ -634,7 +634,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 console.warn("Quest nicht gefunden:", questId);
                 return prevStore; // abbrechen, Rückgabe ohne Änderung
             }
-
+            console.log("Ich wurde aufgerufen");
             // Prüfen, ob die Quest bereits aktiv ist:
             const alreadyActive = !!prevStore.playerQuest.activeQuests[questId];
             const alreadyDone = prevStore.playerQuest.completedQuest.includes(questId);

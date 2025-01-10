@@ -17,8 +17,8 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
     const [eventChainActive, setEventChainActive] = useState<string | null>(null);
 
     const possibleEvents = [
-        { eventId: "E001ThreeStoneTrigger", probability: 50, questId: "Q001ThreeStone" },
-        { eventId: "004Flower", probability: 60 },
+        { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
+        { eventId: "004Flower", probability: 10 },
     ];
     // #endregion
 
@@ -28,6 +28,7 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
     };
     const handleFinishEventChain = () => {
         setEventChainActive(null);
+        navigate('/fountain');
     }
     // #endregion
 

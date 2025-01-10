@@ -36,14 +36,17 @@ export type GameQuest = {
 //#endregion
 
 //#region
+export type HaveItem = { item: ItemName, need: number, count: number };
+export type KillEnemy = { enemy: string, need: number, count: number };
 export type Task = {
-    haveItem?: { item: ItemName, need: number, count: number }[],
+    label?: string;
+    haveItem?: HaveItem[],
     useItem?: ItemName,
     goTo?: string; // path
-    enemy?: { enemy: string, need: number, count: number }[],
-    stats?: { attack: number }[],
-    base?: { level: number }[],
-    switch?: { name: string, state: boolean }[],
+    enemy?: KillEnemy[],
+    stats?: Partial<PlayerStats>,
+    base?: Partial<PlayerBase>,
+    switch?: Partial<Record<string, boolean>>,
 }
 export type Progress = {
     type: QuestTypeNames,
@@ -58,13 +61,19 @@ export type Rewards = {
     items?: { itemName: ItemName; quantity: number }[];
 };
 
-export const emptyQuest = {
+export const emptyQuest: GameQuest = {
     id: "000",
     label: "Nichts",
     description: <></>,
     path: "/",
     eventByEnd: "000",
-    progress: [{}],
+    progress: {
+        type: "Geheimnis",
+        path: "/",
+        eventByEnd: "000",
+        isDone: false,
+        task: {},
+    },
     rewards: {},
     repeat: false,
 }
@@ -78,6 +87,26 @@ export const gameQuestTrigger: GameEvent[] = [
     event001ThreeStoneTrigger,
     event001ThreeStoneEnd,
 ]
+
+export const renderTask = (quest: Progress) => {
+    switch (quest.type) {
+        case "Begegnung":
+            return (<span>Triff dich mit {quest.task.label ?? "der gesuchten Person"}.</span>);
+        case "Besorgen":
+            return (
+                <>
+                    {quest.task.haveItem?.map((item: HaveItem) => (
+                        <span key={item.item}>
+                            Besorge {item.need}x {item.item}, du hast {item.count} besorgt.
+                        </span>
+                    ))}
+                </>
+            );
+
+        default:
+            break;
+    }
+}
 
 // const exampleProgress = [
 //     {
