@@ -12,9 +12,12 @@ type FountainPeopleProps = {
 };
 
 const FountainPeople: React.FC<FountainPeopleProps> = () => {
-    const { store } = useNewGameStore();
+    const { store, setGameState } = useNewGameStore();
     const navigate = useNavigate();
-    const [eventChainActive, setEventChainActive] = useState<string | null>(null);
+    const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
+
+    const queue = store.gameState.currentEventQueue;
+    const firstEvent = queue.length > 0 ? queue[0] : null;
 
     const possibleEvents = [
         { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
@@ -26,14 +29,22 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
     const handleBack = () => {
         navigate('/fountain');
     };
-    const handleFinishEventChain = () => {
-        setEventChainActive(null);
+    const handleFinishLocalEvent = () => {
+        setLocalRandomEvent(null);
+        navigate('/fountain');
+    }
+    const handleFinishQuestEvent = () => {
+        const newQueue = store.gameState.currentEventQueue.slice(1);
+        setGameState({ currentEventQueue: newQueue })
+
         navigate('/fountain');
     }
     // #endregion
 
     //#region [events]
     useEffect(() => {
+        console.log(firstEvent);
+        console.log(store.gameState.currentEventQueue)
         const randomEventId = pickRandomEvent(possibleEvents, 0.8);
         if (!randomEventId) return;
 
@@ -42,28 +53,31 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
         if (foundEvent?.questId) {
             const isQuestActive = !!store.playerQuest.activeQuests?.[foundEvent.questId];
             if (isQuestActive) {
-                setEventChainActive(null);
+                setLocalRandomEvent(null);
                 return;
             }
         }
-        setEventChainActive(randomEventId);
+        setLocalRandomEvent(randomEventId);
     }, []);
     //#endregion
 
     // #region [jsx]
+    const initialEventName = firstEvent || localRandomEvent || '';
+    const onFinishChainHandler = firstEvent ? handleFinishQuestEvent : handleFinishLocalEvent;
+
     return (
         <div className='max-width'>
             <h2>mit einem der Leute sprechen</h2>
             <p className='mb-1 text-left'>
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p><br />
-            {eventChainActive && (
+            {(firstEvent || localRandomEvent) && (
                 <GameEventChain
-                    initialEventName={eventChainActive}
-                    onFinishChain={handleFinishEventChain}
+                    initialEventName={initialEventName}
+                    onFinishChain={onFinishChainHandler}
                 />
             )}
-            {!eventChainActive &&
+            {!firstEvent && !localRandomEvent &&
                 <ActionButton onClick={handleBack} label='Sich abwenden' />
             }
         </div>

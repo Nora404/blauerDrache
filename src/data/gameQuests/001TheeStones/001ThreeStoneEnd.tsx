@@ -11,6 +11,7 @@ export const event001ThreeStoneEnd: GameEvent = {
                 return {
                     message: <span>Du hast für die Steine 5 Gold bekommen</span>,
                     economyDelta: { gold: 5 },
+                    base: { reputation: 3 },
                 };
             },
         },

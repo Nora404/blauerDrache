@@ -9,6 +9,8 @@ export type GameState = {
     temperature: string;
     creating: boolean;
     mobilePop: boolean;
+    currentPath: string;
+    currentEventQueue: string[];
     switch: Record<string, boolean>;
 };
 
@@ -84,6 +86,8 @@ const defaultGameStore: GameStore = {
         temperature: "warm",
         creating: false,
         mobilePop: false,
+        currentPath: "/start",
+        currentEventQueue: [],
         switch: {},
     },
     playerMeta: {
@@ -178,6 +182,7 @@ import { emptyOriginObj, originMap, OriginName } from "../data/originData";
 import { calculateProgression } from "../utility/Progression";
 import { Progress } from "../data/questData";
 import { getGameQuestById } from "../utility/TriggerQuest";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -213,6 +218,34 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         const validatedStore = validateGameStore(store);
         localStorage.setItem("myGameStore", JSON.stringify(validatedStore));
     }, [store]);
+    //#endregion
+
+    //#region [useEffect]
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // useEffect, das die Route im Store speichert
+    useEffect(() => {
+        if (store.gameState.currentPath !== location.pathname) {
+            setStore((prev) => ({
+                ...prev,
+                gameState: {
+                    ...prev.gameState,
+                    currentPath: location.pathname,
+                },
+            }));
+        }
+    }, [location.pathname]);
+
+    useEffect(() => {
+        // Kommentar: Sofern du nicht eh schon auf currentPath bist,
+        // wollen wir nach dem ersten Laden dort hin.
+        // Wir benutzen hier location.pathname != store.gameState.currentPath,
+        // weil wir Schleifen vermeiden wollen.
+        if (location.pathname !== store.gameState.currentPath) {
+            navigate(store.gameState.currentPath, { replace: true });
+        }
+    }, []);
 
     //#endregion
 
@@ -481,6 +514,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 },
             };
         });
+        updateProgress("itemAdded", { itemName: name, quantity });
     };
 
     const updateWeapon = (name: WeaponName) => {
@@ -634,7 +668,6 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 console.warn("Quest nicht gefunden:", questId);
                 return prevStore; // abbrechen, Rückgabe ohne Änderung
             }
-            console.log("Ich wurde aufgerufen");
             // Prüfen, ob die Quest bereits aktiv ist:
             const alreadyActive = !!prevStore.playerQuest.activeQuests[questId];
             const alreadyDone = prevStore.playerQuest.completedQuest.includes(questId);
@@ -660,6 +693,65 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return prevStore;
         });
     }
+    //#endregion
+
+    //#region [progress]
+    function updateProgress(action: "itemAdded" | "enemyKilled", payload: any) {
+        setStore((prev) => {
+            const newActive = { ...prev.playerQuest.activeQuests };
+
+            for (const [questId, progress] of Object.entries(newActive)) {
+                if (progress.isDone) continue;
+
+                // Prüfen, ob es vom type "Besorgen" ist und ob `haveItem` existiert:
+                if (action === "itemAdded" && progress.type === "Besorgen") {
+                    // Wir erwarten payload.itemName, payload.quantity
+                    const haveItems = progress.task.haveItem ?? [];
+                    // Gibt es in haveItems einen Eintrag für payload.itemName?
+                    for (let itemObj of haveItems) {
+                        if (itemObj.item === payload.itemName) {
+                            itemObj.count += payload.quantity;
+                            // Dann check, ob count >= need
+                            if (itemObj.count >= itemObj.need) {
+                                // => quest fertig? Na ja, wenn ALLE items in haveItems erfüllt sind.
+                                const allDone = haveItems.every((i) => i.count >= i.need);
+                                if (allDone) {
+                                    progress.isDone = true;
+                                    updateEventQueue(progress.eventByEnd);
+                                }
+                            }
+                        }
+                    }
+                }
+                // else if (action === "enemyKilled" && progress.type === "Besiegen") { ... }
+
+                newActive[questId] = progress;
+            }
+
+            return {
+                ...prev,
+                playerQuest: {
+                    ...prev.playerQuest,
+                    activeQuests: newActive
+                }
+            };
+        });
+    }
+
+    const updateEventQueue = (eventId: string) => {
+        setStore((prev) => {
+            const newQueue = prev.gameState.currentEventQueue;
+            newQueue.push(eventId);
+
+            return {
+                ...prev,
+                gameState: {
+                    ...prev.gameState,
+                    currentEventQueue: newQueue,
+                },
+            };
+        });
+    };
     //#endregion
 
     //#region [helper]

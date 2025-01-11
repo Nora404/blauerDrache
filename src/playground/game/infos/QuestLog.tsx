@@ -17,10 +17,6 @@ const Questlog: React.FC<QuestlogProps> = () => {
 
     const activeQuests = store.playerQuest.activeQuests || {};
 
-    useEffect(() => {
-        console.log(store.playerQuest);
-    }, []);
-
     // #endregion
 
     // #region [handler]
@@ -45,7 +41,7 @@ const Questlog: React.FC<QuestlogProps> = () => {
                             <div key={key}>
                                 <strong>{quest.label}</strong>
                                 <br />
-                                <p>{renderTask(quest.progress)}</p>
+                                <p className={quest.progress.isDone ? "text-green" : ''}>{quest.description}<br />{renderTask(quest.progress)}</p>
                             </div>
                         );
                     })}
