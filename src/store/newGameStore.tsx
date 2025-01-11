@@ -165,7 +165,7 @@ type GameStoreContextType = {
     updatePlayerEconomy: (delta: Partial<PlayerEconomy>) => void;
     updateExp: (earnedExp: number) => void;
     updateReputation: (earnedRep: number) => void;
-    updateQuest: (questId: string) => void;
+    updateQuest: (questId: string, remove: boolean) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -694,13 +694,26 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     //#endregion
 
     //#region [update Quest]
-    const updateQuest = (questId: string) => {
+    const updateQuest = (questId: string, remove: boolean) => {
         setStore((prevStore) => {
+            if (remove) {
+                const { [questId]: _, ...remainingActiveQuests } = prevStore.playerQuest.activeQuests;
+
+                return {
+                    ...prevStore,
+                    playerQuest: {
+                        ...prevStore.playerQuest,
+                        activeQuests: remainingActiveQuests,
+                    },
+                };
+            }
+
             const questToAdd = getGameQuestById(questId);
             if (!questToAdd) {
                 console.warn("Quest nicht gefunden:", questId);
-                return prevStore; // abbrechen, Rückgabe ohne Änderung
+                return prevStore;
             }
+
             // Prüfen, ob die Quest bereits aktiv ist:
             const alreadyActive = !!prevStore.playerQuest.activeQuests[questId];
             const alreadyDone = prevStore.playerQuest.completedQuest.includes(questId);
@@ -708,8 +721,10 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             // Falls sie abgeschlossen ist und die Quest NICHT wiederholbar:
             if (alreadyDone && !questToAdd.repeat) {
                 console.warn("Quest schon abgeschlossen und nicht wiederholbar:", questId);
-                return prevStore; // keine Änderung
+                return prevStore;
             }
+
+            console.log(questToAdd);
 
             if (!alreadyActive) {
                 return {
@@ -729,7 +744,10 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     //#endregion
 
     //#region [progress]
+
     function updateProgress(action: "itemAdded" | "enemyKilled", payload: any) {
+
+        // console.log(payload);
         setStore((prev) => {
             const newActive = { ...prev.playerQuest.activeQuests };
 
@@ -744,6 +762,8 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     for (let itemObj of haveItems) {
                         if (itemObj.item === payload.itemName) {
                             itemObj.count += payload.quantity;
+                            console.log("count: ", itemObj.count);
+                            console.log("quantity: ", payload.quantity);
                             // Dann check, ob count >= need
                             if (itemObj.count >= itemObj.need) {
                                 // => quest fertig? Na ja, wenn ALLE items in haveItems erfüllt sind.

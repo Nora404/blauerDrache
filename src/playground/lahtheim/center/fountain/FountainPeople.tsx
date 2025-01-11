@@ -43,8 +43,6 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
 
     //#region [events]
     useEffect(() => {
-        console.log(firstEvent);
-        console.log(store.gameState.currentEventQueue)
         const randomEventId = pickRandomEvent(possibleEvents, 0.8);
         if (!randomEventId) return;
 

@@ -13,6 +13,8 @@ export function useApplyGameAction() {
         updatePlayerBuff,
         updatePlayerDebuff,
         updateQuest,
+        updateExp,
+        updateReputation,
     } = useNewGameStore();
 
     function applyGameAction(action: GameAction) {
@@ -37,8 +39,12 @@ export function useApplyGameAction() {
             updatePlayerEconomy(action.economyDelta);
         }
 
-        if (action.triggerQuest) {
-            updateQuest(action.triggerQuest);
+        if (action.baseDelta?.exp) {
+            updateExp(action.baseDelta.exp);
+        }
+
+        if (action.baseDelta?.reputation) {
+            updateReputation(action.baseDelta.reputation);
         }
 
         if (action.fluxDelta?.buff) {
@@ -53,6 +59,14 @@ export function useApplyGameAction() {
                 updatePlayerDebuff(name as DebuffName);
             }
             );
+        }
+
+        if (action.triggerQuest) {
+            updateQuest(action.triggerQuest, false);
+        }
+
+        if (action.endQuest) {
+            updateQuest(action.endQuest, true);
         }
     }
 

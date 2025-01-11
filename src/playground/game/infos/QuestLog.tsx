@@ -1,8 +1,7 @@
 // #region [imports]
-import { useNavigate } from 'react-router-dom';
 import { useNewGameStore } from '../../../store/newGameStore';
 import { getGameQuestById } from '../../../utility/TriggerQuest';
-import { emptyQuest, renderTask } from '../../../data/questData';
+import { emptyQuest, HaveItem, Progress } from '../../../data/questData';
 // #endregion
 
 // #region [prepare]
@@ -12,16 +11,16 @@ type QuestlogProps = {
 const Questlog: React.FC<QuestlogProps> = () => {
     const { store, setPlayerQuest } = useNewGameStore();
     if (!store) return;
-    const navigate = useNavigate();
-
-    const activeQuests = store.playerQuest.activeQuests || {};
-
     // #endregion
 
     // #region [handler]
     const handleAbandon = () => {
         setPlayerQuest({ activeQuests: {} });
     };
+
+    const handleClick = () => {
+        console.log(store.playerQuest.activeQuests);
+    }
     // #endregion
 
     // #region [jsx]
@@ -34,13 +33,16 @@ const Questlog: React.FC<QuestlogProps> = () => {
 
             {store.playerQuest.activeQuests ? (
                 <div>
-                    {Object.entries(activeQuests).map(([key, value]) => {
-                        const quest = getGameQuestById(key) || emptyQuest;
+                    {Object.entries(store.playerQuest.activeQuests).map(([questId, currentProgress]) => {
+                        const questDefinition = getGameQuestById(questId) || emptyQuest;
                         return (
-                            <div key={key}>
-                                <strong>{quest.label}</strong>
-                                <br />
-                                <p className={quest.progress.isDone ? "text-green" : ''}>{quest.description}<br />{renderTask(quest.progress)}</p>
+                            <div key={questId}>
+                                <strong>{questDefinition.label}</strong>
+                                <p className={currentProgress.isDone ? "text-green" : ""}>
+                                    {questDefinition.description}
+                                    <br />
+                                    {renderTask(currentProgress)}
+                                </p>
                             </div>
                         );
                     })}
@@ -51,9 +53,31 @@ const Questlog: React.FC<QuestlogProps> = () => {
 
             <br /> <hr />
             <button onClick={handleAbandon}>Alles löschen</button>
+            <button onClick={handleClick}>Zeige Store</button>
         </div>
     );
     // #endregion
 };
 
 export default Questlog;
+
+
+const renderTask = (quest: Progress) => {
+    switch (quest.type) {
+        case "Begegnung":
+            return (<span>Triff dich mit {quest.task.label ?? "der gesuchten Person"}.</span>);
+        case "Besorgen":
+            return (
+                <>
+                    {quest.task.haveItem?.map((item: HaveItem) => (
+                        <span key={item.item}>
+                            Besorge {item.need}x {item.item}, du hast {item.count} besorgt.
+                        </span>
+                    ))}
+                </>
+            );
+
+        default:
+            break;
+    }
+}

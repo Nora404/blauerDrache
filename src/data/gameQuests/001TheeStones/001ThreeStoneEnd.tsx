@@ -10,8 +10,10 @@ export const event001ThreeStoneEnd: GameEvent = {
             getAction: () => {
                 return {
                     message: <span>Du hast für die Steine 5 Gold bekommen</span>,
+                    endQuest: "Q001ThreeStone",
+                    itemsDelta: { "Stein": -3 },
                     economyDelta: { gold: 5 },
-                    base: { reputation: 3 },
+                    baseDelta: { reputation: 3 },
                 };
             },
         },

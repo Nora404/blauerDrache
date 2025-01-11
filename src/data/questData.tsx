@@ -88,26 +88,6 @@ export const gameQuestTrigger: GameEvent[] = [
     event001ThreeStoneEnd,
 ]
 
-export const renderTask = (quest: Progress) => {
-    switch (quest.type) {
-        case "Begegnung":
-            return (<span>Triff dich mit {quest.task.label ?? "der gesuchten Person"}.</span>);
-        case "Besorgen":
-            return (
-                <>
-                    {quest.task.haveItem?.map((item: HaveItem) => (
-                        <span key={item.item}>
-                            Besorge {item.need}x {item.item}, du hast {item.count} besorgt.
-                        </span>
-                    ))}
-                </>
-            );
-
-        default:
-            break;
-    }
-}
-
 // const exampleProgress = [
 //     {
 //         type: "talk",

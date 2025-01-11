@@ -1,4 +1,4 @@
-import { PlayerEconomy, PlayerFlux, PlayerStats } from "../store/newGameStore";
+import { PlayerBase, PlayerEconomy, PlayerFlux, PlayerStats } from "../store/newGameStore";
 import { PlacesKeys } from "./colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { event002Mashroom } from "./gameEvents/002Mushroom";
@@ -30,8 +30,10 @@ export type GameAction = {
     economyDelta?: Partial<PlayerEconomy>;
     fluxDelta?: Partial<PlayerFlux>                 // für buffs und debuffs
     stateDelta?: Partial<PlayerStats>;              // für life and rounds
+    baseDelta?: Partial<PlayerBase>;
 
     triggerQuest?: string;
+    endQuest?: string;
     nextEvents?: NextEventOption[];
     message?: JSX.Element;
 }
