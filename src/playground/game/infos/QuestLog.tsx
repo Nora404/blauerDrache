@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useNewGameStore } from '../../../store/newGameStore';
 import { getGameQuestById } from '../../../utility/TriggerQuest';
 import { emptyQuest, renderTask } from '../../../data/questData';
-import { useEffect } from 'react';
 // #endregion
 
 // #region [prepare]

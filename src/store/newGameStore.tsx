@@ -378,7 +378,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
     //#endregion
 
-    //#region [updater]
+    //#region [update Game]
     const updateGameSwitch = (key: string, value: boolean) => {
         setStore((prev) => ({
             ...prev,
@@ -389,40 +389,34 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }));
     };
 
-    const updatePlayerBuff = (name: BuffName) => {
-        const buff = buffMap[name];
-        if (!buff) return;
-
+    const updateEventQueue = (eventId: string) => {
         setStore((prev) => {
-            const updatedBuffs = { ...prev.playerFlux.buff };
-            updatedBuffs[name] = (updatedBuffs[name] || 0) + buff.duration;
+            const newQueue = prev.gameState.currentEventQueue;
+            newQueue.push(eventId);
 
             return {
                 ...prev,
-                playerFlux: {
-                    ...prev.playerFlux,
-                    buff: updatedBuffs,
+                gameState: {
+                    ...prev.gameState,
+                    currentEventQueue: newQueue,
                 },
             };
         });
     };
+    //#endregion
 
-    const updatePlayerDebuff = (name: DebuffName) => {
-        const debuff = debuffMap[name];
-        if (!debuff) return;
-
-        setStore((prev) => {
-            const updatedDebuffs = { ...prev.playerFlux.debuff };
-            updatedDebuffs[name] = (updatedDebuffs[name] || 0) + debuff.duration;
-
-            return {
-                ...prev,
-                playerFlux: {
-                    ...prev.playerFlux,
-                    debuff: updatedDebuffs,
-                },
-            };
-        });
+    //#region [update Stats]
+    const updatePlayerStats = (delta: Partial<PlayerStats>) => {
+        setStore((prev) => ({
+            ...prev,
+            playerStats: {
+                life: prev.playerStats.life + (delta.life || 0),
+                rounds: prev.playerStats.rounds + (delta.rounds || 0),
+                attack: prev.playerStats.attack + (delta.attack || 0),
+                defense: prev.playerStats.defense + (delta.defense || 0),
+                luck: prev.playerStats.luck + (delta.luck || 0),
+            },
+        }));
     };
 
     const updateLife = (delta: number) => {
@@ -487,101 +481,9 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             };
         });
     };
+    //#endregion
 
-    const updateItems = (name: ItemName, quantity: number) => {
-        const item = itemMap[name];
-        if (!item) return;
-
-        setStore((prev) => {
-            const currentItem = prev.playerEconomy.items[item.name];
-            const currentQuantity = currentItem ? currentItem.quantity : 0;
-
-            const newQuantity = currentQuantity + quantity;
-
-            const updatedItems = { ...prev.playerEconomy.items };
-
-            if (newQuantity > 0) {
-                updatedItems[item.name] = { quantity: newQuantity, item }; // Item hinzufügen/aktualisieren
-            } else if (newQuantity <= 0) {
-                delete updatedItems[item.name]; // Item entfernen, wenn Menge <= 0
-            }
-
-            return {
-                ...prev,
-                playerEconomy: {
-                    ...prev.playerEconomy,
-                    items: updatedItems,
-                },
-            };
-        });
-        updateProgress("itemAdded", { itemName: name, quantity });
-    };
-
-    const updateWeapon = (name: WeaponName) => {
-        if (!weaponMap[name]) return;
-
-        setStore((prev) => ({
-            ...prev,
-            playerFlux: {
-                ...prev.playerFlux,
-                weapon: name,
-            },
-        }));
-    };
-
-    const updateArmor = (name: ArmorName) => {
-        if (!armorMap[name]) return;
-
-        setStore((prev) => ({
-            ...prev,
-            playerFlux: {
-                ...prev.playerFlux,
-                armor: name,
-            },
-        }));
-    };
-
-    const updateInHand = (name: ItemName) => {
-        if (!itemMap[name]) return;
-
-        setStore((prev) => ({
-            ...prev,
-            playerFlux: {
-                ...prev.playerFlux,
-                item: name,
-            },
-        }));
-    };
-
-    const updatePlayerStats = (delta: Partial<PlayerStats>) => {
-        setStore((prev) => ({
-            ...prev,
-            playerStats: {
-                life: prev.playerStats.life + (delta.life || 0),
-                rounds: prev.playerStats.rounds + (delta.rounds || 0),
-                attack: prev.playerStats.attack + (delta.attack || 0),
-                defense: prev.playerStats.defense + (delta.defense || 0),
-                luck: prev.playerStats.luck + (delta.luck || 0),
-            },
-        }));
-    };
-
-    const updatePlayerEconomy = (delta: Partial<PlayerEconomy>) => {
-        setStore((prev) => {
-            const newGold = (delta.gold || 0) + prev.playerEconomy.gold;
-            const newEdelsteine = (delta.edelsteine || 0) + prev.playerEconomy.edelsteine;
-
-            return {
-                ...prev,
-                playerEconomy: {
-                    ...prev.playerEconomy,
-                    gold: Math.max(newGold, 0),
-                    edelsteine: Math.max(newEdelsteine, 0),
-                },
-            };
-        });
-    };
-
+    //#region [update Base]
     const updateExp = (earnedExp: number) => {
         setStore((prev) => {
             let newExp = prev.playerBase.exp + earnedExp;
@@ -660,7 +562,130 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             };
         });
     };
+    //#endregion
 
+    //#region [update Flux]
+    const updatePlayerDebuff = (name: DebuffName) => {
+        const debuff = debuffMap[name];
+        if (!debuff) return;
+
+        setStore((prev) => {
+            const updatedDebuffs = { ...prev.playerFlux.debuff };
+            updatedDebuffs[name] = (updatedDebuffs[name] || 0) + debuff.duration;
+
+            return {
+                ...prev,
+                playerFlux: {
+                    ...prev.playerFlux,
+                    debuff: updatedDebuffs,
+                },
+            };
+        });
+    };
+
+    const updatePlayerBuff = (name: BuffName) => {
+        const buff = buffMap[name];
+        if (!buff) return;
+
+        setStore((prev) => {
+            const updatedBuffs = { ...prev.playerFlux.buff };
+            updatedBuffs[name] = (updatedBuffs[name] || 0) + buff.duration;
+
+            return {
+                ...prev,
+                playerFlux: {
+                    ...prev.playerFlux,
+                    buff: updatedBuffs,
+                },
+            };
+        });
+    };
+
+    const updateWeapon = (name: WeaponName) => {
+        if (!weaponMap[name]) return;
+
+        setStore((prev) => ({
+            ...prev,
+            playerFlux: {
+                ...prev.playerFlux,
+                weapon: name,
+            },
+        }));
+    };
+
+    const updateArmor = (name: ArmorName) => {
+        if (!armorMap[name]) return;
+
+        setStore((prev) => ({
+            ...prev,
+            playerFlux: {
+                ...prev.playerFlux,
+                armor: name,
+            },
+        }));
+    };
+
+    const updateInHand = (name: ItemName) => {
+        if (!itemMap[name]) return;
+
+        setStore((prev) => ({
+            ...prev,
+            playerFlux: {
+                ...prev.playerFlux,
+                item: name,
+            },
+        }));
+    };
+    //#endregion
+
+    //#region [update Economy]
+    const updatePlayerEconomy = (delta: Partial<PlayerEconomy>) => {
+        setStore((prev) => {
+            const newGold = (delta.gold || 0) + prev.playerEconomy.gold;
+            const newEdelsteine = (delta.edelsteine || 0) + prev.playerEconomy.edelsteine;
+
+            return {
+                ...prev,
+                playerEconomy: {
+                    ...prev.playerEconomy,
+                    gold: Math.max(newGold, 0),
+                    edelsteine: Math.max(newEdelsteine, 0),
+                },
+            };
+        });
+    };
+
+    const updateItems = (name: ItemName, quantity: number) => {
+        const item = itemMap[name];
+        if (!item) return;
+
+        setStore((prev) => {
+            const currentItem = prev.playerEconomy.items[item.name];
+            const currentQuantity = currentItem ? currentItem.quantity : 0;
+
+            const newQuantity = currentQuantity + quantity;
+
+            const updatedItems = { ...prev.playerEconomy.items };
+
+            if (newQuantity > 0) {
+                updatedItems[item.name] = { quantity: newQuantity, item }; // Item hinzufügen/aktualisieren
+            } else if (newQuantity <= 0) {
+                delete updatedItems[item.name]; // Item entfernen, wenn Menge <= 0
+            }
+
+            return {
+                ...prev,
+                playerEconomy: {
+                    ...prev.playerEconomy,
+                    items: updatedItems,
+                },
+            };
+        });
+        updateProgress("itemAdded", { itemName: name, quantity });
+    };
+    //#endregion
+
+    //#region [update Quest]
     const updateQuest = (questId: string) => {
         setStore((prevStore) => {
             const questToAdd = getGameQuestById(questId);
@@ -737,21 +762,6 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             };
         });
     }
-
-    const updateEventQueue = (eventId: string) => {
-        setStore((prev) => {
-            const newQueue = prev.gameState.currentEventQueue;
-            newQueue.push(eventId);
-
-            return {
-                ...prev,
-                gameState: {
-                    ...prev.gameState,
-                    currentEventQueue: newQueue,
-                },
-            };
-        });
-    };
     //#endregion
 
     //#region [helper]
