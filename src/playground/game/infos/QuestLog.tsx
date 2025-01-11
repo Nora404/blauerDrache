@@ -10,7 +10,7 @@ type QuestlogProps = {
 };
 
 const Questlog: React.FC<QuestlogProps> = () => {
-    const { store } = useNewGameStore();
+    const { store, setPlayerQuest } = useNewGameStore();
     if (!store) return;
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Questlog: React.FC<QuestlogProps> = () => {
 
     // #region [handler]
     const handleAbandon = () => {
-        store.playerQuest.activeQuests = {};
+        setPlayerQuest({ activeQuests: {} });
     };
     // #endregion
 

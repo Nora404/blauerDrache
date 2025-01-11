@@ -146,6 +146,7 @@ type GameStoreContextType = {
     setPlayerBase: (val: Partial<PlayerBase>) => void;
     setPlayerFlux: (val: Partial<PlayerFlux>) => void;
     setPlayerEconomy: (val: Partial<PlayerEconomy>) => void;
+    setPlayerQuest: (val: Partial<PlayerQuest>) => void;
 
     resetGameData: () => void;
     consumeItem: (itemName: string) => void;
@@ -340,6 +341,13 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             playerEconomy: { ...prev.playerEconomy, ...val },
         }));
     };
+
+    const setPlayerQuest = (val: Partial<PlayerQuest>) => {
+        setStore((prev) => ({
+            ...prev,
+            playerQuest: { ...prev.playerQuest, ...val },
+        }));
+    }
     //#endregion
 
     //#region [new and reset]
@@ -827,6 +835,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setPlayerBase,
         setPlayerFlux,
         setPlayerEconomy,
+        setPlayerQuest,
         resetGameData,
         newDay,
         consumeItem,
