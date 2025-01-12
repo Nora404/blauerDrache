@@ -2,6 +2,8 @@
 import { useNewGameStore } from '../../../store/newGameStore';
 import { getGameQuestById } from '../../../utility/TriggerQuest';
 import { emptyQuest, HaveItem, Progress } from '../../../data/questData';
+import ActionButton from '../../../layout/ActionButtons/ActionButton';
+import { useCallback } from 'react';
 // #endregion
 
 // #region [prepare]
@@ -9,17 +11,19 @@ type QuestlogProps = {
 };
 
 const Questlog: React.FC<QuestlogProps> = () => {
-    const { store, setPlayerQuest } = useNewGameStore();
+    const { store, updateQuest } = useNewGameStore();
     if (!store) return;
     // #endregion
 
     // #region [handler]
-    const handleAbandon = () => {
-        setPlayerQuest({ activeQuests: {} });
-    };
+    const handleAbandon = useCallback((questId: string) => {
+        updateQuest(questId, true);
+    }, [store]);
 
     const handleClick = () => {
-        console.log(store.playerQuest.activeQuests);
+        console.log("Aktive: ", store.playerQuest.activeQuests);
+        console.log("Fertig: ", store.playerQuest.completedQuest);
+        console.log("Abgeben: ", store.gameState.currentEventQueue);
     }
     // #endregion
 
@@ -34,15 +38,18 @@ const Questlog: React.FC<QuestlogProps> = () => {
             {store.playerQuest.activeQuests ? (
                 <div>
                     {Object.entries(store.playerQuest.activeQuests).map(([questId, currentProgress]) => {
-                        const questDefinition = getGameQuestById(questId) || emptyQuest;
+                        const questObject = getGameQuestById(questId) || emptyQuest;
                         return (
-                            <div key={questId}>
-                                <strong>{questDefinition.label}</strong>
-                                <p className={currentProgress.isDone ? "text-green" : ""}>
-                                    {questDefinition.description}
-                                    <br />
-                                    {renderTask(currentProgress)}
+                            <div key={questId} className='text-left questbox'>
+                                <strong>{questObject.label}</strong>
+                                <p className='mb-1'>
+                                    {questObject.description}<br />
+                                    {questObject.reward}<br />
                                 </p>
+                                <p className={currentProgress.isDone ? "text-green" : "text-blue"}>
+                                    {renderTask(currentProgress)}<br />
+                                </p>
+                                <ActionButton onClick={() => { handleAbandon(questObject.id) }} label='aufgeben' />
                             </div>
                         );
                     })}
@@ -52,7 +59,6 @@ const Questlog: React.FC<QuestlogProps> = () => {
             )}
 
             <br /> <hr />
-            <button onClick={handleAbandon}>Alles löschen</button>
             <button onClick={handleClick}>Zeige Store</button>
         </div>
     );

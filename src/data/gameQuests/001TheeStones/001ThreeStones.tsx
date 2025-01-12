@@ -1,10 +1,12 @@
+import { PLACES, SYSTEM } from "../../colorfullStrings";
 import { GameQuest } from "../../questData";
 
 export const quest001ThreeStone: GameQuest = {
 
     id: "Q001ThreeStone",
     label: "Sammle 3 Steine",
-    description: <span>Die Leute am Brunnen brauchen Steine.</span>,
+    description: <span>Die Leute am {PLACES.Brunnen} brauchen Hilfe Steine zu besorgen.</span>,
+    reward: <span>Du wirst etwas {SYSTEM.Gold} bekommen und dein {SYSTEM.Ruf} verbessern.</span>,
     path: "/fountain-people",
     eventByEnd: "E001ThreeStoneEnd",
     progress:
@@ -16,9 +18,5 @@ export const quest001ThreeStone: GameQuest = {
         task: { haveItem: [{ item: "Stein", need: 3, count: 0 }] },
     },
 
-    rewards: {
-        economy: { gold: 5 },
-        base: { reputation: 3 },
-    },
     repeat: true,
 };

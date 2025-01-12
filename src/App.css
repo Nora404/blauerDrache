@@ -37,6 +37,10 @@
   color: rgb(209, 47, 47);
 }
 
+.text-blue {
+  color: rgb(152, 180, 240);
+}
+
 .text-gray {
   color: gray;
 }
@@ -116,6 +120,19 @@
       rgba(98, 176, 212, 0.05) 50%,
       rgba(98, 176, 212, 0.02) 80%,
       rgba(60, 120, 150, 0.15));
+}
+
+.questbox {
+  border: 1px solid rgba(95, 173, 209, 0.2);
+  border-radius: 8px;
+  background: linear-gradient(135deg,
+      rgba(60, 120, 150, 0.15),
+      rgba(98, 176, 212, 0.02) 20%,
+      rgba(98, 176, 212, 0.05) 50%,
+      rgba(98, 176, 212, 0.02) 80%,
+      rgba(60, 120, 150, 0.15));
+  padding: 10px;
+  display: inline-block;
 }
 
 /* .arrow {

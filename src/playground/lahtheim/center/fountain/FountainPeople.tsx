@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { pickRandomEvent } from '../../../../utility/RandomPickedEvent';
 import { GameEventChain } from '../../../game/game/GameEventChain';
 import { useNewGameStore } from '../../../../store/newGameStore';
+import { WeightedEvent } from '../../../../data/eventData';
+import { filterEventsByConditions } from '../../../../utility/TriggerEvent';
 // #endregion
 
 // #region [prepare]
@@ -19,7 +21,7 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
     const queue = store.gameState.currentEventQueue;
     const firstEvent = queue.length > 0 ? queue[0] : null;
 
-    const possibleEvents = [
+    const possibleEvents: WeightedEvent[] = [
         { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
         { eventId: "004Flower", probability: 10 },
     ];
@@ -43,13 +45,14 @@ const FountainPeople: React.FC<FountainPeopleProps> = () => {
 
     //#region [events]
     useEffect(() => {
-        const randomEventId = pickRandomEvent(possibleEvents, 0.8);
+        const filtered = filterEventsByConditions(store, possibleEvents);
+
+        const randomEventId = pickRandomEvent(filtered, 0.8);
         if (!randomEventId) return;
 
-        const foundEvent = possibleEvents.find(e => e.eventId === randomEventId);
-
+        const foundEvent = filtered.find((e) => e.eventId === randomEventId);
         if (foundEvent?.questId) {
-            const isQuestActive = !!store.playerQuest.activeQuests?.[foundEvent.questId];
+            const isQuestActive = !!store.playerQuest.activeQuests[foundEvent.questId];
             if (isQuestActive) {
                 setLocalRandomEvent(null);
                 return;

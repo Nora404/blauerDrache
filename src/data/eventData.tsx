@@ -1,4 +1,4 @@
-import { PlayerBase, PlayerEconomy, PlayerFlux, PlayerStats } from "../store/newGameStore";
+import { GameState, GameTime, PlayerBase, PlayerEconomy, PlayerFlux, PlayerMeta, PlayerStats } from "../store/newGameStore";
 import { PlacesKeys } from "./colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { event002Mashroom } from "./gameEvents/002Mushroom";
@@ -51,6 +51,21 @@ export type GameEvent = {
         probability: number; // 1-100 wobei 100 = immer möglich
     }[];
 }
+
+// Gewichtetes Ereignis
+export type WeightedEvent = {
+    eventId: string;
+    probability: number;
+    questId?: string;
+    conditions?: {
+        gameTime?: Partial<GameTime>;
+        gameState?: Partial<GameState>;
+        playerStats?: Partial<PlayerStats>;
+        playerBase?: Partial<PlayerBase>;
+        playerFlux?: Partial<PlayerFlux>;
+        playerMeta?: Partial<PlayerMeta>;
+    };
+};
 
 export const gameEvents: GameEvent[] = [
     event001StoneCoin,

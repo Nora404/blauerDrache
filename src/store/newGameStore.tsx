@@ -166,6 +166,7 @@ type GameStoreContextType = {
     updateExp: (earnedExp: number) => void;
     updateReputation: (earnedRep: number) => void;
     updateQuest: (questId: string, remove: boolean) => void;
+    updateCompletedQuests: (questId: string) => void;
 };
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
@@ -182,7 +183,7 @@ import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 import { emptyOriginObj, originMap, OriginName } from "../data/originData";
 import { calculateProgression } from "../utility/Progression";
 import { Progress } from "../data/questData";
-import { getGameQuestById } from "../utility/TriggerQuest";
+import { getGameQuestById, resetQuestProgress } from "../utility/TriggerQuest";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
@@ -709,23 +710,48 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             }
 
             const questToAdd = getGameQuestById(questId);
+
+            // Das kann nun passieren: Die Quest...
+            // - ...gibt es nicht                      -> Ignorieren 
+            // - ...ist da aber schon beendet          -> Ignorieren
+            // - ...ist beendet aber wiederholbar      -> activeQuest
+            // - ...ist da und wurde noch nie erledigt -> activeQuest 
+
             if (!questToAdd) {
-                console.warn("Quest nicht gefunden:", questId);
                 return prevStore;
             }
 
-            // Prüfen, ob die Quest bereits aktiv ist:
             const alreadyActive = !!prevStore.playerQuest.activeQuests[questId];
             const alreadyDone = prevStore.playerQuest.completedQuest.includes(questId);
+            // Tiefe Kopie erstellen
+            const questProgress = JSON.parse(JSON.stringify(questToAdd.progress));
 
-            // Falls sie abgeschlossen ist und die Quest NICHT wiederholbar:
-            if (alreadyDone && !questToAdd.repeat) {
-                console.warn("Quest schon abgeschlossen und nicht wiederholbar:", questId);
+            // Die Quest ist da, aber schon beendet
+            if (alreadyDone && !questToAdd.repeat || !questProgress) {
                 return prevStore;
             }
 
-            console.log(questToAdd);
+            // Die Quest ist beendet aber wiederholbar
+            if (alreadyDone && questToAdd.repeat) {
+                const newCompleted = prevStore.playerQuest.completedQuest.filter(
+                    (id) => id !== questId
+                );
 
+                const resetProgress = resetQuestProgress(questProgress);
+                return {
+                    ...prevStore,
+                    playerQuest: {
+                        ...prevStore.playerQuest,
+                        activeQuests: {
+                            ...prevStore.playerQuest.activeQuests,
+                            [questId]: resetProgress,
+                        },
+                        completedQuest: newCompleted,
+                    },
+                };
+            }
+
+            // Die Quest ist da und wurde noch nie erledigt
             if (!alreadyActive) {
                 return {
                     ...prevStore,
@@ -733,7 +759,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                         ...prevStore.playerQuest,
                         activeQuests: {
                             ...prevStore.playerQuest.activeQuests,
-                            [questId]: questToAdd.progress, // QuestId als Key, Array als Value
+                            [questId]: questProgress,
                         },
                     },
                 };
@@ -741,10 +767,25 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             return prevStore;
         });
     }
+
+
+    const updateCompletedQuests = (questId: string) => {
+        setStore((prev) => {
+            const newCompleted = prev.playerQuest.completedQuest;
+            newCompleted.push(questId);
+
+            return {
+                ...prev,
+                playerQuest: {
+                    ...prev.playerQuest,
+                    completedQuest: newCompleted,
+                },
+            };
+        });
+    }
     //#endregion
 
     //#region [progress]
-
     function updateProgress(action: "itemAdded" | "enemyKilled", payload: any) {
 
         // console.log(payload);
@@ -762,8 +803,6 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
                     for (let itemObj of haveItems) {
                         if (itemObj.item === payload.itemName) {
                             itemObj.count += payload.quantity;
-                            console.log("count: ", itemObj.count);
-                            console.log("quantity: ", payload.quantity);
                             // Dann check, ob count >= need
                             if (itemObj.count >= itemObj.need) {
                                 // => quest fertig? Na ja, wenn ALLE items in haveItems erfüllt sind.
@@ -873,6 +912,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updateExp,
         updateReputation,
         updateQuest,
+        updateCompletedQuests,
     };
 
     return (

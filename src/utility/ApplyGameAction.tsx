@@ -15,6 +15,7 @@ export function useApplyGameAction() {
         updateQuest,
         updateExp,
         updateReputation,
+        updateCompletedQuests,
     } = useNewGameStore();
 
     function applyGameAction(action: GameAction) {
@@ -67,6 +68,7 @@ export function useApplyGameAction() {
 
         if (action.endQuest) {
             updateQuest(action.endQuest, true);
+            updateCompletedQuests(action.endQuest);
         }
     }
 
