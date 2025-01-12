@@ -79,8 +79,6 @@ Schließlich muss es eingebunden werden. Das geht entweder direkt in einer Navig
 <Link to="/new-player">Erstelle neuen <ColoredLetter>Charakter</ColoredLetter></Link><br />
 ```
 
-Ein Buchstabe wird immer gefärbt, bei mir hat es keine Auswirkung. Im Orginal kann man das Spiel nur mit Tastatur spielen. Eine andere Variante ist als ein Button mit einem handler. Hier muss die Seite innerhalb einer Funktion geladen werden.
-
 ```typescript
 const navigate = useNavigate();
 
@@ -88,6 +86,8 @@ const handleCreatePlayer = () => {
     navigate("/new-player");
 }
 ```
+Der aktuelle Pfad wird im Context gespeichert damit der Spieler an dem ort fortsetzten kann, andem er aufgehört hat.
+Eine Besonderheit ist im Navi das "Umschauen" dieser Link hat einen handler der in der Mobile Variante die Navigation schließt.
 
 ### Parameter in Routen
 Ich wollte zwischen zwei Seiten eine "Transit" Komponente einbauen, die weiß woher man kommt und wohin man will. Das hätte ich mit zusätzlichen globalen Variabeln machen können, aber ich wollte wissen ob es auch mit Parametern in der URL geht. Ja es geht:
@@ -147,16 +147,90 @@ Hier wird erst geprüft ob ein Event triggert oder nichts passiert. Bei einem We
 Und dann wurde ich größenwahnsinnig und wollte zufällige verkettete Ereignisse haben. Bei einer langen Kette sollte sich so eine Geschichte bilden, die auf der Seite zu lesen ist. Darum hat `GameAction` eine Eigenschaft die nextEvents heißt und ein Array von Objekten hat mit `name` und `probability` Der Name muss ein schon vorhandener Eventname sein. Ich werde da vermutlich mal Enums erstellen müssen. Und es wird sinnvoll sein Events nicht in eine Datei zu stecken sondern jedes Event/Eventkette in eine eigene Datei zu schreiben. 
 
 **Verarbeitung**  
-Die Verarbeitung der ausgewählten Endscheidungen findet dann in `ApplyGameAction` statt. Es nutzt alle updates aus dem `gameStore` und arbeitet die Infos von `GameAction` ab. 
+Die Verarbeitung der ausgewählten Endscheidungen findet dann in `ApplyGameAction` statt. Es nutzt alle updates aus dem `gameStore` und arbeitet die Infos von `GameAction` ab. Dazu gehört auch das starten und beenden der Quests. 
+Die Quests werden mit ihrer ID und einem Progress-Objekt gespeichert. Bei Änderungen starten die Update-Funktionen auch eine Funktion `updateProgress` die schaut ob die Veränderung für eine Quest relevant ist und passt das Progress-Objekt endsprechend an. 
 
-> Diese Funktion wurde noch nicht ausreichend getestet! 
+> Diese Funktion ist überhaupt nicht fertig, da fehlen einige Questtypen!!! 
 
-### Tools und Plugins
-Ich nutze das Plugin Colored Regions von mihelcic um Bereiche des Codes mit einem schwachen farbigen Hintergund zu belegen. Das hat den Vorteil, dass auch in der rechten mini Übersicht die Bereiche deutlich erkennbar sind. Zur Strukturierung und Navigation im Code finde ich das sehr hilfreich. Ich habe für bestimmte Bereiche noch Snippets erstellt.
+**Gewichtete Events**
+Events können auch auf eine bestimmte Seite/Unterseite gezielt oder zufällig ausgelöst werden. Dafür haben sie eine Gewichtung und Bedingungen die erfüllt sein müssen. Da Quests durch Events gestartet und beendet werden, ist es etwas ... umfangreicher geworden, als ich zu beginn angenommen hatte. Da eine Quest theoretisch überall starten, laufen oder beendet werden kann muss jeder Ort und jede Unterseite in der Lage sein Events darzustellen. Um diese Events zu starten müssen erst die `possibleEvents` erstellt werden. Jeder Eintrag ist ein `WeightedEvent`
 
-Ein weiteres Plugin welches ich nutze ist Folder color von SergeyEgorov um Ordner im Editor einzufärben. Auch hier wieder der gleiche Grund, ich kann damit Bereiche besser erkennen und somit schneller Navigieren. 
+```typescript
+export type WeightedEvent = {
+    eventId: string;            // EventId
+    probability: number;        // Warscheinlichkeit das es triggert
+    questId?: string;           // QuestId fals es eine Quest starten soll
+    conditions?: {              // Bedingungen für das Starten des Events
+        gameTime?: Partial<GameTime>;
+        gameState?: Partial<GameState>;
+        playerStats?: Partial<PlayerStats>; // Es fehlt noch ein < = >
+        playerBase?: Partial<PlayerBase>;   // Es fehlt noch ein < = >
+        playerFlux?: Partial<PlayerFlux>;
+        playerMeta?: Partial<PlayerMeta>;
+    };
+};
+```
+```typescript
+const possibleEvents: WeightedEvent[] = [
+    { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
+    { eventId: "004Flower", probability: 10 },
+];
+```
 
-Wie viele auch nutzte ich mittlerweile ChatGPT, der mir beim Coden hilft. Ich verbringe so weniger Zeit mit Googeln und finden von Lösungen. Er Kompensiert meine fehlende Erfahrung oder nimmt mir zeitaufwendige Fleißaufgaben ab. Ich könnte ihn auch nuten um meine hunderten Rechtschreibfehler zu koregieren, das würde aber den Flow unterbrechen und es ist dann doch sehr aufwendig.
+### Aufbau einer Seite(Ort)
+Im ersten Teil müssen die Variabeln festgelegt werden. Sie sind immer gleich, bis auf `possibleEvents` die beschreiben welche Events auf dieser Seite unter welchen Bedingungen starten können. 
+```typescript
+    const { store, setGameState } = useNewGameStore();
+    const navigate = useNavigate();
+    const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
+
+    const queue = store.gameState.currentEventQueue;
+    const firstEvent = queue.length > 0 ? queue[0] : null;
+
+    const possibleEvents: WeightedEvent[] = [
+        { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
+        { eventId: "004Flower", probability: 10 },
+    ];
+```
+
+Im nächsten Teil werden die Handler erstellt, bei einer Unterseite gibt es einen der zur Hauptseite zurück führt. Dann folgen zwei Finisher, je einen für Events und einen für Quests, da siese unterschiedlich bearbeitet werden müssen. Das einzige was auf den Seiten unterschiedlich ist, ist der Path, sonst bleibt alles gleich.
+```typescript
+    const handleBack = () => {
+        navigate('/fountain');
+    };
+    const handleFinishLocalEvent = () => {
+        setLocalRandomEvent(null);
+        navigate('/fountain');
+    }
+    const handleFinishQuestEvent = () => {
+        const newQueue = store.gameState.currentEventQueue.slice(1);
+        setGameState({ currentEventQueue: newQueue })
+
+        navigate('/fountain');
+    }
+```
+
+Danach sorgt ein useEffekt dafür, dass ein Event welches die Bedinung erfüllt getriggert wird, oder auch nicht. `pickRandomEvent` hat als Parameter eine Zahl, 1 bedeutet es wird auf jedenfall ein Event getriggert und 0 wäre gar kein Event.
+Eine Quest hat immer vorrang zu einem normalen Event. Dafür sorgen auch zwei Variabeln die bestimmen was das JSX bekommt.
+```typescript
+    const initialEventName = firstEvent || localRandomEvent || '';
+    const onFinishChainHandler = firstEvent ? handleFinishQuestEvent : handleFinishLocalEvent;
+
+    return (
+        <div className='max-width'>
+            // code
+            {(firstEvent || localRandomEvent) && (
+                <GameEventChain
+                    initialEventName={initialEventName}
+                    onFinishChain={onFinishChainHandler}
+                />
+            )}
+            {!firstEvent && !localRandomEvent &&
+                <ActionButton onClick={handleBack} label='Sich abwenden' />
+            }
+        </div>
+    );
+```
 
 ### Neue Seite(Ort) erstellen
 - Ordne den Ort in die geografische Kategorie ein, erstelle dort einen Ordner mit dem Namen des Ortes
@@ -167,68 +241,16 @@ Wie viele auch nutzte ich mittlerweile ChatGPT, der mir beim Coden hilft. Ich ve
 - Name des Ortes + Thema der Unterseite als Namen. Ein D oder N um Tageszeit anzugeben, wenn nötig.
 - Nach dem Muster wie Hauptseite dem Routing hinzufügen `/place-theme`
 
-### Event einer Unterseite hinzufügen
-- Erstelle ein Array mit EventIds und Warscheinlichkeiten
-- Erstelle useState mit dem aktuellen Event `eventChainActive`
-- Erstelle ein useEffect das pickRandomEvent benutzt und den State auf das Event setzt
-- Füge im jsx die Komponente `<GameEventChain>` hinzu
 
-```typescript
-const CourtyardTreasure: React.FC<CourtyardTreasureProps> = () => {
-    const [eventChainActive, setEventChainActive] = useState<string | null>(null);
+### Tools und Plugins
+Ich nutze das Plugin Colored Regions von mihelcic um Bereiche des Codes mit einem schwachen farbigen Hintergund zu belegen. Das hat den Vorteil, dass auch in der rechten mini Übersicht die Bereiche deutlich erkennbar sind. Zur Strukturierung und Navigation im Code finde ich das sehr hilfreich. Ich habe für bestimmte Bereiche noch Snippets erstellt.
 
-    const possibleEvents = [
-        { eventId: "E001ThreeStoneTrigger", probability: 50, questId: "Q001ThreeStone"  },
-        { eventId: "004Flower", probability: 60 },
-        { eventId: "007Bag", probability: 20 },
-    ];
+Ein weiteres Plugin welches ich nutze ist Folder color von SergeyEgorov um Ordner im Editor einzufärben. Auch hier wieder der gleiche Grund, ich kann damit Bereiche besser erkennen und somit schneller Navigieren. 
 
-    const handleBack = () => {
-        navigate('/courtyard');
-    };
-
-    const handleFinishEventChain = () => {
-        setEventChainActive(null);
-    }
-
-    useEffect(() => {
-        const randomEventId = pickRandomEvent(possibleEvents, 0.8);
-        if (!randomEventId) return;
-
-        const foundEvent = possibleEvents.find(e => e.eventId === randomEventId);
-
-        if (foundEvent?.questId) {
-            const isQuestActive = !!store.playerQuest.activeQuests?.[foundEvent.questId];
-            if (isQuestActive) {
-                setEventChainActive(null);
-                return;
-            }
-        }
-        setEventChainActive(randomEventId);
-    }, []);
-
-    return (
-        <div className='max-width'>
-            {eventChainActive && (
-                <GameEventChain
-                    initialEventName={eventChainActive}
-                    onFinishChain={handleFinishEventChain}
-                />
-            )}
-            {!eventChainActive &&
-                <ActionButton onClick={handleBack} label='Sich abwenden' />
-            }
-        </div>
-    );
-};
-```
-
-### Quests hinzufügen
-In dem oberen Beispiel hat eines der possibleEvents eine weitere Eigenschaft: `questId` Das heißt dieses Event
-würde eine Quest triggern. Im `useEffect` wird überprüft ob die Quest aktiv ist, wenn ja wird kein Event aktiviert.
-Du musst aber dringend noch auf die möglichen conditions eingehen! 
+Wie viele auch nutzte ich mittlerweile ChatGPT, der mir beim Coden hilft. Ich verbringe so weniger Zeit mit Googeln und finden von Lösungen. Er Kompensiert meine fehlende Erfahrung oder nimmt mir zeitaufwendige Fleißaufgaben ab. Ich könnte ihn auch nuten um meine hunderten Rechtschreibfehler zu koregieren, das würde aber den Flow unterbrechen und es ist dann doch sehr aufwendig.
 
 ### Fazit
 Ich merke das es wirklich sinnvoll ist als Team solche Projekte anzugehen. Jemand für die Texte, jemand zum Coden und auch jemand der super mit Architektur ist, dann noch einen Tester ... 
 
 Aber etwas das ich machen konnte, was im Arbeitsleben nie vorkommt, ist das Überdenhaufen werfen von vermeintlich funktionierenden Code um etwas besseres zu schreiben. Ich habe Tage damit verbracht den Context neu zu schreiben und einzubinden. Erstmal alle alten tief verwurzelten Fäden ziehen - dann funktioniert nichts mehr und hoffen den neuen Context richtig einzuweben. 
+Und ja, es funktioniert und ist so viel besser! Mittlerweile sind auch Events und Quests hinzugekommen. Dabei hat sich die Grundlegende Struktur einer Seite(Ort) gewaltig verändert. Zum Glück habe ich noch nicht sooo viele Seiten erstellt. Es ist wirklich wichtig im Kleinen alles zum Laufen zu bringen, bevor man Tagelang Fleißarbeit anstellt und diese dann nicht brauchen kann oder schlimmer: Alles nocheinmal anfassen muss, um die Hälfte anzupassen.

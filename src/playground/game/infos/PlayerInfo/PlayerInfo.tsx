@@ -177,6 +177,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = () => {
 
             {reputationMessage()}<br />
 
+
             <Header>Kombinierte Statistiken</Header><br />
             <div className='flex-center'>
                 <table className='w-full stats-table'>
