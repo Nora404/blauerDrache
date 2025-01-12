@@ -16,9 +16,10 @@ Außer den normalen Ordnern für assets, data und utilities habe ich einen Ordne
 Ein Einzelner Ort besteht aus mindestens zwei Seiten, einmal die Hauptseite und eine Komponente für die Navigation. Es können weitere Seiten hinzu kommen wenn mit NPCs oder Gegenständen interagiert wird. Es soll keine Popups geben. Auf der Navigationsseite gibt es einen Link zum Unschauen, damit wird die Hauptseite nochmal geladen. Ein Link führt zurück zur vorherigen Seite.
 
 ### Speichern
-Ich habe mit useContext gearbeitet und dem localStore. Der eine Context heißt `gameStore` in ihme werden Daten gespeichert die dauerhaft erhalten bleiben sollen, sowas wie Namen, Level oder Gold. Diese werden ins localStorage geschrieben. In `gameState` werden alle temporeren Daten geschrieben, sowas wie Spielzeit oder Wetter. In beiden Dateien steht ein Beispiel wie sie verwendet werden.
+Ich habe mit useContext gearbeitet und dem localStore. Warscheinlich wäre eine Datenbank besser gewesen, nur habe ich damit keine Erfahrung und der Wettbewerb dauert nur einen Monat. Es gibt einen Kontext indem mehrere Objekte in einem `store` gespeichert werden. Zudem gibt es hauptsächlich Setter und Updater.
+Die wichtigsten Hilfsfunktionen sind `getCombinedStats` und `getPlayerObj` Die aktuellen Werte des Spielers werden aus verschiedenen Quellen zusammen gerechnet: Basiswerte, Temporere Werte und ein Scalingfactor mit dem Level, damit Buffs und Debuffs nie an Bedeutung verlieren. Das JSX benutzt nur diese Werte. Da im store keine JSX Objekte gespeichert werden können, die meisten Playerobjekte aber ein JSX Label besitzten, werden diese nur mit ihrem Namen als string gespeichert. Die Funktion `getPlayerObj` sammelt all die Objekte ein, filtert auch nach aktiven De/Buffs und gibt ein Objekt mit allen PlayerObjekten zurück. Die Verwendung ist dann sehr einfach und angenehm.  
 
-Weitere Daten werden in Dateien gespeichert die entweder `*Data.tsx` oder `*String.tsx` heißen. In Strings liegen Texte als einfache Komponenten. Fast alle Strings haben bunte Wörter, die durch weitere Komponenten erstellt werden. Die Komponenten geben immer einen komplett formatieren JSX Absatz zurück.
+Weitere unveränderliche Daten werden in Dateien gespeichert die entweder `*Data.tsx` oder `*String.tsx` heißen. In Strings liegen Texte als einfache Komponenten. Fast alle Strings haben bunte Wörter, die durch weitere Komponenten erstellt werden. Die Komponenten geben immer einen komplett formatieren JSX Absatz zurück.
 
 In Data werden Objekte und Types gespeichert, zum Beispiel zu Berufen oder Gegenständen. Eine solche Datei ist wie folgt aufgebaut:
 
@@ -28,16 +29,6 @@ In Data werden Objekte und Types gespeichert, zum Beispiel zu Berufen oder Gegen
 - Array mit allen ausgefüllten Objekten
 - Funktion die ein gesuchtes Objekt aus dem Array zurück gibt
 - Objekt das zu jedem Eintrag die zu veränderten Werte enthält
-
-Obwohl Daten im gameStore gespeichert werden, nimmt das Spiel die Daten meist aus dem gameState. 
-Das hat sich ergeben als ich den CreatePlayer geschrieben habe. Die Daten sollten nicht sofort im localStorage gespeichert werden, erst wenn alle Infos gesammelt wurden. 
-```typescript
-  const selectedRace = racesMap[gameStore.meta.rase] || emptyRaceObj;
-  const selectedCalling = callingMap[gameStore.meta.calling] || emptyCallingObj;
-  const selectedFeeling = feelingMap[gameStore.meta.feeling] || emptyFeelingObj;
-```
-
-Daraus entwickelte sich `ephemeralStats` wo temporere Werte mit fixen Werten kombiniert werden. Das Ergebnis daraus sind die Stats welche das Spiel benutzt. Temporere Werte kommen aus Stimmungen, Waffen, Rüstungen oder anderen Einflüssen. 
 
 ### Routing
 Da es viele Seiten werden habe ich mich für lazy Routing entschieden. Mithilfe von ChatGPT konnte ich ein System erstellen das die Routen automatisch hinzufügt, wenn ich sie der Liste hinzufüge. Weil ich es nicht selbst erdacht habe muss ich es hier genau festhalten wie es geht:
