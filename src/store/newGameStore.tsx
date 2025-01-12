@@ -147,6 +147,7 @@ type GameStoreContextType = {
     setPlayerFlux: (val: Partial<PlayerFlux>) => void;
     setPlayerEconomy: (val: Partial<PlayerEconomy>) => void;
     setPlayerQuest: (val: Partial<PlayerQuest>) => void;
+    setCurrentPath: (path: string) => void;
 
     resetGameData: () => void;
     consumeItem: (itemName: string) => void;
@@ -185,6 +186,7 @@ import { calculateProgression } from "../utility/Progression";
 import { Progress } from "../data/questData";
 import { getGameQuestById, resetQuestProgress } from "../utility/TriggerQuest";
 import { useLocation, useNavigate } from "react-router-dom";
+import { PathsGame } from "../routings";
 
 export const GameStoreContext = createContext<GameStoreContextType>(
     {} as GameStoreContextType
@@ -228,7 +230,10 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     // useEffect, das die Route im Store speichert
     useEffect(() => {
-        if (store.gameState.currentPath !== location.pathname) {
+        const excludedPaths = Object.values(PathsGame) as string[];
+        const isExcludedPath = excludedPaths.includes(location.pathname);
+
+        if (!isExcludedPath && store.gameState.currentPath !== location.pathname) {
             setStore((prev) => ({
                 ...prev,
                 gameState: {
@@ -300,6 +305,16 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
             gameTime: { ...prev.gameTime, ...val },    // dann überschreibt der neue Wert den alten Wert
         }));
     };
+
+    const setCurrentPath = (path: string) => {
+        setStore((prev) => ({
+            ...prev,
+            gameState: {
+                ...prev.gameState,
+                currentPath: path,
+            },
+        }));
+    }
 
     const setGameState = (val: Partial<GameState>) => {
         setStore((prev) => ({
@@ -895,6 +910,7 @@ export const NewGameStoreProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setPlayerFlux,
         setPlayerEconomy,
         setPlayerQuest,
+        setCurrentPath,
         resetGameData,
         newDay,
         consumeItem,
