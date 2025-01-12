@@ -23,6 +23,7 @@ const GameNavi: React.FC<GameNaviProps> = ({ mobilePop }) => {
                 <Link onClick={handleClick} to="/start" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Tor von Lahtheim</MultiColoredLetters></Link><br />
                 {!store.gameState.creating && <><Link onClick={handleClick} to="/new-player" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Erstelle neuen Charakter</MultiColoredLetters></Link><br /></>}
                 <Link onClick={handleClick} to="/whatIs" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Über dieses Spiel</MultiColoredLetters></Link><br />
+                <Link onClick={handleClick} to="/map" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Karte von Lahtheim</MultiColoredLetters></Link><br />
                 <Link onClick={handleClick} to="/setting" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Einstellungen</MultiColoredLetters></Link><br />
             </p>
         </div>

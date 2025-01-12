@@ -41,7 +41,7 @@ const Questlog: React.FC<QuestlogProps> = () => {
                         const questObject = getGameQuestById(questId) || emptyQuest;
                         return (
                             <div key={questId} className='text-left questbox'>
-                                <strong>{questObject.label}</strong>
+                                ({questObject.progress.type}) <strong>{questObject.label}</strong>
                                 <p className='mb-1'>
                                     {questObject.description}<br />
                                     {questObject.reward}<br />
