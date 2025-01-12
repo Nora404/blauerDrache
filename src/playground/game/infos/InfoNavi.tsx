@@ -21,11 +21,9 @@ const InfoNavi: React.FC<InfoNaviProps> = ({ mobilePop }) => {
         <div>
             <Header>Infos</Header>
             <p className='mb-1 text-left'>
-                {/* <Link onClick={handleClick} to="/map" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Karte von Lahtheim</MultiColoredLetters></Link><br /> */}
-                {/* {store.gameState.creating && <Link onClick={handleClick} to="/new-day" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Aktueller Tag</MultiColoredLetters></Link>}<br /> */}
-                {store.gameState.creating && <Link onClick={handleClick} to="/player-info" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Dein Steckbrief</MultiColoredLetters></Link>}<br />
-                {store.gameState.creating && <Link onClick={handleClick} to="/player-inventar" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Dein Inventar</MultiColoredLetters></Link>}<br />
-                {store.gameState.creating && <Link onClick={handleClick} to="/questlog" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Deine Aufgaben</MultiColoredLetters></Link>}<br />
+                <Link onClick={handleClick} to="/player-info" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Dein Steckbrief</MultiColoredLetters></Link><br />
+                <Link onClick={handleClick} to="/player-inventar" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Dein Inventar</MultiColoredLetters></Link><br />
+                <Link onClick={handleClick} to="/questlog" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Deine Aufgaben</MultiColoredLetters></Link><br />
             </p>
 
             <p className='text-left'>

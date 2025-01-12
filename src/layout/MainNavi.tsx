@@ -35,7 +35,7 @@ const MainNavi: React.FC<MainNaviProps> = () => {
         <div>
             <GameNavi />
             {store.gameState.creating && (currentNav)}
-            <InfoNavi />
+            {store.gameState.creating && <InfoNavi />}
         </div>
     );
 };
