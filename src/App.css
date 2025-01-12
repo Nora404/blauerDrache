@@ -122,7 +122,14 @@
       rgba(60, 120, 150, 0.15));
 }
 
+.questcontainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+}
+
 .questbox {
+  box-sizing: border-box;
   border: 1px solid rgba(95, 173, 209, 0.2);
   border-radius: 8px;
   background: linear-gradient(135deg,
@@ -132,7 +139,13 @@
       rgba(98, 176, 212, 0.02) 80%,
       rgba(60, 120, 150, 0.15));
   padding: 10px;
-  display: inline-block;
+  min-height: 100px;
+  margin-bottom: 0px;
+}
+
+.questbox:hover {
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(98, 176, 212);
 }
 
 /* .arrow {
