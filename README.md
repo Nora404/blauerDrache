@@ -29,7 +29,6 @@ In Data werden Objekte und Types gespeichert, zum Beispiel zu Berufen oder Gegen
 - Leeres Default Objekt (wird nur als Fallback verwendet)
 - Array mit allen ausgefüllten Objekten
 - Funktion die ein gesuchtes Objekt aus dem Array zurück gibt
-- Objekt das zu jedem Eintrag die zu veränderten Werte enthält
 
 ### Routing
 Da es viele Seiten werden habe ich mich für lazy Routing entschieden. Mithilfe von ChatGPT konnte ich ein System erstellen das die Routen automatisch hinzufügt, wenn ich sie der Liste hinzufüge. Weil ich es nicht selbst erdacht habe muss ich es hier genau festhalten wie es geht:

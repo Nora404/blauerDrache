@@ -1,7 +1,6 @@
 // #region [imports]
 import { useNewGameStore } from '../../../store/newGameStore';
-import { getGameQuestById } from '../../../utility/TriggerQuest';
-import { emptyQuest, HaveItem, Progress } from '../../../data/questData';
+import { emptyQuest, getGameQuestById, HaveItem, Progress } from '../../../data/questData';
 import ActionButton from '../../../layout/ActionButtons/ActionButton';
 import { useCallback } from 'react';
 // #endregion

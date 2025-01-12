@@ -183,8 +183,7 @@ import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 import { emptyOriginObj, originMap, OriginName } from "../data/originData";
 import { calculateProgression } from "../utility/Progression";
-import { Progress } from "../data/questData";
-import { getGameQuestById, resetQuestProgress } from "../utility/TriggerQuest";
+import { getGameQuestById, Progress, resetQuestProgress } from "../data/questData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PathsGame } from "../routings";
 

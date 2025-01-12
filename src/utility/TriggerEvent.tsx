@@ -1,8 +1,7 @@
 import { PlacesKeys } from "../data/colorfullStrings";
 import { GameEvent, gameEvents, NextEventOption, WeightedEvent } from "../data/eventData";
-import { gameQuestTrigger } from "../data/questData";
+import { gameQuestTrigger, getGameQuestById } from "../data/questData";
 import { GameStore } from "../store/newGameStore";
-import { getGameQuestById } from "./TriggerQuest";
 
 //#region [gray]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
