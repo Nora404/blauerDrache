@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
+import EventCreationForm from "../../../utility/GenerateEvents/GenerateEvents";
 
 type AboutGame = {
-    title?: string;
-    onClick?: () => void;
+  title?: string;
+  onClick?: () => void;
 };
 
 const AboutGame: React.FC<AboutGame> = () => {
-
-    return (
-        <div className="max-widht">
-            <h2>Das erwartet dich hier ...</h2>
-
-        </div>
-    );
+  return (
+    <div className="max-widht">
+      <h2>Test!</h2>
+      <EventCreationForm />
+    </div>
+  );
 };
 
 export default AboutGame;

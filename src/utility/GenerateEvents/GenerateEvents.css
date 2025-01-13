@@ -1,0 +1,62 @@
+.form-container {
+  padding: 1rem;
+  background-color: #f4f4f4;
+  max-width: 900px;
+  margin: 1rem auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.nested-section {
+  margin-left: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.add-button,
+.remove-button,
+.generate-button {
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+}
+
+.add-button {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.remove-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.generate-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  margin-top: 1rem;
+}
+
+.output-container {
+  margin-top: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.output-pre {
+  background-color: #272822;
+  color: #f8f8f2;
+  padding: 1rem;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+}
