@@ -9,6 +9,7 @@ import { ItemCartegoryName, Item, itemMap } from "../../data/ItemData";
 import "./GenerateEvents.css"
 import Header from "../../layout/Header/Header";
 
+//#region [prepare]
 // Typ für NextEvent
 type NextEventOption = {
   eventId: string;
@@ -106,7 +107,9 @@ export default function EventCreationForm() {
 
   // Categories einmalig berechnen (Memo)
   const categoryMap = useMemo(() => buildItemCategories(), []);
+  //#endregion
 
+  //#region [helper]
   // ========== Buttons-Funktionen ==========
   function addButton() {
     setButtons((prev) => [
@@ -137,7 +140,6 @@ export default function EventCreationForm() {
       },
     ]);
   }
-
   function removeButton(index: number) {
     setButtons((prev) => prev.filter((_, i) => i !== index));
   }
@@ -206,8 +208,10 @@ export default function EventCreationForm() {
   function removePlace(index: number) {
     setPlaces((prev) => prev.filter((_, i) => i !== index));
   }
+  //#endregion
 
   // ========== CODE-GENERIERUNG ==========
+  //#region [code generieren]
   function generateCode() {
     const eventObj: any = {
       id: eventId,
@@ -375,14 +379,15 @@ export default function EventCreationForm() {
     }
     return String(obj);
   }
+  //#endregion
 
-  //#region [jsx]
   return (
     <div className="form-container text-left max-width">
       <h2>Event-Erstellungsformular</h2>
 
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,<br /><br />
 
+//#region [eventbeschreibung]
       <div className="form-group">
         <label>ID*:</label>
         <input
@@ -411,7 +416,9 @@ export default function EventCreationForm() {
           rows={3}
         />
       </div>
+//#endregion
 
+      //#region [buttonbeschreibung]
       {/* ========== Buttons-Bereich ========== */}
       <div className="buttons-container">
         <h2>Buttons</h2>
@@ -449,7 +456,9 @@ export default function EventCreationForm() {
                 }}
               />
             </div>
+//#endregion
 
+            //#region [items]
             {/* itemsDelta */}
             <div className="form-group">
               <label>
@@ -574,7 +583,9 @@ export default function EventCreationForm() {
                 </button>
               </div>
             )}
+//#endregion
 
+            //#region [economy]
             {/* economyDelta */}
             <div className="form-group">
               <label>
@@ -643,7 +654,9 @@ export default function EventCreationForm() {
                 </div>
               </div>
             )}
+//#endregion
 
+            //#region [flux]
             {/* fluxDelta */}
             <div className="form-group">
               <label>
@@ -752,7 +765,9 @@ export default function EventCreationForm() {
                 </div>
               </div>
             )}
+//#endregion
 
+            //#region [state]
             {/* stateDelta */}
             <div className="form-group">
               <label>
@@ -796,7 +811,9 @@ export default function EventCreationForm() {
                 ))}
               </div>
             )}
+//#endregion
 
+            //#region [base]
             {/* baseDelta */}
             <div className="form-group">
               <label>
@@ -840,7 +857,9 @@ export default function EventCreationForm() {
                 ))}
               </div>
             )}
+          //#endregion
 
+            //#region [Trigger Group]
             {/* TriggerGroup */}
             <div className="form-group" style={{ marginTop: "0.5rem" }}>
               {/* <label>Trigger Quest Gruppe:</label> */}
@@ -1006,7 +1025,7 @@ export default function EventCreationForm() {
                 </button>
               </div>
             )}
-
+//#endregion
 
             {/* Ganzen Button entfernen */}
             <button
@@ -1023,6 +1042,7 @@ export default function EventCreationForm() {
         </button>
       </div>
 
+//#region [places]
       {/* ========== Places-Bereich ========== */}
       <div className="places-container">
         <h2>Orte</h2>
@@ -1072,7 +1092,9 @@ export default function EventCreationForm() {
           Ort hinzufügen
         </button>
       </div>
+//#endregion
 
+      //#region [showCode]
       {/* ========== Code generieren ========== */}
       <button onClick={generateCode} className="generate-button">
         Code generieren
