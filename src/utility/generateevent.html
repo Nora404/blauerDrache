@@ -1,276 +1,294 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Event-Erstellungsformular</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
 
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 1200px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 1200px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-        .form-section {
-            margin-bottom: 20px;
-        }
+      .form-section {
+        margin-bottom: 20px;
+      }
 
-        .form-section h2 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-            color: #555;
-        }
+      .form-section h2 {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        color: #555;
+      }
 
-        .form-group {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
+      .form-group {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+      }
 
-        .form-group label {
-            width: 200px;
-            padding-right: 10px;
-            font-weight: bold;
-            color: #333;
-            align-self: center;
-        }
+      .form-group label {
+        width: 200px;
+        padding-right: 10px;
+        font-weight: bold;
+        color: #333;
+        align-self: center;
+      }
 
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-        .nested-section {
-            margin-left: 20px;
-            padding-left: 20px;
-            border-left: 2px solid #eee;
-            margin-bottom: 20px;
-        }
+      .nested-section {
+        margin-left: 20px;
+        padding-left: 20px;
+        border-left: 2px solid #eee;
+        margin-bottom: 20px;
+      }
 
-        .add-button, .remove-button {
-            background: #28a745;
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+      .add-button,
+      .remove-button {
+        background: #28a745;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
 
-        .remove-button {
-            background: #dc3545;
-        }
+      .remove-button {
+        background: #dc3545;
+      }
 
-        .generate-button {
-            background: #007bff;
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+      .generate-button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
 
-        #outputContainer {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 1200px;
-            margin: 20px auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+      #outputContainer {
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 1200px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-        #output {
-            background: #272822;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 5px;
-            white-space: pre-wrap;
-            font-family: Consolas, monospace;
-            max-height: 400px;
-            overflow-y: auto;
-        }
+      #output {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 5px;
+        white-space: pre-wrap;
+        font-family: Consolas, monospace;
+        max-height: 400px;
+        overflow-y: auto;
+      }
 
-        .copy-button {
-            background: #17a2b8;
-            color: #fff;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-        }
+      .copy-button {
+        background: #17a2b8;
+        color: #fff;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 14px;
+      }
 
-        .checkbox-group, .radio-group {
-            display: flex;
-            flex-direction: column;
-            margin-left: 200px;
-        }
+      .checkbox-group,
+      .radio-group {
+        display: flex;
+        flex-direction: column;
+        margin-left: 200px;
+      }
 
-        .message-section, .description-section {
-            margin-left: 200px;
-        }
+      .message-section,
+      .description-section {
+        margin-left: 200px;
+      }
 
-        .message-section textarea, .description-section textarea {
-            width: 100%;
-        }
+      .message-section textarea,
+      .description-section textarea {
+        width: 100%;
+      }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .section-header h3 {
-            margin: 0;
-            color: #555;
-        }
+      .section-header h3 {
+        margin: 0;
+        color: #555;
+      }
 
-        .section-header button {
-            background: #17a2b8;
-            border: none;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+      .section-header button {
+        background: #17a2b8;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        .next-events-container {
-            margin-left: 200px;
-        }
+      .next-events-container {
+        margin-left: 200px;
+      }
 
-        .next-event {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+      .next-event {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
 
-        .next-event input {
-            margin-right: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+      .next-event input {
+        margin-right: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-        .next-event button {
-            background: #dc3545;
-            border: none;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+      .next-event button {
+        background: #dc3545;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-        .add-next-event-button {
-            background: #28a745;
-            border: none;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+      .add-next-event-button {
+        background: #28a745;
+        border: none;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
 
-        .itemsDelta-entry select,
-        .itemsDelta-entry input {
-            margin-right: 10px;
-            margin-bottom: 5px;
-        }
+      .itemsDelta-entry select,
+      .itemsDelta-entry input {
+        margin-right: 10px;
+        margin-bottom: 5px;
+      }
 
-        .itemsDelta-entry button {
-            margin-top: 0;
-        }
+      .itemsDelta-entry button {
+        margin-top: 0;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>Event-Erstellungsformular</h1>
     <form id="eventForm">
-        <!-- GameEvent Section -->
-        <div class="form-section">
-            <h2>GameEvent</h2>
-            <div class="form-group">
-                <label for="eventId">ID<span style="color: red;">*</span>:</label>
-                <input type="text" id="eventId" name="eventId" required>
-            </div>
-            <div class="form-group">
-                <label for="label">Label<span style="color: red;">*</span>:</label>
-                <input type="text" id="label" name="label" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Beschreibung:</label>
-                <textarea id="description" name="description" rows="3" placeholder="Beschreibung hier eingeben"></textarea>
-            </div>
-
-            <!-- Buttons Section -->
-            <div class="form-section">
-                <div class="section-header">
-                    <h3>Buttons</h3>
-                    <button type="button" class="add-button" onclick="addButton()">Button hinzufügen</button>
-                </div>
-                <div id="buttonsContainer"></div>
-            </div>
-
-            <!-- Places Section -->
-            <div class="form-section">
-                <div class="section-header">
-                    <h3>Orte</h3>
-                    <button type="button" class="add-button" onclick="addPlace()">Ort hinzufügen</button>
-                </div>
-                <div id="placesContainer"></div>
-            </div>
+      <!-- GameEvent Section -->
+      <div class="form-section">
+        <h2>GameEvent</h2>
+        <div class="form-group">
+          <label for="eventId">ID<span style="color: red">*</span>:</label>
+          <input type="text" id="eventId" name="eventId" required />
+        </div>
+        <div class="form-group">
+          <label for="label">Label<span style="color: red">*</span>:</label>
+          <input type="text" id="label" name="label" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Beschreibung:</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="3"
+            placeholder="Beschreibung hier eingeben"
+          ></textarea>
         </div>
 
-        <!-- Generate Code Button -->
-        <button type="button" class="generate-button" onclick="generateCode()">Code Generieren</button>
+        <!-- Buttons Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Buttons</h3>
+            <button type="button" class="add-button" onclick="addButton()">
+              Button hinzufügen
+            </button>
+          </div>
+          <div id="buttonsContainer"></div>
+        </div>
+
+        <!-- Places Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Orte</h3>
+            <button type="button" class="add-button" onclick="addPlace()">
+              Ort hinzufügen
+            </button>
+          </div>
+          <div id="placesContainer"></div>
+        </div>
+      </div>
+
+      <!-- Generate Code Button -->
+      <button type="button" class="generate-button" onclick="generateCode()">
+        Code Generieren
+      </button>
     </form>
 
     <!-- Output Section -->
     <div id="outputContainer">
-        <h2>Generierter Code</h2>
-        <div id="output"></div>
-        <button type="button" class="copy-button" onclick="copyToClipboard()">In Zwischenablage kopieren</button>
+      <h2>Generierter Code</h2>
+      <div id="output"></div>
+      <button type="button" class="copy-button" onclick="copyToClipboard()">
+        In Zwischenablage kopieren
+      </button>
     </div>
 
     <script>
-        // Definition der Kategorien und Items
-        const itemCategories = {
-            "Ressourcen": ["Stein", "Stock", "Pilz", "Plunder", "Kupfererz", "Lederstück"],
-            "Verbrauchsmaterialien": ["Wasserflasche", "Leere Flasche", "Blume"],
-            "Sonstiges": ["Nichts", "Blume"] // Weitere Kategorien und Items nach Bedarf hinzufügen
-        };
+      // Definition der Kategorien und Items
+      const test = categorizeItems();
+      const itemCategories = test;
+      // {
+      //     "Ressourcen": ["Stein", "Stock", "Pilz", "Plunder", "Kupfererz", "Lederstück"],
+      //     "Verbrauchsmaterialien": ["Wasserflasche", "Leere Flasche", "Blume"],
+      //     "Sonstiges": ["Nichts", "Blume"] // Weitere Kategorien und Items nach Bedarf hinzufügen
+      // };
 
-        // Initialisieren mit einem Button und einem Ort
-        document.addEventListener('DOMContentLoaded', () => {
-            addButton();
-            addPlace();
-        });
+      // Initialisieren mit einem Button und einem Ort
+      document.addEventListener("DOMContentLoaded", () => {
+        addButton();
+        addPlace();
+      });
 
-        // Funktion zum Hinzufügen eines neuen Buttons
-        function addButton() {
-            const container = document.getElementById('buttonsContainer');
-            const index = container.children.length;
-            const div = document.createElement('div');
-            div.classList.add('nested-section');
-            div.innerHTML = `
+      // Funktion zum Hinzufügen eines neuen Buttons
+      function addButton() {
+        const container = document.getElementById("buttonsContainer");
+        const index = container.children.length;
+        const div = document.createElement("div");
+        div.classList.add("nested-section");
+        div.innerHTML = `
                 <div class="form-group">
                     <label>Button Label<span style="color: red;">*</span>:</label>
                     <input type="text" name="buttons-${index}-label" required>
@@ -413,23 +431,25 @@
 
                 <button type="button" class="remove-button" onclick="removeSection(this)">Entfernen</button>
             `;
-            container.appendChild(div);
-        }
+        container.appendChild(div);
+      }
 
-        // Funktion zum Generieren der Kategorie-Optionen
-        function getCategoryOptions() {
-            return Object.keys(itemCategories).map(category => `<option value="${category}">${category}</option>`).join('');
-        }
+      // Funktion zum Generieren der Kategorie-Optionen
+      function getCategoryOptions() {
+        return Object.keys(itemCategories)
+          .map((category) => `<option value="${category}">${category}</option>`)
+          .join("");
+      }
 
-        // Funktion zum Hinzufügen eines neuen itemsDelta Eintrags
-        function addItemsDeltaEntry(buttonIndex) {
-            const containerId = `buttons-${buttonIndex}-getAction-itemsDeltaContainer`;
-            const container = document.getElementById(containerId);
-            const entryIndex = container.children.length;
-            
-            const div = document.createElement('div');
-            div.classList.add('form-group', 'itemsDelta-entry');
-            div.innerHTML = `
+      // Funktion zum Hinzufügen eines neuen itemsDelta Eintrags
+      function addItemsDeltaEntry(buttonIndex) {
+        const containerId = `buttons-${buttonIndex}-getAction-itemsDeltaContainer`;
+        const container = document.getElementById(containerId);
+        const entryIndex = container.children.length;
+
+        const div = document.createElement("div");
+        div.classList.add("form-group", "itemsDelta-entry");
+        div.innerHTML = `
                 <select name="buttons-${buttonIndex}-getAction-itemsDelta-${entryIndex}-category" onchange="updateItemOptions(this, ${buttonIndex}, ${entryIndex})">
                     <option value="">--Wähle eine Kategorie--</option>
                     ${getCategoryOptions()}
@@ -440,101 +460,105 @@
                 <input type="number" name="buttons-${buttonIndex}-getAction-itemsDelta-${entryIndex}-quantity" step="1" placeholder="Zahl" disabled>
                 <button type="button" class="remove-button" onclick="removeItemsDeltaEntry(this)">Entfernen</button>
             `;
-            
-            container.appendChild(div);
+
+        container.appendChild(div);
+      }
+
+      // Funktion zum Entfernen eines itemsDelta Eintrags
+      function removeItemsDeltaEntry(button) {
+        const entryDiv = button.parentElement;
+        const container = entryDiv.parentElement;
+        entryDiv.remove();
+        // Re-Indexierung der verbleibenden Einträge
+        const buttonIndexMatch = container.id.match(
+          /buttons-(\d+)-getAction-itemsDeltaContainer/
+        );
+        if (buttonIndexMatch) {
+          const buttonIndex = buttonIndexMatch[1];
+          Array.from(container.children).forEach((entryDiv, idx) => {
+            const selects = entryDiv.querySelectorAll("select");
+            const inputs = entryDiv.querySelectorAll("input");
+            // Aktualisiere die Namen
+            selects[0].name = `buttons-${buttonIndex}-getAction-itemsDelta-${idx}-category`;
+            selects[1].name = `buttons-${buttonIndex}-getAction-itemsDelta-${idx}-item`;
+            inputs[0].name = `buttons-${buttonIndex}-getAction-itemsDelta-${idx}-quantity`;
+          });
+        }
+      }
+
+      // Funktion zum Aktualisieren der Item-Optionen basierend auf der Kategorie
+      function updateItemOptions(selectElement, buttonIndex, entryIndex) {
+        const selectedCategory = selectElement.value;
+        const itemSelect = selectElement.nextElementSibling;
+        const quantityInput = itemSelect.nextElementSibling;
+
+        // Leere die vorhandenen Optionen
+        itemSelect.innerHTML = '<option value="">--Wähle ein Item--</option>';
+        quantityInput.value = "";
+        quantityInput.disabled = true;
+
+        if (selectedCategory && itemCategories[selectedCategory]) {
+          // Füge die Items der ausgewählten Kategorie hinzu
+          itemCategories[selectedCategory].forEach((item) => {
+            itemSelect.innerHTML += `<option value="${item}">${item}</option>`;
+          });
+          itemSelect.disabled = false;
+        } else {
+          itemSelect.disabled = true;
         }
 
-        // Funktion zum Entfernen eines itemsDelta Eintrags
-        function removeItemsDeltaEntry(button) {
-            const entryDiv = button.parentElement;
-            const container = entryDiv.parentElement;
-            entryDiv.remove();
-            // Re-Indexierung der verbleibenden Einträge
-            const buttonIndexMatch = container.id.match(/buttons-(\d+)-getAction-itemsDeltaContainer/);
-            if (buttonIndexMatch) {
-                const buttonIndex = buttonIndexMatch[1];
-                Array.from(container.children).forEach((entryDiv, idx) => {
-                    const selects = entryDiv.querySelectorAll('select');
-                    const inputs = entryDiv.querySelectorAll('input');
-                    // Aktualisiere die Namen
-                    selects[0].name = `buttons-${buttonIndex}-getAction-itemsDelta-${idx}-category`;
-                    selects[1].name = `buttons-${buttonIndex}-getAction-itemsDelta-${idx}-item`;
-                    inputs[0].name = `buttons-${buttonIndex}-getAction-itemsDelta-${idx}-quantity`;
-                });
-            }
-        }
-
-        // Funktion zum Aktualisieren der Item-Optionen basierend auf der Kategorie
-        function updateItemOptions(selectElement, buttonIndex, entryIndex) {
-            const selectedCategory = selectElement.value;
-            const itemSelect = selectElement.nextElementSibling;
-            const quantityInput = itemSelect.nextElementSibling;
-            
-            // Leere die vorhandenen Optionen
-            itemSelect.innerHTML = '<option value="">--Wähle ein Item--</option>';
-            quantityInput.value = '';
+        // Event Listener für das Item-Select, um das Quantity-Feld zu aktivieren
+        itemSelect.onchange = function () {
+          if (this.value) {
+            quantityInput.disabled = false;
+          } else {
             quantityInput.disabled = true;
-            
-            if (selectedCategory && itemCategories[selectedCategory]) {
-                // Füge die Items der ausgewählten Kategorie hinzu
-                itemCategories[selectedCategory].forEach(item => {
-                    itemSelect.innerHTML += `<option value="${item}">${item}</option>`;
-                });
-                itemSelect.disabled = false;
-            } else {
-                itemSelect.disabled = true;
-            }
-            
-            // Event Listener für das Item-Select, um das Quantity-Feld zu aktivieren
-            itemSelect.onchange = function() {
-                if (this.value) {
-                    quantityInput.disabled = false;
-                } else {
-                    quantityInput.disabled = true;
-                    quantityInput.value = '';
-                }
-            };
-        }
+            quantityInput.value = "";
+          }
+        };
+      }
 
-        // Funktion zum Hinzufügen eines neuen NextEvent
-        function addNextEvent(buttonIndex) {
-            const containerId = `buttons-${buttonIndex}-getAction-nextEventsContainer`;
-            const container = document.getElementById(containerId);
-            const nextEventIndex = container.children.length;
-            const div = document.createElement('div');
-            div.classList.add('next-event');
-            div.innerHTML = `
+      // Funktion zum Hinzufügen eines neuen NextEvent
+      function addNextEvent(buttonIndex) {
+        const containerId = `buttons-${buttonIndex}-getAction-nextEventsContainer`;
+        const container = document.getElementById(containerId);
+        const nextEventIndex = container.children.length;
+        const div = document.createElement("div");
+        div.classList.add("next-event");
+        div.innerHTML = `
                 <input type="text" name="buttons-${buttonIndex}-getAction-nextEvents-${nextEventIndex}-eventId" placeholder="eventId" required>
                 <input type="number" name="buttons-${buttonIndex}-getAction-nextEvents-${nextEventIndex}-probability" placeholder="probability (%)" min="1" max="100" required>
                 <button type="button" onclick="removeNextEvent(this)">Entfernen</button>
             `;
-            container.appendChild(div);
-        }
+        container.appendChild(div);
+      }
 
-        // Funktion zum Entfernen eines NextEvent
-        function removeNextEvent(button) {
-            const div = button.parentElement;
-            const container = div.parentElement;
-            const buttonIndexMatch = container.id.match(/buttons-(\d+)-getAction-nextEventsContainer/);
-            if (buttonIndexMatch) {
-                const buttonIndex = buttonIndexMatch[1];
-                div.remove();
-                // Re-indexierung der verbleibenden NextEvents
-                Array.from(container.children).forEach((nextEventDiv, idx) => {
-                    const inputs = nextEventDiv.querySelectorAll('input');
-                    inputs[0].name = `buttons-${buttonIndex}-getAction-nextEvents-${idx}-eventId`;
-                    inputs[1].name = `buttons-${buttonIndex}-getAction-nextEvents-${idx}-probability`;
-                });
-            }
+      // Funktion zum Entfernen eines NextEvent
+      function removeNextEvent(button) {
+        const div = button.parentElement;
+        const container = div.parentElement;
+        const buttonIndexMatch = container.id.match(
+          /buttons-(\d+)-getAction-nextEventsContainer/
+        );
+        if (buttonIndexMatch) {
+          const buttonIndex = buttonIndexMatch[1];
+          div.remove();
+          // Re-indexierung der verbleibenden NextEvents
+          Array.from(container.children).forEach((nextEventDiv, idx) => {
+            const inputs = nextEventDiv.querySelectorAll("input");
+            inputs[0].name = `buttons-${buttonIndex}-getAction-nextEvents-${idx}-eventId`;
+            inputs[1].name = `buttons-${buttonIndex}-getAction-nextEvents-${idx}-probability`;
+          });
         }
+      }
 
-        // Funktion zum Hinzufügen eines neuen Place
-        function addPlace() {
-            const container = document.getElementById('placesContainer');
-            const index = container.children.length;
-            const div = document.createElement('div');
-            div.classList.add('nested-section');
-            div.innerHTML = `
+      // Funktion zum Hinzufügen eines neuen Place
+      function addPlace() {
+        const container = document.getElementById("placesContainer");
+        const index = container.children.length;
+        const div = document.createElement("div");
+        div.classList.add("nested-section");
+        div.innerHTML = `
                 <div class="form-group">
                     <label>Ort:</label>
                     <select name="places-${index}-place">
@@ -548,386 +572,534 @@
                 </div>
                 <button type="button" class="remove-button" onclick="removeSection(this)">Entfernen</button>
             `;
-            container.appendChild(div);
+        container.appendChild(div);
+      }
+
+      // Funktion zum Entfernen einer Sektion (Button oder Place)
+      function removeSection(button) {
+        const section = button.parentElement;
+        const container = section.parentElement;
+        // Bestimme, ob es sich um einen Button oder einen Place handelt
+        if (container.id === "buttonsContainer") {
+          const buttonIndexMatch = section
+            .querySelector('input[name^="buttons-"]')
+            .name.match(/buttons-(\d+)-getAction-/);
+          const buttonIndex = buttonIndexMatch ? buttonIndexMatch[1] : null;
+          section.remove();
+          // Re-index die verbleibenden Button Sektionen
+          const buttons = document.querySelectorAll(
+            "#buttonsContainer .nested-section"
+          );
+          buttons.forEach((btnSection, idx) => {
+            const inputs = btnSection.querySelectorAll(
+              "input, select, textarea"
+            );
+            inputs.forEach((input) => {
+              // Aktualisiere die Namen
+              const name = input.name;
+              const newName = name.replace(/buttons-\d+-/, `buttons-${idx}-`);
+              input.name = newName;
+            });
+            // Aktualisiere die IDs der nextEventsContainer
+            const nextEventsContainer = btnSection.querySelector(
+              ".next-events-container"
+            );
+            if (nextEventsContainer) {
+              nextEventsContainer.id = `buttons-${idx}-getAction-nextEventsContainer`;
+            }
+            // Aktualisiere die IDs der itemsDeltaContainer
+            const itemsDeltaSection = btnSection.querySelector(
+              '.getAction-section[id^="buttons-"][id$="-getAction-itemsDelta"]'
+            );
+            if (itemsDeltaSection) {
+              itemsDeltaSection.id = `buttons-${idx}-getAction-itemsDelta`;
+              const itemsDeltaContainer = itemsDeltaSection.querySelector(
+                `#buttons-${buttonIndex}-getAction-itemsDeltaContainer`
+              );
+              if (itemsDeltaContainer) {
+                itemsDeltaContainer.id = `buttons-${idx}-getAction-itemsDeltaContainer`;
+              }
+            }
+          });
+        } else if (container.id === "placesContainer") {
+          const placeIndexMatch = section
+            .querySelector('input[name^="places-"]')
+            .name.match(/places-(\d+)-probability/);
+          const placeIndex = placeIndexMatch ? placeIndexMatch[1] : null;
+          section.remove();
+          // Re-index die verbleibenden Place Sektionen
+          const places = document.querySelectorAll(
+            "#placesContainer .nested-section"
+          );
+          places.forEach((placeSection, idx) => {
+            const inputs = placeSection.querySelectorAll(
+              "input, select, textarea"
+            );
+            inputs.forEach((input) => {
+              // Aktualisiere die Namen
+              const name = input.name;
+              const newName = name.replace(/places-\d+-/, `places-${idx}-`);
+              input.name = newName;
+            });
+          });
+        }
+      }
+
+      // Funktion zum Generieren der Places Optionen
+      function getPlacesOptions() {
+        const places = [
+          "Nordtor",
+          "Westmauer",
+          "Ostmauer",
+          "Südmauer",
+          "Brunnen",
+          "Vorplatz",
+          "Kirche",
+          "Friedhof",
+          "Rathaus",
+          "Taverne",
+          "Handelsbezirk",
+          "Krämer",
+          "Waffenladen",
+          "Ausrüstungsladen",
+          "Wohnbezirk",
+          "Gassen",
+          "Haus",
+          "Weg",
+          "Fluss",
+          "Quelle",
+          "See",
+          "Sumpf",
+          "Waldrand",
+          "Wald",
+          "Waldlichtung",
+          "Dunkelwald",
+          "Toilletenhaus",
+          "Wiese",
+          "Feld",
+          "Steppe",
+          "Ödland",
+          "Hügelland",
+          "Bergfuß",
+          "Bergpfad",
+          "Bergspitze",
+          "Höhleneingang",
+          "Höhle",
+          "Schatzkammer",
+        ];
+        return places
+          .map((place) => `<option value="${place}">${place}</option>`)
+          .join("");
+      }
+
+      // Funktion zum Umschalten der Sichtbarkeit von GetAction Sektionen
+      function toggleSection(checkbox, sectionName, index) {
+        const sectionId = `buttons-${index}-getAction-${sectionName}`;
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.style.display = checkbox.checked ? "block" : "none";
+        }
+      }
+
+      // Funktion zum Umschalten der TriggerQuest Felder
+      function toggleTriggerField(radio, index) {
+        const triggerQuestField = document.getElementById(
+          `buttons-${index}-getAction-triggerQuestField`
+        );
+        const endQuestField = document.getElementById(
+          `buttons-${index}-getAction-endQuestField`
+        );
+        const nextEventsField = document.getElementById(
+          `buttons-${index}-getAction-nextEventsField`
+        );
+
+        // Verstecke alle Felder zunächst
+        if (triggerQuestField) triggerQuestField.style.display = "none";
+        if (endQuestField) endQuestField.style.display = "none";
+        if (nextEventsField) nextEventsField.style.display = "none";
+
+        // Zeige das ausgewählte Feld
+        if (radio.value === "triggerQuest") {
+          if (triggerQuestField) triggerQuestField.style.display = "flex";
+        } else if (radio.value === "endQuest") {
+          if (endQuestField) endQuestField.style.display = "flex";
+        } else if (radio.value === "nextEvents") {
+          if (nextEventsField) nextEventsField.style.display = "block";
+        }
+      }
+
+      // Funktion zur Code-Generierung
+      function generateCode() {
+        const form = document.getElementById("eventForm");
+        const formData = new FormData(form);
+        const eventObj = {};
+        eventObj.id = formData.get("eventId");
+        eventObj.label = formData.get("label");
+        const description = formData.get("description");
+        if (description && description.trim() !== "") {
+          eventObj.description = `<>${description}</>`;
         }
 
-        // Funktion zum Entfernen einer Sektion (Button oder Place)
-        function removeSection(button) {
-            const section = button.parentElement;
-            const container = section.parentElement;
-            // Bestimme, ob es sich um einen Button oder einen Place handelt
-            if (container.id === 'buttonsContainer') {
-                const buttonIndexMatch = section.querySelector('input[name^="buttons-"]').name.match(/buttons-(\d+)-getAction-/);
-                const buttonIndex = buttonIndexMatch ? buttonIndexMatch[1] : null;
-                section.remove();
-                // Re-index die verbleibenden Button Sektionen
-                const buttons = document.querySelectorAll('#buttonsContainer .nested-section');
-                buttons.forEach((btnSection, idx) => {
-                    const inputs = btnSection.querySelectorAll('input, select, textarea');
-                    inputs.forEach(input => {
-                        // Aktualisiere die Namen
-                        const name = input.name;
-                        const newName = name.replace(/buttons-\d+-/, `buttons-${idx}-`);
-                        input.name = newName;
+        // Buttons
+        const buttons = [];
+        const buttonSections = document.querySelectorAll(
+          "#buttonsContainer .nested-section"
+        );
+        buttonSections.forEach((buttonSection, index) => {
+          const button = {};
+          const label = formData.get(`buttons-${index}-label`);
+          if (label) button.label = label;
+
+          // GetAction
+          const getAction = {};
+
+          // itemsDelta
+          const itemsDeltaContainer = document.getElementById(
+            `buttons-${index}-getAction-itemsDeltaContainer`
+          );
+          if (itemsDeltaContainer && itemsDeltaContainer.children.length > 0) {
+            const itemsDelta = {};
+            Array.from(itemsDeltaContainer.children).forEach((entryDiv) => {
+              const categorySelect = entryDiv.querySelector(
+                `select[name^="buttons-${index}-getAction-itemsDelta-"][name$="-category"]`
+              );
+              const itemSelect = entryDiv.querySelector(
+                `select[name^="buttons-${index}-getAction-itemsDelta-"][name$="-item"]`
+              );
+              const quantityInput = entryDiv.querySelector(
+                `input[name^="buttons-${index}-getAction-itemsDelta-"][name$="-quantity"]`
+              );
+
+              const category = categorySelect
+                ? formData.get(categorySelect.name)
+                : null;
+              const item = itemSelect ? formData.get(itemSelect.name) : null;
+              const quantity = quantityInput
+                ? formData.get(quantityInput.name)
+                : null;
+
+              if (item && quantity && !isNaN(parseInt(quantity))) {
+                itemsDelta[item] = parseInt(quantity);
+              }
+            });
+            if (Object.keys(itemsDelta).length > 0) {
+              getAction.itemsDelta = itemsDelta;
+            }
+          }
+
+          // economyDelta
+          const economyDeltaEnabled = formData.get(
+            `buttons-${index}-getAction-economyDelta-enabled`
+          );
+          if (economyDeltaEnabled) {
+            const economyDelta = {};
+            const gold = formData.get(
+              `buttons-${index}-getAction-economyDelta-gold`
+            );
+            const edelsteine = formData.get(
+              `buttons-${index}-getAction-economyDelta-edelsteine`
+            );
+            if (gold && gold.trim() !== "") {
+              economyDelta.gold = parseInt(gold);
+            }
+            if (edelsteine && edelsteine.trim() !== "") {
+              economyDelta.edelsteine = parseInt(edelsteine);
+            }
+            if (Object.keys(economyDelta).length > 0) {
+              getAction.economyDelta = economyDelta;
+            }
+          }
+
+          // fluxDelta
+          const fluxDeltaEnabled = formData.get(
+            `buttons-${index}-getAction-fluxDelta-enabled`
+          );
+          if (fluxDeltaEnabled) {
+            const fluxDelta = {};
+            const feeling = formData.get(
+              `buttons-${index}-getAction-fluxDelta-feeling`
+            );
+            const item = formData.get(
+              `buttons-${index}-getAction-fluxDelta-item`
+            );
+            const buff = formData.get(
+              `buttons-${index}-getAction-fluxDelta-buff`
+            );
+            const debuff = formData.get(
+              `buttons-${index}-getAction-fluxDelta-debuff`
+            );
+            if (feeling && feeling.trim() !== "") {
+              fluxDelta.feeling = feeling;
+            }
+            if (item && item.trim() !== "") {
+              fluxDelta.item = item;
+            }
+            if (buff && buff.trim() !== "") {
+              fluxDelta.buff = parseBuffDebuff(buff);
+            }
+            if (debuff && debuff.trim() !== "") {
+              fluxDelta.debuff = parseBuffDebuff(debuff);
+            }
+            if (Object.keys(fluxDelta).length > 0) {
+              getAction.fluxDelta = fluxDelta;
+            }
+          }
+
+          // stateDelta
+          const stateDeltaEnabled = formData.get(
+            `buttons-${index}-getAction-stateDelta-enabled`
+          );
+          if (stateDeltaEnabled) {
+            const stateDelta = {};
+            const life = formData.get(
+              `buttons-${index}-getAction-stateDelta-life`
+            );
+            const rounds = formData.get(
+              `buttons-${index}-getAction-stateDelta-rounds`
+            );
+            const attack = formData.get(
+              `buttons-${index}-getAction-stateDelta-attack`
+            );
+            const defense = formData.get(
+              `buttons-${index}-getAction-stateDelta-defense`
+            );
+            const luck = formData.get(
+              `buttons-${index}-getAction-stateDelta-luck`
+            );
+            if (life && life.trim() !== "") {
+              stateDelta.life = parseInt(life);
+            }
+            if (rounds && rounds.trim() !== "") {
+              stateDelta.rounds = parseInt(rounds);
+            }
+            if (attack && attack.trim() !== "") {
+              stateDelta.attack = parseInt(attack);
+            }
+            if (defense && defense.trim() !== "") {
+              stateDelta.defense = parseInt(defense);
+            }
+            if (luck && luck.trim() !== "") {
+              stateDelta.luck = parseInt(luck);
+            }
+            if (Object.keys(stateDelta).length > 0) {
+              getAction.stateDelta = stateDelta;
+            }
+          }
+
+          // baseDelta
+          const baseDeltaEnabled = formData.get(
+            `buttons-${index}-getAction-baseDelta-enabled`
+          );
+          if (baseDeltaEnabled) {
+            const baseDelta = {};
+            const exp = formData.get(
+              `buttons-${index}-getAction-baseDelta-exp`
+            );
+            const reputation = formData.get(
+              `buttons-${index}-getAction-baseDelta-reputation`
+            );
+            if (exp && exp.trim() !== "") {
+              baseDelta.exp = parseInt(exp);
+            }
+            if (reputation && reputation.trim() !== "") {
+              baseDelta.reputation = parseInt(reputation);
+            }
+            if (Object.keys(baseDelta).length > 0) {
+              getAction.baseDelta = baseDelta;
+            }
+          }
+
+          // TriggerGroup
+          const triggerGroup = formData.get(
+            `buttons-${index}-getAction-triggerGroup`
+          );
+          if (triggerGroup) {
+            if (triggerGroup === "triggerQuest") {
+              const triggerQuest = formData.get(
+                `buttons-${index}-getAction-triggerQuest`
+              );
+              if (triggerQuest && triggerQuest.trim() !== "") {
+                getAction.triggerQuest = triggerQuest;
+              }
+            } else if (triggerGroup === "endQuest") {
+              const endQuest = formData.get(
+                `buttons-${index}-getAction-endQuest`
+              );
+              if (endQuest && endQuest.trim() !== "") {
+                getAction.endQuest = endQuest;
+              }
+            } else if (triggerGroup === "nextEvents") {
+              const nextEvents = [];
+              const nextEventsContainer = document.getElementById(
+                `buttons-${index}-getAction-nextEventsContainer`
+              );
+              if (nextEventsContainer) {
+                const nextEventDivs =
+                  nextEventsContainer.querySelectorAll(".next-event");
+                nextEventDivs.forEach((nextEventDiv) => {
+                  const eventIdInput = nextEventDiv.querySelector(
+                    'input[name^="buttons-' +
+                      index +
+                      '-getAction-nextEvents-"][name$="-eventId"]'
+                  );
+                  const probabilityInput = nextEventDiv.querySelector(
+                    'input[name^="buttons-' +
+                      index +
+                      '-getAction-nextEvents-"][name$="-probability"]'
+                  );
+                  const eventId = eventIdInput
+                    ? formData.get(eventIdInput.name)
+                    : null;
+                  const probability = probabilityInput
+                    ? formData.get(probabilityInput.name)
+                    : null;
+                  if (eventId && probability && !isNaN(parseInt(probability))) {
+                    nextEvents.push({
+                      eventId: eventId,
+                      probability: parseInt(probability),
                     });
-                    // Aktualisiere die IDs der nextEventsContainer
-                    const nextEventsContainer = btnSection.querySelector('.next-events-container');
-                    if (nextEventsContainer) {
-                        nextEventsContainer.id = `buttons-${idx}-getAction-nextEventsContainer`;
-                    }
-                    // Aktualisiere die IDs der itemsDeltaContainer
-                    const itemsDeltaSection = btnSection.querySelector('.getAction-section[id^="buttons-"][id$="-getAction-itemsDelta"]');
-                    if (itemsDeltaSection) {
-                        itemsDeltaSection.id = `buttons-${idx}-getAction-itemsDelta`;
-                        const itemsDeltaContainer = itemsDeltaSection.querySelector(`#buttons-${buttonIndex}-getAction-itemsDeltaContainer`);
-                        if (itemsDeltaContainer) {
-                            itemsDeltaContainer.id = `buttons-${idx}-getAction-itemsDeltaContainer`;
-                        }
-                    }
+                  }
                 });
-            } else if (container.id === 'placesContainer') {
-                const placeIndexMatch = section.querySelector('input[name^="places-"]').name.match(/places-(\d+)-probability/);
-                const placeIndex = placeIndexMatch ? placeIndexMatch[1] : null;
-                section.remove();
-                // Re-index die verbleibenden Place Sektionen
-                const places = document.querySelectorAll('#placesContainer .nested-section');
-                places.forEach((placeSection, idx) => {
-                    const inputs = placeSection.querySelectorAll('input, select, textarea');
-                    inputs.forEach(input => {
-                        // Aktualisiere die Namen
-                        const name = input.name;
-                        const newName = name.replace(/places-\d+-/, `places-${idx}-`);
-                        input.name = newName;
-                    });
-                });
+              }
+              if (nextEvents.length > 0) {
+                getAction.nextEvents = nextEvents;
+              }
             }
-        }
+          }
 
-        // Funktion zum Generieren der Places Optionen
-        function getPlacesOptions() {
-            const places = [
-                "Nordtor", "Westmauer", "Ostmauer", "Südmauer", "Brunnen", "Vorplatz",
-                "Kirche", "Friedhof", "Rathaus", "Taverne", "Handelsbezirk", "Krämer",
-                "Waffenladen", "Ausrüstungsladen", "Wohnbezirk", "Gassen", "Haus",
-                "Weg", "Fluss", "Quelle", "See", "Sumpf", "Waldrand", "Wald",
-                "Waldlichtung", "Dunkelwald", "Toilletenhaus", "Wiese", "Feld",
-                "Steppe", "Ödland", "Hügelland", "Bergfuß", "Bergpfad", "Bergspitze",
-                "Höhleneingang", "Höhle", "Schatzkammer"
-            ];
-            return places.map(place => `<option value="${place}">${place}</option>`).join('');
-        }
+          // Message
+          const message = formData.get(`buttons-${index}-getAction-message`);
+          if (message && message.trim() !== "") {
+            getAction.message = `<>${message}</>`;
+          }
 
-        // Funktion zum Umschalten der Sichtbarkeit von GetAction Sektionen
-        function toggleSection(checkbox, sectionName, index) {
-            const sectionId = `buttons-${index}-getAction-${sectionName}`;
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.style.display = checkbox.checked ? 'block' : 'none';
+          // Remove empty getAction
+          if (Object.keys(getAction).length > 0) {
+            button.getAction = getAction;
+          }
+
+          buttons.push(button);
+        });
+        if (buttons.length > 0) eventObj.buttons = buttons;
+
+        // Places
+        const places = [];
+        const placeSections = document.querySelectorAll(
+          "#placesContainer .nested-section"
+        );
+        placeSections.forEach((placeSection, index) => {
+          const place = formData.get(`places-${index}-place`);
+          const probability = formData.get(`places-${index}-probability`);
+          if (place) {
+            const placeObj = { place };
+            if (probability && !isNaN(parseInt(probability))) {
+              placeObj.probability = parseInt(probability);
             }
-        }
+            places.push(placeObj);
+          }
+        });
+        if (places.length > 0) eventObj.places = places;
 
-        // Funktion zum Umschalten der TriggerQuest Felder
-        function toggleTriggerField(radio, index) {
-            const triggerQuestField = document.getElementById(`buttons-${index}-getAction-triggerQuestField`);
-            const endQuestField = document.getElementById(`buttons-${index}-getAction-endQuestField`);
-            const nextEventsField = document.getElementById(`buttons-${index}-getAction-nextEventsField`);
+        // Remove undefined oder leere Eigenschaften
+        const cleanedEvent = cleanObject(eventObj);
 
-            // Verstecke alle Felder zunächst
-            if (triggerQuestField) triggerQuestField.style.display = 'none';
-            if (endQuestField) endQuestField.style.display = 'none';
-            if (nextEventsField) nextEventsField.style.display = 'none';
+        // Anzeige des Ergebnisses als JavaScript-Objekt mit JSX-Elementen
+        const formattedEvent = formatAsJSX(cleanedEvent);
+        document.getElementById("output").textContent = formattedEvent;
+      }
 
-            // Zeige das ausgewählte Feld
-            if (radio.value === 'triggerQuest') {
-                if (triggerQuestField) triggerQuestField.style.display = 'flex';
-            } else if (radio.value === 'endQuest') {
-                if (endQuestField) endQuestField.style.display = 'flex';
-            } else if (radio.value === 'nextEvents') {
-                if (nextEventsField) nextEventsField.style.display = 'block';
+      // Helper Funktion zum Bereinigen des Objekts
+      function cleanObject(obj) {
+        if (Array.isArray(obj)) {
+          return obj
+            .map(cleanObject)
+            .filter(
+              (item) => item !== undefined && Object.keys(item).length > 0
+            );
+        } else if (typeof obj === "object" && obj !== null) {
+          const cleaned = {};
+          for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              if (
+                obj[key] !== undefined &&
+                obj[key] !== "" &&
+                obj[key] !== null
+              ) {
+                const cleanedValue = cleanObject(obj[key]);
+                if (
+                  cleanedValue !== undefined &&
+                  (typeof cleanedValue !== "object" ||
+                    Object.keys(cleanedValue).length > 0)
+                ) {
+                  cleaned[key] = cleanedValue;
+                }
+              }
             }
+          }
+          return cleaned;
+        } else {
+          return obj;
         }
+      }
 
-        // Funktion zur Code-Generierung
-        function generateCode() {
-            const form = document.getElementById('eventForm');
-            const formData = new FormData(form);
-            const eventObj = {};
-            eventObj.id = formData.get('eventId');
-            eventObj.label = formData.get('label');
-            const description = formData.get('description');
-            if (description && description.trim() !== "") {
-                eventObj.description = `<>${description}</>`;
-            }
-
-            // Buttons
-            const buttons = [];
-            const buttonSections = document.querySelectorAll('#buttonsContainer .nested-section');
-            buttonSections.forEach((buttonSection, index) => {
-                const button = {};
-                const label = formData.get(`buttons-${index}-label`);
-                if (label) button.label = label;
-
-                // GetAction
-                const getAction = {};
-
-                // itemsDelta
-                const itemsDeltaContainer = document.getElementById(`buttons-${index}-getAction-itemsDeltaContainer`);
-                if (itemsDeltaContainer && itemsDeltaContainer.children.length > 0) {
-                    const itemsDelta = {};
-                    Array.from(itemsDeltaContainer.children).forEach(entryDiv => {
-                        const categorySelect = entryDiv.querySelector(`select[name^="buttons-${index}-getAction-itemsDelta-"][name$="-category"]`);
-                        const itemSelect = entryDiv.querySelector(`select[name^="buttons-${index}-getAction-itemsDelta-"][name$="-item"]`);
-                        const quantityInput = entryDiv.querySelector(`input[name^="buttons-${index}-getAction-itemsDelta-"][name$="-quantity"]`);
-
-                        const category = categorySelect ? formData.get(categorySelect.name) : null;
-                        const item = itemSelect ? formData.get(itemSelect.name) : null;
-                        const quantity = quantityInput ? formData.get(quantityInput.name) : null;
-
-                        if (item && quantity && !isNaN(parseInt(quantity))) {
-                            itemsDelta[item] = parseInt(quantity);
-                        }
-                    });
-                    if (Object.keys(itemsDelta).length > 0) {
-                        getAction.itemsDelta = itemsDelta;
-                    }
-                }
-
-                // economyDelta
-                const economyDeltaEnabled = formData.get(`buttons-${index}-getAction-economyDelta-enabled`);
-                if (economyDeltaEnabled) {
-                    const economyDelta = {};
-                    const gold = formData.get(`buttons-${index}-getAction-economyDelta-gold`);
-                    const edelsteine = formData.get(`buttons-${index}-getAction-economyDelta-edelsteine`);
-                    if (gold && gold.trim() !== "") {
-                        economyDelta.gold = parseInt(gold);
-                    }
-                    if (edelsteine && edelsteine.trim() !== "") {
-                        economyDelta.edelsteine = parseInt(edelsteine);
-                    }
-                    if (Object.keys(economyDelta).length > 0) {
-                        getAction.economyDelta = economyDelta;
-                    }
-                }
-
-                // fluxDelta
-                const fluxDeltaEnabled = formData.get(`buttons-${index}-getAction-fluxDelta-enabled`);
-                if (fluxDeltaEnabled) {
-                    const fluxDelta = {};
-                    const feeling = formData.get(`buttons-${index}-getAction-fluxDelta-feeling`);
-                    const item = formData.get(`buttons-${index}-getAction-fluxDelta-item`);
-                    const buff = formData.get(`buttons-${index}-getAction-fluxDelta-buff`);
-                    const debuff = formData.get(`buttons-${index}-getAction-fluxDelta-debuff`);
-                    if (feeling && feeling.trim() !== "") {
-                        fluxDelta.feeling = feeling;
-                    }
-                    if (item && item.trim() !== "") {
-                        fluxDelta.item = item;
-                    }
-                    if (buff && buff.trim() !== "") {
-                        fluxDelta.buff = parseBuffDebuff(buff);
-                    }
-                    if (debuff && debuff.trim() !== "") {
-                        fluxDelta.debuff = parseBuffDebuff(debuff);
-                    }
-                    if (Object.keys(fluxDelta).length > 0) {
-                        getAction.fluxDelta = fluxDelta;
-                    }
-                }
-
-                // stateDelta
-                const stateDeltaEnabled = formData.get(`buttons-${index}-getAction-stateDelta-enabled`);
-                if (stateDeltaEnabled) {
-                    const stateDelta = {};
-                    const life = formData.get(`buttons-${index}-getAction-stateDelta-life`);
-                    const rounds = formData.get(`buttons-${index}-getAction-stateDelta-rounds`);
-                    const attack = formData.get(`buttons-${index}-getAction-stateDelta-attack`);
-                    const defense = formData.get(`buttons-${index}-getAction-stateDelta-defense`);
-                    const luck = formData.get(`buttons-${index}-getAction-stateDelta-luck`);
-                    if (life && life.trim() !== "") {
-                        stateDelta.life = parseInt(life);
-                    }
-                    if (rounds && rounds.trim() !== "") {
-                        stateDelta.rounds = parseInt(rounds);
-                    }
-                    if (attack && attack.trim() !== "") {
-                        stateDelta.attack = parseInt(attack);
-                    }
-                    if (defense && defense.trim() !== "") {
-                        stateDelta.defense = parseInt(defense);
-                    }
-                    if (luck && luck.trim() !== "") {
-                        stateDelta.luck = parseInt(luck);
-                    }
-                    if (Object.keys(stateDelta).length > 0) {
-                        getAction.stateDelta = stateDelta;
-                    }
-                }
-
-                // baseDelta
-                const baseDeltaEnabled = formData.get(`buttons-${index}-getAction-baseDelta-enabled`);
-                if (baseDeltaEnabled) {
-                    const baseDelta = {};
-                    const exp = formData.get(`buttons-${index}-getAction-baseDelta-exp`);
-                    const reputation = formData.get(`buttons-${index}-getAction-baseDelta-reputation`);
-                    if (exp && exp.trim() !== "") {
-                        baseDelta.exp = parseInt(exp);
-                    }
-                    if (reputation && reputation.trim() !== "") {
-                        baseDelta.reputation = parseInt(reputation);
-                    }
-                    if (Object.keys(baseDelta).length > 0) {
-                        getAction.baseDelta = baseDelta;
-                    }
-                }
-
-                // TriggerGroup
-                const triggerGroup = formData.get(`buttons-${index}-getAction-triggerGroup`);
-                if (triggerGroup) {
-                    if (triggerGroup === 'triggerQuest') {
-                        const triggerQuest = formData.get(`buttons-${index}-getAction-triggerQuest`);
-                        if (triggerQuest && triggerQuest.trim() !== "") {
-                            getAction.triggerQuest = triggerQuest;
-                        }
-                    } else if (triggerGroup === 'endQuest') {
-                        const endQuest = formData.get(`buttons-${index}-getAction-endQuest`);
-                        if (endQuest && endQuest.trim() !== "") {
-                            getAction.endQuest = endQuest;
-                        }
-                    } else if (triggerGroup === 'nextEvents') {
-                        const nextEvents = [];
-                        const nextEventsContainer = document.getElementById(`buttons-${index}-getAction-nextEventsContainer`);
-                        if (nextEventsContainer) {
-                            const nextEventDivs = nextEventsContainer.querySelectorAll('.next-event');
-                            nextEventDivs.forEach(nextEventDiv => {
-                                const eventIdInput = nextEventDiv.querySelector('input[name^="buttons-' + index + '-getAction-nextEvents-"][name$="-eventId"]');
-                                const probabilityInput = nextEventDiv.querySelector('input[name^="buttons-' + index + '-getAction-nextEvents-"][name$="-probability"]');
-                                const eventId = eventIdInput ? formData.get(eventIdInput.name) : null;
-                                const probability = probabilityInput ? formData.get(probabilityInput.name) : null;
-                                if (eventId && probability && !isNaN(parseInt(probability))) {
-                                    nextEvents.push({
-                                        eventId: eventId,
-                                        probability: parseInt(probability)
-                                    });
-                                }
-                            });
-                        }
-                        if (nextEvents.length > 0) {
-                            getAction.nextEvents = nextEvents;
-                        }
-                    }
-                }
-
-                // Message
-                const message = formData.get(`buttons-${index}-getAction-message`);
-                if (message && message.trim() !== "") {
-                    getAction.message = `<>${message}</>`;
-                }
-
-                // Remove empty getAction
-                if (Object.keys(getAction).length > 0) {
-                    button.getAction = getAction;
-                }
-
-                buttons.push(button);
-            });
-            if (buttons.length > 0) eventObj.buttons = buttons;
-
-            // Places
-            const places = [];
-            const placeSections = document.querySelectorAll('#placesContainer .nested-section');
-            placeSections.forEach((placeSection, index) => {
-                const place = formData.get(`places-${index}-place`);
-                const probability = formData.get(`places-${index}-probability`);
-                if (place) {
-                    const placeObj = { place };
-                    if (probability && !isNaN(parseInt(probability))) {
-                        placeObj.probability = parseInt(probability);
-                    }
-                    places.push(placeObj);
-                }
-            });
-            if (places.length > 0) eventObj.places = places;
-
-            // Remove undefined oder leere Eigenschaften
-            const cleanedEvent = cleanObject(eventObj);
-
-            // Anzeige des Ergebnisses als JavaScript-Objekt mit JSX-Elementen
-            const formattedEvent = formatAsJSX(cleanedEvent);
-            document.getElementById('output').textContent = formattedEvent;
+      // Helper Funktion zum Formatieren als JSX
+      function formatAsJSX(obj, indent = 0) {
+        const indentation = "    ".repeat(indent);
+        if (Array.isArray(obj)) {
+          if (obj.length === 0) return "[]";
+          const items = obj.map((item) => formatAsJSX(item, indent + 1));
+          return `[\n${items.join(",\n")}\n${indentation}]`;
+        } else if (typeof obj === "object" && obj !== null) {
+          const entries = Object.entries(obj).map(([key, value]) => {
+            return `${indentation}    ${key}: ${formatAsJSX(
+              value,
+              indent + 1
+            )}`;
+          });
+          return `{\n${entries.join(",\n")}\n${indentation}}`;
+        } else if (typeof obj === "string") {
+          // Überprüfen, ob der String mit <> beginnt und mit </> endet
+          if (obj.startsWith("<>") && obj.endsWith("</>")) {
+            return obj; // Als JSX-Fragment zurückgeben
+          } else {
+            // Escape von Backslashes und Anführungszeichen im String
+            const escaped = obj.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+            return `"${escaped}"`; // Als String zurückgeben
+          }
+        } else {
+          return JSON.stringify(obj);
         }
+      }
 
-        // Helper Funktion zum Bereinigen des Objekts
-        function cleanObject(obj) {
-            if (Array.isArray(obj)) {
-                return obj.map(cleanObject).filter(item => item !== undefined && Object.keys(item).length > 0);
-            } else if (typeof obj === 'object' && obj !== null) {
-                const cleaned = {};
-                for (const key in obj) {
-                    if (obj.hasOwnProperty(key)) {
-                        if (obj[key] !== undefined && obj[key] !== '' && obj[key] !== null) {
-                            const cleanedValue = cleanObject(obj[key]);
-                            if (cleanedValue !== undefined && (typeof cleanedValue !== 'object' || Object.keys(cleanedValue).length > 0)) {
-                                cleaned[key] = cleanedValue;
-                            }
-                        }
-                    }
-                }
-                return cleaned;
-            } else {
-                return obj;
-            }
-        }
+      // Helper Funktion zum Parsen von Buffs und Debuffs (angenommen, komma-getrennte Werte)
+      function parseBuffDebuff(input) {
+        const items = input
+          .split(",")
+          .map((item) => item.trim())
+          .filter((item) => item);
+        const result = {};
+        items.forEach((item) => {
+          result[item] = 1; // Standardwert
+        });
+        return result;
+      }
 
-        // Helper Funktion zum Formatieren als JSX
-        function formatAsJSX(obj, indent = 0) {
-            const indentation = '    '.repeat(indent);
-            if (Array.isArray(obj)) {
-                if (obj.length === 0) return '[]';
-                const items = obj.map(item => formatAsJSX(item, indent + 1));
-                return `[\n${items.join(',\n')}\n${indentation}]`;
-            } else if (typeof obj === 'object' && obj !== null) {
-                const entries = Object.entries(obj).map(([key, value]) => {
-                    return `${indentation}    ${key}: ${formatAsJSX(value, indent + 1)}`;
-                });
-                return `{\n${entries.join(',\n')}\n${indentation}}`;
-            } else if (typeof obj === 'string') {
-                // Überprüfen, ob der String mit <> beginnt und mit </> endet
-                if (obj.startsWith('<>') && obj.endsWith('</>')) {
-                    return obj; // Als JSX-Fragment zurückgeben
-                } else {
-                    // Escape von Backslashes und Anführungszeichen im String
-                    const escaped = obj.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-                    return `"${escaped}"`; // Als String zurückgeben
-                }
-            } else {
-                return JSON.stringify(obj);
-            }
+      // Funktion zum Kopieren des generierten Codes in die Zwischenablage
+      function copyToClipboard() {
+        const output = document.getElementById("output").textContent;
+        if (!output) {
+          alert("Es gibt keinen Code zum Kopieren!");
+          return;
         }
-
-        // Helper Funktion zum Parsen von Buffs und Debuffs (angenommen, komma-getrennte Werte)
-        function parseBuffDebuff(input) {
-            const items = input.split(',').map(item => item.trim()).filter(item => item);
-            const result = {};
-            items.forEach(item => {
-                result[item] = 1; // Standardwert
-            });
-            return result;
-        }
-
-        // Funktion zum Kopieren des generierten Codes in die Zwischenablage
-        function copyToClipboard() {
-            const output = document.getElementById('output').textContent;
-            if (!output) {
-                alert('Es gibt keinen Code zum Kopieren!');
-                return;
-            }
-            navigator.clipboard.writeText(output).then(function() {
-                alert('Code wurde erfolgreich in die Zwischenablage kopiert!');
-            }, function(err) {
-                alert('Fehler beim Kopieren: ', err);
-            });
-        }
+        navigator.clipboard.writeText(output).then(
+          function () {
+            alert("Code wurde erfolgreich in die Zwischenablage kopiert!");
+          },
+          function (err) {
+            alert("Fehler beim Kopieren: ", err);
+          }
+        );
+      }
     </script>
-
-</body>
+  </body>
 </html>
