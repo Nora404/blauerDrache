@@ -1,7 +1,5 @@
 .form-container {
   padding: 1rem;
-  background-color: #f4f4f4;
-  max-width: 900px;
   margin: 1rem auto;
 }
 
@@ -29,25 +27,35 @@
 }
 
 .add-button {
-  background-color: #28a745;
+  background-color: #356941;
+  height: 30px;
+  padding: 2px;
   color: #fff;
+  margin: 5px;
+  border-radius: 8px;
 }
 
 .remove-button {
-  background-color: #dc3545;
+  background-color: #752931;
+  height: 30px;
+  padding: 2px;
   color: #fff;
+  margin: 5px;
+  border-radius: 8px;
 }
 
 .generate-button {
-  background-color: #007bff;
+  background-color: #285381;
+  height: 30px;
+  padding: 2px;
   color: #fff;
-  padding: 0.6rem 1.2rem;
-  margin-top: 1rem;
+  margin-top: 10px;
+  margin: 5px;
+  border-radius: 8px;
 }
 
 .output-container {
   margin-top: 1rem;
-  background-color: #fff;
   padding: 1rem;
   border-radius: 5px;
 }
@@ -59,4 +67,28 @@
   border-radius: 4px;
   max-height: 300px;
   overflow-y: auto;
+}
+
+input,
+textarea,
+select,
+option {
+  color: rgba(98, 176, 212);
+  border: 1px solid rgb(31, 78, 70);
+  background-color: #242424a4;
+  padding: 5px;
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+.space-top {
+  margin-top: 40px;
+}
+
+input[type="number"] {
+  width: 50%;
+}
+
+.w-50 {
+  width: 47%;
 }

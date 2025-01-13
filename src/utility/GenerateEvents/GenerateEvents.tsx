@@ -6,6 +6,8 @@ import { BuffName, buffMap } from "../../data/buffData";
 import { PlacesKeys } from "../../data/colorfullStrings";
 import { DebuffName, debuffMap } from "../../data/debuffData";
 import { ItemCartegoryName, Item, itemMap } from "../../data/ItemData";
+import "./GenerateEvents.css"
+import Header from "../../layout/Header/Header";
 
 // Typ für NextEvent
 type NextEventOption = {
@@ -374,10 +376,12 @@ export default function EventCreationForm() {
     return String(obj);
   }
 
-  // ========== RENDERING ==========
+  //#region [jsx]
   return (
-    <div className="form-container">
-      <h1>Event-Erstellungsformular</h1>
+    <div className="form-container text-left max-width">
+      <h2>Event-Erstellungsformular</h2>
+
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,<br /><br />
 
       <div className="form-group">
         <label>ID*:</label>
@@ -412,7 +416,8 @@ export default function EventCreationForm() {
       <div className="buttons-container">
         <h2>Buttons</h2>
         {buttons.map((btn, index) => (
-          <div key={index} className="single-button">
+          <div key={index} className="single-button space-top">
+            <Header>Neuer Button</Header>
             {/* Button Label */}
             <div className="form-group">
               <label>Button Label:</label>
@@ -423,6 +428,23 @@ export default function EventCreationForm() {
                   const val = e.target.value;
                   setButtons((prev) =>
                     prev.map((b, i) => (i === index ? { ...b, label: val } : b))
+                  );
+                }}
+              />
+            </div>
+
+            {/* Message */}
+            <div className="form-group" style={{ marginTop: "0.5rem" }}>
+              <label>Message:</label>
+              <textarea
+                rows={2}
+                value={btn.message}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setButtons((prev) =>
+                    prev.map((b, i) =>
+                      i === index ? { ...b, message: val } : b
+                    )
                   );
                 }}
               />
@@ -456,6 +478,7 @@ export default function EventCreationForm() {
                     <div key={entryIndex} className="items-delta-row">
                       {/* Kategorie */}
                       <select
+                        className="w-full"
                         value={entry.category}
                         onChange={(e) => {
                           const newCat = e.target.value as ItemCartegoryName;
@@ -483,9 +506,10 @@ export default function EventCreationForm() {
                             {cat}
                           </option>
                         ))}
-                      </select>
+                      </select><br />
                       {/* Item */}
                       <select
+                        className="w-full"
                         value={entry.itemName}
                         onChange={(e) => {
                           const newItem = e.target.value;
@@ -510,9 +534,10 @@ export default function EventCreationForm() {
                             {it.name}
                           </option>
                         ))}
-                      </select>
+                      </select><br />
                       {/* Anzahl */}
                       <input
+                        className="w-full"
                         type="number"
                         value={entry.quantity}
                         onChange={(e) => {
@@ -581,12 +606,12 @@ export default function EventCreationForm() {
                         prev.map((b, i) =>
                           i === index
                             ? {
-                                ...b,
-                                economyDelta: {
-                                  ...b.economyDelta,
-                                  gold: val,
-                                },
-                              }
+                              ...b,
+                              economyDelta: {
+                                ...b.economyDelta,
+                                gold: val,
+                              },
+                            }
                             : b
                         )
                       );
@@ -604,12 +629,12 @@ export default function EventCreationForm() {
                         prev.map((b, i) =>
                           i === index
                             ? {
-                                ...b,
-                                economyDelta: {
-                                  ...b.economyDelta,
-                                  edelsteine: val,
-                                },
-                              }
+                              ...b,
+                              economyDelta: {
+                                ...b.economyDelta,
+                                edelsteine: val,
+                              },
+                            }
                             : b
                         )
                       );
@@ -650,9 +675,9 @@ export default function EventCreationForm() {
                         prev.map((b, i) =>
                           i === index
                             ? {
-                                ...b,
-                                fluxDelta: { ...b.fluxDelta, feeling: val },
-                              }
+                              ...b,
+                              fluxDelta: { ...b.fluxDelta, feeling: val },
+                            }
                             : b
                         )
                       );
@@ -692,9 +717,9 @@ export default function EventCreationForm() {
                         prev.map((b, i) =>
                           i === index
                             ? {
-                                ...b,
-                                fluxDelta: { ...b.fluxDelta, debuff: val },
-                              }
+                              ...b,
+                              fluxDelta: { ...b.fluxDelta, debuff: val },
+                            }
                             : b
                         )
                       );
@@ -818,7 +843,7 @@ export default function EventCreationForm() {
 
             {/* TriggerGroup */}
             <div className="form-group" style={{ marginTop: "0.5rem" }}>
-              <label>Trigger Quest Gruppe:</label>
+              {/* <label>Trigger Quest Gruppe:</label> */}
               <div>
                 <label>
                   <input
@@ -885,6 +910,7 @@ export default function EventCreationForm() {
               <div className="nested-section">
                 <label>triggerQuest:</label>
                 <input
+                  className="w-full"
                   type="text"
                   value={btn.triggerQuest}
                   onChange={(e) => {
@@ -902,6 +928,7 @@ export default function EventCreationForm() {
               <div className="nested-section">
                 <label>endQuest:</label>
                 <input
+                  className="w-full"
                   type="text"
                   value={btn.endQuest}
                   onChange={(e) => {
@@ -920,6 +947,7 @@ export default function EventCreationForm() {
                 {btn.nextEvents.map((ne: NextEventOption, neIndex: number) => (
                   <div key={neIndex} className="next-event-row">
                     <input
+                      style={{ width: "47%" }}
                       type="text"
                       placeholder="eventId"
                       value={ne.eventId}
@@ -940,6 +968,7 @@ export default function EventCreationForm() {
                       }}
                     />
                     <input
+                      className="w-full"
                       type="number"
                       placeholder="prob"
                       value={ne.probability}
@@ -958,7 +987,7 @@ export default function EventCreationForm() {
                           })
                         );
                       }}
-                      style={{ width: "4rem", marginLeft: "0.5rem" }}
+                      style={{ width: "50%" }}
                     />
                     <button
                       onClick={() => removeNextEvent(index, neIndex)}
@@ -978,22 +1007,6 @@ export default function EventCreationForm() {
               </div>
             )}
 
-            {/* Message */}
-            <div className="form-group" style={{ marginTop: "0.5rem" }}>
-              <label>Message:</label>
-              <textarea
-                rows={2}
-                value={btn.message}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setButtons((prev) =>
-                    prev.map((b, i) =>
-                      i === index ? { ...b, message: val } : b
-                    )
-                  );
-                }}
-              />
-            </div>
 
             {/* Ganzen Button entfernen */}
             <button
@@ -1016,6 +1029,7 @@ export default function EventCreationForm() {
         {places.map((pl, pIndex) => (
           <div key={pIndex} className="single-place-row">
             <select
+              className="w-50"
               value={pl.place}
               onChange={(e) => {
                 const val = e.target.value as PlacesKeys;
@@ -1043,7 +1057,7 @@ export default function EventCreationForm() {
                   )
                 );
               }}
-              style={{ width: "4rem", marginLeft: "0.5rem" }}
+            // style={{ width: "4rem", marginLeft: "0.5rem" }}
             />
             <button
               onClick={() => removePlace(pIndex)}
@@ -1074,4 +1088,5 @@ export default function EventCreationForm() {
       )}
     </div>
   );
+  //#endregion
 }
