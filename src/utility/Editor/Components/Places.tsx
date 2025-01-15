@@ -13,7 +13,7 @@ const Places: React.FC<Places> = () => {
     <div className="max-widht">
       <h2>Orte</h2>
       {places.map((pl, pIndex) => (
-        <div key={pIndex} className="single-place-row">
+        <div key={pIndex} className="flex-row">
           <select
             className="w-50"
             value={pl.place}
@@ -43,7 +43,6 @@ const Places: React.FC<Places> = () => {
                 )
               );
             }}
-            // style={{ width: "4rem", marginLeft: "0.5rem" }}
           />
           <button
             onClick={() => removePlace(pIndex)}
