@@ -1,13 +1,14 @@
 import React from "react";
 import { ButtonConfig, useEditorContext } from "../Context/Context";
-import { NextEventOption } from "../../../data/eventData";
+import { randomEvents } from "../../../data/eventData";
+import { gameQuestEvents } from "../../../data/questData";
 
-type TriggerGroupProp = {
+type TriggerGroupProps = {
   button: ButtonConfig;
   index: number;
 };
 
-const TriggerGroup: React.FC<TriggerGroupProp> = ({ button, index }) => {
+const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
   const { setButtons, addNextEvent, removeNextEvent } = useEditorContext();
 
   return (
@@ -15,18 +16,19 @@ const TriggerGroup: React.FC<TriggerGroupProp> = ({ button, index }) => {
       <h3>Trigger Group</h3>
       <div
         className="form-group"
-        style={{ marginTop: "40px", marginBottom: "30px" }}
+        style={{ marginTop: "10px", marginBottom: "30px" }}
       >
-        {/* <label>Trigger Quest Gruppe:</label> */}
         <div>
           <label>
             <input
               type="radio"
               checked={button.triggerGroup === "triggerQuest"}
               onChange={() => {
-                setButtons((prev) =>
-                  prev.map((b, i) =>
-                    i === index ? { ...b, triggerGroup: "triggerQuest" } : b
+                setButtons((previousButtons) =>
+                  previousButtons.map((currentButton, buttonIndex) =>
+                    buttonIndex === index
+                      ? { ...currentButton, triggerGroup: "triggerQuest" }
+                      : currentButton
                   )
                 );
               }}
@@ -38,9 +40,11 @@ const TriggerGroup: React.FC<TriggerGroupProp> = ({ button, index }) => {
               type="radio"
               checked={button.triggerGroup === "endQuest"}
               onChange={() => {
-                setButtons((prev) =>
-                  prev.map((b, i) =>
-                    i === index ? { ...b, triggerGroup: "endQuest" } : b
+                setButtons((previousButtons) =>
+                  previousButtons.map((currentButton, buttonIndex) =>
+                    buttonIndex === index
+                      ? { ...currentButton, triggerGroup: "endQuest" }
+                      : currentButton
                   )
                 );
               }}
@@ -52,9 +56,11 @@ const TriggerGroup: React.FC<TriggerGroupProp> = ({ button, index }) => {
               type="radio"
               checked={button.triggerGroup === "nextEvents"}
               onChange={() => {
-                setButtons((prev) =>
-                  prev.map((b, i) =>
-                    i === index ? { ...b, triggerGroup: "nextEvents" } : b
+                setButtons((previousButtons) =>
+                  previousButtons.map((currentButton, buttonIndex) =>
+                    buttonIndex === index
+                      ? { ...currentButton, triggerGroup: "nextEvents" }
+                      : currentButton
                   )
                 );
               }}
@@ -66,9 +72,11 @@ const TriggerGroup: React.FC<TriggerGroupProp> = ({ button, index }) => {
               type="radio"
               checked={button.triggerGroup === ""}
               onChange={() => {
-                setButtons((prev) =>
-                  prev.map((b, i) =>
-                    i === index ? { ...b, triggerGroup: "" } : b
+                setButtons((previousButtons) =>
+                  previousButtons.map((currentButton, buttonIndex) =>
+                    buttonIndex === index
+                      ? { ...currentButton, triggerGroup: "" }
+                      : currentButton
                   )
                 );
               }}
@@ -77,88 +85,140 @@ const TriggerGroup: React.FC<TriggerGroupProp> = ({ button, index }) => {
           </label>
         </div>
       </div>
-      {button.triggerGroup === "triggerQuest" && (
-        <div className="nested-section">
-          <label>triggerQuest:</label>
-          <input
-            className="w-full"
-            type="text"
-            value={button.triggerQuest}
-            onChange={(e) => {
-              const val = e.target.value;
-              setButtons((prev) =>
-                prev.map((b, i) =>
-                  i === index ? { ...b, triggerQuest: val } : b
-                )
-              );
-            }}
-          />
-        </div>
-      )}
-      {button.triggerGroup === "endQuest" && (
-        <div className="nested-section">
-          <label>endQuest:</label>
-          <input
-            className="w-full"
-            type="text"
-            value={button.endQuest}
-            onChange={(e) => {
-              const val = e.target.value;
-              setButtons((prev) =>
-                prev.map((b, i) => (i === index ? { ...b, endQuest: val } : b))
-              );
-            }}
-          />
-        </div>
-      )}
       {button.triggerGroup === "nextEvents" && (
         <div className="nested-section">
-          {button.nextEvents.map((ne: NextEventOption, neIndex: number) => (
-            <div key={neIndex} className="flex-row">
-              <input
+          {button.nextEvents.map((nextEvent, nextEventIndex) => (
+            <div key={nextEventIndex} className="flex-row">
+              {/* gameQuestEvents Dropdown */}
+              <select
                 className="w-100"
-                type="text"
-                placeholder="eventId"
-                value={ne.eventId}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setButtons((prev) =>
-                    prev.map((b, i) => {
-                      if (i !== index) return b;
-                      const newNextEvents = b.nextEvents.map(
-                        (nx: NextEventOption, xIdx: number) => {
-                          if (xIdx !== neIndex) return nx;
-                          return { ...nx, eventId: val };
+                value={
+                  gameQuestEvents.find(
+                    (event) => event.id === nextEvent.eventId
+                  )
+                    ? nextEvent.eventId
+                    : ""
+                }
+                onChange={(event) => {
+                  const selectedId = event.target.value;
+                  setButtons((previousButtons) =>
+                    previousButtons.map((currentButton, buttonIndex) => {
+                      if (buttonIndex !== index) return currentButton;
+                      const updatedNextEvents = currentButton.nextEvents.map(
+                        (currentNextEvent, eventIndex) => {
+                          if (eventIndex !== nextEventIndex)
+                            return currentNextEvent;
+                          return { ...currentNextEvent, eventId: selectedId };
                         }
                       );
-                      return { ...b, nextEvents: newNextEvents };
+                      return {
+                        ...currentButton,
+                        nextEvents: updatedNextEvents,
+                      };
+                    })
+                  );
+                }}
+              >
+                <option value="">--Aus gameQuestEvents wählen--</option>
+                {gameQuestEvents.map((event) => (
+                  <option key={event.id} value={event.id}>
+                    {event.label || event.id}
+                  </option>
+                ))}
+              </select>
+              {/* randomEvents Dropdown */}
+              <select
+                className="w-100"
+                value={
+                  randomEvents.find((event) => event.id === nextEvent.eventId)
+                    ? nextEvent.eventId
+                    : ""
+                }
+                onChange={(event) => {
+                  const selectedId = event.target.value;
+                  setButtons((previousButtons) =>
+                    previousButtons.map((currentButton, buttonIndex) => {
+                      if (buttonIndex !== index) return currentButton;
+                      const updatedNextEvents = currentButton.nextEvents.map(
+                        (currentNextEvent, eventIndex) => {
+                          if (eventIndex !== nextEventIndex)
+                            return currentNextEvent;
+                          return { ...currentNextEvent, eventId: selectedId };
+                        }
+                      );
+                      return {
+                        ...currentButton,
+                        nextEvents: updatedNextEvents,
+                      };
+                    })
+                  );
+                }}
+              >
+                <option value="">--Aus randomEvents wählen--</option>
+                {randomEvents.map((event) => (
+                  <option key={event.id} value={event.id}>
+                    {event.label || event.id}
+                  </option>
+                ))}
+              </select>
+              {/* Manuelle Eingabe */}
+              <input
+                className="w-full"
+                type="text"
+                placeholder="eventId eingeben"
+                value={nextEvent.eventId}
+                onChange={(event) => {
+                  const manualId = event.target.value;
+                  setButtons((previousButtons) =>
+                    previousButtons.map((currentButton, buttonIndex) => {
+                      if (buttonIndex !== index) return currentButton;
+                      const updatedNextEvents = currentButton.nextEvents.map(
+                        (currentNextEvent, eventIndex) => {
+                          if (eventIndex !== nextEventIndex)
+                            return currentNextEvent;
+                          return { ...currentNextEvent, eventId: manualId };
+                        }
+                      );
+                      return {
+                        ...currentButton,
+                        nextEvents: updatedNextEvents,
+                      };
                     })
                   );
                 }}
               />
+              {/* Wahrscheinlichkeit */}
               <input
                 className="w-full"
                 type="number"
-                placeholder="prob"
-                value={ne.probability}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value, 10) || 100;
-                  setButtons((prev) =>
-                    prev.map((b, i) => {
-                      if (i !== index) return b;
-                      const newNextEvents = b.nextEvents.map(
-                        (nx: NextEventOption, xIdx: number) => {
-                          if (xIdx !== neIndex) return nx;
-                          return { ...nx, probability: val };
+                placeholder="Wahrscheinlichkeit"
+                value={nextEvent.probability}
+                onChange={(event) => {
+                  const probabilityValue =
+                    parseInt(event.target.value, 10) || 100;
+                  setButtons((previousButtons) =>
+                    previousButtons.map((currentButton, buttonIndex) => {
+                      if (buttonIndex !== index) return currentButton;
+                      const updatedNextEvents = currentButton.nextEvents.map(
+                        (currentNextEvent, eventIndex) => {
+                          if (eventIndex !== nextEventIndex)
+                            return currentNextEvent;
+                          return {
+                            ...currentNextEvent,
+                            probability: probabilityValue,
+                          };
                         }
                       );
-                      return { ...b, nextEvents: newNextEvents };
+                      return {
+                        ...currentButton,
+                        nextEvents: updatedNextEvents,
+                      };
                     })
                   );
                 }}
               />
               <button
-                onClick={() => removeNextEvent(index, neIndex)}
+                onClick={() => removeNextEvent(index, nextEventIndex)}
                 className="remove-button"
                 style={{ marginLeft: "0.5rem" }}
               >

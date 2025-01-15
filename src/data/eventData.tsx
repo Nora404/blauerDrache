@@ -26,7 +26,7 @@ import { event015FairyLost } from "./gameEvents/015FairyLost";
 import { event016FairyWish } from "./gameEvents/016FairyWish";
 import { event017ChestTrap } from "./gameEvents/017ChestTrap";
 import { ItemName } from "./ItemData";
-import { gameQuestTrigger } from "./questData";
+import { gameQuestEvents } from "./questData";
 
 export type NextEventOption = {
   eventId: string; // Next event ID
@@ -95,4 +95,4 @@ export const randomEvents: GameEvent[] = [
   event017ChestTrap,
 ];
 
-export const gameEvents: GameEvent[] = [...randomEvents, ...gameQuestTrigger];
+export const gameEvents: GameEvent[] = [...randomEvents, ...gameQuestEvents];

@@ -6,7 +6,7 @@ import {
   WeightedEvent,
 } from "../data/eventData";
 import { Item, ItemCartegoryName, ItemName, items } from "../data/ItemData";
-import { gameQuestTrigger, getGameQuestById } from "../data/questData";
+import { gameQuestEvents, getGameQuestById } from "../data/questData";
 import { GameStore } from "../store/newGameStore";
 
 //#region [gray]
@@ -46,7 +46,7 @@ export function getGameEventById(id: string): GameEvent | undefined {
 }
 
 export function getQuestTriggerById(id: string): GameEvent | undefined {
-  return gameQuestTrigger.find((event) => event.id === id);
+  return gameQuestEvents.find((event) => event.id === id);
 }
 //#endregion
 

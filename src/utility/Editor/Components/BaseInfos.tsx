@@ -1,14 +1,14 @@
 import React from "react";
 import { useEditorContext } from "../Context/Context";
 import { randomEvents } from "../../../data/eventData";
-import { gameQuestTrigger } from "../../../data/questData";
+import { gameQuestEvents } from "../../../data/questData";
 
 const BaseInfo: React.FC = () => {
   const { eventId, label, description, setEventId, setLabel, setDescription } =
     useEditorContext();
 
   const lastGameEvent = randomEvents[randomEvents.length - 1];
-  const lastGameQuestTrigger = gameQuestTrigger[gameQuestTrigger.length - 1];
+  const lastGameQuestTrigger = gameQuestEvents[gameQuestEvents.length - 1];
 
   return (
     <div className="max-widht">
