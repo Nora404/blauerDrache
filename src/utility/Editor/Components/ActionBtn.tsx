@@ -3,7 +3,6 @@ import { BuffName } from "../../../data/buffData";
 import { DebuffName } from "../../../data/debuffData";
 import { NextEventOption } from "../../../data/eventData";
 import { ItemCartegoryName } from "../../../data/ItemData";
-import Header from "../../../layout/Header/Header";
 import { useEditorContext } from "../Context/Context";
 import {
   buildItemCategories,
@@ -369,6 +368,7 @@ const ActionBtn: React.FC = () => {
                     <input
                       type="text"
                       value={btn.fluxDelta.item}
+                      placeholder="Nichts"
                       onChange={(e) => {
                         const val = e.target.value;
                         setButtons((prev) =>

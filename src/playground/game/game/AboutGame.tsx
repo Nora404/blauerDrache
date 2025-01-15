@@ -9,7 +9,6 @@ type AboutGame = {
 const AboutGame: React.FC<AboutGame> = () => {
   return (
     <div className="max-widht">
-      <h2>Test!</h2>
       <Editor />
     </div>
   );

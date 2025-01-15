@@ -67,3 +67,23 @@ export function getAllPlaces(): PlacesKeys[] {
   ];
   return all;
 }
+
+export function formatAsJSX(obj: any, indent = 0): string {
+  const spaces = "  ".repeat(indent);
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) return "[]";
+    const items = obj.map((x) => formatAsJSX(x, indent + 1));
+    return `[\n${items.join(",\n")}\n${spaces}]`;
+  } else if (typeof obj === "object" && obj !== null) {
+    const entries = Object.entries(obj).map(([k, v]) => {
+      return `  ${"  ".repeat(indent)}${k}: ${formatAsJSX(v, indent + 1)}`;
+    });
+    return `{\n${entries.join(",\n")}\n${spaces}}`;
+  } else if (typeof obj === "string") {
+    if (obj.startsWith("<>") && obj.endsWith("</>")) {
+      return obj;
+    }
+    return JSON.stringify(obj);
+  }
+  return String(obj);
+}
