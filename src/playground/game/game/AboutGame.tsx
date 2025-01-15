@@ -1,5 +1,5 @@
 import React from "react";
-import EventCreationForm from "../../../utility/GenerateEvents/GenerateEvents";
+import Editor from "../../../utility/Editor/Editor";
 
 type AboutGame = {
   title?: string;
@@ -10,7 +10,7 @@ const AboutGame: React.FC<AboutGame> = () => {
   return (
     <div className="max-widht">
       <h2>Test!</h2>
-      <EventCreationForm />
+      <Editor />
     </div>
   );
 };
