@@ -11,6 +11,7 @@ import {
 } from "../Context/Helper";
 import MultiColoredLetters from "../../MultiColoredLetters";
 import { yellowColors } from "../../../data/colorMappingData";
+import TriggerGroup from "./TriggerGroup";
 
 const ActionBtn: React.FC = () => {
   const {
@@ -472,185 +473,17 @@ const ActionBtn: React.FC = () => {
                   ))}
                 </div>
               )}
-              {/* TriggerGroup */}
-              <div
-                className="form-group"
-                style={{ marginTop: "40px", marginBottom: "30px" }}
-              >
-                {/* <label>Trigger Quest Gruppe:</label> */}
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      checked={btn.triggerGroup === "triggerQuest"}
-                      onChange={() => {
-                        setButtons((prev) =>
-                          prev.map((b, i) =>
-                            i === index
-                              ? { ...b, triggerGroup: "triggerQuest" }
-                              : b
-                          )
-                        );
-                      }}
-                    />
-                    triggerQuest
-                  </label>
-                  <label style={{ marginLeft: 10 }}>
-                    <input
-                      type="radio"
-                      checked={btn.triggerGroup === "endQuest"}
-                      onChange={() => {
-                        setButtons((prev) =>
-                          prev.map((b, i) =>
-                            i === index ? { ...b, triggerGroup: "endQuest" } : b
-                          )
-                        );
-                      }}
-                    />
-                    endQuest
-                  </label>
-                  <label style={{ marginLeft: 10 }}>
-                    <input
-                      type="radio"
-                      checked={btn.triggerGroup === "nextEvents"}
-                      onChange={() => {
-                        setButtons((prev) =>
-                          prev.map((b, i) =>
-                            i === index
-                              ? { ...b, triggerGroup: "nextEvents" }
-                              : b
-                          )
-                        );
-                      }}
-                    />
-                    nextEvents
-                  </label>
-                  <label style={{ marginLeft: 10 }}>
-                    <input
-                      type="radio"
-                      checked={btn.triggerGroup === ""}
-                      onChange={() => {
-                        setButtons((prev) =>
-                          prev.map((b, i) =>
-                            i === index ? { ...b, triggerGroup: "" } : b
-                          )
-                        );
-                      }}
-                    />
-                    Keine Auswahl
-                  </label>
-                </div>
-              </div>
-              {btn.triggerGroup === "triggerQuest" && (
-                <div className="nested-section">
-                  <label>triggerQuest:</label>
-                  <input
-                    className="w-full"
-                    type="text"
-                    value={btn.triggerQuest}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setButtons((prev) =>
-                        prev.map((b, i) =>
-                          i === index ? { ...b, triggerQuest: val } : b
-                        )
-                      );
-                    }}
-                  />
-                </div>
-              )}
-              {btn.triggerGroup === "endQuest" && (
-                <div className="nested-section">
-                  <label>endQuest:</label>
-                  <input
-                    className="w-full"
-                    type="text"
-                    value={btn.endQuest}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setButtons((prev) =>
-                        prev.map((b, i) =>
-                          i === index ? { ...b, endQuest: val } : b
-                        )
-                      );
-                    }}
-                  />
-                </div>
-              )}
-              {btn.triggerGroup === "nextEvents" && (
-                <div className="nested-section">
-                  {btn.nextEvents.map(
-                    (ne: NextEventOption, neIndex: number) => (
-                      <div key={neIndex} className="flex-row">
-                        <input
-                          className="w-100"
-                          type="text"
-                          placeholder="eventId"
-                          value={ne.eventId}
-                          onChange={(e) => {
-                            const val = e.target.value;
-                            setButtons((prev) =>
-                              prev.map((b, i) => {
-                                if (i !== index) return b;
-                                const newNextEvents = b.nextEvents.map(
-                                  (nx: NextEventOption, xIdx: number) => {
-                                    if (xIdx !== neIndex) return nx;
-                                    return { ...nx, eventId: val };
-                                  }
-                                );
-                                return { ...b, nextEvents: newNextEvents };
-                              })
-                            );
-                          }}
-                        />
-                        <input
-                          className="w-full"
-                          type="number"
-                          placeholder="prob"
-                          value={ne.probability}
-                          onChange={(e) => {
-                            const val = parseInt(e.target.value, 10) || 100;
-                            setButtons((prev) =>
-                              prev.map((b, i) => {
-                                if (i !== index) return b;
-                                const newNextEvents = b.nextEvents.map(
-                                  (nx: NextEventOption, xIdx: number) => {
-                                    if (xIdx !== neIndex) return nx;
-                                    return { ...nx, probability: val };
-                                  }
-                                );
-                                return { ...b, nextEvents: newNextEvents };
-                              })
-                            );
-                          }}
-                        />
-                        <button
-                          onClick={() => removeNextEvent(index, neIndex)}
-                          className="remove-button"
-                          style={{ marginLeft: "0.5rem" }}
-                        >
-                          Entfernen
-                        </button>
-                      </div>
-                    )
-                  )}
-                  <button
-                    onClick={() => addNextEvent(index)}
-                    className="add-button"
-                  >
-                    NextEvent hinzufügen
-                  </button>
-                </div>
-              )}
+              <TriggerGroup button={btn} index={index} />
 
               {/* Ganzen Button entfernen */}
               <button
                 onClick={() => removeButton(index)}
-                className="remove-button"
+                className="remove-button w-100"
               >
                 Diesen Button entfernen
               </button>
             </details>
+            <hr />
           </div>
         ))}
 

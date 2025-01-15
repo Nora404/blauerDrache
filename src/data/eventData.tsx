@@ -1,4 +1,12 @@
-import { GameState, GameTime, PlayerBase, PlayerEconomy, PlayerFlux, PlayerMeta, PlayerStats } from "../store/newGameStore";
+import {
+  GameState,
+  GameTime,
+  PlayerBase,
+  PlayerEconomy,
+  PlayerFlux,
+  PlayerMeta,
+  PlayerStats,
+} from "../store/newGameStore";
 import { PlacesKeys } from "./colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { event002Mashroom } from "./gameEvents/002Mushroom";
@@ -21,69 +29,70 @@ import { ItemName } from "./ItemData";
 import { gameQuestTrigger } from "./questData";
 
 export type NextEventOption = {
-    eventId: string;      // Next event ID
-    probability: number; // z. B. 70 => 70%
+  eventId: string; // Next event ID
+  probability: number; // z. B. 70 => 70%
 };
 
 export type GameAction = {
-    itemsDelta?: Partial<Record<ItemName, number>>;
-    economyDelta?: Partial<PlayerEconomy>;
-    fluxDelta?: Partial<PlayerFlux>                 // für buffs und debuffs
-    stateDelta?: Partial<PlayerStats>;              // für life and rounds
-    baseDelta?: Partial<PlayerBase>;
+  itemsDelta?: Partial<Record<ItemName, number>>;
+  economyDelta?: Partial<PlayerEconomy>;
+  fluxDelta?: Partial<PlayerFlux>; // für buffs und debuffs
+  stateDelta?: Partial<PlayerStats>; // für life and rounds
+  baseDelta?: Partial<PlayerBase>;
 
-    triggerQuest?: string;
-    endQuest?: string;
-    nextEvents?: NextEventOption[];
-    message?: JSX.Element;
-}
+  triggerQuest?: string;
+  endQuest?: string;
+  nextEvents?: NextEventOption[];
+  message?: JSX.Element;
+};
 
 export type GameEvent = {
-    id: string;             // z.B. 001Stone
-    label: string;          // z.B "Stein gefunden"
-    description: JSX.Element;
-    buttons: {
-        label: string;
-        getAction: () => GameAction;
-    }[];
-    places: {
-        place: PlacesKeys;
-        probability: number; // 1-100 wobei 100 = immer möglich
-    }[];
-}
+  id: string; // z.B. 001Stone
+  label: string; // z.B "Stein gefunden"
+  description: JSX.Element;
+  buttons: {
+    label: string;
+    getAction: () => GameAction;
+  }[];
+  places: {
+    place: PlacesKeys;
+    probability: number; // 1-100 wobei 100 = immer möglich
+  }[];
+};
 
 // Gewichtetes Ereignis
 export type WeightedEvent = {
-    eventId: string;
-    probability: number;
-    questId?: string;
-    conditions?: {
-        gameTime?: Partial<GameTime>;
-        gameState?: Partial<GameState>;
-        playerStats?: Partial<PlayerStats>;
-        playerBase?: Partial<PlayerBase>;
-        playerFlux?: Partial<PlayerFlux>;
-        playerMeta?: Partial<PlayerMeta>;
-    };
+  eventId: string;
+  probability: number;
+  questId?: string;
+  conditions?: {
+    gameTime?: Partial<GameTime>;
+    gameState?: Partial<GameState>;
+    playerStats?: Partial<PlayerStats>;
+    playerBase?: Partial<PlayerBase>;
+    playerFlux?: Partial<PlayerFlux>;
+    playerMeta?: Partial<PlayerMeta>;
+  };
 };
 
-export const gameEvents: GameEvent[] = [
-    event001StoneCoin,
-    event002Mashroom,
-    event003Stick,
-    event004Flower,
-    event005NoiseHear,
-    event006NoiseFollow,
-    event007Bag,
-    event008BagFull,
-    event009BagEmpty,
-    event010WoodenChest,
-    event011ChestJunk,
-    event012ChestGold,
-    event013ChestEmpty,
-    event014Fairy,
-    event015FairyLost,
-    event016FairyWish,
-    event017ChestTrap,
-    ...gameQuestTrigger,
-]
+export const randomEvents: GameEvent[] = [
+  event001StoneCoin,
+  event002Mashroom,
+  event003Stick,
+  event004Flower,
+  event005NoiseHear,
+  event006NoiseFollow,
+  event007Bag,
+  event008BagFull,
+  event009BagEmpty,
+  event010WoodenChest,
+  event011ChestJunk,
+  event012ChestGold,
+  event013ChestEmpty,
+  event014Fairy,
+  event015FairyLost,
+  event016FairyWish,
+  event017ChestTrap,
+];
+
+export const gameEvents: GameEvent[] = [...randomEvents, ...gameQuestTrigger];

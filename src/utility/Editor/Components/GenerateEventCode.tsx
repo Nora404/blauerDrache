@@ -39,8 +39,7 @@ const GenerateEventCode: React.FC = () => {
       // economyDelta
       if (b.economyDeltaEnabled) {
         const eco = { ...b.economyDelta };
-        // 0-Werte entfernen
-        Object.keys(eco).forEach((k) => {
+        (Object.keys(eco) as Array<keyof typeof eco>).forEach((k) => {
           if (eco[k] === 0) delete eco[k];
         });
         if (Object.keys(eco).length > 0) {
@@ -51,8 +50,7 @@ const GenerateEventCode: React.FC = () => {
       // fluxDelta
       if (b.fluxDeltaEnabled) {
         const flux = { ...b.fluxDelta };
-        // Leere Felder entfernen
-        Object.keys(flux).forEach((k) => {
+        (Object.keys(flux) as Array<keyof typeof flux>).forEach((k) => {
           if (!flux[k]) delete flux[k];
         });
         if (Object.keys(flux).length > 0) {
@@ -63,7 +61,7 @@ const GenerateEventCode: React.FC = () => {
       // stateDelta
       if (b.stateDeltaEnabled) {
         const st = { ...b.stateDelta };
-        Object.keys(st).forEach((k) => {
+        (Object.keys(st) as Array<keyof typeof st>).forEach((k) => {
           if (st[k] === 0) delete st[k];
         });
         if (Object.keys(st).length > 0) {
@@ -74,7 +72,7 @@ const GenerateEventCode: React.FC = () => {
       // baseDelta
       if (b.baseDeltaEnabled) {
         const base = { ...b.baseDelta };
-        Object.keys(base).forEach((k) => {
+        (Object.keys(base) as Array<keyof typeof base>).forEach((k) => {
           if (base[k] === 0) delete base[k];
         });
         if (Object.keys(base).length > 0) {
@@ -155,6 +153,20 @@ const GenerateEventCode: React.FC = () => {
     return obj;
   }
 
+  // Clipboard-Funktion
+  const copyToClipboard = () => {
+    if (generatedCode) {
+      navigator.clipboard.writeText(generatedCode).then(
+        () => {
+          alert("Code wurde in die Zwischenablage kopiert!");
+        },
+        (err) => {
+          console.error("Fehler beim Kopieren in die Zwischenablage:", err);
+        }
+      );
+    }
+  };
+
   return (
     <div className="max-widht">
       <button onClick={generateCode} className="generate-button">
@@ -165,7 +177,9 @@ const GenerateEventCode: React.FC = () => {
         <div className="output-container">
           <h2>Generierter Code</h2>
           <pre className="output-pre">{generatedCode}</pre>
-          <p>(Hier kannst du den Code manuell markieren und kopieren.)</p>
+          <button onClick={copyToClipboard} className="copy-button">
+            In die Zwischenablage kopieren
+          </button>
         </div>
       )}
     </div>

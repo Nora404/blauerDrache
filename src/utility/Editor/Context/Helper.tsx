@@ -12,11 +12,9 @@ export function buildItemCategories(): Record<ItemCartegoryName, Item[]> {
     }
     categoryMap[cat].push(item);
   });
-  // Typescript-cast, damit es in dein Record passt
   return categoryMap as Record<ItemCartegoryName, Item[]>;
 }
 
-// Buffs und Debuffs in Arrays
 export function getAllBuffNames(): BuffName[] {
   return Object.keys(buffMap) as BuffName[];
 }
