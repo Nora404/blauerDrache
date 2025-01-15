@@ -12,11 +12,15 @@ const GenerateEventCode: React.FC = () => {
       id: eventId,
       label,
     };
+
+    // Statt: <>${description}</>
+    // Einfach den reinen String speichern
     if (description.trim() !== "") {
-      eventObj.description = `<>${description}</>`;
+      // Kommentar: So bleibt "Hallo\nFremder {SYSTEM.Gold}" erhalten
+      eventObj.description = description; // <-- Änderung
     }
 
-    // Buttons
+    // Buttons etc. bleiben unverändert
     const allButtons = buttons.map((b) => {
       const button: any = { label: b.label };
       const getAction: any = {};
@@ -26,7 +30,6 @@ const GenerateEventCode: React.FC = () => {
         const itemsDelta: Record<string, number> = {};
         for (const entry of b.itemsDelta) {
           if (entry.itemName && entry.quantity !== 0) {
-            // z.B. itemsDelta["Stein"] = 3
             const itemKey = entry.itemName;
             itemsDelta[itemKey] = (itemsDelta[itemKey] || 0) + entry.quantity;
           }
@@ -98,8 +101,9 @@ const GenerateEventCode: React.FC = () => {
       }
 
       // Message
+      // Auch hier: Wenn du multiline-Eingaben erlaubst, einfach als String:
       if (b.message.trim() !== "") {
-        getAction.message = `<>${b.message}</>`;
+        getAction.message = b.message; // <- statt <>${b.message}</>
       }
 
       if (Object.keys(getAction).length > 0) {
@@ -125,13 +129,11 @@ const GenerateEventCode: React.FC = () => {
       }
     }
 
-    // Cleaning + Format
     const cleaned = cleanObject(eventObj);
     const result = formatAsJSX(cleaned);
     setGeneratedCode(result);
   };
 
-  // Hilfsfunktionen
   function cleanObject(obj: any): any {
     if (Array.isArray(obj)) {
       return obj.map(cleanObject).filter((x) => x !== null && x !== undefined);
@@ -153,7 +155,6 @@ const GenerateEventCode: React.FC = () => {
     return obj;
   }
 
-  // Clipboard-Funktion
   const copyToClipboard = () => {
     if (generatedCode) {
       navigator.clipboard.writeText(generatedCode).then(
