@@ -1,7 +1,11 @@
 import React from "react";
 import { ButtonConfig, useEditorContext } from "../Context/Context";
 import { randomEvents } from "../../../data/eventData";
-import { gameQuestEvents } from "../../../data/questData";
+import {
+  GameQuest,
+  gameQuestEvents,
+  gameQuests,
+} from "../../../data/questData";
 
 type TriggerGroupProps = {
   button: ButtonConfig;
@@ -85,6 +89,88 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
           </label>
         </div>
       </div>
+      {/* triggerQuest Section */}
+      {button.triggerGroup === "triggerQuest" && (
+        <div className="nested-section">
+          <label className="label">triggerQuest:</label>
+          <div className="flex-row">
+            <select
+              className="w-full"
+              value={button.triggerQuest}
+              onChange={(e) => {
+                const val = e.target.value;
+                setButtons((prev) =>
+                  prev.map((b, i) =>
+                    i === index ? { ...b, triggerQuest: val } : b
+                  )
+                );
+              }}
+            >
+              <option value="">--Vorhandene Quests--</option>
+              {gameQuests.map((quest: GameQuest) => (
+                <option key={quest.id} value={quest.id}>
+                  {quest.label}
+                </option>
+              ))}
+            </select>
+            <input
+              className="w-full"
+              placeholder="questId"
+              type="text"
+              value={button.triggerQuest}
+              onChange={(e) => {
+                const val = e.target.value;
+                setButtons((prev) =>
+                  prev.map((b, i) =>
+                    i === index ? { ...b, triggerQuest: val } : b
+                  )
+                );
+              }}
+            />
+          </div>
+        </div>
+      )}
+      {button.triggerGroup === "endQuest" && (
+        <div className="nested-section">
+          <label className="label">endQuest:</label>
+          <div className="flex-row">
+            <select
+              className="w-full"
+              value={button.endQuest}
+              onChange={(e) => {
+                const val = e.target.value;
+                setButtons((prev) =>
+                  prev.map((b, i) =>
+                    i === index ? { ...b, endQuest: val } : b
+                  )
+                );
+              }}
+            >
+              <option value="">--Vorhandene Quests--</option>
+              {gameQuests.map((quest: GameQuest) => (
+                <option key={quest.id} value={quest.id}>
+                  {quest.label}
+                </option>
+              ))}
+            </select>
+            <input
+              className="w-full"
+              placeholder="questId"
+              type="text"
+              value={button.endQuest}
+              onChange={(e) => {
+                const val = e.target.value;
+                setButtons((prev) =>
+                  prev.map((b, i) =>
+                    i === index ? { ...b, endQuest: val } : b
+                  )
+                );
+              }}
+            />
+          </div>
+        </div>
+      )}
+      {/* nextEvents Section */}
       {button.triggerGroup === "nextEvents" && (
         <div className="nested-section">
           {button.nextEvents.map((nextEvent, nextEventIndex) => (
@@ -92,13 +178,7 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
               {/* gameQuestEvents Dropdown */}
               <select
                 className="w-100"
-                value={
-                  gameQuestEvents.find(
-                    (event) => event.id === nextEvent.eventId
-                  )
-                    ? nextEvent.eventId
-                    : ""
-                }
+                value={nextEvent.eventId}
                 onChange={(event) => {
                   const selectedId = event.target.value;
                   setButtons((previousButtons) =>
@@ -129,11 +209,7 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
               {/* randomEvents Dropdown */}
               <select
                 className="w-100"
-                value={
-                  randomEvents.find((event) => event.id === nextEvent.eventId)
-                    ? nextEvent.eventId
-                    : ""
-                }
+                value={nextEvent.eventId}
                 onChange={(event) => {
                   const selectedId = event.target.value;
                   setButtons((previousButtons) =>
