@@ -2,7 +2,12 @@ import React from "react";
 import { ButtonConfig, useEditorContext } from "../Context/Context";
 import { BuffName } from "../../../data/buffData";
 import { DebuffName } from "../../../data/debuffData";
-import { getAllBuffNames, getAllDebuffNames } from "../Context/Helper";
+import { FeelingName } from "../../../data/feelingData"; // Importiere den Typ
+import {
+  getAllBuffNames,
+  getAllDebuffNames,
+  getAllFeelingNames,
+} from "../Context/Helper";
 
 type FluxDeltaProps = {
   button: ButtonConfig;
@@ -35,11 +40,10 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
         <div className="nested-section flex-row">
           <div className="form-group w-100">
             <label>Feeling:</label>
-            <input
-              type="text"
+            <select
               value={button.fluxDelta.feeling}
               onChange={(e) => {
-                const val = e.target.value;
+                const val = e.target.value as FeelingName;
                 setButtons((prev) =>
                   prev.map((b, i) =>
                     i === index
@@ -51,7 +55,14 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
                   )
                 );
               }}
-            />
+            >
+              <option value="">--Kein Gefühl--</option>
+              {getAllFeelingNames().map((feeling) => (
+                <option key={feeling} value={feeling}>
+                  {feeling}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-group w-100">
             <label>Buff:</label>

@@ -1,6 +1,7 @@
 import { BuffName, buffMap } from "../../../data/buffData";
 import { PlacesKeys } from "../../../data/colorfullStrings";
 import { DebuffName, debuffMap } from "../../../data/debuffData";
+import { feelingMap, FeelingName } from "../../../data/feelingData";
 import { ItemCartegoryName, Item, itemMap } from "../../../data/ItemData";
 
 export function buildItemCategories(): Record<ItemCartegoryName, Item[]> {
@@ -20,6 +21,9 @@ export function getAllBuffNames(): BuffName[] {
 }
 export function getAllDebuffNames(): DebuffName[] {
   return Object.keys(debuffMap) as DebuffName[];
+}
+export function getAllFeelingNames(): FeelingName[] {
+  return Object.keys(feelingMap) as FeelingName[];
 }
 
 export function getAllPlaces(): PlacesKeys[] {
