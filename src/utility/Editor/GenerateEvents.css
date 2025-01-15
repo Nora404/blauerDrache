@@ -82,14 +82,18 @@ option {
   box-sizing: border-box;
 }
 
+textarea {
+  height: 100px;
+}
+
 .space-top {
   margin-top: 40px;
 }
 
 input[type="number"] {
-  width: 50%;
+  width: 100px;
 }
 
-.w-50 {
-  width: 47%;
+.w-100 {
+  width: 100%;
 }

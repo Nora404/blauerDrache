@@ -99,7 +99,7 @@ const ActionBtn: React.FC = () => {
                       ? categoryMap[entry.category] ?? []
                       : [];
                     return (
-                      <div key={entryIndex} className="items-delta-row">
+                      <div key={entryIndex} className="flex-row">
                         {/* Kategorie */}
                         <select
                           className="w-full"
@@ -223,8 +223,8 @@ const ActionBtn: React.FC = () => {
                 </label>
               </div>
               {btn.economyDeltaEnabled && (
-                <div className="nested-section">
-                  <div className="form-group">
+                <div className="nested-section flex-warp">
+                  <div className="form-group m-15">
                     <label>Gold:</label>
                     <input
                       type="number"
@@ -291,8 +291,8 @@ const ActionBtn: React.FC = () => {
                 </label>
               </div>
               {btn.fluxDeltaEnabled && (
-                <div className="nested-section">
-                  <div className="form-group">
+                <div className="nested-section flex-row">
+                  <div className="form-group w-100">
                     <label>Feeling:</label>
                     <input
                       type="text"
@@ -312,7 +312,7 @@ const ActionBtn: React.FC = () => {
                       }}
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="form-group w-100">
                     <label>Buff:</label>
                     <select
                       value={btn.fluxDelta.buff}
@@ -338,7 +338,7 @@ const ActionBtn: React.FC = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group w-100">
                     <label>Debuff:</label>
                     <select
                       value={btn.fluxDelta.debuff}
@@ -364,7 +364,7 @@ const ActionBtn: React.FC = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group w-100">
                     <label>Item (in Hand):</label>
                     <input
                       type="text"
@@ -405,9 +405,9 @@ const ActionBtn: React.FC = () => {
                 </label>
               </div>
               {btn.stateDeltaEnabled && (
-                <div className="nested-section">
+                <div className="nested-section flex-warp">
                   {Object.keys(btn.stateDelta).map((k) => (
-                    <div key={k} className="form-group">
+                    <div key={k} className="form-group m-15">
                       <label>{k}:</label>
                       <input
                         type="number"
@@ -448,9 +448,9 @@ const ActionBtn: React.FC = () => {
                 </label>
               </div>
               {btn.baseDeltaEnabled && (
-                <div className="nested-section">
+                <div className="nested-section flex-warp">
                   {Object.keys(btn.baseDelta).map((k) => (
-                    <div key={k} className="form-group">
+                    <div key={k} className="form-group m-15">
                       <label>{k}:</label>
                       <input
                         type="number"
@@ -473,7 +473,10 @@ const ActionBtn: React.FC = () => {
                 </div>
               )}
               {/* TriggerGroup */}
-              <div className="form-group" style={{ marginTop: "0.5rem" }}>
+              <div
+                className="form-group"
+                style={{ marginTop: "40px", marginBottom: "30px" }}
+              >
                 {/* <label>Trigger Quest Gruppe:</label> */}
                 <div>
                   <label>
@@ -578,9 +581,9 @@ const ActionBtn: React.FC = () => {
                 <div className="nested-section">
                   {btn.nextEvents.map(
                     (ne: NextEventOption, neIndex: number) => (
-                      <div key={neIndex} className="next-event-row">
+                      <div key={neIndex} className="flex-row">
                         <input
-                          style={{ width: "47%" }}
+                          className="w-100"
                           type="text"
                           placeholder="eventId"
                           value={ne.eventId}
@@ -620,7 +623,6 @@ const ActionBtn: React.FC = () => {
                               })
                             );
                           }}
-                          style={{ width: "50%" }}
                         />
                         <button
                           onClick={() => removeNextEvent(index, neIndex)}

@@ -15,7 +15,7 @@ const Places: React.FC<Places> = () => {
       {places.map((pl, pIndex) => (
         <div key={pIndex} className="flex-row">
           <select
-            className="w-50"
+            className="w-100"
             value={pl.place}
             onChange={(e) => {
               const val = e.target.value as PlacesKeys;
