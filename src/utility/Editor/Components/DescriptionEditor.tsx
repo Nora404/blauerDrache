@@ -76,7 +76,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
                     }}
                     className="dropdown w-200px"
                 >
-                    <option value="">-- Wort auswählen --</option>
+                    <option value="">-- Liste auswählen --</option>
                     {Object.keys(variableLists).map((listName) => (
                         <option key={listName} value={listName}>
                             {listName}
@@ -91,7 +91,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
                         onChange={(e) => setSelectedKey(e.target.value)}
                         className="dropdown w-200px"
                     >
-                        <option value="">-- Variable auswählen --</option>
+                        <option value="">-- Wort auswählen --</option>
                         {Object.keys(currentVarList).map((key) => (
                             <option key={key} value={key}>
                                 {key}
@@ -132,7 +132,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
                         onChange={(e) => setSelectedPalette(e.target.value)}
                         className="dropdown w-200px"
                     >
-                        <option value="">-- Farbpalette auswählen --</option>
+                        <option value="">-- Farben auswählen --</option>
                         {paletteOptions.map((p) => (
                             <option key={p} value={p}>
                                 {p}
