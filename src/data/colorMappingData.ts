@@ -1,3 +1,5 @@
+
+
 export const rosaColors: string[] = [
   '#EDC3D0',
   '#E39FB2',
@@ -100,3 +102,13 @@ export const yellowColors: string[] = [
   '#F9FFCF',
   '#FFF9A3',
 ];
+
+export const colorPalettes: Record<string, string[]> = {
+  rosaColors,
+  rainbowColors,
+  greenColors,
+  blueColors,
+  braunColors,
+  grayColors,
+  yellowColors,
+};

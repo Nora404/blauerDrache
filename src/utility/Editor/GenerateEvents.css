@@ -104,6 +104,19 @@ input[type="number"] {
 
 .w-100px {
   width: 100px;
-  height: 30px;
-  font-size: small;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: smaller;
+}
+
+.w-200px {
+  width: 200px;
+  margin-left: 0;
+}
+
+.h-30px {
+  height: 25px;
+  margin-top: 5px;
 }
