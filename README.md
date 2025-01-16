@@ -232,6 +232,21 @@ Eine Quest hat immer vorrang zu einem normalen Event. Dafür sorgen auch zwei Va
 - Name des Ortes + Thema der Unterseite als Namen. Ein D oder N um Tageszeit anzugeben, wenn nötig.
 - Nach dem Muster wie Hauptseite dem Routing hinzufügen `/place-theme`
 
+### Editor
+Ich habe mit ChatGPT einen Editor erstellt um in einem UI ganz leicht neue Events zu erstellen. Ich bin wirklich beeindruckt was dabei rum gekommen ist. Vermutlich war das erstellen dieses Editors lustiger als ihn nun zu benutzten, aber dabei hat sich folgendes ergeben:  
+Events speichern keine JSX.Elements mehr sondern normale Strings. Diese werden dann mit einer Hilfsfunktion geparsed um wieder JSX daraus zu machen. Um Farbigen Text anzeigen zu können wurde eine ... Art eigene Syntax erstellt. Darum hier die Anleitung was man zur Anwendung wissen muss  
+
+```typeScript
+const jsx = parseDescription(deinStringAusDemTextarea);
+return <div>{jsx}</div>;
+```
+Der Text im Textarea und somit der gespeicherte String kann Variabeln aus den Listen anzeigen `{STSTEM.Gold}` und die beiden Farb-Text Komponenten. Auch ein Enter im Text wird gespeichert und wiedergegeben.
+
+```typeScript
+{GradientText|rainbowColors}Das ist Regenbogen-Text{/GradientText}
+{MultiColoredLetters|blueColors}Das ist blau{/MultiColoredLetters}
+```
+In `colorMappingData` sind die Farbpaletten, dennoch muss man in dem Parser die Variabeln Listen, fals welche dazu kommen, mitpflegen. Auch in der Komponente für die Textarea gibt es Listen, für die Darstellung, gepflegt werden müssen. 
 
 ### Tools und Plugins
 Ich nutze das Plugin Colored Regions von mihelcic um Bereiche des Codes mit einem schwachen farbigen Hintergund zu belegen. Das hat den Vorteil, dass auch in der rechten mini Übersicht die Bereiche deutlich erkennbar sind. Zur Strukturierung und Navigation im Code finde ich das sehr hilfreich. Ich habe für bestimmte Bereiche noch Snippets erstellt.
