@@ -1,5 +1,6 @@
 import React from 'react';
-import karte from "../../../assets/karte.png";
+import karte from "../../../assets/Lahtheim.png";
+import karte2 from "../../../assets/karte.png";
 
 type MapProps = {
 
@@ -8,16 +9,20 @@ type MapProps = {
 const Map: React.FC<MapProps> = () => {
 
     return (
-        <div>
+        <div className='mb-2'>
             <h2>Karte von Lahtheim</h2>
-            <img
+            {/* <img
                 src={karte}
+                style={{ width: '100%', maxWidth: '900px' }}
+                alt="Karte"
+            /> */}
+
+            <img
+                src={karte2}
                 style={{ width: '100%', maxWidth: '900px' }}
                 alt="Karte"
             />
         </div>
-
-
     );
 };
 
