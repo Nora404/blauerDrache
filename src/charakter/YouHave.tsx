@@ -27,7 +27,7 @@ const YouHave: React.FC<YouHaveProps> = observer(() => {
                     </tr><tr>
                         <td>{SYSTEM.Ruf}</td><td>{playerBase.data.standing}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Respekt}</td><td>{playerBase.data.reputation} / {playerBase.data.nextReputation}</td>
+                        <td>{SYSTEM.Leumund}</td><td>{playerBase.data.reputation} / {playerBase.data.nextReputation}</td>
                     </tr><tr>
                         <td>{SYSTEM.Waffe}</td><td>{selected.weapon.label || 'Nichts'}</td>
                     </tr><tr>

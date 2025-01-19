@@ -3,6 +3,8 @@ import { makeAutoObservable } from "mobx";
 import { defaultGameStore, PlayerEconomy } from "./types";
 import { RootStore } from "./rootStore";
 import { itemMap } from "../data/ItemData";
+import { BuffName } from "../data/buffData";
+import { DebuffName } from "../data/debuffData";
 
 
 export class PlayerEconomyStore {
@@ -62,18 +64,39 @@ export class PlayerEconomyStore {
             console.log(`${itemName} ist nicht im Inventar.`);
             return;
         }
-        // Beispiel: Effekte anwenden
-        // -> z.B. auf playerStatsStore zu greifen:
-        const { life } = this.rootStore.playerStats.data;
-        this.rootStore.playerStats.updateLife(20); // oder was immer
 
-        // Eine Einheit abziehen
+        const { effects, buff, debuff } = currentItem.item;
+
+        // --- Effekte des Items anwenden ---
+        if (effects) {
+            const maxLife = this.rootStore.playerBase.data.maxLife;
+            const newLife = Math.min(
+                this.rootStore.playerStats.data.life + (effects.life || 0),
+                maxLife
+            );
+            this.rootStore.playerStats.data.life = newLife;
+
+            this.rootStore.playerStats.data.attack += effects.attack || 0;
+            this.rootStore.playerStats.data.defense += effects.defense || 0;
+            this.rootStore.playerStats.data.luck += effects.luck || 0;
+        }
+
+        // --- Buff und Debuff anwenden ---
+        if (buff) {
+            this.rootStore.playerFlux.updatePlayerBuff(buff as BuffName);
+        }
+        if (debuff) {
+            this.rootStore.playerFlux.updatePlayerDebuff(debuff as DebuffName);
+        }
+
+        // --- Item-Anzahl reduzieren oder ganz entfernen ---
         currentItem.quantity -= 1;
         if (currentItem.quantity <= 0) {
             delete this.data.items[itemName];
         }
-        // z.B. Item in Hand zurücksetzen:
+
         this.rootStore.playerFlux.updateInHand("Nichts");
+
         this.rootStore.saveToLocalStorage();
     }
 }
