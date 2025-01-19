@@ -179,6 +179,7 @@ export type PlacesKeys =
   | "Höhleneingang"
   | "Höhle"
   | "Schatzkammer"
+  | "vergessen"
 export const PLACES: Record<PlacesKeys, JSX.Element> = {
   Nordtor: <b><GradientText colors={['#bbbbbb']}>Nordtor</GradientText></b>,
   Westmauer: <b><GradientText colors={['#bbbbbb']}>Westmauer</GradientText></b>,
@@ -218,5 +219,6 @@ export const PLACES: Record<PlacesKeys, JSX.Element> = {
   Höhleneingang: <b><GradientText colors={['#2F4F4F']}>Höhleneingang</GradientText></b>,
   Höhle: <b><GradientText colors={['#696969']}>Höhle</GradientText></b>,
   Schatzkammer: <b><GradientText colors={['#e1de9d']}>Schatzkammer</GradientText></b>,
+  vergessen: <b><GradientText colors={['#bbbbbb']}>Titel vergessen!</GradientText></b>,
 };
 

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { WeightedEvent } from '../../data/eventData';
@@ -14,17 +13,25 @@ export function useLocationEvents(possibleEvents: WeightedEvent[], backPath: str
         playerBase,
         playerFlux,
         playerMeta,
-        playerQuest,
+        playerQuest
     } = useRootStore();
+
     const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    // Gemeinsame Variablen
     const queue = gameState.data.currentEventQueue;
     const firstEvent = queue.length > 0 ? queue[0] : null;
 
-    // Ausgelagerte useEffect-Logik
     useEffect(() => {
+        if (firstEvent) {
+            setLocalRandomEvent(null);
+            return;
+        }
+
+        if (!possibleEvents.length) {
+            return;
+        }
+
         const filtered = filterEventsByConditions(
             possibleEvents,
             gameTime.data,
@@ -35,6 +42,7 @@ export function useLocationEvents(possibleEvents: WeightedEvent[], backPath: str
             playerMeta.data,
             playerQuest.data,
         );
+        if (!filtered.length) return;
 
         const randomEventId = pickRandomEvent(filtered, 0.8);
         if (!randomEventId) return;
@@ -47,26 +55,21 @@ export function useLocationEvents(possibleEvents: WeightedEvent[], backPath: str
                 return;
             }
         }
+
         setLocalRandomEvent(randomEventId);
+
     }, [
+        firstEvent,
         possibleEvents,
-        gameTime,
         gameTime.data,
-        gameState,
         gameState.data,
-        playerStats,
         playerStats.data,
-        playerBase,
         playerBase.data,
-        playerFlux,
         playerFlux.data,
-        playerMeta,
         playerMeta.data,
-        playerQuest,
         playerQuest.data,
     ]);
 
-    // Ausgelagerte Handler
     const handleBack = () => {
         navigate(backPath);
     };
@@ -83,32 +86,10 @@ export function useLocationEvents(possibleEvents: WeightedEvent[], backPath: str
     };
 
     return {
-        // Zustände:
         localRandomEvent,
         firstEvent,
-
-        // Handler:
         handleBack,
         handleFinishLocalEvent,
         handleFinishQuestEvent,
     };
 }
-
-
-// EINBINDEN
-
-// const possibleEvents: WeightedEvent[] = [
-//     { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
-//     { eventId: "004Flower", probability: 10 },
-//   ];
-
-//   const {
-//     localRandomEvent,
-//     firstEvent,
-//     handleBack,
-//     handleFinishLocalEvent,
-//     handleFinishQuestEvent,
-//   } = useLocationEvents(possibleEvents, "/fountain");
-
-//   const initialEventName = firstEvent || localRandomEvent || '';
-//   const onFinishChainHandler = firstEvent ? handleFinishQuestEvent : handleFinishLocalEvent;
