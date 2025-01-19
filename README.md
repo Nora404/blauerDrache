@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + MobX
 
 Okay okay! Ich schreibe ja schon ein Readme ...
 
@@ -16,7 +16,7 @@ Außer den normalen Ordnern für assets, data und utilities habe ich einen Ordne
 Ein Einzelner Ort besteht aus mindestens zwei Seiten, einmal die Hauptseite und eine Komponente für die Navigation. Es können weitere Seiten hinzu kommen wenn mit NPCs oder Gegenständen interagiert wird. Es soll keine Popups geben. Auf der Navigationsseite gibt es einen Link zum Unschauen, damit wird die Hauptseite nochmal geladen. Ein Link führt zurück zur vorherigen Seite.
 
 ### Speichern
-Ich habe mit useContext gearbeitet und dem localStore. Warscheinlich wäre eine Datenbank besser gewesen, nur habe ich damit keine Erfahrung und der Wettbewerb dauert nur einen Monat. Es gibt einen Kontext indem mehrere Objekte in einem `store` gespeichert werden. Zudem gibt es hauptsächlich Setter und Updater.  
+Ich habe mit useContext und MobX gearbeitet und dem localStore. Warscheinlich wäre eine Datenbank besser gewesen, nur habe ich damit keine Erfahrung und der Wettbewerb dauert nur einen Monat.  
 
 Die wichtigsten Hilfsfunktionen sind `getCombinedStats` und `getPlayerObj` Die aktuellen Werte des Spielers werden aus verschiedenen Quellen zusammen gerechnet: Basiswerte, Temporere Werte und ein Scalingfactor mit dem Level, damit Buffs und Debuffs nie an Bedeutung verlieren. Das JSX benutzt nur diese Werte. Da im store keine JSX Objekte gespeichert werden können, die meisten Playerobjekte aber ein JSX Label besitzten, werden diese nur mit ihrem Namen als string gespeichert. Die Funktion `getPlayerObj` sammelt all die Objekte ein, filtert auch nach aktiven De/Buffs und gibt ein Objekt mit allen PlayerObjekten zurück. Die Verwendung ist dann sehr einfach und angenehm.  
 
