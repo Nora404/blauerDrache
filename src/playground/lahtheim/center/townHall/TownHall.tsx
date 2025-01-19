@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import { useNavigate } from 'react-router-dom';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import NpcTalk from '../../../../utility/NpcTalk';
@@ -7,12 +6,14 @@ import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { yellowColors } from '../../../../data/colorMappingData';
 import PlayerTalk from '../../../../utility/PlayerTalk';
 import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type TownHallProps = {
 };
 
-const TownHall: React.FC<TownHallProps> = () => {
-  const { store } = useNewGameStore();
+const TownHall: React.FC<TownHallProps> = observer(() => {
+  const { gameTime } = useRootStore();
   const navigate = useNavigate();
 
   const handleColor = () => {
@@ -34,7 +35,7 @@ const TownHall: React.FC<TownHallProps> = () => {
         die sich in die Höhe schrauben. Dein Blick wandert hoch zum großen Kronleuchter in der Mitte.
       </p>
 
-      {store.gameTime.gameDay === "Tag" && (
+      {gameTime.data.gameDay === "Tag" && (
         <>
           <p className='mb-1 text-left'>
             Die gläsernen Kristalle des Kronleuchters brechen das Sonnenlicht, das durch die hohen Fenster am Ende der Halle strömt,
@@ -54,7 +55,7 @@ const TownHall: React.FC<TownHallProps> = () => {
         </>
       )}
 
-      {store.gameTime.gameDay === "Nacht" && (
+      {gameTime.data.gameDay === "Nacht" && (
         <>
           <p className='mb-1 text-left'>
             Seine magischen kleinen Lichter tauchen die Halle in ein sanftes warmes Gelb.
@@ -71,6 +72,6 @@ const TownHall: React.FC<TownHallProps> = () => {
 
     </div>
   );
-};
+});
 
 export default TownHall;

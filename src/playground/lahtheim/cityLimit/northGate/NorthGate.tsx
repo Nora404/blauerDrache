@@ -3,9 +3,10 @@ import React, { } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 //#endregion
 
 //#region [prepare]
@@ -14,8 +15,8 @@ type NorthGateProps = {
     onClick?: () => void;
 };
 
-const NorthGate: React.FC<NorthGateProps> = () => {
-    const { store } = useNewGameStore();
+const NorthGate: React.FC<NorthGateProps> = observer(() => {
+    const { gameTime, gameState } = useRootStore();
     const navigate = useNavigate();
     //#endregion
 
@@ -36,8 +37,8 @@ const NorthGate: React.FC<NorthGateProps> = () => {
 
             <div className='text-left'>
                 <p className='mb-1'>
-                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {store.gameTime.gameDay}, du spürst die {store.gameState.temperature}e Luft auf deinem Gesicht.
-                    Bevor du auch nur einen Schritt gehen kannst,
+                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {gameTime.data.gameDay}, du spürst die
+                    {gameState.data.temperature}e Luft auf deinem Gesicht. Bevor du auch nur einen Schritt gehen kannst,
                     kommt ein kleines <GradientText colors={['#CF388F', '#8839CF']}>geflügeltes Wesen</GradientText> zu dir.
                     Mit großen Augen schaut es erwartungsvoll zu dir hoch.
                     Im nächsten Moment fängt es mit schriller Stimme an zu reden:
@@ -60,6 +61,6 @@ const NorthGate: React.FC<NorthGateProps> = () => {
         </div>
     );
     //#endregion
-};
+});
 
 export default NorthGate;

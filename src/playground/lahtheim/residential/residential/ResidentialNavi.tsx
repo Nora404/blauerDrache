@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import Arrow from '../../../../utility/Arrow';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type ResidentialNaviProps = {
 };
 
-const ResidentialNavi: React.FC<ResidentialNaviProps> = () => {
-    const { store } = useNewGameStore();
+const ResidentialNavi: React.FC<ResidentialNaviProps> = observer(() => {
+    const { gameState } = useRootStore();
 
     const handleCloseMobilePop = () => {
-        store.gameState.mobilePop = false;
+        gameState.data.mobilePop = false;
     }
 
     return (
@@ -26,6 +27,6 @@ const ResidentialNavi: React.FC<ResidentialNaviProps> = () => {
             </p>
         </div>
     );
-};
+});
 
 export default ResidentialNavi;

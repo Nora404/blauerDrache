@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import Arrow from '../../../../utility/Arrow';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type HouseNaviProps = {
 };
 
-const HouseNavi: React.FC<HouseNaviProps> = () => {
-    const { store } = useNewGameStore();
+const HouseNavi: React.FC<HouseNaviProps> = observer(() => {
+    const { gameState } = useRootStore();
 
     const handleCloseMobilePop = () => {
-        store.gameState.mobilePop = false;
+        gameState.data.mobilePop = false;
     }
 
     return (
@@ -23,6 +24,6 @@ const HouseNavi: React.FC<HouseNaviProps> = () => {
             </p>
         </div>
     );
-};
+});
 
 export default HouseNavi;

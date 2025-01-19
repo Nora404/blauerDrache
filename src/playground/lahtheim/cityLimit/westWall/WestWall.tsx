@@ -1,17 +1,18 @@
 import React from 'react';
 import { NPC, PLACES } from '../../../../data/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import { GradientText } from '../../../../utility/GradientText';
 import { yellowColors } from '../../../../data/colorMappingData';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type WestWallProps = {
 };
 
-const WestWall: React.FC<WestWallProps> = () => {
-  const { store } = useNewGameStore();
+const WestWall: React.FC<WestWallProps> = observer(() => {
+  const { gameTime } = useRootStore();
   const navigate = useNavigate();
 
   const handleHunter = () => {
@@ -39,7 +40,7 @@ const WestWall: React.FC<WestWallProps> = () => {
 
       </p>
 
-      {store.gameTime.gameDay === "Tag" && (
+      {gameTime.data.gameDay === "Tag" && (
         <>
           <p className='mb-1 text-left'>
             Hier öffnet sich ein kleiner <b><GradientText colors={['#a8ef52']}>grüner Park</GradientText></b>, eine akkurate Landschaft
@@ -63,7 +64,7 @@ const WestWall: React.FC<WestWallProps> = () => {
         </>
       )}
 
-      {store.gameTime.gameDay === "Nacht" && (
+      {gameTime.data.gameDay === "Nacht" && (
         <>
           <p className='mb-1 text-left'>
             Im Licht der Laternen wirft die westliche Stadtmauer lange Schatten auf
@@ -89,6 +90,6 @@ const WestWall: React.FC<WestWallProps> = () => {
 
     </div>
   );
-};
+});
 
 export default WestWall;
