@@ -2,18 +2,19 @@
 import React, { useState } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
 import { emptyWeaponObj, Weapon, WeaponName, weapons } from '../../../../data/weaponData';
-import { getPlayerObj, useNewGameStore } from '../../../../store/newGameStore';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 //#endregion
 
 //#region [prepare]
 type WeaponShopProps = {
 };
 
-const WeaponShop: React.FC<WeaponShopProps> = () => {
+const WeaponShop: React.FC<WeaponShopProps> = observer(() => {
     const [localWeapon, setLocalWeapon] = useState<Weapon>(emptyWeaponObj);
-    const { store, updatePlayerEconomy, updateWeapon } = useNewGameStore();
-    const selected = getPlayerObj(store);
+    const { getPlayerObj, playerEconomy, playerFlux } = useRootStore();
+    const selected = getPlayerObj();
 
     const exchangePrice = (selected.weapon.price / 1.2).toFixed();
     //#endregion
@@ -24,16 +25,16 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
     };
 
     const handleBuy = () => {
-        updatePlayerEconomy({
+        playerEconomy.updatePlayerEconomy({
             gold: Number(exchangePrice) - localWeapon.price
         })
-        updateWeapon(localWeapon.name as WeaponName)
+        playerFlux.updateWeapon(localWeapon.name as WeaponName)
     }
     //#endregion
 
     //#region [helper]
     const canBuy = () => {
-        const canBuy = store.playerEconomy.gold - localWeapon.price;
+        const canBuy = playerEconomy.data.gold - localWeapon.price;
         return canBuy >= 0 ? true : false;
     }
 
@@ -103,6 +104,6 @@ const WeaponShop: React.FC<WeaponShopProps> = () => {
         </div>
     );
     //#endregion
-};
+});
 
 export default WeaponShop;

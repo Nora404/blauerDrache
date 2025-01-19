@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import { PLACES } from '../../../../data/colorfullStrings';
 import Arrow from '../../../../utility/Arrow';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type GeneralStoreNaviProps = {
 };
 
-const GeneralStoreNavi: React.FC<GeneralStoreNaviProps> = () => {
-    const { store } = useNewGameStore();
+const GeneralStoreNavi: React.FC<GeneralStoreNaviProps> = observer(() => {
+    const { gameState } = useRootStore();
 
     const handleCloseMobilePop = () => {
-        store.gameState.mobilePop = false;
+        gameState.data.mobilePop = false;
     }
 
     return (
@@ -23,6 +24,6 @@ const GeneralStoreNavi: React.FC<GeneralStoreNaviProps> = () => {
             </p>
         </div>
     );
-};
+});
 
 export default GeneralStoreNavi;

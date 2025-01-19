@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import Arrow from '../../../../utility/Arrow';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type TradingDistrictNaviProps = {
 };
 
-const TradingDistrictNavi: React.FC<TradingDistrictNaviProps> = () => {
-    const { store } = useNewGameStore();
+const TradingDistrictNavi: React.FC<TradingDistrictNaviProps> = observer(() => {
+    const { gameState } = useRootStore();
 
     const handleCloseMobilePop = () => {
-        store.gameState.mobilePop = false;
+        gameState.data.mobilePop = false;
     }
 
     return (
@@ -27,6 +28,6 @@ const TradingDistrictNavi: React.FC<TradingDistrictNaviProps> = () => {
             </p>
         </div>
     );
-};
+});
 
 export default TradingDistrictNavi;
