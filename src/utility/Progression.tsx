@@ -38,6 +38,17 @@ export function calculateProgression(
     }
 }
 
+export function getScalingFactor(level: number): number {
+    // Jede Levelerhöhung erhöht den Faktor um 10%
+    return 1 + (level - 1) * 0.1;
+}
+
+export function requiredExpForLevel(level: number) {
+    return Math.round(
+        calculateProgression(100, 9999, 14, level - 1, 'geometric')
+    );
+}
+
 // BEISPIEL ERFAHRUNG
 
 // const baseExperience = 100;

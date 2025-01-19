@@ -6,7 +6,7 @@ import { RootStore } from "./rootStore";
 export class PlayerMetaStore {
     rootStore: RootStore;
 
-    playerMeta: PlayerMeta = defaultGameStore.playerMeta;
+    store: PlayerMeta = defaultGameStore.playerMeta;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -14,7 +14,7 @@ export class PlayerMetaStore {
     }
 
     setPlayerMeta(val: Partial<PlayerMeta>) {
-        this.playerMeta = { ...this.playerMeta, ...val };
+        this.store = { ...this.store, ...val };
         this.rootStore.saveToLocalStorage();
     }
 }

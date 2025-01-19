@@ -8,7 +8,7 @@ import { itemMap } from "../data/ItemData";
 export class PlayerEconomyStore {
     rootStore: RootStore;
 
-    playerEconomy: PlayerEconomy = defaultGameStore.playerEconomy;
+    store: PlayerEconomy = defaultGameStore.playerEconomy;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -16,12 +16,12 @@ export class PlayerEconomyStore {
     }
 
     updatePlayerEconomy(delta: Partial<PlayerEconomy>) {
-        this.playerEconomy.gold = Math.max(
-            this.playerEconomy.gold + (delta.gold || 0),
+        this.store.gold = Math.max(
+            this.store.gold + (delta.gold || 0),
             0
         );
-        this.playerEconomy.edelsteine = Math.max(
-            this.playerEconomy.edelsteine + (delta.edelsteine || 0),
+        this.store.edelsteine = Math.max(
+            this.store.edelsteine + (delta.edelsteine || 0),
             0
         );
         this.rootStore.saveToLocalStorage();
@@ -31,39 +31,39 @@ export class PlayerEconomyStore {
         const itemData = itemMap[name];
         if (!itemData) return;
 
-        const currentItem = this.playerEconomy.items[name];
+        const currentItem = this.store.items[name];
         const currentQuantity = currentItem ? currentItem.quantity : 0;
         const newQuantity = currentQuantity + quantity;
 
         if (newQuantity > 0) {
-            this.playerEconomy.items[name] = {
+            this.store.items[name] = {
                 item: { ...itemData },
                 quantity: newQuantity,
             };
         } else {
-            delete this.playerEconomy.items[name];
+            delete this.store.items[name];
         }
         this.rootStore.saveToLocalStorage();
     }
 
     consumeItem(itemName: string) {
-        const currentItem = this.playerEconomy.items[itemName];
+        const currentItem = this.store.items[itemName];
         if (!currentItem || currentItem.quantity <= 0) {
             console.log(`${itemName} ist nicht im Inventar.`);
             return;
         }
         // Beispiel: Effekte anwenden
         // -> z.B. auf playerStatsStore zu greifen:
-        const { life } = this.rootStore.playerStatsStore.playerStats;
-        this.rootStore.playerStatsStore.updateLife(20); // oder was immer
+        const { life } = this.rootStore.playerStats.store;
+        this.rootStore.playerStats.updateLife(20); // oder was immer
 
         // Eine Einheit abziehen
         currentItem.quantity -= 1;
         if (currentItem.quantity <= 0) {
-            delete this.playerEconomy.items[itemName];
+            delete this.store.items[itemName];
         }
         // z.B. Item in Hand zurücksetzen:
-        this.rootStore.playerFluxStore.updateInHand("Nichts");
+        this.rootStore.playerFlux.updateInHand("Nichts");
         this.rootStore.saveToLocalStorage();
     }
 }

@@ -7,23 +7,23 @@ import CharakterNavi from '../CharakterNavi';
 import navigationMap from '../../NavigationList';
 import TransitNavi from '../../playground/game/game/TransitNavi';
 import { useLocation } from 'react-router-dom';
-import { useNewGameStore } from '../../store/newGameStore';
 import ToggleActionButton from '../ActionButtons/ToggleActionButton';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../store';
 //#endregion
 
 //#region [prepare]
 type MobileFooterProps = {
 };
 
-const MobileFooter: React.FC<MobileFooterProps> = () => {
+const MobileFooter: React.FC<MobileFooterProps> = observer(() => {
     const [showGame, setShowGame] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showNavi, setShowNavi] = useState(false);
     const [showPlayer, setShowPlayer] = useState(false);
     const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
     const location = useLocation();
-    const { store } = useNewGameStore();
-    if (!store) return;
+    const { gameState } = useRootStore();
 
     const closePop = () => {
         setShowGame(false);
@@ -37,36 +37,36 @@ const MobileFooter: React.FC<MobileFooterProps> = () => {
         setShowInfo(false);
         setShowNavi(false);
         setShowPlayer(false);
-        store.gameState.mobilePop = true;
+        gameState.store.mobilePop = true;
     }
     const handleInfo = () => {
         setShowInfo(prev => !prev);
         setShowPlayer(false);
         setShowNavi(false);
         setShowGame(false);
-        store.gameState.mobilePop = true;
+        gameState.store.mobilePop = true;
     }
     const handleNavi = () => {
         setShowNavi(prev => !prev);
         setShowInfo(false);
         setShowPlayer(false);
         setShowGame(false);
-        store.gameState.mobilePop = true;
+        gameState.store.mobilePop = true;
     }
     const handlePlayer = () => {
         setShowPlayer(prev => !prev);
         setShowInfo(false);
         setShowNavi(false);
         setShowGame(false);
-        store.gameState.mobilePop = true;
+        gameState.store.mobilePop = true;
     }
     //#endregion
 
     useEffect(() => {
-        if (!store.gameState.mobilePop) {
+        if (!gameState.store.mobilePop) {
             closePop();
         }
-    }, [store.gameState.mobilePop]);
+    }, [gameState.store.mobilePop]);
 
     //#region [events]
     useEffect(() => {
@@ -89,7 +89,7 @@ const MobileFooter: React.FC<MobileFooterProps> = () => {
         <>
             <div className={`handyPop custom-scrollbar ${showGame ? 'open' : 'closed'}`}><GameNavi mobilePop={handleGame} /></div>
             <div className={`handyPop custom-scrollbar ${showInfo ? 'open' : 'closed'}`}><InfoNavi mobilePop={handleInfo} /></div>
-            <div className={`handyPop custom-scrollbar ${showNavi ? 'open' : 'closed'}`}>{store.gameState.creating && (currentNav)}</div>
+            <div className={`handyPop custom-scrollbar ${showNavi ? 'open' : 'closed'}`}>{gameState.store.creating && (currentNav)}</div>
             <div className={`handyPop custom-scrollbar ${showPlayer ? 'open' : 'closed'}`}><CharakterNavi /></div>
 
             <ToggleActionButton onClickOne={handleGame} labelOne="Game" labelTwo="Schließen" colorTwo="#F7445C" setOne={!showGame} />
@@ -100,6 +100,6 @@ const MobileFooter: React.FC<MobileFooterProps> = () => {
         </>
     );
     //#endregion
-};
+});
 
 export default MobileFooter;

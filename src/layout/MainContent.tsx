@@ -2,23 +2,22 @@
 import React, { useEffect, useState } from 'react'
 import RoutesList from '../RoutesList';
 import NewDay from '../playground/game/infos/NewDay';
-import { useNewGameStore } from '../store/newGameStore';
+import { useRootStore } from '../store';
 
 
 type MainContentProps = {
 }
 
-export const MainContent: React.FC<MainContentProps> = () => {
-    const { store } = useNewGameStore();
-    if (!store) return;
+export const MainContent: React.FC<MainContentProps> = (() => {
+    const { gameState, gameTime } = useRootStore();
 
     const [showNewDay, setShowNewDay] = useState(false)
 
     useEffect(() => {
-        if (store.gameTime.gameTime === "06:00" && store.gameState.creating) {
+        if (gameTime.store.gameTime === "06:00" && gameState.store.creating) {
             setShowNewDay(true)
         }
-    }, [store.gameTime.gameTime])
+    }, [gameTime.store.gameTime])
 
     const closeNewDay = () => {
         setShowNewDay(false)
@@ -36,4 +35,4 @@ export const MainContent: React.FC<MainContentProps> = () => {
             </div>
         </div>
     )
-}
+});

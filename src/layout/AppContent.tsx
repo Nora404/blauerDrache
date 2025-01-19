@@ -1,5 +1,4 @@
 
-import { useNewGameStore } from '../store/newGameStore';
 import { GradientText } from '../utility/GradientText';
 import CharakterNavi from './CharakterNavi';
 import { MainContent } from './MainContent';
@@ -8,9 +7,11 @@ import MobileHeader from './Mobile/MobileHeader';
 import MobileFooter from './Mobile/MobleFooter';
 import logo from '../assets/logo.svg';
 import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../store';
 
-const AppContent: React.FC = () => {
-    const { store } = useNewGameStore();
+const AppContent: React.FC = observer(() => {
+    const { gameTime } = useRootStore();
 
     const getBackgroundClass = (gameTime: string): string => {
         const [hours] = gameTime.split(':').map(Number);
@@ -22,14 +23,14 @@ const AppContent: React.FC = () => {
     };
 
     useEffect(() => {
-        const newClass = getBackgroundClass(store.gameTime.gameTime);
+        const newClass = getBackgroundClass(gameTime.store.gameTime);
         document.body.classList.remove('body-day', 'body-evening', 'body-night', 'body-morning');
         document.body.classList.add(newClass);
 
         return () => {
             document.body.classList.remove(newClass);
         };
-    }, [store.gameTime.gameTime]);
+    }, [gameTime.store.gameTime]);
 
     return (
         <div>
@@ -71,6 +72,6 @@ const AppContent: React.FC = () => {
             </div>
         </div>
     );
-}
+});
 
 export default AppContent;

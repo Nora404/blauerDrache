@@ -17,7 +17,7 @@ type FountainPeopleProps = {};
 
 const FountainPeople: React.FC<FountainPeopleProps> = observer(() => {
 
-    const { storeData: store, gameStateStore } = useRootStore();
+    const { storeData: store, gameState: gameStateStore } = useRootStore();
     const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
     const navigate = useNavigate();
 

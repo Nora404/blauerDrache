@@ -3,30 +3,31 @@ import YouAre from '../charakter/YouAre';
 import YouCan from '../charakter/YouCan';
 import YouHave from '../charakter/YouHave';
 import Header from './Header/Header';
-import { useNewGameStore } from '../store/newGameStore';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../store';
 
 type CharakterNaviProps = {
 };
 
-const CharakterNavi: React.FC<CharakterNaviProps> = () => {
-    const { store } = useNewGameStore();
-    if (!store) return;
+const CharakterNavi: React.FC<CharakterNaviProps> = observer(() => {
+    const { gameState } = useRootStore();
+    if (!gameState) return;
 
     return (
         <div>
-            {store.gameState.creating && (
+            {gameState.store.creating && (
                 <>
                     <YouAre />
                     <YouCan />
                     <YouHave />
                 </>
             )}
-            {!store.gameState.creating && (
+            {!gameState.store.creating && (
                 <Header>Noch kein Charakter erstellt</Header>
             )
             }
         </div>
     );
-};
+});
 
 export default CharakterNavi;

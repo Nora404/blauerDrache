@@ -6,7 +6,7 @@ import { RootStore } from "./rootStore";
 export class PlayerStatsStore {
     rootStore: RootStore;
 
-    playerStats: PlayerStats = defaultGameStore.playerStats;
+    store: PlayerStats = defaultGameStore.playerStats;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -14,28 +14,28 @@ export class PlayerStatsStore {
     }
 
     setPlayerStats(val: Partial<PlayerStats>) {
-        this.playerStats = { ...this.playerStats, ...val };
+        this.store = { ...this.store, ...val };
         this.rootStore.saveToLocalStorage();
     }
 
     updateLife(delta: number) {
         // Brauchst du maxLife aus PlayerBaseStore:
-        const { maxLife } = this.rootStore.playerBaseStore.playerBase;
+        const { maxLife } = this.rootStore.playerBase.store;
         const newLife = Math.min(
-            Math.max(this.playerStats.life + delta, 0),
+            Math.max(this.store.life + delta, 0),
             maxLife
         );
-        this.playerStats.life = newLife;
+        this.store.life = newLife;
         this.rootStore.saveToLocalStorage();
     }
 
     updateRounds(delta: number) {
-        const { maxRounds } = this.rootStore.playerBaseStore.playerBase;
+        const { maxRounds } = this.rootStore.playerBase.store;
         const newRounds = Math.min(
-            Math.max(this.playerStats.rounds + delta, 0),
+            Math.max(this.store.rounds + delta, 0),
             maxRounds
         );
-        this.playerStats.rounds = newRounds;
+        this.store.rounds = newRounds;
         this.rootStore.saveToLocalStorage();
 
         // Beispiel: Buff-Debuff Reduzierung könntest du hier machen,

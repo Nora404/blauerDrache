@@ -4,15 +4,15 @@ import navigationMap from '../NavigationList';
 import GameNavi from '../playground/game/game/GameNavi';
 import InfoNavi from '../playground/game/infos/InfoNavi';
 import TransitNavi from '../playground/game/game/TransitNavi';
-import { useNewGameStore } from '../store/newGameStore';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../store';
 
 type MainNaviProps = {
 };
 
-const MainNavi: React.FC<MainNaviProps> = () => {
+const MainNavi: React.FC<MainNaviProps> = observer(() => {
     const location = useLocation();
-    const { store } = useNewGameStore();
-    if (!store) return;
+    const { gameState } = useRootStore();
 
     const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(undefined);
 
@@ -34,10 +34,10 @@ const MainNavi: React.FC<MainNaviProps> = () => {
     return (
         <div>
             <GameNavi />
-            {store.gameState.creating && (currentNav)}
-            {store.gameState.creating && <InfoNavi />}
+            {gameState.store.creating && (currentNav)}
+            {gameState.store.creating && <InfoNavi />}
         </div>
     );
-};
+});
 
 export default MainNavi;

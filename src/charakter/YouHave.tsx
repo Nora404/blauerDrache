@@ -1,17 +1,18 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
 import { SYSTEM } from '../data/colorfullStrings';
-import { getPlayerObj, useNewGameStore } from '../store/newGameStore';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../store';
 
 type YouHaveProps = {
 };
 
-const YouHave: React.FC<YouHaveProps> = () => {
-    const { store, consumeItem } = useNewGameStore();
-    const selected = getPlayerObj(store);
+const YouHave: React.FC<YouHaveProps> = observer(() => {
+    const { playerEconomy, playerBase, getPlayerObj } = useRootStore();
+    const selected = getPlayerObj();
 
     const handleConsume = () => {
-        consumeItem(selected.item.name);
+        playerEconomy.consumeItem(selected.item.name);
     }
 
     return (
@@ -20,13 +21,13 @@ const YouHave: React.FC<YouHaveProps> = () => {
             <table style={{ paddingLeft: '20px', marginBottom: '5px' }}>
                 <tbody>
                     <tr>
-                        <td width={125}>{SYSTEM.Gold}</td><td>{store.playerEconomy.gold || '0'}</td>
+                        <td width={125}>{SYSTEM.Gold}</td><td>{playerEconomy.store.gold || '0'}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Edelsteine}</td><td>{store.playerEconomy.edelsteine || '0'}</td>
+                        <td>{SYSTEM.Edelsteine}</td><td>{playerEconomy.store.edelsteine || '0'}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Ruf}</td><td>{store.playerBase.standing}</td>
+                        <td>{SYSTEM.Ruf}</td><td>{playerBase.store.standing}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Respekt}</td><td>{store.playerBase.reputation} / {store.playerBase.nextReputation}</td>
+                        <td>{SYSTEM.Respekt}</td><td>{playerBase.store.reputation} / {playerBase.store.nextReputation}</td>
                     </tr><tr>
                         <td>{SYSTEM.Waffe}</td><td>{selected.weapon.label || 'Nichts'}</td>
                     </tr><tr>
@@ -44,6 +45,6 @@ const YouHave: React.FC<YouHaveProps> = () => {
             )}
         </div>
     );
-};
+});
 
 export default YouHave;

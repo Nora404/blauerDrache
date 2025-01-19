@@ -1,12 +1,13 @@
 // types.ts
 
 import { ArmorName } from "../data/armorData";
-import { BuffName } from "../data/buffData";
+import { Buff, BuffName } from "../data/buffData";
 import { CallingName } from "../data/callingData";
-import { DebuffName } from "../data/debuffData";
+import { Debuff, DebuffName } from "../data/debuffData";
 import { FeelingName } from "../data/feelingData";
 import { Item, ItemName } from "../data/ItemData";
 import { OriginName } from "../data/originData";
+import { Progress } from "../data/questData";
 import { RaceName } from "../data/raceData";
 import { WeaponName } from "../data/weaponData";
 
@@ -85,6 +86,23 @@ export type GameStore = {
     playerQuest: PlayerQuest;
 };
 
+export type ActiveBuff = Buff & { currentDuration: number };
+export type ActiveDebuff = Debuff & { currentDuration: number };
+
+export type StatDelta = {
+    buffs: number;
+    debuffs: number;
+    feeling: number;
+}
+
+export type Delta = {
+    life: StatDelta;
+    rounds: StatDelta;
+    attack: StatDelta;
+    defense: StatDelta;
+    luck: StatDelta;
+};
+
 // Beispiel-Objekte, wie du sie hattest
 export const defaultGameStore: GameStore = {
     gameTime: {
@@ -145,6 +163,3 @@ export const defaultGameStore: GameStore = {
     }
 };
 
-export type Progress = {
-    isDone: boolean;
-};
