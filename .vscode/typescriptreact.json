@@ -1,0 +1,200 @@
+{
+    "Region Gray": {
+        "prefix": "//gray",
+        "body": [
+            "//#region [gray]"
+        ],
+        "description": "Collored Region, gray"
+    },
+    "Region Imports": {
+        "prefix": "//imp",
+        "body": [
+            "//#region [imports]"
+        ],
+        "description": "Collored Region, imports"
+    },
+    "Region Prepare": {
+        "prefix": "//pre",
+        "body": [
+            "//#region [prepare]"
+        ],
+        "description": "Collored Region, prepare"
+    },
+    "Region Events": {
+        "prefix": "//event",
+        "body": [
+            "//#region [events]"
+        ],
+        "description": "Collored Region, events"
+    },
+    "Region Handler": {
+        "prefix": "//hand",
+        "body": [
+            "//#region [handler]"
+        ],
+        "description": "Collored Region, handler"
+    },
+    "Region Helper": {
+        "prefix": "//help",
+        "body": [
+            "//#region [helper]"
+        ],
+        "description": "Collored Region, helper"
+    },
+    "Region Jsx": {
+        "prefix": "//jsx",
+        "body": [
+            "//#region [jsx]"
+        ],
+        "description": "Collored Region, jsx"
+    },
+    "Region End": {
+        "prefix": "//end",
+        "body": [
+            "//#endregion"
+        ],
+        "description": "Collored Region, end"
+    },
+    "React Component mit MainPlaceTemplate": {
+        "prefix": "rfmainplace",
+        "body": [
+            "// #region [imports]",
+            "import React from 'react';",
+            "import { PLACES } from '../../../../data/colorfullStrings';",
+            "import { useNavigate } from 'react-router-dom';",
+            "import { observer } from 'mobx-react-lite';",
+            "import { WeightedEvent } from '../../../../data/eventData';",
+            "import { MainPlaceTemplate } from '../../../../layout/MainPlaceTemplate';",
+            "// #endregion",
+            "",
+            "// #region [prepare]",
+            "type ${TM_FILENAME_BASE}Props = {",
+            "};",
+            "",
+            "const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = observer(() => {",
+            "    const navigate = useNavigate();",
+            "",
+            "    const possibleEvents: WeightedEvent[] = [];",
+            "",
+            "    const dayDescription = (",
+            "        <p className='mb-1 text-left'>",
+            "            Es ist heller Tag",
+            "        </p>",
+            "    );",
+            "    const dayButtons = [",
+            "        { label: 'Button Tag', onClick: () => navigate('/${TM_FILENAME_BASE/(.*)/${1:/downcase}/}') },",
+            "    ];",
+            "",
+            "    const nightDescription = (",
+            "        <p className='mb-1 text-left'>",
+            "            Es ist Nacht",
+            "        </p>",
+            "    );",
+            "    const nightButtons = [",
+            "        { label: 'Button Nacht', onClick: () => navigate('/${TM_FILENAME_BASE/(.*)/${1:/downcase}/}') },",
+            "    ];",
+            "    //#endregion",
+            "",
+            "    //#region [jsx]",
+            "    return (",
+            "        <div className='max-width'>",
+            "            <MainPlaceTemplate",
+            "                title={PLACES.vergessen}",
+            "                dayDescription={dayDescription}",
+            "                dayButtons={dayButtons}",
+            "                nightDescription={nightDescription}",
+            "                nightButtons={nightButtons}",
+            "                possibleEvents={possibleEvents}",
+            "            />",
+            "        </div>",
+            "    );",
+            "    //#endregion",
+            "});",
+            "",
+            "export default ${TM_FILENAME_BASE};"
+        ],
+        "description": "Erstellt eine React-Komponente mit MainPlaceTemplate, basierend auf dem Dateinamen."
+    },
+    "React Place Component mit PlaceTemplate": {
+        "prefix": "rfplace",
+        "body": [
+            "// #region [imports]",
+            "import React from 'react';",
+            "import { WeightedEvent } from '../../../../data/eventData';",
+            "import { observer } from 'mobx-react-lite';",
+            "import PlaceTemplate from '../../../../layout/PlaceTemplate';",
+            "// #endregion",
+            "",
+            "// #region [prepare]",
+            "type ${TM_FILENAME_BASE}Props = {};",
+            "",
+            "const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = observer(() => {",
+            "",
+            "    const possibleEvents: WeightedEvent[] = [",
+            "        { eventId: \"E001QuestTrigger\", probability: 50, questId: \"Q001Quest\" },",
+            "        { eventId: \"004Event\", probability: 50 },",
+            "    ];",
+            "",
+            "    const description =",
+            "        <>",
+            "            <p className='mb-1 text-left'>",
+            "                Hier steht ein allgemeiner Text",
+            "            </p>",
+            "        </>;",
+            "    // #endregion",
+            "",
+            "",
+            "    // #region [jsx]",
+            "    return (",
+            "        <div className='max-width'>",
+            "            <PlaceTemplate",
+            "                title=\"${1:Titel vergessen}\"",
+            "                description={description}",
+            "                backPath=\"/${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\"",
+            "                possibleEvents={possibleEvents}",
+            "            />",
+            "        </div>",
+            "    );",
+            "    // #endregion",
+            "});",
+            "",
+            "export default ${TM_FILENAME_BASE};"
+        ],
+        "description": "Erstellt eine React-Komponente mit PlaceTemplate, basierend auf dem Dateinamen."
+    },
+    "React Component mit Header und Links": {
+        "prefix": "rfnavi",
+        "body": [
+            "import { Link } from 'react-router-dom';",
+            "import Header from '../../../../layout/Header/Header';",
+            "import { PLACES } from '../../../../data/colorfullStrings';",
+            "import Arrow from '../../../../utility/Arrow';",
+            "import { observer } from 'mobx-react-lite';",
+            "import { useRootStore } from '../../../../store';",
+            "",
+            "type ${TM_FILENAME_BASE}Props = {",
+            "};",
+            "",
+            "const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = observer(() => {",
+            "    const { gameState } = useRootStore();",
+            "",
+            "    const handleCloseMobilePop = () => {",
+            "        gameState.data.mobilePop = false;",
+            "    };",
+            "",
+            "    return (",
+            "        <div>",
+            "            <Header>${1:Hier kommt eine Überschrift rein}</Header>",
+            "            <p className='mb-1 text-left'>",
+            "                <Link to=\"/start\" className='mobileBtn' onClick={handleCloseMobilePop}><Arrow /><b>Umgebung</b> untersuchen</Link><br />",
+            "                <Link to=\"/start\" className='mobileBtn'><Arrow type='s' />Zurück zum {PLACES.vergessen} gehen</Link><br />",
+            "            </p>",
+            "        </div>",
+            "    );",
+            "});",
+            "",
+            "export default ${TM_FILENAME_BASE};"
+        ],
+        "description": "Erstellt eine React-Komponente mit Header und Links, basierend auf dem Dateinamen."
+    }
+}

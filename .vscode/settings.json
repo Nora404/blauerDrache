@@ -1,0 +1,36 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "blauerDrache\\src\\charakter\\",
+            "color": "foldercolorizer.color_9966ff"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\data\\",
+            "color": "foldercolorizer.color_66ccff"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\layout\\",
+            "color": "foldercolorizer.color_ff66ff"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\playground\\",
+            "color": "foldercolorizer.color_33cccc"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\routings\\",
+            "color": "foldercolorizer.color_33cc66"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\utility\\",
+            "color": "foldercolorizer.color_6666cc"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\assets\\",
+            "color": "foldercolorizer.color_cccc99"
+        },
+        {
+            "folderPath": "blauerDrache\\src\\playground\\lahtheim\\",
+            "color": "foldercolorizer.color_33cccc"
+        }
+    ]
+}
