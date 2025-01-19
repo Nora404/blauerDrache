@@ -15,6 +15,11 @@ export class PlayerEconomyStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
+    setPlayerEconomy(val: Partial<PlayerEconomy>) {
+        this.data = { ...this.data, ...val };
+        this.rootStore.saveToLocalStorage();
+    }
+
     updatePlayerEconomy(delta: Partial<PlayerEconomy>) {
         this.data.gold = Math.max(
             this.data.gold + (delta.gold || 0),

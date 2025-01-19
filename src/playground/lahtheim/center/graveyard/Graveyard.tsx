@@ -2,19 +2,20 @@
 import React from 'react';
 import { PLACES } from '../../../../data/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { greenColors } from '../../../../data/colorMappingData';
 import { GradientText } from '../../../../utility/GradientText';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 //#endregion
 
 //#region [prepare]
 type GraveyardProps = {
 };
 
-const Graveyard: React.FC<GraveyardProps> = () => {
-  const { store } = useNewGameStore();
+const Graveyard: React.FC<GraveyardProps> = observer(() => {
+  const { gameTime } = useRootStore();
   const navigate = useNavigate();
   //#endregion
 
@@ -51,7 +52,7 @@ const Graveyard: React.FC<GraveyardProps> = () => {
         geradlinigen Wald, der von der Zeit und der Natur gezeichnet ist.
       </p>
 
-      {store.gameTime.gameDay === "Tag" && (
+      {gameTime.data.gameDay === "Tag" && (
         <>
           <p className='mb-1 text-left'>
             Die schmalen Wege, kaum mehr als Trampelpfade, winden sich durch die friedliche Stille des Friedhofs
@@ -73,7 +74,7 @@ const Graveyard: React.FC<GraveyardProps> = () => {
         </>
       )}
 
-      {store.gameTime.gameDay === "Nacht" && (
+      {gameTime.data.gameDay === "Nacht" && (
         <>
           <p className='mb-1 text-left'>
             Der schmale Pfad vor dir scheint sich in der <GradientText colors={['#6E6596']}>Schwärze</GradientText> zu verlieren.
@@ -98,6 +99,6 @@ const Graveyard: React.FC<GraveyardProps> = () => {
     </div>
   );
   //#endregion
-};
+});
 
 export default Graveyard;

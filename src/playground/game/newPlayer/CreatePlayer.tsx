@@ -11,7 +11,10 @@ import { ChooseCallingText, ChooseNameText, ChooseOriginText, ChooseRaceText, Fi
 import { useNavigate } from 'react-router-dom';
 import { Calling, CallingName, emptyCallingObj } from '../../../data/callingData';
 import { emptyOriginObj, Origin, OriginName } from '../../../data/originData';
-import { PlayerBase, PlayerEconomy, PlayerStats, requiredExpForLevel, useNewGameStore } from '../../../store/newGameStore';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../store';
+import { PlayerBase, PlayerEconomy, PlayerStats } from '../../../store/types';
+import { requiredExpForLevel } from '../../../utility/Progression';
 //#endregion
 
 //#region [prepare]
@@ -24,8 +27,8 @@ export type WizardData = {
 
 type CreatePlayerProps = {};
 
-const CreatePlayer: React.FC<CreatePlayerProps> = () => {
-    const { setPlayerBase, setPlayerStats, setPlayerEconomy, setPlayerMeta, setGameState, resetGameData } = useNewGameStore();
+const CreatePlayer: React.FC<CreatePlayerProps> = observer(() => {
+    const { playerBase, playerStats, playerEconomy, playerMeta, gameState, resetGameData } = useRootStore();
 
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [wizardData, setWizardData] = useState<WizardData>({
@@ -99,20 +102,20 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         // Diese Funktion verarbeitet mehrere asynchrone Aufgaben
         // Ohne dass das UI dabei durcheinander kommt
         startTransition(() => {
-            setPlayerBase({
+            playerBase.setPlayerBase({
                 ...combinedBase,
                 nextLevel: initialNextLevel,
             });
-            setPlayerStats(combinedStats);
-            setPlayerEconomy(combinedEconomy);
-            setPlayerMeta({
+            playerStats.setPlayerStats(combinedStats);
+            playerEconomy.setPlayerEconomy(combinedEconomy);
+            playerMeta.setPlayerMeta({
                 name: wizardData.name,
                 race: wizardData.race.name as RaceName,
                 origin: wizardData.origin.name as OriginName,
                 calling: wizardData.calling.name as CallingName,
             });
             setCurrentStep((prev) => prev + 1);
-            setGameState({ creating: true });
+            gameState.setGameState({ creating: true });
         });
     };
     //#endregion
@@ -187,6 +190,6 @@ const CreatePlayer: React.FC<CreatePlayerProps> = () => {
         </div>
     );
     //#endregion
-};
+});
 
 export default CreatePlayer; 

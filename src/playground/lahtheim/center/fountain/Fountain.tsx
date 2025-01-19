@@ -1,17 +1,18 @@
 //#region [imports]
 import React from 'react';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 //#endregion
 
 //#region [prepare]
 type FountainProps = {
 };
 
-const Fountain: React.FC<FountainProps> = () => {
-  const { store } = useNewGameStore();
+const Fountain: React.FC<FountainProps> = observer(() => {
+  const { gameTime } = useRootStore();
   const navigate = useNavigate();
   //#endregion
 
@@ -40,7 +41,7 @@ const Fountain: React.FC<FountainProps> = () => {
         Du stehst auf einem großen gepflasterten Platz, in dessen Mitte ein sprudelnder Brunnen steht.
       </p>
 
-      {store.gameTime.gameDay === "Tag" && (
+      {gameTime.data.gameDay === "Tag" && (
         <>
           <p className='mb-1 text-left'>
             Im Wasser glitzert das Licht der Sonne. Viele Bewohner tummeln sich hier, unterhalten sich,
@@ -59,7 +60,7 @@ const Fountain: React.FC<FountainProps> = () => {
         </>
       )}
 
-      {store.gameTime.gameDay === "Nacht" && (
+      {gameTime.data.gameDay === "Nacht" && (
         <>
           <p className='mb-1 text-left'>
             Im Dunkel der Nacht hörst du das sanfte Plätschern. Es ist kaum ein Bewohner zu sehen und wenn du einen erblickst,
@@ -83,6 +84,6 @@ const Fountain: React.FC<FountainProps> = () => {
     </div>
   );
   //#endregion
-};
+});
 
 export default Fountain;

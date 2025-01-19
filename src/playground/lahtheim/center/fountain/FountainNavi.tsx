@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import Arrow from '../../../../utility/Arrow';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 
 type FountainNaviProps = {
 };
 
-const FountainNavi: React.FC<FountainNaviProps> = () => {
-    const { store } = useNewGameStore();
+const FountainNavi: React.FC<FountainNaviProps> = observer(() => {
+    const { gameState } = useRootStore();
 
     const handleCloseMobilePop = () => {
-        store.gameState.mobilePop = false;
+        gameState.data.mobilePop = false;
     }
 
     return (
@@ -28,6 +29,6 @@ const FountainNavi: React.FC<FountainNaviProps> = () => {
             </p>
         </div>
     );
-};
+});
 
 export default FountainNavi;

@@ -1,7 +1,6 @@
 //#region [imports]
 import React from 'react';
 import { PLACES, SYSTEM } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import { GradientText } from '../../../../utility/GradientText';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { lilaColors } from '../../../../data/colorMappingData';
@@ -9,14 +8,16 @@ import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import RandomNpcTalking from '../../../../utility/RandomNpcTalking';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../../store';
 //#endregion
 
 //#region [prepare]
 type CourtyardProps = {
 };
 
-const Courtyard: React.FC<CourtyardProps> = () => {
-  const { store } = useNewGameStore();
+const Courtyard: React.FC<CourtyardProps> = observer(() => {
+  const { gameTime } = useRootStore();
   const navigate = useNavigate();
   //#endregion
 
@@ -50,7 +51,7 @@ const Courtyard: React.FC<CourtyardProps> = () => {
         durchbrochen von einem kunstvollen Rundbogen, der den Eingang zum angrenzenden {PLACES.Friedhof} markiert.
       </p>
 
-      {store.gameTime.gameDay === "Tag" && (
+      {gameTime.data.gameDay === "Tag" && (
         <>
           <p className='mb-1 text-left'>
             Wie auch beim {PLACES.Brunnen} ist es hier sehr belebt. Kinder spielen auf den breiten Stufen,
@@ -80,7 +81,7 @@ const Courtyard: React.FC<CourtyardProps> = () => {
       )}
 
 
-      {store.gameTime.gameDay === "Nacht" && (
+      {gameTime.data.gameDay === "Nacht" && (
         <>
           <p className='mb-1 text-left'>
             Die Straßenlaternen leuchten hell, als wollten sie dem <b><GradientText>Mond</GradientText></b> Konkurrenz machen.
@@ -98,6 +99,6 @@ const Courtyard: React.FC<CourtyardProps> = () => {
     </div>
   );
   //#endregion
-};
+});
 
 export default Courtyard;

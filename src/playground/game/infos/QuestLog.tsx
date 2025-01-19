@@ -1,28 +1,27 @@
 // #region [imports]
-import { useNewGameStore } from '../../../store/newGameStore';
 import { emptyQuest, getGameQuestById, HaveItem, Progress } from '../../../data/questData';
 import ActionButton from '../../../layout/ActionButtons/ActionButton';
 import { useCallback } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../store';
 // #endregion
 
 // #region [prepare]
 type QuestlogProps = {
 };
 
-const Questlog: React.FC<QuestlogProps> = () => {
-    const { store, updateQuest } = useNewGameStore();
-    if (!store) return;
+const Questlog: React.FC<QuestlogProps> = observer(() => {
+    const { playerQuest } = useRootStore();
     // #endregion
 
     // #region [handler]
     const handleAbandon = useCallback((questId: string) => {
-        updateQuest(questId, true);
-    }, [store]);
+        playerQuest.updateQuest(questId, true);
+    }, [playerQuest]);
 
     const handleClick = () => {
-        console.log("Aktive: ", store.playerQuest.activeQuests);
-        console.log("Fertig: ", store.playerQuest.completedQuest);
-        console.log("Abgeben: ", store.gameState.currentEventQueue);
+        console.log("Aktive: ", playerQuest.data.activeQuests);
+        console.log("Fertig: ", playerQuest.data.completedQuest);
     }
     // #endregion
 
@@ -34,9 +33,9 @@ const Questlog: React.FC<QuestlogProps> = () => {
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p><br />
 
-            {store.playerQuest.activeQuests ? (
+            {playerQuest.data.activeQuests ? (
                 <div>
-                    {Object.entries(store.playerQuest.activeQuests).map(([questId, currentProgress]) => {
+                    {Object.entries(playerQuest.data.activeQuests).map(([questId, currentProgress]) => {
                         const questObject = getGameQuestById(questId) || emptyQuest;
                         return (
                             <div key={questId} className='text-left questbox'>
@@ -62,7 +61,7 @@ const Questlog: React.FC<QuestlogProps> = () => {
         </div>
     );
     // #endregion
-};
+});
 
 export default Questlog;
 

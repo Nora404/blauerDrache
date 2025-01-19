@@ -13,6 +13,11 @@ export class PlayerBaseStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
+    setPlayerBase(val: Partial<PlayerBase>) {
+        this.data = { ...this.data, ...val };
+        this.rootStore.saveToLocalStorage();
+    }
+
     updateExp(earnedExp: number) {
         const { data: playerStats } = this.rootStore.playerStats;
 

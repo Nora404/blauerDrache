@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import { PLACES } from '../../../../data/colorfullStrings';
-import { useNewGameStore } from '../../../../store/newGameStore';
 import Arrow from '../../../../utility/Arrow';
+import { useRootStore } from '../../../../store';
 
 type ChurchNaviProps = {
 };
 
-const ChurchNavi: React.FC<ChurchNaviProps> = () => {
-    const { store } = useNewGameStore();
+const ChurchNavi: React.FC<ChurchNaviProps> = (() => {
+    const { gameState } = useRootStore();
 
     const handleCloseMobilePop = () => {
-        store.gameState.mobilePop = false;
+        gameState.data.mobilePop = false;
     }
 
     return (
@@ -23,6 +23,6 @@ const ChurchNavi: React.FC<ChurchNaviProps> = () => {
             </p>
         </div>
     );
-};
+});
 
 export default ChurchNavi;
