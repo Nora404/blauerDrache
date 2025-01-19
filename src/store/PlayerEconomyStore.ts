@@ -48,6 +48,11 @@ export class PlayerEconomyStore {
         } else {
             delete this.data.items[name];
         }
+
+        this.rootStore.playerQuest.updateProgress("itemAdded", {
+            itemName: name,
+            quantity: quantity
+        });
         this.rootStore.saveToLocalStorage();
     }
 

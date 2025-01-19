@@ -7,7 +7,9 @@ import {
 } from "../data/eventData";
 import { ItemCartegoryName, ItemName, items } from "../data/ItemData";
 import { gameQuestEvents, getGameQuestById } from "../data/questData";
-import { GameStore } from "../store/types";
+import { useRootStore } from "../store";
+import { TimeStore } from "../store/TimeStore";
+import { GameState, GameStore, GameTime, PlayerBase, PlayerFlux, PlayerMeta, PlayerQuest, PlayerStats } from "../store/types";
 
 //#region [gray]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
@@ -80,9 +82,15 @@ export function pickRandomNextEvent(
 
 //#region [helper]
 export function filterEventsByConditions(
-  store: GameStore,
-  events: WeightedEvent[]
-): WeightedEvent[] {
+  events: WeightedEvent[],
+  gameTimeData: GameTime,
+  gameStateData: GameState,
+  playerStatsData: PlayerStats,
+  playerBaseData: PlayerBase,
+  playerFluxData: PlayerFlux,
+  playerMetaData: PlayerMeta,
+  playerQuestData: PlayerQuest): WeightedEvent[] {
+
   return events.filter((evt) => {
     // Falls das Event gar keine conditions hat, ist es direkt ok
     if (!evt.conditions) return true;
@@ -91,53 +99,52 @@ export function filterEventsByConditions(
 
     // 1) gameTime check
     if (conditions.gameTime) {
-      // Prüfe mit checkPartialMatch, ob store.gameTime z.B. { gameDay: "Tag" } matcht
-      if (!checkPartialMatch(store.gameTime, conditions.gameTime)) {
+      if (!checkPartialMatch(gameTimeData, conditions.gameTime)) {
         return false;
       }
     }
 
     // 2) gameState check
     if (conditions.gameState) {
-      if (!checkPartialMatch(store.gameState, conditions.gameState)) {
+      if (!checkPartialMatch(gameStateData, conditions.gameState)) {
         return false;
       }
     }
 
     // 3) playerStats check
     if (conditions.playerStats) {
-      if (!checkPartialMatch(store.playerStats, conditions.playerStats)) {
+      if (!checkPartialMatch(playerStatsData, conditions.playerStats)) {
         return false;
       }
     }
 
     // 4) playerBase check
     if (conditions.playerBase) {
-      if (!checkPartialMatch(store.playerBase, conditions.playerBase)) {
+      if (!checkPartialMatch(playerBaseData, conditions.playerBase)) {
         return false;
       }
     }
 
     // 5) playerFlux check
     if (conditions.playerFlux) {
-      if (!checkPartialMatch(store.playerFlux, conditions.playerFlux)) {
+      if (!checkPartialMatch(playerFluxData, conditions.playerFlux)) {
         return false;
       }
     }
 
     // 6) playerMeta check
     if (conditions.playerMeta) {
-      if (!checkPartialMatch(store.playerMeta, conditions.playerMeta)) {
+      if (!checkPartialMatch(playerMetaData, conditions.playerMeta)) {
         return false;
       }
     }
 
+    // 7) Quest check
     if (evt.questId) {
       const questDef = getGameQuestById(evt.questId);
       if (questDef) {
-        const isDone = store.playerQuest.completedQuest.includes(evt.questId);
+        const isDone = playerQuestData.completedQuest.includes(evt.questId);
         if (isDone && questDef.repeat === false) {
-          // => rausfiltern
           return false;
         }
       }

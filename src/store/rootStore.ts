@@ -270,4 +270,5 @@ export class RootStore {
 
         return delta;
     }
+
 }

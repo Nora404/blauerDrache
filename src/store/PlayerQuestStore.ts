@@ -79,4 +79,41 @@ export class PlayerQuestStore {
         }
         this.rootStore.saveToLocalStorage();
     }
+
+    updateProgress(action: "itemAdded" | "enemyKilled", payload: any) {
+        // Kopie vom aktiven Quests-Objekt, damit wir sauber daran arbeiten können.
+        const newActive = { ...this.data.activeQuests };
+
+        for (const [questId, progress] of Object.entries(newActive)) {
+            if (progress.isDone) continue;
+
+            // Beispiel-Logik: bei "itemAdded" und "Besorgen"-Quests
+            if (action === "itemAdded" && progress.type === "Besorgen") {
+                // Wir erwarten payload.itemName, payload.quantity
+                const haveItems = progress.task.haveItem ?? [];
+                // Gibt es in haveItems einen Eintrag für payload.itemName?
+                for (let itemObj of haveItems) {
+                    if (itemObj.item === payload.itemName) {
+                        itemObj.count += payload.quantity;
+                        // check, ob count >= need
+                        if (itemObj.count >= itemObj.need) {
+                            // => quest fertig? => wenn ALLE items erfüllt
+                            const allDone = haveItems.every((i) => i.count >= i.need);
+                            if (allDone) {
+                                progress.isDone = true;
+                                // In deinem alten Code: updateEventQueue(progress.eventByEnd);
+                                // Jetzt könntest du so was machen:
+                                this.rootStore.gameState.updateEventQueue(progress.eventByEnd);
+                            }
+                        }
+                    }
+                }
+            }
+            // else if (action === 'enemyKilled' && progress.type === 'Besiegen') { ... }
+            newActive[questId] = progress;
+        }
+
+        this.data.activeQuests = newActive;
+        this.rootStore.saveToLocalStorage();
+    }
 }

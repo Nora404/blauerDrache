@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { useState } from "react";
 import { getGameEventById, pickRandomNextEvent } from "../../../utility/TriggerEvent";
-import { useApplyGameAction } from "../../../utility/ApplyGameAction";
+import { useApplyGameAction } from "../../../utility/Hooks/ApplyGameAction";
 import { GameAction } from "../../../data/eventData";
 import Header from "../../../layout/Header/Header";
 import ActionButton from "../../../layout/ActionButtons/ActionButton";

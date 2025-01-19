@@ -1,13 +1,14 @@
-import { BuffName } from "../data/buffData";
-import { DebuffName } from "../data/debuffData";
-import { GameAction } from "../data/eventData";
-import { ItemName } from "../data/ItemData";
-import { useRootStore } from "../store";
+import { BuffName } from "../../data/buffData";
+import { DebuffName } from "../../data/debuffData";
+import { GameAction } from "../../data/eventData";
+import { ItemName } from "../../data/ItemData";
+import { useRootStore } from "../../store";
 
 export function useApplyGameAction() {
     const { playerStats, playerFlux, playerEconomy, playerQuest, playerBase } = useRootStore();
 
     function applyGameAction(action: GameAction) {
+        console.log("im hook: ", action)
 
         if (action.itemsDelta) {
             Object.entries(action.itemsDelta).forEach(([name, count]) => {

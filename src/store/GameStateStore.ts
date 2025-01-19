@@ -26,4 +26,9 @@ export class GameStateStore {
         this.data.switch[key] = value;
         this.rootStore.saveToLocalStorage();
     }
+
+    updateEventQueue(eventId: string) {
+        this.data.currentEventQueue.push(eventId);
+        this.rootStore.saveToLocalStorage();
+    }
 }
