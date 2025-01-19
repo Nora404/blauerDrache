@@ -21,13 +21,13 @@ const YouHave: React.FC<YouHaveProps> = observer(() => {
             <table style={{ paddingLeft: '20px', marginBottom: '5px' }}>
                 <tbody>
                     <tr>
-                        <td width={125}>{SYSTEM.Gold}</td><td>{playerEconomy.store.gold || '0'}</td>
+                        <td width={125}>{SYSTEM.Gold}</td><td>{playerEconomy.data.gold || '0'}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Edelsteine}</td><td>{playerEconomy.store.edelsteine || '0'}</td>
+                        <td>{SYSTEM.Edelsteine}</td><td>{playerEconomy.data.edelsteine || '0'}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Ruf}</td><td>{playerBase.store.standing}</td>
+                        <td>{SYSTEM.Ruf}</td><td>{playerBase.data.standing}</td>
                     </tr><tr>
-                        <td>{SYSTEM.Respekt}</td><td>{playerBase.store.reputation} / {playerBase.store.nextReputation}</td>
+                        <td>{SYSTEM.Respekt}</td><td>{playerBase.data.reputation} / {playerBase.data.nextReputation}</td>
                     </tr><tr>
                         <td>{SYSTEM.Waffe}</td><td>{selected.weapon.label || 'Nichts'}</td>
                     </tr><tr>

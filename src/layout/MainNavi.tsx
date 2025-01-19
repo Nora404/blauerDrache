@@ -34,8 +34,8 @@ const MainNavi: React.FC<MainNaviProps> = observer(() => {
     return (
         <div>
             <GameNavi />
-            {gameState.store.creating && (currentNav)}
-            {gameState.store.creating && <InfoNavi />}
+            {gameState.data.creating && (currentNav)}
+            {gameState.data.creating && <InfoNavi />}
         </div>
     );
 });

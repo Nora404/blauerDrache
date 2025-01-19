@@ -6,7 +6,7 @@ import { RootStore } from "./rootStore";
 export class PlayerBaseStore {
     rootStore: RootStore;
 
-    store: PlayerBase = defaultGameStore.playerBase;
+    data: PlayerBase = defaultGameStore.playerBase;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -14,10 +14,10 @@ export class PlayerBaseStore {
     }
 
     updateExp(earnedExp: number) {
-        const { store: playerStats } = this.rootStore.playerStats;
+        const { data: playerStats } = this.rootStore.playerStats;
 
-        let newExp = this.store.exp + earnedExp;
-        let { level, nextLevel, maxLife } = this.store;
+        let newExp = this.data.exp + earnedExp;
+        let { level, nextLevel, maxLife } = this.data;
         let { attack, defense, luck, life } = playerStats;
 
         while (newExp >= nextLevel) {
@@ -31,10 +31,10 @@ export class PlayerBaseStore {
             nextLevel = this.requiredExpForLevel(level);
         }
 
-        this.store.exp = newExp;
-        this.store.level = level;
-        this.store.nextLevel = nextLevel;
-        this.store.maxLife = maxLife;
+        this.data.exp = newExp;
+        this.data.level = level;
+        this.data.nextLevel = nextLevel;
+        this.data.maxLife = maxLife;
 
         // PlayerStats aktualisieren
         playerStats.attack = attack;
@@ -46,8 +46,8 @@ export class PlayerBaseStore {
     }
 
     updateReputation(earnedRep: number) {
-        let newRep = this.store.reputation + earnedRep;
-        let standing = this.store.standing;
+        let newRep = this.data.reputation + earnedRep;
+        let standing = this.data.standing;
         let currentReq = this.requiredExpForLevel(Math.abs(standing) || 1);
 
         while (true) {
@@ -64,9 +64,9 @@ export class PlayerBaseStore {
             }
         }
 
-        this.store.standing = standing;
-        this.store.nextReputation = currentReq;
-        this.store.reputation = newRep;
+        this.data.standing = standing;
+        this.data.nextReputation = currentReq;
+        this.data.reputation = newRep;
 
         this.rootStore.saveToLocalStorage();
     }

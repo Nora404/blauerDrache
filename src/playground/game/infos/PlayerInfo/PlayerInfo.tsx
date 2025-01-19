@@ -30,12 +30,12 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
     const combined = getCombinedStats(); // z.B. RootStore-Methode
     const selected = getPlayerObj();     // z.B. RootStore-Methode
     const delta = getDelta();            // z.B. RootStore-Methode
-    const scalingFactor = getScalingFactor(playerBase.store.level);
+    const scalingFactor = getScalingFactor(playerBase.data.level);
 
     // Beispiel: Statt store.playerStats.luck => playerStatsStore.playerStats.luck
     // (type-sicherer Zugriff)
-    const { attack, defense, luck } = playerStats.store;
-    const { level, standing, maxLife, maxRounds } = playerBase.store;
+    const { attack, defense, luck } = playerStats.data;
+    const { level, standing, maxLife, maxRounds } = playerBase.data;
 
     // Daten für Tabelle (bisher war es store.playerStats.*)
     const statsData = [
@@ -156,7 +156,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
             <h2>Dein Steckbrief</h2>
 
             <Header>
-                {playerMeta.store.name} (Level {level})
+                {playerMeta.data.name} (Level {level})
             </Header>
 
             {/* Rasse */}

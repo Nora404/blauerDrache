@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
-import { useNewGameStore } from '../../../store/newGameStore';
 import MultiColoredLetters from '../../../utility/MultiColoredLetters';
 import { blueColors } from '../../../data/colorMappingData';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../store';
 
 type GameNaviProps = {
     mobilePop?: () => void;
 };
 
-const GameNavi: React.FC<GameNaviProps> = ({ mobilePop }) => {
-    const { store } = useNewGameStore();
+const GameNavi: React.FC<GameNaviProps> = observer(({ mobilePop }) => {
+    const { gameState } = useRootStore();
 
     const handleClick = () => {
         mobilePop?.();
@@ -21,7 +22,7 @@ const GameNavi: React.FC<GameNaviProps> = ({ mobilePop }) => {
             <Header>Spiel</Header>
             <p className='text-left'>
                 <Link onClick={handleClick} to="/start" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Tor von Lahtheim</MultiColoredLetters></Link><br />
-                {!store.gameState.creating && <><Link onClick={handleClick} to="/new-player" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Erstelle neuen Charakter</MultiColoredLetters></Link><br /></>}
+                {!gameState.data.creating && <><Link onClick={handleClick} to="/new-player" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Erstelle neuen Charakter</MultiColoredLetters></Link><br /></>}
                 <Link onClick={handleClick} to="/whatIs" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Über dieses Spiel</MultiColoredLetters></Link><br />
                 <Link onClick={handleClick} to="/map" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Karte von Lahtheim</MultiColoredLetters></Link><br />
                 <Link onClick={handleClick} to="/chronic" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Chroniken von Aurendia</MultiColoredLetters></Link><br />
@@ -29,6 +30,6 @@ const GameNavi: React.FC<GameNaviProps> = ({ mobilePop }) => {
             </p>
         </div>
     );
-};
+});
 
 export default GameNavi;

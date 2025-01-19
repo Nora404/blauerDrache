@@ -12,7 +12,7 @@ import { defaultGameStore, PlayerFlux } from "./types";
 export class PlayerFluxStore {
     rootStore: RootStore;
 
-    store: PlayerFlux = defaultGameStore.playerFlux;
+    data: PlayerFlux = defaultGameStore.playerFlux;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -22,29 +22,29 @@ export class PlayerFluxStore {
     updatePlayerBuff(name: BuffName) {
         const buff = buffMap[name];
         if (!buff) return;
-        this.store.buff[name] = (this.store.buff[name] || 0) + buff.duration;
+        this.data.buff[name] = (this.data.buff[name] || 0) + buff.duration;
         this.rootStore.saveToLocalStorage();
     }
 
     updatePlayerDebuff(name: DebuffName) {
         const debuff = debuffMap[name];
         if (!debuff) return;
-        this.store.debuff[name] = (this.store.debuff[name] || 0) + debuff.duration;
+        this.data.debuff[name] = (this.data.debuff[name] || 0) + debuff.duration;
         this.rootStore.saveToLocalStorage();
     }
 
     updateWeapon(name: WeaponName) {
-        this.store.weapon = name;
+        this.data.weapon = name;
         this.rootStore.saveToLocalStorage();
     }
 
     updateArmor(name: ArmorName) {
-        this.store.armor = name;
+        this.data.armor = name;
         this.rootStore.saveToLocalStorage();
     }
 
     updateInHand(name: ItemName) {
-        this.store.item = name;
+        this.data.item = name;
         this.rootStore.saveToLocalStorage();
     }
 }

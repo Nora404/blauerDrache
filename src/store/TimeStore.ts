@@ -10,9 +10,9 @@ import { defaultGameStore, GameTime } from "./types";
 export class TimeStore {
     rootStore: RootStore;
 
-    store: GameTime = defaultGameStore.gameTime;
+    data: GameTime = defaultGameStore.gameTime;
 
-    private previousGameDay: "Tag" | "Nacht" = this.store.gameDay;
+    private previousGameDay: "Tag" | "Nacht" = this.data.gameDay;
     private intervalId: any;
 
     constructor(root: RootStore) {
@@ -41,9 +41,9 @@ export class TimeStore {
 
         const newGameTime = `${hh}:${String(mm).padStart(2, "0")}`;
 
-        if (this.store.gameTime !== newGameTime || this.store.gameDay !== gameDay) {
-            this.store = {
-                ...this.store,
+        if (this.data.gameTime !== newGameTime || this.data.gameDay !== gameDay) {
+            this.data = {
+                ...this.data,
                 gameTime: newGameTime,
                 gameDay,
             };
@@ -59,7 +59,7 @@ export class TimeStore {
     }
 
     setGameTime(val: Partial<GameTime>) {
-        this.store = { ...this.store, ...val };
+        this.data = { ...this.data, ...val };
         this.rootStore.saveToLocalStorage();
     }
 
@@ -68,16 +68,16 @@ export class TimeStore {
         const weather = getRandomArrayElement(WEATHER);
         const temperature = getRandomArrayElement(TEMPERATURE);
 
-        const { maxLife, maxRounds } = this.rootStore.playerBase.store;
-        this.rootStore.playerStats.store.life = maxLife;
-        this.rootStore.playerStats.store.rounds = maxRounds;
+        const { maxLife, maxRounds } = this.rootStore.playerBase.data;
+        this.rootStore.playerStats.data.life = maxLife;
+        this.rootStore.playerStats.data.rounds = maxRounds;
 
-        this.rootStore.playerFlux.store.buff = {};
-        this.rootStore.playerFlux.store.debuff = {};
-        this.rootStore.playerFlux.store.feeling = feeling.name;
+        this.rootStore.playerFlux.data.buff = {};
+        this.rootStore.playerFlux.data.debuff = {};
+        this.rootStore.playerFlux.data.feeling = feeling.name;
 
-        this.rootStore.gameState.store.weather = weather;
-        this.rootStore.gameState.store.temperature = temperature;
+        this.rootStore.gameState.data.weather = weather;
+        this.rootStore.gameState.data.temperature = temperature;
 
         this.rootStore.saveToLocalStorage();
     }

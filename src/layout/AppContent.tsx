@@ -23,14 +23,14 @@ const AppContent: React.FC = observer(() => {
     };
 
     useEffect(() => {
-        const newClass = getBackgroundClass(gameTime.store.gameTime);
+        const newClass = getBackgroundClass(gameTime.data.gameTime);
         document.body.classList.remove('body-day', 'body-evening', 'body-night', 'body-morning');
         document.body.classList.add(newClass);
 
         return () => {
             document.body.classList.remove(newClass);
         };
-    }, [gameTime.store.gameTime]);
+    }, [gameTime.data.gameTime]);
 
     return (
         <div>

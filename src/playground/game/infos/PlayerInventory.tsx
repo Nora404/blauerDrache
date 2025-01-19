@@ -1,16 +1,17 @@
+import { observer } from "mobx-react-lite";
 import { SYSTEM } from "../../../data/colorfullStrings";
 import { Item, ItemName } from "../../../data/ItemData";
 import Header from "../../../layout/Header/Header";
-import { getPlayerObj, useNewGameStore } from "../../../store/newGameStore";
 import { GradientText } from "../../../utility/GradientText";
+import { useRootStore } from "../../../store";
 
-const PlayerInventory: React.FC = () => {
-    const { store, updateInHand } = useNewGameStore();
-    const selected = getPlayerObj(store);
-    const items = store.playerEconomy.items;
+const PlayerInventory: React.FC = observer(() => {
+    const { getPlayerObj, playerEconomy, playerFlux } = useRootStore();
+    const selected = getPlayerObj();
+    const items = playerEconomy.data.items;
 
     const handleClick = (name: ItemName) => {
-        updateInHand(name);
+        playerFlux.updateInHand(name);
     }
 
     const groupItemsByCategory = (items: Record<string, { item: Item; quantity: number }>) => {
@@ -34,7 +35,7 @@ const PlayerInventory: React.FC = () => {
                 Du öffnest deinen Beutel und stellst mal wieder fest das dort unglaublich viele Gegenstände Platz haben.
                 Von Außen nicht zu erkennen hat dieses, anscheinend magische Stück Stoff, mehrere Innentaschen mit deren Hilfe du dein Hab und Gut sortieren kannst.
                 Aber um einen dieser Gegenstände zu nutzten, oder anderen zu zeigen, musst du ihn wohl leider aus dem Beutel und {SYSTEM.HandDie} nehmen.<br /><br />
-                Du besitzt <GradientText>{store.playerEconomy.gold}</GradientText> {SYSTEM.Gold} und <GradientText>{store.playerEconomy.edelsteine}</GradientText> {SYSTEM.Edelsteine}.
+                Du besitzt <GradientText>{playerEconomy.data.gold}</GradientText> {SYSTEM.Gold} und <GradientText>{playerEconomy.data.edelsteine}</GradientText> {SYSTEM.Edelsteine}.
             </p>
 
             {Object.keys(items).length === 0 ? (
@@ -47,7 +48,7 @@ const PlayerInventory: React.FC = () => {
                             {itemsInCategory.map((itemData) => (
                                 <button
                                     key={itemData.item.name}
-                                    className={`btn-border ${store.playerFlux.item === itemData.item.name ? 'glow' : ''}`}
+                                    className={`btn-border ${playerFlux.data.item === itemData.item.name ? 'glow' : ''}`}
                                     onClick={() => handleClick(itemData.item.name)}>
                                     <b>{itemData.item.name}:</b> {itemData.quantity} <br />
                                     <small>{itemData.item.description}</small>
@@ -64,6 +65,6 @@ const PlayerInventory: React.FC = () => {
             </div><br />
         </div>
     );
-};
+});
 
 export default PlayerInventory;

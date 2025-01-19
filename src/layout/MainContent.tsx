@@ -14,10 +14,10 @@ export const MainContent: React.FC<MainContentProps> = (() => {
     const [showNewDay, setShowNewDay] = useState(false)
 
     useEffect(() => {
-        if (gameTime.store.gameTime === "06:00" && gameState.store.creating) {
+        if (gameTime.data.gameTime === "06:00" && gameState.data.creating) {
             setShowNewDay(true)
         }
-    }, [gameTime.store.gameTime])
+    }, [gameTime.data.gameTime])
 
     const closeNewDay = () => {
         setShowNewDay(false)

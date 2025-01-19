@@ -1,17 +1,18 @@
 import { SYSTEM } from '../../../data/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
-import { getCombinedStats, getPlayerObj, useNewGameStore } from '../../../store/newGameStore';
 import PlayerTalk from '../../../utility/PlayerTalk';
 import ActionButton from '../../../layout/ActionButtons/ActionButton';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../store';
 
 type NewDayProps = {
     onClose?: () => void
 };
 
-const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
-    const { store } = useNewGameStore();
-    const combined = getCombinedStats(store);
-    const selected = getPlayerObj(store);
+const NewDay: React.FC<NewDayProps> = observer(({ onClose }) => {
+    const { getCombinedStats, getPlayerObj, gameState } = useRootStore();
+    const combined = getCombinedStats();
+    const selected = getPlayerObj();
 
     const handleClose = () => {
         onClose?.();
@@ -22,7 +23,7 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
             <h2>Es ist ein neuer Tag</h2>
 
             <p className='mb-1 text-left'>
-                Das Wetter heute ist {store.gameState.weather} und {store.gameState.temperature}.<br />
+                Das Wetter heute ist {gameState.data.weather} und {gameState.data.temperature}.<br />
 
                 Für heute hast du <GradientText>{combined.rounds}</GradientText> {SYSTEM.Runden}.
                 Dein {SYSTEM.Leben} wurden auf <GradientText>{combined.life}</GradientText> aufgefüllt.<br />
@@ -38,6 +39,6 @@ const NewDay: React.FC<NewDayProps> = ({ onClose }) => {
             {onClose && <ActionButton onClick={handleClose} label='schließen' />}
         </div>
     );
-};
+});
 
 export default NewDay;

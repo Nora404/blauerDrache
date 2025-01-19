@@ -16,11 +16,11 @@ const YouAre: React.FC<YouAreProps> = observer(() => {
         <div>
             <Header>Das bist du</Header>
             <p className='text-left padding-left'>
-                Name: {playerMeta.store.name}<br />
+                Name: {playerMeta.data.name}<br />
                 Rasse: {selected.race.label}<br />
                 Herkunft: {selected.origin.label}<br />
                 Berufung: {selected.calling.label}<br />
-                Titel: <GradientText>{playerMeta.store.titel}</GradientText><br />
+                Titel: <GradientText>{playerMeta.data.titel}</GradientText><br />
                 Stimmung: {selected.feeling.label}<br />
                 Buff: <span className={
                     selected.buffs.length > 0 ? "text-green" : "text-gray"}>{selected.buffs.length} aktiv</span><br />

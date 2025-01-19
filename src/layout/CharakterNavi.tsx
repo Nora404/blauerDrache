@@ -15,14 +15,14 @@ const CharakterNavi: React.FC<CharakterNaviProps> = observer(() => {
 
     return (
         <div>
-            {gameState.store.creating && (
+            {gameState.data.creating && (
                 <>
                     <YouAre />
                     <YouCan />
                     <YouHave />
                 </>
             )}
-            {!gameState.store.creating && (
+            {!gameState.data.creating && (
                 <Header>Noch kein Charakter erstellt</Header>
             )
             }

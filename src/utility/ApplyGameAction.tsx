@@ -2,73 +2,62 @@ import { BuffName } from "../data/buffData";
 import { DebuffName } from "../data/debuffData";
 import { GameAction } from "../data/eventData";
 import { ItemName } from "../data/ItemData";
-import { useNewGameStore } from "../store/newGameStore";
+import { useRootStore } from "../store";
 
 export function useApplyGameAction() {
-    const {
-        updateItems,
-        updatePlayerEconomy,
-        updateLife,
-        updateRounds,
-        updatePlayerBuff,
-        updatePlayerDebuff,
-        updateQuest,
-        updateExp,
-        updateReputation,
-        updateCompletedQuests,
-    } = useNewGameStore();
+    const { playerStats, playerFlux, playerEconomy, playerQuest, playerBase } = useRootStore();
 
     function applyGameAction(action: GameAction) {
 
         if (action.itemsDelta) {
             Object.entries(action.itemsDelta).forEach(([name, count]) => {
                 if (count !== undefined) {
-                    updateItems(name as ItemName, count);
+                    playerEconomy.updateItems(name as ItemName, count);
                 }
             });
         }
 
         if (action.stateDelta?.life) {
-            updateLife(action.stateDelta?.life);
+            playerStats.updateLife(action.stateDelta?.life);
         }
 
         if (action.stateDelta?.rounds) {
-            updateRounds(action.stateDelta?.rounds);
+            playerStats.updateRounds(action.stateDelta?.rounds);
         }
 
         if (action.economyDelta) {
-            updatePlayerEconomy(action.economyDelta);
+            playerEconomy.updatePlayerEconomy(action.economyDelta);
         }
 
         if (action.baseDelta?.exp) {
-            updateExp(action.baseDelta.exp);
+            playerBase.updateExp(action.baseDelta.exp);
         }
 
         if (action.baseDelta?.reputation) {
-            updateReputation(action.baseDelta.reputation);
+            playerBase.updateReputation(action.baseDelta.reputation);
         }
 
         if (action.fluxDelta?.buff) {
-            Object.entries(action.fluxDelta?.buff).forEach(([name, buff]) => {
-                updatePlayerBuff(name as BuffName);
+            Object.entries(action.fluxDelta?.buff).forEach(([name]) => {
+                playerFlux.updatePlayerBuff(name as BuffName);
             }
             );
         }
 
         if (action.fluxDelta?.debuff) {
-            Object.entries(action.fluxDelta?.debuff).forEach(([name, debuff]) => {
-                updatePlayerDebuff(name as DebuffName);
+            Object.entries(action.fluxDelta?.debuff).forEach(([name]) => {
+                playerFlux.updatePlayerDebuff(name as DebuffName);
             }
             );
         }
 
         if (action.triggerQuest) {
-            updateQuest(action.triggerQuest, false);
+            playerQuest.updateQuest(action.triggerQuest, false);
         }
 
         if (action.endQuest) {
-            updateQuest(action.endQuest, true);
-            updateCompletedQuests(action.endQuest);
+            playerQuest.updateQuest(action.endQuest, true);
+            playerQuest.updateCompletedQuests(action.endQuest);
         }
     }
 

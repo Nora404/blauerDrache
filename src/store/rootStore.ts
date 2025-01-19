@@ -21,14 +21,29 @@ import { debuffMap, DebuffName } from "../data/debuffData";
 import { getScalingFactor } from "../utility/Progression";
 
 export class RootStore {
-    // Sub-Stores
+
+    /** gameTime, gameDay */
     gameTime: TimeStore;
+
+    /** weather, temperature, creating, mobilePop, currentPath, currentEventQueue[], switch{} */
     gameState: GameStateStore;
+
+    /** name, race, origin, calling, titel, colortype, colors[] */
     playerMeta: PlayerMetaStore;
+
+    /** life, rounds, attack, defense, luck */
     playerStats: PlayerStatsStore;
+
+    /** level, nextLevel, exp, standing, reputation, nextReputation, maxLife, maxRounds */
     playerBase: PlayerBaseStore;
+
+    /** feeling, buff{}, debuff{}, weapon, armor, item */
     playerFlux: PlayerFluxStore;
+
+    /** gold, edelsteine, items{} */
     playerEconomy: PlayerEconomyStore;
+
+    /** activeQuests{}, completedQuest[] */
     playerQuest: PlayerQuestStore;
 
     constructor() {
@@ -56,14 +71,14 @@ export class RootStore {
             const parsed = JSON.parse(saved);
 
             // Wende parse auf alle Substores an:
-            this.gameTime.store = parsed.gameTime ?? defaultGameStore.gameTime;
-            this.gameState.store = parsed.gameState ?? defaultGameStore.gameState;
-            this.playerMeta.store = parsed.playerMeta ?? defaultGameStore.playerMeta;
-            this.playerStats.store = parsed.playerStats ?? defaultGameStore.playerStats;
-            this.playerBase.store = parsed.playerBase ?? defaultGameStore.playerBase;
-            this.playerFlux.store = parsed.playerFlux ?? defaultGameStore.playerFlux;
-            this.playerEconomy.store = parsed.playerEconomy ?? defaultGameStore.playerEconomy;
-            this.playerQuest.store = parsed.playerQuest ?? defaultGameStore.playerQuest;
+            this.gameTime.data = parsed.gameTime ?? defaultGameStore.gameTime;
+            this.gameState.data = parsed.gameState ?? defaultGameStore.gameState;
+            this.playerMeta.data = parsed.playerMeta ?? defaultGameStore.playerMeta;
+            this.playerStats.data = parsed.playerStats ?? defaultGameStore.playerStats;
+            this.playerBase.data = parsed.playerBase ?? defaultGameStore.playerBase;
+            this.playerFlux.data = parsed.playerFlux ?? defaultGameStore.playerFlux;
+            this.playerEconomy.data = parsed.playerEconomy ?? defaultGameStore.playerEconomy;
+            this.playerQuest.data = parsed.playerQuest ?? defaultGameStore.playerQuest;
         } catch (error) {
             console.error("Error loading store:", error);
         }
@@ -71,35 +86,35 @@ export class RootStore {
 
     saveToLocalStorage() {
         const storeForSave = {
-            gameTime: this.gameTime.store,
-            gameState: this.gameState.store,
-            playerMeta: this.playerMeta.store,
-            playerStats: this.playerStats.store,
-            playerBase: this.playerBase.store,
-            playerFlux: this.playerFlux.store,
-            playerEconomy: this.playerEconomy.store,
-            playerQuest: this.playerQuest.store,
+            gameTime: this.gameTime.data,
+            gameState: this.gameState.data,
+            playerMeta: this.playerMeta.data,
+            playerStats: this.playerStats.data,
+            playerBase: this.playerBase.data,
+            playerFlux: this.playerFlux.data,
+            playerEconomy: this.playerEconomy.data,
+            playerQuest: this.playerQuest.data,
         };
         localStorage.setItem("myGameStore", JSON.stringify(storeForSave));
     }
 
     resetGameData() {
-        this.gameTime.store = defaultGameStore.gameTime;
-        this.gameState.store = defaultGameStore.gameState;
-        this.playerMeta.store = defaultGameStore.playerMeta;
-        this.playerStats.store = defaultGameStore.playerStats;
-        this.playerBase.store = defaultGameStore.playerBase;
-        this.playerFlux.store = defaultGameStore.playerFlux;
-        this.playerEconomy.store = defaultGameStore.playerEconomy;
-        this.playerQuest.store = defaultGameStore.playerQuest;
+        this.gameTime.data = defaultGameStore.gameTime;
+        this.gameState.data = defaultGameStore.gameState;
+        this.playerMeta.data = defaultGameStore.playerMeta;
+        this.playerStats.data = defaultGameStore.playerStats;
+        this.playerBase.data = defaultGameStore.playerBase;
+        this.playerFlux.data = defaultGameStore.playerFlux;
+        this.playerEconomy.data = defaultGameStore.playerEconomy;
+        this.playerQuest.data = defaultGameStore.playerQuest;
 
         this.saveToLocalStorage();
     }
 
     getCombinedStats() {
-        const { store: playerStats } = this.playerStats;
-        const { store: playerBase } = this.playerBase;
-        const { store: playerFlux } = this.playerFlux;
+        const { data: playerStats } = this.playerStats;
+        const { data: playerBase } = this.playerBase;
+        const { data: playerFlux } = this.playerFlux;
 
         let life = playerStats.life;
         let rounds = playerStats.rounds;
@@ -166,27 +181,27 @@ export class RootStore {
 
     get storeData(): GameStore {
         return {
-            gameState: this.gameState.store,
-            gameTime: this.gameTime.store,
-            playerStats: this.playerStats.store,
-            playerBase: this.playerBase.store,
-            playerFlux: this.playerFlux.store,
-            playerMeta: this.playerMeta.store,
-            playerEconomy: this.playerEconomy.store,
-            playerQuest: this.playerQuest.store,
+            gameState: this.gameState.data,
+            gameTime: this.gameTime.data,
+            playerStats: this.playerStats.data,
+            playerBase: this.playerBase.data,
+            playerFlux: this.playerFlux.data,
+            playerMeta: this.playerMeta.data,
+            playerEconomy: this.playerEconomy.data,
+            playerQuest: this.playerQuest.data,
         };
     }
 
     getPlayerObj() {
-        const race = racesMap[this.playerMeta.store.race] ?? emptyRaceObj;
-        const origin = originMap[this.playerMeta.store.origin] ?? emptyOriginObj;
-        const calling = callingMap[this.playerMeta.store.calling] ?? emptyCallingObj;
-        const feeling = feelingMap[this.playerFlux.store.feeling] ?? emptyFeelingObj;
-        const weapon = weaponMap[this.playerFlux.store.weapon] ?? emptyWeaponObj;
-        const armor = armorMap[this.playerFlux.store.armor] ?? emptyArmorObj;
-        const item = itemMap[this.playerFlux.store.item] ?? emptyItemObj;
+        const race = racesMap[this.playerMeta.data.race] ?? emptyRaceObj;
+        const origin = originMap[this.playerMeta.data.origin] ?? emptyOriginObj;
+        const calling = callingMap[this.playerMeta.data.calling] ?? emptyCallingObj;
+        const feeling = feelingMap[this.playerFlux.data.feeling] ?? emptyFeelingObj;
+        const weapon = weaponMap[this.playerFlux.data.weapon] ?? emptyWeaponObj;
+        const armor = armorMap[this.playerFlux.data.armor] ?? emptyArmorObj;
+        const item = itemMap[this.playerFlux.data.item] ?? emptyItemObj;
 
-        const buffs: ActiveBuff[] = Object.entries(this.playerFlux.store.buff)
+        const buffs: ActiveBuff[] = Object.entries(this.playerFlux.data.buff)
             .map(([buffName, duration]) => {
                 const buff = buffMap[buffName as BuffName];
                 if (!buff) return null;
@@ -194,7 +209,7 @@ export class RootStore {
             })
             .filter((buff): buff is ActiveBuff => buff !== null) ?? []; // Type Guard, um null-Werte zu entfernen
 
-        const debuffs: ActiveDebuff[] = Object.entries(this.playerFlux.store.debuff)
+        const debuffs: ActiveDebuff[] = Object.entries(this.playerFlux.data.debuff)
             .map(([debuffName, duration]) => {
                 const debuff = debuffMap[debuffName as DebuffName];
                 if (!debuff) return null;
@@ -215,10 +230,10 @@ export class RootStore {
             luck: { buffs: 0, debuffs: 0, feeling: 0 },
         };
 
-        const scalingFactor = getScalingFactor(this.playerBase.store.level);
+        const scalingFactor = getScalingFactor(this.playerBase.data.level);
 
         // Buffs
-        for (const [buffName, currDuration] of Object.entries(this.playerFlux.store.buff)) {
+        for (const [buffName, currDuration] of Object.entries(this.playerFlux.data.buff)) {
             if (!currDuration) continue;
             const buff = buffMap[buffName as BuffName];
             if (!buff) continue;
@@ -231,7 +246,7 @@ export class RootStore {
         }
 
         // Debuffs
-        for (const [debuffName, currDuration] of Object.entries(this.playerFlux.store.debuff)) {
+        for (const [debuffName, currDuration] of Object.entries(this.playerFlux.data.debuff)) {
             if (!currDuration) continue;
             const debuff = debuffMap[debuffName as DebuffName];
             if (!debuff) continue;
@@ -244,7 +259,7 @@ export class RootStore {
         }
 
         // Feeling
-        const feeling = feelingMap[this.playerFlux.store.feeling];
+        const feeling = feelingMap[this.playerFlux.data.feeling];
         if (feeling && feeling.stats) {
             for (const [stat, value] of Object.entries(feeling.stats)) {
                 if (value !== undefined && stat in delta) {

@@ -1,7 +1,6 @@
 //#region [imports]
 import React, { } from 'react';
 import drache from '../../../assets/drache-01.png';
-import { useNewGameStore } from '../../../store/newGameStore';
 import { CREATURE } from '../../../data/colorfullStrings';
 import { NAMELIST, VERBLIST, PLACELIST, BATTLELIST, ENEMIELIST, WEAPONSLIST } from '../../../data/randomSentenceData';
 import Header from '../../../layout/Header/Header';
@@ -10,6 +9,8 @@ import NpcTalk from '../../../utility/NpcTalk';
 import RandomSentence from '../../../utility/RandomSentence';
 import ActionButton from '../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../store';
 //#endregion
 
 //#region [prepare]
@@ -18,8 +19,8 @@ type StartProps = {
     onClick?: () => void;
 };
 
-const Start: React.FC<StartProps> = () => {
-    const { store } = useNewGameStore();
+const Start: React.FC<StartProps> = observer(() => {
+    const { gameState, gameTime } = useRootStore();
     //#endregion
 
     //#region [handler]
@@ -39,15 +40,15 @@ const Start: React.FC<StartProps> = () => {
             </p>
 
             <p className='mb-1'>
-                Die aktuelle Uhrzeit in Lahtheim ist <b>{store.gameTime.gameTime} Uhr.</b> Es ist <b>{store.gameTime.gameDay}</b>.
-                Das Wetter heute ist {store.gameState.weather} und {store.gameState.temperature}.
+                Die aktuelle Uhrzeit in Lahtheim ist <b>{gameTime.data.gameTime} Uhr.</b> Es ist <b>{gameTime.data.gameDay}</b>.
+                Das Wetter heute ist {gameState.data.weather} und {gameState.data.temperature}.
             </p>
 
             <img src={drache} width={"30%"} />
 
             <div className='text-left'>
                 <p className='mb-1'>
-                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {store.gameTime.gameDay}, du spürst die {store.gameState.temperature}e Luft auf deinem Gesicht.
+                    Du stehst vor den Toren von Lahtheim Es ist mitlerweile {gameTime.data.gameDay}, du spürst die {gameState.data.temperature}e Luft auf deinem Gesicht.
                     Bevor du auch nur einen Schritt gehen kannst,
                     kommt ein kleines <GradientText colors={['#CF388F', '#8839CF']}>geflügeltes Wesen</GradientText> zu dir.
                     Mit großen Augen schaut es erwartungsvoll zu dir hoch.
@@ -66,7 +67,7 @@ const Start: React.FC<StartProps> = () => {
                 </p>
             </div>
 
-            {!store.gameState.creating && (<ActionButton onClick={handleCreateCharakter} label='Charater erstellen' />)}<br /><br />
+            {!gameState.data.creating && (<ActionButton onClick={handleCreateCharakter} label='Charater erstellen' />)}<br /><br />
 
             <div>
                 <Header>Erfolgreiche Entdecker</Header>
@@ -86,6 +87,6 @@ const Start: React.FC<StartProps> = () => {
         </div>
     );
     //#endregion
-};
+});
 
 export default Start;

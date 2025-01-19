@@ -37,36 +37,36 @@ const MobileFooter: React.FC<MobileFooterProps> = observer(() => {
         setShowInfo(false);
         setShowNavi(false);
         setShowPlayer(false);
-        gameState.store.mobilePop = true;
+        gameState.data.mobilePop = true;
     }
     const handleInfo = () => {
         setShowInfo(prev => !prev);
         setShowPlayer(false);
         setShowNavi(false);
         setShowGame(false);
-        gameState.store.mobilePop = true;
+        gameState.data.mobilePop = true;
     }
     const handleNavi = () => {
         setShowNavi(prev => !prev);
         setShowInfo(false);
         setShowPlayer(false);
         setShowGame(false);
-        gameState.store.mobilePop = true;
+        gameState.data.mobilePop = true;
     }
     const handlePlayer = () => {
         setShowPlayer(prev => !prev);
         setShowInfo(false);
         setShowNavi(false);
         setShowGame(false);
-        gameState.store.mobilePop = true;
+        gameState.data.mobilePop = true;
     }
     //#endregion
 
     useEffect(() => {
-        if (!gameState.store.mobilePop) {
+        if (!gameState.data.mobilePop) {
             closePop();
         }
-    }, [gameState.store.mobilePop]);
+    }, [gameState.data.mobilePop]);
 
     //#region [events]
     useEffect(() => {
@@ -89,7 +89,7 @@ const MobileFooter: React.FC<MobileFooterProps> = observer(() => {
         <>
             <div className={`handyPop custom-scrollbar ${showGame ? 'open' : 'closed'}`}><GameNavi mobilePop={handleGame} /></div>
             <div className={`handyPop custom-scrollbar ${showInfo ? 'open' : 'closed'}`}><InfoNavi mobilePop={handleInfo} /></div>
-            <div className={`handyPop custom-scrollbar ${showNavi ? 'open' : 'closed'}`}>{gameState.store.creating && (currentNav)}</div>
+            <div className={`handyPop custom-scrollbar ${showNavi ? 'open' : 'closed'}`}>{gameState.data.creating && (currentNav)}</div>
             <div className={`handyPop custom-scrollbar ${showPlayer ? 'open' : 'closed'}`}><CharakterNavi /></div>
 
             <ToggleActionButton onClickOne={handleGame} labelOne="Game" labelTwo="Schließen" colorTwo="#F7445C" setOne={!showGame} />

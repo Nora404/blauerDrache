@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
-import { useNewGameStore } from '../../../store/newGameStore';
 import MultiColoredLetters from '../../../utility/MultiColoredLetters';
 import { blueColors } from '../../../data/colorMappingData';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from '../../../store';
 
 
 type InfoNaviProps = {
     mobilePop?: () => void;
 };
 
-const InfoNavi: React.FC<InfoNaviProps> = ({ mobilePop }) => {
-    const { store } = useNewGameStore();
+const InfoNavi: React.FC<InfoNaviProps> = observer(({ mobilePop }) => {
+    const { gameState, gameTime } = useRootStore();
 
     const handleClick = () => {
         mobilePop?.();
@@ -27,13 +28,13 @@ const InfoNavi: React.FC<InfoNaviProps> = ({ mobilePop }) => {
             </p>
 
             <p className='text-left'>
-                Zeit: <b>{store.gameTime.gameTime}</b><br />
-                Es ist: <b>{store.gameTime.gameDay}</b><br />
-                Wetter: <b>{store.gameState.weather}</b><br />
-                Temperatur: <b>{store.gameState.temperature}</b><br />
+                Zeit: <b>{gameTime.data.gameTime}</b><br />
+                Es ist: <b>{gameTime.data.gameDay}</b><br />
+                Wetter: <b>{gameState.data.weather}</b><br />
+                Temperatur: <b>{gameState.data.temperature}</b><br />
             </p>
         </div>
     );
-};
+});
 
 export default InfoNavi;

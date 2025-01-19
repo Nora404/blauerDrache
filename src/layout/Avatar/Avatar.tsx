@@ -10,7 +10,7 @@ const Avatar: React.FC<AvatarProps> = observer(() => {
     const { getPlayerObj, gameTime } = useRootStore();
     const selected = getPlayerObj();
 
-    const isDay = gameTime.store.gameDay === "Tag";
+    const isDay = gameTime.data.gameDay === "Tag";
 
     return (
         <div className={`avatar ${isDay ? 'day' : 'night'}`}>

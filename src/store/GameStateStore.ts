@@ -5,7 +5,7 @@ import { RootStore } from "./rootStore";
 
 export class GameStateStore {
     rootStore: RootStore;
-    store: GameState = defaultGameStore.gameState;
+    data: GameState = defaultGameStore.gameState;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -13,17 +13,17 @@ export class GameStateStore {
     }
 
     setGameState(val: Partial<GameState>) {
-        this.store = { ...this.store, ...val };
+        this.data = { ...this.data, ...val };
         this.rootStore.saveToLocalStorage();
     }
 
     setCurrentPath(path: string) {
-        this.store.currentPath = path;
+        this.data.currentPath = path;
         this.rootStore.saveToLocalStorage();
     }
 
     updateGameSwitch(key: string, value: boolean) {
-        this.store.switch[key] = value;
+        this.data.switch[key] = value;
         this.rootStore.saveToLocalStorage();
     }
 }
