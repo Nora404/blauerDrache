@@ -139,6 +139,7 @@ const Chronic: React.FC<ChronicProps> = () => {
             weil sie nie lebendig war. Die Faen sprechen von Fragmenten, die angeblich Erinnerungen der Drachen selbst
             enthalten sollen. Diese Fragmente sind wie Rätsel, die niemand lösen kann. Sie erzählen von einer uralten Kraft,
             die in ihrer Gier alles in sich verschlang - eine Kraft, die von den Drachen selbst hervorgebracht wurde.
+            Aber heute erinnert sich niemand an diese Worte, keiner hört ihr Flüstern. Die Fragmente scheinen für immer verloren.
           </p>
           <p className="mb-1">
             Manche Gelehrten erzählen von einem Kreislauf, der die Welt immer wieder erneuert.
@@ -150,12 +151,6 @@ const Chronic: React.FC<ChronicProps> = () => {
             Der Kreislauf wird sich eines Tages erneut schließen. Dies ist die düstere Prophezeiung, die die Faen in
             ihren Liedern flüstern. Doch niemand weiß, wie sich die Geschichte entfalten wird, wenn dieser Tag kommt.
             Wird der Blaue Drache erneut erscheinen? Oder ist dies der letzte Zyklus, der alles auslöscht?
-          </p>
-          <p className="mb-1">
-            Einige der ältesten Faen sprechen davon, dass die Fragmente vielleicht die Schlüssel sind, um den
-            Kreislauf zu durchbrechen. Aber sie warnen auch: Wer in die Wahrheit der Fragmente blickt, riskiert,
-            von ihnen verschlungen zu werden. Denn in jedem Fragment liegt nicht nur Erinnerung - sondern auch die
-            Bürde der Entscheidungen, die die Drachen einst trafen.
           </p>
         </div>
       </div>}
