@@ -1,4 +1,4 @@
-import { CREATURE } from "../../../data/colorfullStrings";
+import { CREATURE } from "../../../data/helper/colorfullStrings";
 import NpcTalk from "../../../utility/NpcTalk";
 import PlayerTalk from "../../../utility/PlayerTalk";
 

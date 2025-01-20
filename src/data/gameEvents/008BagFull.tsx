@@ -1,6 +1,6 @@
 import { GradientText } from "../../utility/GradientText";
 import NpcTalk from "../../utility/NpcTalk";
-import { SYSTEM } from "../colorfullStrings";
+import { SYSTEM } from "../helper/colorfullStrings";
 import { GameEvent } from "../eventData";
 import { getRandomItem, ItemName } from "../ItemData";
 

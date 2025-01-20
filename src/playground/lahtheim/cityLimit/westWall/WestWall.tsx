@@ -1,8 +1,8 @@
 import React from 'react';
-import { NPC, PLACES } from '../../../../data/colorfullStrings';
+import { NPC, PLACES } from '../../../../data/helper/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { GradientText } from '../../../../utility/GradientText';
-import { yellowColors } from '../../../../data/colorMappingData';
+import { yellowColors } from '../../../../data/helper/colorMappingData';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';

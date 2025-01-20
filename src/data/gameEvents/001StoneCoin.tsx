@@ -1,5 +1,3 @@
-import { GradientText } from "../../utility/GradientText";
-import { SYSTEM } from "../colorfullStrings";
 import { GameEvent } from "../eventData";
 
 //#region [events]
@@ -40,26 +38,19 @@ export const event001StoneCoin: GameEvent = {
 };
 //#endregion
 
-function descriptionText(): JSX.Element {
+function descriptionText() {
     return (
-        <>
-            Ein <GradientText>Stein</GradientText> liegt auf dem Boden!
-            Er ist klein und hart, hat eine gräuliche Farbe und - sieht aus wie jeder andere Stein auch.
-            Warum bist du stehen geblieben um diesen <GradientText>Stein</GradientText> zu betrachten?
-        </>
+
+            "Ein {GradientText}Stein{/GradientText} liegt auf dem Boden!"+
+            "Er ist klein und hart, hat eine gräuliche Farbe und - sieht aus wie jeder andere Stein auch."+
+            "Warum bist du stehen geblieben um diesen {GradientText}Stein{/GradientText} zu betrachten?"
+
     );
 }
 
-const message1 = (
-    <>
-        Unglaublich! Du hast unter dem <GradientText>Stein</GradientText> etwas {SYSTEM.Gold} gefunden.
-        Du steckst den <GradientText>Stein</GradientText> und das Goldstück in deinen Beutel ein.
-        Steine kann man bestimmt irgendwann mal brauchen.
-    </>
-);
+const message1 = 
+    "Unglaublich! Du hast unter dem {GradientText}Stein{/GradientText} etwas " +
+    "{SYSTEM.Gold} gefunden. Du steckst den {GradientText}Stein{/GradientText} und das Goldstück in deinen Beutel ein. " +
+    "Steine kann man bestimmt irgendwann mal brauchen.";
 
-const message2 = (
-    <>
-        Du ignorierst den <GradientText>Stein</GradientText> und gehst weiter.
-    </>
-);
+const message2 = "Du ignorierst den {GradientText}Stein{/GradientText} und gehst weiter.";

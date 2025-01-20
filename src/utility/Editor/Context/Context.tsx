@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { PlacesKeys } from "../../../data/colorfullStrings";
+import { PlacesKeys } from "../../../data/helper/colorfullStrings";
 import { ItemCartegoryName } from "../../../data/ItemData";
 import { getAllPlaces } from "./Helper";
 

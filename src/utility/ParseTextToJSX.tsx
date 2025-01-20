@@ -7,10 +7,10 @@ import {
   CREATURE,
   NPC,
   PLACES,
-} from "../data/colorfullStrings";
+} from "../data/helper/colorfullStrings";
 
 // Hier importierst du deine beiden Komponenten: 
-import { colorPalettes } from "../data/colorMappingData";
+import { colorPalettes } from "../data/helper/colorMappingData";
 import { GradientText } from "./GradientText";
 import MultiColoredLetters from "./MultiColoredLetters";
 // ^ ggf. anpassen, falls die zweite Komponente in einer anderen Datei steckt

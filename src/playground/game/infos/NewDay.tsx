@@ -1,4 +1,4 @@
-import { SYSTEM } from '../../../data/colorfullStrings';
+import { SYSTEM } from '../../../data/helper/colorfullStrings';
 import { GradientText } from '../../../utility/GradientText';
 import PlayerTalk from '../../../utility/PlayerTalk';
 import ActionButton from '../../../layout/ActionButtons/ActionButton';

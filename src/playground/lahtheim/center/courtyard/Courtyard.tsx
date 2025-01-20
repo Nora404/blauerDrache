@@ -1,9 +1,9 @@
 //#region [imports]
 import React from 'react';
-import { PLACES, SYSTEM } from '../../../../data/colorfullStrings';
+import { PLACES, SYSTEM } from '../../../../data/helper/colorfullStrings';
 import { GradientText } from '../../../../utility/GradientText';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
-import { lilaColors } from '../../../../data/colorMappingData';
+import { lilaColors } from '../../../../data/helper/colorMappingData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';

@@ -6,13 +6,14 @@ import { GameAction } from "../../../data/eventData";
 import Header from "../../../layout/Header/Header";
 import ActionButton from "../../../layout/ActionButtons/ActionButton";
 import MultiColoredLetters from "../../../utility/MultiColoredLetters";
-import { blueColors } from "../../../data/colorMappingData";
+import { blueColors } from "../../../data/helper/colorMappingData";
+import { parseDescription } from "../../../utility/ParseTextToJSX";
 //#endregion
 
 //#region [prepare]
 type ChainItem = {
     eventId: string;
-    outcomeMessage: JSX.Element | null;
+    outcomeMessage: React.ReactNode;
 }
 
 type GameEventChainProps = {
@@ -47,9 +48,10 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
 
         setEventsChain((prevChain) => {
             const updated = [...prevChain];
+            const msg = parseDescription(newMessage ?? "");
             updated[chainIndex] = {
                 ...updated[chainIndex],
-                outcomeMessage: newMessage,
+                outcomeMessage: msg,
             };
 
             if (nextEventId) {
@@ -68,6 +70,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
         <div className="max-width">
             {eventsChain.map((chainItem, idx) => {
                 const event = getGameEventById(chainItem.eventId);
+                const description = parseDescription(event?.description ?? "")
                 if (!event) {
                     return <p key={idx}>Unbekanntes Event: {chainItem.eventId}</p>;
                 }
@@ -77,7 +80,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName
                 return (
                     <div key={idx} className="game-event-block">
                         <Header>{event.label}</Header>
-                        <p className="mb-1 text-left">{event.description}</p>
+                        <p className="mb-1 text-left">{description}</p>
 
                         {outcomeMessage ? (
                             <p className='mb-1 text-left' style={{ color: '#aaffff' }}>{outcomeMessage}</p>

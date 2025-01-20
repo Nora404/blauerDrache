@@ -3,7 +3,7 @@ import { RootStore } from "./rootStore";
 
 import { getRandomFeeling } from "../data/feelingData";
 import { getRandomArrayElement } from "../utility/RandomArrayElement";
-import { WEATHER, TEMPERATURE } from "../data/weatherStrings";
+import { WEATHER, TEMPERATURE } from "../data/helper/weatherStrings";
 import { defaultGameStore, GameTime } from "./types";
 
 // Beispiel: deine Zeit-Funktionen

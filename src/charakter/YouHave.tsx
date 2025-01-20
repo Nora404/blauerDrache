@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
-import { SYSTEM } from '../data/colorfullStrings';
+import { SYSTEM } from '../data/helper/colorfullStrings';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../store';
 

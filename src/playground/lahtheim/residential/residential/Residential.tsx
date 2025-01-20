@@ -1,5 +1,5 @@
 import React from 'react';
-import { PLACES } from '../../../../data/colorfullStrings';
+import { PLACES } from '../../../../data/helper/colorfullStrings';
 
 type ResidentialProps = {
 };

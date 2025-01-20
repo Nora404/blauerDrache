@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { startTransition, useEffect, useState } from 'react';
 import { emptyRaceObj, Race, RaceName } from '../../../data/raceData';
-import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/playerAscii';
+import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/helper/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
 import ChooseCalling from './ChooseCalling';

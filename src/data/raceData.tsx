@@ -1,10 +1,10 @@
 import { PlayerBase, PlayerEconomy, PlayerStats } from "../store/newGameStore";
 import { GradientText } from "../utility/GradientText";
 import MultiColoredLetters from "../utility/MultiColoredLetters";
-import { SYSTEM } from "./colorfullStrings";
-import { braunColors, greenColors } from "./colorMappingData";
+import { SYSTEM } from "./helper/colorfullStrings";
+import { braunColors, greenColors } from "./helper/colorMappingData";
 import { OriginName } from "./originData";
-import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./playerAscii";
+import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./helper/playerAscii";
 
 export type RaceName =
     | "Mensch"

@@ -1,6 +1,6 @@
 import React from 'react';
 import MultiColoredLetters from '../../utility/MultiColoredLetters';
-import { blueColors } from '../../data/colorMappingData';
+import { blueColors } from '../../data/helper/colorMappingData';
 import { GradientText } from '../../utility/GradientText';
 
 type ActionButtonProps = {

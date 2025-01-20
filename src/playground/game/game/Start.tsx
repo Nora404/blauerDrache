@@ -1,8 +1,8 @@
 //#region [imports]
 import React, { } from 'react';
 import drache from '../../../assets/drache-01.png';
-import { CREATURE } from '../../../data/colorfullStrings';
-import { NAMELIST, VERBLIST, PLACELIST, BATTLELIST, ENEMIELIST, WEAPONSLIST } from '../../../data/randomSentenceData';
+import { CREATURE } from '../../../data/helper/colorfullStrings';
+import { NAMELIST, VERBLIST, PLACELIST, BATTLELIST, ENEMIELIST, WEAPONSLIST } from '../../../data/helper/randomSentenceData';
 import Header from '../../../layout/Header/Header';
 import { GradientText } from '../../../utility/GradientText';
 import NpcTalk from '../../../utility/NpcTalk';

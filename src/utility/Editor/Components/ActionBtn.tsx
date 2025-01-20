@@ -1,6 +1,6 @@
 import { useEditorContext } from "../Context/Context";
 import MultiColoredLetters from "../../MultiColoredLetters";
-import { yellowColors } from "../../../data/colorMappingData";
+import { yellowColors } from "../../../data/helper/colorMappingData";
 import TriggerGroup from "./TriggerGroup";
 import BaseDelta from "./BaseDelta";
 import StateDelta from "./StateDelta";

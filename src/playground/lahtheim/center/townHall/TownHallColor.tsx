@@ -3,7 +3,7 @@ import React from 'react';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
-import { rainbowColors } from '../../../../data/colorMappingData';
+import { rainbowColors } from '../../../../data/helper/colorMappingData';
 // #endregion
 
 // #region [prepare]

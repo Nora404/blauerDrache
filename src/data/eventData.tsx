@@ -7,7 +7,7 @@ import {
   PlayerMeta,
   PlayerStats,
 } from "../store/newGameStore";
-import { PlacesKeys } from "./colorfullStrings";
+import { PlacesKeys } from "./helper/colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { event002Mashroom } from "./gameEvents/002Mushroom";
 import { event003Stick } from "./gameEvents/003Stick";
@@ -43,13 +43,13 @@ export type GameAction = {
   triggerQuest?: string;
   endQuest?: string;
   nextEvents?: NextEventOption[];
-  message?: JSX.Element;
+  message?: string;
 };
 
 export type GameEvent = {
   id: string; // z.B. 001Stone
   label: string; // z.B "Stein gefunden"
-  description: JSX.Element;
+  description: string;
   buttons: {
     label: string;
     getAction: () => GameAction;

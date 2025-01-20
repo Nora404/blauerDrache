@@ -1,4 +1,4 @@
-import { PlacesKeys } from "../data/colorfullStrings";
+import { PlacesKeys } from "../data/helper/colorfullStrings";
 import {
   GameEvent,
   gameEvents,

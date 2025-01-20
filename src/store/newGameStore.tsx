@@ -173,7 +173,7 @@ type GameStoreContextType = {
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
 import { emptyFeelingObj, feelingMap, FeelingName, getRandomFeeling } from "../data/feelingData";
 import { getRandomArrayElement } from "../utility/RandomArrayElement";
-import { TEMPERATURE, WEATHER } from "../data/weatherStrings";
+import { TEMPERATURE, WEATHER } from "../data/helper/weatherStrings";
 import { emptyRaceObj, RaceName, racesMap } from "../data/raceData";
 import { callingMap, CallingName, emptyCallingObj } from "../data/callingData";
 import { armorMap, ArmorName, emptyArmorObj } from "../data/armorData";

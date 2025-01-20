@@ -1,6 +1,3 @@
-import { GradientText } from "../../utility/GradientText";
-import NpcTalk from "../../utility/NpcTalk";
-import PlayerTalk from "../../utility/PlayerTalk";
 import { GameEvent } from "../eventData";
 
 //#region [events]
@@ -45,22 +42,16 @@ export const event001Stone: GameEvent = {
 //#endregion
 
 // Ja das ist gewollt, ich will alle Texte hier unten haben
-function descriptionText(): JSX.Element {
+function descriptionText() {
     return (
-        <>
-            <GradientText>Beschreibung</GradientText>
-        </>
+            "Beschreibung"
     );
 }
 
 const message1 = (
-    <>
-        <PlayerTalk>Button 1 gedrückt</PlayerTalk>
-    </>
+        "Button 1 gedrückt"
 );
 
 const message2 = (
-    <>
-        <NpcTalk>Button 2 gedrückt</NpcTalk>
-    </>
+        "Button 2 gedrückt"
 );

@@ -1,5 +1,5 @@
 import { BuffName, buffMap } from "../../../data/buffData";
-import { PlacesKeys } from "../../../data/colorfullStrings";
+import { PlacesKeys } from "../../../data/helper/colorfullStrings";
 import { DebuffName, debuffMap } from "../../../data/debuffData";
 import { feelingMap, FeelingName } from "../../../data/feelingData";
 import { ItemCartegoryName, Item, itemMap } from "../../../data/ItemData";

@@ -1,4 +1,4 @@
-import { PLACES, SYSTEM } from "../../colorfullStrings";
+import { PLACES, SYSTEM } from "../../helper/colorfullStrings";
 import { GameQuest } from "../../questData";
 
 export const quest001ThreeStone: GameQuest = {

@@ -1,6 +1,6 @@
 import { PlayerStats } from "../store/newGameStore";
 import { GradientText } from "../utility/GradientText";
-import { SYSTEM } from "./colorfullStrings";
+import { SYSTEM } from "./helper/colorfullStrings";
 
 export type Feeling = {
     name: string,

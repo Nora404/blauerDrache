@@ -1,7 +1,7 @@
 import React from 'react';
 import { GradientText } from '../../utility/GradientText';
 import MultiColoredLetters from '../../utility/MultiColoredLetters';
-import { blueColors } from '../../data/colorMappingData';
+import { blueColors } from '../../data/helper/colorMappingData';
 
 
 type TwoActionButtonProps = {

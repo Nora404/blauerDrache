@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import Header from "../../../../layout/Header/Header";
 import TableRow from "./TableRow";
-import { SYSTEM } from "../../../../data/colorfullStrings";
+import { SYSTEM } from "../../../../data/helper/colorfullStrings";
 import "./PlayerInfo.css";
 import { useRootStore } from "../../../../store";
 import { getScalingFactor } from "../../../../utility/Progression";

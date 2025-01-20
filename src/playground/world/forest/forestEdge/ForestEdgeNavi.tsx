@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
 import ColoredLetter from '../../../../utility/ColoredLetter';
-import { PLACES } from '../../../../data/colorfullStrings';
+import { PLACES } from '../../../../data/helper/colorfullStrings';
 
 type ForestEdgeNaviProps = {
 };

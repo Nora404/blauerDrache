@@ -1,6 +1,6 @@
 //#region [imports]
 import React from 'react';
-import { PLACES } from '../../../../data/colorfullStrings';
+import { PLACES } from '../../../../data/helper/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 //#endregion

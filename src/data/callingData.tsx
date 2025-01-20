@@ -1,5 +1,5 @@
 import { GradientText } from "../utility/GradientText";
-import { SYSTEM } from "./colorfullStrings";
+import { SYSTEM } from "./helper/colorfullStrings";
 import { PlayerBase, PlayerEconomy, PlayerStats } from "../store/newGameStore";
 
 export type CallingName =

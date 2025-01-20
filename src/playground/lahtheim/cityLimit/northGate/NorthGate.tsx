@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { } from 'react';
 import { GradientText } from '../../../../utility/GradientText';
-import { CREATURE, PLACES } from '../../../../data/colorfullStrings';
+import { CREATURE, PLACES } from '../../../../data/helper/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';

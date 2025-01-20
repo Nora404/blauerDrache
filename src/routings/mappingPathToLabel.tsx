@@ -1,4 +1,4 @@
-import { PlacesKeys, PLACES } from "../data/colorfullStrings";
+import { PlacesKeys, PLACES } from "../data/helper/colorfullStrings";
 import { GradientText } from "../utility/GradientText";
 import { PathsGame } from "./pathsGame";
 import { PathsLahtheimCenter } from "./pathsLahtheimCenter";

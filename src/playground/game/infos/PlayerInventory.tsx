@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { SYSTEM } from "../../../data/colorfullStrings";
+import { SYSTEM } from "../../../data/helper/colorfullStrings";
 import { Item, ItemName } from "../../../data/ItemData";
 import Header from "../../../layout/Header/Header";
 import { GradientText } from "../../../utility/GradientText";

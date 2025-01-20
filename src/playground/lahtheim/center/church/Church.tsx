@@ -1,9 +1,9 @@
 //#region [imports]
 import React from 'react';
 import NpcTalk from '../../../../utility/NpcTalk';
-import { NPC, PLACES } from '../../../../data/colorfullStrings';
+import { NPC, PLACES } from '../../../../data/helper/colorfullStrings';
 import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
-import { yellowColors } from '../../../../data/colorMappingData';
+import { yellowColors } from '../../../../data/helper/colorMappingData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 //#endregion

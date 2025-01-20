@@ -2,7 +2,7 @@
 import React from 'react';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
-import { NPC } from '../../../../data/colorfullStrings';
+import { NPC } from '../../../../data/helper/colorfullStrings';
 // #endregion
 
 // #region [prepare]

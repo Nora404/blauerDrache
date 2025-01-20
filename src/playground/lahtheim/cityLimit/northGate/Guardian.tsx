@@ -1,5 +1,5 @@
 import React from 'react';
-import { CREATURE } from '../../../../data/colorfullStrings';
+import { CREATURE } from '../../../../data/helper/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import Header from '../../../../layout/Header/Header';
 import { useNavigate } from 'react-router-dom';

@@ -1,6 +1,6 @@
 //#region [imports]
 import React from 'react';
-import { PLACES } from '../../../../data/colorfullStrings';
+import { PLACES } from '../../../../data/helper/colorfullStrings';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { WeightedEvent } from '../../../../data/eventData';
