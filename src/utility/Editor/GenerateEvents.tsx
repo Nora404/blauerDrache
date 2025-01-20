@@ -6,7 +6,7 @@ import Places from "./Components/Places";
 import ActionBtn from "./Components/ActionBtn";
 
 import BaseInfo from "./Components/BaseInfos";
-import GenerateEventCode from "./Components/GenerateEventCode";
+import GenerateEventCode from "./Components/GenerateEventCode2";
 
 // =========== DIE HAUPT-KOMPONENTE ===========
 export default function EventCreationForm() {
