@@ -14,7 +14,7 @@ import { emptyOriginObj, Origin, OriginName } from '../../../data/originData';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../../store';
 import { PlayerBase, PlayerEconomy, PlayerStats } from '../../../store/types';
-import { requiredExpForLevel } from '../../../utility/Progression';
+import { requiredExpForLevel } from '../../../utility/Helper/Progression';
 //#endregion
 
 //#region [prepare]

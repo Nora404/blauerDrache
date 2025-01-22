@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../layout/Header/Header';
-import { GradientText } from '../utility/GradientText';
+import { GradientText } from '../utility/Formatted/GradientText';
 import { useRootStore } from '../store';
 import { observer } from 'mobx-react-lite';
 

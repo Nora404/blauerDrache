@@ -2,8 +2,8 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PathsGame } from "../routings";
-import { useRootStore } from "../store";
+import { PathsGame } from "../../routings";
+import { useRootStore } from "../../store";
 
 export const RouteSync: React.FC = observer(() => {
     const { gameState } = useRootStore();

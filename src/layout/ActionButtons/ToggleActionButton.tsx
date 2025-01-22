@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GradientText } from '../../utility/GradientText';
+import { GradientText } from '../../utility/Formatted/GradientText';
 
 type ToggleActionButtonProps = {
     onClickOne?: () => void;

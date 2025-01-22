@@ -1,6 +1,6 @@
 //#region [imports]
 import React, { useState } from 'react';
-import { GradientText } from '../../../../utility/GradientText';
+import { GradientText } from '../../../../utility/Formatted/GradientText';
 import { emptyWeaponObj, Weapon, WeaponName, weapons } from '../../../../data/weaponData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { observer } from 'mobx-react-lite';

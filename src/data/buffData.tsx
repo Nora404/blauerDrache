@@ -1,5 +1,5 @@
 import { PlayerStats } from "../store/newGameStore";
-import { GradientText } from "../utility/GradientText";
+import { GradientText } from "../utility/Formatted/GradientText";
 
 export type BuffName = "Eisenhaut" | "Kampfgeist";
 

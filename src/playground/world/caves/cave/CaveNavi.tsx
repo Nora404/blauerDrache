@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
-import ColoredLetter from '../../../../utility/ColoredLetter';
+import ColoredLetter from '../../../../utility/Formatted/ColoredLetter';
 
 type CaveNaviProps = {
 };
@@ -14,7 +14,7 @@ const CaveNavi: React.FC<CaveNaviProps> = () => {
                 <Link to="/start">Dem <ColoredLetter>...</ColoredLetter> folgen</Link><br />
             </p>
             <p className='text-left'>
-                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br/>
+                <Link to="/start"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
             </p>
         </div>
     );

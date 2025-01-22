@@ -1,4 +1,4 @@
-import { GradientText } from "../utility/GradientText";
+import { GradientText } from "../utility/Formatted/GradientText";
 import { SYSTEM } from "./helper/colorfullStrings";
 import { PlayerBase, PlayerEconomy, PlayerStats } from "../store/newGameStore";
 

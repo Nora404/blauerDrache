@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { SYSTEM } from "../../../data/helper/colorfullStrings";
 import { Item, ItemName } from "../../../data/ItemData";
 import Header from "../../../layout/Header/Header";
-import { GradientText } from "../../../utility/GradientText";
+import { GradientText } from "../../../utility/Formatted/GradientText";
 import { useRootStore } from "../../../store";
 
 const PlayerInventory: React.FC = observer(() => {

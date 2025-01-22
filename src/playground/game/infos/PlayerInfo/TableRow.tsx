@@ -1,7 +1,7 @@
 // Neue Datei: StatRow.tsx
 import React from 'react';
-import FormattedByValue from '../../../../utility/FormattedByValue';
-import { GradientText } from '../../../../utility/GradientText';
+import FormattedByValue from '../../../../utility/Formatted/FormattedByValue';
+import { GradientText } from '../../../../utility/Formatted/GradientText';
 
 
 type TableRowProps = {

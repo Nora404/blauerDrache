@@ -1,5 +1,5 @@
 
-import { GradientText } from '../utility/GradientText';
+import { GradientText } from '../utility/Formatted/GradientText';
 import CharakterNavi from './CharakterNavi';
 import { MainContent } from './MainContent';
 import MainNavi from './MainNavi';

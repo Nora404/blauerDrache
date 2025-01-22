@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { WeightedEvent } from '../../data/eventData';
 import { useRootStore } from '../../store';
-import { filterEventsByConditions } from '../TriggerEvent';
-import { pickRandomEvent } from '../RandomPickedEvent';
+import { filterEventsByConditions } from '../Helper/TriggerEvent';
+import { pickRandomEvent } from '../Random/RandomPickedEvent';
 
 export function useLocationEvents(possibleEvents: WeightedEvent[], backPath: string) {
     const {

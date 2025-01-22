@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../../layout/Header/Header';
-import MultiColoredLetters from '../../../utility/MultiColoredLetters';
+import MultiColoredLetters from '../../../utility/Formatted/MultiColoredLetters';
 import { blueColors } from '../../../data/helper/colorMappingData';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../../store';

@@ -1,6 +1,6 @@
 //#region [imports]
 import React, { } from 'react';
-import { GradientText } from '../../../../utility/GradientText';
+import { GradientText } from '../../../../utility/Formatted/GradientText';
 import { CREATURE, PLACES } from '../../../../data/helper/colorfullStrings';
 import NpcTalk from '../../../../utility/NpcTalk';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';

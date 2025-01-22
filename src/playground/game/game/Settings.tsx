@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../../layout/Header/Header';
 import { useNavigate } from 'react-router-dom';
-import { GradientText } from '../../../utility/GradientText';
+import { GradientText } from '../../../utility/Formatted/GradientText';
 import FullscreenToggleButton from '../../../layout/ActionButtons/FullscreenButton';
 
 type SettingsProps = {

@@ -1,9 +1,9 @@
 //#region [imports]
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { GradientText } from '../../../utility/GradientText';
+import { GradientText } from '../../../utility/Formatted/GradientText';
 import { getPlaceLabelFromRoute, getPlaceNameFromRoute } from '../../../routings/mappingPathToLabel';
-import { getEventByPlace } from '../../../utility/TriggerEvent';
+import { getEventByPlace } from '../../../utility/Helper/TriggerEvent';
 import { GameEventChain } from './GameEventChain';
 import './Transit.css'
 import TwoActionButton from '../../../layout/ActionButtons/TwoActionButton';

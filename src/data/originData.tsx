@@ -1,6 +1,6 @@
 import { PlayerBase, PlayerEconomy, PlayerStats } from "../store/newGameStore";
-import { GradientText } from "../utility/GradientText";
-import MultiColoredLetters from "../utility/MultiColoredLetters";
+import { GradientText } from "../utility/Formatted/GradientText";
+import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { SYSTEM } from "./helper/colorfullStrings";
 import { grayColors, lilaColors, rosaColors } from "./helper/colorMappingData";
 import { RaceName, racesMap } from "./raceData";

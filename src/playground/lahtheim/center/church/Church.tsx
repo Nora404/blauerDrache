@@ -2,7 +2,7 @@
 import React from 'react';
 import NpcTalk from '../../../../utility/NpcTalk';
 import { NPC, PLACES } from '../../../../data/helper/colorfullStrings';
-import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
+import MultiColoredLetters from '../../../../utility/Formatted/MultiColoredLetters';
 import { yellowColors } from '../../../../data/helper/colorMappingData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';

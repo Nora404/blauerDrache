@@ -5,7 +5,7 @@ import TableRow from "./TableRow";
 import { SYSTEM } from "../../../../data/helper/colorfullStrings";
 import "./PlayerInfo.css";
 import { useRootStore } from "../../../../store";
-import { getScalingFactor } from "../../../../utility/Progression";
+import { getScalingFactor } from "../../../../utility/Helper/Progression";
 import { WeaponName } from "../../../../data/weaponData";
 import { BuffName } from "../../../../data/buffData";
 import { DebuffName } from "../../../../data/debuffData";

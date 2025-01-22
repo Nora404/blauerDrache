@@ -2,9 +2,9 @@
 import React from 'react';
 import { PLACES } from '../../../../data/helper/colorfullStrings';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
+import MultiColoredLetters from '../../../../utility/Formatted/MultiColoredLetters';
 import { greenColors } from '../../../../data/helper/colorMappingData';
-import { GradientText } from '../../../../utility/GradientText';
+import { GradientText } from '../../../../utility/Formatted/GradientText';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../../../store';

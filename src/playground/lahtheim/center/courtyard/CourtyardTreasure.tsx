@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 import { GameEventChain } from '../../../game/game/GameEventChain';
-import { pickRandomEvent } from '../../../../utility/RandomPickedEvent';
+import { pickRandomEvent } from '../../../../utility/Random/RandomPickedEvent';
 // #endregion
 
 // #region [prepare]

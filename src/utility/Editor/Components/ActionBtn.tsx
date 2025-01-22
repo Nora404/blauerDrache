@@ -1,5 +1,5 @@
 import { useEditorContext } from "../Context/Context";
-import MultiColoredLetters from "../../MultiColoredLetters";
+import MultiColoredLetters from "../../Formatted/MultiColoredLetters";
 import { yellowColors } from "../../../data/helper/colorMappingData";
 import TriggerGroup from "./TriggerGroup";
 import BaseDelta from "./BaseDelta";

@@ -1,6 +1,6 @@
 import React from 'react';
-import { GradientText } from '../../utility/GradientText';
-import MultiColoredLetters from '../../utility/MultiColoredLetters';
+import { GradientText } from '../../utility/Formatted/GradientText';
+import MultiColoredLetters from '../../utility/Formatted/MultiColoredLetters';
 import { blueColors } from '../../data/helper/colorMappingData';
 
 

@@ -1,5 +1,5 @@
 import { PlayerStats } from "../store/newGameStore";
-import { GradientText } from "../utility/GradientText";
+import { GradientText } from "../utility/Formatted/GradientText";
 import { BuffName } from "./buffData";
 import { DebuffName } from "./debuffData";
 

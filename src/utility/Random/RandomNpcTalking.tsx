@@ -1,5 +1,5 @@
-import { NpcActions, npcNames, NpcTopics, Topic } from "../data/helper/randomNpcTalkingData";
-import { GradientText } from "./GradientText";
+import { NpcActions, npcNames, NpcTopics, Topic } from "../../data/helper/randomNpcTalkingData";
+import { GradientText } from "../Formatted/GradientText";
 
 const getRandomElement = <T,>(array: T[]): T => {
     return array[Math.floor(Math.random() * array.length)];

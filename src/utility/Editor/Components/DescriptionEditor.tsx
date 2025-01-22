@@ -1,6 +1,6 @@
 // DescriptionEditor.tsx
 import React, { useState } from "react";
-import { parseDescription } from "../../ParseTextToJSX";
+import { parseDescription } from "../../Helper/ParseTextToJSX";
 import { SYSTEM, CREATURE, NPC, PLACES } from "../../../data/helper/colorfullStrings";
 
 interface DescriptionEditorProps {

@@ -1,13 +1,13 @@
 //#region [imports]
 import React from 'react';
 import { PLACES, SYSTEM } from '../../../../data/helper/colorfullStrings';
-import { GradientText } from '../../../../utility/GradientText';
-import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
+import { GradientText } from '../../../../utility/Formatted/GradientText';
+import MultiColoredLetters from '../../../../utility/Formatted/MultiColoredLetters';
 import { lilaColors } from '../../../../data/helper/colorMappingData';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../../../layout/Header/Header';
-import RandomNpcTalking from '../../../../utility/RandomNpcTalking';
+import RandomNpcTalking from '../../../../utility/Random/RandomNpcTalking';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../../../store';
 //#endregion

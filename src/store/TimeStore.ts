@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { RootStore } from "./rootStore";
 
 import { getRandomFeeling } from "../data/feelingData";
-import { getRandomArrayElement } from "../utility/RandomArrayElement";
+import { getRandomArrayElement } from "../utility/Random/RandomArrayElement";
 import { WEATHER, TEMPERATURE } from "../data/helper/weatherStrings";
 import { defaultGameStore, GameTime } from "./types";
 

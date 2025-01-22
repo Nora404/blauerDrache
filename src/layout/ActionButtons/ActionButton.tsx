@@ -1,7 +1,7 @@
 import React from 'react';
-import MultiColoredLetters from '../../utility/MultiColoredLetters';
+import MultiColoredLetters from '../../utility/Formatted/MultiColoredLetters';
 import { blueColors } from '../../data/helper/colorMappingData';
-import { GradientText } from '../../utility/GradientText';
+import { GradientText } from '../../utility/Formatted/GradientText';
 
 type ActionButtonProps = {
     onClick?: () => void;

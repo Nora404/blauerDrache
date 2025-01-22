@@ -18,7 +18,7 @@ import { armorMap, emptyArmorObj } from "../data/armorData";
 import { emptyItemObj, itemMap } from "../data/ItemData";
 import { buffMap, BuffName } from "../data/buffData";
 import { debuffMap, DebuffName } from "../data/debuffData";
-import { getScalingFactor } from "../utility/Progression";
+import { getScalingFactor } from "../utility/Helper/Progression";
 
 export class RootStore {
 

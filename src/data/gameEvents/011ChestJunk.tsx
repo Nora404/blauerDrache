@@ -1,4 +1,4 @@
-import { GradientText } from "../../utility/GradientText";
+import { GradientText } from "../../utility/Formatted/GradientText";
 import NpcTalk from "../../utility/NpcTalk";
 import PlayerTalk from "../../utility/PlayerTalk";
 import { GameEvent } from "../eventData";

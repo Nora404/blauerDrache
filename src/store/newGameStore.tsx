@@ -172,7 +172,7 @@ type GameStoreContextType = {
 
 import React, { createContext, useState, useEffect, useContext, useRef } from "react";
 import { emptyFeelingObj, feelingMap, FeelingName, getRandomFeeling } from "../data/feelingData";
-import { getRandomArrayElement } from "../utility/RandomArrayElement";
+import { getRandomArrayElement } from "../utility/Random/RandomArrayElement";
 import { TEMPERATURE, WEATHER } from "../data/helper/weatherStrings";
 import { emptyRaceObj, RaceName, racesMap } from "../data/raceData";
 import { callingMap, CallingName, emptyCallingObj } from "../data/callingData";
@@ -182,7 +182,7 @@ import { emptyItemObj, Item, itemMap, ItemName } from "../data/ItemData";
 import { Buff, buffMap, BuffName } from "../data/buffData";
 import { Debuff, debuffMap, DebuffName } from "../data/debuffData";
 import { emptyOriginObj, originMap, OriginName } from "../data/originData";
-import { calculateProgression } from "../utility/Progression";
+import { calculateProgression } from "../utility/Helper/Progression";
 import { getGameQuestById, Progress, resetQuestProgress } from "../data/questData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PathsGame } from "../routings";

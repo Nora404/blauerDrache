@@ -4,7 +4,7 @@ import React, { } from 'react';
 import { WeightedEvent } from '../../../../data/eventData';
 import { observer } from 'mobx-react-lite';
 import PlaceTemplate from '../../../../layout/PlaceTemplate';
-import MultiColoredLetters from '../../../../utility/MultiColoredLetters';
+import MultiColoredLetters from '../../../../utility/Formatted/MultiColoredLetters';
 import { yellowColors } from '../../../../data/helper/colorMappingData';
 // #endregion
 

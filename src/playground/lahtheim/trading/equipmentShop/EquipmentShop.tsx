@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { useState } from 'react';
 import { Armor, ArmorName, armors, emptyArmorObj } from '../../../../data/armorData';
-import { GradientText } from '../../../../utility/GradientText';
+import { GradientText } from '../../../../utility/Formatted/GradientText';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../../../store';

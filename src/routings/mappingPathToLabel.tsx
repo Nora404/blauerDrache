@@ -1,5 +1,5 @@
 import { PlacesKeys, PLACES } from "../data/helper/colorfullStrings";
-import { GradientText } from "../utility/GradientText";
+import { GradientText } from "../utility/Formatted/GradientText";
 import { PathsGame } from "./pathsGame";
 import { PathsLahtheimCenter } from "./pathsLahtheimCenter";
 import { PathsLahtheimCityLimit } from "./pathsLahtheimCitylimit";

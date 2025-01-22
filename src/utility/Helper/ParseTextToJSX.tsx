@@ -1,44 +1,28 @@
-// ParseTextToJSX.ts
+//#region [imports]
 import React from "react";
-// Hier importierst du deine Listen (SYSTEM, CREATURE, NPC, PLACES)
-// und ggf. Farbpaletten, falls du sie zentral ablegen willst.
 import {
   SYSTEM,
   CREATURE,
   NPC,
   PLACES,
-} from "../data/helper/colorfullStrings";
+} from "../../data/helper/colorfullStrings";
+import { colorPalettes } from "../../data/helper/colorMappingData";
+import { GradientText } from "../Formatted/GradientText";
+import MultiColoredLetters from "../Formatted/MultiColoredLetters";
+//#endregion
 
-// Hier importierst du deine beiden Komponenten: 
-import { colorPalettes } from "../data/helper/colorMappingData";
-import { GradientText } from "./GradientText";
-import MultiColoredLetters from "./MultiColoredLetters";
-// ^ ggf. anpassen, falls die zweite Komponente in einer anderen Datei steckt
-
-////////////////////////////////////////////
-// 1) "Haupt"-Funktion parseDescription
-////////////////////////////////////////////
+//#region [helper]
 export function parseDescription(inputText: string): React.ReactNode {
-  // Erster Schritt: Wir erkennen die benutzerdefinierten Komponenten
-  // ala {GradientText|rainbowColors}...{/GradientText} etc.
+
   const nodesWithComponents = parseCustomComponents(inputText);
-
-  // Zweiter Schritt: In den String-Teilen ersetzen wir {SYSTEM.Leben} & Co
   const replacedVariables = parseVariables(nodesWithComponents);
-
-  // Dritter Schritt: Zeilenumbrüche in <br /> umwandeln
-  // (nur in den String-Teilen, React-Elemente bleiben unverändert)
   const finalResult = insertLineBreaks(replacedVariables);
 
   return finalResult;
 }
+//#endregion
 
-////////////////////////////////////////////
-// 2) parseCustomComponents
-//    Erkennt {GradientText|xy}...{/GradientText}
-//          {MultiColoredLetters|xy}...{/MultiColoredLetters}
-//    und ersetzt sie durch <GradientText colors={...}>...</GradientText>
-////////////////////////////////////////////
+//#region
 function parseCustomComponents(text: string): Array<string | React.ReactNode> {
   // Du kannst das Regex anpassen, falls du noch mehr Komponenten erlauben willst
   const pattern =
@@ -51,14 +35,11 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
   while ((match = pattern.exec(text)) !== null) {
     const matchIndex = match.index;
 
-    // Alles, was vor diesem Match steht, in den result-Array
     if (matchIndex > lastIndex) {
       result.push(text.slice(lastIndex, matchIndex));
     }
 
-    const [full, componentName, paletteName, innerText] = match;
-
-    // Passende Farbpalette holen oder Fallback
+    const [componentName, paletteName, innerText] = match;
     const colors = colorPalettes[paletteName] || ["#ff00ff"];
 
     // React-Element erzeugen
@@ -70,7 +51,6 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
         </GradientText>
       );
     } else {
-      // MultiColoredLetters
       element = (
         <MultiColoredLetters key={matchIndex} colors={colors}>
           {innerText}
@@ -82,23 +62,19 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
     lastIndex = pattern.lastIndex;
   }
 
-  // Rest anhängen
   if (lastIndex < text.length) {
     result.push(text.slice(lastIndex));
   }
 
   return result;
 }
+//#endregion
 
-////////////////////////////////////////////
-// 3) parseVariables
-//    Durchläuft das Array aus string|ReactElement
-//    und ersetzt in jedem string die {SYSTEM.Leben}-Platzhalter.
-////////////////////////////////////////////
+//#region
 function parseVariables(
   nodes: Array<string | React.ReactNode>
 ): Array<string | React.ReactNode> {
-  // Wir brauchen die vier Listen als "map", um {LISTNAME.KEY} aufzulösen
+
   const variableLists: Record<string, Record<string, JSX.Element>> = {
     SYSTEM,
     CREATURE,
@@ -106,17 +82,17 @@ function parseVariables(
     PLACES,
   };
 
-  return nodes.map((node, index) => {
+  return nodes.map((node) => {
     if (typeof node === "string") {
-      // In diesem String => Pattern matchen
       return parseLineWithVariables(node, variableLists);
     } else {
-      // ReactElement => unverändert zurück
       return node;
     }
   }).flat();
 }
+//#endregion
 
+//#region
 function parseLineWithVariables(
   line: string,
   variableLists: Record<string, Record<string, JSX.Element>>
@@ -152,11 +128,9 @@ function parseLineWithVariables(
 
   return result;
 }
+//#endregion
 
-////////////////////////////////////////////
-// 4) insertLineBreaks
-//    Ersetzt "\n" in allen string-Knoten durch <br />
-////////////////////////////////////////////
+//#region
 function insertLineBreaks(
   nodes: Array<string | React.ReactNode>
 ): React.ReactNode {
@@ -170,8 +144,8 @@ function insertLineBreaks(
         </React.Fragment>
       ));
     } else {
-      // React-Element => unverändert
       return node;
     }
   });
 }
+//#endregion

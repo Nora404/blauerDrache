@@ -1,5 +1,5 @@
 import React from 'react';
-import { GradientText } from './GradientText';
+import { GradientText } from '../Formatted/GradientText';
 
 type RandomSentenceProps = {
     partOne?: string[];
