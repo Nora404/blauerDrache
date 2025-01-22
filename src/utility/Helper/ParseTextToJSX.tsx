@@ -24,7 +24,6 @@ export function parseDescription(inputText: string): React.ReactNode {
 
 //#region
 function parseCustomComponents(text: string): Array<string | React.ReactNode> {
-  // Du kannst das Regex anpassen, falls du noch mehr Komponenten erlauben willst
   const pattern =
     /{(GradientText|MultiColoredLetters)\|([^}]+)}([\s\S]*?){\/\1}/g;
 

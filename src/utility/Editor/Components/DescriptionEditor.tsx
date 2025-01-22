@@ -1,174 +1,195 @@
 // DescriptionEditor.tsx
+
 import React, { useState } from "react";
 import { parseDescription } from "../../Helper/ParseTextToJSX";
 import { SYSTEM, CREATURE, NPC, PLACES } from "../../../data/helper/colorfullStrings";
 
 interface DescriptionEditorProps {
-    value: string;                   // Der aktuelle Text
-    onChange: (newVal: string) => void; // Callback, wenn sich der Text ändert
+  value: string;
+  onChange: (newVal: string) => void;
 }
 
-/**
- * DescriptionEditor: Stellt 4 Dropdowns + Buttons bereit,
- * um Variablen {SYSTEM.Foo} und Komponenten {GradientText|rainbowColors}...{/GradientText}
- * in den Text einzufügen. Zeigt darunter eine Live-Vorschau an.
- */
 const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
-    value,
-    onChange,
+  value,
+  onChange,
 }) => {
-    const [selectedListName, setSelectedListName] = useState("");
-    const [selectedKey, setSelectedKey] = useState("");
+  // Für das "Haupt"-Select
+  const [selectedMainOption, setSelectedMainOption] = useState("");
 
-    const [selectedComponent, setSelectedComponent] = useState("");
-    const [selectedPalette, setSelectedPalette] = useState("");
+  // Für das "zweite" Select (Key oder Palette)
+  const [selectedDetailOption, setSelectedDetailOption] = useState("");
 
-    const variableLists: Record<string, Record<string, JSX.Element>> = {
-        SYSTEM,
-        CREATURE,
-        NPC,
-        PLACES,
-    };
-    const componentOptions = ["GradientText", "MultiColoredLetters"];
-    const paletteOptions = [
-        "rosaColors",
-        "rainbowColors",
-        "greenColors",
-        "blueColors",
-        "braunColors",
-        "grayColors",
-        "yellowColors",
-    ];
+  // Custom-Farben-Logik
+  const [customColors, setCustomColors] = useState<string[]>([]);
+  const [newColor, setNewColor] = useState<string>("#ff0000");
 
-    const currentVarList = selectedListName
-        ? variableLists[selectedListName]
-        : null;
+  // Gruppen
+  const variableLists: Record<string, Record<string, JSX.Element>> = {
+    SYSTEM,
+    CREATURE,
+    NPC,
+    PLACES,
+  };
+  const componentOptions = ["GradientText", "MultiColoredLetters"];
+  const paletteOptions = [
+    "rosaColors",
+    "rainbowColors",
+    "greenColors",
+    "blueColors",
+    "braunColors",
+    "grayColors",
+    "yellowColors",
+    "custom",
+  ];
 
-    // Fügt eine Variable in Form {SYSTEM.Leben} ins Textfeld ein
-    const handleInsertVariable = () => {
-        if (selectedListName && selectedKey) {
-            const placeholder = `{${selectedListName}.${selectedKey}}`;
-            onChange(value + placeholder);
-        }
-    };
+  const handleInsert = () => {
+    if (!selectedMainOption || !selectedDetailOption) return;
 
-    // Fügt eine Komponente (z.B. {GradientText|rainbowColors}Text{/GradientText}) ein
-    const handleInsertComponent = () => {
-        if (selectedComponent && selectedPalette) {
-            const defaultInnerText = "DeinText";
-            const placeholder = `{${selectedComponent}|${selectedPalette}}${defaultInnerText}{/${selectedComponent}}`;
-            onChange(value + placeholder);
-        }
-    };
+    if (variableLists[selectedMainOption]) {
+      const placeholder = `{${selectedMainOption}.${selectedDetailOption}}`;
+      onChange(value + placeholder);
+    } else {
+      const defaultInnerText = "DeinText";
 
-    // Live-Vorschau generieren
-    const preview = parseDescription(value);
+      if (selectedDetailOption === "custom") {
+        const colorString = customColors.join(",");
+        const placeholder = `{${selectedMainOption}|custom:${colorString}}${defaultInnerText}{/${selectedMainOption}}`;
+        onChange(value + placeholder);
+      } else {
+        const placeholder = `{${selectedMainOption}|${selectedDetailOption}}${defaultInnerText}{/${selectedMainOption}}`;
+        onChange(value + placeholder);
+      }
+    }
+  };
 
-    return (
-        <div>
-            {/* Variablen-Platzhalter */}
-            <div className="flex-end h-30px">
-                <select
-                    value={selectedListName}
-                    onChange={(e) => {
-                        setSelectedListName(e.target.value);
-                        setSelectedKey("");
-                    }}
-                    className="dropdown w-200px"
-                >
-                    <option value="">-- Liste auswählen --</option>
-                    {Object.keys(variableLists).map((listName) => (
-                        <option key={listName} value={listName}>
-                            {listName}
-                        </option>
-                    ))}
-                </select>
+  const handleAddCustomColor = () => {
+    if (!newColor) return;
+    setCustomColors([...customColors, newColor]);
+    setNewColor("#ffffff");
+  };
 
-                {/* Zweites Dropdown für Keys */}
-                {currentVarList && (
-                    <select
-                        value={selectedKey}
-                        onChange={(e) => setSelectedKey(e.target.value)}
-                        className="dropdown w-200px"
-                    >
-                        <option value="">-- Wort auswählen --</option>
-                        {Object.keys(currentVarList).map((key) => (
-                            <option key={key} value={key}>
-                                {key}
-                            </option>
-                        ))}
-                    </select>
-                )}
+  const handleRemoveCustomColor = (index: number) => {
+    setCustomColors((prev) => prev.filter((_, i) => i !== index));
+  };
 
-                <button
-                    onClick={handleInsertVariable}
-                    className="btn-border w-100px"
-                    disabled={!selectedListName || !selectedKey}
-                >
-                    Hinzufügen
-                </button>
-            </div>
+  const preview = parseDescription(value);
+  const isVariable = !!variableLists[selectedMainOption];
+  const isComponent = componentOptions.includes(selectedMainOption);
 
+  let detailOptions: string[] = [];
+  if (isVariable) {
+    detailOptions = Object.keys(variableLists[selectedMainOption]);
+  } else if (isComponent) {
+    detailOptions = paletteOptions;
+  }
 
-            {/* Komponenten-Platzhalter */}
+  return (
+    <div>
+      {/* Select 1: Variablen ODER Komponenten */}
+      <div className="flex-end h-30px">
+        <select
+          value={selectedMainOption}
+          onChange={(e) => {
+            setSelectedMainOption(e.target.value);
+            setSelectedDetailOption("");
+          }}
+          className="dropdown w-200px"
+        >
+          <option value="">-- Bitte auswählen --</option>
+          <optgroup label="Variablen">
+            <option value="SYSTEM">SYSTEM</option>
+            <option value="CREATURE">CREATURE</option>
+            <option value="NPC">NPC</option>
+            <option value="PLACES">PLACES</option>
+          </optgroup>
+          <optgroup label="Komponenten">
+            <option value="GradientText">GradientText</option>
+            <option value="MultiColoredLetters">MultiColoredLetters</option>
+          </optgroup>
+        </select>
 
-            <div className="flex-end h-30px">
-                <select
-                    value={selectedComponent}
-                    onChange={(e) => setSelectedComponent(e.target.value)}
-                    className="dropdown w-200px"
-                >
-                    <option value="">-- Komponente auswählen --</option>
-                    {componentOptions.map((comp) => (
-                        <option key={comp} value={comp}>
-                            {comp}
-                        </option>
-                    ))}
-                </select>
+        {/* Select 2: wenn etwas gewählt ist */}
+        {detailOptions.length > 0 && (
+          <select
+            value={selectedDetailOption}
+            onChange={(e) => setSelectedDetailOption(e.target.value)}
+            className="dropdown w-200px"
+          >
+            <option value="">-- Unterauswahl --</option>
+            {detailOptions.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+        )}
 
-                {selectedComponent && (
-                    <select
-                        value={selectedPalette}
-                        onChange={(e) => setSelectedPalette(e.target.value)}
-                        className="dropdown w-200px"
-                    >
-                        <option value="">-- Farben auswählen --</option>
-                        {paletteOptions.map((p) => (
-                            <option key={p} value={p}>
-                                {p}
-                            </option>
-                        ))}
-                    </select>
-                )}
+        {/* EINE Schaltfläche, die die passende Logik ausführt */}
+        <button
+          onClick={handleInsert}
+          className="btn-border w-100px"
+          disabled={!selectedMainOption || !selectedDetailOption}
+        >
+          Hinzufügen
+        </button>
+      </div>
 
-                <button
-                    onClick={handleInsertComponent}
-                    className="btn-border w-100px"
-                    disabled={!selectedComponent || !selectedPalette}
-                >
-                    Hinzufügen
-                </button>
-            </div>
+      {/* Custom Colors nur anzeigen, wenn Komponente + selectedDetailOption = "custom" */}
+      {isComponent && selectedDetailOption === "custom" && (
+        <div className="flex-row-left">
+          <div style={{ width: "150px" }} className="flex-row">
+            <label>Farbe wählen: </label>
+            <input
+              type="color"
+              value={newColor}
+              onChange={(e) => setNewColor(e.target.value)}
+              style={{ width: "40px", padding: "3px", height: "30px" }}
+            />
+          </div>
 
+          <button className="btn-border w-100px" onClick={handleAddCustomColor}>
+            + Add Color
+          </button>
 
-            {/* Das eigentliche Textfeld */}
-            <div className="form-group">
-                {/* <label>Beschreibung:</label> */}
-                <textarea
-                    placeholder="Beschreibung für den Spieler"
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    rows={3}
-                />
-            </div>
-
-            {/* Vorschau */}
-            <div className="jsx-preview">
-                <strong>Vorschau:</strong>
-                <div>{preview}</div>
-            </div>
+          {/* Anzeige der Custom-Farben */}
+          <div className="flex-row m-15">
+            {customColors.map((col, i) => (
+              <span
+                onClick={() => handleRemoveCustomColor(i)}
+                title={`Klicke, um ${col} zu entfernen`}
+                key={i}
+                style={{
+                  display: "inline-block",
+                  width: "20px",
+                  height: "20px",
+                  background: col,
+                  marginRight: "5px",
+                  border: "1px solid #333",
+                  cursor: "pointer",
+                }}
+              />
+            ))}
+          </div>
         </div>
-    );
+      )}
+
+      {/* Textfeld */}
+      <div className="form-group">
+        <textarea
+          placeholder="Beschreibung für den Spieler"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          rows={3}
+        />
+      </div>
+
+      {/* Vorschau */}
+      <div className="jsx-preview">
+        <strong>Vorschau:</strong>
+        <div>{preview}</div>
+      </div>
+    </div>
+  );
 };
 
 export default DescriptionEditor;
