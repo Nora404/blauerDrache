@@ -47,21 +47,13 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
     "custom",
   ];
 
-  ///////////////////////////////////////
-  // 1) handleInsert
-  ///////////////////////////////////////
   const handleInsert = () => {
-    // Hier unterscheiden wir, ob selectedMainOption eine Variable-Liste ist
-    // oder eine Komponente
     if (!selectedMainOption || !selectedDetailOption) return;
 
-    // check, ob es eine Variable-Liste ist
     if (variableLists[selectedMainOption]) {
-      // Dann ist selectedDetailOption ein Key
       const placeholder = `{${selectedMainOption}.${selectedDetailOption}}`;
       onChange(value + placeholder);
     } else {
-      // Sonst muss es eine Komponente sein
       const defaultInnerText = "DeinText";
 
       if (selectedDetailOption === "custom") {
@@ -69,43 +61,26 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
         const placeholder = `{${selectedMainOption}|custom:${colorString}}${defaultInnerText}{/${selectedMainOption}}`;
         onChange(value + placeholder);
       } else {
-        // Normaler Palette-Name
         const placeholder = `{${selectedMainOption}|${selectedDetailOption}}${defaultInnerText}{/${selectedMainOption}}`;
         onChange(value + placeholder);
       }
     }
   };
 
-  ///////////////////////////////////////
-  // 2) handleAddCustomColor
-  ///////////////////////////////////////
   const handleAddCustomColor = () => {
     if (!newColor) return;
     setCustomColors([...customColors, newColor]);
     setNewColor("#ffffff");
   };
 
-  ///////////////////////////////////////
-  // 3) handleRemoveCustomColor
-  ///////////////////////////////////////
   const handleRemoveCustomColor = (index: number) => {
     setCustomColors((prev) => prev.filter((_, i) => i !== index));
   };
 
-  ///////////////////////////////////////
-  // 4) Generiere Vorschau
-  ///////////////////////////////////////
   const preview = parseDescription(value);
-
-  ///////////////////////////////////////
-  // 5) Render
-  ///////////////////////////////////////
-  // Shortcut zum Prüfen, ob selectedMainOption eine Variable-Liste ist
   const isVariable = !!variableLists[selectedMainOption];
-  // Shortcut zum Prüfen, ob selectedMainOption eine Komponente ist
   const isComponent = componentOptions.includes(selectedMainOption);
 
-  // Wenn Variable => detailOptions = Keys
   let detailOptions: string[] = [];
   if (isVariable) {
     detailOptions = Object.keys(variableLists[selectedMainOption]);
