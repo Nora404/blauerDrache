@@ -1,12 +1,3 @@
-import {
-  GameState,
-  GameTime,
-  PlayerBase,
-  PlayerEconomy,
-  PlayerFlux,
-  PlayerMeta,
-  PlayerStats,
-} from "../store/newGameStore";
 import { PlacesKeys } from "./helper/colorfullStrings";
 import { event001StoneCoin } from "./gameEvents/001StoneCoin";
 import { event002Mashroom } from "./gameEvents/002Mushroom";
@@ -27,6 +18,7 @@ import { event016FairyWish } from "./gameEvents/016FairyWish";
 import { event017ChestTrap } from "./gameEvents/017ChestTrap";
 import { ItemName } from "./ItemData";
 import { gameQuestEvents } from "./questData";
+import { GameState, GameTime, PlayerBase, PlayerEconomy, PlayerFlux, PlayerMeta, PlayerStats } from "../store/types";
 
 export type NextEventOption = {
   eventId: string; // Next event ID
@@ -65,15 +57,27 @@ export type WeightedEvent = {
   eventId: string;
   probability: number;
   questId?: string;
-  conditions?: {
-    gameTime?: Partial<GameTime>;
-    gameState?: Partial<GameState>;
-    playerStats?: Partial<PlayerStats>;
-    playerBase?: Partial<PlayerBase>;
-    playerFlux?: Partial<PlayerFlux>;
-    playerMeta?: Partial<PlayerMeta>;
-  };
+  conditions?: Conditions;
 };
+
+export type Conditions = {
+  operator?: "<" | ">" | "=",
+  gameTime?: Partial<GameTime>;
+  gameState?: Partial<GameState>;
+  playerStats?: Partial<PlayerStats>;
+  playerBase?: Partial<PlayerBase>;
+  playerFlux?: Partial<PlayerFlux>;
+  playerMeta?: Partial<PlayerMeta>;
+  haveBuffs?: boolean;
+  haveDebuffs?: boolean;
+};
+
+// const conditionObj = {
+//   playerFlux: {
+//     buff: { "Strength": 1 },
+//     debuff: { "Slow": 1 },
+//   },
+// };
 
 export const randomEvents: GameEvent[] = [
   event001StoneCoin,

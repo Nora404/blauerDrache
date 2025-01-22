@@ -1,13 +1,14 @@
 //#region [imports]
 import React, { useState } from "react";
-import { getGameEventById, pickRandomNextEvent } from "../../../utility/Helper/TriggerEvent";
-import { useApplyGameAction } from "../../../utility/Hooks/ApplyGameAction";
-import { GameAction } from "../../../data/eventData";
-import Header from "../../../layout/Header/Header";
-import ActionButton from "../../../layout/ActionButtons/ActionButton";
-import MultiColoredLetters from "../../../utility/Formatted/MultiColoredLetters";
-import { blueColors } from "../../../data/helper/colorMappingData";
-import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
+import { GameAction } from "../data/eventData";
+import { blueColors } from "../data/helper/colorMappingData";
+import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
+import { parseDescription } from "../utility/Helper/ParseTextToJSX";
+import { pickRandomNextEvent, getGameEventById } from "../utility/Helper/TriggerEvent";
+import { useApplyGameAction } from "../utility/Hooks/ApplyGameAction";
+import ActionButton from "./ActionButtons/ActionButton";
+import Header from "./Header/Header";
+
 //#endregion
 
 //#region [prepare]
