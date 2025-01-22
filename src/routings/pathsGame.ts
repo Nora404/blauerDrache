@@ -28,7 +28,7 @@ const PlayerInventory = lazy(() => import('../playground/game/infos/PlayerInvent
 const QuestLog = lazy(() => import('../playground/game/infos/QuestLog'));
 
 const WhatIs = lazy(() => import('../playground/game/game/AboutGame'));
-const Chronic = lazy(() => import('../playground/game/game/Chronic'));
+const Chronic = lazy(() => import('../playground/game/infos/Chronic'));
 const NewDay = lazy(() => import('../playground/game/infos/NewDay'));
 const Map = lazy(() => import('../playground/game/infos/Map'));
 const Transit = lazy(() => import('../playground/game/game/Transit'));
