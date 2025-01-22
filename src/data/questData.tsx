@@ -19,8 +19,8 @@ export type TaskType =
 export type GameQuest = {
   id: string;
   label: string;
-  description: JSX.Element;
-  reward: JSX.Element;
+  description: string;
+  reward: string;
   path: string; // Hier beendet man die Quest
   eventByEnd: string; // Dieses Event verteilt die Belohnung
   progress: Progress;
@@ -55,8 +55,8 @@ export type Progress = {
 export const emptyQuest: GameQuest = {
   id: "000",
   label: "Nichts",
-  description: <></>,
-  reward: <></>,
+  description: "",
+  reward: "",
   path: "/",
   eventByEnd: "000",
   progress: {
