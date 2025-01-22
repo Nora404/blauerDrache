@@ -2,14 +2,9 @@
 import React from "react";
 // Hier importierst du deine Listen (SYSTEM, CREATURE, NPC, PLACES)
 // und ggf. Farbpaletten, falls du sie zentral ablegen willst.
-import {
-  SYSTEM,
-  CREATURE,
-  NPC,
-  PLACES,
-} from "../data/helper/colorfullStrings";
+import { SYSTEM, CREATURE, NPC, PLACES } from "../data/helper/colorfullStrings";
 
-// Hier importierst du deine beiden Komponenten: 
+// Hier importierst du deine beiden Komponenten:
 import { colorPalettes } from "../data/helper/colorMappingData";
 import { GradientText } from "./GradientText";
 import MultiColoredLetters from "./MultiColoredLetters";
@@ -39,8 +34,8 @@ export function parseDescription(inputText: string): React.ReactNode {
 //          {MultiColoredLetters|xy}...{/MultiColoredLetters}
 //    und ersetzt sie durch <GradientText colors={...}>...</GradientText>
 ////////////////////////////////////////////
+// parseTextToJSX.ts
 function parseCustomComponents(text: string): Array<string | React.ReactNode> {
-  // Du kannst das Regex anpassen, falls du noch mehr Komponenten erlauben willst
   const pattern =
     /{(GradientText|MultiColoredLetters)\|([^}]+)}([\s\S]*?){\/\1}/g;
 
@@ -50,18 +45,21 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
 
   while ((match = pattern.exec(text)) !== null) {
     const matchIndex = match.index;
-
-    // Alles, was vor diesem Match steht, in den result-Array
     if (matchIndex > lastIndex) {
       result.push(text.slice(lastIndex, matchIndex));
     }
 
     const [full, componentName, paletteName, innerText] = match;
 
-    // Passende Farbpalette holen oder Fallback
-    const colors = colorPalettes[paletteName] || ["#ff00ff"];
+    let colors: string[] = [];
+    if (paletteName.startsWith("custom:")) {
+      // custom:#ff0000,#00ff00
+      const raw = paletteName.slice("custom:".length); // "#ff0000,#00ff00"
+      colors = raw.split(",").map((c) => c.trim());
+    } else {
+      colors = colorPalettes[paletteName] || ["#ff00ff"];
+    }
 
-    // React-Element erzeugen
     let element: React.ReactNode;
     if (componentName === "GradientText") {
       element = (
@@ -70,7 +68,6 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
         </GradientText>
       );
     } else {
-      // MultiColoredLetters
       element = (
         <MultiColoredLetters key={matchIndex} colors={colors}>
           {innerText}
@@ -82,7 +79,6 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
     lastIndex = pattern.lastIndex;
   }
 
-  // Rest anhängen
   if (lastIndex < text.length) {
     result.push(text.slice(lastIndex));
   }
@@ -106,15 +102,17 @@ function parseVariables(
     PLACES,
   };
 
-  return nodes.map((node, index) => {
-    if (typeof node === "string") {
-      // In diesem String => Pattern matchen
-      return parseLineWithVariables(node, variableLists);
-    } else {
-      // ReactElement => unverändert zurück
-      return node;
-    }
-  }).flat();
+  return nodes
+    .map((node, index) => {
+      if (typeof node === "string") {
+        // In diesem String => Pattern matchen
+        return parseLineWithVariables(node, variableLists);
+      } else {
+        // ReactElement => unverändert zurück
+        return node;
+      }
+    })
+    .flat();
 }
 
 function parseLineWithVariables(

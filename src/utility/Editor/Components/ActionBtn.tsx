@@ -7,6 +7,7 @@ import StateDelta from "./StateDelta";
 import FluxDelta from "./FluxDelta";
 import EconomyDelta from "./EconomyDelta";
 import ItemsDelta from "./ItemsDelta";
+import DescriptionEditor from "./DescriptionEditor";
 
 const ActionBtn: React.FC = () => {
   const { buttons, setButtons, addButton, removeButton } = useEditorContext();
@@ -45,15 +46,14 @@ const ActionBtn: React.FC = () => {
               </div>
               {/* Message */}
               <div className="form-group" style={{ marginTop: "0.5rem" }}>
-                <label>Message:</label>
-                <textarea
-                  rows={2}
+                <DescriptionEditor
+                  // <-- wir nehmen als "value" die Button-Message
                   value={btn.message}
-                  onChange={(e) => {
-                    const val = e.target.value;
+                  // <-- bei onChange updaten wir die Buttons
+                  onChange={(newVal) => {
                     setButtons((prev) =>
                       prev.map((b, i) =>
-                        i === index ? { ...b, message: val } : b
+                        i === index ? { ...b, message: newVal } : b
                       )
                     );
                   }}
