@@ -5,7 +5,7 @@ import MainNavi from "./MainNavi";
 import MobileHeader from "./Mobile/MobileHeader";
 import MobileFooter from "./Mobile/MobleFooter";
 import logo from "../assets/logo.svg";
-import { startTransition, useEffect } from "react";
+import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../store";
 
@@ -23,16 +23,13 @@ const AppContent: React.FC = observer(() => {
 
   useEffect(() => {
     const newClass = getBackgroundClass(gameTime.data.gameTime);
-
-    startTransition(() => {
-      document.body.classList.remove(
-        "body-day",
-        "body-evening",
-        "body-night",
-        "body-morning"
-      );
-      document.body.classList.add(newClass);
-    });
+    document.body.classList.remove(
+      "body-day",
+      "body-evening",
+      "body-night",
+      "body-morning"
+    );
+    document.body.classList.add(newClass);
 
     return () => {
       document.body.classList.remove(newClass);

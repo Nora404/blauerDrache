@@ -1,6 +1,6 @@
 // RouteSync.tsx
 import { observer } from "mobx-react-lite";
-import { startTransition, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PathsGame } from "../routings";
 import { useRootStore } from "../store";
@@ -25,11 +25,9 @@ export const RouteSync: React.FC = observer(() => {
   // Weiche ab -> navigiere dorthin.
   useEffect(() => {
     if (location.pathname !== gameState.data.currentPath) {
-      startTransition(() => {
-        navigate(gameState.data.currentPath, { replace: true });
-      });
+      navigate(gameState.data.currentPath, { replace: true });
     }
-  }, [location.pathname, gameState.data.currentPath, navigate]);
+  }, []);
 
   return null; // Diese Komponente rendert nichts, kümmert sich nur um die Synchro
 });
