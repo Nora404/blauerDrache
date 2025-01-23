@@ -1,0 +1,58 @@
+import React from "react";
+import { observer } from "mobx-react-lite";
+import { SYSTEM } from "../../data/helper/colorfullStrings";
+import { useRootStore } from "../../store";
+import Header from "../Header/Header";
+
+type YouCanProps = {};
+
+const YouCan: React.FC<YouCanProps> = observer(() => {
+  const { playerBase, getCombinedStats } = useRootStore();
+  const combined = getCombinedStats();
+
+  return (
+    <div>
+      <Header>Das kannst du</Header>
+      <table style={{ paddingLeft: "20px", marginBottom: "25px" }}>
+        <tbody>
+          <tr>
+            <td width={125}>{SYSTEM.Level}</td>
+            <td>{playerBase.data.level}</td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Erfahrung}</td>
+            <td>
+              {playerBase.data.exp} / {playerBase.data.nextLevel}
+            </td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Leben}</td>
+            <td>
+              {combined.life} / {combined.maxLife}
+            </td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Runden}</td>
+            <td>
+              {combined.rounds} / {combined.maxRounds}
+            </td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Angriff}</td>
+            <td>{combined.attack}</td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Verteidigung}</td>
+            <td>{combined.defense}</td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Glück}</td>
+            <td>{combined.luck}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+});
+
+export default YouCan;

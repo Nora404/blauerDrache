@@ -1,36 +1,40 @@
 {
-    "folder-color.pathColors": [
-        {
-            "folderPath": "blauerDrache\\src\\charakter\\",
-            "color": "foldercolorizer.color_9966ff"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\data\\",
-            "color": "foldercolorizer.color_66ccff"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\layout\\",
-            "color": "foldercolorizer.color_ff66ff"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\playground\\",
-            "color": "foldercolorizer.color_33cccc"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\routings\\",
-            "color": "foldercolorizer.color_33cc66"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\utility\\",
-            "color": "foldercolorizer.color_6666cc"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\assets\\",
-            "color": "foldercolorizer.color_cccc99"
-        },
-        {
-            "folderPath": "blauerDrache\\src\\playground\\lahtheim\\",
-            "color": "foldercolorizer.color_33cccc"
-        }
-    ]
+  "folder-color.pathColors": [
+    {
+      "folderPath": "blauerDrache\\src\\charakter\\",
+      "color": "foldercolorizer.color_9966ff"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\data\\",
+      "color": "foldercolorizer.color_dd0000"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\layout\\",
+      "color": "foldercolorizer.color_cc00ff"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\playground\\",
+      "color": "foldercolorizer.color_9966ff"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\routings\\",
+      "color": "foldercolorizer.color_0099cc"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\utility\\",
+      "color": "foldercolorizer.color_777777"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\assets\\",
+      "color": "foldercolorizer.color_cc9900"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\playground\\lahtheim\\",
+      "color": "foldercolorizer.color_33cccc"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\store\\",
+      "color": "foldercolorizer.color_339966"
+    }
+  ]
 }
