@@ -45,17 +45,10 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     // Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
     const showDayBlock = isDay || !canUseNachtInhalte;
 
-    const {
-      localRandomEvent,
-      firstEvent,
-      handleFinishLocalEvent,
-      handleFinishQuestEvent,
-    } = useLocationEvents(possibleEvents, backPath);
+    const { localRandomEvent, firstEvent, handleFinishEvent } =
+      useLocationEvents(possibleEvents, backPath);
 
     const initialEventName = firstEvent || localRandomEvent || "";
-    const onFinishChainHandler = firstEvent
-      ? handleFinishQuestEvent
-      : handleFinishLocalEvent;
 
     return (
       <div className="max-width">
@@ -90,7 +83,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
         {(firstEvent || localRandomEvent) && (
           <GameEventChain
             initialEventName={initialEventName}
-            onFinishChain={onFinishChainHandler}
+            onFinishChain={handleFinishEvent}
           />
         )}
       </div>

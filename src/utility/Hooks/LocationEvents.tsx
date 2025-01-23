@@ -80,25 +80,15 @@ export function useLocationEvents(
     navigate(backPath);
   };
 
-  const handleFinishLocalEvent = () => {
+  const handleFinishEvent = () => {
     setLocalRandomEvent(null);
     navigate(backPath);
-  };
-
-  const handleFinishQuestEvent = () => {
-    // if (firstEvent !== null) {
-    //   const newQueue = { ...queue };
-    //   delete newQueue[firstEvent];
-    //   gameState.setGameState({ currentEventQueue: newQueue });
-    navigate(backPath);
-    // }
   };
 
   return {
     localRandomEvent,
     firstEvent,
     handleBack,
-    handleFinishLocalEvent,
-    handleFinishQuestEvent,
+    handleFinishEvent,
   };
 }

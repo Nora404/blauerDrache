@@ -15,18 +15,10 @@ type PlaceTemplateProps = {
 
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
   ({ title, description, backPath, possibleEvents }) => {
-    const {
-      localRandomEvent,
-      firstEvent,
-      handleBack,
-      handleFinishLocalEvent,
-      handleFinishQuestEvent,
-    } = useLocationEvents(possibleEvents, backPath);
+    const { localRandomEvent, firstEvent, handleBack, handleFinishEvent } =
+      useLocationEvents(possibleEvents, backPath);
 
     const initialEventName = firstEvent || localRandomEvent || "";
-    const onFinishChainHandler = firstEvent
-      ? handleFinishQuestEvent
-      : handleFinishLocalEvent;
 
     return (
       <div className="max-width">
@@ -36,7 +28,7 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
         {(firstEvent || localRandomEvent) && (
           <GameEventChain
             initialEventName={initialEventName}
-            onFinishChain={onFinishChainHandler}
+            onFinishChain={handleFinishEvent}
           />
         )}
         {!firstEvent && !localRandomEvent && (
