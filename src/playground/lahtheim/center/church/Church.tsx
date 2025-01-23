@@ -3,9 +3,10 @@ import React from "react";
 import { NPC, PLACES } from "../../../../data/helper/colorfullStrings";
 import MultiColoredLetters from "../../../../utility/Formatted/MultiColoredLetters";
 import { yellowColors } from "../../../../data/helper/colorMappingData";
-import ActionButton from "../../../../layout/ActionButtons/ActionButton";
 import { useNavigate } from "react-router-dom";
 import Talk from "../../../../utility/Formatted/Talk";
+import { WeightedEvent } from "../../../../data/eventData";
+import { MainPlaceTemplate } from "../../../../layout/MainPlaceTemplate";
 //#endregion
 
 //#region [prepare]
@@ -13,24 +14,10 @@ type ChurchProps = {};
 
 const Church: React.FC<ChurchProps> = () => {
   const navigate = useNavigate();
-  //#endregion
+  const possibleEvents: WeightedEvent[] = [];
 
-  //#region [handler]
-  const handleTalk = () => {
-    navigate("/church-talk");
-  };
-  const handleDonate = () => {
-    navigate("/church-donate");
-  };
-  const handlePeace = () => {
-    navigate("/church-peace");
-  };
-  //#endregion
-
-  //#region [jsx]
-  return (
-    <div className="max-width">
-      <h2>{PLACES.Kirche}</h2>
+  const dayDescription = (
+    <>
       <p className="mb-1 text-left">
         Nach dem prächtigen {PLACES.Vorplatz} hattest du ein beeindruckendes
         Kircheninneres erwartet. Stattdessen empfängt dich eine beinahe
@@ -48,29 +35,35 @@ const Church: React.FC<ChurchProps> = () => {
         Gehen wenden willst, hörst du eine leise, rauchige Stimme:
       </p>
       <p className="mb-1 text-left">
-        <Talk color="#8C6570">"Besuch?"</Talk> flüstert sie, so sanft, dass du
+        <Talk color="dunkleGestalt">"Besuch?"</Talk> flüstert sie, so sanft, dass du
         nicht sicher bist, ob du dir das nur eingebildet hast.
-        <Talk color="#8C6570">
+        <Talk color="dunkleGestalt">
           "Es kommt nicht oft vor, dass dieses Haus Besuch bekommt."
         </Talk>
         Du drehst dich um, verwirrt, suchend nach dem Ursprung der Stimme. Dann,
         aus der Dunkelheit, tritt langsam eine {NPC.dunkleGestalt} hervor und
         spricht:{" "}
-        <Talk color="#8C6570">"Was kann ich für dich tun, mein Kind?"</Talk>
+        <Talk color="dunkleGestalt">"Was kann ich für dich tun, mein Kind?"</Talk>
       </p>
-      <br />
-      <ActionButton
-        onClick={handleTalk}
-        label="Mit dunkler Gestalt sprechen"
-      />{" "}
-      {/*(als geistlicher gibt es mehr)*/}
-      <ActionButton
-        onClick={handleDonate}
-        label="Etwas der Kirche spenden"
-      />{" "}
-      {/*(Buff: Fromm)*/}
-      <ActionButton onClick={handlePeace} label="Inneren Frieden suchen" />{" "}
-      {/*(Stimmung ändern)*/}
+    </>
+  );
+
+  const dayButtons = [
+    { label: 'Mit dunkler Gestalt sprechen', onClick: () => navigate('/church-talk') },
+    { label: 'Ein paar Gold der Kirche spenden', onClick: () => navigate('/church-donate') },
+    { label: 'Zur Inneren Ruhe finden', onClick: () => navigate('/church-peace') },
+  ];
+  //#endregion
+
+  //#region [jsx]
+  return (
+    <div className="max-width">
+      <MainPlaceTemplate
+        title={PLACES.Kirche}
+        dayDescription={dayDescription}
+        dayButtons={dayButtons}
+        possibleEvents={possibleEvents}
+      />
     </div>
   );
   //#endregion

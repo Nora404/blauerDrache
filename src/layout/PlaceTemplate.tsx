@@ -8,7 +8,7 @@ import { GameEventChain } from "./GameEventChain";
 import Header from "./Header/Header";
 
 type PlaceTemplateProps = {
-  title?: string;
+  title?: React.ReactNode;
   description?: React.ReactNode;
   backPath: string;
   possibleEvents: WeightedEvent[];

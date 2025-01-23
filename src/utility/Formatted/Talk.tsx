@@ -18,6 +18,7 @@ export const talkingColors: Record<string, string> = {
   geflügeltesWesen: "#ff33ff",
   blauesWesen: "#A3D8FF",
   rotesWesen: "#ff3333",
+  dunkleGestalt: "#8C6570",
 };
 
 type TextColorKey = keyof typeof textColors;
