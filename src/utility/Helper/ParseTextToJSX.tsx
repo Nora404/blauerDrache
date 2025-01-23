@@ -9,11 +9,11 @@ import {
 import { colorPalettes } from "../../data/helper/colorMappingData";
 import { GradientText } from "../Formatted/GradientText";
 import MultiColoredLetters from "../Formatted/MultiColoredLetters";
+import Talk from "../Formatted/Talk";
 //#endregion
 
 //#region [helper]
 export function parseDescription(inputText: string): React.ReactNode {
-
   const nodesWithComponents = parseCustomComponents(inputText);
   const replacedVariables = parseVariables(nodesWithComponents);
   const finalResult = insertLineBreaks(replacedVariables);
@@ -25,35 +25,54 @@ export function parseDescription(inputText: string): React.ReactNode {
 //#region
 function parseCustomComponents(text: string): Array<string | React.ReactNode> {
   const pattern =
-    /{(GradientText|MultiColoredLetters)\|([^}]+)}([\s\S]*?){\/\1}/g;
+    /{(GradientText|MultiColoredLetters|Talk)\|([^}]+)}([\s\S]*?){\/\1}/g;
 
   let result: Array<string | React.ReactNode> = [];
   let lastIndex = 0;
-  let match;
+  let match: RegExpExecArray | null;
 
   while ((match = pattern.exec(text)) !== null) {
     const matchIndex = match.index;
+    // match[0] = kompletter Treffer inkl. geschweifte Klammern
+    // match[1] = "GradientText" | "MultiColoredLetters" | "Talk"
+    // match[2] = paletteName ODER Farbname, je nachdem
+    // match[3] = InnerText, also das zwischen den beiden {...} Blöcken
 
     if (matchIndex > lastIndex) {
+      // Text zwischen zwei Komponenten
       result.push(text.slice(lastIndex, matchIndex));
     }
 
-    const [componentName, paletteName, innerText] = match;
-    const colors = colorPalettes[paletteName] || ["#ff00ff"];
+    const compName = match[1];
+    const paletteOrColor = match[2];
+    const innerText = match[3];
 
-    // React-Element erzeugen
     let element: React.ReactNode;
-    if (componentName === "GradientText") {
+
+    if (compName === "GradientText") {
+      // Hier nimmst du wie gehabt dein colorPalettes
+      const colors = colorPalettes[paletteOrColor] || ["#ff00ff"];
       element = (
         <GradientText key={matchIndex} colors={colors}>
           {innerText}
         </GradientText>
       );
-    } else {
+    } else if (compName === "MultiColoredLetters") {
+      // genau so
+      const colors = colorPalettes[paletteOrColor] || ["#ff00ff"];
       element = (
         <MultiColoredLetters key={matchIndex} colors={colors}>
           {innerText}
         </MultiColoredLetters>
+      );
+    } else if (compName === "Talk") {
+      // Kommentar: Neu
+      // "paletteOrColor" ist hier z.B. "pink" oder "#ff0000" oder "geflügeltesWesen"
+      // Das Talk-Component resolved das selbst
+      element = (
+        <Talk key={matchIndex} color={paletteOrColor}>
+          {innerText}
+        </Talk>
       );
     }
 
@@ -61,19 +80,20 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
     lastIndex = pattern.lastIndex;
   }
 
+  // Wenn nach dem letzten Match noch Text übrig ist
   if (lastIndex < text.length) {
     result.push(text.slice(lastIndex));
   }
 
   return result;
 }
+
 //#endregion
 
 //#region
 function parseVariables(
   nodes: Array<string | React.ReactNode>
 ): Array<string | React.ReactNode> {
-
   const variableLists: Record<string, Record<string, JSX.Element>> = {
     SYSTEM,
     CREATURE,
@@ -81,13 +101,15 @@ function parseVariables(
     PLACES,
   };
 
-  return nodes.map((node) => {
-    if (typeof node === "string") {
-      return parseLineWithVariables(node, variableLists);
-    } else {
-      return node;
-    }
-  }).flat();
+  return nodes
+    .map((node) => {
+      if (typeof node === "string") {
+        return parseLineWithVariables(node, variableLists);
+      } else {
+        return node;
+      }
+    })
+    .flat();
 }
 //#endregion
 

@@ -2,7 +2,13 @@
 
 import React, { useState } from "react";
 import { parseDescription } from "../../Helper/ParseTextToJSX";
-import { SYSTEM, CREATURE, NPC, PLACES } from "../../../data/helper/colorfullStrings";
+import {
+  SYSTEM,
+  CREATURE,
+  NPC,
+  PLACES,
+} from "../../../data/helper/colorfullStrings";
+import { talkingColors, textColors } from "../../Formatted/Talk";
 
 interface DescriptionEditorProps {
   value: string;
@@ -30,7 +36,12 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
     NPC,
     PLACES,
   };
-  const componentOptions = ["GradientText", "MultiColoredLetters"];
+  const talkColorKeys = [
+    ...Object.keys(textColors),
+    ...Object.keys(talkingColors),
+    "custom",
+  ];
+  const componentOptions = ["GradientText", "MultiColoredLetters", "Talk"];
   const paletteOptions = [
     "rosaColors",
     "rainbowColors",
@@ -45,12 +56,35 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
   const handleInsert = () => {
     if (!selectedMainOption || !selectedDetailOption) return;
 
+    // Wenn der Nutzer eine Variable (z.B. SYSTEM, CREATURE, ...) gewählt hat:
     if (variableLists[selectedMainOption]) {
       const placeholder = `{${selectedMainOption}.${selectedDetailOption}}`;
       onChange(value + placeholder);
-    } else {
-      const defaultInnerText = "DeinText";
+      return;
+    }
 
+    // Hier also einer der 3 Komponenten-Fälle:
+    const defaultInnerText = "DeinText";
+
+    // 1) Falls Talk
+    if (selectedMainOption === "Talk") {
+      // Wenn "custom" gewählt: nimm aus dem State die neue Farbe
+      const color =
+        selectedDetailOption === "custom"
+          ? newColor /* oder was du anpeilst */
+          : selectedDetailOption;
+
+      const placeholder = `{Talk|${color}}${defaultInnerText}{/Talk}`; // <-- Neu
+      onChange(value + placeholder);
+      return;
+    }
+
+    // 2) Falls MultiColoredLetters / GradientText
+    // (also wie gehabt)
+    if (
+      selectedMainOption === "MultiColoredLetters" ||
+      selectedMainOption === "GradientText"
+    ) {
       if (selectedDetailOption === "custom") {
         const colorString = customColors.join(",");
         const placeholder = `{${selectedMainOption}|custom:${colorString}}${defaultInnerText}{/${selectedMainOption}}`;
@@ -79,6 +113,8 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
   let detailOptions: string[] = [];
   if (isVariable) {
     detailOptions = Object.keys(variableLists[selectedMainOption]);
+  } else if (selectedMainOption === "Talk") {
+    detailOptions = talkColorKeys;
   } else if (isComponent) {
     detailOptions = paletteOptions;
   }
@@ -105,6 +141,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
           <optgroup label="Komponenten">
             <option value="GradientText">GradientText</option>
             <option value="MultiColoredLetters">MultiColoredLetters</option>
+            <option value="Talk">Talk</option>
           </optgroup>
         </select>
 
