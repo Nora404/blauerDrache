@@ -1,17 +1,17 @@
 import React, { ReactNode } from "react";
 
 export const textColors: Record<string, string> = {
-  weiß: "#FFFFFF",
-  gelb: "#FFFF33",
-  orange: "#FFA500",
-  rot: "#FF3333",
-  pink: "#FF69B4",
-  lila: "#800080",
-  blau: "#0000FF",
-  türkis: "#40E0D0",
-  grün: "#008000",
-  braun: "#A52A2A",
-  grau: "#808080",
+  weiß: "#FCFCFC",
+  gelb: "#FCED8A",
+  orange: "#FCB45F",
+  rot: "#DB6868",
+  pink: "#DB72CD",
+  lila: "#9077F5",
+  blau: "#728FF5",
+  türkis: "#61C9DE",
+  grün: "#86DE83",
+  braun: "#C9AA85",
+  grau: "#CCCCCC",
 };
 
 export const talkingColors: Record<string, string> = {
