@@ -1,9 +1,6 @@
 import { PlayerStats, PlayerBase } from "../store/newGameStore";
-import { GameEvent } from "./eventData";
-import { event001ThreeStoneEnd } from "./gameQuests/001TheeStones/001ThreeStoneEnd";
-import { quest001ThreeStone } from "./gameQuests/001TheeStones/001ThreeStones";
-import { event001ThreeStoneTrigger } from "./gameQuests/001TheeStones/001ThreeStoneTrigger";
 import { ItemName } from "./ItemData";
+import { gameQuests } from "./questList";
 
 export type TaskType =
   | "Begegnung" // talk
@@ -21,7 +18,6 @@ export type GameQuest = {
   label: string;
   description: string;
   reward: string;
-  path: string; // Hier beendet man die Quest
   eventByEnd: string; // Dieses Event verteilt die Belohnung
   progress: Progress;
   repeat: boolean;
@@ -57,7 +53,6 @@ export const emptyQuest: GameQuest = {
   label: "Nichts",
   description: "",
   reward: "",
-  path: "/",
   eventByEnd: "000",
   progress: {
     type: "Geheimnis",
@@ -69,13 +64,6 @@ export const emptyQuest: GameQuest = {
   repeat: false,
 };
 //#endregion
-
-export const gameQuests: GameQuest[] = [quest001ThreeStone];
-
-export const gameQuestEvents: GameEvent[] = [
-  event001ThreeStoneTrigger,
-  event001ThreeStoneEnd,
-];
 
 //#region [gray]
 export function getGameQuestById(id: string): GameQuest | undefined {

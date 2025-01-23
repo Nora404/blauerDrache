@@ -1,40 +1,41 @@
-import React from 'react';
-import { observer } from 'mobx-react-lite';
-import { useRootStore } from '../store';
-import { WeightedEvent } from '../data/eventData';
-import ActionButton from '../layout/ActionButtons/ActionButton';
-import { useLocationEvents } from '../utility/Hooks/LocationEvents';
-import { GameEventChain } from '../playground/game/game/GameEventChain';
+import React from "react";
+import { observer } from "mobx-react-lite";
+import { useRootStore } from "../store";
+import { WeightedEvent } from "../data/eventData";
+import ActionButton from "../layout/ActionButtons/ActionButton";
+import { useLocationEvents } from "../utility/Hooks/LocationEvents";
+import { GameEventChain } from "./GameEventChain";
 
 type ButtonConfig = {
-    label: string;
-    onClick: () => void;
+  label: string;
+  onClick: () => void;
 };
 
 type MainPlaceTemplateProps = {
-    title: React.ReactNode;
+  title: React.ReactNode;
 
-    dayDescription: React.ReactNode;
-    dayButtons: ButtonConfig[];
+  dayDescription: React.ReactNode;
+  dayButtons: ButtonConfig[];
 
-    nightDescription?: React.ReactNode;
-    nightButtons?: ButtonConfig[];
+  nightDescription?: React.ReactNode;
+  nightButtons?: ButtonConfig[];
 
-    possibleEvents?: WeightedEvent[];
-    backPath?: string;
+  possibleEvents?: WeightedEvent[];
+  backPath?: string;
 };
 
-export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(({
+export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
+  ({
     title,
     dayDescription,
     dayButtons,
     nightDescription,
     nightButtons,
     possibleEvents = [],
-    backPath = '/',
-}) => {
+    backPath = "/",
+  }) => {
     const { gameTime } = useRootStore();
-    const isDay = gameTime.data.gameDay === 'Tag';
+    const isDay = gameTime.data.gameDay === "Tag";
 
     // Wenn nightDescription bzw. nightButtons fehlen oder leer, fallback auf Tag
     const hasNightDescription = !!nightDescription;
@@ -45,43 +46,54 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(({
     const showDayBlock = isDay || !canUseNachtInhalte;
 
     const {
-        localRandomEvent,
-        firstEvent,
-        handleFinishLocalEvent,
-        handleFinishQuestEvent,
+      localRandomEvent,
+      firstEvent,
+      handleFinishLocalEvent,
+      handleFinishQuestEvent,
     } = useLocationEvents(possibleEvents, backPath);
 
-    const initialEventName = firstEvent || localRandomEvent || '';
-    const onFinishChainHandler = firstEvent ? handleFinishQuestEvent : handleFinishLocalEvent;
+    const initialEventName = firstEvent || localRandomEvent || "";
+    const onFinishChainHandler = firstEvent
+      ? handleFinishQuestEvent
+      : handleFinishLocalEvent;
 
     return (
-        <div className='max-width'>
-            <h2>{title}</h2>
+      <div className="max-width">
+        <h2>{title}</h2>
 
-            {/* Tag- vs. Nacht-Inhalte, mit Fallback */}
-            {showDayBlock ? (
-                <>
-                    {dayDescription}
-                    {dayButtons.map((btn, index) => (
-                        <ActionButton key={index} onClick={btn.onClick} label={btn.label} />
-                    ))}
-                </>
-            ) : (
-                <>
-                    {nightDescription}
-                    {nightButtons?.map((btn, index) => (
-                        <ActionButton key={index} onClick={btn.onClick} label={btn.label} />
-                    ))}
-                </>
-            )}
+        {/* Tag- vs. Nacht-Inhalte, mit Fallback */}
+        {showDayBlock ? (
+          <>
+            {dayDescription}
+            {dayButtons.map((btn, index) => (
+              <ActionButton
+                key={index}
+                onClick={btn.onClick}
+                label={btn.label}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {nightDescription}
+            {nightButtons?.map((btn, index) => (
+              <ActionButton
+                key={index}
+                onClick={btn.onClick}
+                label={btn.label}
+              />
+            ))}
+          </>
+        )}
 
-            {/* Falls Events aktiv sind, rendert der Template dieselbe EventChain-Logik */}
-            {(firstEvent || localRandomEvent) && (
-                <GameEventChain
-                    initialEventName={initialEventName}
-                    onFinishChain={onFinishChainHandler}
-                />
-            )}
-        </div>
+        {/* Falls Events aktiv sind, rendert der Template dieselbe EventChain-Logik */}
+        {(firstEvent || localRandomEvent) && (
+          <GameEventChain
+            initialEventName={initialEventName}
+            onFinishChain={onFinishChainHandler}
+          />
+        )}
+      </div>
     );
-});
+  }
+);

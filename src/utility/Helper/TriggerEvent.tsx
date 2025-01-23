@@ -2,13 +2,22 @@ import { PlacesKeys } from "../../data/helper/colorfullStrings";
 import {
   Conditions,
   GameEvent,
-  gameEvents,
   NextEventOption,
   WeightedEvent,
 } from "../../data/eventData";
 import { ItemCartegoryName, ItemName, items } from "../../data/ItemData";
-import { gameQuestEvents, getGameQuestById } from "../../data/questData";
-import { GameState, GameTime, PlayerBase, PlayerFlux, PlayerMeta, PlayerQuest, PlayerStats } from "../../store/types";
+import { getGameQuestById } from "../../data/questData";
+import {
+  GameState,
+  GameTime,
+  PlayerBase,
+  PlayerFlux,
+  PlayerMeta,
+  PlayerQuest,
+  PlayerStats,
+} from "../../store/types";
+import { gameEvents } from "../../data/eventList";
+import { gameQuestEvents } from "../../data/questList";
 
 //#region [event by place]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
@@ -88,8 +97,8 @@ export function filterEventsByConditions(
   playerBaseData: PlayerBase,
   playerFluxData: PlayerFlux,
   playerMetaData: PlayerMeta,
-  playerQuestData: PlayerQuest): WeightedEvent[] {
-
+  playerQuestData: PlayerQuest
+): WeightedEvent[] {
   return events.filter((evt) => {
     // Falls das Event gar keine conditions hat, ist es direkt ok
     if (!evt.conditions) return true;
@@ -155,7 +164,7 @@ export function filterEventsByConditions(
 }
 //#endregion
 
-//#region 
+//#region
 export function categorizeItems(): Record<ItemCartegoryName, ItemName[]> {
   return items.reduce((acc, item) => {
     if (!acc[item.category]) {
@@ -169,7 +178,9 @@ export function categorizeItems(): Record<ItemCartegoryName, ItemName[]> {
 
 //#region [checkTime]
 function checkGameTime(
-  conditions: Partial<Conditions>, gameTimeData: Partial<GameTime>): boolean {
+  conditions: Partial<Conditions>,
+  gameTimeData: Partial<GameTime>
+): boolean {
   // Helper-Funktion: Wandelt "HH:MM" in eine Zahl um
   const convertTimeToNumber = (time: string): number => {
     const [hours, minutes] = time.split(":").map(Number);
@@ -178,7 +189,9 @@ function checkGameTime(
 
   // Überprüfung von gameTime
   if (conditions.gameTime?.gameTime !== undefined) {
-    const conditionTime = convertTimeToNumber(conditions.gameTime.gameTime ?? "");
+    const conditionTime = convertTimeToNumber(
+      conditions.gameTime.gameTime ?? ""
+    );
     const currentTime = convertTimeToNumber(gameTimeData.gameTime ?? "");
     const operator = conditions.operator || "=";
 
@@ -216,7 +229,13 @@ function checkGameState(
   // Keine Bedingungen vorhanden
   if (!conditions) return true;
 
-  const { weather, temperature, currentPath, currentEventQueue, switch: conditionSwitch } = conditions;
+  const {
+    weather,
+    temperature,
+    currentPath,
+    currentEventQueue,
+    switch: conditionSwitch,
+  } = conditions;
 
   // 1. Überprüfe `weather`
   if (weather !== undefined && weather !== gameStateData.weather) {
@@ -237,7 +256,10 @@ function checkGameState(
   if (currentEventQueue) {
     for (const eventId in currentEventQueue) {
       const expectedPath = currentEventQueue[eventId];
-      if (!gameStateData.currentEventQueue?.[eventId] || gameStateData.currentEventQueue[eventId] !== expectedPath) {
+      if (
+        !gameStateData.currentEventQueue?.[eventId] ||
+        gameStateData.currentEventQueue[eventId] !== expectedPath
+      ) {
         return false;
       }
     }
@@ -263,13 +285,16 @@ function checkPlayerStats(
   conditionObj: Partial<Conditions>,
   playerStatsData: Partial<PlayerStats>
 ): boolean {
-
   const conditions = conditionObj.playerStats;
   // Wenn keine Bedingungen für playerStats gesetzt sind, ist die Prüfung automatisch erfüllt
   if (!conditions) return true;
 
   // Helper-Funktion: Vergleiche zwei Zahlen basierend auf dem Operator
-  const compareWithOperator = (value: number, conditionValue: number, operator: "<" | ">" | "="): boolean => {
+  const compareWithOperator = (
+    value: number,
+    conditionValue: number,
+    operator: "<" | ">" | "="
+  ): boolean => {
     switch (operator) {
       case "<":
         return value < conditionValue;
@@ -307,13 +332,16 @@ function checkPlayerBase(
   conditionObj: Partial<Conditions>,
   playerBaseData: Partial<PlayerBase>
 ): boolean {
-
   const conditions = conditionObj.playerBase;
   // Wenn keine Bedingungen für playerBase gesetzt sind, ist die Prüfung automatisch erfüllt
   if (!conditions) return true;
 
   // Helper-Funktion: Vergleiche zwei Zahlen basierend auf dem Operator
-  const compareWithOperator = (value: number, conditionValue: number, operator: "<" | ">" | "="): boolean => {
+  const compareWithOperator = (
+    value: number,
+    conditionValue: number,
+    operator: "<" | ">" | "="
+  ): boolean => {
     switch (operator) {
       case "<":
         return value < conditionValue;
@@ -349,16 +377,20 @@ function checkPlayerFlux(
   conditionObj: Partial<Conditions>,
   playerFluxData: Partial<PlayerFlux>
 ): boolean {
-
   const conditions = conditionObj.playerFlux;
   // Wenn keine Bedingungen für playerFlux gesetzt sind, ist die Prüfung automatisch erfüllt
-  if (!conditions && conditionObj.haveBuffs === undefined && conditionObj.haveDebuffs === undefined) {
+  if (
+    !conditions &&
+    conditionObj.haveBuffs === undefined &&
+    conditionObj.haveDebuffs === undefined
+  ) {
     return true;
   }
 
   // 1. Überprüfung von `haveBuffs`
   if (conditionObj.haveBuffs !== undefined) {
-    const hasBuffs = playerFluxData.buff && Object.keys(playerFluxData.buff).length > 0;
+    const hasBuffs =
+      playerFluxData.buff && Object.keys(playerFluxData.buff).length > 0;
     if (conditionObj.haveBuffs !== hasBuffs) {
       return false;
     }
@@ -366,7 +398,8 @@ function checkPlayerFlux(
 
   // 2. Überprüfung von `haveDebuffs`
   if (conditionObj.haveDebuffs !== undefined) {
-    const hasDebuffs = playerFluxData.debuff && Object.keys(playerFluxData.debuff).length > 0;
+    const hasDebuffs =
+      playerFluxData.debuff && Object.keys(playerFluxData.debuff).length > 0;
     if (conditionObj.haveDebuffs !== hasDebuffs) {
       return false;
     }
@@ -382,8 +415,10 @@ function checkPlayerFlux(
   // 4. Überprüfung von `buff`
   if (conditions?.buff) {
     for (const buffName in conditions.buff) {
-      const requiredBuffValue = conditions.buff[buffName as keyof typeof conditions.buff];
-      const playerBuffValue = playerFluxData.buff?.[buffName as keyof typeof conditions.buff];
+      const requiredBuffValue =
+        conditions.buff[buffName as keyof typeof conditions.buff];
+      const playerBuffValue =
+        playerFluxData.buff?.[buffName as keyof typeof conditions.buff];
 
       if (requiredBuffValue !== undefined) {
         // Prüfen, ob der Buff existiert
@@ -397,8 +432,10 @@ function checkPlayerFlux(
   // 5. Überprüfung von `debuff`
   if (conditions?.debuff) {
     for (const debuffName in conditions.debuff) {
-      const requiredDebuffValue = conditions.debuff[debuffName as keyof typeof conditions.debuff];
-      const playerDebuffValue = playerFluxData.debuff?.[debuffName as keyof typeof conditions.debuff];
+      const requiredDebuffValue =
+        conditions.debuff[debuffName as keyof typeof conditions.debuff];
+      const playerDebuffValue =
+        playerFluxData.debuff?.[debuffName as keyof typeof conditions.debuff];
 
       if (requiredDebuffValue !== undefined) {
         // Prüfen, ob der Debuff existiert
@@ -440,7 +477,6 @@ function checkPlayerMeta(
   conditionObj: Partial<Conditions>,
   playerMetaData: Partial<PlayerMeta>
 ): boolean {
-
   const conditions = conditionObj.playerMeta;
   // Wenn keine Bedingungen für playerMeta gesetzt sind, ist die Prüfung automatisch erfüllt
   if (!conditions) return true;
