@@ -5,6 +5,7 @@ import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./GameEventChain";
+import Header from "./Header/Header";
 
 type ButtonConfig = {
   label: string;
@@ -45,16 +46,18 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     // Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
     const showDayBlock = isDay || !canUseNachtInhalte;
 
-    const { localRandomEvent, firstEvent, handleFinishEvent } =
-      useLocationEvents(possibleEvents, backPath);
-
-    const initialEventName = firstEvent || localRandomEvent || "";
+    const {
+      localRandomEvent,
+      firstEvent,
+      questName,
+      handleFinishEvent,
+      handleFinishQuest,
+    } = useLocationEvents(possibleEvents, backPath);
 
     return (
       <div className="max-width">
         <h2>{title}</h2>
 
-        {/* Tag- vs. Nacht-Inhalte, mit Fallback */}
         {showDayBlock ? (
           <>
             {dayDescription}
@@ -79,12 +82,24 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
           </>
         )}
 
-        {/* Falls Events aktiv sind, rendert der Template dieselbe EventChain-Logik */}
-        {(firstEvent || localRandomEvent) && (
-          <GameEventChain
-            initialEventName={initialEventName}
-            onFinishChain={handleFinishEvent}
-          />
+        {localRandomEvent && (
+          <>
+            <GameEventChain
+              initialEventName={localRandomEvent}
+              onFinishChain={handleFinishEvent}
+            />
+            <br />
+            <br />
+          </>
+        )}
+        {firstEvent && (
+          <>
+            <Header>Fertige Aufgaben</Header>
+            <ActionButton
+              onClick={handleFinishQuest}
+              label={"Aufgabe (" + questName + ") abgeben"}
+            />
+          </>
         )}
       </div>
     );
