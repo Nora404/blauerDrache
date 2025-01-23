@@ -1,15 +1,15 @@
 //#region [imports]
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { GradientText } from "../../../utility/Formatted/GradientText";
+import { GradientText } from "../../utility/Formatted/GradientText";
 import {
   getPlaceLabelFromRoute,
   getPlaceNameFromRoute,
-} from "../../../routings/mappingPathToLabel";
-import { getEventByPlace } from "../../../utility/Helper/TriggerEvent";
+} from "../../routings/mappingPathToLabel";
+import { getEventByPlace } from "../../utility/Helper/TriggerEvent";
 import "./Transit.css";
-import TwoActionButton from "../../../layout/ActionButtons/TwoActionButton";
-import { GameEventChain } from "../../../layout/GameEventChain";
+import TwoActionButton from "../ActionButtons/TwoActionButton";
+import { GameEventChain } from "../GameEventChain";
 //#endregion
 
 //#region [prepare]

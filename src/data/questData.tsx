@@ -85,4 +85,13 @@ export function resetQuestProgress(progress: Progress): Progress {
     },
   };
 }
+
+export function getQuestByEventId(eventId: string) {
+  const quest = gameQuests.find(
+    (quest) =>
+      quest.eventByEnd === eventId || quest.progress?.eventByEnd === eventId
+  );
+  return quest;
+}
+
 //#endregion

@@ -4,6 +4,7 @@ import { WeightedEvent } from "../../data/eventData";
 import { useRootStore } from "../../store";
 import { filterEventsByConditions } from "../Helper/TriggerEvent";
 import { pickRandomEvent } from "../Random/RandomPickedEvent";
+import { getQuestByEventId } from "../../data/questData";
 
 export function useLocationEvents(
   possibleEvents: WeightedEvent[],
@@ -20,6 +21,7 @@ export function useLocationEvents(
   } = useRootStore();
 
   const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
+  const [questName, setQuestName] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const queue = gameState.data.currentEventQueue;
@@ -31,7 +33,9 @@ export function useLocationEvents(
 
   useEffect(() => {
     if (firstEvent !== null) {
-      setLocalRandomEvent(null);
+      const questObj = getQuestByEventId(firstEvent);
+      // setLocalRandomEvent(null);
+      setQuestName(questObj?.label || null);
       return;
     }
 
@@ -58,7 +62,7 @@ export function useLocationEvents(
     if (foundEvent?.questId) {
       const isQuestActive = !!playerQuest.data.activeQuests[foundEvent.questId];
       if (isQuestActive) {
-        setLocalRandomEvent(null);
+        // setLocalRandomEvent(null);
         return;
       }
     }
@@ -85,10 +89,16 @@ export function useLocationEvents(
     navigate(backPath);
   };
 
+  const handleFinishQuest = () => {
+    navigate("/quest/" + firstEvent + "" + backPath);
+  };
+
   return {
     localRandomEvent,
     firstEvent,
+    questName,
     handleBack,
     handleFinishEvent,
+    handleFinishQuest,
   };
 }
