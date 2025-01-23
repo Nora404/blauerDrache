@@ -5,6 +5,7 @@ import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./GameEventChain";
+import Header from "./Header/Header";
 
 type PlaceTemplateProps = {
   title?: string;
@@ -30,24 +31,31 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
         <div>{description}</div>
         <br />
 
-        {firstEvent && (
+        {localRandomEvent && (
           <>
-            <ActionButton
-              onClick={handleFinishQuest}
-              label={"Aufgabe (" + questName + ") abgeben"}
+            <GameEventChain
+              initialEventName={localRandomEvent}
+              onFinishChain={handleFinishEvent}
             />
             <br />
             <br />
           </>
         )}
-        {localRandomEvent && (
-          <GameEventChain
-            initialEventName={localRandomEvent}
-            onFinishChain={handleFinishEvent}
-          />
-        )}
         {!localRandomEvent && (
-          <ActionButton onClick={handleBack} label="Sich abwenden" />
+          <>
+            <ActionButton onClick={handleBack} label="Sich abwenden" />
+            <br />
+            <br />
+          </>
+        )}
+        {firstEvent && (
+          <>
+            <Header>Fertige Aufgaben</Header>
+            <ActionButton
+              onClick={handleFinishQuest}
+              label={"Aufgabe (" + questName + ") abgeben"}
+            />
+          </>
         )}
       </div>
     );

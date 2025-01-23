@@ -13,7 +13,7 @@ const Quest: React.FC<QuestProps> = observer(() => {
 
   console.log(backPath);
   const handleFinishEvent = () => {
-    // navigate(backPath || "/start");
+    navigate(`/${backPath}`, { replace: true });
   };
 
   // #region [jsx]

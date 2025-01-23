@@ -4,7 +4,10 @@ import { GameAction } from "../data/eventData";
 import { blueColors } from "../data/helper/colorMappingData";
 import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { parseDescription } from "../utility/Helper/ParseTextToJSX";
-import { pickRandomNextEvent, getGameEventById } from "../utility/Helper/TriggerEvent";
+import {
+  pickRandomNextEvent,
+  getGameEventById,
+} from "../utility/Helper/TriggerEvent";
 import { useApplyGameAction } from "../utility/Hooks/ApplyGameAction";
 import ActionButton from "./ActionButtons/ActionButton";
 import Header from "./Header/Header";
@@ -13,96 +16,105 @@ import Header from "./Header/Header";
 
 //#region [prepare]
 type ChainItem = {
-    eventId: string;
-    outcomeMessage: React.ReactNode;
-}
-
-type GameEventChainProps = {
-    initialEventName: string;
-    onFinishChain: () => void;
+  eventId: string;
+  outcomeMessage: React.ReactNode;
 };
 
-export const GameEventChain: React.FC<GameEventChainProps> = ({ initialEventName, onFinishChain, }) => {
-    const { applyGameAction } = useApplyGameAction();
-    const [eventsChain, setEventsChain] = useState<ChainItem[]>([
-        { eventId: initialEventName, outcomeMessage: null },
-    ]);
-    //#endregion
+type GameEventChainProps = {
+  initialEventName: string;
+  onFinishChain: () => void;
+};
 
-    //#region [handler]
-    const handleButtonClick = (chainIndex: number, getAction: () => GameAction) => {
-        const action = getAction();
-        applyGameAction(action);
+export const GameEventChain: React.FC<GameEventChainProps> = ({
+  initialEventName,
+  onFinishChain,
+}) => {
+  const { applyGameAction } = useApplyGameAction();
+  const [eventsChain, setEventsChain] = useState<ChainItem[]>([
+    { eventId: initialEventName, outcomeMessage: null },
+  ]);
+  //#endregion
 
-        const newMessage = action.message ?? null;
+  //#region [handler]
+  const handleButtonClick = (
+    chainIndex: number,
+    getAction: () => GameAction
+  ) => {
+    const action = getAction();
+    applyGameAction(action);
 
-        let nextEventId: string | null = null;
+    const newMessage = action.message ?? null;
 
-        if (action.nextEvents && action.nextEvents.length > 0) {
-            // Mehrere mögliche Nachfolger => Weighted Random auswählen
-            nextEventId = pickRandomNextEvent(action.nextEvents);
-        } else if (action.nextEvents) {
-            // Nur ein einziger Nachfolger => Direkt übernehmen
-            nextEventId = action.nextEvents[0].eventId;
+    let nextEventId: string | null = null;
+
+    if (action.nextEvents && action.nextEvents.length > 0) {
+      // Mehrere mögliche Nachfolger => Weighted Random auswählen
+      nextEventId = pickRandomNextEvent(action.nextEvents);
+    } else if (action.nextEvents) {
+      // Nur ein einziger Nachfolger => Direkt übernehmen
+      nextEventId = action.nextEvents[0].eventId;
+    }
+
+    setEventsChain((prevChain) => {
+      const updated = [...prevChain];
+      const msg = parseDescription(newMessage ?? "");
+      updated[chainIndex] = {
+        ...updated[chainIndex],
+        outcomeMessage: msg,
+      };
+
+      if (nextEventId) {
+        updated.push({
+          eventId: nextEventId,
+          outcomeMessage: null,
+        });
+      }
+      return updated;
+    });
+  };
+  //#endregion
+
+  //#region [jsx]
+  return (
+    <div className="max-width">
+      {eventsChain.map((chainItem, idx) => {
+        const event = getGameEventById(chainItem.eventId);
+        const description = parseDescription(event?.description ?? "");
+        if (!event) {
+          return <p key={idx}>Unbekanntes Event: {chainItem.eventId}</p>;
         }
 
+        const { outcomeMessage } = chainItem;
 
-        setEventsChain((prevChain) => {
-            const updated = [...prevChain];
-            const msg = parseDescription(newMessage ?? "");
-            updated[chainIndex] = {
-                ...updated[chainIndex],
-                outcomeMessage: msg,
-            };
+        return (
+          <div key={idx} className="game-event-block">
+            <Header>{event.label}</Header>
+            <p className="mb-1 text-left">{description}</p>
 
-            if (nextEventId) {
-                updated.push({
-                    eventId: nextEventId,
-                    outcomeMessage: null,
-                });
-            }
-            return updated;
-        });
-    }
-    //#endregion
-
-    //#region [jsx]
-    return (
-        <div className="max-width">
-            {eventsChain.map((chainItem, idx) => {
-                const event = getGameEventById(chainItem.eventId);
-                const description = parseDescription(event?.description ?? "")
-                if (!event) {
-                    return <p key={idx}>Unbekanntes Event: {chainItem.eventId}</p>;
-                }
-
-                const { outcomeMessage } = chainItem;
-
-                return (
-                    <div key={idx} className="game-event-block">
-                        <Header>{event.label}</Header>
-                        <p className="mb-1 text-left">{description}</p>
-
-                        {outcomeMessage ? (
-                            <p className='mb-1 text-left' style={{ color: '#aaffff' }}>{outcomeMessage}</p>
-                        ) : (
-                            event.buttons.map((btn) => (
-                                <button
-                                    className="btn-border"
-                                    key={btn.label}
-                                    onClick={() => handleButtonClick(idx, btn.getAction)}
-                                >
-                                    <MultiColoredLetters colors={blueColors}>{btn.label}</MultiColoredLetters>
-                                </button>
-                            ))
-                        )}
-                        <br />
-                    </div>
-                );
-            })}
+            {outcomeMessage ? (
+              <p className="mb-1 text-left" style={{ color: "#aaffff" }}>
+                {outcomeMessage}
+              </p>
+            ) : (
+              event.buttons.map((btn) => (
+                <button
+                  className="btn-border"
+                  key={btn.label}
+                  onClick={() => handleButtonClick(idx, btn.getAction)}
+                >
+                  <MultiColoredLetters colors={blueColors}>
+                    {btn.label}
+                  </MultiColoredLetters>
+                </button>
+              ))
+            )}
             <br />
-            <ActionButton onClick={onFinishChain} label="schließen" />
-        </div>
-    );
-    //#endregion
+          </div>
+        );
+      })}
+      <br />
+      <ActionButton onClick={onFinishChain} label="Sich abwenden" />
+    </div>
+  );
+  //#endregion
 };
