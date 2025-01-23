@@ -6,19 +6,19 @@
     },
     {
       "folderPath": "blauerDrache\\src\\data\\",
-      "color": "foldercolorizer.color_dd0000"
+      "color": "foldercolorizer.color_cc66cc"
     },
     {
       "folderPath": "blauerDrache\\src\\layout\\",
-      "color": "foldercolorizer.color_cc00ff"
-    },
-    {
-      "folderPath": "blauerDrache\\src\\playground\\",
       "color": "foldercolorizer.color_9966ff"
     },
     {
+      "folderPath": "blauerDrache\\src\\playground\\",
+      "color": "foldercolorizer.color_3366cc"
+    },
+    {
       "folderPath": "blauerDrache\\src\\routings\\",
-      "color": "foldercolorizer.color_0099cc"
+      "color": "foldercolorizer.color_339999"
     },
     {
       "folderPath": "blauerDrache\\src\\utility\\",
@@ -34,7 +34,7 @@
     },
     {
       "folderPath": "blauerDrache\\src\\store\\",
-      "color": "foldercolorizer.color_339966"
+      "color": "foldercolorizer.color_00aa00"
     }
   ]
 }
