@@ -2,11 +2,11 @@
 // Pfade anpassen, damit sie aus deinem Projekt kommen:
 
 import "./GenerateEvents.css";
-import Places from "./Components/Places";
-import ActionBtn from "./Components/ActionBtn";
+import Places from "../Components/Places";
+import ActionBtn from "../Components/ActionBtn";
 
-import BaseInfo from "./Components/BaseInfos";
-import GenerateEventCode from "./Components/GenerateEventCode2";
+import BaseInfo from "../Components/BaseInfos";
+import GenerateEventCode from "./GenerateEventCode";
 
 // =========== DIE HAUPT-KOMPONENTE ===========
 export default function EventCreationForm() {

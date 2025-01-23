@@ -1,6 +1,6 @@
 import React from "react";
 import { PlacesKeys } from "../../../data/helper/colorfullStrings";
-import { useEditorContext } from "../Context/Context";
+import { useEditorContext } from "../Context/EventContext";
 import { getAllPlaces } from "../Context/Helper";
 
 type Places = {};

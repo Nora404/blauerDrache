@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonConfig, useEditorContext } from "../Context/Context";
+import { ButtonConfig, useEditorContext } from "../Context/EventContext";
 import { BuffName } from "../../../data/buffData";
 import { DebuffName } from "../../../data/debuffData";
 import { FeelingName } from "../../../data/feelingData"; // Importiere den Typ

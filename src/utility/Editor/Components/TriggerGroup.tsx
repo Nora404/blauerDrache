@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonConfig, useEditorContext } from "../Context/Context";
+import { ButtonConfig, useEditorContext } from "../Context/EventContext";
 import { GameQuest } from "../../../data/questData";
 import { randomEvents } from "../../../data/eventList";
 import { gameQuests, gameQuestEvents } from "../../../data/questList";

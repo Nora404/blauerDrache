@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useEditorContext } from "../Context/Context";
+import { useEditorContext } from "../Context/EventContext";
 import { NextEventOption } from "../../../data/eventData";
 
 const GenerateEventCode: React.FC = () => {

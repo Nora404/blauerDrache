@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import EventCreationForm from "./GenerateEvents";
-import { EditorContextProvider } from "./Context/Context";
+import EventCreationForm from "./EventEditor/GenerateEvents";
+import { EditorContextProvider } from "./Context/EventContext";
 import ActionButton from "../../layout/ActionButtons/ActionButton";
+import GenerateQuest from "./QuestEditor/GenerateQuest";
 
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(1);
@@ -36,7 +37,8 @@ const Editor: React.FC = () => {
           />
         </div>
 
-        <EventCreationForm />
+        {side === 1 && <EventCreationForm />}
+        {side === 2 && <GenerateQuest />}
       </div>
     </EditorContextProvider>
   );

@@ -1,6 +1,6 @@
 // BaseInfo.tsx
 import React from "react";
-import { useEditorContext } from "../Context/Context";
+import { useEditorContext } from "../Context/EventContext";
 import DescriptionEditor from "./DescriptionEditor"; // Der Pfad zu deinem neuen File
 
 const BaseInfo: React.FC = () => {

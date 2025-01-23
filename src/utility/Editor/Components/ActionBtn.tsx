@@ -1,4 +1,4 @@
-import { useEditorContext } from "../Context/Context";
+import { useEditorContext } from "../Context/EventContext";
 import MultiColoredLetters from "../../Formatted/MultiColoredLetters";
 import { yellowColors } from "../../../data/helper/colorMappingData";
 import TriggerGroup from "./TriggerGroup";
