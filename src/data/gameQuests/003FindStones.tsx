@@ -2,13 +2,13 @@ import { GameEvent } from "../eventData";
 import { GameQuest } from "../questData";
 
 export const quest003FindStone: GameQuest = {
-  id: "Q002FindStone",
+  id: "Q003FindStone",
   label: "Sammle 3 Steine",
   description:
     "Die Leute am {PLACES.Brunnen} brauchen Hilfe Steine zu besorgen.",
   reward:
     "Du wirst etwas {SYSTEM.Gold} bekommen und dein {SYSTEM.Ruf} verbessern.",
-  eventByEnd: "E001ThreeStoneEnd",
+  eventByEnd: "E003ThreeStoneEnd",
   progress: {
     type: "Besorgen",
     path: "/fountain-people",
@@ -21,7 +21,7 @@ export const quest003FindStone: GameQuest = {
 };
 
 export const event003FindStoneTrigger: GameEvent = {
-  id: "E002FindStoneTrigger",
+  id: "E003FindStoneTrigger",
   label: "Drei Steine gesucht",
   description: "Die Leute am Brunnen suchen Hilfe beim Steine-Sammeln.",
   buttons: [
@@ -47,7 +47,7 @@ export const event003FindStoneTrigger: GameEvent = {
 };
 
 export const event001ThreeStoneEnd: GameEvent = {
-  id: "E00FindStoneEnd",
+  id: "E003FindStoneEnd",
   label: "Drei Steine abgegeben",
   description: "Die Leute am Brunnen snd dir sehr Dankbar.",
   buttons: [
@@ -56,7 +56,7 @@ export const event001ThreeStoneEnd: GameEvent = {
       getAction: () => {
         return {
           message: "Du hast für die Steine 5 {SYSTEM.Gold} bekommen",
-          endQuest: "Q002FindStone",
+          endQuest: "Q003FindStone",
           itemsDelta: { Stein: -3 },
           economyDelta: { gold: 5 },
           baseDelta: { reputation: 3 },

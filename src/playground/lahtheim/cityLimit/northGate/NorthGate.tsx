@@ -1,12 +1,13 @@
 //#region [imports]
-import React, { } from 'react';
-import { GradientText } from '../../../../utility/Formatted/GradientText';
-import { CREATURE, PLACES } from '../../../../data/helper/colorfullStrings';
-import NpcTalk from '../../../../utility/NpcTalk';
-import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import { useNavigate } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
-import { useRootStore } from '../../../../store';
+import React from "react";
+import { GradientText } from "../../../../utility/Formatted/GradientText";
+import { CREATURE, PLACES } from "../../../../data/helper/colorfullStrings";
+import NpcTalk from "../../../../utility/NpcTalk";
+import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useRootStore } from "../../../../store";
+import { WeightedEvent } from "../../../../data/eventData";
+import { MainPlaceTemplate } from "../../../../layout/MainPlaceTemplate";
 //#endregion
 
 //#region [prepare]
