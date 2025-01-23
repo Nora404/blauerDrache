@@ -1,10 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ActionButton from "../../../../layout/ActionButtons/ActionButton";
-import NpcTalk from "../../../../utility/NpcTalk";
 import MultiColoredLetters from "../../../../utility/Formatted/MultiColoredLetters";
 import { yellowColors } from "../../../../data/helper/colorMappingData";
-import PlayerTalk from "../../../../utility/PlayerTalk";
 import { CREATURE, PLACES } from "../../../../data/helper/colorfullStrings";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store";
