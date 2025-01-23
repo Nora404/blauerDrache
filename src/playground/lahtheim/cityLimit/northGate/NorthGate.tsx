@@ -2,12 +2,12 @@
 import React from "react";
 import { GradientText } from "../../../../utility/Formatted/GradientText";
 import { CREATURE, PLACES } from "../../../../data/helper/colorfullStrings";
-import NpcTalk from "../../../../utility/NpcTalk";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store";
 import { WeightedEvent } from "../../../../data/eventData";
 import { MainPlaceTemplate } from "../../../../layout/MainPlaceTemplate";
+import Talk from "../../../../utility/Formatted/Talk";
 //#endregion
 
 //#region [prepare]
@@ -37,12 +37,12 @@ const NorthGate: React.FC<NorthGateProps> = observer(() => {
       </p>
 
       <p className="mb-1">
-        <NpcTalk name="geflügeltesWesen">
+        <Talk color="geflügeltesWesen">
           „Willkommen in Lahtheim! Bist du hier, um vor den Bezwingern des{" "}
           {CREATURE.grünerDrache} zu fliehen? In unserem Dorf ist Platz für
           dich. Sei nett, dann darfst du vielleicht einmal den{" "}
           {CREATURE.blauerDrache} besuchen.“
-        </NpcTalk>
+        </Talk>
       </p>
 
       <p className="mb-1">
@@ -57,7 +57,7 @@ const NorthGate: React.FC<NorthGateProps> = observer(() => {
   const dayButtons = [
     {
       label: "Die Wachen um Hilfe bitten",
-      onClick: () => navigate("north-gate-guardian"),
+      onClick: () => navigate("/north-gate-guardian"),
     },
     {
       label: "Die Plakette des Erfolgs betrachten",
