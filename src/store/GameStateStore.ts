@@ -31,4 +31,9 @@ export class GameStateStore {
     this.data.currentEventQueue[eventId] = path;
     this.rootStore.saveToLocalStorage();
   }
+
+  removeFromEventQueue(eventId: string): void {
+    delete this.data.currentEventQueue[eventId];
+    this.rootStore.saveToLocalStorage();
+  }
 }

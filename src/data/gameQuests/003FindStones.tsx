@@ -12,7 +12,7 @@ export const quest003FindStone: GameQuest = {
   progress: {
     type: "Besorgen",
     path: "/fountain-people",
-    eventByEnd: "E001ThreeStoneEnd",
+    eventByEnd: "E003FindStoneEnd",
     isDone: false,
     task: { haveItem: [{ item: "Stein", need: 3, count: 0 }] },
   },
@@ -30,7 +30,7 @@ export const event003FindStoneTrigger: GameEvent = {
       getAction: () => {
         return {
           message: "Du hast die Quest angenommen!",
-          triggerQuest: "Q003FFindStone",
+          triggerQuest: "Q003FindStone",
         };
       },
     },
@@ -46,7 +46,7 @@ export const event003FindStoneTrigger: GameEvent = {
   places: [],
 };
 
-export const event001ThreeStoneEnd: GameEvent = {
+export const event003FindStoneEnd: GameEvent = {
   id: "E003FindStoneEnd",
   label: "Drei Steine abgegeben",
   description: "Die Leute am Brunnen snd dir sehr Dankbar.",
