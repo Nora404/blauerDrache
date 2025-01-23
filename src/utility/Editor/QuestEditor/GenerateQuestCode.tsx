@@ -1,85 +1,153 @@
-// GenerateQuestCode.tsx
+// QuestCodeGenerator.tsx
 import React, { useState } from "react";
-import { useQuestContext } from "../Context/QuestContext";
+import { useQuestCreatorContext } from "../Context/QuestContext";
 
+// Einfache Escape-Funktion
 function escapeForTS(str: string) {
   return str.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
 }
 
-const GenerateQuestCode: React.FC = () => {
+export default function QuestCodeGenerator() {
   const [generatedCode, setGeneratedCode] = useState("");
   const {
+    baseId,
     questId,
     label,
     description,
     reward,
     repeat,
-    eventTrigger,
-    eventEnd,
     progress,
-  } = useQuestContext();
+    triggerEventId,
+    triggerDescription,
+    triggerButtons,
+    endEventId,
+    endDescription,
+    endButtons,
+  } = useQuestCreatorContext();
 
   const generateCode = () => {
-    const safeId = questId || "NewQuest";
-    const escLabel = escapeForTS(label);
-    const escDesc = escapeForTS(description);
-    const escReward = escapeForTS(reward);
+    // ********** QUEST-OBJEKT **********
+    const questObj = `
+export const ${questId}: GameQuest = {
+  id: "${questId}",
+  label: "${escapeForTS(label)}",
+  description: \`${escapeForTS(description)}\`,
+  reward: \`${escapeForTS(reward)}\`,
+  eventByEnd: "${endEventId}", 
+  progress: {
+    type: "${progress.type}",
+    path: "${progress.path}",
+    eventByEnd: "${progress.eventByEnd}",
+    isDone: false,
+    task: ${formatTask(progress.task)}
+  },
+  repeat: ${repeat ? "true" : "false"}
+};`;
 
-    // progress.task kannst du in eine JSON konvertieren
-    const taskString = JSON.stringify(progress.task, null, 4) || "{}";
-    const cleanedTaskString = taskString.replace(/"([^"]+)":/g, "$1:"); // Objektkeys ohne Anführungszeichen
-    // Du kannst hier natürlich mehr aufräumen, je nach Geschmack
+    // ********** TRIGGER-EVENT **********
+    const triggerObj = `
+export const ${triggerEventId}: GameEvent = {
+  id: "${triggerEventId}",
+  label: "${escapeForTS(label)} - Trigger", 
+  description: \`${escapeForTS(triggerDescription)}\`,
+  buttons: ${formatButtons(triggerButtons)},
+  places: []
+};`;
 
-    // Haupt-String
-    let code = `
-import { GameQuest } from "./questData"; // Pfad anpassen
+    // ********** END-EVENT **********
+    const endObj = `
+export const ${endEventId}: GameEvent = {
+  id: "${endEventId}",
+  label: "${escapeForTS(label)} - End", 
+  description: \`${escapeForTS(endDescription)}\`,
+  buttons: ${formatButtons(endButtons)},
+  places: []
+};`;
 
-//#region [quest]
-export const quest${safeId}: GameQuest = {
-    id: "${safeId}",
-    label: "${escLabel}",
-    description: \`${escDesc}\`,
-    reward: "${escReward}",
-    eventByEnd: "${eventEnd}", // das Event, das die Belohnung verteilt
-    repeat: ${repeat ? "true" : "false"},
-    progress: {
-        type: "${progress.type}",
-        path: "${progress.path}",
-        eventByEnd: "${progress.eventByEnd}",
-        isDone: false,
-        task: ${cleanedTaskString}
-    }
-};
+    // Du kannst hier natürlich deine Imports / Regions usw. einbauen
+    const finalCode = `
+import { GameEvent } from "../eventData";
+import { GameQuest } from "../questData";
+
+//#region [Quest+Events for "${baseId}"]
+${questObj}
+
+${triggerObj}
+
+${endObj}
 //#endregion
-
-// Event, das diese Quest triggert: "${eventTrigger}"
 `;
-    // Du kannst das Trigger-Event hier als Kommentar notieren
-    // oder anderswo verarbeiten.
-
-    setGeneratedCode(code.trim());
+    setGeneratedCode(finalCode.trim());
   };
 
   const copyToClipboard = () => {
     if (!generatedCode) return;
     navigator.clipboard.writeText(generatedCode).then(
-      () => alert("Quest-Code kopiert!"),
+      () => alert("Code kopiert!"),
       (err) => console.error("Fehler beim Kopieren:", err)
     );
   };
 
   return (
-    <div style={{ marginTop: "1rem" }}>
-      <button onClick={generateCode}>Quest-Code generieren</button>
+    <div>
+      <button onClick={generateCode}>Code generieren</button>
       {generatedCode && (
-        <div className="output-container">
-          <h3>Generierter Quest-Code</h3>
-          <pre className="output-pre">{generatedCode}</pre>
+        <div>
+          <pre style={{ whiteSpace: "pre-wrap", background: "#f0f0f0" }}>
+            {generatedCode}
+          </pre>
           <button onClick={copyToClipboard}>Kopieren</button>
         </div>
       )}
     </div>
   );
-};
+}
 
-export default GenerateQuestCode;
+// Hilfsfunktion, um Task als String zu formatieren
+function formatTask(task: any): string {
+  // Du kannst hier schöner manuell formatieren oder JSON.stringify nutzen
+  const str = JSON.stringify(task, null, 2);
+  // Optional Keys ohne Anführungszeichen
+  return str.replace(/"([^"]+)":/g, "$1:");
+}
+
+// Hilfsfunktion, um Buttons zu formatieren
+function formatButtons(buttons: any[]): string {
+  if (!buttons || buttons.length === 0) return "[]";
+
+  // So in etwa wie in deinem Event-Generator:
+  const arr = buttons.map((btn) => {
+    // label
+    const labelPart = `label: "${escapeForTS(btn.label || "")}"`;
+    // getAction
+    let getAction = "";
+    if (btn.itemsDeltaEnabled || btn.fluxDeltaEnabled || btn.economyDeltaEnabled || /* ... */ btn.triggerQuest) {
+      const lines: string[] = [];
+      if (btn.message) {
+        lines.push(`message: \`${escapeForTS(btn.message)}\``);
+      }
+      if (btn.triggerQuest) {
+        lines.push(`triggerQuest: "${btn.triggerQuest}"`);
+      }
+      if (btn.endQuest) {
+        lines.push(`endQuest: "${btn.endQuest}"`);
+      }
+      // ... usw. 
+      // itemsDelta, economyDelta, baseDelta, stateDelta -> analog
+      // Hier kannst du dieselbe Logik anwenden wie in deinem Event-Editor.
+      getAction = `
+getAction: () => ({
+  ${lines.join(",\n  ")}
+})`;
+    }
+
+    const parts = [labelPart];
+    if (getAction) parts.push(getAction);
+
+    return `{
+  ${parts.join(",\n  ")}
+}`;
+  });
+
+  return `[\n${arr.join(",\n")}\n]`;
+}

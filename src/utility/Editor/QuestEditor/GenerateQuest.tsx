@@ -1,45 +1,41 @@
 // GenerateQuests.tsx
 import React from "react";
-import QuestEnd from "./QuestEnd";
-import QuestMainData from "./QuestMainData";
-import QuestTrigger from "./QuestTrigger";
-import { QuestContextProvider } from "../Context/QuestContext";
-import GenerateQuestCode from "./GenerateQuestCode";
+import { QuestCreatorProvider } from "../Context/QuestContext";
+import QuestCodeGenerator from "./GenerateQuestCode";
+import QuestBaseForm from "./QuestBaseForm";
+import QuestEndEventForm from "./QuestEndEventForm";
+import QuestProgressForm from "./QuestProgressForm";
+import QuestTriggerEventForm from "./QuestTriggerEventForm";
+
 
 export default function GenerateQuests() {
   return (
-    <QuestContextProvider>
-      <div className="form-container text-left max-width">
+    <QuestCreatorProvider>
+      <div className="form-container text-left w-full">
         <h2>Quest-Editor</h2>
-        <p>
-          Eine Quest besteht immer aus einem Trigger-Event, den eigentlichen
-          Questdaten und einem End-Event. Anschließend kannst du unten den Code
-          generieren und abspeichern.
-        </p>
+        <p>Erstellt eine Quest + zugehörige Trigger-/End-Events. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+      ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+      dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies</p>
+
+        <QuestBaseForm />
+        <QuestProgressForm />
 
         <details open>
           <summary>
-            <b>1) Trigger-Event</b>
+            <b>Trigger-Event</b>
           </summary>
-          <QuestTrigger />
+          <QuestTriggerEventForm />
         </details>
 
         <details open>
           <summary>
-            <b>2) Quest-Daten</b>
+            <b>End-Event</b>
           </summary>
-          <QuestMainData />
+          <QuestEndEventForm />
         </details>
 
-        <details open>
-          <summary>
-            <b>3) End-Event</b>
-          </summary>
-          <QuestEnd />
-        </details>
-
-        <GenerateQuestCode />
+        <QuestCodeGenerator />
       </div>
-    </QuestContextProvider>
+    </QuestCreatorProvider>
   );
 }

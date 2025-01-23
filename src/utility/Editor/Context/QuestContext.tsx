@@ -1,40 +1,59 @@
-// QuestContext.tsx
+// QuestCreatorContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { GameQuest, emptyQuest, TaskType, Progress, Task } from "../../../data/questData";
+import { Progress } from "../../../data/questData";
+import { ButtonConfig } from "./EventContext";
 
-/** So könnte dein Quest-Kontext aussehen */
-type QuestContextType = {
-  // Basisfelder aus GameQuest
-  questId: string;
-  setQuestId: React.Dispatch<React.SetStateAction<string>>;
+// ^ Ggfs. pfad anpassen. 
+//   Oder du kopierst dir den ButtonConfig-Typ, den du schon in deinem Event-Editor hast.
 
+type QuestCreatorContextType = {
+  // --------- Gemeinsame ID-Basis, z.B. "003FindStone" ---------
+  baseId: string;
+  setBaseId: React.Dispatch<React.SetStateAction<string>>;
+
+  // --------- Quest Felder ---------
+  questId: string;   // Qxxx
   label: string;
   setLabel: React.Dispatch<React.SetStateAction<string>>;
-
   description: string;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
-
   reward: string;
   setReward: React.Dispatch<React.SetStateAction<string>>;
-
   repeat: boolean;
   setRepeat: React.Dispatch<React.SetStateAction<boolean>>;
 
-  // Felder für "Trigger-Event" und "End-Event"
-  eventTrigger: string;
-  setEventTrigger: React.Dispatch<React.SetStateAction<string>>;
-
-  eventEnd: string;
-  setEventEnd: React.Dispatch<React.SetStateAction<string>>;
-
-  // progress-Daten
+  // progress
   progress: Progress;
   setProgress: React.Dispatch<React.SetStateAction<Progress>>;
+
+  // --------- Trigger-Event Felder ---------
+  triggerEventId: string;  // ExxxTrigger
+  triggerDescription: string;
+  setTriggerDescription: React.Dispatch<React.SetStateAction<string>>;
+  triggerButtons: ButtonConfig[];
+  setTriggerButtons: React.Dispatch<React.SetStateAction<ButtonConfig[]>>;
+
+  // --------- End-Event Felder ---------
+  endEventId: string;      // ExxxEnd
+  endDescription: string;
+  setEndDescription: React.Dispatch<React.SetStateAction<string>>;
+  endButtons: ButtonConfig[];
+  setEndButtons: React.Dispatch<React.SetStateAction<ButtonConfig[]>>;
 };
 
-const defaultContextValue: QuestContextType = {
+const defaultProgress: Progress = {
+  type: "Geheimnis",
+  path: "/",
+  eventByEnd: "",
+  isDone: false,
+  task: {},
+};
+
+const defaultContextValue: QuestCreatorContextType = {
+  baseId: "",
+  setBaseId: () => {},
+
   questId: "",
-  setQuestId: () => {},
   label: "",
   setLabel: () => {},
   description: "",
@@ -43,50 +62,54 @@ const defaultContextValue: QuestContextType = {
   setReward: () => {},
   repeat: false,
   setRepeat: () => {},
-  eventTrigger: "",
-  setEventTrigger: () => {},
-  eventEnd: "",
-  setEventEnd: () => {},
-  progress: {
-    type: "Geheimnis",
-    path: "/",
-    eventByEnd: "",
-    isDone: false,
-    task: {},
-  },
+  progress: defaultProgress,
   setProgress: () => {},
+
+  triggerEventId: "",
+  triggerDescription: "",
+  setTriggerDescription: () => {},
+  triggerButtons: [],
+  setTriggerButtons: () => {},
+
+  endEventId: "",
+  endDescription: "",
+  setEndDescription: () => {},
+  endButtons: [],
+  setEndButtons: () => {},
 };
 
-const QuestContext = createContext<QuestContextType>(defaultContextValue);
+const QuestCreatorContext = createContext<QuestCreatorContextType>(defaultContextValue);
 
-export const QuestContextProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [questId, setQuestId] = useState("");
+export const QuestCreatorProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  // Basis ID, vom User eingegeben, z.B. "003FindStone"
+  const [baseId, setBaseId] = useState("");
+
+  // Ableitungen
+  const questId = baseId ? "Q" + baseId : "";
+  const triggerEventId = baseId ? "E" + baseId + "Trigger" : "";
+  const endEventId = baseId ? "E" + baseId + "End" : "";
+
   const [label, setLabel] = useState("");
   const [description, setDescription] = useState("");
   const [reward, setReward] = useState("");
   const [repeat, setRepeat] = useState(false);
 
-  // Event, das die Quest startet
-  const [eventTrigger, setEventTrigger] = useState("");
-  // Event, das die Quest beendet
-  const [eventEnd, setEventEnd] = useState("");
+  const [progress, setProgress] = useState<Progress>(defaultProgress);
 
-  // progress-Objekt
-  const [progress, setProgress] = useState<Progress>({
-    type: "Geheimnis",
-    path: "/",
-    eventByEnd: "",
-    isDone: false,
-    task: {},
-  });
+  // Trigger-Event:
+  const [triggerDescription, setTriggerDescription] = useState("");
+  const [triggerButtons, setTriggerButtons] = useState<ButtonConfig[]>([]);
+
+  // End-Event:
+  const [endDescription, setEndDescription] = useState("");
+  const [endButtons, setEndButtons] = useState<ButtonConfig[]>([]);
 
   return (
-    <QuestContext.Provider
+    <QuestCreatorContext.Provider
       value={{
+        baseId,
+        setBaseId,
         questId,
-        setQuestId,
         label,
         setLabel,
         description,
@@ -95,25 +118,29 @@ export const QuestContextProvider: React.FC<{ children: ReactNode }> = ({
         setReward,
         repeat,
         setRepeat,
-        eventTrigger,
-        setEventTrigger,
-        eventEnd,
-        setEventEnd,
         progress,
         setProgress,
+        triggerEventId,
+        triggerDescription,
+        setTriggerDescription,
+        triggerButtons,
+        setTriggerButtons,
+        endEventId,
+        endDescription,
+        setEndDescription,
+        endButtons,
+        setEndButtons,
       }}
     >
       {children}
-    </QuestContext.Provider>
+    </QuestCreatorContext.Provider>
   );
 };
 
-export const useQuestContext = () => {
-  const context = useContext(QuestContext);
+export const useQuestCreatorContext = () => {
+  const context = useContext(QuestCreatorContext);
   if (!context) {
-    throw new Error(
-      "useQuestContext must be used within a QuestContextProvider."
-    );
+    throw new Error("useQuestCreatorContext must be used within QuestCreatorProvider");
   }
   return context;
 };
