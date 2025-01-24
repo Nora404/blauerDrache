@@ -10,7 +10,9 @@ type CourtyardBenchProps = {};
 
 const CourtyardBench: React.FC<CourtyardBenchProps> = observer(() => {
 
-    const possibleEvents: WeightedEvent[] = [];
+    const possibleEvents: WeightedEvent[] = [
+        { eventId: "event999Test", probability: 100 }
+    ];
 
     const description =
         <>

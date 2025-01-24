@@ -1,16 +1,18 @@
 //#region [imports]
 import React, { useState } from "react";
-import { GameAction } from "../data/eventData";
+import { GameAction, GameEvent } from "../data/eventData";
 import { blueColors } from "../data/helper/colorMappingData";
 import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { parseDescription } from "../utility/Helper/ParseTextToJSX";
 import {
   pickRandomNextEvent,
   getGameEventById,
+  checkAllConditions,
 } from "../utility/Helper/TriggerEvent";
 import { useApplyGameAction } from "../utility/Hooks/ApplyGameAction";
 import ActionButton from "./ActionButtons/ActionButton";
 import HeaderSmall from "./Header/HeaderSmall";
+import { useRootStore } from "../store";
 
 //#endregion
 
@@ -33,6 +35,17 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
   const [eventsChain, setEventsChain] = useState<ChainItem[]>([
     { eventId: initialEventName, outcomeMessage: null },
   ]);
+
+  // Hole dir die relevanten Daten aus deinem Store
+  const {
+    gameTime,
+    gameState,
+    playerStats,
+    playerBase,
+    playerFlux,
+    playerMeta,
+    // playerQuest, falls du die Quest-Daten brauchst
+  } = useRootStore();
   //#endregion
 
   //#region [handler]
@@ -44,7 +57,6 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
     applyGameAction(action);
 
     const newMessage = action.message ?? null;
-
     let nextEventId: string | null = null;
 
     if (action.nextEvents && action.nextEvents.length > 0) {
@@ -78,13 +90,26 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
   return (
     <div className="max-width">
       {eventsChain.map((chainItem, idx) => {
-        const event = getGameEventById(chainItem.eventId);
-        const description = parseDescription(event?.description ?? "");
+        const event: GameEvent | undefined = getGameEventById(chainItem.eventId);
         if (!event) {
           return <p key={idx}>Unbekanntes Event: {chainItem.eventId}</p>;
         }
 
+        const description = parseDescription(event.description ?? "");
         const { outcomeMessage } = chainItem;
+
+        // 1) Buttons mit gültigen Conditions filtern
+        const validButtons = event.buttons.filter((btn) => {
+          return checkAllConditions(
+            btn.conditions,
+            gameTime.data,
+            gameState.data,
+            playerStats.data,
+            playerBase.data,
+            playerFlux.data,
+            playerMeta.data
+          );
+        });
 
         return (
           <div key={idx} className="game-event-block">
@@ -96,7 +121,8 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
                 {outcomeMessage}
               </p>
             ) : (
-              event.buttons.map((btn) => (
+              // 2) Nur die gefilterten Buttons rendern
+              validButtons.map((btn) => (
                 <button
                   className="btn-border"
                   key={btn.label}
@@ -112,9 +138,10 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
           </div>
         );
       })}
+
       <br />
       <ActionButton onClick={onFinishChain} label="Sich abwenden" />
     </div>
   );
-  //#endregion
 };
+//#endregion

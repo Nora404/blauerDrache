@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEditorContext } from "../Context/EventContext";
-import { NextEventOption } from "../../../data/eventData";
+import { NextEventOption, Conditions } from "../../../data/eventData";
 
 const GenerateEventCode: React.FC = () => {
   const [generatedCode, setGeneratedCode] = useState("");
+
   const { eventId, label, description, buttons, places } = useEditorContext();
 
   // --------------------------------------------
@@ -14,26 +15,22 @@ const GenerateEventCode: React.FC = () => {
     // Wenn du Backticks erlauben willst, brauchst du hier mehr Logik
     // Fürs Erste ersetze ich nur Backslashes und Backticks naiv:
     return str
-      .replace(/\\/g, "\\\\") 
+      .replace(/\\/g, "\\\\")
       .replace(/`/g, "\\`");
   }
 
   // --------------------------------------------
-  // Das ist dein Haupteinstieg:
-  // Wir bauen uns den finalen TS-Code als String zusammen
+  // Das ist deine Hauptroutine zum Generieren
   // --------------------------------------------
   const generateCode = () => {
-    // Wir sammeln separat Messages und die Description in Variablenfunktionen:
+    // Hier sammeln wir separat Messages und Description
     const messages: string[] = [];
     let descriptionFn = "";
 
-    // ID und Label sind direkt in der export-Const
-    // Für description gucken wir, ob wir was haben
     const hasDescription = description.trim() !== "";
 
+    // descriptionText-Funktion bauen (falls vorhanden)
     if (hasDescription) {
-      // Wir bauen eine function descriptionText() {...}
-      // Hier setze ich alles in runde Klammern, wie du es wolltest
       const escapedDesc = escapeForTS(description);
       descriptionFn = `
 function descriptionText() {
@@ -45,17 +42,21 @@ function descriptionText() {
     }
 
     // --------------------------------------------
-    // Buttons
+    // Buttons verarbeiten
     // --------------------------------------------
-    // Wir bauen uns für jeden Button ein getAction: () => ({ ... })
-    // Falls ein Button ein message-Feld hat, kommt das als const messageX = (...) unten hin
     const buttonEntries = buttons.map((b, buttonIndex) => {
       const lines: string[] = [];
 
-      // label
+      // 1) label
       lines.push(`label: "${escapeForTS(b.label)}"`);
 
-      // getAction
+      // 2) conditions (falls enabled)
+      if (b.conditionsEnabled && b.conditions) {
+        const condStr = formatConditions(b.conditions, 4);
+        lines.push(`conditions: ${condStr}`);
+      }
+
+      // 3) getAction
       const actionParts: string[] = [];
 
       // itemsDelta
@@ -94,16 +95,14 @@ function descriptionText() {
       }
 
       // stateDelta
-      // In deinem Beispiel hieß es "statsDelta", aber im Code "stateDelta".
-      // Wenn du es "statsDelta" nennen möchtest, ersetze das in der folgenden Zeile.
       if (b.stateDeltaEnabled) {
         const st = { ...b.stateDelta };
         (Object.keys(st) as Array<keyof typeof st>).forEach((k) => {
           if (st[k] === 0) delete st[k];
         });
         if (Object.keys(st).length > 0) {
-          // Hier benennst du um zu statsDelta falls gewünscht
-          actionParts.push(`statsDelta: ${JSON.stringify(st)}`);
+          // Du kannst das "stateDelta" in "statsDelta" umbenennen, falls du willst
+          actionParts.push(`stateDelta: ${JSON.stringify(st)}`);
         }
       }
 
@@ -128,13 +127,9 @@ function descriptionText() {
           .filter((n: NextEventOption) => n.eventId.trim() !== "")
           .map((n: NextEventOption) => ({
             eventId: n.eventId.trim(),
-            probability: parseInt(n.probability.toString(), 10) || 100,
+            probability: Number(n.probability) || 100,
           }));
         if (cleanedNext.length > 0) {
-          // Mit JSON.stringify -> z.B. '[{"eventId":"001","probability":10}, ...]'
-          // Wir ersetzen aber lieber die Keys so, dass wir schönes TS haben
-          // Zur Vereinfachung mache ich hier JSON.stringify. Du kannst es
-          // natürlich auch manuell formatieren.
           actionParts.push(`nextEvents: ${JSON.stringify(cleanedNext)}`);
         }
       }
@@ -148,13 +143,13 @@ function descriptionText() {
         actionParts.push(`message: ${msgVarName}`);
       }
 
-      // getAction nur wenn wir überhaupt was drin haben
+      // Falls wir Aktionsteile haben, packen wir sie in getAction
       if (actionParts.length > 0) {
         const actionString = actionParts.join(",\n                ");
         lines.push(`getAction: () => ({\n                ${actionString}\n            })`);
       }
 
-      // jetzt fassen wir das Ganze als { label: "...", getAction: ... } etc. zusammen
+      // Schöne Ausgabe
       return `{\n            ${lines.join(",\n            ")}\n        }`;
     });
 
@@ -170,22 +165,17 @@ function descriptionText() {
           probability: Number(p.probability) || 100,
         }));
       if (cleanedPlaces.length > 0) {
+        //  - JSON.stringify mit 4er-Einrückung
+        //  - remove quotes from keys (kleiner Hack)
         placesString = JSON.stringify(cleanedPlaces, null, 4)
-          .replace(/"([^"]+)":/g, "$1:") // Entfernt Anführungszeichen um Keys
-          .replace(/"/g, `"`) // Ersetzt Anführungszeichen in Werten normal
+          .replace(/"([^"]+)":/g, "$1:")
+          .replace(/"/g, `"`) // Anführungszeichen um Strings bleiben
           .trim();
       }
     }
 
     // --------------------------------------------
     // Jetzt bauen wir den finalen Code-String
-    // --------------------------------------------
-    // 1) import
-    // 2) // #region
-    // 3) export const ...
-    // 4) #endregion
-    // 5) function descriptionText() { ... }
-    // 6) ... message Konstanten
     // --------------------------------------------
     let code = `import { GameEvent } from "../eventData";
 
@@ -227,8 +217,7 @@ ${descriptionFn}
 `;
     }
 
-    // Jetzt unsere Messages
-    // Jede Message kommt nacheinander
+    // Messages
     if (messages.length > 0) {
       code += messages.join("\n\n");
       code += "\n";
@@ -273,3 +262,23 @@ ${descriptionFn}
 };
 
 export default GenerateEventCode;
+
+
+// -----------------------------------------------------
+// Hilfsfunktion, um das Conditions-Objekt
+// schön formatiert auszugeben (ähnlich wie JSON)
+// -----------------------------------------------------
+function formatConditions(conditions: Conditions, indent = 2): string {
+  // 1) JSON stringify mit Einrückung
+  let str = JSON.stringify(conditions, null, indent);
+
+  // 2) Anführungszeichen um Schlüssel entfernen
+  //    Das wandelt "gameTime": ... -> gameTime: ...
+  str = str.replace(/"([^"]+)":/g, "$1:");
+
+  // 3) Falls du z.B. operator: "<" als string willst, musst du
+  //    Anführungszeichen für Values belassen
+  //    (Das meiste davon kann man so stehen lassen).
+
+  return str;
+}

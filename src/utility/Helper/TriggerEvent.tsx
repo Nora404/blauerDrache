@@ -89,6 +89,63 @@ export function pickRandomNextEvent(
 //#endregion
 
 //#region [helper]
+export function checkAllConditions(
+  conditions: Conditions | undefined,
+  gameTimeData: GameTime,
+  gameStateData: GameState,
+  playerStatsData: PlayerStats,
+  playerBaseData: PlayerBase,
+  playerFluxData: PlayerFlux,
+  playerMetaData: PlayerMeta,
+): boolean {
+  // Falls gar keine conditions gesetzt sind, ist alles ok:
+  if (!conditions) return true;
+
+  // 1) gameTime check
+  if (conditions.gameTime) {
+    if (!checkGameTime(conditions, gameTimeData)) {
+      return false;
+    }
+  }
+
+  // 2) gameState check
+  if (conditions.gameState) {
+    if (!checkGameState(conditions, gameStateData)) {
+      return false;
+    }
+  }
+
+  // 3) playerStats check
+  if (conditions.playerStats) {
+    if (!checkPlayerStats(conditions, playerStatsData)) {
+      return false;
+    }
+  }
+
+  // 4) playerBase check
+  if (conditions.playerBase) {
+    if (!checkPlayerBase(conditions, playerBaseData)) {
+      return false;
+    }
+  }
+
+  // 5) playerFlux check
+  if (conditions.playerFlux || conditions.haveBuffs !== undefined || conditions.haveDebuffs !== undefined) {
+    if (!checkPlayerFlux(conditions, playerFluxData)) {
+      return false;
+    }
+  }
+
+  // 6) playerMeta check
+  if (conditions.playerMeta) {
+    if (!checkPlayerMeta(conditions, playerMetaData)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export function filterEventsByConditions(
   events: WeightedEvent[],
   gameTimeData: GameTime,
@@ -103,51 +160,17 @@ export function filterEventsByConditions(
     // Falls das Event gar keine conditions hat, ist es direkt ok
     if (!evt.conditions) return true;
 
-    const { conditions } = evt;
+    const pass = checkAllConditions(
+      evt.conditions,
+      gameTimeData,
+      gameStateData,
+      playerStatsData,
+      playerBaseData,
+      playerFluxData,
+      playerMetaData,
+    );
+    if (!pass) return false;
 
-    // 1) gameTime check
-    if (conditions.gameTime) {
-      if (!checkGameTime(conditions, gameTimeData)) {
-        return false;
-      }
-    }
-
-    // 2) gameState check
-    if (conditions.gameState) {
-      if (!checkGameState(conditions, gameStateData)) {
-        return false;
-      }
-    }
-
-    // 3) playerStats check
-    if (conditions.playerStats) {
-      if (!checkPlayerStats(conditions, playerStatsData)) {
-        return false;
-      }
-    }
-
-    // 4) playerBase check
-    if (conditions.playerBase) {
-      if (!checkPlayerBase(conditions, playerBaseData)) {
-        return false;
-      }
-    }
-
-    // 5) playerFlux check
-    if (conditions.playerFlux) {
-      if (!checkPlayerFlux(conditions, playerFluxData)) {
-        return false;
-      }
-    }
-
-    // 6) playerMeta check
-    if (conditions.playerMeta) {
-      if (!checkPlayerMeta(conditions, playerMetaData)) {
-        return false;
-      }
-    }
-
-    // 7) Quest check
     if (evt.questId) {
       const questDef = getGameQuestById(evt.questId);
       if (questDef) {
@@ -158,7 +181,6 @@ export function filterEventsByConditions(
       }
     }
 
-    // Wenn alles passt:
     return true;
   });
 }

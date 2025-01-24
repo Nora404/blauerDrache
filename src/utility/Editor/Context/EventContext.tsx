@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { PlacesKeys } from "../../../data/helper/colorfullStrings";
 import { ItemCartegoryName } from "../../../data/ItemData";
 import { getAllPlaces } from "./Helper";
+import { Conditions } from "../../../data/eventData";
 
 // Typen für den Kontext definieren
 export type PlaceAndProb = {
@@ -36,6 +37,8 @@ export interface ButtonConfig {
   endQuest: string;
   nextEvents: { eventId: string; probability: number }[];
   message: string;
+  conditions?: Conditions;
+  conditionsEnabled?: boolean;
 }
 
 interface ContextType {
@@ -70,31 +73,31 @@ interface ContextType {
 // Standardwerte für den Kontext
 const defaultContextValue: ContextType = {
   places: [],
-  setPlaces: () => {},
+  setPlaces: () => { },
 
   buttons: [],
-  setButtons: () => {},
+  setButtons: () => { },
 
   eventId: "",
-  setEventId: () => {},
+  setEventId: () => { },
 
   label: "",
-  setLabel: () => {},
+  setLabel: () => { },
 
   description: "",
-  setDescription: () => {},
+  setDescription: () => { },
 
-  addPlace: () => {},
-  removePlace: () => {},
+  addPlace: () => { },
+  removePlace: () => { },
 
-  addButton: () => {},
-  removeButton: () => {},
+  addButton: () => { },
+  removeButton: () => { },
 
-  addItemsDeltaEntry: () => {},
-  removeItemsDeltaEntry: () => {},
+  addItemsDeltaEntry: () => { },
+  removeItemsDeltaEntry: () => { },
 
-  addNextEvent: () => {},
-  removeNextEvent: () => {},
+  addNextEvent: () => { },
+  removeNextEvent: () => { },
 };
 
 // Den Kontext erstellen
