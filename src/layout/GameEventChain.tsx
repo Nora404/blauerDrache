@@ -10,7 +10,7 @@ import {
 } from "../utility/Helper/TriggerEvent";
 import { useApplyGameAction } from "../utility/Hooks/ApplyGameAction";
 import ActionButton from "./ActionButtons/ActionButton";
-import Header from "./Header/Header";
+import HeaderSmall from "./Header/HeaderSmall";
 
 //#endregion
 
@@ -88,7 +88,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
 
         return (
           <div key={idx} className="game-event-block">
-            <Header>{event.label}</Header>
+            <HeaderSmall>{event.label}</HeaderSmall>
             <p className="mb-1 text-left">{description}</p>
 
             {outcomeMessage ? (

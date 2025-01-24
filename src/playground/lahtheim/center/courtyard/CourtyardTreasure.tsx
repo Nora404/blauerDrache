@@ -36,7 +36,7 @@ const CourtyardTreasure: React.FC<CourtyardTreasureProps> = observer(() => {
     return (
         <div className='max-width'>
             <PlaceTemplate
-                title={<>PLACES.vergessen</>}
+                title="Nach verlorenen „Schätzen“ suchen"
                 description={description}
                 noEventHappend={noEventHappend}
                 backPath="/courtyard"

@@ -9,3 +9,18 @@ hr {
   margin: 2px;
   font-size: large;
 }
+
+
+.hrSmall {
+  height: 0;
+  border: 1px dotted rgba(220, 211, 125, 0.8);
+  border-radius: 5px;
+  margin: 0;
+}
+
+.headerSmall {
+  color: rgba(220, 210, 125);
+  margin: 2px;
+  font-size: small;
+  margin: 0;
+}

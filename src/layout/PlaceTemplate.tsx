@@ -39,14 +39,11 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
               onFinishChain={handleFinishEvent}
             />
             <br />
-            <br />
           </>
         )}
         {!localRandomEvent && (
           <>
-            <p className="mb-1 text-left">
-              {noEventHappend}
-            </p>
+            {noEventHappend}
             <ActionButton onClick={handleBack} label="Sich abwenden" />
             <br />
             <br />
