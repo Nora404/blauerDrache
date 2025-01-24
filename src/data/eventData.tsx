@@ -35,6 +35,7 @@ export type GameEvent = {
   buttons: {
     label: string;
     getAction: () => GameAction;
+    conditions?: Conditions;
   }[];
   places: {
     place: PlacesKeys;

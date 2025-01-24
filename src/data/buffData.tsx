@@ -1,7 +1,7 @@
 import { PlayerStats } from "../store/newGameStore";
 import { GradientText } from "../utility/Formatted/GradientText";
 
-export type BuffName = "Eisenhaut" | "Kampfgeist";
+export type BuffName = "Eisenhaut" | "Kampfgeist" | "Gütig";
 
 export type Buff = {
     name: BuffName;
@@ -25,6 +25,13 @@ export const buffs: Buff[] = [
         description: "Erhöht den Angriff für eine begrenzte Zeit.",
         effects: { attack: 5 },
         duration: 3, // 3 Runden
+    },
+    {
+        name: "Gütig",
+        label: <GradientText>Gütig</GradientText>,
+        description: "Deine guten Taten bringen dir Glück",
+        effects: { luck: 5 },
+        duration: 4, // 3 Runden
     },
 ];
 
