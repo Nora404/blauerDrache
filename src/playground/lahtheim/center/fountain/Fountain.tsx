@@ -36,7 +36,8 @@ const Fountain: React.FC<FountainProps> = observer(() => {
 
   const nightDescription = (
     <p className='mb-1 text-left'>
-      Im Dunkel der Nacht hörst du das sanfte Plätschern. Es ist kaum ein Bewohner zu sehen und wenn du einen erblickst,
+      Im Dunkel der Nacht hörst du das sanfte Plätschern. Es ist kaum ein Bewohner zu sehen und wenn
+      du einen erblickst,
       eilt dieser schnell zu einer der vielen Straßen die vom Platz aus abzweigen.
       Nur von der {PLACES.Taverne} aus scheint Licht und Lärm zu kommen.
       Ein Schatten lenkt dich ab, du bemerkst eine viel zu kleine flackernde Laterne

@@ -14,6 +14,7 @@ type ButtonConfig = {
 
 type MainPlaceTemplateProps = {
   title: React.ReactNode;
+  description?: React.ReactNode;
 
   dayDescription: React.ReactNode;
   dayButtons: ButtonConfig[];
@@ -28,6 +29,7 @@ type MainPlaceTemplateProps = {
 export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
   ({
     title,
+    description,
     dayDescription,
     dayButtons,
     nightDescription,
@@ -57,6 +59,8 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     return (
       <div className="max-width">
         <h2>{title}</h2>
+
+        {description}
 
         {showDayBlock ? (
           <>

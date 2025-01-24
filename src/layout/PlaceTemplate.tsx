@@ -10,12 +10,13 @@ import Header from "./Header/Header";
 type PlaceTemplateProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
+  noEventHappend?: React.ReactNode;
   backPath: string;
   possibleEvents: WeightedEvent[];
 };
 
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
-  ({ title, description, backPath, possibleEvents }) => {
+  ({ title, description, backPath, possibleEvents, noEventHappend = "" }) => {
     const {
       localRandomEvent,
       firstEvent,
@@ -43,6 +44,9 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
         )}
         {!localRandomEvent && (
           <>
+            <p className="mb-1 text-left">
+              {noEventHappend}
+            </p>
             <ActionButton onClick={handleBack} label="Sich abwenden" />
             <br />
             <br />

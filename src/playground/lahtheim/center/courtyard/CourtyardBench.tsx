@@ -1,34 +1,46 @@
 // #region [imports]
 import React from 'react';
-import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import { useNavigate } from 'react-router-dom';
+import { WeightedEvent } from '../../../../data/eventData';
+import { observer } from 'mobx-react-lite';
+import PlaceTemplate from '../../../../layout/PlaceTemplate';
 // #endregion
 
 // #region [prepare]
-type CourtyardBenchProps = {
-};
+type CourtyardBenchProps = {};
 
-const CourtyardBench: React.FC<CourtyardBenchProps> = () => {
-    const navigate = useNavigate();
+const CourtyardBench: React.FC<CourtyardBenchProps> = observer(() => {
+
+    const possibleEvents: WeightedEvent[] = [];
+
+    const description =
+        <>
+            <p className='mb-1 text-left'>
+                Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
+            </p>
+        </>;
+
+    const noEventHappend =
+        <>
+            <p className='mb-1 text-left'>
+                Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die letzten Schritte waren.
+            </p>
+        </>;
     // #endregion
 
-    // #region [handler]
-    const handleBack = () => {
-        navigate('/courtyard');
-    };
-    // #endregion
 
     // #region [jsx]
     return (
         <div className='max-width'>
-            <h2>Auf eine <b>Bank</b> setzten</h2>
-            <p className='mb-1 text-left'>
-                Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
-            </p><br />
-            <ActionButton onClick={handleBack} label='Sich abwenden' />
+            <PlaceTemplate
+                title="Auf eine Bank setzten"
+                description={description}
+                noEventHappend={noEventHappend}
+                backPath="/courtyard"
+                possibleEvents={possibleEvents}
+            />
         </div>
     );
     // #endregion
-};
+});
 
 export default CourtyardBench;
