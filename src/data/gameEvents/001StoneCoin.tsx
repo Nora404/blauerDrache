@@ -41,16 +41,16 @@ export const event001StoneCoin: GameEvent = {
 function descriptionText() {
     return (
 
-            "Ein {GradientText}Stein{/GradientText} liegt auf dem Boden!"+
-            "Er ist klein und hart, hat eine gräuliche Farbe und - sieht aus wie jeder andere Stein auch."+
-            "Warum bist du stehen geblieben um diesen {GradientText}Stein{/GradientText} zu betrachten?"
+        "Ein {Talk|grau}Stein{/Talk} liegt auf dem Boden!" +
+        "Er ist klein und hart, hat eine gräuliche Farbe und - sieht aus wie jeder andere Stein auch." +
+        "Warum bist du stehen geblieben um diesen {Talk|grau}Stein{/Talk} zu betrachten?"
 
     );
 }
 
-const message1 = 
-    "Unglaublich! Du hast unter dem {GradientText}Stein{/GradientText} etwas " +
-    "{SYSTEM.Gold} gefunden. Du steckst den {GradientText}Stein{/GradientText} und das Goldstück in deinen Beutel ein. " +
+const message1 =
+    "Unglaublich! Du hast unter dem {Talk|grau}Stein{/Talk} etwas " +
+    "{SYSTEM.Gold} gefunden. Du steckst den {Talk|grau}Stein{/Talk} und das Goldstück in deinen Beutel ein. " +
     "Steine kann man bestimmt irgendwann mal brauchen.";
 
-const message2 = "Du ignorierst den {GradientText}Stein{/GradientText} und gehst weiter.";
+const message2 = "Du ignorierst den {Talk|grau}Stein{/Talk} und gehst weiter.";
