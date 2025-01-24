@@ -1,13 +1,13 @@
 import React from "react";
-import { ButtonConfig, useEditorContext } from "../Context/EventContext";
-import { BuffName } from "../../../data/buffData";
-import { DebuffName } from "../../../data/debuffData";
-import { FeelingName } from "../../../data/feelingData"; // Importiere den Typ
+import { ButtonConfig, useEditorContext } from "../../Context/EventContext";
+import { BuffName } from "../../../../data/buffData";
+import { DebuffName } from "../../../../data/debuffData";
+import { FeelingName } from "../../../../data/feelingData"; // Importiere den Typ
 import {
   getAllBuffNames,
   getAllDebuffNames,
   getAllFeelingNames,
-} from "../Context/Helper";
+} from "../../Context/Helper";
 
 type FluxDeltaProps = {
   button: ButtonConfig;
@@ -48,9 +48,9 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
                   prev.map((b, i) =>
                     i === index
                       ? {
-                          ...b,
-                          fluxDelta: { ...b.fluxDelta, feeling: val },
-                        }
+                        ...b,
+                        fluxDelta: { ...b.fluxDelta, feeling: val },
+                      }
                       : b
                   )
                 );
@@ -74,9 +74,9 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
                   prev.map((b, i) =>
                     i === index
                       ? {
-                          ...b,
-                          fluxDelta: { ...b.fluxDelta, buff: val },
-                        }
+                        ...b,
+                        fluxDelta: { ...b.fluxDelta, buff: val },
+                      }
                       : b
                   )
                 );
@@ -100,9 +100,9 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
                   prev.map((b, i) =>
                     i === index
                       ? {
-                          ...b,
-                          fluxDelta: { ...b.fluxDelta, debuff: val },
-                        }
+                        ...b,
+                        fluxDelta: { ...b.fluxDelta, debuff: val },
+                      }
                       : b
                   )
                 );
@@ -128,9 +128,9 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
                   prev.map((b, i) =>
                     i === index
                       ? {
-                          ...b,
-                          fluxDelta: { ...b.fluxDelta, item: val },
-                        }
+                        ...b,
+                        fluxDelta: { ...b.fluxDelta, item: val },
+                      }
                       : b
                   )
                 );

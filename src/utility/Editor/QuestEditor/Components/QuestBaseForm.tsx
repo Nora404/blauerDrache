@@ -1,9 +1,8 @@
-// QuestBaseForm.tsx
-import React from "react";
-import { useQuestCreatorContext } from "../Context/QuestContext";
-import DescriptionEditor from "../Components/DescriptionEditor";
- 
+
 // Pfad anpassen! Reuse deinen Editor, wenn du möchtest.
+
+import DescriptionEditor from "../../EventEditor/Components/DescriptionEditor";
+import { useQuestCreatorContext } from "../../Context/QuestContext";
 
 export default function QuestBaseForm() {
   const {

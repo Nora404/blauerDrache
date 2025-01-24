@@ -1,7 +1,7 @@
 // ActionBtn.tsx
-import { useEditorContext } from "../Context/EventContext";
-import MultiColoredLetters from "../../Formatted/MultiColoredLetters";
-import { yellowColors } from "../../../data/helper/colorMappingData";
+import { useEditorContext } from "../../Context/EventContext";
+import MultiColoredLetters from "../../../Formatted/MultiColoredLetters";
+import { yellowColors } from "../../../../data/helper/colorMappingData";
 import TriggerGroup from "./TriggerGroup";
 import BaseDelta from "./BaseDelta";
 import StateDelta from "./StateDelta";

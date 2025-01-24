@@ -1,8 +1,9 @@
 // QuestEndEventForm.tsx
 import React from "react";
-import { useQuestCreatorContext } from "../Context/QuestContext";
-import DescriptionEditor from "../Components/DescriptionEditor";
+
 import ActionBtn from "./ActionBtn";
+import DescriptionEditor from "../../EventEditor/Components/DescriptionEditor";
+import { useQuestCreatorContext } from "../../Context/QuestContext";
 
 
 export default function QuestEndEventForm() {

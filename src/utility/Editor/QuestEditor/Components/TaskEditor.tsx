@@ -1,8 +1,8 @@
 // TaskEditor.tsx
-import { Task } from "../../../data/questData"; 
-import { useQuestCreatorContext } from "../Context/QuestContext";
-// Du kannst hier deine eigene Komponente bauen (z.B. "TaskItemsEditor"), 
-// oder reuse "ItemsDelta" - je nach Code-Struktur.
+
+import { Task } from "../../../../data/questData";
+import { useQuestCreatorContext } from "../../Context/QuestContext";
+
 
 export default function TaskEditor() {
   const { progress, setProgress } = useQuestCreatorContext();
@@ -75,7 +75,7 @@ export default function TaskEditor() {
             try {
               const obj = JSON.parse(e.target.value);
               updateTask({ useItem: obj });
-            } catch {}
+            } catch { }
           }}
         />
       </div>
@@ -91,7 +91,7 @@ export default function TaskEditor() {
             try {
               const obj = JSON.parse(e.target.value);
               updateTask({ switch: obj });
-            } catch {}
+            } catch { }
           }}
         />
       </div>

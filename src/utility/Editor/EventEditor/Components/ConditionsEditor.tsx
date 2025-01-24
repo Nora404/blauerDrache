@@ -1,13 +1,13 @@
 import React from "react";
-import { useEditorContext, ButtonConfig } from "../Context/EventContext";
-import { Conditions } from "../../../data/eventData";
-import { ArmorName } from "../../../data/armorData";
-import { WeaponName } from "../../../data/weaponData";
-import { ItemName } from "../../../data/ItemData";
-import { RaceName } from "../../../data/raceData";
-import { OriginName } from "../../../data/originData";
-import { CallingName } from "../../../data/callingData";
-import { FeelingName } from "../../../data/feelingData";
+import { useEditorContext, ButtonConfig } from "../../Context/EventContext";
+import { Conditions } from "../../../../data/eventData";
+import { ArmorName } from "../../../../data/armorData";
+import { WeaponName } from "../../../../data/weaponData";
+import { ItemName } from "../../../../data/ItemData";
+import { RaceName } from "../../../../data/raceData";
+import { OriginName } from "../../../../data/originData";
+import { CallingName } from "../../../../data/callingData";
+import { FeelingName } from "../../../../data/feelingData";
 
 /**
  * Haupt-Props: Wir bekommen den Button + index,

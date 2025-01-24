@@ -1,11 +1,12 @@
 // GenerateQuests.tsx
-import React from "react";
+import "../Editor.css";
 import { QuestCreatorProvider } from "../Context/QuestContext";
 import QuestCodeGenerator from "./GenerateQuestCode";
-import QuestBaseForm from "./QuestBaseForm";
-import QuestEndEventForm from "./QuestEndEventForm";
-import QuestProgressForm from "./QuestProgressForm";
-import QuestTriggerEventForm from "./QuestTriggerEventForm";
+import QuestBaseForm from "./Components/QuestBaseForm";
+import QuestEndEventForm from "./Components/QuestEndEventForm";
+import QuestProgressForm from "./Components/QuestProgressForm";
+import QuestTriggerEventForm from "./Components/QuestTriggerEventForm";
+
 
 
 export default function GenerateQuests() {
@@ -14,8 +15,8 @@ export default function GenerateQuests() {
       <div className="form-container text-left w-full">
         <h2>Quest-Editor</h2>
         <p>Erstellt eine Quest + zugehörige Trigger-/End-Events. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-      ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-      dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies</p>
+          ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+          dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies</p>
 
         <QuestBaseForm />
         <QuestProgressForm />

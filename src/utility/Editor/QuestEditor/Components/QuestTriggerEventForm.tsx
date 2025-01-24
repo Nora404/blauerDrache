@@ -1,7 +1,7 @@
 // QuestTriggerEventForm.tsx
-import React from "react"; 
-import { useQuestCreatorContext } from "../Context/QuestContext";
-import DescriptionEditor from "../Components/DescriptionEditor";
+
+import DescriptionEditor from "../../EventEditor/Components/DescriptionEditor";
+import { useQuestCreatorContext } from "../../Context/QuestContext";
 import ActionBtn from "./ActionBtn";
 
 //   ^ dein existierendes Buttons-UI, falls du es recyceln willst

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
-import { ButtonConfig, useEditorContext } from "../Context/EventContext";
-import { ItemCartegoryName } from "../../../data/ItemData";
-import { buildItemCategories } from "../Context/Helper";
+import { ButtonConfig, useEditorContext } from "../../Context/EventContext";
+import { ItemCartegoryName } from "../../../../data/ItemData";
+import { buildItemCategories } from "../../Context/Helper";
 
 type ItemsDeltaProps = {
   button: ButtonConfig;

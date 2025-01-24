@@ -1,6 +1,6 @@
 // ActionBtn.tsx (angepasste Variante)
 import React from "react";
-import { ButtonConfig } from "../Context/EventContext";
+import { ButtonConfig } from "../../Context/EventContext";
 
 type ActionBtnProps = {
   buttons: ButtonConfig[];

@@ -1,14 +1,14 @@
 // DescriptionEditor.tsx
 
 import React, { useState } from "react";
-import { parseDescription } from "../../Helper/ParseTextToJSX";
+import { parseDescription } from "../../../Helper/ParseTextToJSX";
 import {
   SYSTEM,
   CREATURE,
   NPC,
   PLACES,
-} from "../../../data/helper/colorfullStrings";
-import { talkingColors, textColors } from "../../Formatted/Talk";
+} from "../../../../data/helper/colorfullStrings";
+import { talkingColors, textColors } from "../../../Formatted/Talk";
 
 interface DescriptionEditorProps {
   value: string;

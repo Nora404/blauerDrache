@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonConfig, useEditorContext } from "../Context/EventContext";
+import { ButtonConfig, useEditorContext } from "../../Context/EventContext";
 
 type BaseDeltaProps = {
   button: ButtonConfig;

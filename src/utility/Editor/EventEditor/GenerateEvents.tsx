@@ -1,11 +1,8 @@
-// ============ EXTERNE DATEN (NUR Imports!) ============
-// Pfade anpassen, damit sie aus deinem Projekt kommen:
+import "../Editor.css";
+import Places from "./Components/Places";
+import ActionBtn from "./Components/ActionBtn";
 
-import "./GenerateEvents.css";
-import Places from "../Components/Places";
-import ActionBtn from "../Components/ActionBtn";
-
-import BaseInfo from "../Components/BaseInfos";
+import BaseInfo from "./Components/BaseInfos";
 import GenerateEventCode from "./GenerateEventCode";
 
 // =========== DIE HAUPT-KOMPONENTE ===========

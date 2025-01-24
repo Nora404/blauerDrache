@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonConfig, useEditorContext } from "../Context/EventContext";
+import { ButtonConfig, useEditorContext } from "../../Context/EventContext";
 
 type EconomyDeltaProps = {
   button: ButtonConfig;
@@ -41,12 +41,12 @@ const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
                   prev.map((b, i) =>
                     i === index
                       ? {
-                          ...b,
-                          economyDelta: {
-                            ...b.economyDelta,
-                            gold: val,
-                          },
-                        }
+                        ...b,
+                        economyDelta: {
+                          ...b.economyDelta,
+                          gold: val,
+                        },
+                      }
                       : b
                   )
                 );
@@ -64,12 +64,12 @@ const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
                   prev.map((b, i) =>
                     i === index
                       ? {
-                          ...b,
-                          economyDelta: {
-                            ...b.economyDelta,
-                            edelsteine: val,
-                          },
-                        }
+                        ...b,
+                        economyDelta: {
+                          ...b.economyDelta,
+                          edelsteine: val,
+                        },
+                      }
                       : b
                   )
                 );
