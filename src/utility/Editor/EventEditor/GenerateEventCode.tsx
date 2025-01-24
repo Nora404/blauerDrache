@@ -181,7 +181,7 @@ function descriptionText() {
 
 //#region [events]
 export const event${eventId || "NewEvent"}: GameEvent = {
-    id: "${escapeForTS(eventId)}",
+    id: "event${escapeForTS(eventId)}",
     label: "${escapeForTS(label)}",`;
 
     // Nur wenn description da ist
