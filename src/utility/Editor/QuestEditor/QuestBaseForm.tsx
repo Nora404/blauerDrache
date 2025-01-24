@@ -21,7 +21,7 @@ export default function QuestBaseForm() {
   } = useQuestCreatorContext();
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: "10px", margin: "1rem 0" }}>
+    <div style={{ padding: "10px", margin: "1rem 0" }}>
       <h3>Basis Quest-Daten</h3>
       <div className="form-group">
         <label>Basis-ID (z.B. "003FindStone"):</label>

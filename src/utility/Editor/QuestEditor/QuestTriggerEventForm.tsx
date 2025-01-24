@@ -17,7 +17,7 @@ export default function QuestTriggerEventForm() {
   } = useQuestCreatorContext();
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: 10, margin: "10px 0" }}>
+    <div style={{ padding: 10, margin: "10px 0" }}>
       <h4>Trigger-Event ({triggerEventId || "?"})</h4>
       <label>Beschreibung:</label>
       <DescriptionEditor

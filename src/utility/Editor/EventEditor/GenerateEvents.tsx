@@ -1,7 +1,7 @@
 // ============ EXTERNE DATEN (NUR Imports!) ============
 // Pfade anpassen, damit sie aus deinem Projekt kommen:
 
-import "./GenerateEvents.css";
+import "../Style.css";
 import Places from "../Components/Places";
 import ActionBtn from "../Components/ActionBtn";
 

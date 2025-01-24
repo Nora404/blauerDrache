@@ -1,13 +1,12 @@
 import React from "react";
-import { ButtonConfig, useEditorContext } from "../Context/EventContext";
+import { ButtonConfig } from "../Context/EventContext";
 
 type BaseDeltaProps = {
   button: ButtonConfig;
-  index: number;
+  setButton: React.Dispatch<React.SetStateAction<ButtonConfig>>;
 };
 
-const BaseDelta: React.FC<BaseDeltaProps> = ({ button, index }) => {
-  const { setButtons } = useEditorContext();
+const BaseDelta: React.FC<BaseDeltaProps> = ({ button, setButton }) => {
 
   return (
     <div className="max-widht">
@@ -18,11 +17,10 @@ const BaseDelta: React.FC<BaseDeltaProps> = ({ button, index }) => {
             checked={button.baseDeltaEnabled}
             onChange={(e) => {
               const checked = e.target.checked;
-              setButtons((prev) =>
-                prev.map((b, i) =>
-                  i === index ? { ...b, baseDeltaEnabled: checked } : b
-                )
-              );
+              setButton((prev) => ({
+                ...prev,
+                baseDeltaEnabled: checked,
+              }));
             }}
           />
           baseDelta
@@ -39,18 +37,16 @@ const BaseDelta: React.FC<BaseDeltaProps> = ({ button, index }) => {
               <label>{k}:</label>
               <input
                 type="number"
-                value={button.baseDelta[k] || 0} // Fallback-Wert, falls undefined
+                value={button.baseDelta[k] || 0} // Fallback
                 onChange={(e) => {
                   const val = parseInt(e.target.value, 10) || 0;
-                  setButtons((prev) =>
-                    prev.map((b, i) => {
-                      if (i !== index) return b;
-                      return {
-                        ...b,
-                        baseDelta: { ...b.baseDelta, [k]: val },
-                      };
-                    })
-                  );
+                  setButton((prev) => ({
+                    ...prev,
+                    baseDelta: {
+                      ...prev.baseDelta,
+                      [k]: val,
+                    },
+                  }));
                 }}
               />
             </div>

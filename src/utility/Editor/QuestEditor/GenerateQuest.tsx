@@ -1,5 +1,6 @@
 // GenerateQuests.tsx
 import React from "react";
+import "../Style.css";
 import { QuestCreatorProvider } from "../Context/QuestContext";
 import QuestCodeGenerator from "./GenerateQuestCode";
 import QuestBaseForm from "./QuestBaseForm";

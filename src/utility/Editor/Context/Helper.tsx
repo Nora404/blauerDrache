@@ -3,6 +3,7 @@ import { PlacesKeys } from "../../../data/helper/colorfullStrings";
 import { DebuffName, debuffMap } from "../../../data/debuffData";
 import { feelingMap, FeelingName } from "../../../data/feelingData";
 import { ItemCartegoryName, Item, itemMap } from "../../../data/ItemData";
+import { ButtonConfig } from "./EventContext";
 
 export function buildItemCategories(): Record<ItemCartegoryName, Item[]> {
   const categoryMap: Record<string, Item[]> = {};
@@ -89,3 +90,4 @@ export function formatAsJSX(obj: any, indent = 0): string {
   }
   return String(obj);
 }
+

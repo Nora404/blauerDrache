@@ -12,7 +12,7 @@ export default function QuestProgressForm() {
   };
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: "10px", margin: "1rem 0" }}>
+    <div style={{padding: "10px", margin: "1rem 0" }}>
       <h3>Progress / Aufgabe</h3>
       <div className="form-group">
         <label>Type:</label>

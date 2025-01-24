@@ -39,6 +39,18 @@ type QuestCreatorContextType = {
   setEndDescription: React.Dispatch<React.SetStateAction<string>>;
   endButtons: ButtonConfig[];
   setEndButtons: React.Dispatch<React.SetStateAction<ButtonConfig[]>>;
+
+   // Button 1: Trigger-Accept
+   triggerAcceptBtn: ButtonConfig;
+   setTriggerAcceptBtn: React.Dispatch<React.SetStateAction<ButtonConfig>>;
+ 
+   // Button 2: Trigger-Decline
+   triggerDeclineBtn: ButtonConfig;
+   setTriggerDeclineBtn: React.Dispatch<React.SetStateAction<ButtonConfig>>;
+ 
+   // Button 3: End-Button
+   endButton: ButtonConfig;
+   setEndButton: React.Dispatch<React.SetStateAction<ButtonConfig>>;
 };
 
 const defaultProgress: Progress = {
@@ -47,6 +59,25 @@ const defaultProgress: Progress = {
   eventByEnd: "",
   isDone: false,
   task: {},
+};
+
+const defaultButton: ButtonConfig = {
+  label: "",
+  message: "",
+  itemsDeltaEnabled: false,
+  itemsDelta: [],
+  economyDeltaEnabled: false,
+  economyDelta: { gold: 0, edelsteine: 0 },
+  fluxDeltaEnabled: false,
+  fluxDelta: { feeling: "", buff: "", debuff: "", item: "" },
+  stateDeltaEnabled: false,
+  stateDelta: { life: 0, rounds: 0, attack: 0, defense: 0, luck: 0 },
+  baseDeltaEnabled: false,
+  baseDelta: { exp: 0, reputation: 0 },
+  triggerGroup: "",
+  triggerQuest: "",
+  endQuest: "",
+  nextEvents: [],
 };
 
 const defaultContextValue: QuestCreatorContextType = {
@@ -76,6 +107,13 @@ const defaultContextValue: QuestCreatorContextType = {
   setEndDescription: () => {},
   endButtons: [],
   setEndButtons: () => {},
+
+  triggerAcceptBtn: defaultButton,
+  setTriggerAcceptBtn: () => {},
+  triggerDeclineBtn: defaultButton,
+  setTriggerDeclineBtn: () => {},
+  endButton: defaultButton,
+  setEndButton: () => {},
 };
 
 const QuestCreatorContext = createContext<QuestCreatorContextType>(defaultContextValue);
@@ -104,6 +142,25 @@ export const QuestCreatorProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [endDescription, setEndDescription] = useState("");
   const [endButtons, setEndButtons] = useState<ButtonConfig[]>([]);
 
+  const [triggerAcceptBtn, setTriggerAcceptBtn] = useState<ButtonConfig>({
+    ...defaultButton,
+    label: "Annehmen",
+    message: "Du hast zugesagt...",
+  });
+
+  const [triggerDeclineBtn, setTriggerDeclineBtn] = useState<ButtonConfig>({
+    ...defaultButton,
+    label: "Ablehnen",
+    message: "Du hast abgelehnt...",
+  });
+
+  const [endButton, setEndButton] = useState<ButtonConfig>({
+    ...defaultButton,
+    label: "Fertig",
+    message: "Du übergibst die Steine...",
+  });
+
+
   return (
     <QuestCreatorContext.Provider
       value={{
@@ -130,6 +187,12 @@ export const QuestCreatorProvider: React.FC<{ children: ReactNode }> = ({ childr
         setEndDescription,
         endButtons,
         setEndButtons,
+        triggerAcceptBtn,
+        setTriggerAcceptBtn,
+        triggerDeclineBtn,
+        setTriggerDeclineBtn,
+        endButton,
+        setEndButton,
       }}
     >
       {children}

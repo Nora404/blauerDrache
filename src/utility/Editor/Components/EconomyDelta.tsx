@@ -3,11 +3,10 @@ import { ButtonConfig, useEditorContext } from "../Context/EventContext";
 
 type EconomyDeltaProps = {
   button: ButtonConfig;
-  index: number;
+  setButton: React.Dispatch<React.SetStateAction<ButtonConfig>>;
 };
 
-const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
-  const { setButtons } = useEditorContext();
+const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, setButton }) => {
 
   return (
     <div className="max-widht">
@@ -18,11 +17,10 @@ const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
             checked={button.economyDeltaEnabled}
             onChange={(e) => {
               const checked = e.target.checked;
-              setButtons((prev) =>
-                prev.map((b, i) =>
-                  i === index ? { ...b, economyDeltaEnabled: checked } : b
-                )
-              );
+              setButton((prev) =>({
+                ...prev,
+                  economyDeltaEnabled: checked,
+                }));
             }}
           />
           economyDelta
@@ -37,44 +35,26 @@ const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
               value={button.economyDelta.gold}
               onChange={(e) => {
                 const val = parseInt(e.target.value, 10) || 0;
-                setButtons((prev) =>
-                  prev.map((b, i) =>
-                    i === index
-                      ? {
-                          ...b,
-                          economyDelta: {
-                            ...b.economyDelta,
-                            gold: val,
-                          },
-                        }
-                      : b
-                  )
-                );
+                setButton((prev) => ({
+                  ...prev,
+                  economyDelta: { ...prev.economyDelta, gold: val },
+                }));
               }}
             />
           </div>
           <div className="form-group">
             <label>Edelsteine:</label>
             <input
-              type="number"
-              value={button.economyDelta.edelsteine}
-              onChange={(e) => {
-                const val = parseInt(e.target.value, 10) || 0;
-                setButtons((prev) =>
-                  prev.map((b, i) =>
-                    i === index
-                      ? {
-                          ...b,
-                          economyDelta: {
-                            ...b.economyDelta,
-                            edelsteine: val,
-                          },
-                        }
-                      : b
-                  )
-                );
-              }}
-            />
+ type="number"
+ value={button.economyDelta.edelsteine}
+ onChange={(e) => {
+   const val = parseInt(e.target.value, 10) || 0;
+   setButton((prev) => ({
+     ...prev,
+     economyDelta: { ...prev.economyDelta, edelsteine: val },
+   }));
+ }}
+/>
           </div>
         </div>
       )}
