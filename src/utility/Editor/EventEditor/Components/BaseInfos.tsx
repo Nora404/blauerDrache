@@ -1,7 +1,7 @@
 // BaseInfo.tsx
 import React from "react";
 import { useEditorContext } from "../../Context/EventContext";
-import DescriptionEditor from "./DescriptionEditor"; // Der Pfad zu deinem neuen File
+import DescriptionEditor from "./DescriptionEditor";
 
 const BaseInfo: React.FC = () => {
   const {
@@ -14,7 +14,7 @@ const BaseInfo: React.FC = () => {
   } = useEditorContext();
 
   return (
-    <div className="max-widht">
+    <div className="max-widht" style={{ border: "1px dashed gray", padding: "15px", marginBottom: "25px" }}>
       <div className="form-group">
         <label>ID*:</label>
         <input
@@ -35,10 +35,9 @@ const BaseInfo: React.FC = () => {
         />
       </div>
 
-      {/* Hier nutzen wir jetzt unseren Editor für die Beschreibung */}
       <DescriptionEditor
-        value={description}            // der aktuelle Wert
-        onChange={(newVal) => setDescription(newVal)} // State aktualisieren
+        value={description}
+        onChange={(newVal) => setDescription(newVal)}
       />
     </div>
   );

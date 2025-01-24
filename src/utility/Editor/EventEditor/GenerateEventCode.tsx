@@ -269,16 +269,9 @@ export default GenerateEventCode;
 // schön formatiert auszugeben (ähnlich wie JSON)
 // -----------------------------------------------------
 function formatConditions(conditions: Conditions, indent = 2): string {
-  // 1) JSON stringify mit Einrückung
+
   let str = JSON.stringify(conditions, null, indent);
-
-  // 2) Anführungszeichen um Schlüssel entfernen
-  //    Das wandelt "gameTime": ... -> gameTime: ...
   str = str.replace(/"([^"]+)":/g, "$1:");
-
-  // 3) Falls du z.B. operator: "<" als string willst, musst du
-  //    Anführungszeichen für Values belassen
-  //    (Das meiste davon kann man so stehen lassen).
 
   return str;
 }

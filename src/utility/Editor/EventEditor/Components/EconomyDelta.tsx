@@ -25,7 +25,7 @@ const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
               );
             }}
           />
-          economyDelta
+          Währungen hinzufügen oder abnehmen
         </label>
       </div>
       {button.economyDeltaEnabled && (

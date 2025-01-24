@@ -25,7 +25,7 @@ const StateDelta: React.FC<StateDeltaProps> = ({ button, index }) => {
               );
             }}
           />
-          stateDelta
+          Spielerwerte verändern
         </label>
       </div>
       {button.stateDeltaEnabled && (

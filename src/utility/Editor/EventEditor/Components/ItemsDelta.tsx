@@ -31,7 +31,7 @@ const ItemsDelta: React.FC<ItemsDeltaProps> = ({ button, index }) => {
               );
             }}
           />
-          itemsDelta
+          Items hinzufügen oder abnehmen
         </label>
       </div>
       {button.itemsDeltaEnabled && (
@@ -132,7 +132,7 @@ const ItemsDelta: React.FC<ItemsDeltaProps> = ({ button, index }) => {
             onClick={() => addItemsDeltaEntry(index)}
             className="add-button"
           >
-            Item hinzufügen
+            Neuer Eintrag
           </button>
         </div>
       )}

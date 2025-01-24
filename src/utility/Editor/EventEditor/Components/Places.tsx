@@ -10,8 +10,7 @@ const Places: React.FC<Places> = () => {
   const { places, setPlaces, addPlace, removePlace } = useEditorContext();
 
   return (
-    <div className="max-widht">
-      <h2>Orte</h2>
+    <div className="max-widht" style={{ border: "1px dashed gray", padding: "15px", marginBottom: "25px" }}>
       {places.map((pl, pIndex) => (
         <div key={pIndex} className="flex-row">
           <select

@@ -25,7 +25,7 @@ const BaseDelta: React.FC<BaseDeltaProps> = ({ button, index }) => {
               );
             }}
           />
-          baseDelta
+          Spielererfahrung verändern
         </label>
       </div>
       {button.baseDeltaEnabled && (

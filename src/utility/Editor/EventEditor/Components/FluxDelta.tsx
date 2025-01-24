@@ -33,7 +33,7 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
               );
             }}
           />
-          fluxDelta
+          Zeitlich begrenste Veränderung des Status
         </label>
       </div>
       {button.fluxDeltaEnabled && (

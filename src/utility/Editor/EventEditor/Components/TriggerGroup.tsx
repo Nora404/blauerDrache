@@ -3,6 +3,7 @@ import { ButtonConfig, useEditorContext } from "../../Context/EventContext";
 import { GameQuest } from "../../../../data/questData";
 import { randomEvents } from "../../../../data/eventList";
 import { gameQuests, gameQuestEvents } from "../../../../data/questList";
+import HeaderSmall from "../../../../layout/Header/HeaderSmall";
 
 type TriggerGroupProps = {
   button: ButtonConfig;
@@ -14,10 +15,10 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
 
   return (
     <div className="max-widht">
-      <h3>Trigger Group</h3>
+      <HeaderSmall>Was löst dieses Event aus?</HeaderSmall>
       <div
         className="form-group"
-        style={{ marginTop: "10px", marginBottom: "30px" }}
+        style={{ marginTop: "10px", marginBottom: "10px" }}
       >
         <div>
           <label>
@@ -34,7 +35,7 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
                 );
               }}
             />
-            triggerQuest
+            Startet Quest
           </label>
           <label style={{ marginLeft: 10 }}>
             <input
@@ -50,7 +51,7 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
                 );
               }}
             />
-            endQuest
+            Beendet Quest
           </label>
           <label style={{ marginLeft: 10 }}>
             <input
@@ -66,7 +67,7 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
                 );
               }}
             />
-            nextEvents
+            Nächstes Event
           </label>
           <label style={{ marginLeft: 10 }}>
             <input
@@ -82,14 +83,14 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
                 );
               }}
             />
-            Keine Auswahl
+            Nichts
           </label>
         </div>
       </div>
       {/* triggerQuest Section */}
       {button.triggerGroup === "triggerQuest" && (
         <div className="nested-section">
-          <label className="label">triggerQuest:</label>
+          <label className="label">Startet Quest:</label>
           <div className="flex-row">
             <select
               className="w-full"
@@ -129,7 +130,7 @@ const TriggerGroup: React.FC<TriggerGroupProps> = ({ button, index }) => {
       )}
       {button.triggerGroup === "endQuest" && (
         <div className="nested-section">
-          <label className="label">endQuest:</label>
+          <label className="label">Beendet Quest:</label>
           <div className="flex-row">
             <select
               className="w-full"
