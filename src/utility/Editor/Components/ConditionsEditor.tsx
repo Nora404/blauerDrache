@@ -186,8 +186,6 @@ const GameTimeConditionEditor: React.FC<ConditionSubEditorProps> = ({
  * GameStateConditionEditor
  * - weather (string)
  * - temperature (string)
- * - creating (boolean)
- * - mobilePop (boolean)
  * - currentPath (string)
  *   (currentEventQueue, switch => optional / advanced)
  * ======================================================================== */
@@ -220,42 +218,6 @@ const GameStateConditionEditor: React.FC<ConditionSubEditorProps> = ({
                 onChange={(e) => handleChange("temperature", e.target.value)}
                 style={{ marginRight: "1rem" }}
             />
-
-            <div style={{ marginTop: "0.5rem" }}>
-                <label style={{ marginRight: "1rem" }}>
-                    <input
-                        type="checkbox"
-                        checked={Boolean(gameState.creating)}
-                        onChange={(e) => handleChange("creating", e.target.checked)}
-                    />
-                    creating?
-                </label>
-
-                <label style={{ marginRight: "1rem" }}>
-                    <input
-                        type="checkbox"
-                        checked={Boolean(gameState.mobilePop)}
-                        onChange={(e) => handleChange("mobilePop", e.target.checked)}
-                    />
-                    mobilePop?
-                </label>
-            </div>
-
-            <div style={{ marginTop: "0.5rem" }}>
-                <label>currentPath: </label>
-                <input
-                    type="text"
-                    value={gameState.currentPath || ""}
-                    onChange={(e) => handleChange("currentPath", e.target.value)}
-                />
-            </div>
-
-            {/* Falls du "switch: Record<string, boolean>" abbilden willst, 
-          kannst du dir hier was basteln: 
-          - Key + Checkbox
-          - Dynamisch hinzufügbar
-          etc.
-      */}
         </div>
     );
 };
@@ -500,31 +462,11 @@ const PlayerMetaConditionEditor: React.FC<ConditionSubEditorProps> = ({
         });
     };
 
-    // Farben-Array (string[]) kann man z.B. als CSV abbilden
-    const colorsValue = (playerMeta.colors || []).join(", ");
-    const handleColorsChange = (val: string) => {
-        // Erwarte comma-separated
-        const arr = val.split(",").map((c) => c.trim()).filter(Boolean);
-        updateConditions({
-            playerMeta: {
-                ...playerMeta,
-                colors: arr,
-            },
-        });
-    };
 
     return (
         <div className="condition-block" style={{ marginTop: "0.5rem" }}>
             <h5>PlayerMeta</h5>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-                <div>
-                    <label>Name: </label>
-                    <input
-                        type="text"
-                        value={playerMeta.name || ""}
-                        onChange={(e) => handleMetaChange("name", e.target.value)}
-                    />
-                </div>
                 <div>
                     <label>Race: </label>
                     <input
@@ -555,24 +497,6 @@ const PlayerMetaConditionEditor: React.FC<ConditionSubEditorProps> = ({
                         type="text"
                         value={playerMeta.titel || ""}
                         onChange={(e) => handleMetaChange("titel", e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>colortype: </label>
-                    <input
-                        type="text"
-                        value={playerMeta.colortype || ""}
-                        onChange={(e) => handleMetaChange("colortype", e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>colors (CSV): </label>
-                    <input
-                        type="text"
-                        value={colorsValue}
-                        onChange={(e) => handleColorsChange(e.target.value)}
-                        placeholder="z.B. Rot, Blau, Gelb"
-                        style={{ width: "200px" }}
                     />
                 </div>
             </div>
