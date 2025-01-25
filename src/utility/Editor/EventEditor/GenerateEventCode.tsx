@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useEditorContext } from "../Context/EventContext";
+// Passe Pfade an dein Projekt an
 import { NextEventOption, Conditions } from "../../../data/eventData";
+import { mapConditionsConfigToConditions } from "../../Helper/ConditionsMapper";
+
+
 
 const GenerateEventCode: React.FC = () => {
   const [generatedCode, setGeneratedCode] = useState("");
@@ -12,25 +16,29 @@ const GenerateEventCode: React.FC = () => {
   // (Escaping, Ersetzen von Backticks etc.)
   // --------------------------------------------
   function escapeForTS(str: string) {
-    // Wenn du Backticks erlauben willst, brauchst du hier mehr Logik
-    // Fürs Erste ersetze ich nur Backslashes und Backticks naiv:
-    return str
-      .replace(/\\/g, "\\\\")
-      .replace(/`/g, "\\`");
+    return str.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
   }
 
   // --------------------------------------------
-  // Das ist deine Hauptroutine zum Generieren
+  // formatConditions: final "Conditions" -> str
+  // (leichte JSON-Aufbereitung)
+  // --------------------------------------------
+  function formatConditions(conditions: Conditions, indent = 2): string {
+    let str = JSON.stringify(conditions, null, indent);
+    // Keys ohne Anführungszeichen
+    str = str.replace(/"([^"]+)":/g, "$1:");
+    return str;
+  }
+
+  // --------------------------------------------
+  // Hauptroutine zum Generieren
   // --------------------------------------------
   const generateCode = () => {
-    // Hier sammeln wir separat Messages und Description
     const messages: string[] = [];
     let descriptionFn = "";
 
-    const hasDescription = description.trim() !== "";
-
-    // descriptionText-Funktion bauen (falls vorhanden)
-    if (hasDescription) {
+    // Falls "description" vorhanden:
+    if (description.trim()) {
       const escapedDesc = escapeForTS(description);
       descriptionFn = `
 function descriptionText() {
@@ -42,7 +50,7 @@ function descriptionText() {
     }
 
     // --------------------------------------------
-    // Buttons verarbeiten
+    // Buttons
     // --------------------------------------------
     const buttonEntries = buttons.map((b, buttonIndex) => {
       const lines: string[] = [];
@@ -50,10 +58,16 @@ function descriptionText() {
       // 1) label
       lines.push(`label: "${escapeForTS(b.label)}"`);
 
-      // 2) conditions (falls enabled)
+      // 2) conditions
+      // wenn "conditionsEnabled" aktiv und b.conditions existiert
       if (b.conditionsEnabled && b.conditions) {
-        const condStr = formatConditions(b.conditions, 4);
-        lines.push(`conditions: ${condStr}`);
+        // Mappen auf finales "Conditions"
+        const finalCond = mapConditionsConfigToConditions(b.conditions);
+        // Nur wenn das Objekt nicht leer ist
+        if (Object.keys(finalCond).length > 0) {
+          const condStr = formatConditions(finalCond, 4);
+          lines.push(`conditions: ${condStr}`);
+        }
       }
 
       // 3) getAction
@@ -101,7 +115,6 @@ function descriptionText() {
           if (st[k] === 0) delete st[k];
         });
         if (Object.keys(st).length > 0) {
-          // Du kannst das "stateDelta" in "statsDelta" umbenennen, falls du willst
           actionParts.push(`stateDelta: ${JSON.stringify(st)}`);
         }
       }
@@ -136,20 +149,18 @@ function descriptionText() {
 
       // message
       if (b.message.trim() !== "") {
-        // Wir legen eine neue Konstante in "messages" an
         const escapedMsg = escapeForTS(b.message);
         const msgVarName = `message${buttonIndex}`;
         messages.push(`const ${msgVarName} = (\n    \`${escapedMsg}\`\n);`);
         actionParts.push(`message: ${msgVarName}`);
       }
 
-      // Falls wir Aktionsteile haben, packen wir sie in getAction
+      // Falls wir Aktionsteile haben -> getAction
       if (actionParts.length > 0) {
         const actionString = actionParts.join(",\n                ");
         lines.push(`getAction: () => ({\n                ${actionString}\n            })`);
       }
 
-      // Schöne Ausgabe
       return `{\n            ${lines.join(",\n            ")}\n        }`;
     });
 
@@ -165,17 +176,15 @@ function descriptionText() {
           probability: Number(p.probability) || 100,
         }));
       if (cleanedPlaces.length > 0) {
-        //  - JSON.stringify mit 4er-Einrückung
-        //  - remove quotes from keys (kleiner Hack)
         placesString = JSON.stringify(cleanedPlaces, null, 4)
           .replace(/"([^"]+)":/g, "$1:")
-          .replace(/"/g, `"`) // Anführungszeichen um Strings bleiben
+          .replace(/"/g, `"`)
           .trim();
       }
     }
 
     // --------------------------------------------
-    // Jetzt bauen wir den finalen Code-String
+    // Finalen Code-String aufbauen
     // --------------------------------------------
     let code = `import { GameEvent } from "../eventData";
 
@@ -184,13 +193,11 @@ export const event${eventId || "NewEvent"}: GameEvent = {
     id: "event${escapeForTS(eventId)}",
     label: "${escapeForTS(label)}",`;
 
-    // Nur wenn description da ist
-    if (hasDescription) {
+    if (description.trim()) {
       code += `
     description: descriptionText(),`;
     }
 
-    // Buttons
     if (buttonEntries.length > 0) {
       code += `
     buttons: [
@@ -198,26 +205,22 @@ export const event${eventId || "NewEvent"}: GameEvent = {
     ],`;
     }
 
-    // Places
     if (placesString) {
       code += `
     places: ${placesString},`;
     }
 
-    // Klammer zu + Region Ende
     code += `
 };
 //#endregion
 `;
 
-    // Description-Funktion dahinter
-    if (hasDescription) {
+    if (description.trim()) {
       code += `
 ${descriptionFn}
 `;
     }
 
-    // Messages
     if (messages.length > 0) {
       code += messages.join("\n\n");
       code += "\n";
@@ -226,9 +229,7 @@ ${descriptionFn}
     setGeneratedCode(code);
   };
 
-  // --------------------------------------------
   // Copy-Funktion
-  // --------------------------------------------
   const copyToClipboard = () => {
     if (generatedCode) {
       navigator.clipboard.writeText(generatedCode).then(
@@ -262,16 +263,3 @@ ${descriptionFn}
 };
 
 export default GenerateEventCode;
-
-
-// -----------------------------------------------------
-// Hilfsfunktion, um das Conditions-Objekt
-// schön formatiert auszugeben (ähnlich wie JSON)
-// -----------------------------------------------------
-function formatConditions(conditions: Conditions, indent = 2): string {
-
-  let str = JSON.stringify(conditions, null, indent);
-  str = str.replace(/"([^"]+)":/g, "$1:");
-
-  return str;
-}

@@ -37,7 +37,7 @@ export type GameEvent = {
     getAction: () => GameAction;
     conditions?: Conditions;
   }[];
-  places?: {
+  places: {
     place: PlacesKeys;
     probability: number; // 1-100 wobei 100 = immer möglich
   }[];
@@ -59,6 +59,7 @@ export type Conditions = {
   playerBase?: Partial<PlayerBase>;
   playerFlux?: Partial<PlayerFlux>;
   playerMeta?: Partial<PlayerMeta>;
+  playerEconomy?: Partial<PlayerEconomy>;
   haveBuffs?: boolean;
   haveDebuffs?: boolean;
 };

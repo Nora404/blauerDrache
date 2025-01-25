@@ -1,8 +1,36 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { PlacesKeys } from "../../../data/helper/colorfullStrings";
-import { ItemCartegoryName } from "../../../data/ItemData";
+import { ItemCartegoryName, ItemName } from "../../../data/ItemData";
 import { getAllPlaces } from "./Helper";
-import { Conditions } from "../../../data/eventData";
+import { RaceName } from "../../../data/raceData";
+import { OriginName } from "../../../data/originData";
+import { CallingName } from "../../../data/callingData";
+import { FeelingName } from "../../../data/feelingData";
+import { ArmorName } from "../../../data/armorData";
+import { WeaponName } from "../../../data/weaponData";
+
+export const DEFAULT_CONDITIONS: ConditionsConfig = {
+  operator: "=",
+  gameTimeEnabled: false,
+  gameStateEnabled: false,
+  playerStatsEnabled: false,
+  playerBaseEnabled: false,
+  playerFluxEnabled: false,
+  playerMetaEnabled: false,
+  playerEconomyEnabled: false,
+  playerItemsEnabled: false,
+
+  // Die Teil-Objekte leer anlegen:
+  gameTime: {},
+  gameState: {},
+  playerStats: {},
+  playerBase: {},
+  playerFlux: {},
+  playerMeta: {},
+  playerEconomy: {},
+  // Wichtig: playerItems muss initial ein leeres Array sein:
+  playerItems: [],
+};
 
 // Typen für den Kontext definieren
 export type PlaceAndProb = {
@@ -12,17 +40,22 @@ export type PlaceAndProb = {
 
 export interface ButtonConfig {
   label: string;
+  message: string;
+
   itemsDeltaEnabled: boolean;
+  economyDeltaEnabled: boolean;
+  fluxDeltaEnabled: boolean;
+  stateDeltaEnabled: boolean;
+  baseDeltaEnabled: boolean;
+  conditionsEnabled?: boolean;
+
   itemsDelta: {
     category: ItemCartegoryName;
     itemName: string;
     quantity: number;
   }[];
-  economyDeltaEnabled: boolean;
   economyDelta: { gold: number; edelsteine: number };
-  fluxDeltaEnabled: boolean;
   fluxDelta: { feeling: string; buff: string; debuff: string; item: string };
-  stateDeltaEnabled: boolean;
   stateDelta: {
     life: number;
     rounds: number;
@@ -30,15 +63,76 @@ export interface ButtonConfig {
     defense: number;
     luck: number;
   };
-  baseDeltaEnabled: boolean;
   baseDelta: { exp: number; reputation: number };
   triggerGroup: string;
   triggerQuest: string;
   endQuest: string;
   nextEvents: { eventId: string; probability: number }[];
-  message: string;
-  conditions?: Conditions;
-  conditionsEnabled?: boolean;
+  conditions?: ConditionsConfig;
+}
+
+export interface ConditionsConfig {
+  operator?: "<" | ">" | "=";
+
+  gameTimeEnabled?: boolean;
+  gameStateEnabled?: boolean;
+  playerStatsEnabled?: boolean;
+  playerBaseEnabled?: boolean;
+  playerFluxEnabled?: boolean;
+  playerMetaEnabled?: boolean;
+  playerEconomyEnabled?: boolean;
+  playerItemsEnabled?: boolean;
+
+  gameTime?: {
+    gameTime?: string;    // z.B. "12:00"
+    gameDay?: "Tag" | "Nacht";
+  };
+
+  gameState?: {
+    weather?: string;
+    temperature?: string;
+  };
+
+  playerStats?: {
+    life?: number;
+    rounds?: number;
+    attack?: number;
+    defense?: number;
+    luck?: number;
+  };
+
+  playerBase?: {
+    level?: number;
+    exp?: number;
+    standing?: number;
+  };
+
+  playerFlux?: {
+    feeling?: FeelingName;
+    weapon?: WeaponName;
+    armor?: ArmorName;
+    item?: ItemName;
+    haveBuff?: Record<string, number>;
+    haveDebuff?: Record<string, number>;
+  };
+
+  playerMeta?: {
+    race?: RaceName;
+    origin?: OriginName;
+    calling?: CallingName;
+    titel?: string;
+  };
+
+  playerEconomy?: {
+    gold?: number;
+    edelsteine?: number;
+  };
+
+  playerItems: {
+    category: ItemCartegoryName;
+    itemName: ItemName;
+    quantity: number;
+  }[];
 }
 
 interface ContextType {
@@ -143,6 +237,8 @@ export const EditorContextProvider: React.FC<{ children: ReactNode }> = ({
         endQuest: "",
         nextEvents: [],
         message: "",
+        conditionsEnabled: false,
+        conditions: { ...DEFAULT_CONDITIONS },
       },
     ]);
   };
