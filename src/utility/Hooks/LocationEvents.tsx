@@ -18,6 +18,7 @@ export function useLocationEvents(
     playerFlux,
     playerMeta,
     playerQuest,
+    playerEconomy,
   } = useRootStore();
 
   const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
@@ -51,7 +52,8 @@ export function useLocationEvents(
       playerBase.data,
       playerFlux.data,
       playerMeta.data,
-      playerQuest.data
+      playerQuest.data,
+      playerEconomy.data,
     );
     if (!filtered.length) return;
 

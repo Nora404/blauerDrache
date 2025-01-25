@@ -11,6 +11,7 @@ import {
   GameState,
   GameTime,
   PlayerBase,
+  PlayerEconomy,
   PlayerFlux,
   PlayerMeta,
   PlayerQuest,
@@ -97,6 +98,7 @@ export function checkAllConditions(
   playerBaseData: PlayerBase,
   playerFluxData: PlayerFlux,
   playerMetaData: PlayerMeta,
+  playerEconomyData: PlayerEconomy,
 ): boolean {
   // Falls gar keine conditions gesetzt sind, ist alles ok:
   if (!conditions) return true;
@@ -143,6 +145,13 @@ export function checkAllConditions(
     }
   }
 
+  // 7) playerEconomy check
+  if (conditions.playerEconomy) {
+    if (!checkPlayerEconomy(conditions, playerEconomyData)) {
+      return false;
+    }
+  }
+
   return true;
 }
 
@@ -154,7 +163,8 @@ export function filterEventsByConditions(
   playerBaseData: PlayerBase,
   playerFluxData: PlayerFlux,
   playerMetaData: PlayerMeta,
-  playerQuestData: PlayerQuest
+  playerQuestData: PlayerQuest,
+  playerEconomyData: PlayerEconomy,
 ): WeightedEvent[] {
   return events.filter((evt) => {
     // Falls das Event gar keine conditions hat, ist es direkt ok
@@ -168,6 +178,7 @@ export function filterEventsByConditions(
       playerBaseData,
       playerFluxData,
       playerMetaData,
+      playerEconomyData,
     );
     if (!pass) return false;
 
@@ -556,6 +567,54 @@ function checkPlayerMeta(
   }
 
   // Alle Bedingungen erfüllt
+  return true;
+}
+//#endregion
+
+//#region [checkEconomy]
+function checkPlayerEconomy(
+  conditionObj: Partial<Conditions>,
+  playerEconomyData: Partial<PlayerEconomy>
+): boolean {
+  const conditions = conditionObj.playerEconomy;
+  if (!conditions) return true;
+
+  // 1) Hilfsfunktion zum Vergleich
+  function compareWithOperator(
+    actualValue: number,
+    neededValue: number,
+    operator: "<" | ">" | "="
+  ): boolean {
+    switch (operator) {
+      case "<": return actualValue < neededValue;
+      case ">": return actualValue > neededValue;
+      case "=":
+      default: return actualValue === neededValue;
+    }
+  }
+
+  // 2) Operator ermitteln (Standard "=")
+  const operator = conditionObj.operator || "=";
+
+  // 3) Gold check
+  if (conditions.gold !== undefined) {
+    const neededGold = conditions.gold;
+    const actualGold = playerEconomyData.gold ?? 0;
+    if (!compareWithOperator(actualGold, neededGold, operator)) {
+      return false;
+    }
+  }
+
+  // 4) Edelsteine check
+  if (conditions.edelsteine !== undefined) {
+    const neededGems = conditions.edelsteine;
+    const actualGems = playerEconomyData.edelsteine ?? 0;
+    if (!compareWithOperator(actualGems, neededGems, operator)) {
+      return false;
+    }
+  }
+
+  // Falls alles OK:
   return true;
 }
 //#endregion
