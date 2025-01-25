@@ -208,6 +208,8 @@ export const event${eventId || "NewEvent"}: GameEvent = {
     if (placesString) {
       code += `
     places: ${placesString},`;
+    } else {
+      code += `\nplaces: []`
     }
 
     code += `
