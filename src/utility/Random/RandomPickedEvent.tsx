@@ -1,30 +1,30 @@
 
 type WeightedEvent = {
-    eventId: string;
-    probability: number;
+  eventId: string;
+  probability: number;
 };
 
 
 export function pickRandomEvent(
-    eventPool: WeightedEvent[],
-    chanceOfAnyEvent = 1 // default: 100%
+  eventPool: WeightedEvent[],
+  chanceOfAnyEvent = 0.5 // default: 50%
 ): string | null {
 
-    if (Math.random() > chanceOfAnyEvent) {
-        return null;
-    }
+  if (Math.random() > chanceOfAnyEvent) {
+    return null;
+  }
 
-    const totalWeight = eventPool.reduce((sum, e) => sum + e.probability, 0);
-    let r = Math.random() * totalWeight;
-    for (const e of eventPool) {
-        if (r < e.probability) {
-            return e.eventId;
-        }
-        r -= e.probability;
+  const totalWeight = eventPool.reduce((sum, e) => sum + e.probability, 0);
+  let r = Math.random() * totalWeight;
+  for (const e of eventPool) {
+    if (r < e.probability) {
+      return e.eventId;
     }
+    r -= e.probability;
+  }
 
-    // Fallback (wenn irgendwas schiefging)
-    return eventPool[eventPool.length - 1].eventId;
+  // Fallback (wenn irgendwas schiefging)
+  return eventPool[eventPool.length - 1].eventId;
 }
 
 

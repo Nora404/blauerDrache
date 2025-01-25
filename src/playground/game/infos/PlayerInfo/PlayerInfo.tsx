@@ -126,6 +126,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
   const handleAddRep = () => playerBase.updateReputation(50);
   const handleSubRep = () => playerBase.updateReputation(-50);
 
+  const handleAddGold = () => playerEconomy.updatePlayerEconomy({ gold: 50 });
+
   // Beispiel für Callback mit standing
   const reputationMessage = useCallback(() => {
     let message: string;
@@ -308,9 +310,6 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
               <button className="btn-border" onClick={handleWeapon}>
                 Nimm eine Waffe
               </button>
-              <button className="btn-border" onClick={handleWeapon2}>
-                Nimm eine andere Waffe
-              </button>
               <button className="btn-border" onClick={handleBuff1}>
                 Bekomme Buff Eisenhaut
               </button>
@@ -334,6 +333,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
               </button>
               <button className="btn-border" onClick={handleRemovePilz}>
                 wirf einen Pilz weg
+              </button>
+              <button className="btn-border" onClick={handleAddGold}>
+                Nimm 50 Gold
               </button>
             </td>
           </tr>
