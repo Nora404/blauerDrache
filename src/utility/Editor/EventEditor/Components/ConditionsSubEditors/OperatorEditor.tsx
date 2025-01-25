@@ -15,14 +15,15 @@ const OperatorEditor: React.FC<SubEditorProps> = ({ conditions, updateConditions
 
     return (
         <div style={{ marginBottom: "0.75rem" }}>
+            <p>Die folgenden Werte werden mit den tatsächlichen Werten des Spielers verglichen</p>
             <label>Operator (Vergleich): </label>
             <select
                 value={conditions.operator || "="}
                 onChange={(e) => handleOperatorChange(e.target.value as "<" | "=" | ">")}
             >
-                <option value="<">{"<"}</option>
-                <option value="=">{"="}</option>
-                <option value=">">{">"}</option>
+                <option value="<">{"Kleiner als"}</option>
+                <option value="=">{"Genau gleich"}</option>
+                <option value=">">{"Größer als"}</option>
             </select>
         </div>
     );

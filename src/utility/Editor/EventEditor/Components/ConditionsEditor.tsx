@@ -15,6 +15,7 @@ import PlayerFluxConditionEditor from "./ConditionsSubEditors/PlayerFluxConditio
 import PlayerMetaConditionEditor from "./ConditionsSubEditors/PlayerMetaConditionEditor";
 import PlayerEconomyConditionEditor from "./ConditionsSubEditors/PlayerEconomyConditionEditor";
 import PlayerItemsConditionEditor from "./ConditionsSubEditors/PlayerItemsConditionEditor";
+import HeaderSmall from "../../../../layout/Header/HeaderSmall";
 
 
 interface ConditionsEditorProps {
@@ -55,8 +56,8 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
     };
 
     return (
-        <div style={{ border: "1px dashed gray", padding: "1rem", marginTop: "1rem" }}>
-            <h3>Conditions</h3>
+        <div style={{ border: "1px dashed gray", padding: "10px", margin: "25px" }}>
+            <HeaderSmall>Bedingung damit der Button erscheint</HeaderSmall>
 
             {/* Operator (z.B. "<", "=", ">") */}
             <OperatorEditor conditions={conditions} updateConditions={updateConditions} /><br />
@@ -67,14 +68,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.gameTimeEnabled || false}
                     onChange={() => toggleFlag("gameTimeEnabled")}
+                    className="mb-3"
                 />
-                GameTime-Bedingungen
+                Zeitliche Bedingungen
             </label>
             {conditions.gameTimeEnabled && (
                 <>
-                    <GameTimeConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <GameTimeConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + GameState */}
             <label>
@@ -82,14 +84,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.gameStateEnabled || false}
                     onChange={() => toggleFlag("gameStateEnabled")}
+                    className="mb-3"
                 />
-                GameState-Bedingungen
+                Wetter Bedingungen
             </label>
             {conditions.gameStateEnabled && (
                 <>
-                    <GameStateConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <GameStateConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + PlayerStats */}
             <label>
@@ -97,14 +100,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.playerStatsEnabled || false}
                     onChange={() => toggleFlag("playerStatsEnabled")}
+                    className="mb-3"
                 />
-                PlayerStats-Bedingungen
+                Spielerwerte Bedingungen
             </label>
             {conditions.playerStatsEnabled && (
                 <>
-                    <PlayerStatsConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <PlayerStatsConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + PlayerBase */}
             <label>
@@ -112,14 +116,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.playerBaseEnabled || false}
                     onChange={() => toggleFlag("playerBaseEnabled")}
+                    className="mb-3"
                 />
-                PlayerBase-Bedingungen
+                Spieler Erfahrungs Bedingungen
             </label>
             {conditions.playerBaseEnabled && (
                 <>
-                    <PlayerBaseConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <PlayerBaseConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + PlayerFlux */}
             <label>
@@ -127,14 +132,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.playerFluxEnabled || false}
                     onChange={() => toggleFlag("playerFluxEnabled")}
+                    className="mb-3"
                 />
-                PlayerFlux-Bedingungen
+                Spieler Ausrüstungs Bedingungen
             </label>
             {conditions.playerFluxEnabled && (
                 <>
-                    <PlayerFluxConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <PlayerFluxConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + PlayerMeta */}
             <label>
@@ -142,14 +148,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.playerMetaEnabled || false}
                     onChange={() => toggleFlag("playerMetaEnabled")}
+                    className="mb-3"
                 />
-                PlayerMeta-Bedingungen
+                Spieler Hintergrunds Bedingungen
             </label>
             {conditions.playerMetaEnabled && (
                 <>
-                    <PlayerMetaConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <PlayerMetaConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + PlayerEconomy */}
             <label>
@@ -157,14 +164,15 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.playerEconomyEnabled || false}
                     onChange={() => toggleFlag("playerEconomyEnabled")}
+                    className="mb-3"
                 />
-                PlayerEconomy-Bedingungen
+                Währungen Bedingungen
             </label>
             {conditions.playerEconomyEnabled && (
                 <>
-                    <PlayerEconomyConditionEditor conditions={conditions} updateConditions={updateConditions} /><br />
+                    <PlayerEconomyConditionEditor conditions={conditions} updateConditions={updateConditions} />
                 </>
-            )}
+            )}<br />
 
             {/* Toggle + PlayerItems */}
             <label>
@@ -172,8 +180,9 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     type="checkbox"
                     checked={conditions.playerItemsEnabled || false}
                     onChange={() => toggleFlag("playerItemsEnabled")}
+                    className="mb-3"
                 />
-                PlayerItems-Bedingungen
+                Spieler Gegenstands Bedingungen
             </label>
             {conditions.playerItemsEnabled && (
                 <PlayerItemsConditionEditor conditions={conditions} updateConditions={updateConditions} />
