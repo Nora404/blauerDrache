@@ -3,6 +3,8 @@ import { useEditorContext } from "../Context/EventContext";
 // Passe Pfade an dein Projekt an
 import { NextEventOption, Conditions } from "../../../data/eventData";
 import { mapConditionsConfigToConditions } from "../../Helper/ConditionsMapper";
+import { buffMap } from "../../../data/buffData";
+import { debuffMap } from "../../../data/debuffData";
 
 
 
@@ -99,12 +101,34 @@ function descriptionText() {
 
       // fluxDelta
       if (b.fluxDeltaEnabled) {
-        const flux = { ...b.fluxDelta };
-        (Object.keys(flux) as Array<keyof typeof flux>).forEach((k) => {
-          if (!flux[k]) delete flux[k];
-        });
-        if (Object.keys(flux).length > 0) {
-          actionParts.push(`fluxDelta: ${JSON.stringify(flux)}`);
+        const fluxResult: Record<string, any> = {};
+
+        // 1) feeling, item, etc. falls du brauchst
+        if (b.fluxDelta.feeling) fluxResult.feeling = b.fluxDelta.feeling;
+        if (b.fluxDelta.item) fluxResult.item = b.fluxDelta.item;
+        // ...
+
+        // 2) buff => record { buffName: duration }
+        if (b.fluxDelta.buff) {
+          const buffName = b.fluxDelta.buff;    // z.B. "Gütig"
+          const buffObj = buffMap[buffName];    // => { name: "Gütig", duration: 4, ... }
+          if (buffObj) {
+            fluxResult.buff = { [buffName]: buffObj.duration };
+          }
+        }
+
+        // 3) debuff => record { debuffName: duration }
+        if (b.fluxDelta.debuff) {
+          const debuffName = b.fluxDelta.debuff;
+          const debuffObj = debuffMap[debuffName];
+          if (debuffObj) {
+            fluxResult.debuff = { [debuffName]: debuffObj.duration };
+          }
+        }
+
+        // 4) Falls nix übrig => skip
+        if (Object.keys(fluxResult).length > 0) {
+          actionParts.push(`fluxDelta: ${JSON.stringify(fluxResult)}`);
         }
       }
 

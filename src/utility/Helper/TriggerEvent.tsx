@@ -100,6 +100,9 @@ export function checkAllConditions(
   playerMetaData: PlayerMeta,
   playerEconomyData: PlayerEconomy,
 ): boolean {
+
+  console.log("CheckAllFN: ", playerEconomyData);
+
   // Falls gar keine conditions gesetzt sind, ist alles ok:
   if (!conditions) return true;
 
@@ -167,8 +170,10 @@ export function filterEventsByConditions(
   playerEconomyData: PlayerEconomy,
 ): WeightedEvent[] {
   return events.filter((evt) => {
+    console.log("FilterFN: ", playerEconomyData);
     // Falls das Event gar keine conditions hat, ist es direkt ok
     if (!evt.conditions) return true;
+
 
     const pass = checkAllConditions(
       evt.conditions,
@@ -576,6 +581,7 @@ function checkPlayerEconomy(
   conditionObj: Partial<Conditions>,
   playerEconomyData: Partial<PlayerEconomy>
 ): boolean {
+  console.log("CheckEconomyFN: ", playerEconomyData);
   const conditions = conditionObj.playerEconomy;
   if (!conditions) return true;
 

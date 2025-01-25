@@ -44,6 +44,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
     playerBase,
     playerFlux,
     playerMeta,
+    playerEconomy,
     // playerQuest, falls du die Quest-Daten brauchst
   } = useRootStore();
   //#endregion
@@ -107,7 +108,8 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
             playerStats.data,
             playerBase.data,
             playerFlux.data,
-            playerMeta.data
+            playerMeta.data,
+            playerEconomy.data,
           );
         });
 

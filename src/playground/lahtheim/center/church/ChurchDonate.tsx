@@ -11,7 +11,9 @@ type ChurchDonateProps = {};
 
 const ChurchDonate: React.FC<ChurchDonateProps> = observer(() => {
 
-    const possibleEvents: WeightedEvent[] = [];
+    const possibleEvents: WeightedEvent[] = [
+        { eventId: "event018Donate", probability: 100 }
+    ];
 
     const description =
         <>

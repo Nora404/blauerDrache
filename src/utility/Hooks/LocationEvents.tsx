@@ -44,6 +44,8 @@ export function useLocationEvents(
       return;
     }
 
+    console.log("Location Econ: ", playerEconomy.data);
+    console.log("Location Flux: ", playerFlux.data);
     const filtered = filterEventsByConditions(
       possibleEvents,
       gameTime.data,
@@ -80,6 +82,7 @@ export function useLocationEvents(
     playerFlux.data,
     playerMeta.data,
     playerQuest.data,
+    playerEconomy.data,
   ]);
 
   const handleBack = () => {

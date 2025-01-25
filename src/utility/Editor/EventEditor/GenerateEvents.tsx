@@ -11,7 +11,7 @@ export default function EventCreationForm() {
     <div className="form-container text-left max-width">
       <h2>Event-Erstellungsformular</h2>
       <p className='mb-1 text-left'>
-        Events kommen im Spiel überall vor, sie können gezielt getriggert werden, oder per Zufall an bestimmten Orten. Sie bestehen immer aus einer Überschrift, einer detailierten Beschreibung und Buttons, die dem Spieler ermöglichen auf das Event zu reagieren. Intern braucht ein Event noch eine ID die immer mit "event" beginnt, gefolgt von drei Ziffern und einem knappen Namen.<br />
+        Events kommen im Spiel überall vor, sie können gezielt getriggert werden, oder per Zufall an bestimmten Orten. Sie bestehen immer aus einer Überschrift, einer detailierten Beschreibung und Buttons, die dem Spieler ermöglichen auf das Event zu reagieren. Intern braucht ein Event noch eine ID die immer mit "event" beginnt (wird automatisch hinzugefügt), gefolgt von drei Ziffern und einem knappen Namen.<br />
         In der Beschreibung hast du Listen mit vordefinirten gefärbten Wörtern und Komponenten welche einen Text ebenfalls mit einer oder mehrere Farben einfärben können.
       </p>
       <BaseInfo />
