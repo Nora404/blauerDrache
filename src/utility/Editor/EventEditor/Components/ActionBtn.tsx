@@ -63,14 +63,7 @@ const ActionBtn: React.FC = () => {
               />
             </div>
 
-            <div
-              className="nested-section"
-              style={{
-                border: "1px dashed gray",
-                padding: "0.75rem",
-                marginTop: "0.5rem",
-              }}
-            >
+            <div>
 
               <HeaderSmall>Was verändert dieses Event</HeaderSmall>
 
