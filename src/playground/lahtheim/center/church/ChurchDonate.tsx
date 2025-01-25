@@ -32,6 +32,7 @@ const ChurchDonate: React.FC<ChurchDonateProps> = observer(() => {
                 description={description}
                 backPath="/church"
                 possibleEvents={possibleEvents}
+                chanceOfAnyEvent={1}
             />
         </div>
     );

@@ -23,6 +23,7 @@ type MainPlaceTemplateProps = {
   nightButtons?: ButtonConfig[];
 
   possibleEvents?: WeightedEvent[];
+  chanceOfAnyEvent?: number;
   backPath?: string;
 };
 
@@ -36,6 +37,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     nightButtons,
     possibleEvents = [],
     backPath = "/",
+    chanceOfAnyEvent,
   }) => {
     const { gameTime } = useRootStore();
     const isDay = gameTime.data.gameDay === "Tag";
@@ -54,7 +56,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
       questName,
       handleFinishEvent,
       handleFinishQuest,
-    } = useLocationEvents(possibleEvents, backPath);
+    } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
 
     return (
       <div className="max-width">

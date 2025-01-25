@@ -8,7 +8,8 @@ import { getQuestByEventId } from "../../data/questData";
 
 export function useLocationEvents(
   possibleEvents: WeightedEvent[],
-  backPath: string
+  backPath: string,
+  chanceOfAnyEvent?: number,
 ) {
   const {
     gameTime,
@@ -44,8 +45,6 @@ export function useLocationEvents(
       return;
     }
 
-    console.log("Location Econ: ", playerEconomy.data);
-    console.log("Location Flux: ", playerFlux.data);
     const filtered = filterEventsByConditions(
       possibleEvents,
       gameTime.data,
@@ -59,7 +58,7 @@ export function useLocationEvents(
     );
     if (!filtered.length) return;
 
-    const randomEventId = pickRandomEvent(filtered, 0.8);
+    const randomEventId = pickRandomEvent(filtered, chanceOfAnyEvent);
     if (!randomEventId) return;
 
     const foundEvent = filtered.find((e) => e.eventId === randomEventId);

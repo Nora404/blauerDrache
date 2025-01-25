@@ -11,12 +11,13 @@ type PlaceTemplateProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
   noEventHappend?: React.ReactNode;
+  chanceOfAnyEvent?: number;
   backPath: string;
   possibleEvents: WeightedEvent[];
 };
 
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
-  ({ title, description, backPath, possibleEvents, noEventHappend = "" }) => {
+  ({ title, description, backPath, possibleEvents, noEventHappend = "", chanceOfAnyEvent }) => {
     const {
       localRandomEvent,
       firstEvent,
@@ -24,7 +25,7 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
       handleBack,
       handleFinishEvent,
       handleFinishQuest,
-    } = useLocationEvents(possibleEvents, backPath);
+    } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
 
     return (
       <div className="max-width">
