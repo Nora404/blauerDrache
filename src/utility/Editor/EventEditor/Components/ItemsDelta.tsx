@@ -35,7 +35,7 @@ const ItemsDelta: React.FC<ItemsDeltaProps> = ({ button, index }) => {
         </label>
       </div>
       {button.itemsDeltaEnabled && (
-        <div className="nested-section">
+        <div>
           {button.itemsDelta.map((entry, entryIndex) => {
             const itemsOfCat = entry.category
               ? categoryMap[entry.category as ItemCartegoryName] ?? [] // Sicherstellen, dass category typisiert ist

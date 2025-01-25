@@ -22,10 +22,8 @@ const GameStateConditionEditor: React.FC<SubEditorProps> = ({ conditions, update
     };
 
     return (
-        <div style={{ border: "1px solid #aaa", padding: "0.5rem", margin: "0.5rem 0" }}>
-            <h4>GameState</h4>
-
-            <div style={{ marginBottom: "0.5rem" }}>
+        <div className="nested-section  flex-warp -m-1 gradient">
+            <div className="form-group m-15">
                 <label>Wetter: </label>
                 <select
                     value={gameState.weather || ""}
@@ -40,7 +38,7 @@ const GameStateConditionEditor: React.FC<SubEditorProps> = ({ conditions, update
                 </select>
             </div>
 
-            <div>
+            <div className="form-group m-15">
                 <label>Temperatur: </label>
                 <select
                     value={gameState.temperature || ""}

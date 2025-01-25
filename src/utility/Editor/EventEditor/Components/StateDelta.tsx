@@ -29,7 +29,7 @@ const StateDelta: React.FC<StateDeltaProps> = ({ button, index }) => {
         </label>
       </div>
       {button.stateDeltaEnabled && (
-        <div className="nested-section flex-warp">
+        <div className="nested-section flex-warp gradient">
           {(
             Object.keys(button.stateDelta) as Array<
               keyof typeof button.stateDelta

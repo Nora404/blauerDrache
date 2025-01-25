@@ -23,27 +23,22 @@ const PlayerEconomyConditionEditor: React.FC<SubEditorProps> = ({
     };
 
     return (
-        <div style={{ border: "1px solid #aaa", padding: "0.5rem", margin: "0.5rem 0" }}>
-            <h4>PlayerEconomy</h4>
-            <div style={{ display: "flex", gap: "1rem" }}>
-                <div>
-                    <label>Gold (min.): </label>
-                    <input
-                        type="number"
-                        value={economy.gold ?? ""}
-                        onChange={(e) => setEconomy("gold", parseInt(e.target.value) || 0)}
-                        style={{ width: "60px" }}
-                    />
-                </div>
-                <div>
-                    <label>Edelsteine (min.): </label>
-                    <input
-                        type="number"
-                        value={economy.edelsteine ?? ""}
-                        onChange={(e) => setEconomy("edelsteine", parseInt(e.target.value) || 0)}
-                        style={{ width: "60px" }}
-                    />
-                </div>
+        <div className="nested-section flex-warp -m-1 gradient">
+            <div className="form-group m-15">
+                <label>Gold (min.): </label>
+                <input
+                    type="number"
+                    value={economy.gold ?? ""}
+                    onChange={(e) => setEconomy("gold", parseInt(e.target.value) || 0)}
+                />
+            </div>
+            <div className="form-group m-15">
+                <label>Edelsteine (min.): </label>
+                <input
+                    type="number"
+                    value={economy.edelsteine ?? ""}
+                    onChange={(e) => setEconomy("edelsteine", parseInt(e.target.value) || 0)}
+                />
             </div>
         </div>
     );

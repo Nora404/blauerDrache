@@ -29,7 +29,7 @@ const EconomyDelta: React.FC<EconomyDeltaProps> = ({ button, index }) => {
         </label>
       </div>
       {button.economyDeltaEnabled && (
-        <div className="nested-section flex-warp">
+        <div className="nested-section flex-warp gradient">
           <div className="form-group m-15">
             <label>Gold:</label>
             <input

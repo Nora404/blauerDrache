@@ -112,6 +112,7 @@ export interface ConditionsConfig {
     weapon?: WeaponName;
     armor?: ArmorName;
     item?: ItemName;
+    itemCategory?: ItemCartegoryName | "";
     haveBuff?: Record<string, number>;
     haveDebuff?: Record<string, number>;
   };
@@ -133,6 +134,9 @@ export interface ConditionsConfig {
     itemName: ItemName;
     quantity: number;
   }[];
+
+  haveBuffs?: boolean;
+  haveDebuffs?: boolean;
 }
 
 interface ContextType {

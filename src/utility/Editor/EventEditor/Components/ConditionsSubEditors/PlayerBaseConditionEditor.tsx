@@ -20,36 +20,30 @@ const PlayerBaseConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
     };
 
     return (
-        <div style={{ border: "1px solid #aaa", padding: "0.5rem", margin: "0.5rem 0" }}>
-            <h4>PlayerBase</h4>
-            <div style={{ display: "flex", gap: "1rem" }}>
-                <div>
-                    <label>Level: </label>
-                    <input
-                        type="number"
-                        value={base.level ?? ""}
-                        onChange={(e) => setBaseField("level", parseInt(e.target.value) || 0)}
-                        style={{ width: "60px" }}
-                    />
-                </div>
-                <div>
-                    <label>EXP: </label>
-                    <input
-                        type="number"
-                        value={base.exp ?? ""}
-                        onChange={(e) => setBaseField("exp", parseInt(e.target.value) || 0)}
-                        style={{ width: "60px" }}
-                    />
-                </div>
-                <div>
-                    <label>Standing: </label>
-                    <input
-                        type="number"
-                        value={base.standing ?? ""}
-                        onChange={(e) => setBaseField("standing", parseInt(e.target.value) || 0)}
-                        style={{ width: "60px" }}
-                    />
-                </div>
+        <div className="nested-section flex-warp -m-1 gradient">
+            <div className="form-group m-15">
+                <label>Level: </label>
+                <input
+                    type="number"
+                    value={base.level ?? ""}
+                    onChange={(e) => setBaseField("level", parseInt(e.target.value) || 0)}
+                />
+            </div>
+            <div className="form-group m-15">
+                <label>EXP: </label>
+                <input
+                    type="number"
+                    value={base.exp ?? ""}
+                    onChange={(e) => setBaseField("exp", parseInt(e.target.value) || 0)}
+                />
+            </div>
+            <div className="form-group m-15">
+                <label>Standing: </label>
+                <input
+                    type="number"
+                    value={base.standing ?? ""}
+                    onChange={(e) => setBaseField("standing", parseInt(e.target.value) || 0)}
+                />
             </div>
         </div>
     );

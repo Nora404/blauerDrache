@@ -121,11 +121,13 @@ export function mapConditionsConfigToConditions(cfg: ConditionsConfig): Conditio
         }
     }
 
-    // 9) haveBuffs / haveDebuffs? (falls du das in editor abfragen willst)
-    // Falls du parallel zu playerFlux.haveBuff/ haveDebuff
-    // in den finalen Conditions "haveBuffs / haveDebuffs" haben willst,
-    // könntest du es hier genauso setzen. Z.B.:
-    // if (cfg.whateverFlag) finalCond.haveBuffs = true;
+    // 9) haveBuffs / haveDebuffs? 
+    if (cfg.haveBuffs === true) {
+        finalCond.haveBuffs = true;
+    }
+    if (cfg.haveDebuffs === true) {
+        finalCond.haveDebuffs = true;
+    }
 
     return finalCond;
 }

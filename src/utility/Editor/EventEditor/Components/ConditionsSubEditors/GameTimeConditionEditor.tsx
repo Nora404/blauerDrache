@@ -33,26 +33,22 @@ const GameTimeConditionEditor: React.FC<SubEditorProps> = ({ conditions, updateC
     };
 
     return (
-        <div style={{ border: "1px solid #aaa", padding: "0.5rem", margin: "0.5rem 0" }}>
-            <h4>GameTime</h4>
-
-            <div style={{ marginBottom: "0.5rem" }}>
+        <div className="nested-section flex-warp -m-1 gradient">
+            <div className="form-group m-15">
                 <label>Uhrzeit (HH:MM): </label>
                 <input
                     type="text"
                     value={gameTime.gameTime || ""}
                     onChange={(e) => handleGameTimeChange(e.target.value)}
                     placeholder="z.B. 12:00"
-                    style={{ width: "80px", marginLeft: "0.5rem" }}
                 />
             </div>
 
-            <div>
+            <div className="form-group m-15">
                 <label>Tag/Nacht:</label>
                 <select
                     value={gameTime.gameDay || ""}
                     onChange={(e) => handleGameDayChange(e.target.value as "Tag" | "Nacht")}
-                    style={{ marginLeft: "0.5rem" }}
                 >
                     <option value="">(keine Auswahl)</option>
                     {dayNightOptions.map((opt) => (

@@ -15,10 +15,19 @@
 
 .nested-section {
     margin-left: 1.5rem;
-    padding-left: 0.5rem;
-    border-left: 2px solid #ddd;
+    padding: 10px 5px 0 5px;
+    border-left: 2px solid #dddddd91;
     margin-bottom: 1rem;
 }
+
+.-m-1 {
+    margin-bottom: -10px;
+}
+
+.gradient {
+    background: linear-gradient(to right, #0e10164f 0%, rgba(44, 44, 44, 0) 100%);
+}
+
 
 .add-button,
 .remove-button,

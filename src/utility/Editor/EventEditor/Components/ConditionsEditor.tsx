@@ -14,7 +14,6 @@ import PlayerBaseConditionEditor from "./ConditionsSubEditors/PlayerBaseConditio
 import PlayerFluxConditionEditor from "./ConditionsSubEditors/PlayerFluxConditionEditor";
 import PlayerMetaConditionEditor from "./ConditionsSubEditors/PlayerMetaConditionEditor";
 import PlayerEconomyConditionEditor from "./ConditionsSubEditors/PlayerEconomyConditionEditor";
-import PlayerItemsConditionEditor from "./ConditionsSubEditors/PlayerItemsConditionEditor";
 import HeaderSmall from "../../../../layout/Header/HeaderSmall";
 
 
@@ -60,7 +59,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
             <HeaderSmall>Bedingung damit der Button erscheint</HeaderSmall>
 
             {/* Operator (z.B. "<", "=", ">") */}
-            <OperatorEditor conditions={conditions} updateConditions={updateConditions} /><br />
+            <OperatorEditor conditions={conditions} updateConditions={updateConditions} />
 
             {/* Toggle + GameTime */}
             <label>
@@ -70,7 +69,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("gameTimeEnabled")}
                     className="mb-3"
                 />
-                Zeitliche Bedingungen
+                Zeit
             </label>
             {conditions.gameTimeEnabled && (
                 <>
@@ -86,7 +85,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("gameStateEnabled")}
                     className="mb-3"
                 />
-                Wetter Bedingungen
+                Wetter
             </label>
             {conditions.gameStateEnabled && (
                 <>
@@ -102,7 +101,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerStatsEnabled")}
                     className="mb-3"
                 />
-                Spielerwerte Bedingungen
+                Spielerwerte
             </label>
             {conditions.playerStatsEnabled && (
                 <>
@@ -118,7 +117,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerBaseEnabled")}
                     className="mb-3"
                 />
-                Spieler Erfahrungs Bedingungen
+                Spielererfahrung
             </label>
             {conditions.playerBaseEnabled && (
                 <>
@@ -134,7 +133,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerFluxEnabled")}
                     className="mb-3"
                 />
-                Spieler Ausrüstungs Bedingungen
+                Spielerausrüstung
             </label>
             {conditions.playerFluxEnabled && (
                 <>
@@ -150,7 +149,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerMetaEnabled")}
                     className="mb-3"
                 />
-                Spieler Hintergrunds Bedingungen
+                Spielerhintergrund
             </label>
             {conditions.playerMetaEnabled && (
                 <>
@@ -166,7 +165,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerEconomyEnabled")}
                     className="mb-3"
                 />
-                Währungen Bedingungen
+                Währungen
             </label>
             {conditions.playerEconomyEnabled && (
                 <>
@@ -174,19 +173,6 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                 </>
             )}<br />
 
-            {/* Toggle + PlayerItems */}
-            <label>
-                <input
-                    type="checkbox"
-                    checked={conditions.playerItemsEnabled || false}
-                    onChange={() => toggleFlag("playerItemsEnabled")}
-                    className="mb-3"
-                />
-                Spieler Gegenstands Bedingungen
-            </label>
-            {conditions.playerItemsEnabled && (
-                <PlayerItemsConditionEditor conditions={conditions} updateConditions={updateConditions} />
-            )}
         </div>
     );
 };

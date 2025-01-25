@@ -37,7 +37,7 @@ const FluxDelta: React.FC<FluxDeltaProps> = ({ button, index }) => {
         </label>
       </div>
       {button.fluxDeltaEnabled && (
-        <div className="nested-section flex-row">
+        <div className="nested-section flex-row gradient">
           <div className="form-group w-100">
             <label>Feeling:</label>
             <select
