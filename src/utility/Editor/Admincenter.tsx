@@ -20,6 +20,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         getPlayerObj,
         getDelta,
         gameState,
+        gameTime,
 
         playerStats,
         playerBase,
@@ -97,6 +98,8 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     // #endregion
 
     //#region [handler]
+    const handleNewDay = () => gameTime.newDay();
+
     const handleGameState = (field: keyof typeof gameState.data, value: string) => {
         gameState.setGameState({ [field]: value });
     }
@@ -220,7 +223,11 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                         </select>
                     </td>
                 </tr>
-            </table><br />
+            </table>
+
+            <button className="btn-border w-full" onClick={handleNewDay}>
+                Neuer Tag
+            </button><br /><br />
 
             <HeaderSmall>Hintergrund</HeaderSmall>
             <table className='w-full'>

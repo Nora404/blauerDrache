@@ -141,67 +141,67 @@ input[type="number"] {
 }
 
 .greenBtn1 {
-    background-color: #4e835a;
+    background-color: #4e835a90;
     width: 30px;
-    height: 30px;
+    height: 27px;
     padding: 2px;
     color: #fff;
-    margin: 5px;
-    border-radius: 8px;
+    margin: 5px 5px 5px 0;
+    border-radius: 0px 20px 20px 0px;
     font-size: smaller;
 }
 
 .redBtn1 {
-    background-color: #923e47;
+    background-color: #923e4790;
     width: 30px;
-    height: 30px;
+    height: 27px;
     padding: 2px;
     color: #fff;
-    margin: 5px;
-    border-radius: 8px;
+    margin: 5px 0 5px 5px;
+    border-radius: 20px 0px 0px 20px;
     font-size: smaller;
 }
 
 .greenBtn2 {
-    background-color: #356941;
+    background-color: #35694190;
     width: 30px;
-    height: 30px;
+    height: 27px;
     padding: 2px;
     color: #fff;
-    margin: 5px;
-    border-radius: 8px;
+    margin: 5px 5px 5px 0;
+    border-radius: 0px 20px 20px 0px;
     font-size: smaller;
 }
 
 .redBtn2 {
-    background-color: #752931;
+    background-color: #75293190;
     width: 30px;
-    height: 30px;
+    height: 27px;
     padding: 2px;
     color: #fff;
-    margin: 5px;
-    border-radius: 8px;
+    margin: 5px 0 5px 5px;
+    border-radius: 20px 0px 0px 20px;
     font-size: smaller;
 }
 
 .greenBtn3 {
-    background-color: #22522d;
+    background-color: #22522d90;
     width: 30px;
-    height: 30px;
+    height: 27px;
     padding: 2px;
     color: #fff;
-    margin: 5px;
-    border-radius: 8px;
+    margin: 5px 5px 5px 0;
+    border-radius: 0px 20px 20px 0px;
     font-size: smaller;
 }
 
 .redBtn3 {
-    background-color: #571a20;
+    background-color: #571a2090;
     width: 30px;
-    height: 30px;
+    height: 27px;
     padding: 2px;
     color: #fff;
-    margin: 5px;
-    border-radius: 8px;
+    margin: 5px 0 5px 5px;
+    border-radius: 20px 0px 0px 20px;
     font-size: smaller;
 }
