@@ -25,6 +25,19 @@ export function getRandomItem(possibleItems: ItemName[]) {
     return possibleItems[index];
 }
 
+export function getItemCategories(): Record<ItemCartegoryName, Item[]> {
+    const categoryMap: Record<string, Item[]> = {};
+    Object.values(itemMap).forEach((item) => {
+        const cat = item.category;
+        if (!categoryMap[cat]) {
+            categoryMap[cat] = [];
+        }
+        categoryMap[cat].push(item);
+    });
+    return categoryMap as Record<ItemCartegoryName, Item[]>;
+}
+
+
 export type Item = {
     name: ItemName;
     label: JSX.Element

@@ -1,5 +1,5 @@
 // #region [imports]
-import React from 'react';
+import React, { useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../store';
 import { SYSTEM } from '../../data/helper/colorfullStrings';
@@ -14,7 +14,7 @@ import { DebuffName, debuffs } from '../../data/debuffData';
 import { weapons } from '../../data/weaponData';
 import { armors } from '../../data/armorData';
 import { feelings } from '../../data/feelingData';
-import { items } from '../../data/ItemData';
+import { getItemCategories, items } from '../../data/ItemData';
 // #endregion
 
 // #region [prepare]
@@ -42,6 +42,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
 
     const { attack, defense, luck } = playerStats.data;
     const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
+    const categoryMap = useMemo(() => getItemCategories(), []);
 
     // Daten für Tabelle
     const statsData = [
@@ -178,6 +179,9 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     }
     const handlePlayerEconomy = (field: keyof typeof playerEconomy.data, value: number) => {
         playerEconomy.updatePlayerEconomy({ [field]: value });
+    }
+    const handlePlayerItems = (item: string, quantity: number) => {
+        playerEconomy.updateItems(item, quantity);
     }
     //#endregion
 
@@ -666,6 +670,39 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                             1</button>
                     </div>
                 </div>
+            </div><br />
+
+            <HeaderSmall>Spieler Items</HeaderSmall>
+            <div className='flex-row'>
+                <div className='flex-row'>
+                    <div className='w-100px border-bd'>Kategorie</div>
+                    <select
+                        className='w-200px'
+                        value={""}
+                        onChange={(e) => handlePlayerItems(e.target.value, 1)}>
+                        <option value="">(keine Auswahl)</option>
+                        {items.map((c) => (
+                            <option key={c.name} value={c.name}>
+                                {c.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className='flex-row'>
+                    <div className='w-100px border-bd'>Item</div>
+                    <select
+                        className='w-200px'
+                        value={""}
+                        onChange={(e) => handlePlayerItems(e.target.value, 1)}>
+                        <option value="">(keine Auswahl)</option>
+                        {items.map((c) => (
+                            <option key={c.name} value={c.name}>
+                                {c.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <button className='add-button'>Hinzufügen</button>
             </div>
         </div>
     );
