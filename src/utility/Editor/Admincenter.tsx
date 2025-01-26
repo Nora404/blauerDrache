@@ -1,5 +1,5 @@
 // #region [imports]
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../store';
 import { SYSTEM } from '../../data/helper/colorfullStrings';
@@ -14,7 +14,7 @@ import { DebuffName, debuffs } from '../../data/debuffData';
 import { weapons } from '../../data/weaponData';
 import { armors } from '../../data/armorData';
 import { feelings } from '../../data/feelingData';
-import { getItemCategories, items } from '../../data/ItemData';
+import { getItemCategories, ItemCartegoryName, items } from '../../data/ItemData';
 // #endregion
 
 // #region [prepare]
@@ -42,7 +42,14 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
 
     const { attack, defense, luck } = playerStats.data;
     const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
+
+    const [selectedCategory, setSelectedCategory] = useState<ItemCartegoryName | "">("");
+    const [selectedItem, setSelectedItem] = useState<string | "">("");
+    const [itemQuantity, setItemQuantity] = useState<number>(0);
     const categoryMap = useMemo(() => getItemCategories(), []);
+    const filteredItems = useMemo(() => {
+        return selectedCategory ? categoryMap[selectedCategory] || [] : [];
+    }, [selectedCategory, categoryMap]);
 
     // Daten für Tabelle
     const statsData = [
@@ -180,8 +187,8 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     const handlePlayerEconomy = (field: keyof typeof playerEconomy.data, value: number) => {
         playerEconomy.updatePlayerEconomy({ [field]: value });
     }
-    const handlePlayerItems = (item: string, quantity: number) => {
-        playerEconomy.updateItems(item, quantity);
+    const handlePlayerItems = () => {
+        playerEconomy.updateItems(selectedItem, itemQuantity);
     }
     //#endregion
 
@@ -673,36 +680,58 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
             </div><br />
 
             <HeaderSmall>Spieler Items</HeaderSmall>
-            <div className='flex-row'>
-                <div className='flex-row'>
-                    <div className='w-100px border-bd'>Kategorie</div>
+            <div className="flex-row">
+                {/* Kategorie-Auswahl */}
+                <div className="flex-row">
+                    <div className="w-100px border-bd">Kategorie</div>
                     <select
-                        className='w-200px'
-                        value={""}
-                        onChange={(e) => handlePlayerItems(e.target.value, 1)}>
+                        className="w-200px"
+                        value={selectedCategory}
+                        onChange={(e) => {
+                            setSelectedCategory(e.target.value as ItemCartegoryName);
+                            setSelectedItem("");
+                        }}
+                    >
                         <option value="">(keine Auswahl)</option>
-                        {items.map((c) => (
-                            <option key={c.name} value={c.name}>
-                                {c.name}
+                        {Object.keys(categoryMap).map((category) => (
+                            <option key={category} value={category}>
+                                {category}
                             </option>
                         ))}
                     </select>
                 </div>
-                <div className='flex-row'>
-                    <div className='w-100px border-bd'>Item</div>
+
+                {/* Item-Auswahl */}
+                <div className="flex-row">
+                    <div className="w-100px border-bd">Item</div>
                     <select
-                        className='w-200px'
-                        value={""}
-                        onChange={(e) => handlePlayerItems(e.target.value, 1)}>
+                        className="w-200px"
+                        value={selectedItem}
+                        onChange={(e) => setSelectedItem(e.target.value)}
+                        disabled={!selectedCategory}
+                    >
                         <option value="">(keine Auswahl)</option>
-                        {items.map((c) => (
-                            <option key={c.name} value={c.name}>
-                                {c.name}
+                        {filteredItems.map((item) => (
+                            <option key={item.name} value={item.name}>
+                                {item.name}
                             </option>
                         ))}
                     </select>
                 </div>
-                <button className='add-button'>Hinzufügen</button>
+
+                {/* Eingabefeld für Anzahl */}
+                <input
+                    className="w-full"
+                    type="number"
+                    value={itemQuantity}
+                    onChange={(e) => {
+                        const val = parseInt(e.target.value, 10) || 0;
+                        setItemQuantity(val);
+                    }}
+                />
+
+                {/* Buttons */}
+                <button className="generate-button" onClick={handlePlayerItems}>Anwenden</button>
             </div>
         </div>
     );
