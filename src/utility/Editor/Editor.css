@@ -135,27 +135,73 @@ input[type="number"] {
 }
 
 .w100c {
-    width: 300px;
+    width: 200px;
     text-align: center;
     border: 1px dotted gray;
 }
 
-.greenBtn {
-    background-color: #356941;
-    width: 60px;
+.greenBtn1 {
+    background-color: #4e835a;
+    width: 30px;
     height: 30px;
     padding: 2px;
     color: #fff;
     margin: 5px;
     border-radius: 8px;
+    font-size: smaller;
 }
 
-.redBtn {
-    background-color: #752931;
-    width: 60px;
+.redBtn1 {
+    background-color: #923e47;
+    width: 30px;
     height: 30px;
     padding: 2px;
     color: #fff;
     margin: 5px;
     border-radius: 8px;
+    font-size: smaller;
+}
+
+.greenBtn2 {
+    background-color: #356941;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: smaller;
+}
+
+.redBtn2 {
+    background-color: #752931;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: smaller;
+}
+
+.greenBtn3 {
+    background-color: #22522d;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: smaller;
+}
+
+.redBtn3 {
+    background-color: #571a20;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: smaller;
 }

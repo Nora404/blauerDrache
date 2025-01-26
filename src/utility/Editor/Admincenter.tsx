@@ -3,7 +3,6 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../store';
 import { SYSTEM } from '../../data/helper/colorfullStrings';
-import { getScalingFactor } from '../Helper/Progression';
 import TableRow from '../../playground/game/infos/PlayerInfo/TableRow';
 import HeaderSmall from '../../layout/Header/HeaderSmall';
 import { TEMPERATURE, WEATHER } from '../../data/helper/weatherStrings';
@@ -108,9 +107,13 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         switch (field) {
             case 'level':
                 if (value > 0) {
-                    playerBase.updateExp(playerBase.data.nextLevel + 1);
+                    for (let i = 0; i < value; i++) {
+                        playerBase.updateExp(playerBase.data.nextLevel + 1);
+                    }
                 } else {
-                    playerBase.updateExp(-(playerBase.data.exp + 1));
+                    for (let i = 0; i > value; i--) {
+                        playerBase.updateExp(-(playerBase.data.exp + 1));
+                    }
                 }
                 break;
             case 'exp':
@@ -118,9 +121,13 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                 break;
             case 'ruf':
                 if (value > 0) {
-                    playerBase.updateLeumund(playerBase.data.nextLeumund + 1);
+                    for (let i = 0; i < value; i++) {
+                        playerBase.updateLeumund(playerBase.data.nextLeumund + 1);
+                    }
                 } else {
-                    playerBase.updateLeumund(-(playerBase.data.leumund + 1));
+                    for (let i = 0; i < value; i++) {
+                        playerBase.updateLeumund(-(playerBase.data.leumund + 1));
+                    }
                 }
                 break;
             case 'leumund':
@@ -278,45 +285,74 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
             <HeaderSmall>Spieler Erfahrung</HeaderSmall>
             <div className='flex-row'>
                 <div className='flex-row'>
-                    <div><button
-                        className='redBtn'
-                        onClick={() => handlePlayerBase("level", -1)}>-</button></div>
+                    <div>
+                        <button className='redBtn3' onClick={() => handlePlayerBase("level", -1)}>1</button>
+                        <button className='redBtn2' onClick={() => handlePlayerBase("level", -3)}>3</button>
+                        <button className='redBtn1' onClick={() => handlePlayerBase("level", -5)}>5</button>
+                    </div>
                     <div className='w100c'>{SYSTEM.Level}</div>
-                    <div><button
-                        className='greenBtn'
-                        onClick={() => handlePlayerBase("level", 1)}>+</button></div>
+                    <div>
+                        <button className='greenBtn1' onClick={() => handlePlayerBase("level", 5)}>5</button>
+                        <button className='greenBtn2' onClick={() => handlePlayerBase("level", 3)}>3</button>
+                        <button className='greenBtn3' onClick={() => handlePlayerBase("level", 1)}>1</button>
+                    </div>
                 </div>
                 <div className='flex-row'>
-                    <div><button
-                        className='redBtn'
-                        onClick={() => handlePlayerBase("exp", -100)}>-</button></div>
+                    <div>
+                        <button className='redBtn3' onClick={() => handlePlayerBase("exp", -50)}>
+                            50</button>
+                        <button className='redBtn2' onClick={() => handlePlayerBase("exp", -100)}>
+                            100</button>
+                        <button className='redBtn1' onClick={() => handlePlayerBase("exp", -500)}>
+                            500</button>
+                    </div>
                     <div className='w100c'>{SYSTEM.Erfahrung}</div>
-                    <div><button
-                        className='greenBtn'
-                        onClick={() => handlePlayerBase("exp", 100)}>+</button></div>
+                    <div>
+                        <button className='greenBtn1' onClick={() => handlePlayerBase("exp", 500)}>
+                            500</button>
+                        <button className='greenBtn2' onClick={() => handlePlayerBase("exp", 100)}>
+                            100</button>
+                        <button className='greenBtn3' onClick={() => handlePlayerBase("exp", 50)}>
+                            50</button>
+                    </div>
                 </div>
             </div>
 
             <div className='flex-row'>
                 <div className='flex-row'>
-                    <div><button
-                        className='redBtn'
-                        onClick={() => handlePlayerBase("ruf", -1)}>-</button></div>
+                    <div>
+                        <button className='redBtn3' onClick={() => handlePlayerBase("ruf", -5)}>5</button>
+                        <button className='redBtn2' onClick={() => handlePlayerBase("ruf", -3)}>3</button>
+                        <button className='redBtn1' onClick={() => handlePlayerBase("ruf", -1)}>1</button>
+                    </div>
                     <div className='w100c'>{SYSTEM.Ruf}</div>
-                    <div><button
-                        className='greenBtn'
-                        onClick={() => handlePlayerBase("ruf", 1)}>+</button></div>
+                    <div>
+                        <button className='greenBtn1' onClick={() => handlePlayerBase("ruf", 1)}>1</button>
+                        <button className='greenBtn2' onClick={() => handlePlayerBase("ruf", 3)}>3</button>
+                        <button className='greenBtn3' onClick={() => handlePlayerBase("ruf", 5)}>5</button>
+                    </div>
                 </div>
                 <div className='flex-row'>
-                    <div><button
-                        className='redBtn'
-                        onClick={() => handlePlayerBase("leumund", -100)}>-</button></div>
+                    <div>
+                        <button className='redBtn3' onClick={() => handlePlayerBase("leumund", -50)}>
+                            50</button>
+                        <button className='redBtn2' onClick={() => handlePlayerBase("leumund", -100)}>
+                            100</button>
+                        <button className='redBtn1' onClick={() => handlePlayerBase("leumund", -500)}>
+                            500</button>
+                    </div>
                     <div className='w100c'>{SYSTEM.Leumund}</div>
-                    <div><button
-                        className='greenBtn'
-                        onClick={() => handlePlayerBase("leumund", 100)}>+</button></div>
+                    <div>
+                        <button className='greenBtn1' onClick={() => handlePlayerBase("leumund", 500)}>
+                            500</button>
+                        <button className='greenBtn2' onClick={() => handlePlayerBase("leumund", 100)}>
+                            100</button>
+                        <button className='greenBtn3' onClick={() => handlePlayerBase("leumund", 50)}>
+                            50</button>
+                    </div>
                 </div>
-            </div><br />
+            </div>
+
 
             <HeaderSmall>Spieler Werte</HeaderSmall>
             <table className='w-full'>
