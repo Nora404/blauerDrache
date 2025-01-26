@@ -30,7 +30,7 @@ export const event018Donate: GameEvent = {
             },
             getAction: () => ({
                 economyDelta: { "gold": -10 },
-                baseDelta: { "exp": 15, "reputation": 5 },
+                baseDelta: { "exp": 15, "leumund": 5 },
                 message: message1
             })
         },
@@ -45,7 +45,7 @@ export const event018Donate: GameEvent = {
             getAction: () => ({
                 economyDelta: { "gold": -50 },
                 fluxDelta: { buff: { "Gütig": 4 } },
-                baseDelta: { "reputation": 15 },
+                baseDelta: { "leumund": 15 },
                 message: message2
             })
         }

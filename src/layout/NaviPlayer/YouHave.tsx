@@ -29,12 +29,12 @@ const YouHave: React.FC<YouHaveProps> = observer(() => {
           </tr>
           <tr>
             <td>{SYSTEM.Ruf}</td>
-            <td>{playerBase.data.standing}</td>
+            <td>{playerBase.data.ruf}</td>
           </tr>
           <tr>
             <td>{SYSTEM.Leumund}</td>
             <td>
-              {playerBase.data.reputation} / {playerBase.data.nextReputation}
+              {playerBase.data.leumund} / {playerBase.data.nextLeumund}
             </td>
           </tr>
           <tr>

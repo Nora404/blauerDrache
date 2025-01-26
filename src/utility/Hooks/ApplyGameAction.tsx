@@ -41,8 +41,8 @@ export function useApplyGameAction() {
       playerBase.updateExp(action.baseDelta.exp);
     }
 
-    if (action.baseDelta?.reputation) {
-      playerBase.updateReputation(action.baseDelta.reputation);
+    if (action.baseDelta?.leumund) {
+      playerBase.updateLeumund(action.baseDelta.leumund);
     }
 
     if (action.fluxDelta?.buff) {

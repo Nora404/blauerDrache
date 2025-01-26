@@ -48,9 +48,9 @@ export type PlayerBase = {
   level: number;
   nextLevel: number;
   exp: number;
-  standing: number;
-  reputation: number;
-  nextReputation: number;
+  ruf: number;
+  leumund: number;
+  nextLeumund: number;
   maxLife: number;
   maxRounds: number;
 };
@@ -138,9 +138,9 @@ export const defaultGameStore: GameStore = {
     level: 1,
     nextLevel: 100,
     exp: 0,
-    standing: 0,
-    reputation: 0,
-    nextReputation: 100,
+    ruf: 0,
+    leumund: 0,
+    nextLeumund: 100,
     maxLife: 100,
     maxRounds: 20,
   },

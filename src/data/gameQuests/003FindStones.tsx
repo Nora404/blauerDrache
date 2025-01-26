@@ -59,7 +59,7 @@ export const event003FindStoneEnd: GameEvent = {
           endQuest: "Q003FindStone",
           itemsDelta: { Stein: -3 },
           economyDelta: { gold: 5 },
-          baseDelta: { reputation: 3 },
+          baseDelta: { leumund: 3 },
         };
       },
     },

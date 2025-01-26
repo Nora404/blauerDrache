@@ -35,7 +35,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
   // Beispiel: Statt store.playerStats.luck => playerStatsStore.playerStats.luck
   // (type-sicherer Zugriff)
   const { attack, defense, luck } = playerStats.data;
-  const { level, standing, maxLife, maxRounds } = playerBase.data;
+  const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
 
   // Daten für Tabelle (bisher war es store.playerStats.*)
   const statsData = [
@@ -108,7 +108,6 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
 
   const handleWeapon = () =>
     playerFlux.updateWeapon("Besenstiel" as WeaponName);
-  const handleWeapon2 = () => playerFlux.updateWeapon("Heugabel" as WeaponName);
 
   const handleBuff1 = () =>
     playerFlux.updatePlayerBuff("Eisenhaut" as BuffName);
@@ -123,8 +122,8 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
   const handleRemovePilz = () => playerEconomy.updateItems("Pilz", -1);
   const handleAddStick = () => playerEconomy.updateItems("Stein", 1);
 
-  const handleAddRep = () => playerBase.updateReputation(50);
-  const handleSubRep = () => playerBase.updateReputation(-50);
+  const handleAddRep = () => playerBase.updateLeumund(50);
+  const handleSubRep = () => playerBase.updateLeumund(-50);
 
   const handleAddGold = () => playerEconomy.updatePlayerEconomy({ gold: 50 });
 

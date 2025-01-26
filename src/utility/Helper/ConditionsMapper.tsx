@@ -62,7 +62,7 @@ export function mapConditionsConfigToConditions(cfg: ConditionsConfig): Conditio
         const partialBase: Partial<Conditions["playerBase"]> = {};
         if (level != null && level !== 0) partialBase.level = level;
         if (exp != null && exp !== 0) partialBase.exp = exp;
-        if (standing != null && standing !== 0) partialBase.standing = standing;
+        if (standing != null && standing !== 0) partialBase.ruf = standing;
 
         if (Object.keys(partialBase).length > 0) {
             finalCond.playerBase = partialBase;

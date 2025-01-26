@@ -50,28 +50,28 @@ export class PlayerBaseStore {
         this.rootStore.saveToLocalStorage();
     }
 
-    updateReputation(earnedRep: number) {
-        let newRep = this.data.reputation + earnedRep;
-        let standing = this.data.standing;
-        let currentReq = this.requiredExpForLevel(Math.abs(standing) || 1);
+    updateLeumund(addLeumund: number) {
+        let newLeumund = this.data.leumund + addLeumund;
+        let ruf = this.data.ruf;
+        let currentLeumund = this.requiredExpForLevel(Math.abs(ruf) || 1);
 
         while (true) {
-            if (newRep >= currentReq) {
-                newRep -= currentReq;
-                standing += 1;
-                currentReq = this.requiredExpForLevel(Math.abs(standing) || 1);
-            } else if (newRep < 0) {
-                standing -= 1;
-                currentReq = this.requiredExpForLevel(Math.abs(standing) || 1);
-                newRep += currentReq;
+            if (newLeumund >= currentLeumund) {
+                newLeumund -= currentLeumund;
+                ruf += 1;
+                currentLeumund = this.requiredExpForLevel(Math.abs(ruf) || 1);
+            } else if (newLeumund < 0) {
+                ruf -= 1;
+                currentLeumund = this.requiredExpForLevel(Math.abs(ruf) || 1);
+                newLeumund += currentLeumund;
             } else {
                 break;
             }
         }
 
-        this.data.standing = standing;
-        this.data.nextReputation = currentReq;
-        this.data.reputation = newRep;
+        this.data.ruf = ruf;
+        this.data.nextLeumund = currentLeumund;
+        this.data.leumund = newLeumund;
 
         this.rootStore.saveToLocalStorage();
     }
