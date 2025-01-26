@@ -21,7 +21,7 @@ export class PlayerStatsStore {
 
     updatePlayerStats(delta: Partial<PlayerStats>) {
         this.data.life += delta.life ?? 0;
-        this.data.rounds += delta.rounds ?? 0;
+        this.data.energy += delta.energy ?? 0;
         this.data.attack += delta.attack ?? 0;
         this.data.defense += delta.defense ?? 0;
         this.data.luck += delta.luck ?? 0;
@@ -39,14 +39,14 @@ export class PlayerStatsStore {
         this.rootStore.saveToLocalStorage();
     }
 
-    updateRounds(delta: number) {
+    updateEnergy(delta: number) {
         const { maxRounds } = this.rootStore.playerBase.data;
         const newRounds = Math.min(
-            Math.max(this.data.rounds + delta, 0),
+            Math.max(this.data.energy + delta, 0),
             maxRounds
         );
 
-        // Buff- und Debuff-Dauer anpassen, wenn Runden verbraucht werden (delta < 0).
+        // Buff- und Debuff-Dauer anpassen, wenn Tatendrang verbraucht werden (delta < 0).
         if (delta < 0) {
             const absolute = Math.abs(delta);
 
@@ -75,7 +75,7 @@ export class PlayerStatsStore {
             this.rootStore.playerFlux.data.debuff = updatedDebuffs;
         }
 
-        this.data.rounds = newRounds;
+        this.data.energy = newRounds;
         this.rootStore.saveToLocalStorage();
     }
 }

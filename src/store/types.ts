@@ -38,7 +38,7 @@ export type PlayerMeta = {
 
 export type PlayerStats = {
   life: number;
-  rounds: number;
+  energy: number;
   attack: number;
   defense: number;
   luck: number;
@@ -97,7 +97,7 @@ export type StatDelta = {
 
 export type Delta = {
   life: StatDelta;
-  rounds: StatDelta;
+  energy: StatDelta;
   attack: StatDelta;
   defense: StatDelta;
   luck: StatDelta;
@@ -129,7 +129,7 @@ export const defaultGameStore: GameStore = {
   },
   playerStats: {
     life: 100,
-    rounds: 20,
+    energy: 20,
     attack: 5,
     defense: 5,
     luck: 5,

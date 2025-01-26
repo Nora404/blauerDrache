@@ -117,7 +117,7 @@ export class RootStore {
         const { data: playerFlux } = this.playerFlux;
 
         let life = playerStats.life;
-        let rounds = playerStats.rounds;
+        let rounds = playerStats.energy;
         let attack = playerStats.attack;
         let defense = playerStats.defense;
         let luck = playerStats.luck;
@@ -224,7 +224,7 @@ export class RootStore {
     getDelta(): Delta {
         const delta: Delta = {
             life: { buffs: 0, debuffs: 0, feeling: 0 },
-            rounds: { buffs: 0, debuffs: 0, feeling: 0 },
+            energy: { buffs: 0, debuffs: 0, feeling: 0 },
             attack: { buffs: 0, debuffs: 0, feeling: 0 },
             defense: { buffs: 0, debuffs: 0, feeling: 0 },
             luck: { buffs: 0, debuffs: 0, feeling: 0 },

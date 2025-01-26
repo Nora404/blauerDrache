@@ -22,7 +22,7 @@ const YouCan: React.FC<YouCanProps> = observer(() => {
             </td>
           </tr>
           <tr>
-            <td>{SYSTEM.Runden}</td>
+            <td>{SYSTEM.Tatendrang}</td>
             <td>
               {combined.rounds} / {combined.maxRounds}
             </td>

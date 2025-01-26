@@ -61,7 +61,7 @@ export const feelings: Feeling[] = [
     {
         name: "Antriebslos",
         label: <GradientText colors={['#FFA53B', '#D42416']}>Antriebslos</GradientText>,
-        bonus: <>Deine Anzahl der {SYSTEM.Runden} sind für heute gesunken</>,
+        bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gesunken</>,
         stats: {
             rounds: -2,
         }
@@ -69,7 +69,7 @@ export const feelings: Feeling[] = [
     {
         name: "Ängstlich",
         label: <GradientText colors={['#D46A30', '#FF725B']}>Ängstlich</GradientText>,
-        bonus: <>Deine Anzahl der {SYSTEM.Runden} sind für heute gesunken</>,
+        bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gesunken</>,
         stats: {
             rounds: -2,
         }
@@ -143,7 +143,7 @@ export const feelings: Feeling[] = [
     {
         name: "Euphorisch",
         label: <GradientText colors={['#A7E555', '#2CBD57']}>Euphorisch</GradientText>,
-        bonus: <>Deine Anzahl der {SYSTEM.Runden} sind für heute gestiegen</>,
+        bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gestiegen</>,
         stats: {
             rounds: 2,
         }
@@ -151,7 +151,7 @@ export const feelings: Feeling[] = [
     {
         name: "Entschlossen",
         label: <GradientText colors={['#65AB26', '#1AA319']}>Entschlossen</GradientText>,
-        bonus: <>Deine Anzahl der {SYSTEM.Runden} sind für heute gestiegen</>,
+        bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gestiegen</>,
         stats: {
             rounds: 2,
         }

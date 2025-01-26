@@ -26,7 +26,7 @@ const NewDay: React.FC<NewDayProps> = observer(({ onClose }) => {
         Das Wetter heute ist {gameState.data.weather} und{" "}
         {gameState.data.temperature}.<br />
         Für heute hast du <GradientText>{combined.rounds}</GradientText>{" "}
-        {SYSTEM.Runden}. Dein {SYSTEM.Leben} wurden auf{" "}
+        {SYSTEM.Tatendrang}. Dein {SYSTEM.Leben} wurden auf{" "}
         <GradientText>{combined.life}</GradientText> aufgefüllt.
         <br />
         Dein Geist und deine Stimmung sind heute {selected.feeling.label}.{" "}

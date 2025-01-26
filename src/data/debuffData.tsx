@@ -8,7 +8,7 @@ export type Debuff = {
     label: JSX.Element;
     description: string;
     effects: Partial<PlayerStats>;
-    duration: number; // Dauer in Runden
+    duration: number;
 };
 
 export const debuffs: Debuff[] = [
@@ -17,14 +17,14 @@ export const debuffs: Debuff[] = [
         label: <GradientText>Schwäche</GradientText>,
         description: "Reduziert den Angriff für eine begrenzte Zeit.",
         effects: { attack: -5 },
-        duration: 4, // 4 Runden
+        duration: 4,
     },
     {
         name: "Pechvogel",
         label: <GradientText>Pechvogel</GradientText>,
         description: "Verringert das Glück für eine begrenzte Zeit.",
         effects: { luck: -5 },
-        duration: 6, // 6 Runden
+        duration: 6,
     },
 ];
 

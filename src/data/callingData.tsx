@@ -66,7 +66,7 @@ export const callings: Calling[] = [
         name: "Entdecker",
         label: <GradientText colors={['#ccffdd', '#99bbcc']}>Entdecker</GradientText>,
         description: "Es gibt zwar schon Karten, aber es gibt noch mehr Geheimnisse, die du entdecken willst. Lahtheim soll deine Basis werden, der Ort von dem aus du das Land erkundest und die Umgebung unsicher machst. Vielleicht findest du verlorenes und die dazu passenden dankbaren Seelen, die deine Hilfe mit Gold entlohnen.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden} und {SYSTEM.Leben}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang} und {SYSTEM.Leben}</>,
         base: {
             maxRounds: 5,
             maxLife: 20,
@@ -158,7 +158,7 @@ export const callings: Calling[] = [
         name: "Geheimnis",
         label: <GradientText colors={['#bbbbff', '#8888cc']}>Geheimnis</GradientText>,
         description: "Entweder weißt du es selbst nicht, oder niemand soll erfahren, warum du nach Lahtheim gekommen bist. Falls dich jemand fragt, solltest du dir einen einfachen Grund ausdenken – einen, der so unauffällig ist, dass niemand weitere Fragen stellt. Sei am besten so unscheinbar und langweilig wie möglich!",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden} und {SYSTEM.Glück}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang} und {SYSTEM.Glück}</>,
         base: {
             maxRounds: 5,
         },

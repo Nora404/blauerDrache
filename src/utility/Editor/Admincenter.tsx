@@ -66,11 +66,11 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         },
         {
             key: "startData2",
-            label: SYSTEM.Runden,
+            label: SYSTEM.Tatendrang,
             base: maxRounds,
-            buff: delta.rounds.buffs,
-            debuff: delta.rounds.debuffs,
-            feeling: delta.rounds.feeling,
+            buff: delta.energy.buffs,
+            debuff: delta.energy.debuffs,
+            feeling: delta.energy.feeling,
             weapon: 0,
             armor: 0,
             total: combined.rounds,
@@ -157,8 +157,8 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
             case 'life':
                 playerStats.updateLife(value);
                 break;
-            case 'rounds':
-                playerStats.updateRounds(value);
+            case 'energy':
+                playerStats.updateEnergy(value);
                 break;
             case 'attack':
             case 'defense':
@@ -421,18 +421,18 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                     </div>
                 </div>
 
-                {/* Runden */}
+                {/* Tatendrang */}
                 <div className="flex-row">
                     <div className="flex-row">
-                        <button className="redBtn3" onClick={() => handlePlayerStats("rounds", -1)}>1</button>
-                        <button className="redBtn2" onClick={() => handlePlayerStats("rounds", -3)}>3</button>
-                        <button className="redBtn1" onClick={() => handlePlayerStats("rounds", -5)}>5</button>
+                        <button className="redBtn3" onClick={() => handlePlayerStats("energy", -1)}>1</button>
+                        <button className="redBtn2" onClick={() => handlePlayerStats("energy", -3)}>3</button>
+                        <button className="redBtn1" onClick={() => handlePlayerStats("energy", -5)}>5</button>
                     </div>
-                    <div className="w100c">{SYSTEM.Runden}</div>
+                    <div className="w100c">{SYSTEM.Tatendrang}</div>
                     <div className="flex-row">
-                        <button className="greenBtn1" onClick={() => handlePlayerStats("rounds", 5)}>5</button>
-                        <button className="greenBtn2" onClick={() => handlePlayerStats("rounds", 3)}>3</button>
-                        <button className="greenBtn3" onClick={() => handlePlayerStats("rounds", 1)}>1</button>
+                        <button className="greenBtn1" onClick={() => handlePlayerStats("energy", 5)}>5</button>
+                        <button className="greenBtn2" onClick={() => handlePlayerStats("energy", 3)}>3</button>
+                        <button className="greenBtn3" onClick={() => handlePlayerStats("energy", 1)}>1</button>
                     </div>
                 </div>
             </div>
@@ -494,7 +494,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                             {selected.buffs.map((buff) => (
                                 <div key={buff.name}>
                                     {buff.label} - (Dauer: {buff.currentDuration}{" "}
-                                    Runden)
+                                    Tatendrang)
                                 </div>
                             ))}
                         </p>
@@ -509,7 +509,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                             {selected.debuffs.map((debuff) => (
                                 <div key={debuff.name}>
                                     {debuff.label} - (Dauer:{" "}
-                                    {debuff.currentDuration} Runden)
+                                    {debuff.currentDuration} Tatendrang)
                                 </div>
                             ))}
                         </p>

@@ -70,7 +70,7 @@ export class TimeStore {
 
         const { maxLife, maxRounds } = this.rootStore.playerBase.data;
         this.rootStore.playerStats.data.life = maxLife;
-        this.rootStore.playerStats.data.rounds = maxRounds;
+        this.rootStore.playerStats.data.energy = maxRounds;
 
         this.rootStore.playerFlux.data.buff = {};
         this.rootStore.playerFlux.data.debuff = {};

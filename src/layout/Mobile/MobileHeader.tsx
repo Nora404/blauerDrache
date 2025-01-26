@@ -28,7 +28,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = observer(() => {
             </div>
             <div id="header1" className='text-left'>
                 {SYSTEM.Leben}: {combined.life} / {combined.maxLife}<br />
-                {SYSTEM.Runden}: {combined.rounds} / {combined.maxRounds}
+                {SYSTEM.Tatendrang}: {combined.rounds} / {combined.maxRounds}
             </div>
             <div id="header2" className='text-left'>
                 {SYSTEM.Level}: {playerBase.data.level}<br />

@@ -6,7 +6,7 @@ type SystemKeys =
   | 'Ruf'
   | 'Leumund'
   | 'Leben'
-  | 'Runden'
+  | 'Tatendrang'
   | 'Angriff'
   | 'Verteidigung'
   | 'Glück'
@@ -23,7 +23,7 @@ export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   Ruf: <i><GradientText colors={['#E54387', '#FF92BF', '#E54387']}>Ruf</GradientText></i>,
   Leumund: <i><GradientText colors={['#45DBA0', '#57C6DD', '#45DBA0']}>Leumund</GradientText></i>,
   Leben: <GradientText colors={['#74dd4f', '#57C6DD']}>Leben</GradientText>,
-  Runden: <GradientText colors={['#C742DD', '#57C6DD']}>Runden</GradientText>,
+  Tatendrang: <GradientText colors={['#C742DD', '#57C6DD']}>Tatendrang</GradientText>,
   Angriff: <GradientText colors={['#DD2C2C', '#57C6DD']}>Angriff</GradientText>,
   Verteidigung: <GradientText colors={['#6D36F2', '#C7F288', '#57C6DD']}>Verteidigung</GradientText>,
   Glück: <GradientText colors={['#F2D828', '#57C6DD']}>Glück</GradientText>,

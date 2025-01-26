@@ -43,11 +43,11 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
     },
     {
       key: "startData2",
-      label: SYSTEM.Runden,
+      label: SYSTEM.Tatendrang,
       base: maxRounds,
-      buff: delta.rounds.buffs,
-      debuff: delta.rounds.debuffs,
-      feeling: delta.rounds.feeling,
+      buff: delta.energy.buffs,
+      debuff: delta.energy.debuffs,
+      feeling: delta.energy.feeling,
       weapon: 0,
       armor: 0,
       total: combined.rounds,
@@ -200,7 +200,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
           {selected.buffs.map((buff) => (
             <div key={buff.name}>
               {buff.label} - {buff.description} (Dauer: {buff.currentDuration}{" "}
-              Runden)
+              Tatendrang)
             </div>
           ))}
         </p>
@@ -214,7 +214,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
           {selected.debuffs.map((debuff) => (
             <div key={debuff.name}>
               {debuff.label} - {debuff.description} (Dauer:{" "}
-              {debuff.currentDuration} Runden)
+              {debuff.currentDuration} Tatendrang)
             </div>
           ))}
         </p>

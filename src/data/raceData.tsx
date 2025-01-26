@@ -214,7 +214,7 @@ export const races: Race[] = [
         label: <b><GradientText colors={['#BFD3FF', '#B0B0B0']}>Fenril</GradientText></b>,
         ascii: <FenrilAscii />,
         description: "Diese wolfsähnlichen Wesen leben tief in den Wäldern, weniger weil sie so naturverbunden wären, sondern weil es die beste Tarnung bietet. Dank den Verträgen mit den Zwergen und Elfen haben sie Wissen und Material um eine hoch technisierte und streng organisierte Gesellschaft zu erschaffen, die im Verborgenen floriert.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Runden}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang}</>,
         base: {
             level: 1,
             maxLife: 100,
