@@ -164,7 +164,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         }
     }
     const handlePlayerEconomy = (field: keyof typeof playerEconomy.data, value: number) => {
-        playerEconomy.setPlayerEconomy({ [field]: value });
+        playerEconomy.updatePlayerEconomy({ [field]: value });
     }
     //#endregion
 
@@ -620,11 +620,40 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
             </table><br />
 
             <HeaderSmall>Spieler Währung</HeaderSmall>
-            <table className='w-full'>
-                <tr>
-                    <td></td>
-                </tr>
-            </table>
+            <div className='flex-row'>
+                <div className='flex-row'>
+                    <div>
+                        <button className='redBtn3' onClick={() => handlePlayerEconomy("gold", -500)}>500</button>
+                        <button className='redBtn2' onClick={() => handlePlayerEconomy("gold", -200)}>200</button>
+                        <button className='redBtn1' onClick={() => handlePlayerEconomy("gold", -50)}>50</button>
+                    </div>
+                    <div className='w100c'>{SYSTEM.Gold}</div>
+                    <div>
+                        <button className='greenBtn1' onClick={() => handlePlayerEconomy("gold", 50)}>50</button>
+                        <button className='greenBtn2' onClick={() => handlePlayerEconomy("gold", 200)}>200</button>
+                        <button className='greenBtn3' onClick={() => handlePlayerEconomy("gold", 500)}>500</button>
+                    </div>
+                </div>
+                <div className='flex-row'>
+                    <div>
+                        <button className='redBtn3' onClick={() => handlePlayerEconomy("edelsteine", -1)}>
+                            1</button>
+                        <button className='redBtn2' onClick={() => handlePlayerEconomy("edelsteine", -5)}>
+                            5</button>
+                        <button className='redBtn1' onClick={() => handlePlayerEconomy("edelsteine", -10)}>
+                            10</button>
+                    </div>
+                    <div className='w100c'>{SYSTEM.Edelsteine}</div>
+                    <div>
+                        <button className='greenBtn1' onClick={() => handlePlayerEconomy("edelsteine", 10)}>
+                            10</button>
+                        <button className='greenBtn2' onClick={() => handlePlayerEconomy("edelsteine", 5)}>
+                            5</button>
+                        <button className='greenBtn3' onClick={() => handlePlayerEconomy("edelsteine", 1)}>
+                            1</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 
