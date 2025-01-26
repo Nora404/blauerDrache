@@ -136,7 +136,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         }
     }
     const handlePlayerStats = (field: keyof typeof playerStats.data, value: number) => {
-        playerStats.setPlayerStats({ [field]: value });
+        playerStats.updatePlayerStats({ [field]: value });
     }
     const handlePlayerFlux = (field: keyof typeof playerFlux.data, value: string) => {
         playerFlux.setPlayerFlux({ [field]: value });
@@ -351,15 +351,88 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                             50</button>
                     </div>
                 </div>
-            </div>
+            </div><br />
 
 
             <HeaderSmall>Spieler Werte</HeaderSmall>
-            <table className='w-full'>
-                <tr>
-                    <td></td>
-                </tr>
-            </table>
+
+            <div className='flex-row'>
+                <div className="flex-row">
+                    <div className="flex-row">
+                        <button className="redBtn3" onClick={() => handlePlayerStats("life", -1)}>1</button>
+                        <button className="redBtn2" onClick={() => handlePlayerStats("life", -10)}>10</button>
+                        <button className="redBtn1" onClick={() => handlePlayerStats("life", -50)}>50</button>
+                    </div>
+                    <div className="w100c">{SYSTEM.Leben}</div>
+                    <div className="flex-row">
+                        <button className="greenBtn1" onClick={() => handlePlayerStats("life", 50)}>50</button>
+                        <button className="greenBtn2" onClick={() => handlePlayerStats("life", 10)}>10</button>
+                        <button className="greenBtn3" onClick={() => handlePlayerStats("life", 1)}>1</button>
+                    </div>
+                </div>
+
+                {/* Runden */}
+                <div className="flex-row">
+                    <div className="flex-row">
+                        <button className="redBtn3" onClick={() => handlePlayerStats("rounds", -1)}>1</button>
+                        <button className="redBtn2" onClick={() => handlePlayerStats("rounds", -3)}>3</button>
+                        <button className="redBtn1" onClick={() => handlePlayerStats("rounds", -5)}>5</button>
+                    </div>
+                    <div className="w100c">{SYSTEM.Runden}</div>
+                    <div className="flex-row">
+                        <button className="greenBtn1" onClick={() => handlePlayerStats("rounds", 5)}>5</button>
+                        <button className="greenBtn2" onClick={() => handlePlayerStats("rounds", 3)}>3</button>
+                        <button className="greenBtn3" onClick={() => handlePlayerStats("rounds", 1)}>1</button>
+                    </div>
+                </div>
+            </div>
+            <div className='flex-row'>
+                <div className="flex-row">
+                    <div className="flex-row">
+                        <button className="redBtn3" onClick={() => handlePlayerStats("attack", -1)}>1</button>
+                        <button className="redBtn2" onClick={() => handlePlayerStats("attack", -5)}>5</button>
+                        <button className="redBtn1" onClick={() => handlePlayerStats("attack", -10)}>10</button>
+                    </div>
+                    <div className="w100c">{SYSTEM.Angriff}</div>
+                    <div className="flex-row">
+                        <button className="greenBtn1" onClick={() => handlePlayerStats("attack", 10)}>10</button>
+                        <button className="greenBtn2" onClick={() => handlePlayerStats("attack", 5)}>5</button>
+                        <button className="greenBtn3" onClick={() => handlePlayerStats("attack", 1)}>1</button>
+                    </div>
+                </div>
+
+                {/* Verteidigung */}
+                <div className="flex-row">
+                    <div className="flex-row">
+                        <button className="redBtn3" onClick={() => handlePlayerStats("defense", -1)}>1</button>
+                        <button className="redBtn2" onClick={() => handlePlayerStats("defense", -5)}>5</button>
+                        <button className="redBtn1" onClick={() => handlePlayerStats("defense", -10)}>10</button>
+                    </div>
+                    <div className="w100c">{SYSTEM.Verteidigung}</div>
+                    <div className="flex-row">
+                        <button className="greenBtn1" onClick={() => handlePlayerStats("defense", 10)}>10</button>
+                        <button className="greenBtn2" onClick={() => handlePlayerStats("defense", 5)}>5</button>
+                        <button className="greenBtn3" onClick={() => handlePlayerStats("defense", 1)}>1</button>
+                    </div>
+                </div>
+            </div>
+            <div className='flex-row'>
+                <div className="flex-row">
+                    <div className="flex-row">
+                        <button className="redBtn3" onClick={() => handlePlayerStats("luck", -1)}>1</button>
+                        <button className="redBtn2" onClick={() => handlePlayerStats("luck", -5)}>5</button>
+                        <button className="redBtn1" onClick={() => handlePlayerStats("luck", -10)}>10</button>
+                    </div>
+                    <div className="w100c">{SYSTEM.Glück}</div>
+                    <div className="flex-row">
+                        <button className="greenBtn1" onClick={() => handlePlayerStats("luck", 10)}>10</button>
+                        <button className="greenBtn2" onClick={() => handlePlayerStats("luck", 5)}>5</button>
+                        <button className="greenBtn3" onClick={() => handlePlayerStats("luck", 1)}>1</button>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+
 
             <HeaderSmall>Spieler Ausrüstung</HeaderSmall>
             <table className='w-full'>
