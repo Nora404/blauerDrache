@@ -18,13 +18,14 @@ export class PlayerBaseStore {
         this.rootStore.saveToLocalStorage();
     }
 
-    updateExp(earnedExp: number) {
+    updateExp(expChange: number) {
         const { data: playerStats } = this.rootStore.playerStats;
 
-        let newExp = this.data.exp + earnedExp;
+        let newExp = this.data.exp + expChange; // Exp erhöhen oder senken
         let { level, nextLevel, maxLife } = this.data;
         let { attack, defense, luck, life } = playerStats;
 
+        // Level erhöhen, falls Exp überschritten
         while (newExp >= nextLevel) {
             newExp -= nextLevel;
             level += 1;
@@ -36,6 +37,24 @@ export class PlayerBaseStore {
             nextLevel = this.requiredExpForLevel(level);
         }
 
+        // Level senken, falls Exp zu niedrig sind
+        while (newExp < 0 && level > 1) {
+            level -= 1;
+            nextLevel = this.requiredExpForLevel(level);
+            newExp += nextLevel;
+            attack -= 2;
+            defense -= 2;
+            luck -= 1;
+            life -= 5;
+            maxLife -= 5;
+        }
+
+        // Verhindern, dass Exp unter 0 fällt, wenn Level bereits 1 ist
+        if (newExp < 0) {
+            newExp = 0;
+        }
+
+        // Update der Werte
         this.data.exp = newExp;
         this.data.level = level;
         this.data.nextLevel = nextLevel;

@@ -27,14 +27,12 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         playerFlux,
         playerMeta,
         playerEconomy,
-        playerQuest,
     } = useRootStore();
 
     // Daten holen:
     const combined = getCombinedStats();
     const selected = getPlayerObj();
     const delta = getDelta();
-    const scalingFactor = getScalingFactor(playerBase.data.level);
 
     const { attack, defense, luck } = playerStats.data;
     const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
@@ -105,6 +103,39 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     }
     const handlePlayerMeta = (field: keyof typeof playerMeta.data, value: string) => {
         playerMeta.setPlayerMeta({ [field]: value });
+    }
+    const handlePlayerBase = (field: keyof typeof playerBase.data, value: number) => {
+        switch (field) {
+            case 'level':
+                if (value > 0) {
+                    playerBase.updateExp(playerBase.data.nextLevel + 1);
+                } else {
+                    playerBase.updateExp(-(playerBase.data.exp + 1));
+                }
+                break;
+            case 'exp':
+                playerBase.updateExp(value);
+                break;
+            case 'ruf':
+                if (value > 0) {
+                    playerBase.updateLeumund(playerBase.data.nextLeumund + 1);
+                } else {
+                    playerBase.updateLeumund(-(playerBase.data.leumund + 1));
+                }
+                break;
+            case 'leumund':
+                playerBase.updateLeumund(value);
+                break;
+        }
+    }
+    const handlePlayerStats = (field: keyof typeof playerStats.data, value: number) => {
+        playerStats.setPlayerStats({ [field]: value });
+    }
+    const handlePlayerFlux = (field: keyof typeof playerFlux.data, value: string) => {
+        playerFlux.setPlayerFlux({ [field]: value });
+    }
+    const handlePlayerEconomy = (field: keyof typeof playerEconomy.data, value: number) => {
+        playerEconomy.setPlayerEconomy({ [field]: value });
     }
     //#endregion
 
@@ -243,6 +274,70 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                     </td>
                 </tr>
             </table><br />
+
+            <HeaderSmall>Spieler Erfahrung</HeaderSmall>
+            <div className='flex-row'>
+                <div className='flex-row'>
+                    <div><button
+                        className='redBtn'
+                        onClick={() => handlePlayerBase("level", -1)}>-</button></div>
+                    <div className='w100c'>{SYSTEM.Level}</div>
+                    <div><button
+                        className='greenBtn'
+                        onClick={() => handlePlayerBase("level", 1)}>+</button></div>
+                </div>
+                <div className='flex-row'>
+                    <div><button
+                        className='redBtn'
+                        onClick={() => handlePlayerBase("exp", -100)}>-</button></div>
+                    <div className='w100c'>{SYSTEM.Erfahrung}</div>
+                    <div><button
+                        className='greenBtn'
+                        onClick={() => handlePlayerBase("exp", 100)}>+</button></div>
+                </div>
+            </div>
+
+            <div className='flex-row'>
+                <div className='flex-row'>
+                    <div><button
+                        className='redBtn'
+                        onClick={() => handlePlayerBase("ruf", -1)}>-</button></div>
+                    <div className='w100c'>{SYSTEM.Ruf}</div>
+                    <div><button
+                        className='greenBtn'
+                        onClick={() => handlePlayerBase("ruf", 1)}>+</button></div>
+                </div>
+                <div className='flex-row'>
+                    <div><button
+                        className='redBtn'
+                        onClick={() => handlePlayerBase("leumund", -100)}>-</button></div>
+                    <div className='w100c'>{SYSTEM.Leumund}</div>
+                    <div><button
+                        className='greenBtn'
+                        onClick={() => handlePlayerBase("leumund", 100)}>+</button></div>
+                </div>
+            </div><br />
+
+            <HeaderSmall>Spieler Werte</HeaderSmall>
+            <table className='w-full'>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+
+            <HeaderSmall>Spieler Ausrüstung</HeaderSmall>
+            <table className='w-full'>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+
+            <HeaderSmall>Spieler Währung</HeaderSmall>
+            <table className='w-full'>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     );
 

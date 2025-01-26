@@ -133,3 +133,29 @@ input[type="number"] {
     height: 25px;
     margin-top: 5px;
 }
+
+.w100c {
+    width: 300px;
+    text-align: center;
+    border: 1px dotted gray;
+}
+
+.greenBtn {
+    background-color: #356941;
+    width: 60px;
+    height: 30px;
+    padding: 2px;
+    color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.redBtn {
+    background-color: #752931;
+    width: 60px;
+    height: 30px;
+    padding: 2px;
+    color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+}

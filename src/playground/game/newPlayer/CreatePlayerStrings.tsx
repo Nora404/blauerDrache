@@ -1,6 +1,6 @@
 import { CREATURE } from "../../../data/helper/colorfullStrings";
 import Talk from "../../../utility/Formatted/Talk";
-import PlayerTalk from "../../../utility/PlayerTalk";
+
 
 export const ChooseRaceText: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ export const ChooseRaceText: React.FC = () => {
       </p>
 
       <p className="mb-1">
-        <PlayerTalk>"Wa-wa-wa..."</PlayerTalk> stammelst du.
+        <Talk>"Wa-wa-wa..."</Talk> stammelst du.
         <br />
       </p>
 

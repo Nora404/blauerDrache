@@ -19,6 +19,11 @@ export class PlayerFluxStore {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
+    setPlayerFlux(val: Partial<PlayerFlux>) {
+        this.data = { ...this.data, ...val };
+        this.rootStore.saveToLocalStorage();
+    }
+
     updatePlayerBuff(name: BuffName) {
         const buff = buffMap[name];
         if (!buff) return;
