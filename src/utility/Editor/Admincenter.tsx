@@ -145,7 +145,20 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         }
     }
     const handlePlayerStats = (field: keyof typeof playerStats.data, value: number) => {
-        playerStats.updatePlayerStats({ [field]: value });
+        switch (field) {
+            case 'life':
+                playerStats.updateLife(value);
+                break;
+            case 'rounds':
+                playerStats.updateRounds(value);
+                break;
+            case 'attack':
+            case 'defense':
+            case 'luck':
+                playerStats.updatePlayerStats({ [field]: value });
+                break;
+
+        }
     }
     const handlePlayerFlux = (field: keyof typeof playerFlux.data, value: string, add?: boolean) => {
         if (field === "buff" && add) {
