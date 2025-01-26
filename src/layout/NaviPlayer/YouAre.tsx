@@ -13,34 +13,56 @@ const YouAre: React.FC<YouAreProps> = observer(() => {
   return (
     <div>
       <Header>Das bist du</Header>
-      <p className="text-left padding-left">
-        Name: {playerMeta.data.name}
-        <br />
-        Rasse: {selected.race.label}
-        <br />
-        Herkunft: {selected.origin.label}
-        <br />
-        Berufung: {selected.calling.label}
-        <br />
-        Titel: <GradientText>{playerMeta.data.titel}</GradientText>
-        <br />
-        Stimmung: {selected.feeling.label}
-        <br />
-        Buff:{" "}
-        <span
-          className={selected.buffs.length > 0 ? "text-green" : "text-gray"}
-        >
-          {selected.buffs.length} aktiv
-        </span>
-        <br />
-        Debuff:{" "}
-        <span
-          className={selected.debuffs.length > 0 ? "text-red" : "text-gray"}
-        >
-          {selected.debuffs.length} aktiv
-        </span>
-        <br />
-      </p>
+      <table style={{ paddingLeft: "20px", marginBottom: "25px" }}>
+        <tbody>
+          <tr>
+            <td width={125}>Name</td>
+            <td>{playerMeta.data.name}</td>
+          </tr>
+          <tr>
+            <td>Rasse</td>
+            <td>{selected.race.label}</td>
+          </tr>
+          <tr>
+            <td>Herkunft</td>
+            <td>{selected.origin.label}</td>
+          </tr>
+          <tr>
+            <td>Berufung</td>
+            <td>{selected.calling.label}</td>
+          </tr>
+          <tr>
+            <td>Titel</td>
+            <td>
+              <GradientText>{playerMeta.data.titel}</GradientText>
+            </td>
+          </tr>
+          <tr>
+            <td>Stimmung</td>
+            <td>{selected.feeling.label}</td>
+          </tr>
+          <tr>
+            <td>Buff</td>
+            <td>
+              <span
+                className={selected.buffs.length > 0 ? "text-green" : "text-gray"}
+              >
+                {selected.buffs.length} aktiv
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>Debuff</td>
+            <td>
+              <span
+                className={selected.debuffs.length > 0 ? "text-red" : "text-gray"}
+              >
+                {selected.debuffs.length} aktiv
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 });
