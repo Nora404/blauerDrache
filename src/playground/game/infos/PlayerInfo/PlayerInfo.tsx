@@ -5,10 +5,6 @@ import TableRow from "./TableRow";
 import { SYSTEM } from "../../../../data/helper/colorfullStrings";
 import "./PlayerInfo.css";
 import { useRootStore } from "../../../../store";
-import { getScalingFactor } from "../../../../utility/Helper/Progression";
-import { WeaponName } from "../../../../data/weaponData";
-import { BuffName } from "../../../../data/buffData";
-import { DebuffName } from "../../../../data/debuffData";
 
 type PlayerInfoProps = {};
 
@@ -17,23 +13,18 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
     getCombinedStats,
     getPlayerObj,
     getDelta,
-    gameTime,
 
     playerStats,
     playerBase,
-    playerFlux,
-    playerEconomy,
+
     playerMeta,
   } = useRootStore();
 
   // Daten holen:
-  const combined = getCombinedStats(); // z.B. RootStore-Methode
-  const selected = getPlayerObj(); // z.B. RootStore-Methode
-  const delta = getDelta(); // z.B. RootStore-Methode
-  const scalingFactor = getScalingFactor(playerBase.data.level);
+  const combined = getCombinedStats();
+  const selected = getPlayerObj();
+  const delta = getDelta();
 
-  // Beispiel: Statt store.playerStats.luck => playerStatsStore.playerStats.luck
-  // (type-sicherer Zugriff)
   const { attack, defense, luck } = playerStats.data;
   const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
 
@@ -96,37 +87,6 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
     },
   ];
 
-  // Event-Handler auf den neuen MobX-Stores aufrufen
-  const handleLifeAdd = () => playerStats.updateLife(10);
-  const handleLifeSub = () => playerStats.updateLife(-10);
-
-  const handleRoundsAdd = () => playerStats.updateRounds(1);
-  const handleRoundsSub = () => playerStats.updateRounds(-1);
-
-  const handleNewDay = () => gameTime.newDay();
-  const handleExp = () => playerBase.updateExp(50);
-
-  const handleWeapon = () =>
-    playerFlux.updateWeapon("Besenstiel" as WeaponName);
-
-  const handleBuff1 = () =>
-    playerFlux.updatePlayerBuff("Eisenhaut" as BuffName);
-  const handleBuff2 = () =>
-    playerFlux.updatePlayerBuff("Kampfgeist" as BuffName);
-  const handleDebuff1 = () =>
-    playerFlux.updatePlayerDebuff("Schwäche" as DebuffName);
-  const handleDebuff2 = () =>
-    playerFlux.updatePlayerDebuff("Pechvogel" as DebuffName);
-
-  const handleAddPilz = () => playerEconomy.updateItems("Pilz", 2);
-  const handleRemovePilz = () => playerEconomy.updateItems("Pilz", -1);
-  const handleAddStick = () => playerEconomy.updateItems("Stein", 1);
-
-  const handleAddRep = () => playerBase.updateLeumund(50);
-  const handleSubRep = () => playerBase.updateLeumund(-50);
-
-  const handleAddGold = () => playerEconomy.updatePlayerEconomy({ gold: 50 });
-
   // Beispiel für Callback mit standing
   const reputationMessage = useCallback(() => {
     let message: string;
@@ -152,9 +112,9 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
     }
 
     return (
-      <div className="mb-1 text-left">
+      <span>
         Dein {SYSTEM.Ruf} ist {message}
-      </div>
+      </span>
     );
   }, [standing]);
 
@@ -190,7 +150,14 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
       </div>
       <br />
       {/* Ruf */}
-      {reputationMessage()}
+
+      <div className="mb-1 text-left">
+        {reputationMessage()}<br />
+        Dein Geist und deine Stimmung sind heute {selected.feeling.label}.{" "}
+        {selected.feeling.bonus}. <br />
+      </div>
+
+
       <br />
       <Header>Kombinierte Statistiken</Header>
       <br />
@@ -227,119 +194,33 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
       </div>
       <br />
       {/* Aktive Buffs */}
-      <h3>Aktive Buffs</h3>
+      <Header>Aktive Buffs</Header>
       {selected.buffs.length > 0 ? (
-        <>
+        <p>
           {selected.buffs.map((buff) => (
             <div key={buff.name}>
               {buff.label} - {buff.description} (Dauer: {buff.currentDuration}{" "}
               Runden)
             </div>
           ))}
-        </>
+        </p>
       ) : (
         <p>Keine aktiven Buffs</p>
       )}
       {/* Aktive Debuffs */}
-      <h3>Aktive Debuffs</h3>
+      <Header>Aktive Debuffs</Header>
       {selected.debuffs.length > 0 ? (
-        <>
+        <p>
           {selected.debuffs.map((debuff) => (
             <div key={debuff.name}>
               {debuff.label} - {debuff.description} (Dauer:{" "}
               {debuff.currentDuration} Runden)
             </div>
           ))}
-        </>
+        </p>
       ) : (
         <p>Keine aktiven Debuffs</p>
       )}
-      <br />
-      <br />
-      <Header>Meine Cheats</Header>
-      {/* Beispiel: Spieler tot */}
-      {combined.life <= 0 && (
-        <>
-          TOT!!! <br />
-          <br />
-        </>
-      )}
-      <br />
-      Aktuelles scaling bei einem Wert von 10: {10 * scalingFactor}
-      <br />
-      <br />
-      <table>
-        <tbody>
-          <tr>
-            <td width={"50%"} style={{ verticalAlign: "top" }}>
-              <button className="btn-border" onClick={handleNewDay}>
-                Neuer Tag
-              </button>
-              <br />
-              <br />
-
-              <button className="btn-border" onClick={handleRoundsAdd}>
-                Runde +
-              </button>
-              <button className="btn-border" onClick={handleRoundsSub}>
-                Runde -
-              </button>
-
-              <button className="btn-border" onClick={handleExp}>
-                Erfahrung +
-              </button>
-
-              <button className="btn-border" onClick={handleLifeAdd}>
-                Leben +
-              </button>
-              <button className="btn-border" onClick={handleLifeSub}>
-                Leben -
-              </button>
-              <br />
-              <br />
-
-              <button className="btn-border" onClick={handleAddRep}>
-                Respekt +
-              </button>
-              <button className="btn-border" onClick={handleSubRep}>
-                Respekt -
-              </button>
-            </td>
-            <td>
-              <button className="btn-border" onClick={handleWeapon}>
-                Nimm eine Waffe
-              </button>
-              <button className="btn-border" onClick={handleBuff1}>
-                Bekomme Buff Eisenhaut
-              </button>
-              <button className="btn-border" onClick={handleBuff2}>
-                Bekomme Buff Kampfgeist
-              </button>
-              <button className="btn-border" onClick={handleDebuff1}>
-                Bekomme Debuff Schwäche
-              </button>
-              <button className="btn-border" onClick={handleDebuff2}>
-                Bekomme Debuff Pechvogel
-              </button>
-              <br />
-              <br />
-
-              <button className="btn-border" onClick={handleAddStick}>
-                Nimm Stein
-              </button>
-              <button className="btn-border" onClick={handleAddPilz}>
-                Nimm 2 Pilze
-              </button>
-              <button className="btn-border" onClick={handleRemovePilz}>
-                wirf einen Pilz weg
-              </button>
-              <button className="btn-border" onClick={handleAddGold}>
-                Nimm 50 Gold
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   );
 });
