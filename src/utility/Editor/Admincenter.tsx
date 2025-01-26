@@ -479,14 +479,14 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                 <div>
                     <strong>Aktive Buffs</strong>
                     {selected.buffs.length > 0 ? (
-                        <>
+                        <p>
                             {selected.buffs.map((buff) => (
                                 <div key={buff.name}>
                                     {buff.label} - (Dauer: {buff.currentDuration}{" "}
                                     Runden)
                                 </div>
                             ))}
-                        </>
+                        </p>
                     ) : (
                         <p>Keine aktiven Buffs</p>
                     )}</div>
@@ -494,14 +494,14 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                 <div>
                     <strong>Aktive Debuffs</strong>
                     {selected.debuffs.length > 0 ? (
-                        <>
+                        <p>
                             {selected.debuffs.map((debuff) => (
                                 <div key={debuff.name}>
                                     {debuff.label} - (Dauer:{" "}
                                     {debuff.currentDuration} Runden)
                                 </div>
                             ))}
-                        </>
+                        </p>
                     ) : (
                         <p>Keine aktiven Debuffs</p>
                     )}</div>
