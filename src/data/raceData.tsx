@@ -4,14 +4,14 @@ import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { SYSTEM } from "./helper/colorfullStrings";
 import { braunColors, greenColors } from "./helper/colorMappingData";
 import { OriginName } from "./originData";
-import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from "./helper/playerAscii";
+import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, OrksAscii } from "./helper/playerAscii";
 
 export type RaceName =
     | "Mensch"
     | "Elf"
     | "Zwerg"
     | "Echse"
-    | "Troll"
+    | "Ork"
     | "Felkin"
     | "Fenril"
     | "Dryade";
@@ -154,10 +154,10 @@ export const races: Race[] = [
         ],
     },
     {
-        name: "Troll",
-        label: <b><MultiColoredLetters colors={greenColors}>Troll</MultiColoredLetters></b>,
-        ascii: <TrollAscii />,
-        description: "In den Sümpfen, nahe der vergessenen Ruinen, leben die Trolle. Wenn sie sich nicht gegen andere Bewohner des Sumpfes verteidigen müssen, zum Beispiel gegen Monster Mücken, beten sie zu ihren Göttern. Sie verrichten für diese verschiedene Dienste in sogenannten Bruderschaften. Dabei kommt es gelegentlich zu „Uneinigkeiten“",
+        name: "Ork",
+        label: <b><MultiColoredLetters colors={greenColors}>Ork</MultiColoredLetters></b>,
+        ascii: <OrksAscii />,
+        description: "In den Sümpfen, nahe der vergessenen Ruinen, leben die Orks. Wenn sie sich nicht gegen andere Bewohner des Sumpfes verteidigen müssen, zum Beispiel gegen Monster Mücken, beten sie zu ihren Göttern. Sie verrichten für diese verschiedene Dienste in sogenannten Bruderschaften. Dabei kommt es gelegentlich zu „Uneinigkeiten“",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Verteidigung}</>,
         base: {
             level: 1,

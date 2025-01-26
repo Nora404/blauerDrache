@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { startTransition, useEffect, useState } from 'react';
 import { emptyRaceObj, Race, RaceName } from '../../../data/raceData';
-import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, TrollAscii } from '../../../data/helper/playerAscii';
+import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, OrksAscii } from '../../../data/helper/playerAscii';
 import ChooseRace from './ChooseRace';
 import ChooseOrigin from './ChooseOrigin';
 import ChooseCalling from './ChooseCalling';
@@ -137,7 +137,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = observer(() => {
                     <ElfAscii />
                     <DwarfAscii />
                     <LizardAscii />
-                    <TrollAscii />
+                    <OrksAscii />
                     <FelkinAscii />
                     <FenrilAscii />
                     <DryadAscii />

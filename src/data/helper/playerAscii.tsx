@@ -48,7 +48,7 @@ export const LizardAscii: React.FC = () => {
     );
 }
 
-export const TrollAscii: React.FC = () => {
+export const OrksAscii: React.FC = () => {
     return (
         <div className='mono-text'>
             &#168;&#937;&#168;<br />
