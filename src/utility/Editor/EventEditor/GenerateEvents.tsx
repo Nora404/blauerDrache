@@ -11,8 +11,7 @@ export default function EventCreationForm() {
     <div className="text-left max-width">
       <h2>Event-Erstellungsformular</h2>
       <p className='mb-1 text-left'>
-        Events kommen im Spiel überall vor, sie können gezielt getriggert werden, oder per Zufall an bestimmten Orten. Sie bestehen immer aus einer Überschrift, einer detailierten Beschreibung und Buttons, die dem Spieler ermöglichen auf das Event zu reagieren. Intern braucht ein Event noch eine ID die immer mit "event" beginnt (wird automatisch hinzugefügt), gefolgt von drei Ziffern und einem knappen Namen.<br />
-        In der Beschreibung hast du Listen mit vordefinirten gefärbten Wörtern und Komponenten welche einen Text ebenfalls mit einer oder mehrere Farben einfärben können.
+        Events kommen im Spiel überall vor, sie können gezielt getriggert werden, oder per Zufall an bestimmten Orten. Sie bestehen immer aus einer Überschrift, einer detailierten Beschreibung und Buttons, die dem Spieler ermöglichen auf das Event zu reagieren. Intern braucht ein Event noch eine ID die immer mit "event" beginnt (wird automatisch hinzugefügt), gefolgt von drei Ziffern und einem knappen Namen. In der Beschreibung hast du Listen mit vordefinirten gefärbten Wörtern und Komponenten welche einen Text ebenfalls mit einer oder mehrere Farben einfärben können.
       </p>
       <BaseInfo />
 
@@ -23,6 +22,11 @@ export default function EventCreationForm() {
       <ActionBtn />
 
       <Places />
+
+      <p className='mb-1 text-left'>
+        Damit ein Event im Spiel benutzt werden kann mus im Ordner "data" unter "gameEvents" eine neue Datei erstellt werden. Jedes Event hat eine eigene Datei, der Name ist der gleiche wie die ID des Events. In data gibt es auch eine Datei die "questList" heißt. Dort wird das neue Event registriert, heißt es wird in die Liste aufgenommen. Bei normalen Events kann die ID einfach in die Liste randomEvent hinzugefügt werden. Gehört das Event zu einer Quest wird es stattdessen in der Datei "questList" aufgenommen. Das soll dazu dienen die Listen übersichtlicher zu halten. Jetzt kann es überall genutzt werden :-)
+      </p>
+
       <GenerateEventCode />
     </div>
   );

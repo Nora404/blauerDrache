@@ -20,13 +20,16 @@ const YouHave: React.FC<YouHaveProps> = observer(() => {
       <table style={{ paddingLeft: "20px", marginBottom: "5px" }}>
         <tbody>
           <tr>
-            <td width={125}>{SYSTEM.Gold}</td>
-            <td>{playerEconomy.data.gold || "0"}</td>
+            <td width={125}>{SYSTEM.Level}</td>
+            <td>{playerBase.data.level}</td>
           </tr>
           <tr>
-            <td>{SYSTEM.Edelsteine}</td>
-            <td>{playerEconomy.data.edelsteine || "0"}</td>
+            <td>{SYSTEM.Erfahrung}</td>
+            <td>
+              {playerBase.data.exp} / {playerBase.data.nextLevel}
+            </td>
           </tr>
+
           <tr>
             <td>{SYSTEM.Ruf}</td>
             <td>{playerBase.data.ruf}</td>
@@ -36,6 +39,14 @@ const YouHave: React.FC<YouHaveProps> = observer(() => {
             <td>
               {playerBase.data.leumund} / {playerBase.data.nextLeumund}
             </td>
+          </tr>
+          <tr>
+            <td width={125}>{SYSTEM.Gold}</td>
+            <td>{playerEconomy.data.gold || "0"}</td>
+          </tr>
+          <tr>
+            <td>{SYSTEM.Edelsteine}</td>
+            <td>{playerEconomy.data.edelsteine || "0"}</td>
           </tr>
           <tr>
             <td>{SYSTEM.Waffe}</td>

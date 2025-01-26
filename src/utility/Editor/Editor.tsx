@@ -6,7 +6,7 @@ import GenerateQuest from "./QuestEditor/GenerateQuest";
 import Admincenter from "./Admincenter";
 
 const Editor: React.FC = () => {
-  const [side, setSide] = useState<number>(1);
+  const [side, setSide] = useState<number>(3);
 
   const handleClick = (side: number) => {
     setSide(side);

@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 type YouCanProps = {};
 
 const YouCan: React.FC<YouCanProps> = observer(() => {
-  const { playerBase, getCombinedStats } = useRootStore();
+  const { getCombinedStats } = useRootStore();
   const combined = getCombinedStats();
 
   return (
@@ -16,17 +16,7 @@ const YouCan: React.FC<YouCanProps> = observer(() => {
       <table style={{ paddingLeft: "20px", marginBottom: "25px" }}>
         <tbody>
           <tr>
-            <td width={125}>{SYSTEM.Level}</td>
-            <td>{playerBase.data.level}</td>
-          </tr>
-          <tr>
-            <td>{SYSTEM.Erfahrung}</td>
-            <td>
-              {playerBase.data.exp} / {playerBase.data.nextLevel}
-            </td>
-          </tr>
-          <tr>
-            <td>{SYSTEM.Leben}</td>
+            <td width={125}>{SYSTEM.Leben}</td>
             <td>
               {combined.life} / {combined.maxLife}
             </td>
