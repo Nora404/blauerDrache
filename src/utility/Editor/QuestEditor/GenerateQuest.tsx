@@ -12,7 +12,7 @@ import QuestTriggerEventForm from "./Components/QuestTriggerEventForm";
 export default function GenerateQuests() {
   return (
     <QuestCreatorProvider>
-      <div className="form-container text-left w-full">
+      <div className="text-left max-width">
         <h2>Quest-Editor</h2>
         <p>Erstellt eine Quest + zugehörige Trigger-/End-Events. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
           ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
