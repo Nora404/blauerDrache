@@ -9,6 +9,12 @@ import { TEMPERATURE, WEATHER } from '../../data/helper/weatherStrings';
 import { races } from '../../data/raceData';
 import { callings } from '../../data/callingData';
 import { origin } from '../../data/originData';
+import { BuffName, buffs } from '../../data/buffData';
+import { DebuffName, debuffs } from '../../data/debuffData';
+import { weapons } from '../../data/weaponData';
+import { armors } from '../../data/armorData';
+import { feelings } from '../../data/feelingData';
+import { items } from '../../data/ItemData';
 // #endregion
 
 // #region [prepare]
@@ -141,8 +147,21 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     const handlePlayerStats = (field: keyof typeof playerStats.data, value: number) => {
         playerStats.updatePlayerStats({ [field]: value });
     }
-    const handlePlayerFlux = (field: keyof typeof playerFlux.data, value: string) => {
-        playerFlux.setPlayerFlux({ [field]: value });
+    const handlePlayerFlux = (field: keyof typeof playerFlux.data, value: string, add?: boolean) => {
+        if (field === "buff" && add) {
+            playerFlux.updatePlayerBuff(value as BuffName);
+        }
+        else if (field === "buff" && !add) {
+            delete playerFlux.data.buff[value as BuffName];
+        }
+        else if (field === "debuff" && add) {
+            playerFlux.updatePlayerDebuff(value as DebuffName);
+        }
+        else if (field === "debuff" && !add) {
+            delete playerFlux.data.debuff[value as DebuffName];
+        } else {
+            playerFlux.setPlayerFlux({ [field]: value });
+        }
     }
     const handlePlayerEconomy = (field: keyof typeof playerEconomy.data, value: number) => {
         playerEconomy.setPlayerEconomy({ [field]: value });
@@ -438,15 +457,167 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
                     </div>
                 </div>
                 <div></div>
-            </div>
+            </div><br />
 
 
             <HeaderSmall>Spieler Ausrüstung</HeaderSmall>
+
+            <div className='flex-row-editor'>
+                <div>
+                    <strong>Aktive Buffs</strong>
+                    {selected.buffs.length > 0 ? (
+                        <>
+                            {selected.buffs.map((buff) => (
+                                <div key={buff.name}>
+                                    {buff.label} - (Dauer: {buff.currentDuration}{" "}
+                                    Runden)
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <p>Keine aktiven Buffs</p>
+                    )}</div>
+
+                <div>
+                    <strong>Aktive Debuffs</strong>
+                    {selected.debuffs.length > 0 ? (
+                        <>
+                            {selected.debuffs.map((debuff) => (
+                                <div key={debuff.name}>
+                                    {debuff.label} - (Dauer:{" "}
+                                    {debuff.currentDuration} Runden)
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <p>Keine aktiven Debuffs</p>
+                    )}</div>
+            </div>
+
+            <br />
+
             <table className='w-full'>
                 <tr>
-                    <td></td>
+                    <td className='border-bd' style={{ width: "25%" }}>Buff hinzufügen</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={""}
+                            onChange={(e) => handlePlayerFlux("buff", e.target.value, true)}>
+                            <option value="">(keine Auswahl)</option>
+                            {buffs.map((r) => (
+                                <option key={r.name} value={r.name}>
+                                    {r.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                    <td className='border-bd' style={{ width: "25%" }}>Buff entfernen</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={""}
+                            onChange={(e) => handlePlayerFlux("buff", e.target.value, false)}>
+                            <option value="">(keine Auswahl)</option>
+                            {buffs.map((o) => (
+                                <option key={o.name} value={o.name}>
+                                    {o.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
                 </tr>
-            </table>
+                <tr>
+                    <td className='border-bd' style={{ width: "25%" }}>Debuff hinzufügen</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={""}
+                            onChange={(e) => handlePlayerFlux("debuff", e.target.value, true)}>
+                            <option value="">(keine Auswahl)</option>
+                            {debuffs.map((r) => (
+                                <option key={r.name} value={r.name}>
+                                    {r.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                    <td className='border-bd' style={{ width: "25%" }}>Debuff entfernen</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={""}
+                            onChange={(e) => handlePlayerFlux("debuff", e.target.value, false)}>
+                            <option value="">(keine Auswahl)</option>
+                            {debuffs.map((o) => (
+                                <option key={o.name} value={o.name}>
+                                    {o.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td className='border-bd' style={{ width: "25%" }}>Waffe nehmen</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={playerFlux.data.weapon || ""}
+                            onChange={(e) => handlePlayerFlux("weapon", e.target.value)}>
+                            <option value="">(keine Auswahl)</option>
+                            {weapons.map((c) => (
+                                <option key={c.name} value={c.name}>
+                                    {c.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                    <td className='border-bd' style={{ width: "25%" }}>Rüstung anziehen</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={playerFlux.data.armor || ""}
+                            onChange={(e) => handlePlayerFlux("armor", e.target.value)}>
+                            <option value="">(keine Auswahl)</option>
+                            {armors.map((c) => (
+                                <option key={c.name} value={c.name}>
+                                    {c.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td className='border-bd' style={{ width: "25%" }}>Feeling wechseln</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={playerFlux.data.feeling || ""}
+                            onChange={(e) => handlePlayerFlux("feeling", e.target.value)}>
+                            <option value="">(keine Auswahl)</option>
+                            {feelings.map((c) => (
+                                <option key={c.name} value={c.name}>
+                                    {c.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                    <td className='border-bd' style={{ width: "25%" }}>Item (Hand)</td>
+                    <td>
+                        <select
+                            className='w-200px'
+                            value={playerFlux.data.item || ""}
+                            onChange={(e) => handlePlayerFlux("item", e.target.value)}>
+                            <option value="">(keine Auswahl)</option>
+                            {items.map((c) => (
+                                <option key={c.name} value={c.name}>
+                                    {c.name}
+                                </option>
+                            ))}
+                        </select>
+                    </td>
+                </tr>
+            </table><br />
 
             <HeaderSmall>Spieler Währung</HeaderSmall>
             <table className='w-full'>
