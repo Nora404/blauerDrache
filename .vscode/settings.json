@@ -32,5 +32,10 @@
       "folderPath": "blauerDrache\\src\\store\\",
       "color": "foldercolorizer.color_00aa00"
     }
-  ]
+  ],
+  "workbench.colorCustomizations": {
+  "editorError.foreground": "#ffcc00", 
+  "editorWarning.foreground": "#eaff00", 
+  "editorInfo.foreground": "#ADD8E6"  
+}
 }

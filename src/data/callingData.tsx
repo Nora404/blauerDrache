@@ -1,6 +1,6 @@
+import { PlayerBase, PlayerStats, PlayerEconomy } from "../store/types";
 import { GradientText } from "../utility/Formatted/GradientText";
 import { SYSTEM } from "./helper/colorfullStrings";
-import { PlayerBase, PlayerEconomy, PlayerStats } from "../store/newGameStore";
 
 export type CallingName =
     | "Bauer"
@@ -68,11 +68,11 @@ export const callings: Calling[] = [
         description: "Es gibt zwar schon Karten, aber es gibt noch mehr Geheimnisse, die du entdecken willst. Lahtheim soll deine Basis werden, der Ort von dem aus du das Land erkundest und die Umgebung unsicher machst. Vielleicht findest du verlorenes und die dazu passenden dankbaren Seelen, die deine Hilfe mit Gold entlohnen.",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang} und {SYSTEM.Leben}</>,
         base: {
-            maxRounds: 5,
+            maxEnergy: 5,
             maxLife: 20,
         },
         stats: {
-            rounds: 5,
+            energy: 5,
             life: 20,
         },
         economy: {},
@@ -160,11 +160,11 @@ export const callings: Calling[] = [
         description: "Entweder weißt du es selbst nicht, oder niemand soll erfahren, warum du nach Lahtheim gekommen bist. Falls dich jemand fragt, solltest du dir einen einfachen Grund ausdenken – einen, der so unauffällig ist, dass niemand weitere Fragen stellt. Sei am besten so unscheinbar und langweilig wie möglich!",
         bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang} und {SYSTEM.Glück}</>,
         base: {
-            maxRounds: 5,
+            maxEnergy: 5,
         },
         stats: {
             luck: 5,
-            rounds: 5,
+            energy: 5,
         },
         economy: {},
     },

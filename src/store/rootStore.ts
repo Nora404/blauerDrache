@@ -31,10 +31,10 @@ export class RootStore {
     /** name, race, origin, calling, titel, colortype, colors[] */
     playerMeta: PlayerMetaStore;
 
-    /** life, rounds, attack, defense, luck */
+    /** life, energy, attack, defense, luck */
     playerStats: PlayerStatsStore;
 
-    /** level, nextLevel, exp, standing, reputation, nextReputation, maxLife, maxRounds */
+    /** level, nextLevel, exp, standing, reputation, nextReputation, maxLife, maxEnergy */
     playerBase: PlayerBaseStore;
 
     /** feeling, buff{}, debuff{}, weapon, armor, item */
@@ -117,12 +117,12 @@ export class RootStore {
         const { data: playerFlux } = this.playerFlux;
 
         let life = playerStats.life;
-        let rounds = playerStats.energy;
+        let energy = playerStats.energy;
         let attack = playerStats.attack;
         let defense = playerStats.defense;
         let luck = playerStats.luck;
         let maxLife = playerBase.maxLife;
-        let maxRounds = playerBase.maxRounds;
+        let maxEnergy = playerBase.maxEnergy;
 
         attack += weaponMap[playerFlux.weapon].attack ?? 0;
         defense += armorMap[playerFlux.armor].defense ?? 0;
@@ -138,12 +138,12 @@ export class RootStore {
             if (!buff) continue;
 
             life += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
-            rounds += Math.trunc(buff.effects.rounds ?? 0);
+            energy += Math.trunc(buff.effects.energy ?? 0);
             attack += Math.trunc((buff.effects.attack ?? 0) * scalingFactor);
             defense += Math.trunc((buff.effects.defense ?? 0) * scalingFactor);
             luck += Math.trunc((buff.effects.luck ?? 0) * scalingFactor);
             maxLife += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
-            maxRounds += Math.trunc((buff.effects.rounds ?? 0) * scalingFactor);
+            maxEnergy += Math.trunc((buff.effects.energy ?? 0) * scalingFactor);
         }
 
         for (const [debuffName, currDuration] of Object.entries(playerFlux.debuff)) {
@@ -152,31 +152,34 @@ export class RootStore {
             if (!debuff) continue;
 
             life += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
-            rounds += Math.trunc(debuff.effects.rounds ?? 0);
+            energy += Math.trunc(debuff.effects.energy ?? 0);
             attack += Math.trunc((debuff.effects.attack ?? 0) * scalingFactor);
             defense += Math.trunc((debuff.effects.defense ?? 0) * scalingFactor);
             luck += Math.trunc((debuff.effects.luck ?? 0) * scalingFactor);
             maxLife += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
-            maxRounds += Math.trunc((debuff.effects.rounds ?? 0) * scalingFactor);
+            maxEnergy += Math.trunc((debuff.effects.energy ?? 0) * scalingFactor);
         }
 
         const feeling = feelingMap[playerFlux.feeling];
         life += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
-        rounds += Math.trunc(feeling.stats.rounds ?? 0);
+        energy += Math.trunc(feeling.stats.energy ?? 0);
         attack += Math.trunc((feeling.stats.attack ?? 0) * scalingFactor);
         defense += Math.trunc((feeling.stats.defense ?? 0) * scalingFactor);
         luck += Math.trunc((feeling.stats.luck ?? 0) * scalingFactor);
         maxLife += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
-        maxRounds += Math.trunc((feeling.stats.rounds ?? 0) * scalingFactor);
+        maxEnergy += Math.trunc((feeling.stats.energy ?? 0) * scalingFactor);
 
-        // Sicherstellen, dass die kombinierten Werte innerhalb der Grenzen bleiben
-        life = Math.max(life, 0), maxLife;
-        rounds = Math.max(rounds, 0), maxRounds;
+        life = Math.max(life, 0);
+        maxLife = Math.max(maxLife, 0);
+        
+        energy = Math.max(energy, 0);
+        maxEnergy = Math.max(maxEnergy, 0); 
+
         attack = Math.max(attack, 0);
         defense = Math.max(defense, 0);
         luck = Math.max(luck, 0);
 
-        return { life, rounds, attack, defense, luck, maxLife, maxRounds };
+        return { life, energy, attack, defense, luck, maxLife, maxEnergy };
     }
 
     get storeData(): GameStore {

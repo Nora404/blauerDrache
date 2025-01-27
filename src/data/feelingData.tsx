@@ -1,4 +1,4 @@
-import { PlayerStats } from "../store/newGameStore";
+import { PlayerStats } from "../store/types";
 import { GradientText } from "../utility/Formatted/GradientText";
 import { SYSTEM } from "./helper/colorfullStrings";
 
@@ -63,7 +63,7 @@ export const feelings: Feeling[] = [
         label: <GradientText colors={['#FFA53B', '#D42416']}>Antriebslos</GradientText>,
         bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gesunken</>,
         stats: {
-            rounds: -2,
+            energy: -2,
         }
     },
     {
@@ -71,7 +71,7 @@ export const feelings: Feeling[] = [
         label: <GradientText colors={['#D46A30', '#FF725B']}>Ängstlich</GradientText>,
         bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gesunken</>,
         stats: {
-            rounds: -2,
+            energy: -2,
         }
     },
     {
@@ -145,7 +145,7 @@ export const feelings: Feeling[] = [
         label: <GradientText colors={['#A7E555', '#2CBD57']}>Euphorisch</GradientText>,
         bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gestiegen</>,
         stats: {
-            rounds: 2,
+            energy: 2,
         }
     },
     {
@@ -153,7 +153,7 @@ export const feelings: Feeling[] = [
         label: <GradientText colors={['#65AB26', '#1AA319']}>Entschlossen</GradientText>,
         bonus: <>Deine Anzahl der {SYSTEM.Tatendrang} sind für heute gestiegen</>,
         stats: {
-            rounds: 2,
+            energy: 2,
         }
     },
     {

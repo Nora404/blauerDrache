@@ -1,10 +1,10 @@
-import { PlayerBase, PlayerEconomy, PlayerStats } from "../store/newGameStore";
 import { GradientText } from "../utility/Formatted/GradientText";
 import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { SYSTEM } from "./helper/colorfullStrings";
 import { braunColors, greenColors } from "./helper/colorMappingData";
 import { OriginName } from "./originData";
 import { DryadAscii, DwarfAscii, ElfAscii, FelkinAscii, FenrilAscii, HumanAscii, LizardAscii, OrksAscii } from "./helper/playerAscii";
+import { PlayerBase, PlayerStats, PlayerEconomy } from "../store/types";
 
 export type RaceName =
     | "Mensch"
@@ -50,11 +50,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 120,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 120,
-            rounds: 20,
+            energy: 20,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -78,11 +78,11 @@ export const races: Race[] = [
         base: {
             level: 3,
             maxLife: 100,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 100,
-            rounds: 20,
+            energy: 20,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -106,11 +106,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 100,
-            rounds: 20,
+            energy: 20,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -134,11 +134,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 100,
-            rounds: 20,
+            energy: 20,
             attack: 7,
             defense: 5,
             luck: 5,
@@ -162,11 +162,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 100,
-            rounds: 20,
+            energy: 20,
             attack: 5,
             defense: 7,
             luck: 5,
@@ -190,11 +190,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 100,
-            rounds: 20,
+            energy: 20,
             attack: 5,
             defense: 5,
             luck: 7,
@@ -218,11 +218,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxRounds: 25,
+            maxEnergy: 25,
         },
         stats: {
             life: 100,
-            rounds: 25,
+            energy: 25,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -246,11 +246,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 120,
-            maxRounds: 20,
+            maxEnergy: 20,
         },
         stats: {
             life: 120,
-            rounds: 20,
+            energy: 20,
             attack: 5,
             defense: 5,
             luck: 5,

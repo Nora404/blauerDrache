@@ -1,6 +1,3 @@
-// types.ts
-
-
 import { Buff, BuffName } from "../data/buffData";
 import { CallingName } from "../data/callingData";
 import { Debuff, DebuffName } from "../data/debuffData";
@@ -8,7 +5,6 @@ import { FeelingName } from "../data/feelingData";
 import { ArmorName } from "../data/gameItems/armorData";
 import { ItemName, Item } from "../data/gameItems/ItemData";
 import { WeaponName } from "../data/gameItems/weaponData";
-
 import { OriginName } from "../data/originData";
 import { Progress } from "../data/questData";
 import { RaceName } from "../data/raceData";
@@ -55,7 +51,7 @@ export type PlayerBase = {
   leumund: number;
   nextLeumund: number;
   maxLife: number;
-  maxRounds: number;
+  maxEnergy: number;
 };
 
 export type PlayerFlux = {
@@ -145,7 +141,7 @@ export const defaultGameStore: GameStore = {
     leumund: 0,
     nextLeumund: 100,
     maxLife: 100,
-    maxRounds: 20,
+    maxEnergy: 20,
   },
   playerFlux: {
     feeling: "Normal",

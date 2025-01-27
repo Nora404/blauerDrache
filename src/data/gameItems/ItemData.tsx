@@ -1,9 +1,9 @@
-import { PlayerStats } from "../../store/newGameStore";
 import { GradientText } from "../../utility/Formatted/GradientText";
 import { ArmorName, armors } from "./armorData";
 import { BuffName } from "../buffData";
 import { DebuffName } from "../debuffData";
 import { WeaponName, weapons } from "./weaponData";
+import { PlayerStats } from "../../store/types";
 
 export type ItemName =
   | WeaponName

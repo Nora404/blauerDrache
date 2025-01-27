@@ -41,7 +41,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     const delta = getDelta();
 
     const { attack, defense, luck } = playerStats.data;
-    const { maxLife, maxRounds } = playerBase.data;
+    const { maxLife, maxEnergy: maxRounds } = playerBase.data;
 
     const [selectedCategory, setSelectedCategory] = useState<ItemCartegoryName | "">("");
     const [selectedItem, setSelectedItem] = useState<string | "">("");

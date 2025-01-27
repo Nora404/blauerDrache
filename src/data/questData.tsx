@@ -1,4 +1,5 @@
-import { PlayerStats, PlayerBase } from "../store/newGameStore";
+
+import { PlayerBase, PlayerStats } from "../store/types";
 import { ItemName } from "./gameItems/ItemData";
 import { gameQuests } from "./questList";
 

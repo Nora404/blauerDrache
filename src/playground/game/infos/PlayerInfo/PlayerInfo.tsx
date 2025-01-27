@@ -26,7 +26,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
   const delta = getDelta();
 
   const { attack, defense, luck } = playerStats.data;
-  const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
+  const { level, ruf: standing, maxLife, maxEnergy: maxRounds } = playerBase.data;
 
   // Daten für Tabelle (bisher war es store.playerStats.*)
   const statsData = [

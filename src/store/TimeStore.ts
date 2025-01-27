@@ -13,7 +13,7 @@ export class TimeStore {
     data: GameTime = defaultGameStore.gameTime;
 
     private previousGameDay: "Tag" | "Nacht" = this.data.gameDay;
-    private intervalId: any;
+    private intervalId: number;
 
     constructor(root: RootStore) {
         this.rootStore = root;
@@ -68,7 +68,7 @@ export class TimeStore {
         const weather = getRandomArrayElement(WEATHER);
         const temperature = getRandomArrayElement(TEMPERATURE);
 
-        const { maxLife, maxRounds } = this.rootStore.playerBase.data;
+        const { maxLife, maxEnergy: maxRounds } = this.rootStore.playerBase.data;
         this.rootStore.playerStats.data.life = maxLife;
         this.rootStore.playerStats.data.energy = maxRounds;
 

@@ -40,7 +40,7 @@ export class PlayerStatsStore {
     }
 
     updateEnergy(delta: number) {
-        const { maxRounds } = this.rootStore.playerBase.data;
+        const { maxEnergy: maxRounds } = this.rootStore.playerBase.data;
         const newRounds = Math.min(
             Math.max(this.data.energy + delta, 0),
             maxRounds
