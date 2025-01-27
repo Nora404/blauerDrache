@@ -10,6 +10,8 @@ import {
 import ActionButton from "../../../../layout/ActionButtons/ActionButton";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store";
+import { SYSTEM } from "../../../../data/helper/colorfullStrings";
+import Talk from "../../../../utility/Formatted/Talk";
 //#endregion
 
 //#region [prepare]
@@ -81,33 +83,24 @@ const WeaponShop: React.FC<WeaponShopProps> = observer(() => {
       </p>
       <br />
 
-      <table width={"500px"}>
-        <thead>
-          <th className="border-bs">Name</th>
-          <th className="border-bs">Verteidigung</th>
-          <th className="border-bs">Preis</th>
-        </thead>
-        <tbody>
-          {weapons.map((Weapon: Weapon) => (
-            <tr>
-              <td className="border-bd text-left padding-left">
-                <button
-                  className={`${
-                    Weapon.name === localWeapon.name ? "glow" : ""
-                  }`}
-                  onClick={() => handleClick(Weapon)}
-                >
-                  {Weapon.label}
-                </button>
-              </td>
-              <td className="border-bd text-center">{Weapon.attack}</td>
-              <td className="border-bd text-right padding-right">
-                {Weapon.ek} Gold
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {weapons.map((weapon: Weapon) => (
+        <div
+          key={weapon.name}
+          className={`flex-row border-bd ${
+            weapon.name === localWeapon.name ? "glow" : ""
+          }`}
+          onClick={() => handleClick(weapon)}
+        >
+          <div>{weapon.name}</div>
+          <div>{weapon.description}</div>
+          <div>
+            {SYSTEM.Rüstung} <Talk color="green">+{weapon.attack}</Talk>
+          </div>
+          <button style={{ width: "200px" }} className="btn-border">
+            Kaufen {SYSTEM.Gold} <Talk color="red">-{weapon.ek}</Talk>
+          </button>
+        </div>
+      ))}
       <br />
 
       <div className="text-left">
