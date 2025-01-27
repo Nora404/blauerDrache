@@ -8,7 +8,7 @@ import {
   NPC,
   PLACES,
 } from "../../../../data/helper/colorfullStrings";
-import { talkingColors, textColors } from "../../../Formatted/Talk";
+import ComponentAndColorPicker from "./ComponentAndColorPicker";
 
 interface DescriptionEditorProps {
   value: string;
@@ -19,92 +19,34 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
   value,
   onChange,
 }) => {
-  // Für das "Haupt"-Select
-  const [selectedMainOption, setSelectedMainOption] = useState("");
-
-  // Für das "zweite" Select (Key oder Palette)
-  const [selectedDetailOption, setSelectedDetailOption] = useState("");
-
-  // Custom-Farben-Logik
-  const [customColors, setCustomColors] = useState<string[]>([]);
-  const [newColor, setNewColor] = useState<string>("#ff0000");
-
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  // Gruppen
   const variableLists: Record<string, Record<string, JSX.Element>> = {
     SYSTEM,
     CREATURE,
     NPC,
     PLACES,
   };
-  const talkColorKeys = [
-    ...Object.keys(textColors),
-    ...Object.keys(talkingColors),
-    "custom",
-  ];
-  const componentOptions = ["GradientText", "MultiColoredLetters", "Talk"];
-  const paletteOptions = [
-    "grayColors",
-    "yellowColors",
-    "orangeColors",
-    "redColors",
-    "rosaColors",
-    "lilaColors",
-    "blueColors",
-    "greenColors",
-    "braunColors",
-    "rainbowColors",
-    "custom",
-  ];
 
-  const handleInsert = () => {
-    if (!selectedMainOption || !selectedDetailOption) return;
+  const [customColors, setCustomColors] = useState<string[]>([]);
+  const [newColor, setNewColor] = useState("#ff0000");
 
-    // Referenz zum Textarea
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  // ### Variablen-Selects
+  const [selectedVarList, setSelectedVarList] = useState("");
+  const [selectedVarKey, setSelectedVarKey] = useState("");
+
+  const handleInsertVariable = () => {
+    if (!selectedVarList || !selectedVarKey) return;
     const textarea = textAreaRef.current;
     if (!textarea) return;
 
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
 
-    // Nur für den Fall, dass man optional markierten Text
-    // bei Variablen brauchen würde (eigentlich nicht nötig)
-    const selectedText = value.substring(start, end);
-
-    let placeholder = "";
-
-    // 1) Variablen
-    if (variableLists[selectedMainOption]) {
-      placeholder = `{${selectedMainOption}.${selectedDetailOption}}`;
-    }
-    // 2) Talk
-    else if (selectedMainOption === "Talk") {
-      const color =
-        selectedDetailOption === "custom" ? newColor : selectedDetailOption;
-      // Wenn man ggf. den markierten Text als InnerText verwenden will:
-      const innerText = selectedText || "DeinText";
-      placeholder = `{Talk|${color}}${innerText}{/Talk}`;
-    }
-    // 3) Gradient / MultiColoredLetters
-    else if (
-      selectedMainOption === "MultiColoredLetters" ||
-      selectedMainOption === "GradientText"
-    ) {
-      const innerText = selectedText || "DeinText";
-      if (selectedDetailOption === "custom") {
-        const colorString = customColors.join(",");
-        placeholder = `{${selectedMainOption}|custom:${colorString}}${innerText}{/${selectedMainOption}}`;
-      } else {
-        placeholder = `{${selectedMainOption}|${selectedDetailOption}}${innerText}{/${selectedMainOption}}`;
-      }
-    }
-
-    // Jetzt den neuen Text zusammenbauen und setzen
+    const placeholder = `{${selectedVarList}.${selectedVarKey}}`;
     const newVal = value.slice(0, start) + placeholder + value.slice(end);
     onChange(newVal);
 
-    // Cursor an das Ende des neu eingefügten Platzhalters setzen
     const newPos = start + placeholder.length;
     setTimeout(() => {
       textarea.focus();
@@ -112,135 +54,102 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
     }, 0);
   };
 
-  const handleAddCustomColor = () => {
-    if (!newColor) return;
-    setCustomColors([...customColors, newColor]);
-    setNewColor("#ffffff");
+  // ### Hier fängt die neue onInsert-Funktion an (für unsere 3 Komponenten):
+  //    "componentName" z.B. "GradientText"
+  //    "colorKeyOrPalette" z.B. "redColors" oder "custom:#ff0000,#ffff00" oder "gelb"
+  const handleInsertComponent = (
+    componentName: string,
+    colorKeyOrPalette: string
+  ) => {
+    const textarea = textAreaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    // Markierten Text als InnerText?
+    const selectedText = value.substring(start, end) || "DeinText";
+
+    let placeholder = "";
+
+    if (componentName === "Talk") {
+      placeholder = `{Talk|${colorKeyOrPalette}}${selectedText}{/Talk}`;
+    } else if (
+      componentName === "GradientText" ||
+      componentName === "MultiColoredLetters"
+    ) {
+      placeholder = `{${componentName}|${colorKeyOrPalette}}${selectedText}{/${componentName}}`;
+    }
+
+    const newVal = value.slice(0, start) + placeholder + value.slice(end);
+    onChange(newVal);
+
+    const newPos = start + placeholder.length;
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(newPos, newPos);
+    }, 0);
   };
-
-  const handleRemoveCustomColor = (index: number) => {
-    setCustomColors((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const preview = parseDescription(value);
-  const isVariable = !!variableLists[selectedMainOption];
-  const isComponent = componentOptions.includes(selectedMainOption);
-
-  let detailOptions: string[] = [];
-  if (isVariable) {
-    detailOptions = Object.keys(variableLists[selectedMainOption]);
-  } else if (selectedMainOption === "Talk") {
-    detailOptions = talkColorKeys;
-  } else if (isComponent) {
-    detailOptions = paletteOptions;
-  }
 
   return (
     <div>
-      {/* Select 1: Variablen ODER Komponenten */}
-      <div className="flex-end h-30px">
+      {/* ------------------------------ 
+          1) Variable-Selects 
+          ------------------------------ */}
+      <div>
         <select
-          value={selectedMainOption}
-          onChange={(e) => {
-            setSelectedMainOption(e.target.value);
-            setSelectedDetailOption("");
-          }}
-          className="dropdown w-200px"
+          value={selectedVarList}
+          onChange={(e) => setSelectedVarList(e.target.value)}
         >
-          <option value="">-- Bitte auswählen --</option>
-          <optgroup label="Variablen">
-            <option value="SYSTEM">SYSTEM</option>
-            <option value="CREATURE">CREATURE</option>
-            <option value="NPC">NPC</option>
-            <option value="PLACES">PLACES</option>
-          </optgroup>
-          <optgroup label="Komponenten">
-            <option value="GradientText">GradientText</option>
-            <option value="MultiColoredLetters">MultiColoredLetters</option>
-            <option value="Talk">Talk</option>
-          </optgroup>
+          <option value="">-- Variable wählen --</option>
+          <option value="SYSTEM">SYSTEM</option>
+          <option value="CREATURE">CREATURE</option>
+          <option value="NPC">NPC</option>
+          <option value="PLACES">PLACES</option>
         </select>
-
-        {/* Select 2: wenn etwas gewählt ist */}
-        {detailOptions.length > 0 && (
+        {/* Falls eine Variable-Liste gewählt, zeig die Keys */}
+        {selectedVarList && (
           <select
-            value={selectedDetailOption}
-            onChange={(e) => setSelectedDetailOption(e.target.value)}
-            className="dropdown w-200px"
+            value={selectedVarKey}
+            onChange={(e) => setSelectedVarKey(e.target.value)}
           >
-            <option value="">-- Unterauswahl --</option>
-            {detailOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
+            <option value="">-- Key --</option>
+            {Object.keys(variableLists[selectedVarList]).map((k) => (
+              <option key={k} value={k}>
+                {k}
               </option>
             ))}
           </select>
         )}
-
-        {/* EINE Schaltfläche, die die passende Logik ausführt */}
-        <button
-          onClick={handleInsert}
-          className="btn-border w-100px"
-          disabled={!selectedMainOption || !selectedDetailOption}
-        >
-          Hinzufügen
-        </button>
+        <button onClick={handleInsertVariable}>Insert Var</button>
       </div>
 
-      {/* Custom Colors nur anzeigen, wenn Komponente + selectedDetailOption = "custom" */}
-      {isComponent && selectedDetailOption === "custom" && (
-        <div className="flex-row-left">
-          <div style={{ width: "150px" }} className="flex-row">
-            <label>Farbe wählen: </label>
-            <input
-              type="color"
-              value={newColor}
-              onChange={(e) => setNewColor(e.target.value)}
-              style={{ width: "40px", padding: "3px", height: "30px" }}
-            />
-          </div>
+      {/* ------------------------------ 
+          2) Unsere neue Komponente
+          ------------------------------ */}
+      <ComponentAndColorPicker
+        onInsert={handleInsertComponent}
+        customColors={customColors}
+        setCustomColors={setCustomColors}
+        newColor={newColor}
+        setNewColor={setNewColor}
+      />
 
-          <button className="btn-border w-100px" onClick={handleAddCustomColor}>
-            + Add Color
-          </button>
-
-          {/* Anzeige der Custom-Farben */}
-          <div className="flex-row m-15">
-            {customColors.map((col, i) => (
-              <span
-                onClick={() => handleRemoveCustomColor(i)}
-                title={`Klicke, um ${col} zu entfernen`}
-                key={i}
-                style={{
-                  display: "inline-block",
-                  width: "20px",
-                  height: "20px",
-                  background: col,
-                  marginRight: "5px",
-                  border: "1px solid #333",
-                  cursor: "pointer",
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Textfeld */}
-      <div className="form-group">
+      {/* ------------------------------ 
+          3) Textarea + Preview 
+          ------------------------------ */}
+      <div>
         <textarea
-          ref={textAreaRef} // <-- Neu
-          placeholder="Beschreibung für den Spieler"
+          className="w-full"
+          ref={textAreaRef}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          rows={3}
+          rows={5}
         />
-      </div>
 
-      {/* Vorschau */}
-      <div className="jsx-preview">
-        <strong>Vorschau:</strong>
-        <div>{preview}</div>
+        <div>
+          <strong>Vorschau:</strong>
+          <div>{parseDescription(value)}</div>
+        </div>
       </div>
     </div>
   );
