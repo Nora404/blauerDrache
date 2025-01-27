@@ -43,13 +43,16 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
   ];
   const componentOptions = ["GradientText", "MultiColoredLetters", "Talk"];
   const paletteOptions = [
-    "rosaColors",
-    "rainbowColors",
-    "greenColors",
-    "blueColors",
-    "braunColors",
     "grayColors",
     "yellowColors",
+    "orangeColors",
+    "redColors",
+    "rosaColors",
+    "lilaColors",
+    "blueColors",
+    "greenColors",
+    "braunColors",
+    "rainbowColors",
     "custom",
   ];
 

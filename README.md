@@ -26,28 +26,14 @@ Mit MobX habe ich unter dem Ordner `store` verschiedene Klassen erstellt die je 
 Über einen `RootStore` werden diese Klassen miteinander verbunden, dort gibt es auch globale Funktionen, wie das Speichern und Laden der Dateien oder die zwei wichtigsten Hilfsfunktionen.
 
 ```typescript
-/** gameTime, gameDay */
 gameTime: TimeStore;
-
-/** weather, temperature, creating, mobilePop, currentPath, currentEventQueue[], switch{} */
 gameState: GameStateStore;
 
-/** name, race, origin, calling, titel, colortype, colors[] */
 playerMeta: PlayerMetaStore;
-
-/** life, rounds, attack, defense, luck */
 playerStats: PlayerStatsStore;
-
-/** level, nextLevel, exp, standing, reputation, nextReputation, maxLife, maxRounds */
 playerBase: PlayerBaseStore;
-
-/** feeling, buff{}, debuff{}, weapon, armor, item */
 playerFlux: PlayerFluxStore;
-
-/** gold, edelsteine, items{} */
 playerEconomy: PlayerEconomyStore;
-
-/** activeQuests{}, completedQuest[] */
 playerQuest: PlayerQuestStore;
 ```
 
@@ -56,7 +42,7 @@ Die wichtigsten Hilfsfunktionen sind `getCombinedStats` und `getPlayerObj` Die a
 Der useContext ist in der `index.tsx` Datei und kann in den Komponenten mit `useRootStore` aufgerufen werden.
 Es gibt eine weitere wichtige Datei: `types.ts` Sie macht was der Name sagt und speichert alle Typs die für die Datenspeicherung des Stores wichtig sind. In ihm ist auch ein leeres Defaultobject für den Store.
 
-Weitere unveränderliche Daten werden in Dateien gespeichert die entweder `*Data.tsx` oder `*String.tsx` heißen. In Strings liegen Texte als einfache Komponenten. Fast alle Strings haben bunte Wörter, die durch weitere Komponenten erstellt werden. Die Komponenten geben immer einen komplett formatieren JSX Absatz zurück.
+Weitere unveränderliche Daten werden in Dateien gespeichert die entweder `*Data.tsx`, `*List.tsx` oder `*String.tsx` heißen. In Strings liegen Texte als einfache Komponenten. Fast alle Strings haben bunte Wörter, die durch weitere Komponenten erstellt werden. Die Komponenten geben immer einen komplett formatieren JSX Absatz zurück.
 
 In Data werden Objekte und Types gespeichert, zum Beispiel zu Berufen oder Gegenständen. Eine solche Datei ist wie folgt aufgebaut:
 
@@ -183,12 +169,16 @@ export type WeightedEvent = {
   questId?: string; // QuestId fals es eine Quest starten soll
   conditions?: {
     // Bedingungen für das Starten des Events
+    operator?: "<" | ">" | "=";
     gameTime?: Partial<GameTime>;
     gameState?: Partial<GameState>;
-    playerStats?: Partial<PlayerStats>; // Es fehlt noch ein < = >
-    playerBase?: Partial<PlayerBase>; // Es fehlt noch ein < = >
+    playerStats?: Partial<PlayerStats>;
+    playerBase?: Partial<PlayerBase>;
     playerFlux?: Partial<PlayerFlux>;
     playerMeta?: Partial<PlayerMeta>;
+    playerEconomy?: Partial<PlayerEconomy>;
+    haveBuffs?: boolean;
+    haveDebuffs?: boolean;
   };
 };
 ```
