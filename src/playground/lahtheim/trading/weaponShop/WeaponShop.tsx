@@ -32,6 +32,7 @@ const WeaponShop: React.FC<WeaponShopProps> = observer(() => {
     playerEconomy.updatePlayerEconomy({
       gold: Number(exchangePrice) - localWeapon.ek,
     });
+    playerEconomy.updateItems(localWeapon.name, 1);
     playerFlux.updateWeapon(localWeapon.name as WeaponName);
   };
   //#endregion

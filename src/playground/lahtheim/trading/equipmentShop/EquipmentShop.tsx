@@ -32,6 +32,7 @@ const EquipmentShop: React.FC<EquipmentShopProps> = observer(() => {
     playerEconomy.updatePlayerEconomy({
       gold: Number(exchangePrice) - localArmor.ek,
     });
+    playerEconomy.updateItems(localArmor.name, 1);
     playerFlux.updateArmor(localArmor.name as ArmorName);
   };
   //endregion
