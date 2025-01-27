@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { colorPalettes } from "../../../../data/helper/colorMappingData";
 import { textColors } from "../../../Formatted/Talk";
+import { lighten, darken } from "../../../Helper/ColorLightenDarken";
 
 // Pfade anpassen!
 
@@ -71,77 +72,91 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
   return (
     <div className="flex-row w-full">
       {/* 3 Buttons: Gradient / Multi / Talk */}
-      <button
-        onClick={() => {
-          setSelectedComponent("GradientText");
-          setSelectedColor("");
-        }}
-        style={{
-          border:
-            selectedComponent === "GradientText"
-              ? "2px solid white"
-              : "1px solid black",
-          background: "linear-gradient(to right, red, yellow, green)", // z.B. Demo-Farbverlauf
-          width: 40,
-          height: 40,
-          margin: 5,
-        }}
-      />
-      <button
-        onClick={() => {
-          setSelectedComponent("MultiColoredLetters");
-          setSelectedColor("");
-        }}
-        style={{
-          border:
-            selectedComponent === "MultiColoredLetters"
-              ? "2px solid white"
-              : "1px solid black",
-          background:
-            "repeating-linear-gradient(45deg, red, red 5px, yellow 5px, yellow 10px, green 10px, green 15px)",
-          width: 40,
-          height: 40,
-          margin: 5,
-        }}
-      />
-      <button
-        onClick={() => {
-          setSelectedComponent("Talk");
-          setSelectedColor("");
-        }}
-        style={{
-          border:
-            selectedComponent === "Talk"
-              ? "2px solid white"
-              : "1px solid black",
-          backgroundColor: "red",
-          width: 40,
-          height: 40,
-          margin: 5,
-        }}
-      />
+      <div>
+        <button
+          onClick={() => {
+            setSelectedComponent("GradientText");
+            setSelectedColor("");
+          }}
+          style={{
+            border:
+              selectedComponent === "GradientText"
+                ? "2px solid white"
+                : "2px solid black",
+            background: "linear-gradient(to right, red, yellow, green)", // z.B. Demo-Farbverlauf
+            width: 30,
+            height: 30,
+            margin: 5,
+          }}
+        />
+        <button
+          onClick={() => {
+            setSelectedComponent("MultiColoredLetters");
+            setSelectedColor("");
+          }}
+          style={{
+            border:
+              selectedComponent === "MultiColoredLetters"
+                ? "2px solid white"
+                : "2px solid black",
+            background:
+              "repeating-linear-gradient(45deg, red, red 5px, yellow 5px, yellow 10px, green 10px, green 15px)",
+            width: 30,
+            height: 30,
+            margin: 5,
+          }}
+        />
+        <button
+          onClick={() => {
+            setSelectedComponent("Talk");
+            setSelectedColor("");
+          }}
+          style={{
+            border:
+              selectedComponent === "Talk"
+                ? "2px solid white"
+                : "2px solid black",
+            backgroundColor: "red",
+            width: 30,
+            height: 30,
+            margin: 5,
+          }}
+        />
+      </div>
 
       {/* Jetzt die Farbauswahl – abhängig vom Komponententyp */}
       {isGradientOrMulti && (
         <div className="flex-row">
-          {paletteKeys.map((key) => (
-            <button
-              key={key}
-              onClick={() => setSelectedColor(key)}
-              style={{
-                border:
-                  selectedColor === key ? "2px solid white" : "1px solid black",
-                borderRadius: "50px",
-                marginRight: 5,
-                width: 30,
-                height: 30,
-                // Du kannst hier z.B. den 1. und letzten Farbwert aus colorPalettes[key] als Verlauf darstellen
-                background: `linear-gradient(to right, ${
-                  colorPalettes[key][0]
-                }, ${colorPalettes[key][colorPalettes[key].length - 1]})`,
-              }}
-            />
-          ))}
+          {paletteKeys.map((key) => {
+            const originalFirstColor = colorPalettes[key][0];
+            const originalLastColor =
+              colorPalettes[key][colorPalettes[key].length - 1];
+
+            // Heller machen der ersten Farbe um 10%
+            const lighterColor = lighten(originalFirstColor, 30);
+
+            // Dunkler machen der zweiten Farbe um 10%
+            const darkerColor = darken(originalLastColor, 30);
+
+            return (
+              <button
+                key={key}
+                onClick={() => setSelectedColor(key)}
+                style={{
+                  border:
+                    selectedColor === key
+                      ? "2px solid white"
+                      : "1px solid black",
+                  borderRadius: "50%",
+                  marginRight: 5,
+                  width: 30,
+                  height: 30,
+                  background: `linear-gradient(to right, ${lighterColor}, ${darkerColor})`,
+                  cursor: "pointer",
+                }}
+              />
+            );
+          })}
 
           {/* Custom-Button */}
           <button
@@ -151,11 +166,12 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
                 selectedColor === "custom"
                   ? "2px solid white"
                   : "1px solid black",
-              borderRadius: "50px",
+              borderRadius: "50%",
               marginRight: 5,
               width: 30,
               height: 30,
               backgroundColor: "white",
+              cursor: "pointer",
             }}
           >
             C
@@ -208,21 +224,25 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 
       {/* Wenn "custom" ausgewählt, zeigen wir evtl. ein Farbwähler-UI */}
       {selectedColor === "custom" && (
-        <div className="flex-col" style={{ marginLeft: 10 }}>
+        <div className="flex-row" style={{ marginLeft: 10 }}>
           <input
+            className="color-picker"
             type="color"
             value={newColor}
             onChange={(e) => setNewColor(e.target.value)}
           />
-          <button onClick={handleAddCustomColor}>+ Add Custom Color</button>
+          <button onClick={handleAddCustomColor} className="greenBtn1">
+            +
+          </button>
           <div className="flex-row">
             {customColors.map((col, i) => (
               <div
                 key={i}
                 style={{
-                  width: 20,
+                  width: 10,
                   height: 20,
-                  marginRight: 5,
+                  margin: 5,
+                  borderRadius: "5px",
                   backgroundColor: col,
                   border: "1px solid black",
                 }}
@@ -236,7 +256,7 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
       <button
         onClick={handleAdd}
         disabled={!selectedComponent || !selectedColor}
-        className="add-btn"
+        className="add-button w-100px"
       >
         Hinzufügen
       </button>

@@ -95,20 +95,11 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
       {/* ------------------------------ 
           1) Variable-Selects 
           ------------------------------ */}
-      <div>
-        <select
-          value={selectedVarList}
-          onChange={(e) => setSelectedVarList(e.target.value)}
-        >
-          <option value="">-- Variable wählen --</option>
-          <option value="SYSTEM">SYSTEM</option>
-          <option value="CREATURE">CREATURE</option>
-          <option value="NPC">NPC</option>
-          <option value="PLACES">PLACES</option>
-        </select>
+      <div className="flex-row-right">
         {/* Falls eine Variable-Liste gewählt, zeig die Keys */}
         {selectedVarList && (
           <select
+            style={{ width: "150px" }}
             value={selectedVarKey}
             onChange={(e) => setSelectedVarKey(e.target.value)}
           >
@@ -120,7 +111,20 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
             ))}
           </select>
         )}
-        <button onClick={handleInsertVariable}>Insert Var</button>
+        <select
+          style={{ width: "150px" }}
+          value={selectedVarList}
+          onChange={(e) => setSelectedVarList(e.target.value)}
+        >
+          <option value="">-- Variable wählen --</option>
+          <option value="SYSTEM">SYSTEM</option>
+          <option value="CREATURE">CREATURE</option>
+          <option value="NPC">NPC</option>
+          <option value="PLACES">PLACES</option>
+        </select>
+        <button className="add-button w-100px" onClick={handleInsertVariable}>
+          Insert Var
+        </button>
       </div>
 
       {/* ------------------------------ 
