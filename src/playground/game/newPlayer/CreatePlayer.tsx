@@ -25,9 +25,7 @@ export type WizardData = {
     name: string;
 }
 
-type CreatePlayerProps = {};
-
-const CreatePlayer: React.FC<CreatePlayerProps> = observer(() => {
+const CreatePlayer: React.FC = observer(() => {
     const { playerBase, playerStats, playerEconomy, playerMeta, gameState, resetGameData } = useRootStore();
 
     const [currentStep, setCurrentStep] = useState<number>(0);
@@ -44,7 +42,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = observer(() => {
     //#region [events]
     useEffect(() => {
         resetGameData();
-    }, []);
+    }, [resetGameData]);
     //#endregion
 
     //#region [handler]  
@@ -60,7 +58,7 @@ const CreatePlayer: React.FC<CreatePlayerProps> = observer(() => {
         objs.forEach(obj => {
             if (!obj) return;
             for (const key in obj) {
-                if (!obj.hasOwnProperty(key)) continue;
+                if (!Object.prototype.hasOwnProperty.call(obj, key)) continue;
 
                 const typedKey = key as keyof T;
                 const newValue = obj[typedKey];

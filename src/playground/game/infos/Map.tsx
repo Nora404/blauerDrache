@@ -1,12 +1,7 @@
 import React from 'react';
-import karte from "../../../assets/Lahtheim.png";
 import karte2 from "../../../assets/karte.png";
 
-type MapProps = {
-
-};
-
-const Map: React.FC<MapProps> = () => {
+const Map: React.FC = () => {
 
     return (
         <div className='mb-2'>

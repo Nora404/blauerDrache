@@ -12,9 +12,7 @@ import { useRootStore } from "../../../store";
 // #endregion
 
 // #region [prepare]
-type QuestlogProps = {};
-
-const Questlog: React.FC<QuestlogProps> = observer(() => {
+const Questlog: React.FC = observer(() => {
   const { playerQuest, gameState } = useRootStore();
   // #endregion
 

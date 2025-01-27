@@ -10,9 +10,7 @@ import { MainPlaceTemplate } from "../../../../layout/MainPlaceTemplate";
 //#endregion
 
 //#region [prepare]
-type ChurchProps = {};
-
-const Church: React.FC<ChurchProps> = () => {
+const Church: React.FC = () => {
   const navigate = useNavigate();
   const possibleEvents: WeightedEvent[] = [];
 
