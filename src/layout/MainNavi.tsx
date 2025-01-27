@@ -7,9 +7,7 @@ import TransitNavi from "./Transit/TransitNavi";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../store";
 
-type MainNaviProps = {};
-
-const MainNavi: React.FC<MainNaviProps> = observer(() => {
+const MainNavi: React.FC = observer(() => {
   const location = useLocation();
   const { gameState } = useRootStore();
 
@@ -18,7 +16,7 @@ const MainNavi: React.FC<MainNaviProps> = observer(() => {
   );
 
   useEffect(() => {
-    let pathName = location.pathname.split("/");
+    const pathName = location.pathname.split("/");
 
     const NavComponent = navigationMap[location.pathname];
     if (NavComponent && pathName.length <= 2) {

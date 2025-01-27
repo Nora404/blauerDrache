@@ -4,10 +4,7 @@ import { SYSTEM } from '../../data/helper/colorfullStrings';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '../../store';
 
-type MobileHeaderProps = {
-};
-
-const MobileHeader: React.FC<MobileHeaderProps> = observer(() => {
+const MobileHeader: React.FC = observer(() => {
     const { playerBase, playerEconomy, playerMeta, getCombinedStats, getPlayerObj } = useRootStore();
     const selected = getPlayerObj();
     const combined = getCombinedStats();
@@ -28,7 +25,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = observer(() => {
             </div>
             <div id="header1" className='text-left'>
                 {SYSTEM.Leben}: {combined.life} / {combined.maxLife}<br />
-                {SYSTEM.Tatendrang}: {combined.rounds} / {combined.maxRounds}
+                {SYSTEM.Tatendrang}: {combined.energy} / {combined.maxEnergy}
             </div>
             <div id="header2" className='text-left'>
                 {SYSTEM.Level}: {playerBase.data.level}<br />

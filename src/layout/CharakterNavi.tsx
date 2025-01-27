@@ -6,9 +6,7 @@ import YouAre from "./NaviPlayer/YouAre";
 import YouCan from "./NaviPlayer/YouCan";
 import YouHave from "./NaviPlayer/YouHave";
 
-type CharakterNaviProps = {};
-
-const CharakterNavi: React.FC<CharakterNaviProps> = observer(() => {
+const CharakterNavi: React.FC = observer(() => {
   const { gameState } = useRootStore();
   if (!gameState) return;
 

@@ -4,9 +4,7 @@ import { useRootStore } from "../../store";
 import { SYSTEM } from "../../data/helper/colorfullStrings";
 import Header from "../Header/Header";
 
-type YouHaveProps = {};
-
-const YouHave: React.FC<YouHaveProps> = observer(() => {
+const YouHave: React.FC = observer(() => {
   const { playerEconomy, playerBase, getPlayerObj } = useRootStore();
   const selected = getPlayerObj();
 

@@ -25,17 +25,19 @@ export function calculateProgression(
     }
 
     switch (type) {
-        case 'linear':
+        case 'linear': {
             const step = (targetValue - startValue) / targetIndex;
             return startValue + step * currentIndex;
-
-        case 'geometric':
+        }
+    
+        case 'geometric': {
             const ratio = Math.pow(targetValue / startValue, 1 / targetIndex);
             return startValue * Math.pow(ratio, currentIndex);
-
+        }
+    
         default:
             throw new Error(`Unbekannter Progressionstyp: ${type}`);
-    }
+    }    
 }
 
 export function getScalingFactor(level: number): number {

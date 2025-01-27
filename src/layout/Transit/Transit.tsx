@@ -13,9 +13,7 @@ import { GameEventChain } from "../GameEventChain";
 //#endregion
 
 //#region [prepare]
-type TransitProps = {};
-
-const Transit: React.FC<TransitProps> = () => {
+const Transit: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 

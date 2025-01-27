@@ -29,7 +29,7 @@ export function useLocationEvents(
   const queue = gameState.data.currentEventQueue;
   const path = gameState.data.currentPath;
   const firstEvent =
-    Object.entries(queue).find(([eventId, eventPath]) => {
+    Object.entries(queue).find(([_, eventPath]) => {
       return eventPath === path;
     })?.[0] || null;
 
@@ -71,18 +71,7 @@ export function useLocationEvents(
     }
 
     setLocalRandomEvent(randomEventId);
-  }, [
-    firstEvent,
-    possibleEvents,
-    gameTime.data,
-    gameState.data,
-    playerStats.data,
-    playerBase.data,
-    playerFlux.data,
-    playerMeta.data,
-    playerQuest.data,
-    playerEconomy.data,
-  ]);
+  }, [firstEvent, possibleEvents, gameTime.data, gameState.data, playerStats.data, playerBase.data, playerFlux.data, playerMeta.data, playerQuest.data, playerEconomy.data, chanceOfAnyEvent]);
 
   const handleBack = () => {
     navigate(backPath);

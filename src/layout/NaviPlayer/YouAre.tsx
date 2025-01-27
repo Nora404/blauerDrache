@@ -4,9 +4,7 @@ import { useRootStore } from "../../store";
 import { GradientText } from "../../utility/Formatted/GradientText";
 import Header from "../Header/Header";
 
-type YouAreProps = {};
-
-const YouAre: React.FC<YouAreProps> = observer(() => {
+const YouAre: React.FC = observer(() => {
   const { playerMeta, getPlayerObj } = useRootStore();
   const selected = getPlayerObj();
 

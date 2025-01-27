@@ -27,7 +27,7 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
   const pattern =
     /{(GradientText|MultiColoredLetters|Talk)\|([^}]+)}([\s\S]*?){\/\1}/g;
 
-  let result: Array<string | React.ReactNode> = [];
+  const result: Array<string | React.ReactNode> = [];
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -135,7 +135,7 @@ function parseLineWithVariables(
   variableLists: Record<string, Record<string, JSX.Element>>
 ): Array<string | JSX.Element> {
   const pattern = /{([^}]+)\.([^}]+)}/g;
-  let result: Array<string | JSX.Element> = [];
+  const result: Array<string | JSX.Element> = [];
   let lastIndex = 0;
   let match;
 

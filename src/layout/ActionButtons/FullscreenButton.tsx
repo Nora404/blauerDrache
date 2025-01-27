@@ -1,6 +1,6 @@
 // Neue Variante mit weniger Vendor-Code
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const FullscreenToggleButton = () => {
     const [isFullscreen, setIsFullscreen] = useState(false);

@@ -13,9 +13,7 @@ import { useRootStore } from "../../store";
 //#endregion
 
 //#region [prepare]
-type MobileFooterProps = {};
-
-const MobileFooter: React.FC<MobileFooterProps> = observer(() => {
+const MobileFooter: React.FC = observer(() => {
   const [showGame, setShowGame] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [showNavi, setShowNavi] = useState(false);
@@ -71,7 +69,7 @@ const MobileFooter: React.FC<MobileFooterProps> = observer(() => {
 
   //#region [events]
   useEffect(() => {
-    let pathName = location.pathname.split("/");
+    const pathName = location.pathname.split("/");
 
     const NavComponent = navigationMap[location.pathname];
     if (NavComponent && pathName.length <= 2) {

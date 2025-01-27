@@ -4,11 +4,7 @@ import RoutesList from '../RoutesList';
 import NewDay from '../playground/game/infos/NewDay';
 import { useRootStore } from '../store';
 
-
-type MainContentProps = {
-}
-
-export const MainContent: React.FC<MainContentProps> = (() => {
+export const MainContent: React.FC = (() => {
     const { gameState, gameTime } = useRootStore();
 
     const [showNewDay, setShowNewDay] = useState(false)
@@ -17,7 +13,7 @@ export const MainContent: React.FC<MainContentProps> = (() => {
         if (gameTime.data.gameTime === "06:00" && gameState.data.creating) {
             setShowNewDay(true)
         }
-    }, [gameTime.data.gameTime])
+    }, [gameState.data.creating, gameTime.data.gameTime])
 
     const closeNewDay = () => {
         setShowNewDay(false)

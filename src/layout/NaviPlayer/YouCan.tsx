@@ -4,9 +4,7 @@ import { SYSTEM } from "../../data/helper/colorfullStrings";
 import { useRootStore } from "../../store";
 import Header from "../Header/Header";
 
-type YouCanProps = {};
-
-const YouCan: React.FC<YouCanProps> = observer(() => {
+const YouCan: React.FC = observer(() => {
   const { getCombinedStats } = useRootStore();
   const combined = getCombinedStats();
 
@@ -24,7 +22,7 @@ const YouCan: React.FC<YouCanProps> = observer(() => {
           <tr>
             <td>{SYSTEM.Tatendrang}</td>
             <td>
-              {combined.rounds} / {combined.maxRounds}
+              {combined.energy} / {combined.maxEnergy}
             </td>
           </tr>
           <tr>

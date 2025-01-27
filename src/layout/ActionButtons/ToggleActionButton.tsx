@@ -19,7 +19,7 @@ const ToggleActionButton: React.FC<ToggleActionButtonProps> = ({ setOne, onClick
         if (isFirstState) {
             onClickOne?.();
         } else {
-            onClickTwo ? onClickTwo() : onClickOne?.();
+            (onClickTwo ? onClickTwo : onClickOne)?.();
         }
         setIsFirstState(!isFirstState);
     };

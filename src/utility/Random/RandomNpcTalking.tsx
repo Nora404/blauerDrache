@@ -5,12 +5,7 @@ const getRandomElement = <T,>(array: T[]): T => {
     return array[Math.floor(Math.random() * array.length)];
 };
 
-
-type RandomNpcTalkingProps = {
-};
-
-
-const RandomNpcTalking: React.FC<RandomNpcTalkingProps> = () => {
+const RandomNpcTalking: React.FC = () => {
     const name1 = getRandomElement(npcNames);
     let name2 = getRandomElement(npcNames);
 
