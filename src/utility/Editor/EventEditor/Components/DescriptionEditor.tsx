@@ -1,6 +1,6 @@
 // DescriptionEditor.tsx
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { parseDescription } from "../../../Helper/ParseTextToJSX";
 import {
   SYSTEM,
@@ -28,6 +28,8 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
   // Custom-Farben-Logik
   const [customColors, setCustomColors] = useState<string[]>([]);
   const [newColor, setNewColor] = useState<string>("#ff0000");
+
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   // Gruppen
   const variableLists: Record<string, Record<string, JSX.Element>> = {
@@ -59,44 +61,55 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
   const handleInsert = () => {
     if (!selectedMainOption || !selectedDetailOption) return;
 
-    // Wenn der Nutzer eine Variable (z.B. SYSTEM, CREATURE, ...) gewählt hat:
+    // Referenz zum Textarea
+    const textarea = textAreaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
+    // Nur für den Fall, dass man optional markierten Text
+    // bei Variablen brauchen würde (eigentlich nicht nötig)
+    const selectedText = value.substring(start, end);
+
+    let placeholder = "";
+
+    // 1) Variablen
     if (variableLists[selectedMainOption]) {
-      const placeholder = `{${selectedMainOption}.${selectedDetailOption}}`;
-      onChange(value + placeholder);
-      return;
+      placeholder = `{${selectedMainOption}.${selectedDetailOption}}`;
     }
-
-    // Hier also einer der 3 Komponenten-Fälle:
-    const defaultInnerText = "DeinText";
-
-    // 1) Falls Talk
-    if (selectedMainOption === "Talk") {
-      // Wenn "custom" gewählt: nimm aus dem State die neue Farbe
+    // 2) Talk
+    else if (selectedMainOption === "Talk") {
       const color =
-        selectedDetailOption === "custom"
-          ? newColor /* oder was du anpeilst */
-          : selectedDetailOption;
-
-      const placeholder = `{Talk|${color}}${defaultInnerText}{/Talk}`; // <-- Neu
-      onChange(value + placeholder);
-      return;
+        selectedDetailOption === "custom" ? newColor : selectedDetailOption;
+      // Wenn man ggf. den markierten Text als InnerText verwenden will:
+      const innerText = selectedText || "DeinText";
+      placeholder = `{Talk|${color}}${innerText}{/Talk}`;
     }
-
-    // 2) Falls MultiColoredLetters / GradientText
-    // (also wie gehabt)
-    if (
+    // 3) Gradient / MultiColoredLetters
+    else if (
       selectedMainOption === "MultiColoredLetters" ||
       selectedMainOption === "GradientText"
     ) {
+      const innerText = selectedText || "DeinText";
       if (selectedDetailOption === "custom") {
         const colorString = customColors.join(",");
-        const placeholder = `{${selectedMainOption}|custom:${colorString}}${defaultInnerText}{/${selectedMainOption}}`;
-        onChange(value + placeholder);
+        placeholder = `{${selectedMainOption}|custom:${colorString}}${innerText}{/${selectedMainOption}}`;
       } else {
-        const placeholder = `{${selectedMainOption}|${selectedDetailOption}}${defaultInnerText}{/${selectedMainOption}}`;
-        onChange(value + placeholder);
+        placeholder = `{${selectedMainOption}|${selectedDetailOption}}${innerText}{/${selectedMainOption}}`;
       }
     }
+
+    // Jetzt den neuen Text zusammenbauen und setzen
+    const newVal = value.slice(0, start) + placeholder + value.slice(end);
+    onChange(newVal);
+
+    // Cursor an das Ende des neu eingefügten Platzhalters setzen
+    const newPos = start + placeholder.length;
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(newPos, newPos);
+    }, 0);
   };
 
   const handleAddCustomColor = () => {
@@ -216,6 +229,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
       {/* Textfeld */}
       <div className="form-group">
         <textarea
+          ref={textAreaRef} // <-- Neu
           placeholder="Beschreibung für den Spieler"
           value={value}
           onChange={(e) => onChange(e.target.value)}
