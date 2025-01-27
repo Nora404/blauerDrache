@@ -50,25 +50,41 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
     let element: React.ReactNode;
 
     if (compName === "GradientText") {
-      // Hier nimmst du wie gehabt dein colorPalettes
-      const colors = colorPalettes[paletteOrColor] || ["#ff00ff"];
+      // Kommentierung hier: NEU
+      let colors = colorPalettes[paletteOrColor];
+      if (!colors) {
+        if (paletteOrColor.startsWith("custom:")) {
+          // --> Farben aus dem Teil nach "custom:" holen
+          const customString = paletteOrColor.replace("custom:", "");
+          colors = customString.split(",").map((x) => x.trim());
+        } else {
+          colors = ["#ff00ff"]; // Fallback
+        }
+      }
+
       element = (
         <GradientText key={matchIndex} colors={colors}>
           {innerText}
         </GradientText>
       );
     } else if (compName === "MultiColoredLetters") {
-      // genau so
-      const colors = colorPalettes[paletteOrColor] || ["#ff00ff"];
+      // Gleiches Prinzip wie bei GradientText
+      let colors = colorPalettes[paletteOrColor];
+      if (!colors) {
+        if (paletteOrColor.startsWith("custom:")) {
+          const customString = paletteOrColor.replace("custom:", "");
+          colors = customString.split(",").map((x) => x.trim());
+        } else {
+          colors = ["#ff00ff"];
+        }
+      }
+
       element = (
         <MultiColoredLetters key={matchIndex} colors={colors}>
           {innerText}
         </MultiColoredLetters>
       );
     } else if (compName === "Talk") {
-      // Kommentar: Neu
-      // "paletteOrColor" ist hier z.B. "pink" oder "#ff0000" oder "geflügeltesWesen"
-      // Das Talk-Component resolved das selbst
       element = (
         <Talk key={matchIndex} color={paletteOrColor}>
           {innerText}
