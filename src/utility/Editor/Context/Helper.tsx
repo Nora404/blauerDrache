@@ -2,7 +2,7 @@ import { BuffName, buffMap } from "../../../data/buffData";
 import { PlacesKeys } from "../../../data/helper/colorfullStrings";
 import { DebuffName, debuffMap } from "../../../data/debuffData";
 import { feelingMap, FeelingName } from "../../../data/feelingData";
-import { ItemCartegoryName, Item, itemMap } from "../../../data/ItemData";
+import { ItemCartegoryName, Item, itemMap } from "../../../data/gameItems/ItemData";
 
 export function buildItemCategories(): Record<ItemCartegoryName, Item[]> {
   const categoryMap: Record<string, Item[]> = {};

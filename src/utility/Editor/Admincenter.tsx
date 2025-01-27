@@ -11,10 +11,10 @@ import { callings } from '../../data/callingData';
 import { origin } from '../../data/originData';
 import { BuffName, buffs } from '../../data/buffData';
 import { DebuffName, debuffs } from '../../data/debuffData';
-import { weapons } from '../../data/weaponData';
-import { armors } from '../../data/armorData';
 import { feelings } from '../../data/feelingData';
-import { getItemCategories, ItemCartegoryName, items } from '../../data/ItemData';
+import { armors } from '../../data/gameItems/armorData';
+import { ItemCartegoryName, getItemCategories, items } from '../../data/gameItems/ItemData';
+import { weapons } from '../../data/gameItems/weaponData';
 // #endregion
 
 // #region [prepare]
@@ -41,11 +41,11 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     const delta = getDelta();
 
     const { attack, defense, luck } = playerStats.data;
-    const { level, ruf: standing, maxLife, maxRounds } = playerBase.data;
+    const { maxLife, maxRounds } = playerBase.data;
 
     const [selectedCategory, setSelectedCategory] = useState<ItemCartegoryName | "">("");
     const [selectedItem, setSelectedItem] = useState<string | "">("");
-    const [itemQuantity, setItemQuantity] = useState<number>(0);
+    const [itemQuantity, setItemQuantity] = useState<number>(1);
     const categoryMap = useMemo(() => getItemCategories(), []);
     const filteredItems = useMemo(() => {
         return selectedCategory ? categoryMap[selectedCategory] || [] : [];

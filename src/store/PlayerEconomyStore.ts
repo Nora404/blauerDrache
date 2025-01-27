@@ -2,9 +2,9 @@
 import { makeAutoObservable } from "mobx";
 import { defaultGameStore, PlayerEconomy } from "./types";
 import { RootStore } from "./rootStore";
-import { itemMap } from "../data/ItemData";
 import { BuffName } from "../data/buffData";
 import { DebuffName } from "../data/debuffData";
+import { itemMap } from "../data/gameItems/ItemData";
 
 export class PlayerEconomyStore {
   rootStore: RootStore;

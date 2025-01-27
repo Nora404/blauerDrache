@@ -1,7 +1,7 @@
 import { BuffName } from "../../data/buffData";
 import { DebuffName } from "../../data/debuffData";
 import { GameAction } from "../../data/eventData";
-import { ItemName } from "../../data/ItemData";
+import { ItemName } from "../../data/gameItems/ItemData";
 import { useRootStore } from "../../store";
 
 export function useApplyGameAction() {

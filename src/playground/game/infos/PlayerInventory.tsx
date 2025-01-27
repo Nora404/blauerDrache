@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import { SYSTEM } from "../../../data/helper/colorfullStrings";
-import { Item, itemMap, ItemName } from "../../../data/ItemData";
 import Header from "../../../layout/Header/Header";
 import { GradientText } from "../../../utility/Formatted/GradientText";
 import { useRootStore } from "../../../store";
-import { WeaponName } from "../../../data/weaponData";
-import { ArmorName } from "../../../data/armorData";
+import { ArmorName } from "../../../data/gameItems/armorData";
+import { ItemName, itemMap, Item } from "../../../data/gameItems/ItemData";
+import { WeaponName } from "../../../data/gameItems/weaponData";
 
 const PlayerInventory: React.FC = observer(() => {
   const { getPlayerObj, playerEconomy, playerFlux } = useRootStore();

@@ -4,9 +4,10 @@ import { ConditionsConfig } from "../../../Context/EventContext";
 
 // Importiere deine echten Arrays
 import { feelings } from "../../../../../data/feelingData";
-import { weapons } from "../../../../../data/weaponData";
-import { armors } from "../../../../../data/armorData";
-import { items as allItems } from "../../../../../data/ItemData";
+import { armors } from "../../../../../data/gameItems/armorData";
+import { items } from "../../../../../data/gameItems/ItemData";
+import { weapons } from "../../../../../data/gameItems/weaponData";
+
 // ^^^ Pfade anpassen, je nach Projektstruktur
 
 interface SubEditorProps {
@@ -90,7 +91,7 @@ const PlayerFluxConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
                     onChange={(e) => setFlux("item", e.target.value)}
                 >
                     <option value="">(Kein Item)</option>
-                    {allItems.map((it) => (
+                    {items.map((it) => (
                         <option key={it.name} value={it.name}>
                             {it.name}
                         </option>

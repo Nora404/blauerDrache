@@ -1,4 +1,3 @@
-// stores/PlayerQuestStore.ts
 import { makeAutoObservable } from "mobx";
 import { defaultGameStore, PlayerQuest } from "./types";
 import { RootStore } from "./rootStore";

@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { PlacesKeys } from "../../../data/helper/colorfullStrings";
-import { ItemCartegoryName, ItemName } from "../../../data/ItemData";
 import { getAllPlaces } from "./Helper";
 import { RaceName } from "../../../data/raceData";
 import { OriginName } from "../../../data/originData";
 import { CallingName } from "../../../data/callingData";
 import { FeelingName } from "../../../data/feelingData";
-import { ArmorName } from "../../../data/armorData";
-import { WeaponName } from "../../../data/weaponData";
+import { ArmorName } from "../../../data/gameItems/armorData";
+import { ItemCartegoryName, ItemName } from "../../../data/gameItems/ItemData";
+import { WeaponName } from "../../../data/gameItems/weaponData";
 
 export const DEFAULT_CONDITIONS: ConditionsConfig = {
   operator: "=",

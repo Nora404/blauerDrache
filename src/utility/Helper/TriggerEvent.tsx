@@ -5,7 +5,6 @@ import {
   NextEventOption,
   WeightedEvent,
 } from "../../data/eventData";
-import { ItemCartegoryName, ItemName, items } from "../../data/ItemData";
 import { getGameQuestById } from "../../data/questData";
 import {
   GameState,
@@ -19,6 +18,7 @@ import {
 } from "../../store/types";
 import { gameEvents } from "../../data/eventList";
 import { gameQuestEvents } from "../../data/questList";
+import { ItemCartegoryName, ItemName, items } from "../../data/gameItems/ItemData";
 
 //#region [event by place]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {

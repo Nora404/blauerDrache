@@ -1,5 +1,4 @@
 import { PlacesKeys } from "./helper/colorfullStrings";
-import { ItemName } from "./ItemData";
 import {
   GameState,
   GameTime,
@@ -9,6 +8,7 @@ import {
   PlayerMeta,
   PlayerStats,
 } from "../store/types";
+import { ItemName } from "./gameItems/ItemData";
 
 export type NextEventOption = {
   eventId: string; // Next event ID

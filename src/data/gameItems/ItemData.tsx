@@ -1,8 +1,8 @@
-import { PlayerStats } from "../store/newGameStore";
-import { GradientText } from "../utility/Formatted/GradientText";
+import { PlayerStats } from "../../store/newGameStore";
+import { GradientText } from "../../utility/Formatted/GradientText";
 import { ArmorName, armors } from "./armorData";
-import { BuffName } from "./buffData";
-import { DebuffName } from "./debuffData";
+import { BuffName } from "../buffData";
+import { DebuffName } from "../debuffData";
 import { WeaponName, weapons } from "./weaponData";
 
 export type ItemName =
@@ -22,7 +22,10 @@ export type ItemName =
 export type ItemCartegoryName =
   | "Zeug"
   | "Nahrung"
+  | "Rohstoff"  
   | "Material"
+  | "Kampf"
+  | "Werkzeug"
   | "Waffen"
   | "Ausrüstung";
 

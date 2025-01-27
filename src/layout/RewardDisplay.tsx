@@ -1,4 +1,5 @@
-import { ItemName } from "../data/ItemData";
+
+import { ItemName } from "../data/gameItems/ItemData";
 import { PlayerBase, PlayerEconomy } from "../store/newGameStore";
 
 export const RewardsDisplay: React.FC<{

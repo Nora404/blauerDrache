@@ -1,4 +1,4 @@
-import { GradientText } from "../utility/Formatted/GradientText";
+import { GradientText } from "../../utility/Formatted/GradientText";
 import { Item } from "./ItemData";
 
 export type WeaponName =

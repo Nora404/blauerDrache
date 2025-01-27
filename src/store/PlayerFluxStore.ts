@@ -1,13 +1,11 @@
-// stores/PlayerFluxStore.ts
 import { makeAutoObservable } from "mobx";
-
 import { RootStore } from "./rootStore";
 import { buffMap, BuffName } from "../data/buffData";
 import { debuffMap, DebuffName } from "../data/debuffData";
-import { WeaponName } from "../data/weaponData";
-import { ArmorName } from "../data/armorData";
-import { ItemName } from "../data/ItemData";
 import { defaultGameStore, PlayerFlux } from "./types";
+import { ArmorName } from "../data/gameItems/armorData";
+import { ItemName } from "../data/gameItems/ItemData";
+import { WeaponName } from "../data/gameItems/weaponData";
 
 export class PlayerFluxStore {
     rootStore: RootStore;

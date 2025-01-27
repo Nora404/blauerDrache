@@ -1,5 +1,5 @@
 import { GameEvent } from "../eventData";
-import { getRandomItem, ItemName } from "../ItemData";
+import { ItemName, getRandomItem } from "../gameItems/ItemData";
 
 const possibleItems: ItemName[] = [
   "Plunder",

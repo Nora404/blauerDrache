@@ -1,9 +1,8 @@
 // ConditionsSubEditors/PlayerItemsConditionEditor.tsx
 import React from "react";
 import { ConditionsConfig } from "../../../Context/EventContext";
+import { ItemName, items, ItemCartegoryName } from "../../../../../data/gameItems/ItemData";
 
-import { items } from "../../../../../data/ItemData"; // Pfad anpassen
-import { ItemCartegoryName, ItemName } from "../../../../../data/ItemData";
 
 /**
  * Du hast "category" im Item. 

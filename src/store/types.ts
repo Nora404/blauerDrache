@@ -1,15 +1,18 @@
 // types.ts
 
-import { ArmorName } from "../data/armorData";
+
 import { Buff, BuffName } from "../data/buffData";
 import { CallingName } from "../data/callingData";
 import { Debuff, DebuffName } from "../data/debuffData";
 import { FeelingName } from "../data/feelingData";
-import { Item, ItemName } from "../data/ItemData";
+import { ArmorName } from "../data/gameItems/armorData";
+import { ItemName, Item } from "../data/gameItems/ItemData";
+import { WeaponName } from "../data/gameItems/weaponData";
+
 import { OriginName } from "../data/originData";
 import { Progress } from "../data/questData";
 import { RaceName } from "../data/raceData";
-import { WeaponName } from "../data/weaponData";
+
 
 export type GameTime = {
   gameTime: string; // z.B. "12:00"

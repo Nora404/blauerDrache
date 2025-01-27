@@ -1,5 +1,5 @@
 import { PlayerStats, PlayerBase } from "../store/newGameStore";
-import { ItemName } from "./ItemData";
+import { ItemName } from "./gameItems/ItemData";
 import { gameQuests } from "./questList";
 
 export type TaskType =

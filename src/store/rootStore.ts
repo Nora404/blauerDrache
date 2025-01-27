@@ -1,4 +1,3 @@
-// stores/rootStore.ts
 import { makeAutoObservable } from "mobx";
 import { ActiveBuff, ActiveDebuff, defaultGameStore, Delta, GameStore, StatDelta } from "./types";
 import { TimeStore } from "./TimeStore";
@@ -13,12 +12,13 @@ import { emptyOriginObj, originMap } from "../data/originData";
 import { emptyRaceObj, racesMap } from "../data/raceData";
 import { callingMap, emptyCallingObj } from "../data/callingData";
 import { emptyFeelingObj, feelingMap } from "../data/feelingData";
-import { emptyWeaponObj, weaponMap } from "../data/weaponData";
-import { armorMap, emptyArmorObj } from "../data/armorData";
-import { emptyItemObj, itemMap } from "../data/ItemData";
+
 import { buffMap, BuffName } from "../data/buffData";
 import { debuffMap, DebuffName } from "../data/debuffData";
 import { getScalingFactor } from "../utility/Helper/Progression";
+import { armorMap, emptyArmorObj } from "../data/gameItems/armorData";
+import { itemMap, emptyItemObj } from "../data/gameItems/ItemData";
+import { weaponMap, emptyWeaponObj } from "../data/gameItems/weaponData";
 
 export class RootStore {
 
