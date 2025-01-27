@@ -30,7 +30,7 @@ export type GameAction = {
 
 export type GameEvent = {
   id: string; // z.B. 001Stone
-  label: string; // z.B "Stein gefunden"
+  label?: string; // z.B "Stein gefunden"
   description: string;
   buttons: {
     label: string;

@@ -91,7 +91,9 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
   return (
     <div className="max-width">
       {eventsChain.map((chainItem, idx) => {
-        const event: GameEvent | undefined = getGameEventById(chainItem.eventId);
+        const event: GameEvent | undefined = getGameEventById(
+          chainItem.eventId
+        );
         if (!event) {
           return <p key={idx}>Unbekanntes Event: {chainItem.eventId}</p>;
         }
@@ -109,13 +111,13 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
             playerBase.data,
             playerFlux.data,
             playerMeta.data,
-            playerEconomy.data,
+            playerEconomy.data
           );
         });
 
         return (
-          <div key={idx} className="game-event-block">
-            <HeaderSmall>{event.label}</HeaderSmall>
+          <div key={idx}>
+            {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
             <p className="mb-1 text-left">{description}</p>
 
             {outcomeMessage ? (

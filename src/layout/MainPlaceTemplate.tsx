@@ -61,8 +61,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     return (
       <div className="max-width">
         <h2>{title}</h2>
-
-        {description}
+        <div className="mb-1">{description}</div>
 
         {showDayBlock ? (
           <>

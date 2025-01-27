@@ -17,7 +17,14 @@ type PlaceTemplateProps = {
 };
 
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
-  ({ title, description, backPath, possibleEvents, noEventHappend = "", chanceOfAnyEvent }) => {
+  ({
+    title,
+    description,
+    backPath,
+    possibleEvents,
+    noEventHappend = "",
+    chanceOfAnyEvent,
+  }) => {
     const {
       localRandomEvent,
       firstEvent,
@@ -30,8 +37,7 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
     return (
       <div className="max-width">
         <h2>{title}</h2>
-        <div>{description}</div>
-        <br />
+        <div className="mb-1">{description}</div>
 
         {localRandomEvent && (
           <>
