@@ -11,9 +11,7 @@ import { Weapon, emptyWeaponObj, WeaponName, weapons } from "../../../../data/ga
 //#endregion
 
 //#region [prepare]
-type WeaponShopProps = {};
-
-const WeaponShop: React.FC<WeaponShopProps> = observer(() => {
+const WeaponShop: React.FC = observer(() => {
   const [localWeapon, setLocalWeapon] = useState<Weapon>(emptyWeaponObj);
   const { getPlayerObj, playerEconomy, playerFlux } = useRootStore();
   const selected = getPlayerObj();
@@ -94,6 +92,9 @@ const WeaponShop: React.FC<WeaponShopProps> = observer(() => {
           </div>
           <button style={{ width: "200px" }} className="btn-border">
             Kaufen {SYSTEM.Gold} <Talk color="red">-{weapon.ek}</Talk>
+          </button>
+          <button style={{ width: "200px" }} className="btn-border">
+            Tauschen {SYSTEM.Gold} <Talk color="red">{Number(exchangePrice) - weapon.ek}</Talk>
           </button>
         </div>
       ))}
