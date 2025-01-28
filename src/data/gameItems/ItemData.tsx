@@ -4,7 +4,7 @@ import { BuffName } from "../buffData";
 import { DebuffName } from "../debuffData";
 import { WeaponName, weapons } from "./weaponData";
 import { PlayerStats } from "../../store/types";
-import { CollectingName, collections } from "./collection";
+import { CollectingName, collections } from "./collectionData";
 
 export type ItemName =
   | WeaponName

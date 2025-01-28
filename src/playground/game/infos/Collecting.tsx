@@ -2,13 +2,9 @@ import React from "react";
 import Header from "../../../layout/Header/Header";
 import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
 import Talk from "../../../utility/Formatted/Talk";
-import { getItemCategories, itemMap } from "../../../data/gameItems/ItemData";
+import { getItemCategories} from "../../../data/gameItems/ItemData";
 
-type CollectingProps = {};
-
-const Collecting: React.FC<CollectingProps> = () => {
-const redFragment = itemMap["RotesFragment"];
-
+const Collecting: React.FC = () => {
 const fragments = getItemCategories()["Fragmente"];
 
   return (

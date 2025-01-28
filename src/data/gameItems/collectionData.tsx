@@ -35,7 +35,7 @@ export const collections: Item[] = [
   },
   {
     name: "WeißesFragment",
-    label: <SparklingText color="#dddddd">Weißes Fragment</SparklingText>,
+    label: <SparklingText color="#eeeeee">Weißes Fragment</SparklingText>,
     category: "Fragmente",
     description: "„Eine Richtung. Das haben sie gesagt. Alles geht in eine Richtung. Aber warum?  Man kann sich doch auch in die andere Richtung bewegen. Warum sollte ich warten oder bedauern,  etwas verpasst zu haben? Ich gehe einfach dahin, wo ich sein will.“",
   },
@@ -53,7 +53,7 @@ export const collections: Item[] = [
   },
   {
     name: "SchwarzesFragment",
-    label: <SparklingText color="#ACAFC7">Schwarzes Fragment</SparklingText>,
+    label: <SparklingText color="#9698AD">Schwarzes Fragment</SparklingText>,
     category: "Fragmente",
     description: "„Mir gefällt, was er macht. Ich werde es beobachten, noch hat er mich nicht gesehen – wie denn auch?  Mir ist keine der Energien zu eigen. Ich bin Nichts, und wenn er Alles ist, wird er auch ein Nichts werden.  Er scheint die Natur dahinter nicht zu erkennen. Ich werde es genießen.“",
   },
