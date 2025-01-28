@@ -1,0 +1,41 @@
+/* SparklingText.css */
+
+.gradient-text {
+  /* Neuer Farbverlauf mit unterschiedlichen Opazitäten, diagonal */
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 1)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 5px #ffffffa2;
+}
+
+.sparkle {
+  color: #ffffffcb;
+  text-shadow: 0 0 8px #fff; /* Kleiner Glow-Effekt */
+  opacity: 0;
+  z-index: 2; /* über dem Text */
+  animation: sparkle 3s ease-in-out infinite; /* langsamere Animation */
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}

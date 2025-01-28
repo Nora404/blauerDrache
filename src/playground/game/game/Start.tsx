@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../store";
 import Talk from "../../../utility/Formatted/Talk";
+import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
 //#endregion
 
 //#region [prepare]
@@ -142,6 +143,16 @@ const Start: React.FC<StartProps> = observer(() => {
         />
         <br className="mb-1" />
       </div>
+
+      <SparklingText text="Funkelnder Text" numStars={6} />
+      <br />
+      <br />
+
+      <SparklingText text="Stern" numStars={6} />
+      <br />
+      <br />
+
+      <SparklingText text="Ein etwas längerer Text zum Testen" numStars={6} />
     </div>
   );
   //#endregion
