@@ -27,7 +27,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
     setShowDetails((prev) => !prev);
   };
 
-  const handleItem = () => {
+  const handleItem = (e: MouseEvent) => {
+    e.stopPropagation();
     const cat = itemMap[item.name].category;
     switch (cat) {
       case "Waffen":
@@ -42,11 +43,13 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
     }
   };
 
-  const handleUse = () => {
+  const handleUse = (e: MouseEvent) => {
+    e.stopPropagation();
     playerEconomy.consumeItem(item.name);
   };
 
-  const handleDrop = () => {
+  const handleDrop = (e: MouseEvent) => {
+    e.stopPropagation();
     const cat = itemMap[item.name].category;
     switch (cat) {
       case "Waffen":
@@ -82,9 +85,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {SYSTEM.Leben}: {item.effects.life}
             {showDetails && (
               <div>
-                <button className="btn-border" onClick={handleItem}>
-                  Ausrüsten
-                </button>
                 <button className="btn-border" onClick={handleUse}>
                   Benutzten
                 </button>
@@ -97,9 +97,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {SYSTEM.Tatendrang}: {item.effects.energy}
             {showDetails && (
               <div>
-                <button className="btn-border" onClick={handleItem}>
-                  Ausrüsten
-                </button>
                 <button className="btn-border" onClick={handleUse}>
                   Benutzten
                 </button>
@@ -112,9 +109,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {SYSTEM.Angriff}: {item.attack}
             {showDetails && (
               <div>
-                <button className="btn-border" onClick={handleItem}>
-                  Ausrüsten
-                </button>
                 <button className="btn-border" onClick={handleDrop}>
                   Ablegen
                 </button>
@@ -127,9 +121,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {SYSTEM.Verteidigung}: {item.defense}
             {showDetails && (
               <div>
-                <button className="btn-border" onClick={handleItem}>
-                  Ausrüsten
-                </button>
                 <button className="btn-border" onClick={handleDrop}>
                   Ablegen
                 </button>
@@ -152,6 +143,11 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
               </div>
             )}
           </div>
+        )}
+        {showDetails && (
+          <button className="btn-border" onClick={handleItem}>
+            Ausrüsten
+          </button>
         )}
       </div>
     </button>
