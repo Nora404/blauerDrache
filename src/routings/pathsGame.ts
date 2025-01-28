@@ -10,6 +10,7 @@ export enum PathsGame {
   NewPlayer = "/new-player",
   PlayerInfo = "/player-info",
   PlayerInventar = "/player-inventar",
+  Collecting = "/collecting",
   QuestLog = "/questlog",
   Settings = "/setting",
   Map = "/map",
@@ -34,6 +35,7 @@ const PlayerInfo = lazy(
 const PlayerInventory = lazy(
   () => import("../playground/game/infos/PlayerInventory")
 );
+const Collecting = lazy(() => import("../playground/game/infos/Collecting"));
 const QuestLog = lazy(() => import("../playground/game/infos/QuestLog"));
 const Quest = lazy(() => import("../layout/Quest"));
 
@@ -83,6 +85,10 @@ export const routesGame: RouteConfig[] = [
   {
     path: PathsGame.PlayerInventar,
     element: PlayerInventory,
+  },
+  {
+    path: PathsGame.Collecting,
+    element: Collecting,
   },
   {
     path: PathsGame.QuestLog,
