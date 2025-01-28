@@ -3,29 +3,13 @@ import { SYSTEM } from "../../../data/helper/colorfullStrings";
 import Header from "../../../layout/Header/Header";
 import { GradientText } from "../../../utility/Formatted/GradientText";
 import { useRootStore } from "../../../store";
-import { ArmorName } from "../../../data/gameItems/armorData";
-import { ItemName, itemMap, Item } from "../../../data/gameItems/ItemData";
-import { WeaponName } from "../../../data/gameItems/weaponData";
+import { Item } from "../../../data/gameItems/ItemData";
+import ItemCard from "../../../layout/Cards/ItemCards";
 
 const PlayerInventory: React.FC = observer(() => {
-  const { getPlayerObj, playerEconomy, playerFlux } = useRootStore();
+  const { getPlayerObj, playerEconomy } = useRootStore();
   const selected = getPlayerObj();
   const items = playerEconomy.data.items;
-
-  const handleClick = (name: ItemName) => {
-    const cat = itemMap[name].category;
-    switch (cat) {
-      case "Waffen":
-        playerFlux.updateWeapon(name as WeaponName);
-        break;
-      case "Ausrüstung":
-        playerFlux.updateArmor(name as ArmorName);
-        break;
-      default:
-        playerFlux.updateInHand(name);
-        return;
-    }
-  };
 
   const groupItemsByCategory = (
     items: Record<string, { item: Item; quantity: number }>
@@ -67,20 +51,17 @@ const PlayerInventory: React.FC = observer(() => {
       ) : (
         <div>
           {Object.entries(groupedItems).map(([category, itemsInCategory]) => (
-            <div key={category} className="category-section">
+            <div key={category}>
               <Header>{category}</Header>
-              {itemsInCategory.map((itemData) => (
-                <button
-                  key={itemData.item.name}
-                  className={`btn-border ${
-                    playerFlux.data.item === itemData.item.name ? "glow" : ""
-                  }`}
-                  onClick={() => handleClick(itemData.item.name)}
-                >
-                  <b>{itemData.item.name}:</b> {itemData.quantity} <br />
-                  <small>{itemData.item.description}</small>
-                </button>
-              ))}
+              <div className="category-section">
+                {itemsInCategory.map((itemData) => (
+                  <ItemCard
+                    key={itemData.item.name}
+                    itemName={itemData.item.name}
+                    quantity={itemData.quantity}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </div>
