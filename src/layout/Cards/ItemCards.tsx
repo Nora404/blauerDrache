@@ -11,6 +11,13 @@ import { SYSTEM } from "../../data/helper/colorfullStrings";
 import "./ItemCard.css";
 import { useRootStore } from "../../store";
 import Talk from "../../utility/Formatted/Talk";
+import MultiColoredLetters from "../../utility/Formatted/MultiColoredLetters";
+import {
+  blueColors,
+  greenColors,
+  redColors,
+  yellowColors,
+} from "../../data/helper/colorMappingData";
 
 type ItemCardProps = {
   itemName: ItemName;
@@ -64,6 +71,11 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
     }
   };
 
+  const handleRemove = (e: MouseEvent) => {
+    e.stopPropagation();
+    playerEconomy.updateItems(item.name, -1);
+  };
+
   return (
     <button className="btn-border item-card " onClick={handleClick}>
       <div className="full">
@@ -86,7 +98,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {showDetails && (
               <div>
                 <button className="btn-border" onClick={handleUse}>
-                  Benutzten
+                  <MultiColoredLetters colors={blueColors}>
+                    Benutzten
+                  </MultiColoredLetters>
                 </button>
               </div>
             )}
@@ -98,7 +112,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {showDetails && (
               <div>
                 <button className="btn-border" onClick={handleUse}>
-                  Benutzten
+                  <MultiColoredLetters colors={blueColors}>
+                    Benutzten
+                  </MultiColoredLetters>
                 </button>
               </div>
             )}
@@ -110,7 +126,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {showDetails && (
               <div>
                 <button className="btn-border" onClick={handleDrop}>
-                  Ablegen
+                  <MultiColoredLetters colors={yellowColors}>
+                    Ablegen
+                  </MultiColoredLetters>
                 </button>
               </div>
             )}
@@ -122,7 +140,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             {showDetails && (
               <div>
                 <button className="btn-border" onClick={handleDrop}>
-                  Ablegen
+                  <MultiColoredLetters colors={yellowColors}>
+                    Ablegen
+                  </MultiColoredLetters>
                 </button>
                 {}
               </div>
@@ -145,9 +165,18 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
           </div>
         )}
         {showDetails && (
-          <button className="btn-border" onClick={handleItem}>
-            Ausrüsten
-          </button>
+          <>
+            <button className="btn-border" onClick={handleItem}>
+              <MultiColoredLetters colors={greenColors}>
+                Ausrüsten
+              </MultiColoredLetters>
+            </button>
+            <button className="btn-border" onClick={handleRemove}>
+              <MultiColoredLetters colors={redColors}>
+                Wegwerfen
+              </MultiColoredLetters>
+            </button>
+          </>
         )}
       </div>
     </button>
