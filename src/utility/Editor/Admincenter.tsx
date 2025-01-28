@@ -13,7 +13,7 @@ import { BuffName, buffs } from '../../data/buffData';
 import { DebuffName, debuffs } from '../../data/debuffData';
 import { feelings } from '../../data/feelingData';
 import { armors } from '../../data/gameItems/armorData';
-import { ItemCartegoryName, getItemCategories, items } from '../../data/gameItems/ItemData';
+import { ItemCartegoryName, getItemCategories, itemMap, items } from '../../data/gameItems/ItemData';
 import { weapons } from '../../data/gameItems/weaponData';
 // #endregion
 
@@ -73,7 +73,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
             feeling: delta.energy.feeling,
             weapon: 0,
             armor: 0,
-            total: combined.rounds,
+            total: combined.energy,
         },
         {
             key: "startData3",
@@ -188,7 +188,12 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
         playerEconomy.updatePlayerEconomy({ [field]: value });
     }
     const handlePlayerItems = () => {
-        playerEconomy.updateItems(selectedItem, itemQuantity);
+        const item = itemMap[selectedItem];
+        if (item.category === "Fragmente") {
+            playerEconomy.updateCollection(item.name);
+        } else {
+            playerEconomy.updateItems(selectedItem, itemQuantity);
+        }
     }
     //#endregion
 
