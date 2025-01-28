@@ -4,7 +4,7 @@ import { defaultGameStore, PlayerEconomy } from "./types";
 import { RootStore } from "./rootStore";
 import { BuffName } from "../data/buffData";
 import { DebuffName } from "../data/debuffData";
-import { itemMap } from "../data/gameItems/ItemData";
+import { itemMap, ItemName } from "../data/gameItems/ItemData";
 
 export class PlayerEconomyStore {
   rootStore: RootStore;
@@ -18,6 +18,18 @@ export class PlayerEconomyStore {
 
   setPlayerEconomy(val: Partial<PlayerEconomy>) {
     this.data = { ...this.data, ...val };
+    this.rootStore.saveToLocalStorage();
+  }
+
+  updateCollection(item: ItemName){
+    const index = this.data.collections.indexOf(item);
+
+    if (index === -1) {
+      this.data.collections.push(item);
+    } else {
+      this.data.collections.splice(index, 1);
+    }
+  
     this.rootStore.saveToLocalStorage();
   }
 

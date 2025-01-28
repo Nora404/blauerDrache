@@ -67,6 +67,7 @@ export type PlayerEconomy = {
   gold: number;
   edelsteine: number;
   items: Record<string, { item: Item; quantity: number }>;
+  collections: ItemName[]
 };
 
 export type PlayerQuest = {
@@ -155,6 +156,7 @@ export const defaultGameStore: GameStore = {
     gold: 100,
     edelsteine: 0,
     items: {},
+    collections: [],
   },
   playerQuest: {
     activeQuests: {},

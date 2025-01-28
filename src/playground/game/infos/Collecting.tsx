@@ -3,9 +3,11 @@ import Header from "../../../layout/Header/Header";
 import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
 import Talk from "../../../utility/Formatted/Talk";
 import { getItemCategories} from "../../../data/gameItems/ItemData";
+import { useRootStore } from "../../../store";
 
 const Collecting: React.FC = () => {
 const fragments = getItemCategories()["Fragmente"];
+const {playerEconomy} = useRootStore()
 
   return (
     <div className="max-width">
@@ -13,11 +15,14 @@ const fragments = getItemCategories()["Fragmente"];
 
       <Header>Fragmente der Erinnerung</Header>
       <p className="mb-2">
-        {/* <button className="btn-border"> {redFragment.label} <br/><p className="mb-1 text-left">{redFragment.description}</p> </button> */}
         {fragments.map((item)=>{
-          return (
-            <button className="btn-border"> {item.label} <br/><p className="mb-1 text-left">{item.description}</p> </button>
-          )
+          if(playerEconomy.data.collections.includes(item.name)){
+            return (
+              <button className="btn-border"> {item.label} <br/><p className="mb-1 text-left">{item.description}</p> </button>
+            )
+          } else {
+            return <button className="btn-border"><Talk color="gray">???</Talk></button>
+          }
         })}
       </p>
 
