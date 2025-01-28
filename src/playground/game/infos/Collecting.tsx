@@ -2,19 +2,27 @@ import React from "react";
 import Header from "../../../layout/Header/Header";
 import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
 import Talk from "../../../utility/Formatted/Talk";
+import { getItemCategories, itemMap } from "../../../data/gameItems/ItemData";
 
 type CollectingProps = {};
 
 const Collecting: React.FC<CollectingProps> = () => {
+const redFragment = itemMap["RotesFragment"];
+
+const fragments = getItemCategories()["Fragmente"];
+
   return (
     <div className="max-width">
       <h2>Deine Beute</h2>
 
       <Header>Fragmente der Erinnerung</Header>
       <p className="mb-2">
-        <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
-        <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
-        <CollectItem /> <CollectItem /> <CollectItem />
+        {/* <button className="btn-border"> {redFragment.label} <br/><p className="mb-1 text-left">{redFragment.description}</p> </button> */}
+        {fragments.map((item)=>{
+          return (
+            <button className="btn-border"> {item.label} <br/><p className="mb-1 text-left">{item.description}</p> </button>
+          )
+        })}
       </p>
 
       <Header>Leben in Lahtheim</Header>
@@ -93,7 +101,7 @@ const CollectItem: React.FC<CollectItemProps> = ({
     >
       {itemName ? (
         <>
-          <SparklingText text={itemName} color={color} />
+          <SparklingText color={color}>{itemName}</SparklingText>
           <p className="text-left">{description}</p>
         </>
       ) : (

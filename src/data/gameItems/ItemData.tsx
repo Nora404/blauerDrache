@@ -4,10 +4,12 @@ import { BuffName } from "../buffData";
 import { DebuffName } from "../debuffData";
 import { WeaponName, weapons } from "./weaponData";
 import { PlayerStats } from "../../store/types";
+import { CollectingName, collections } from "./collection";
 
 export type ItemName =
   | WeaponName
   | ArmorName
+  | CollectingName
   | "Nichts"
   | "Stein"
   | "Stock"
@@ -15,7 +17,7 @@ export type ItemName =
   | "Plunder"
   | "Blume"
   | "Kupfererz"
-  | "Leere Flasche"
+  | "LeereFlasche"
   | "Wasserflasche"
   | "Lederstück";
 
@@ -27,7 +29,8 @@ export type ItemCartegoryName =
   | "Kampf"
   | "Werkzeug"
   | "Waffen"
-  | "Ausrüstung";
+  | "Ausrüstung"
+  | "Fragmente";
 
 export function getRandomItem(possibleItems: ItemName[]) {
   const index = Math.floor(Math.random() * possibleItems.length);
@@ -49,12 +52,12 @@ export function getItemCategories(): Record<ItemCartegoryName, Item[]> {
 export type Item = {
   name: ItemName;
   label: JSX.Element;
+  description: string;
   category: ItemCartegoryName;
   effects?: Partial<PlayerStats>;
   buff?: BuffName;
   debuff?: DebuffName;
-  description: string;
-  ek: number;
+  ek?: number;
   vk?: number;
 };
 
@@ -126,7 +129,7 @@ export const items: Item[] = [
     vk: 8,
   },
   {
-    name: "Leere Flasche",
+    name: "LeereFlasche",
     label: <GradientText>Leere Flasche</GradientText>,
     category: "Zeug",
     description: "Eine leere Glasflasche. Kann mit Flüssigkeit gefüllt werden.",
@@ -151,6 +154,7 @@ export const items: Item[] = [
     ek: 20,
     vk: 10,
   },
+  ...collections,
   ...weapons,
   ...armors,
 ];

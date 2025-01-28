@@ -10,7 +10,7 @@ type StarData = {
 };
 
 type SparklingTextProps = {
-  text: string;
+  children: string;
   numStars?: number;
   color?: string; // <--- Neue Prop für die Farbe
 };
@@ -32,7 +32,7 @@ function hexToRGB(hex: string) {
 }
 
 const SparklingText: React.FC<SparklingTextProps> = ({
-  text,
+  children,
   numStars = 5,
   color = "#ffffff", // Standardfarbe: weiß
 }) => {
@@ -133,7 +133,7 @@ const SparklingText: React.FC<SparklingTextProps> = ({
 
       {/* Der Text mit Farbverlauf */}
       <span style={gradientTextStyle} className="text-4xl font-bold">
-        {text}
+        {children}
       </span>
     </div>
   );

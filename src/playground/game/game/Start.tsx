@@ -144,15 +144,12 @@ const Start: React.FC<StartProps> = observer(() => {
         <br className="mb-1" />
       </div>
 
-      <SparklingText text="Funkelnder Text" numStars={6} />
+      <SparklingText numStars={6}>Funkelnder Text</SparklingText>
       <br />
       <br />
 
-      <SparklingText text="Stern" numStars={6} color="#ff00ff" />
-      <br />
-      <br />
+      <SparklingText numStars={6} color="#ff00ff">Stars</SparklingText>
 
-      <SparklingText text="Ein etwas längerer Text zum Testen" numStars={6} />
     </div>
   );
   //#endregion
