@@ -148,7 +148,7 @@ const Start: React.FC<StartProps> = observer(() => {
       <br />
       <br />
 
-      <SparklingText text="Stern" numStars={6} />
+      <SparklingText text="Stern" numStars={6} color="#ff00ff" />
       <br />
       <br />
 

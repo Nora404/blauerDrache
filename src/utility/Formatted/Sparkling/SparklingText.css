@@ -1,24 +1,11 @@
 /* SparklingText.css */
 
-.gradient-text {
-  /* Neuer Farbverlauf mit unterschiedlichen Opazitäten, diagonal */
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0.95),
-    rgba(255, 255, 255, 1)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 5px #ffffffa2;
-}
-
+/* Nur die Animation beibehalten, 
+   Farbe und Shadow kommen jetzt dynamisch per Inline-Style. */
 .sparkle {
-  color: #ffffffcb;
-  text-shadow: 0 0 8px #fff; /* Kleiner Glow-Effekt */
   opacity: 0;
-  z-index: 2; /* über dem Text */
-  animation: sparkle 3s ease-in-out infinite; /* langsamere Animation */
+  animation: sparkle 3s ease-in-out infinite;
+  z-index: 2;
 }
 
 @keyframes sparkle {
