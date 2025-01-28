@@ -10,6 +10,7 @@ import { Weapon, WeaponName } from "../../data/gameItems/weaponData";
 import { SYSTEM } from "../../data/helper/colorfullStrings";
 import "./ItemCard.css";
 import { useRootStore } from "../../store";
+import Talk from "../../utility/Formatted/Talk";
 
 type ItemCardProps = {
   itemName: ItemName;
@@ -64,7 +65,18 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
     <button className="btn-border item-card " onClick={handleClick}>
       <div className="full">
         {item.label} {quantity ? <span>(x{quantity})</span> : null}
-        {showDetails && <div>{item.description}</div>}
+        {showDetails && (
+          <div
+            style={{
+              fontSize: "80%",
+              lineHeight: "130%",
+              marginTop: "8px",
+              marginBottom: "8px",
+            }}
+          >
+            <Talk color="#C5EDFF">{item.description}</Talk>
+          </div>
+        )}
         {item.effects?.life && (
           <div>
             {SYSTEM.Leben}: {item.effects.life}
