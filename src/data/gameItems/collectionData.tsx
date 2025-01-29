@@ -113,49 +113,77 @@ export const collections: Item[] = [
   },
   {
     name: "Puppe",
-    label: <SparklingText color="#FFA0FF">Puppe</SparklingText>,
+    label: (
+      <SparklingText color="#FFA0FF" numStars={3}>
+        Puppe
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Die längst vergessene und zerschlissene Puppe hat einst einem Kind viel bedeutet",
   },
   {
     name: "Tagebuch",
-    label: <SparklingText color="#99FFC4">Tagebuch</SparklingText>,
+    label: (
+      <SparklingText color="#99FFC4" numStars={5}>
+        Tagebuch
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Einige Seiten wurden herausgerissen, die übrigen sind vergilbt und leer",
   },
   {
     name: "Talisman",
-    label: <SparklingText color="#9389FF">Talisman</SparklingText>,
+    label: (
+      <SparklingText color="#9389FF" numStars={5}>
+        Talisman
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Der Verkäufer versprach, dass dieser Anhänger Glück bringt, doch es ist nur ein bemalter Stein",
   },
   {
     name: "Empfehlung",
-    label: <SparklingText color="#7CA8FF">Empfehlung</SparklingText>,
+    label: (
+      <SparklingText color="#7CA8FF" numStars={5}>
+        Empfehlung
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Mit dieser Empfehlung darfst du einen Termin bei der Vertretung deines Volkes beantragen",
   },
   {
     name: "Lizenz",
-    label: <SparklingText color="#F2FF7D">Lizenz</SparklingText>,
+    label: (
+      <SparklingText color="#F2FF7D" numStars={4}>
+        Lizenz
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Diese Lizenz berechtigt dich, einem Handwerk nachzugehen oder deine Dienste anzubieten",
   },
   {
     name: "Hausschlüssel",
-    label: <SparklingText color="#DCE2FF">Hausschlüssel</SparklingText>,
+    label: (
+      <SparklingText color="#DCE2FF" numStars={6}>
+        Hausschlüssel
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Du hast dir ein Haus in Lahtheim zugelegt - es ist deine eigene kleine, geschützte Welt",
   },
   {
     name: "Bürgerpass",
-    label: <SparklingText color="#ACE66E">Bürgerpass</SparklingText>,
+    label: (
+      <SparklingText color="#ACE66E" numStars={5}>
+        Bürgerpass
+      </SparklingText>
+    ),
     category: "Beute-Lahtheim",
     description:
       "Dieser Pass beweist, dass der Träger zu Lahtheim gehört und dort immer willkommen ist",
