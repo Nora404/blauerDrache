@@ -71,23 +71,30 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
       {weapons.map((weapon: Weapon) => (
         <div
           key={weapon.name}
-          className={`flex-row border-bd ${
+          className={`border-bd flex-row ${
             weapon.name === localWeapon.name ? "glow" : ""
           }`}
           onClick={() => handleClick(weapon)}
+          style={{ height: "48px" }}
         >
-          <div>{weapon.name}</div>
-          <div>{weapon.description}</div>
-          <div>
-            {SYSTEM.Rüstung} <Talk color="green">+{weapon.attack}</Talk>
+          <div className="flex-row ">
+            <div style={{ width: "200px" }}>{weapon.name}</div>
+            <div>{weapon.description}</div>
+            <div>
+              {SYSTEM.Rüstung} <Talk color="green">+{weapon.attack}</Talk>
+            </div>
           </div>
-          <button style={{ width: "200px" }} className="btn-border">
-            Kaufen {SYSTEM.Gold} <Talk color="red">-{weapon.ek}</Talk>
-          </button>
-          <button style={{ width: "200px" }} className="btn-border">
-            Tauschen {SYSTEM.Gold}{" "}
-            <Talk color="red">{Number(exchangePrice) - weapon.ek}</Talk>
-          </button>
+          {weapon.name === localWeapon.name && (
+            <div className="flex-row ">
+              <button style={{ width: "200px" }} className="btn-border">
+                Kaufen {SYSTEM.Gold} <Talk color="red">-{weapon.ek}</Talk>
+              </button>
+              <button style={{ width: "200px" }} className="btn-border">
+                Tauschen {SYSTEM.Gold}{" "}
+                <Talk color="red">{Number(exchangePrice) - weapon.ek}</Talk>
+              </button>
+            </div>
+          )}
         </div>
       ))}
       <br />
