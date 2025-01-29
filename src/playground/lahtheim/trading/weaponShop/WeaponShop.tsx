@@ -7,46 +7,28 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store";
 import { SYSTEM } from "../../../../data/helper/colorfullStrings";
 import Talk from "../../../../utility/Formatted/Talk";
-import { Weapon, emptyWeaponObj, WeaponName, weapons } from "../../../../data/gameItems/weaponData";
+import {
+  Weapon,
+  emptyWeaponObj,
+  WeaponName,
+  weapons,
+} from "../../../../data/gameItems/weaponData";
+import { useNavigate } from "react-router-dom";
 //#endregion
 
 //#region [prepare]
 const WeaponShop: React.FC = observer(() => {
-  const [localWeapon, setLocalWeapon] = useState<Weapon>(emptyWeaponObj);
-  const { getPlayerObj, playerEconomy, playerFlux } = useRootStore();
-  const selected = getPlayerObj();
+  const navigate = useNavigate();
 
-  const exchangePrice = (selected.weapon.ek / 1.2).toFixed();
   //#endregion
 
   //#region [handler]
-  const handleClick = (Weapon: Weapon) => {
-    setLocalWeapon(Weapon);
+  const handleGoSell = () => {
+    navigate("/weapon-sell");
   };
 
-  const handleBuy = () => {
-    playerEconomy.updatePlayerEconomy({
-      gold: Number(exchangePrice) - localWeapon.ek,
-    });
-    playerEconomy.updateItems(localWeapon.name, 1);
-    playerFlux.updateWeapon(localWeapon.name as WeaponName);
-  };
-  //#endregion
-
-  //#region [helper]
-  const canBuy = () => {
-    const canBuy = playerEconomy.data.gold - localWeapon.ek;
-    return canBuy >= 0 ? true : false;
-  };
-
-  const showText = () => {
-    return canBuy() ? (
-      <GradientText colors={["#53E8AD"]}>du es dir leisten kannst</GradientText>
-    ) : (
-      <GradientText colors={["#DB6575"]}>
-        du es dir nicht leisten kannst
-      </GradientText>
-    );
+  const handleGoBuy = () => {
+    navigate("/weapon-buy");
   };
   //#endregion
 
@@ -77,60 +59,8 @@ const WeaponShop: React.FC = observer(() => {
       </p>
       <br />
 
-      {weapons.map((weapon: Weapon) => (
-        <div
-          key={weapon.name}
-          className={`flex-row border-bd ${
-            weapon.name === localWeapon.name ? "glow" : ""
-          }`}
-          onClick={() => handleClick(weapon)}
-        >
-          <div>{weapon.name}</div>
-          <div>{weapon.description}</div>
-          <div>
-            {SYSTEM.Rüstung} <Talk color="green">+{weapon.attack}</Talk>
-          </div>
-          <button style={{ width: "200px" }} className="btn-border">
-            Kaufen {SYSTEM.Gold} <Talk color="red">-{weapon.ek}</Talk>
-          </button>
-          <button style={{ width: "200px" }} className="btn-border">
-            Tauschen {SYSTEM.Gold} <Talk color="red">{Number(exchangePrice) - weapon.ek}</Talk>
-          </button>
-        </div>
-      ))}
-      <br />
-
-      <div className="text-left">
-        Du zeigst interesse an {localWeapon.label}&nbsp;
-        {localWeapon.name !== "Nichts" && (
-          <>
-            und liest auf einem kleinen Schild daneben den Preis von{" "}
-            <GradientText colors={["#FFE452"]}>{localWeapon.ek}</GradientText>.
-            Nach einem Blick in deinen Goldbeutel ernnst du, dass {showText()}
-            .&nbsp;
-          </>
-        )}
-        Der Verkäufer schaut dich erwartungsvoll an.
-        {localWeapon.name !== "Nichts" && (
-          <>
-            <GradientText colors={["#D1813B"]}>"Für </GradientText>
-            {selected.weapon.label}
-            <GradientText colors={["#D1813B"]}>
-              {" "}
-              wäre ich bereit im Tausch{" "}
-            </GradientText>
-            <GradientText colors={["#FFE452"]}>{exchangePrice}</GradientText>
-            <GradientText colors={["#D1813B"]}> Gold zu bezahlen"</GradientText>
-          </>
-        )}
-      </div>
-      <br />
-
-      {localWeapon.name !== "Nichts" && canBuy() ? (
-        <ActionButton onClick={handleBuy} label="kaufen" />
-      ) : (
-        <ActionButton disable={true} label="kaufen" />
-      )}
+      <ActionButton onClick={handleGoBuy} label="Waffen kaufen" />
+      <ActionButton onClick={handleGoSell} label="Waffen verkaufen" />
     </div>
   );
   //#endregion
