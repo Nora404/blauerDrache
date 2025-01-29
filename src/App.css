@@ -228,4 +228,5 @@
   display: flex;
   flex-wrap: wrap;
   align-items: stretch; /* Sorgt für gleiche Höhen */
+  justify-content: center;
 }

@@ -110,7 +110,7 @@ const SparklingText: React.FC<SparklingTextProps> = ({
       {stars.map((star, i) => {
         const style: CSSProperties = {
           position: "absolute",
-          top: stars[i].y - 8,
+          top: stars[i].y - 10,
           left: stars[i].x,
           fontSize: stars[i].size,
           animationDelay: `${stars[i].delay}s`,

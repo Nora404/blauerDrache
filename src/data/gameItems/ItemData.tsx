@@ -24,13 +24,14 @@ export type ItemName =
 export type ItemCartegoryName =
   | "Zeug"
   | "Nahrung"
-  | "Rohstoff"  
+  | "Rohstoff"
   | "Material"
   | "Kampf"
   | "Werkzeug"
   | "Waffen"
   | "Ausrüstung"
-  | "Fragmente";
+  | "Fragmente"
+  | "Beute-Lahtheim";
 
 export function getRandomItem(possibleItems: ItemName[]) {
   const index = Math.floor(Math.random() * possibleItems.length);

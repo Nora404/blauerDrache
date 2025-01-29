@@ -1,13 +1,14 @@
 import React from "react";
 import Header from "../../../layout/Header/Header";
-import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
 import Talk from "../../../utility/Formatted/Talk";
-import { getItemCategories} from "../../../data/gameItems/ItemData";
+import { getItemCategories } from "../../../data/gameItems/ItemData";
 import { useRootStore } from "../../../store";
 
 const Collecting: React.FC = () => {
-const fragments = getItemCategories()["Fragmente"];
-const {playerEconomy} = useRootStore()
+  const fragments = getItemCategories()["Fragmente"];
+  const lahtheim = getItemCategories()["Beute-Lahtheim"];
+
+  const { playerEconomy } = useRootStore();
 
   return (
     <div className="max-width">
@@ -15,21 +16,40 @@ const {playerEconomy} = useRootStore()
 
       <Header>Fragmente der Erinnerung</Header>
       <p className="mb-2">
-        {fragments.map((item)=>{
-          if(playerEconomy.data.collections.includes(item.name)){
+        {fragments.map((item) => {
+          if (playerEconomy.data.collections.includes(item.name)) {
             return (
-              <button className="btn-border"> {item.label} <br/><p className="mb-1 text-left">{item.description}</p> </button>
-            )
+              <button className="btn-border" key={item.name}>
+                {" "}
+                {item.label} <br />
+                <p className="mb-1 text-left">{item.description}</p>{" "}
+              </button>
+            );
           } else {
-            return <button className="btn-border"><Talk color="gray">???</Talk></button>
+            return (
+              <button className="btn-border" key={item.name}>
+                <Talk color="gray">???</Talk>
+              </button>
+            );
           }
         })}
       </p>
 
       <Header>Leben in Lahtheim</Header>
-      <p className="mb-2">
-        <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
-        <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
+      <p className="mb-2 category-section">
+        {lahtheim.map((item) => {
+          if (playerEconomy.data.collections.includes(item.name)) {
+            return (
+              <CollectItem
+                itemName={item.label}
+                description={item.description}
+                key={item.name}
+              />
+            );
+          } else {
+            return <CollectItem key={item.name} />;
+          }
+        })}
       </p>
 
       <Header>Konflikte in den Wäldern</Header>
@@ -80,30 +100,30 @@ const {playerEconomy} = useRootStore()
 export default Collecting;
 
 type CollectItemProps = {
-  itemName?: string;
-  color?: string;
+  itemName?: React.ReactNode;
   description?: string;
 };
 
-const CollectItem: React.FC<CollectItemProps> = ({
-  itemName,
-  color = "#ffffff",
-  description,
-}) => {
+const CollectItem: React.FC<CollectItemProps> = ({ itemName, description }) => {
   return (
     <button
       className="btn-border"
       style={{
         width: "190px",
-        height: "125px",
+        height: "135px",
         padding: "10px",
         margin: "10px",
       }}
     >
       {itemName ? (
         <>
-          <SparklingText color={color}>{itemName}</SparklingText>
-          <p className="text-left">{description}</p>
+          {itemName}
+          <p
+            className="text-left"
+            style={{ fontSize: "80%", lineHeight: "130%" }}
+          >
+            {description}
+          </p>
         </>
       ) : (
         <>
