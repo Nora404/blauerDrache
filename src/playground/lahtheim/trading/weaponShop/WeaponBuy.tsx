@@ -15,6 +15,7 @@ import { SYSTEM } from "../../../../data/helper/colorfullStrings";
 import { useRootStore } from "../../../../store";
 import { GradientText } from "../../../../utility/Formatted/GradientText";
 import Talk from "../../../../utility/Formatted/Talk";
+import ItemCard from "../../../../layout/Cards/ItemCards";
 // #endregion
 
 // #region [prepare]
@@ -69,33 +70,7 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
     <div className="max-width">
       <h2>Waffen kaufen</h2>
       {weapons.map((weapon: Weapon) => (
-        <div
-          key={weapon.name}
-          className={`border-bd flex-row ${
-            weapon.name === localWeapon.name ? "glow" : ""
-          }`}
-          onClick={() => handleClick(weapon)}
-          style={{ height: "48px" }}
-        >
-          <div className="flex-row ">
-            <div style={{ width: "200px" }}>{weapon.name}</div>
-            <div>{weapon.description}</div>
-            <div>
-              {SYSTEM.Rüstung} <Talk color="green">+{weapon.attack}</Talk>
-            </div>
-          </div>
-          {weapon.name === localWeapon.name && (
-            <div className="flex-row ">
-              <button style={{ width: "200px" }} className="btn-border">
-                Kaufen {SYSTEM.Gold} <Talk color="red">-{weapon.ek}</Talk>
-              </button>
-              <button style={{ width: "200px" }} className="btn-border">
-                Tauschen {SYSTEM.Gold}{" "}
-                <Talk color="red">{Number(exchangePrice) - weapon.ek}</Talk>
-              </button>
-            </div>
-          )}
-        </div>
+        <ItemCard itemName={weapon.name} mode="buy" />
       ))}
       <br />
 
