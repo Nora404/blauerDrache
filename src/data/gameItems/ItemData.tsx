@@ -1,15 +1,14 @@
 import { GradientText } from "../../utility/Formatted/GradientText";
 import { ArmorName, armors } from "./armorData";
-import { BuffName } from "../buffData";
-import { DebuffName } from "../debuffData";
 import { WeaponName, weapons } from "./weaponData";
-import { PlayerStats } from "../../store/types";
 import { CollectingName, collections } from "./collectionData";
+import { ConsumName, fight, food } from "./consumData";
 
 export type ItemName =
   | WeaponName
   | ArmorName
   | CollectingName
+  | ConsumName
   | "Nichts"
   | "Stein"
   | "Stock"
@@ -55,9 +54,6 @@ export type Item = {
   label: JSX.Element;
   description: string;
   category: ItemCartegoryName;
-  effects?: Partial<PlayerStats>;
-  buff?: BuffName;
-  debuff?: DebuffName;
   ek?: number;
   vk?: number;
 };
@@ -97,15 +93,6 @@ export const items: Item[] = [
     vk: 1,
   },
   {
-    name: "Pilz",
-    label: <GradientText>Pilz</GradientText>,
-    category: "Nahrung",
-    description: "Ein essbarer Pilz. Stellt ein wenig Leben wieder her.",
-    effects: { life: 5 },
-    ek: 10,
-    vk: 5,
-  },
-  {
     name: "Plunder",
     label: <GradientText>Plunder</GradientText>,
     category: "Zeug",
@@ -138,16 +125,6 @@ export const items: Item[] = [
     vk: 5,
   },
   {
-    name: "Wasserflasche",
-    label: <GradientText>Wasserflasche</GradientText>,
-    category: "Nahrung",
-    description:
-      "Eine Flasche mit frischem Wasser. Stellt etwas Leben wieder her.",
-    effects: { life: 10 },
-    ek: 15,
-    vk: 5,
-  },
-  {
     name: "Lederstück",
     label: <GradientText>Lederstück</GradientText>,
     category: "Material",
@@ -155,6 +132,8 @@ export const items: Item[] = [
     ek: 20,
     vk: 10,
   },
+  ...food,
+  ...fight,
   ...collections,
   ...weapons,
   ...armors,

@@ -5,6 +5,7 @@ import { RootStore } from "./rootStore";
 import { BuffName } from "../data/buffData";
 import { DebuffName } from "../data/debuffData";
 import { itemMap, ItemName } from "../data/gameItems/ItemData";
+import { Consum } from "../data/gameItems/consumData";
 
 export class PlayerEconomyStore {
   rootStore: RootStore;
@@ -21,7 +22,7 @@ export class PlayerEconomyStore {
     this.rootStore.saveToLocalStorage();
   }
 
-  updateCollection(item: ItemName){
+  updateCollection(item: ItemName) {
     const index = this.data.collections.indexOf(item);
 
     if (index === -1) {
@@ -29,7 +30,7 @@ export class PlayerEconomyStore {
     } else {
       this.data.collections.splice(index, 1);
     }
-  
+
     this.rootStore.saveToLocalStorage();
   }
 
@@ -83,20 +84,25 @@ export class PlayerEconomyStore {
       return;
     }
 
-    const { effects, buff, debuff } = currentItem.item;
+    const { life, energy, buff, debuff } = currentItem.item as Consum;
 
     // --- Effekte des Items anwenden ---
-    if (effects) {
+    if (life) {
       const maxLife = this.rootStore.playerBase.data.maxLife;
       const newLife = Math.min(
-        this.rootStore.playerStats.data.life + (effects.life || 0),
+        this.rootStore.playerStats.data.life + (life || 0),
         maxLife
       );
       this.rootStore.playerStats.data.life = newLife;
+    }
 
-      this.rootStore.playerStats.data.attack += effects.attack || 0;
-      this.rootStore.playerStats.data.defense += effects.defense || 0;
-      this.rootStore.playerStats.data.luck += effects.luck || 0;
+    if (energy) {
+      const maxEnergy = this.rootStore.playerBase.data.maxEnergy;
+      const newEnergy = Math.min(
+        this.rootStore.playerStats.data.energy + (energy || 0),
+        maxEnergy
+      );
+      this.rootStore.playerStats.data.life = newEnergy;
     }
 
     // --- Buff und Debuff anwenden ---

@@ -18,6 +18,9 @@ import {
   redColors,
   yellowColors,
 } from "../../data/helper/colorMappingData";
+import { Buff, buffMap } from "../../data/buffData";
+import { Consum } from "../../data/gameItems/consumData";
+import { Debuff, debuffMap } from "../../data/debuffData";
 
 type ItemCardProps = {
   itemName: ItemName;
@@ -25,10 +28,14 @@ type ItemCardProps = {
 };
 
 const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
-  const item: Item | Weapon | Armor = itemMap[itemName] || emptyItemObj;
+  const item: Item | Weapon | Armor | Consum =
+    itemMap[itemName] || emptyItemObj;
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const { playerFlux, playerEconomy } = useRootStore();
+
+  const buff: Buff | null = buffMap[item.buff];
+  const debuff: Debuff | null = debuffMap[item.debuff];
 
   const handleClick = () => {
     setShowDetails((prev) => !prev);
@@ -92,9 +99,11 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             <Talk color="#C5EDFF">{item.description}</Talk>
           </div>
         )}
-        {item.effects?.life && (
+        {buff && <div>{buff.label}</div>}
+        {debuff && <div>{debuff.label}</div>}
+        {item.life && (
           <div>
-            {SYSTEM.Leben}: {item.effects.life}
+            {SYSTEM.Leben}: {item.life}
             {showDetails && (
               <div>
                 <button className="btn-border" onClick={handleUse}>
@@ -106,9 +115,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             )}
           </div>
         )}
-        {item.effects?.energy && (
+        {item.energy && (
           <div>
-            {SYSTEM.Tatendrang}: {item.effects.energy}
+            {SYSTEM.Tatendrang}: {item.energy}
             {showDetails && (
               <div>
                 <button className="btn-border" onClick={handleUse}>
