@@ -21,6 +21,7 @@ import {
 import { Buff, buffMap } from "../../data/buffData";
 import { Consum } from "../../data/gameItems/consumData";
 import { Debuff, debuffMap } from "../../data/debuffData";
+import { PlayerStats } from "../../store/types";
 
 type ItemCardProps = {
   itemName: ItemName;
@@ -83,6 +84,58 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
     playerEconomy.updateItems(item.name, -1);
   };
 
+  const formatEffect = (effect: Partial<PlayerStats>) => {
+    return (
+      <>
+        {Object.entries(effect).map(([key, value]) => {
+          switch (key) {
+            case "life":
+              return (
+                <span key={key}>
+                  {SYSTEM.Leben}: {value}
+                </span>
+              );
+            case "energy":
+              return (
+                <span key={key}>
+                  {SYSTEM.Tatendrang}: {value}
+                </span>
+              );
+            case "attack":
+              return (
+                <span key={key}>
+                  {SYSTEM.Angriff}: {value}
+                </span>
+              );
+            case "defense":
+              return (
+                <span key={key}>
+                  {SYSTEM.Rüstung}: {value}
+                </span>
+              );
+            case "luck":
+              return (
+                <span key={key}>
+                  {SYSTEM.Glück}: {value}
+                </span>
+              );
+            default:
+              return null; // Falls ein unbekanntes Stat vorkommt
+          }
+        })}
+      </>
+    );
+  };
+
+  const getBuffDescription = (buff: Buff | Debuff) => {
+    const time = buff.duration === 1 ? "Sofort" : buff.duration + " Runden";
+    return (
+      <>
+        {formatEffect(buff.effects)} ({time})
+      </>
+    );
+  };
+
   return (
     <button className="btn-border item-card " onClick={handleClick}>
       <div className="full">
@@ -99,8 +152,18 @@ const ItemCard: React.FC<ItemCardProps> = ({ itemName, quantity }) => {
             <Talk color="#C5EDFF">{item.description}</Talk>
           </div>
         )}
-        {buff && <div>{buff.label}</div>}
-        {debuff && <div>{debuff.label}</div>}
+        {buff && (
+          <div>
+            <div>{buff.label}</div>
+            <div>{getBuffDescription(buff)}</div>
+          </div>
+        )}
+        {debuff && (
+          <div>
+            <div>{debuff.label}</div>
+            <div>{getBuffDescription(debuff)}</div>
+          </div>
+        )}
         {item.life && (
           <div>
             {SYSTEM.Leben}: {item.life}
