@@ -122,19 +122,19 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </div>
         )}
         {item.buff && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             <div>{buffMap[item.buff].label}</div>
             <div>{renderBuffDuration(buffMap[item.buff])}</div>
           </div>
         )}
         {item.debuff && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             <div>{debuffMap[item.debuff].label}</div>
             <div>{renderBuffDuration(debuffMap[item.debuff])}</div>
           </div>
         )}
         {item.life && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             {SYSTEM.Leben}: {item.life}
             {showDetails && mode === "view" && (
               <div>
@@ -148,7 +148,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </div>
         )}
         {item.energy && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             {SYSTEM.Tatendrang}: {item.energy}
             {showDetails && mode === "view" && (
               <div>
@@ -162,7 +162,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </div>
         )}
         {item.attack && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             {SYSTEM.Angriff}: {item.attack}
             {showDetails && mode === "view" && (
               <div>
@@ -176,7 +176,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </div>
         )}
         {item.defense && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             {SYSTEM.Verteidigung}: {item.defense}
             {showDetails && mode === "view" && (
               <div>
@@ -190,7 +190,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </div>
         )}
         {item.luck && (
-          <div>
+          <div style={{fontSize: "80%", lineHeight: "150%"}}>
             {SYSTEM.Glück}: {item.luck}
             {showDetails && mode === "view" && (
               <div>
@@ -208,7 +208,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
         {showDetails && (
           <>
-            {/* {mode === "view" && (
+            {mode === "view" && (
               <>
                 <button className="btn-border" onClick={handleItem}>
                   <MultiColoredLetters colors={greenColors}>
@@ -221,7 +221,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
                   </MultiColoredLetters>
                 </button>
               </>
-            )} */}
+            )}
             {mode === "buy" && (
               <button className="btn-border" onClick={handleBuy}>
                 Jetzt kaufen
