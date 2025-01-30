@@ -22,47 +22,33 @@ import { Buff, buffMap } from "../../data/buffData";
 import { Consum } from "../../data/gameItems/consumData";
 import { Debuff, debuffMap } from "../../data/debuffData";
 import { PlayerStats } from "../../store/types";
+import { getSellPrice } from "../../utility/Helper/Calculate";
+import { renderBuffDuration } from "../../utility/Helper/RenderData";
 
-/** NEU: Definiere einen Typ für den Modus */
 type ItemCardMode = "view" | "buy" | "sell";
 
 type ItemCardProps = {
-  itemName: ItemName;
+  item: Item | Weapon | Armor | Consum;
   quantity?: number;
-  /** NEU: Hängt davon ab, ob wir das Item kaufen, verkaufen oder nur anzeigen wollen */
-  mode?: ItemCardMode; // <-- hinzugefügt
+  mode?: ItemCardMode;
 };
 
-/** NEU: Funktion, um den Verkaufs-Preis zu errechnen */
-function getVendorPrice(ek?: number): number {
-  if (!ek) return 0;
-  return Math.floor(ek / 1.2);
-}
-
 const ItemCard: React.FC<ItemCardProps> = ({
-  itemName,
+  item,
   quantity,
-  mode = "view", // Default auf "view"
+  mode = "view", 
 }) => {
-  const item: Item | Weapon | Armor | Consum =
-    itemMap[itemName] || emptyItemObj;
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const { playerFlux, playerEconomy } = useRootStore();
 
-  const buff: Buff | null = buffMap[item.buff];
-  const debuff: Debuff | null = debuffMap[item.debuff];
-
-  /** NEU: Preisvariablen für buy / sell */
   const buyPrice = item.ek || 0;
-  const sellPrice = getVendorPrice(item.ek);
+  const sellPrice = getSellPrice(item.ek || 0);
 
-  // Öffnen/Schließen der Detailansicht
   const handleClick = () => {
     setShowDetails((prev) => !prev);
   };
 
-  // Ausrüsten
   const handleItem = (e: MouseEvent) => {
     e.stopPropagation();
     const cat = itemMap[item.name].category;
@@ -79,13 +65,11 @@ const ItemCard: React.FC<ItemCardProps> = ({
     }
   };
 
-  // Konsumieren (z.B. Essen)
   const handleUse = (e: MouseEvent) => {
     e.stopPropagation();
     playerEconomy.consumeItem(item.name);
   };
 
-  // Ablegen
   const handleDrop = (e: MouseEvent) => {
     e.stopPropagation();
     const cat = itemMap[item.name].category;
@@ -102,87 +86,29 @@ const ItemCard: React.FC<ItemCardProps> = ({
     }
   };
 
-  // Wegwerfen
   const handleRemove = (e: MouseEvent) => {
     e.stopPropagation();
     playerEconomy.updateItems(item.name, -1);
   };
 
-  /** NEU: Kaufen */
   const handleBuy = (e: MouseEvent) => {
     e.stopPropagation();
-    // Hier deine Logik, z.B. Geld abziehen, Item ins Inventar packen etc.
     console.log("Kaufen-Logik hier implementieren", item.name);
   };
 
-  /** NEU: Verkaufen */
   const handleSell = (e: MouseEvent) => {
     e.stopPropagation();
-    // Hier deine Logik, z.B. Geld gutschreiben, Item aus Inventar entfernen etc.
     console.log("Verkaufen-Logik hier implementieren", item.name);
-  };
-
-  // Effektbeschreibung formatieren
-  const formatEffect = (effect: Partial<PlayerStats>) => {
-    return (
-      <>
-        {Object.entries(effect).map(([key, value]) => {
-          switch (key) {
-            case "life":
-              return (
-                <span key={key}>
-                  {SYSTEM.Leben}: {value}
-                </span>
-              );
-            case "energy":
-              return (
-                <span key={key}>
-                  {SYSTEM.Tatendrang}: {value}
-                </span>
-              );
-            case "attack":
-              return (
-                <span key={key}>
-                  {SYSTEM.Angriff}: {value}
-                </span>
-              );
-            case "defense":
-              return (
-                <span key={key}>
-                  {SYSTEM.Rüstung}: {value}
-                </span>
-              );
-            case "luck":
-              return (
-                <span key={key}>
-                  {SYSTEM.Glück}: {value}
-                </span>
-              );
-            default:
-              return null;
-          }
-        })}
-      </>
-    );
-  };
-
-  // Buff- oder Debuff-Beschreibung
-  const getBuffDescription = (buff: Buff | Debuff) => {
-    const time = buff.duration === 1 ? "Sofort" : buff.duration + " Runden";
-    return (
-      <>
-        {formatEffect(buff.effects)} ({time})
-      </>
-    );
   };
 
   return (
     <button className="btn-border item-card" onClick={handleClick}>
       <div className="full">
         {item.label} {quantity ? <span>(x{quantity})</span> : null}
-        {/** NEU: Zeige Preis an, wenn Modus = buy oder sell */}
+ 
         {mode === "buy" && <div>Kaufen für: {buyPrice}</div>}
         {mode === "sell" && <div>Verkaufspreis: {sellPrice}</div>}
+
         {showDetails && (
           <div
             style={{
@@ -195,19 +121,18 @@ const ItemCard: React.FC<ItemCardProps> = ({
             <Talk color="#C5EDFF">{item.description}</Talk>
           </div>
         )}
-        {buff && (
+        {item.buff && (
           <div>
-            <div>{buff.label}</div>
-            <div>{getBuffDescription(buff)}</div>
+            <div>{buffMap[item.buff].label}</div>
+            <div>{renderBuffDuration(buffMap[item.buff])}</div>
           </div>
         )}
-        {debuff && (
+        {item.debuff && (
           <div>
-            <div>{debuff.label}</div>
-            <div>{getBuffDescription(debuff)}</div>
+            <div>{debuffMap[item.debuff].label}</div>
+            <div>{renderBuffDuration(debuffMap[item.debuff])}</div>
           </div>
         )}
-        {/** Bsp: Wenn es Leben oder Energie gibt, Button zum Benutzen */}
         {item.life && (
           <div>
             {SYSTEM.Leben}: {item.life}
@@ -279,10 +204,11 @@ const ItemCard: React.FC<ItemCardProps> = ({
             )}
           </div>
         )}
-        {/** NEU: Zeige Buttons abhängig vom Modus */}
+
+
         {showDetails && (
           <>
-            {mode === "view" && (
+            {/* {mode === "view" && (
               <>
                 <button className="btn-border" onClick={handleItem}>
                   <MultiColoredLetters colors={greenColors}>
@@ -295,7 +221,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
                   </MultiColoredLetters>
                 </button>
               </>
-            )}
+            )} */}
             {mode === "buy" && (
               <button className="btn-border" onClick={handleBuy}>
                 Jetzt kaufen

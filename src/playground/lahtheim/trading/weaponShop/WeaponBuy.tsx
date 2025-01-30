@@ -70,7 +70,7 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
     <div className="max-width">
       <h2>Waffen kaufen</h2>
       {weapons.map((weapon: Weapon) => (
-        <ItemCard itemName={weapon.name} mode="buy" />
+        <ItemCard item={weapon} mode="buy" key={weapon.name}/>
       ))}
       <br />
 

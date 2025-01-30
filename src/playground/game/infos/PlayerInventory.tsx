@@ -56,8 +56,8 @@ const PlayerInventory: React.FC = observer(() => {
               <div className="category-section">
                 {itemsInCategory.map((itemData) => (
                   <ItemCard
-                    key={itemData.item.name}
-                    itemName={itemData.item.name}
+                  key={itemData.item.name}
+                    item={itemData.item}
                     quantity={itemData.quantity}
                   />
                 ))}
