@@ -21,16 +21,16 @@ export type ItemName =
   | "Lederstück";
 
 export type ItemCartegoryName =
-  | "Zeug"
-  | "Nahrung"
-  | "Rohstoff"
-  | "Material"
-  | "Kampf"
-  | "Werkzeug"
-  | "Waffen"
-  | "Ausrüstung"
-  | "Fragmente"
-  | "Beute-Lahtheim";
+  | "Zeug"      // Stuff
+  | "Nahrung"   // Consum
+  | "Rohstoff"  // Resource
+  | "Material"  // Material
+  | "Kampf"     // Consum
+  | "Werkzeug"  // Tool
+  | "Waffen"    // Weapon
+  | "Ausrüstung"// Armor
+  | "Fragmente"       // Collection
+  | "Beute-Lahtheim"; // Collection
 
 export function getRandomItem(possibleItems: ItemName[]) {
   const index = Math.floor(Math.random() * possibleItems.length);
