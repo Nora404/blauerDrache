@@ -88,21 +88,11 @@ export class PlayerEconomyStore {
 
     // --- Effekte des Items anwenden ---
     if (life) {
-      const maxLife = this.rootStore.playerBase.data.maxLife;
-      const newLife = Math.min(
-        this.rootStore.playerStats.data.life + (life || 0),
-        maxLife
-      );
-      this.rootStore.playerStats.data.life = newLife;
+      this.rootStore.playerStats.updateLife(life);
     }
 
     if (energy) {
-      const maxEnergy = this.rootStore.playerBase.data.maxEnergy;
-      const newEnergy = Math.min(
-        this.rootStore.playerStats.data.energy + (energy || 0),
-        maxEnergy
-      );
-      this.rootStore.playerStats.data.life = newEnergy;
+      this.rootStore.playerStats.updateEnergy(energy);
     }
 
     // --- Buff und Debuff anwenden ---

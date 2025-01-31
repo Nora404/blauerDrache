@@ -3,6 +3,8 @@ import { ArmorName, armors } from "./armorData";
 import { WeaponName, weapons } from "./weaponData";
 import { CollectingName, collections } from "./collectionData";
 import { ConsumName, fight, food } from "./consumData";
+import { BuffName } from "../buffData";
+import { DebuffName } from "../debuffData";
 
 export type ItemName =
   | WeaponName
@@ -12,12 +14,10 @@ export type ItemName =
   | "Nichts"
   | "Stein"
   | "Stock"
-  | "Pilz"
   | "Plunder"
   | "Blume"
   | "Kupfererz"
   | "LeereFlasche"
-  | "Wasserflasche"
   | "Lederstück";
 
 export type ItemCartegoryName =
@@ -54,6 +54,13 @@ export type Item = {
   label: JSX.Element;
   description: string;
   category: ItemCartegoryName;
+  buff?: BuffName;
+  debuff?: DebuffName;
+  life?: number;
+  energy?: number;
+  attack?: number;
+  defense?: number;
+  luck?: number;
   ek?: number;
   vk?: number;
 };

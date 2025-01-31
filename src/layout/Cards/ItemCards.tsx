@@ -19,7 +19,6 @@ import { Consum } from "../../data/gameItems/consumData";
 import { debuffMap } from "../../data/debuffData";
 import { getSellPrice } from "../../utility/Helper/Calculate";
 import { renderBuffDuration } from "../../utility/Helper/RenderData";
-import { GradientText } from "../../utility/Formatted/GradientText";
 
 type ItemCardMode = "view" | "buy" | "sell";
 
