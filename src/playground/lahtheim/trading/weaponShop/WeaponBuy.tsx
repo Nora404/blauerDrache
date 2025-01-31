@@ -69,9 +69,11 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
   return (
     <div className="max-width">
       <h2>Waffen kaufen</h2>
-      {weapons.map((weapon: Weapon) => (
-        <ItemCard item={weapon} mode="buy" key={weapon.name}/>
-      ))}
+      <div className="category-section">
+        {weapons.map((weapon: Weapon) => (
+          <ItemCard item={weapon} mode="buy" key={weapon.name} />
+        ))}
+      </div>
       <br />
 
       <div className="text-left">
@@ -84,7 +86,10 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
             .&nbsp;
           </>
         )}
-        Der Verkäufer schaut dich erwartungsvoll an.
+        Der Verkäufer schaut dich erwartungsvoll an. Der Verkäufer schaut dich
+        erwartungsvoll an.Der Verkäufer schaut dich erwartungsvoll an.Der
+        Verkäufer schaut dich erwartungsvoll an.Der Verkäufer schaut dich
+        erwartungsvoll an.
         {localWeapon.name !== "Nichts" && (
           <>
             <GradientText colors={["#D1813B"]}>"Für </GradientText>

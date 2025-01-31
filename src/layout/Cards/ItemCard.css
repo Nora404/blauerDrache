@@ -9,3 +9,9 @@
   height: 100%;
   vertical-align: top;
 }
+
+@media (max-width: 800px) {
+  .item-card {
+    width: 100%;
+  }
+}

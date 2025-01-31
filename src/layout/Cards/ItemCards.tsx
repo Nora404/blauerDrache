@@ -9,6 +9,7 @@ import Talk from "../../utility/Formatted/Talk";
 import MultiColoredLetters from "../../utility/Formatted/MultiColoredLetters";
 import {
   blueColors,
+  braunColors,
   greenColors,
   redColors,
   yellowColors,
@@ -18,6 +19,7 @@ import { Consum } from "../../data/gameItems/consumData";
 import { debuffMap } from "../../data/debuffData";
 import { getSellPrice } from "../../utility/Helper/Calculate";
 import { renderBuffDuration } from "../../utility/Helper/RenderData";
+import { GradientText } from "../../utility/Formatted/GradientText";
 
 type ItemCardMode = "view" | "buy" | "sell";
 
@@ -100,11 +102,25 @@ const ItemCard: React.FC<ItemCardProps> = ({
   };
 
   return (
-    <div className="btn-border item-card" onClick={handleClick}>
+    <div
+      className="btn-border item-card"
+      onClick={handleClick}
+      style={{ display: "inline-block" }}
+    >
       <div className="full">
-        <span>{item.name}</span> {quantity ? <span>(x{quantity})</span> : null}
-        {mode === "buy" && <div>Kaufen für: {buyPrice}</div>}
-        {mode === "sell" && <div>Verkaufspreis: {sellPrice}</div>}
+        <span>
+          {item.name} {quantity ? <span>(x{quantity})</span> : null}
+        </span>
+        {mode === "buy" && (
+          <div style={{ fontSize: "80%", lineHeight: "150%" }}>
+            Kaufen für: <Talk>{buyPrice}</Talk> {SYSTEM.Gold}
+          </div>
+        )}
+        {mode === "sell" && (
+          <div style={{ fontSize: "80%", lineHeight: "150%" }}>
+            Verkaufspreis: {sellPrice}
+          </div>
+        )}
         {showDetails && (
           <div
             style={{
@@ -187,12 +203,12 @@ const ItemCard: React.FC<ItemCardProps> = ({
             {mode === "buy" && (
               <>
                 <button className="btn-border" onClick={handleBuy}>
-                  <MultiColoredLetters colors={blueColors}>
-                    Kaufen /
+                  <MultiColoredLetters colors={yellowColors}>
+                    Kaufen
                   </MultiColoredLetters>
                 </button>
                 <button className="btn-border" onClick={handleSwap}>
-                  <MultiColoredLetters colors={blueColors}>
+                  <MultiColoredLetters colors={braunColors}>
                     Tauschen
                   </MultiColoredLetters>
                 </button>
