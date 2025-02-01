@@ -40,6 +40,7 @@ export type PlaceAndProb = {
 
 export interface ButtonConfig {
   label: string;
+  result: string;
   message: string;
 
   itemsDeltaEnabled: boolean;
@@ -166,6 +167,8 @@ interface ContextType {
 
   addNextEvent: (buttonIndex: number) => void;
   removeNextEvent: (buttonIndex: number, neIndex: number) => void;
+
+  setButtonResult: (buttonIndex: number, result: string) => void;
 }
 
 // Standardwerte für den Kontext
@@ -196,6 +199,8 @@ const defaultContextValue: ContextType = {
 
   addNextEvent: () => { },
   removeNextEvent: () => { },
+
+  setButtonResult: () => { },
 };
 
 // Den Kontext erstellen
@@ -226,6 +231,7 @@ export const EditorContextProvider: React.FC<{ children: ReactNode }> = ({
       ...prev,
       {
         label: "",
+        result: "",
         itemsDeltaEnabled: false,
         itemsDelta: [],
         economyDeltaEnabled: false,
@@ -302,6 +308,19 @@ export const EditorContextProvider: React.FC<{ children: ReactNode }> = ({
     );
   };
 
+  const setButtonResult = (buttonIndex: number, result: string) => {
+    setButtons((prev) =>
+      prev.map((btn, i) =>
+        i !== buttonIndex
+          ? btn
+          : {
+            ...btn,
+            result, // # Änderung: result aktualisieren
+          }
+      )
+    );
+  };
+
   return (
     <EditorContext.Provider
       value={{
@@ -323,6 +342,7 @@ export const EditorContextProvider: React.FC<{ children: ReactNode }> = ({
         removeItemsDeltaEntry,
         addNextEvent,
         removeNextEvent,
+        setButtonResult,
       }}
     >
       {children}

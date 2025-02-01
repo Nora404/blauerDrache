@@ -59,6 +59,7 @@ function descriptionText() {
 
       // 1) label
       lines.push(`label: "${escapeForTS(b.label)}"`);
+      lines.push(`result: "${escapeForTS(b.result ?? "")}"`);
 
       // 2) conditions
       // wenn "conditionsEnabled" aktiv und b.conditions existiert

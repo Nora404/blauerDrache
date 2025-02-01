@@ -13,6 +13,7 @@ import DescriptionEditor from "./DescriptionEditor";
 // <-- NEU:
 import ConditionsEditor from "./ConditionsEditor";
 import HeaderSmall from "../../../../layout/Header/HeaderSmall";
+import VariablePicker from "./VariablePicker";
 
 const ActionBtn: React.FC = () => {
   const { buttons, setButtons, addButton, removeButton } = useEditorContext();
@@ -33,18 +34,32 @@ const ActionBtn: React.FC = () => {
             </summary>
 
             {/* Button Label */}
-            <div className="form-group">
-              <label>Button Label:</label>
-              <input
-                type="text"
-                value={btn.label}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setButtons((prev) =>
-                    prev.map((b, i) => (i === index ? { ...b, label: val } : b))
-                  );
-                }}
-              />
+            <div className="flex-row" style={{ alignItems: "end" }}>
+              <div className="form-group w-full">
+                <input
+                  type="text"
+                  placeholder="Button Label"
+                  value={btn.label}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setButtons((prev) =>
+                      prev.map((b, i) => (i === index ? { ...b, label: val } : b))
+                    );
+                  }}
+                />
+              </div>
+
+              <div className="form-group  w-full">
+                <VariablePicker
+                  placeholder="Result"
+                  value={btn.result}
+                  onChange={(newVal) => {
+                    setButtons((prev) =>
+                      prev.map((b, i) => (i === index ? { ...b, result: newVal } : b))
+                    );
+                  }}
+                />
+              </div>
             </div>
 
             {/* Message */}

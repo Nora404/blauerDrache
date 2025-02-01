@@ -146,6 +146,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
           className="w-full"
           ref={textAreaRef}
           value={value}
+          placeholder="Beschreibung"
           onChange={(e) => onChange(e.target.value)}
           rows={5}
         />
