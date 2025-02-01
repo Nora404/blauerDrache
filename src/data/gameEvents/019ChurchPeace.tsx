@@ -8,7 +8,7 @@ export const event019ChurchPeace: GameEvent = {
     buttons: [
         {
             label: "Ausruhen",
-            result: "(Stimmung wird Normal und -4 {SYSTEM.Aktionen})",
+            result: "(-4 {SYSTEM.Aktionen})",
             conditions: {
                 operator: ">",
                 playerStats: { "actionPoints": 3 },
