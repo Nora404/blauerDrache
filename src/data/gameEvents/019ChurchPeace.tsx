@@ -10,7 +10,8 @@ export const event019ChurchPeace: GameEvent = {
             label: "Ausruhen",
             result: "(Stimmung wird Normal und -1 {SYSTEM.Aktionen})",
             conditions: {
-                operator: ">"
+                operator: ">",
+                playerStats: { "actionPoints": 0 },
             },
             getAction: () => ({
                 fluxDelta: { "feeling": "Normal" },
@@ -33,5 +34,7 @@ function descriptionText() {
 const message0 = (
     `Dein Blick schweift über die Bank, deren Maserung Geschichten von längst vergangenen Momenten erzählt – und in diesem Augenblick scheinen auch deine eigenen Erlebnisse eine neue Bedeutung zu erhalten. Mit jedem Herzschlag wächst das Gefühl, dass du hier in der ruhigen Einsamkeit einen sicheren Hafen gefunden hast, in dem du deinen Geist ordnen und die trüben Wolken des Alltags vertreiben kannst.
 
-Du bleibst sitzen, lauscht dem leisen Echo der Zeit und spürst, wie die Anspannung allmählich abnimmt. Der Augenblick wird zu einer stillen Meditation, in der du dich selbst wiederfindest. `
+Du bleibst sitzen, lauscht dem leisen Echo der Zeit und spürst, wie die Anspannung allmählich abnimmt. Der Augenblick wird zu einer stillen Meditation, in der du dich selbst wiederfindest. 
+
+Deine Stimmung ist {Talk|weiß}Normal{/Talk} und die hast 1 {SYSTEM.Aktionen} {Talk|rot}weniger{/Talk}`
 );
