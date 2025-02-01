@@ -18,7 +18,7 @@ const MainNavi: React.FC = observer(() => {
   useEffect(() => {
     const pathName = location.pathname.split("/");
 
-    const NavComponent = navigationMap[location.pathname];
+    const NavComponent = navigationMap[gameState.data.currentPath];
     if (NavComponent && pathName.length <= 2) {
       setCurrentNav(<NavComponent />);
     } else if (pathName.length > 2) {
