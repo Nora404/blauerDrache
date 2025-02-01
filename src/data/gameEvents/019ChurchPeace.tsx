@@ -8,14 +8,14 @@ export const event019ChurchPeace: GameEvent = {
     buttons: [
         {
             label: "Ausruhen",
-            result: "(Stimmung wird Normal und -1 {SYSTEM.Aktionen})",
+            result: "(Stimmung wird Normal und -4 {SYSTEM.Aktionen})",
             conditions: {
                 operator: ">",
-                playerStats: { "actionPoints": 0 },
+                playerStats: { "actionPoints": 3 },
             },
             getAction: () => ({
                 fluxDelta: { "feeling": "Normal" },
-                stateDelta: { "actionPoints": -1 },
+                stateDelta: { "actionPoints": -4 },
                 message: message0
             })
         }

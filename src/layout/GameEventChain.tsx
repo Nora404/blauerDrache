@@ -116,7 +116,7 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
         return (
           <div key={idx}>
             {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
-            <p className="mb-1 text-left">{description}</p>
+            {description && <p className="mb-1 text-left">{description}</p>}
 
             {outcomeMessage ? (
               <p className="mb-1 text-left" style={{ color: "#aaffff" }}>
@@ -132,12 +132,10 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
                 />
               ))
             )}
-            <br />
           </div>
         );
       })}
 
-      <br />
       <ActionButton onClick={onFinishChain} label="Sich abwenden" />
     </div>
   );

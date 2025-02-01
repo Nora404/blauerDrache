@@ -18,6 +18,11 @@ import { event016FairyWish } from "./gameEvents/016FairyWish";
 import { event017ChestTrap } from "./gameEvents/017ChestTrap";
 import { event018Donate } from "./gameEvents/018Donate";
 import { event019ChurchPeace } from "./gameEvents/019ChurchPeace";
+import { event020ChurchTalk } from "./gameEvents/020ChurchTalk";
+import { event020ChurchTalk1 } from "./gameEvents/020ChurchTalk1";
+import { event020ChurchTalk2 } from "./gameEvents/020ChurchTalk2";
+import { event020ChurchTalk3 } from "./gameEvents/020ChurchTalk3";
+import { event020ChurchTalk4 } from "./gameEvents/020ChurchTalk4";
 import { event999Test } from "./gameEvents/999Text";
 import { gameQuestEvents } from "./questList";
 
@@ -41,6 +46,11 @@ export const randomEvents: GameEvent[] = [
   event017ChestTrap,
   event018Donate,
   event019ChurchPeace,
+  event020ChurchTalk,
+  event020ChurchTalk1,
+  event020ChurchTalk2,
+  event020ChurchTalk3,
+  event020ChurchTalk4,
   event999Test,
 ];
 

@@ -53,7 +53,6 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
             {noEventHappend}
             <ActionButton onClick={handleBack} label="Sich abwenden" />
             <br />
-            <br />
           </>
         )}
         {firstEvent && (
