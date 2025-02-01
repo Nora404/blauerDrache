@@ -84,15 +84,15 @@ export class PlayerEconomyStore {
       return;
     }
 
-    const { life, energy, buff, debuff } = currentItem.item as Consum;
+    const { life, actionPoints, buff, debuff } = currentItem.item as Consum;
 
     // --- Effekte des Items anwenden ---
     if (life) {
       this.rootStore.playerStats.updateLife(life);
     }
 
-    if (energy) {
-      this.rootStore.playerStats.updateEnergy(energy);
+    if (actionPoints) {
+      this.rootStore.playerStats.updateActionPoints(actionPoints);
     }
 
     // --- Buff und Debuff anwenden ---

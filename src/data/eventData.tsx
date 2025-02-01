@@ -34,6 +34,7 @@ export type GameEvent = {
   description: string;
   buttons: {
     label: string;
+    result?: string;
     getAction: () => GameAction;
     conditions?: Conditions;
   }[];

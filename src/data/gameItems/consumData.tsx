@@ -17,7 +17,7 @@ export type Consum = Item & {
   buff?: BuffName;
   debuff?: DebuffName;
   life?: number;
-  energy?: number;
+  actionPoints?: number;
 };
 
 export const emptyConsumObj: Consum = {
@@ -34,7 +34,7 @@ export const food: Consum[] = [
     label: <GradientText>Pilz</GradientText>,
     category: "Nahrung",
     description: "Ein essbarer Pilz. Sieht aber giftig aus.",
-    energy: 1,
+    actionPoints: 1,
     life: -25,
     ek: 10,
     vk: 5,

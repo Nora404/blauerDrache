@@ -6,7 +6,7 @@ import { PlayerStats } from "../../store/types";
 export const renderPlayerStats = (effect: Partial<PlayerStats>) => {
   const statMapping: Record<string, JSX.Element[]> = {
     life: [<>{SYSTEM.Leben}</>],
-    energy: [<>{SYSTEM.Tatendrang}</>],
+    actionPoints: [<>{SYSTEM.Aktionen}</>],
     attack: [<>{SYSTEM.Angriff}</>],
     defense: [<>{SYSTEM.Rüstung}</>],
     luck: [<>{SYSTEM.Glück}</>],
@@ -14,7 +14,7 @@ export const renderPlayerStats = (effect: Partial<PlayerStats>) => {
 
   return (
     <>
-      {Object.entries(effect).flatMap(([key, value]) => 
+      {Object.entries(effect).flatMap(([key, value]) =>
         typeof value === "number" || typeof value === "string" ? (
           statMapping[key]?.map((label, index) => (
             <span key={`${key}-${index}`}>
@@ -28,11 +28,11 @@ export const renderPlayerStats = (effect: Partial<PlayerStats>) => {
 };
 
 
- export function renderBuffDuration (buff: Buff | Debuff) {
-      const time = buff.duration === 1 ? "Sofort" : buff.duration;
-      return (
-        <span>
-          {renderPlayerStats(buff.effects)} ({time} {" Runden"})
-        </span>
-      );
-    };
+export function renderBuffDuration(buff: Buff | Debuff) {
+  const time = buff.duration === 1 ? "Sofort" : buff.duration;
+  return (
+    <span>
+      {renderPlayerStats(buff.effects)} ({time} {" Runden"})
+    </span>
+  );
+};

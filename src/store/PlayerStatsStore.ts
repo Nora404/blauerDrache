@@ -21,7 +21,7 @@ export class PlayerStatsStore {
 
     updatePlayerStats(delta: Partial<PlayerStats>) {
         this.data.life += delta.life ?? 0;
-        this.data.energy += delta.energy ?? 0;
+        this.data.actionPoints += delta.actionPoints ?? 0;
         this.data.attack += delta.attack ?? 0;
         this.data.defense += delta.defense ?? 0;
         this.data.luck += delta.luck ?? 0;
@@ -39,10 +39,10 @@ export class PlayerStatsStore {
         this.rootStore.saveToLocalStorage();
     }
 
-    updateEnergy(delta: number) {
-        const { maxEnergy: maxRounds } = this.rootStore.playerBase.data;
+    updateActionPoints(delta: number) {
+        const { maxActionPoints: maxRounds } = this.rootStore.playerBase.data;
         const newRounds = Math.min(
-            Math.max(this.data.energy + delta, 0),
+            Math.max(this.data.actionPoints + delta, 0),
             maxRounds
         );
 
@@ -75,7 +75,7 @@ export class PlayerStatsStore {
             this.rootStore.playerFlux.data.debuff = updatedDebuffs;
         }
 
-        this.data.energy = newRounds;
+        this.data.actionPoints = newRounds;
         this.rootStore.saveToLocalStorage();
     }
 }

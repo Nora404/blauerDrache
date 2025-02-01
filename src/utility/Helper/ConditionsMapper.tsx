@@ -46,7 +46,7 @@ export function mapConditionsConfigToConditions(cfg: ConditionsConfig): Conditio
         const { life, rounds, attack, defense, luck } = cfg.playerStats;
         const partialStats: Partial<Conditions["playerStats"]> = {};
         if (life != null && life !== 0) partialStats.life = life;
-        if (rounds != null && rounds !== 0) partialStats.energy = rounds;
+        if (rounds != null && rounds !== 0) partialStats.actionPoints = rounds;
         if (attack != null && attack !== 0) partialStats.attack = attack;
         if (defense != null && defense !== 0) partialStats.defense = defense;
         if (luck != null && luck !== 0) partialStats.luck = luck;

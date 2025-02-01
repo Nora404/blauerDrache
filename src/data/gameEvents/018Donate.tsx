@@ -8,6 +8,7 @@ export const event018Donate: GameEvent = {
   buttons: [
     {
       label: "Lege ein Goldstück in die Schale",
+      result: "(-1 {SYSTEM.Gold})",
       conditions: {
         operator: ">",
         playerEconomy: {
@@ -22,6 +23,7 @@ export const event018Donate: GameEvent = {
     },
     {
       label: "Lege ein paar Goldstücke in die Schale",
+      result: "(-10 {SYSTEM.Gold})",
       conditions: {
         operator: ">",
         playerEconomy: {
@@ -36,6 +38,7 @@ export const event018Donate: GameEvent = {
     },
     {
       label: "Lege eine Handvoll Goldstücke in die Schale",
+      result: "(-50 {SYSTEM.Gold})",
       conditions: {
         operator: ">",
         playerEconomy: {

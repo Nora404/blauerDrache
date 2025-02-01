@@ -116,12 +116,12 @@ export const origin: Origin[] = [
         name: "Waldelf",
         label: <GradientText colors={['#228B22', '#32CD32']}>Waldelf</GradientText>,
         description: "Du bist mit den Tieren des Waldes befreundet und fühlst was auch die Bäume und Pflanzen um dich herum fühlen. Sie flüstern von der Ferne und vor Gefahren, die den Wald bedrohen. Besorgt hast du dir vorgenommen diesen Warnungen nachzugehen.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Aktionen}</>,
         base: {
-            maxEnergy: 5,
+            maxActionPoints: 5,
         },
         stats: {
-            energy: 5,
+            actionPoints: 5,
         },
         economy: {},
     },
@@ -210,12 +210,12 @@ export const origin: Origin[] = [
         name: "RunenWächter",
         label: <GradientText colors={['#C2C2C2', '#DED968', '#C2C2C2']}>Runen Wächter</GradientText>,
         description: "Du gehörst der Bruderschaft der Runen an. Als Wächter bewachst du die vergessenen Ruinen und deren Geheimnisse. Doch Plünderer haben die Ruinen geschändet. Es ist deine Aufgabe gestohlenes zurückzuholen.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Aktionen}</>,
         base: {
-            maxEnergy: 5,
+            maxActionPoints: 5,
         },
         stats: {
-            energy: 5,
+            actionPoints: 5,
         },
         economy: {},
     },
@@ -259,12 +259,12 @@ export const origin: Origin[] = [
         name: "Schattenkralle",
         label: <GradientText colors={['#AC7CEB', '#EB3F3F', '#8A2BE2']}>Schattenkralle</GradientText>,
         description: "Deine Zähne sind scharf, deine Klauen tödlich. Du bist für die Jagt verantwortlich, sogst für Essen und Felle. Mit den anderen Schattenkrallen stehst du in einen unausgesprochenen Wettkampf. Dieser führt dich auch außerhalb deines Revieres.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Aktionen}</>,
         base: {
-            maxEnergy: 5,
+            maxActionPoints: 5,
         },
         stats: {
-            energy: 5,
+            actionPoints: 5,
         },
         economy: {},
     },
@@ -317,12 +317,12 @@ export const origin: Origin[] = [
         name: "Blumenkind",
         label: <MultiColoredLetters colors={rosaColors}>Blumenkind</MultiColoredLetters>,
         description: "Grüne dünne verschlungene Ranken formen deinen Körper. Bunte Blüten wachsen auf deinen Armen und Beinen. Dein Kopf ist ein Meer aus Blumen. Du genießt das Licht der Sonne und das leckere Wasser der Quelle. Du hattest dich bis eben nie gefragt, wohin das Wasser fließt.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Aktionen}</>,
         base: {
-            maxEnergy: 5,
+            maxActionPoints: 5,
         },
         stats: {
-            energy: 5,
+            actionPoints: 5,
         },
         economy: {},
     },

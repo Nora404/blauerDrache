@@ -50,11 +50,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 120,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 120,
-            energy: 20,
+            actionPoints: 20,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -78,11 +78,11 @@ export const races: Race[] = [
         base: {
             level: 3,
             maxLife: 100,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 100,
-            energy: 20,
+            actionPoints: 20,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -106,11 +106,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 100,
-            energy: 20,
+            actionPoints: 20,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -134,11 +134,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 100,
-            energy: 20,
+            actionPoints: 20,
             attack: 7,
             defense: 5,
             luck: 5,
@@ -162,11 +162,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 100,
-            energy: 20,
+            actionPoints: 20,
             attack: 5,
             defense: 7,
             luck: 5,
@@ -190,11 +190,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 100,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 100,
-            energy: 20,
+            actionPoints: 20,
             attack: 5,
             defense: 5,
             luck: 7,
@@ -214,15 +214,15 @@ export const races: Race[] = [
         label: <b><GradientText colors={['#BFD3FF', '#B0B0B0']}>Fenril</GradientText></b>,
         ascii: <FenrilAscii />,
         description: "Diese wolfsähnlichen Wesen leben tief in den Wäldern, weniger weil sie so naturverbunden wären, sondern weil es die beste Tarnung bietet. Dank den Verträgen mit den Zwergen und Elfen haben sie Wissen und Material um eine hoch technisierte und streng organisierte Gesellschaft zu erschaffen, die im Verborgenen floriert.",
-        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Tatendrang}</>,
+        bonus: <>Du erhältst einen Bonus auf {SYSTEM.Aktionen}</>,
         base: {
             level: 1,
             maxLife: 100,
-            maxEnergy: 25,
+            maxActionPoints: 25,
         },
         stats: {
             life: 100,
-            energy: 25,
+            actionPoints: 25,
             attack: 5,
             defense: 5,
             luck: 5,
@@ -246,11 +246,11 @@ export const races: Race[] = [
         base: {
             level: 1,
             maxLife: 120,
-            maxEnergy: 20,
+            maxActionPoints: 20,
         },
         stats: {
             life: 120,
-            energy: 20,
+            actionPoints: 20,
             attack: 5,
             defense: 5,
             luck: 5,

@@ -25,7 +25,7 @@ const MobileHeader: React.FC = observer(() => {
             </div>
             <div id="header1" className='text-left'>
                 {SYSTEM.Leben}: {combined.life} / {combined.maxLife}<br />
-                {SYSTEM.Tatendrang}: {combined.energy} / {combined.maxEnergy}
+                {SYSTEM.Aktionen}: {combined.actionPoints} / {combined.maxActionPoints}
             </div>
             <div id="header2" className='text-left'>
                 {SYSTEM.Level}: {playerBase.data.level}<br />
@@ -40,7 +40,7 @@ const MobileHeader: React.FC = observer(() => {
                 <span className={selected.debuffs.length > 0 ? "text-red" : "text-gray"}>Debuff: {selected.debuffs.length}</span>
             </div>
             <div className='text-left'>
-                {selected.item.effects && (
+                {selected.item.life && selected.item.actionPoints && (
                     <button className='btn-border' onClick={handleConsume}>
                         {selected.item.name} benutzen
                     </button>

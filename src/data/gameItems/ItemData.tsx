@@ -57,7 +57,7 @@ export type Item = {
   buff?: BuffName;
   debuff?: DebuffName;
   life?: number;
-  energy?: number;
+  actionPoints?: number;
   attack?: number;
   defense?: number;
   luck?: number;

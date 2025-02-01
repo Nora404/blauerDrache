@@ -37,7 +37,7 @@ export type PlayerMeta = {
 
 export type PlayerStats = {
   life: number;
-  energy: number;
+  actionPoints: number;
   attack: number;
   defense: number;
   luck: number;
@@ -51,7 +51,7 @@ export type PlayerBase = {
   leumund: number;
   nextLeumund: number;
   maxLife: number;
-  maxEnergy: number;
+  maxActionPoints: number;
 };
 
 export type PlayerFlux = {
@@ -97,7 +97,7 @@ export type StatDelta = {
 
 export type Delta = {
   life: StatDelta;
-  energy: StatDelta;
+  actionPoints: StatDelta;
   attack: StatDelta;
   defense: StatDelta;
   luck: StatDelta;
@@ -129,7 +129,7 @@ export const defaultGameStore: GameStore = {
   },
   playerStats: {
     life: 100,
-    energy: 20,
+    actionPoints: 20,
     attack: 5,
     defense: 5,
     luck: 5,
@@ -142,7 +142,7 @@ export const defaultGameStore: GameStore = {
     leumund: 0,
     nextLeumund: 100,
     maxLife: 100,
-    maxEnergy: 20,
+    maxActionPoints: 20,
   },
   playerFlux: {
     feeling: "Normal",

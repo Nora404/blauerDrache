@@ -41,12 +41,25 @@
   color: rgb(152, 180, 240);
 }
 
+.text-blue-light {
+  color: #C7FAFF;
+}
+
+.text-blue-dark {
+  color: rgb(62, 120, 173);
+}
+
+
 .text-gray {
   color: gray;
 }
 
 .font-bold {
   font-weight: 700;
+}
+
+.font-small {
+  font-size: 0.8rem;
 }
 
 .border-bd {
@@ -146,14 +159,12 @@
   border: 1px solid rgba(95, 173, 209, 0.2);
   border-radius: 8px;
   margin: 7px 0 7px 0;
-  background: linear-gradient(
-    135deg,
-    rgba(60, 120, 150, 0.15),
-    rgba(98, 176, 212, 0.02) 20%,
-    rgba(98, 176, 212, 0.05) 50%,
-    rgba(98, 176, 212, 0.02) 80%,
-    rgba(60, 120, 150, 0.15)
-  );
+  background: linear-gradient(135deg,
+      rgba(60, 120, 150, 0.15),
+      rgba(98, 176, 212, 0.02) 20%,
+      rgba(98, 176, 212, 0.05) 50%,
+      rgba(98, 176, 212, 0.02) 80%,
+      rgba(60, 120, 150, 0.15));
 }
 
 .questcontainer {
@@ -166,14 +177,12 @@
   box-sizing: border-box;
   border: 1px solid rgba(95, 173, 209, 0.2);
   border-radius: 8px;
-  background: linear-gradient(
-    135deg,
-    rgba(60, 120, 150, 0.15),
-    rgba(98, 176, 212, 0.02) 20%,
-    rgba(98, 176, 212, 0.05) 50%,
-    rgba(98, 176, 212, 0.02) 80%,
-    rgba(60, 120, 150, 0.15)
-  );
+  background: linear-gradient(135deg,
+      rgba(60, 120, 150, 0.15),
+      rgba(98, 176, 212, 0.02) 20%,
+      rgba(98, 176, 212, 0.05) 50%,
+      rgba(98, 176, 212, 0.02) 80%,
+      rgba(60, 120, 150, 0.15));
   padding: 10px;
   min-height: 100px;
   margin-bottom: 0px;
@@ -227,6 +236,7 @@
 .category-section {
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch; /* Sorgt für gleiche Höhen */
+  align-items: stretch;
+  /* Sorgt für gleiche Höhen */
   justify-content: center;
 }

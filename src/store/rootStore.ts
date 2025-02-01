@@ -31,10 +31,10 @@ export class RootStore {
     /** name, race, origin, calling, titel, colortype, colors[] */
     playerMeta: PlayerMetaStore;
 
-    /** life, energy, attack, defense, luck */
+    /** life, actionPoints, attack, defense, luck */
     playerStats: PlayerStatsStore;
 
-    /** level, nextLevel, exp, standing, reputation, nextReputation, maxLife, maxEnergy */
+    /** level, nextLevel, exp, standing, reputation, nextReputation, maxLife, maxActionPoints */
     playerBase: PlayerBaseStore;
 
     /** feeling, buff{}, debuff{}, weapon, armor, item */
@@ -117,12 +117,12 @@ export class RootStore {
         const { data: playerFlux } = this.playerFlux;
 
         let life = playerStats.life;
-        let energy = playerStats.energy;
+        let actionPoints = playerStats.actionPoints;
         let attack = playerStats.attack;
         let defense = playerStats.defense;
         let luck = playerStats.luck;
         let maxLife = playerBase.maxLife;
-        let maxEnergy = playerBase.maxEnergy;
+        let maxActionPoints = playerBase.maxActionPoints;
 
         attack += weaponMap[playerFlux.weapon].attack ?? 0;
         defense += armorMap[playerFlux.armor].defense ?? 0;
@@ -138,12 +138,12 @@ export class RootStore {
             if (!buff) continue;
 
             life += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
-            energy += Math.trunc(buff.effects.energy ?? 0);
+            actionPoints += Math.trunc(buff.effects.actionPoints ?? 0);
             attack += Math.trunc((buff.effects.attack ?? 0) * scalingFactor);
             defense += Math.trunc((buff.effects.defense ?? 0) * scalingFactor);
             luck += Math.trunc((buff.effects.luck ?? 0) * scalingFactor);
             maxLife += Math.trunc((buff.effects.life ?? 0) * scalingFactor);
-            maxEnergy += Math.trunc((buff.effects.energy ?? 0) * scalingFactor);
+            maxActionPoints += Math.trunc((buff.effects.actionPoints ?? 0) * scalingFactor);
         }
 
         for (const [debuffName, currDuration] of Object.entries(playerFlux.debuff)) {
@@ -152,34 +152,34 @@ export class RootStore {
             if (!debuff) continue;
 
             life += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
-            energy += Math.trunc(debuff.effects.energy ?? 0);
+            actionPoints += Math.trunc(debuff.effects.actionPoints ?? 0);
             attack += Math.trunc((debuff.effects.attack ?? 0) * scalingFactor);
             defense += Math.trunc((debuff.effects.defense ?? 0) * scalingFactor);
             luck += Math.trunc((debuff.effects.luck ?? 0) * scalingFactor);
             maxLife += Math.trunc((debuff.effects.life ?? 0) * scalingFactor);
-            maxEnergy += Math.trunc((debuff.effects.energy ?? 0) * scalingFactor);
+            maxActionPoints += Math.trunc((debuff.effects.actionPoints ?? 0) * scalingFactor);
         }
 
         const feeling = feelingMap[playerFlux.feeling];
         life += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
-        energy += Math.trunc(feeling.stats.energy ?? 0);
+        actionPoints += Math.trunc(feeling.stats.actionPoints ?? 0);
         attack += Math.trunc((feeling.stats.attack ?? 0) * scalingFactor);
         defense += Math.trunc((feeling.stats.defense ?? 0) * scalingFactor);
         luck += Math.trunc((feeling.stats.luck ?? 0) * scalingFactor);
         maxLife += Math.trunc((feeling.stats.life ?? 0) * scalingFactor);
-        maxEnergy += Math.trunc((feeling.stats.energy ?? 0) * scalingFactor);
+        maxActionPoints += Math.trunc((feeling.stats.actionPoints ?? 0) * scalingFactor);
 
         life = Math.max(life, 0);
         maxLife = Math.max(maxLife, 0);
-        
-        energy = Math.max(energy, 0);
-        maxEnergy = Math.max(maxEnergy, 0); 
+
+        actionPoints = Math.max(actionPoints, 0);
+        maxActionPoints = Math.max(maxActionPoints, 0);
 
         attack = Math.max(attack, 0);
         defense = Math.max(defense, 0);
         luck = Math.max(luck, 0);
 
-        return { life, energy, attack, defense, luck, maxLife, maxEnergy };
+        return { life, actionPoints, attack, defense, luck, maxLife, maxActionPoints };
     }
 
     get storeData(): GameStore {
@@ -227,7 +227,7 @@ export class RootStore {
     getDelta(): Delta {
         const delta: Delta = {
             life: { buffs: 0, debuffs: 0, feeling: 0 },
-            energy: { buffs: 0, debuffs: 0, feeling: 0 },
+            actionPoints: { buffs: 0, debuffs: 0, feeling: 0 },
             attack: { buffs: 0, debuffs: 0, feeling: 0 },
             defense: { buffs: 0, debuffs: 0, feeling: 0 },
             luck: { buffs: 0, debuffs: 0, feeling: 0 },

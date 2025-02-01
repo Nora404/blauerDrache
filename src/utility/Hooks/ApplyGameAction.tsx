@@ -29,8 +29,8 @@ export function useApplyGameAction() {
       playerStats.updateLife(action.stateDelta?.life);
     }
 
-    if (action.stateDelta?.energy) {
-      playerStats.updateEnergy(action.stateDelta?.energy);
+    if (action.stateDelta?.actionPoints) {
+      playerStats.updateActionPoints(action.stateDelta?.actionPoints);
     }
 
     if (action.economyDelta) {

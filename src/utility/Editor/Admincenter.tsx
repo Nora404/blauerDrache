@@ -46,7 +46,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
   const delta = getDelta();
 
   const { attack, defense, luck } = playerStats.data;
-  const { maxLife, maxEnergy: maxRounds } = playerBase.data;
+  const { maxLife, maxActionPoints: maxRounds } = playerBase.data;
 
   const [selectedCategory, setSelectedCategory] = useState<
     ItemCartegoryName | ""
@@ -73,14 +73,14 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     },
     {
       key: "startData2",
-      label: SYSTEM.Tatendrang,
+      label: SYSTEM.Aktionen,
       base: maxRounds,
-      buff: delta.energy.buffs,
-      debuff: delta.energy.debuffs,
-      feeling: delta.energy.feeling,
+      buff: delta.actionPoints.buffs,
+      debuff: delta.actionPoints.debuffs,
+      feeling: delta.actionPoints.feeling,
       weapon: 0,
       armor: 0,
-      total: combined.energy,
+      total: combined.actionPoints,
     },
     {
       key: "startData3",
@@ -176,8 +176,8 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
       case "life":
         playerStats.updateLife(value);
         break;
-      case "energy":
-        playerStats.updateEnergy(value);
+      case "actionPoints":
+        playerStats.updateActionPoints(value);
         break;
       case "attack":
       case "defense":
@@ -616,40 +616,40 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
           <div className="flex-row">
             <button
               className="redBtn3"
-              onClick={() => handlePlayerStats("energy", -1)}
+              onClick={() => handlePlayerStats("actionPoints", -1)}
             >
               1
             </button>
             <button
               className="redBtn2"
-              onClick={() => handlePlayerStats("energy", -3)}
+              onClick={() => handlePlayerStats("actionPoints", -3)}
             >
               3
             </button>
             <button
               className="redBtn1"
-              onClick={() => handlePlayerStats("energy", -5)}
+              onClick={() => handlePlayerStats("actionPoints", -5)}
             >
               5
             </button>
           </div>
-          <div className="w100c">{SYSTEM.Tatendrang}</div>
+          <div className="w100c">{SYSTEM.Aktionen}</div>
           <div className="flex-row">
             <button
               className="greenBtn1"
-              onClick={() => handlePlayerStats("energy", 5)}
+              onClick={() => handlePlayerStats("actionPoints", 5)}
             >
               5
             </button>
             <button
               className="greenBtn2"
-              onClick={() => handlePlayerStats("energy", 3)}
+              onClick={() => handlePlayerStats("actionPoints", 3)}
             >
               3
             </button>
             <button
               className="greenBtn3"
-              onClick={() => handlePlayerStats("energy", 1)}
+              onClick={() => handlePlayerStats("actionPoints", 1)}
             >
               1
             </button>

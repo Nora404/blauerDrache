@@ -20,9 +20,9 @@ const YouCan: React.FC = observer(() => {
             </td>
           </tr>
           <tr>
-            <td>{SYSTEM.Tatendrang}</td>
+            <td>{SYSTEM.Aktionen}</td>
             <td>
-              {combined.energy} / {combined.maxEnergy}
+              {combined.actionPoints} / {combined.maxActionPoints}
             </td>
           </tr>
           <tr>

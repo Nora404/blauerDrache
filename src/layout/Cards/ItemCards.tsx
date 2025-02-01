@@ -149,9 +149,9 @@ const ItemCard: React.FC<ItemCardProps> = ({
             {SYSTEM.Leben}: {item.life}
           </div>
         )}
-        {item.energy && (
+        {item.actionPoints && (
           <div style={{ fontSize: "80%", lineHeight: "150%" }}>
-            {SYSTEM.Tatendrang}: {item.energy}
+            {SYSTEM.Aktionen}: {item.actionPoints}
           </div>
         )}
         {item.attack && (

@@ -1,8 +1,6 @@
 //#region [imports]
 import React, { useState } from "react";
 import { GameAction, GameEvent } from "../data/eventData";
-import { blueColors } from "../data/helper/colorMappingData";
-import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { parseDescription } from "../utility/Helper/ParseTextToJSX";
 import {
   pickRandomNextEvent,
@@ -125,17 +123,13 @@ export const GameEventChain: React.FC<GameEventChainProps> = ({
                 {outcomeMessage}
               </p>
             ) : (
-              // 2) Nur die gefilterten Buttons rendern
               validButtons.map((btn) => (
-                <button
-                  className="btn-border"
-                  key={btn.label}
+                <ActionButton
                   onClick={() => handleButtonClick(idx, btn.getAction)}
-                >
-                  <MultiColoredLetters colors={blueColors}>
-                    {btn.label}
-                  </MultiColoredLetters>
-                </button>
+                  label={btn.label}
+                  key={btn.label}
+                  result={btn.result}
+                />
               ))
             )}
             <br />
