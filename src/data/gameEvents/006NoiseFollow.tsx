@@ -9,7 +9,7 @@ export const event006NoiseFollow: GameEvent = {
     {
       label: "Weiter suchen",
       getAction: () => ({
-        statsDelta: { rounds: -1 },
+        statsDelta: { actionPoints: -1 },
         message: message1,
       }),
     },

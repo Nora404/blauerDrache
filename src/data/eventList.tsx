@@ -17,6 +17,7 @@ import { event015FairyLost } from "./gameEvents/015FairyLost";
 import { event016FairyWish } from "./gameEvents/016FairyWish";
 import { event017ChestTrap } from "./gameEvents/017ChestTrap";
 import { event018Donate } from "./gameEvents/018Donate";
+import { event019ChurchPeace } from "./gameEvents/019ChurchPeace";
 import { event999Test } from "./gameEvents/999Text";
 import { gameQuestEvents } from "./questList";
 
@@ -39,6 +40,7 @@ export const randomEvents: GameEvent[] = [
   event016FairyWish,
   event017ChestTrap,
   event018Donate,
+  event019ChurchPeace,
   event999Test,
 ];
 

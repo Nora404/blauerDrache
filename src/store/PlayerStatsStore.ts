@@ -40,10 +40,10 @@ export class PlayerStatsStore {
     }
 
     updateActionPoints(delta: number) {
-        const { maxActionPoints: maxRounds } = this.rootStore.playerBase.data;
-        const newRounds = Math.min(
+        const { maxActionPoints: maxActionPoints } = this.rootStore.playerBase.data;
+        const newActionPoints = Math.min(
             Math.max(this.data.actionPoints + delta, 0),
-            maxRounds
+            maxActionPoints
         );
 
         // Buff- und Debuff-Dauer anpassen, wenn Tatendrang verbraucht werden (delta < 0).
@@ -75,7 +75,7 @@ export class PlayerStatsStore {
             this.rootStore.playerFlux.data.debuff = updatedDebuffs;
         }
 
-        this.data.actionPoints = newRounds;
+        this.data.actionPoints = newActionPoints;
         this.rootStore.saveToLocalStorage();
     }
 }

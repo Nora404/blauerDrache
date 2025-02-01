@@ -10,7 +10,7 @@ type ChurchPeaceProps = {
 
 const ChurchPeace: React.FC<ChurchPeaceProps> = () => {
     const possibleEvents: WeightedEvent[] = [
-        { eventId: "event019Peace", probability: 100 },
+        { eventId: "event019ChurchPeace", probability: 100 },
     ];
 
     const description = (

@@ -45,6 +45,10 @@ export function useApplyGameAction() {
       playerBase.updateLeumund(action.baseDelta.leumund);
     }
 
+    if (action.fluxDelta?.feeling) {
+      playerFlux.setPlayerFlux({ feeling: action.fluxDelta.feeling });
+    }
+
     if (action.fluxDelta?.buff) {
       Object.entries(action.fluxDelta?.buff).forEach(([name]) => {
         playerFlux.updatePlayerBuff(name as BuffName);

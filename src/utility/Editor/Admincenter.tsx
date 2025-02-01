@@ -46,7 +46,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
   const delta = getDelta();
 
   const { attack, defense, luck } = playerStats.data;
-  const { maxLife, maxActionPoints: maxRounds } = playerBase.data;
+  const { maxLife, maxActionPoints: maxActionPoints } = playerBase.data;
 
   const [selectedCategory, setSelectedCategory] = useState<
     ItemCartegoryName | ""
@@ -74,7 +74,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
     {
       key: "startData2",
       label: SYSTEM.Aktionen,
-      base: maxRounds,
+      base: maxActionPoints,
       buff: delta.actionPoints.buffs,
       debuff: delta.actionPoints.debuffs,
       feeling: delta.actionPoints.feeling,

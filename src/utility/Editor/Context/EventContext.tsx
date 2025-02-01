@@ -59,7 +59,7 @@ export interface ButtonConfig {
   fluxDelta: { feeling: string; buff: string; debuff: string; item: string };
   stateDelta: {
     life: number;
-    rounds: number;
+    actionPoints: number;
     attack: number;
     defense: number;
     luck: number;
@@ -96,7 +96,7 @@ export interface ConditionsConfig {
 
   playerStats?: {
     life?: number;
-    rounds?: number;
+    actionPoints?: number;
     attack?: number;
     defense?: number;
     luck?: number;
@@ -239,7 +239,7 @@ export const EditorContextProvider: React.FC<{ children: ReactNode }> = ({
         fluxDeltaEnabled: false,
         fluxDelta: { feeling: "", buff: "", debuff: "", item: "" },
         stateDeltaEnabled: false,
-        stateDelta: { life: 0, rounds: 0, attack: 0, defense: 0, luck: 0 },
+        stateDelta: { life: 0, actionPoints: 0, attack: 0, defense: 0, luck: 0 },
         baseDeltaEnabled: false,
         baseDelta: { exp: 0, reputation: 0 },
         triggerGroup: "",

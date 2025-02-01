@@ -30,11 +30,11 @@ const PlayerStatsConditionEditor: React.FC<SubEditorProps> = ({ conditions, upda
                 />
             </div>
             <div className="form-group m-15">
-                <label>Rounds: </label>
+                <label>Action: </label>
                 <input
                     type="number"
-                    value={stats.rounds ?? ""}
-                    onChange={(e) => setStat("rounds", parseInt(e.target.value) || 0)}
+                    value={stats.actionPoints ?? ""}
+                    onChange={(e) => setStat("actionPoints", parseInt(e.target.value) || 0)}
                 />
             </div>
             <div className="form-group m-15">

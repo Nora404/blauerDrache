@@ -68,9 +68,9 @@ export class TimeStore {
         const weather = getRandomArrayElement(WEATHER);
         const temperature = getRandomArrayElement(TEMPERATURE);
 
-        const { maxLife, maxActionPoints: maxRounds } = this.rootStore.playerBase.data;
+        const { maxLife, maxActionPoints: maxActionPoints } = this.rootStore.playerBase.data;
         this.rootStore.playerStats.data.life = maxLife;
-        this.rootStore.playerStats.data.actionPoints = maxRounds;
+        this.rootStore.playerStats.data.actionPoints = maxActionPoints;
 
         this.rootStore.playerFlux.data.buff = {};
         this.rootStore.playerFlux.data.debuff = {};

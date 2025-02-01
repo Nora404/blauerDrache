@@ -19,7 +19,7 @@ export type GameAction = {
   itemsDelta?: Partial<Record<ItemName, number>>;
   economyDelta?: Partial<PlayerEconomy>;
   fluxDelta?: Partial<PlayerFlux>; // für buffs und debuffs
-  stateDelta?: Partial<PlayerStats>; // für life and rounds
+  stateDelta?: Partial<PlayerStats>;
   baseDelta?: Partial<PlayerBase>;
 
   triggerQuest?: string;
