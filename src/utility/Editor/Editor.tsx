@@ -5,6 +5,7 @@ import ActionButton from "../../layout/ActionButtons/ActionButton";
 import GenerateQuest from "./QuestEditor/GenerateQuest";
 import Admincenter from "./Admincenter";
 
+
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(3);
 
@@ -16,7 +17,6 @@ const Editor: React.FC = () => {
     <EditorContextProvider>
       <div className="max-widht">
         <h2>Editor</h2>
-
         <div className="flex-row">
           <ActionButton
             onClick={() => {
