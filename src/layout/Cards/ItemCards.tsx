@@ -35,7 +35,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
   return (
     <div
-      className="btn-border item-card"
+      className="btn-border item-card text-left"
       onClick={handleClick}
       style={{ display: "inline-block" }}
     >
@@ -52,13 +52,19 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
 export default ItemCard;
 
+
+function formatWithSign(value: number): string {
+  return value >= 0 ? `+${value}` : `${value}`;
+}
+
+
 export function getItemEffectText(item: Item) {
   const effectElements = [];
 
   if (item.life) {
     effectElements.push(
       <>
-        {SYSTEM.Leben}: {item.life}
+        {SYSTEM.Leben}: {formatWithSign(item.life)} {/* Änderung */}
         <br />
       </>
     );
@@ -66,7 +72,7 @@ export function getItemEffectText(item: Item) {
   if (item.actionPoints) {
     effectElements.push(
       <>
-        {SYSTEM.Aktionen}: {item.actionPoints}
+        {SYSTEM.Aktionen}: {formatWithSign(item.actionPoints)} {/* Änderung */}
         <br />
       </>
     );
@@ -74,7 +80,7 @@ export function getItemEffectText(item: Item) {
   if (item.attack) {
     effectElements.push(
       <>
-        {SYSTEM.Angriff}: {item.attack}
+        {SYSTEM.Angriff}: {formatWithSign(item.attack)} {/* Änderung */}
         <br />
       </>
     );
@@ -82,7 +88,7 @@ export function getItemEffectText(item: Item) {
   if (item.defense) {
     effectElements.push(
       <>
-        {SYSTEM.Verteidigung}: {item.defense}
+        {SYSTEM.Verteidigung}: {formatWithSign(item.defense)} {/* Änderung */}
         <br />
       </>
     );
@@ -90,7 +96,7 @@ export function getItemEffectText(item: Item) {
   if (item.luck) {
     effectElements.push(
       <>
-        {SYSTEM.Glück}: {item.luck}
+        {SYSTEM.Glück}: {formatWithSign(item.luck)} {/* Änderung */}
         <br />
       </>
     );
@@ -116,9 +122,6 @@ export function getItemEffectText(item: Item) {
     );
   }
 
-  return (
-    <div style={{ marginBottom: "4px" }}>
-      {effectElements}
-    </div>
-  );
+  return <>{effectElements}</>;
 }
+

@@ -70,17 +70,20 @@ const ViewCard: React.FC<ViewCardProps> = ({ item, showDetails, quantity }) => {
 
     return (
         <div>
-            <div><b>{item.name}</b> (x{quantity})</div>
-            <div style={{ fontSize: "75%", lineHeight: "150%" }}>
-                {getItemEffectText(item)}
+            <div className='grid-row-00X'>
+                <div><b>{item.name}</b> (x{quantity})</div>
+                <div>{getItemEffectText(item)}</div>
+                <div style={{ textAlign: "left" }}>{item.description}</div>
             </div>
             {showDetails && (
-                <div>
-                    {item.category === "Nahrung" && <UseButton onClick={handleUse} disable={false} />}
-                    <EquipButton onClick={handleItem} disable={false} />
-                    {item.name === playerItem.name && <DropButton onClick={handleDrop} disable={false} />}
-                    <RemoveButton onClick={handleRemove} disable={false} />
-                </div>
+                <> <hr className='hr-space' />
+                    <div className='flex-row'>
+                        {item.category === "Nahrung" && <UseButton onClick={handleUse} disable={false} />}
+                        <EquipButton onClick={handleItem} disable={false} />
+                        {item.name === playerItem.name && <DropButton onClick={handleDrop} disable={false} />}
+                        <RemoveButton onClick={handleRemove} disable={false} />
+                    </div>
+                </>
             )}
         </div>
     );

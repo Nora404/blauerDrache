@@ -54,16 +54,20 @@ const BuyCard: React.FC<BuyCardProps> = ({ item, showDetails }) => {
 
     return (
         <div>
-            <div><b>{item.name}</b></div>
-            <div style={{ fontSize: "75%", lineHeight: "150%" }}>
-                Kaufen für: <Talk>{buyPrice}</Talk> {SYSTEM.Gold}
-                {getItemEffectText(item)}
+            <div className='grid-row-00X0'>
+                <div><b>{item.name}</b></div>
+                <div>{getItemEffectText(item)}</div>
+                <div style={{ textAlign: "left" }}>{item.description}</div>
+                <div style={{ textAlign: "right" }}>Kaufen für: <Talk>{buyPrice}</Talk> {SYSTEM.Gold}</div>
             </div>
+
             {showDetails && (
-                <div>
-                    <BuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} />
-                    <SwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
-                </div>
+                <> <hr className='hr-space' />
+                    <div className='flex-row'>
+                        <BuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} />
+                        <SwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
+                    </div>
+                </>
             )}
         </div>
     );

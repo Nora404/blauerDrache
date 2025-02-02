@@ -124,6 +124,20 @@
   align-items: center;
 }
 
+.grid-row-00X0 {
+  display: grid;
+  grid-template-columns: 150px 120px 1fr 190px;
+  align-items: center;
+  gap: 10px;
+}
+
+.grid-row-00X {
+  display: grid;
+  grid-template-columns: 180px 120px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
 .flex-warp {
   display: flex;
   flex-direction: row;
@@ -249,4 +263,11 @@
   align-items: stretch;
   /* Sorgt für gleiche Höhen */
   justify-content: center;
+}
+
+.hr-space {
+  height: 0;
+  border: 1px dotted rgba(220, 211, 125, 0.8);
+  border-radius: 5px;
+  margin: 10px 0 10px 0;
 }
