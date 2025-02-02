@@ -7,7 +7,6 @@ export const event999test: GameEvent = {
     buttons: [
         {
             label: "Ich darf nur erscheinen bei Tage",
-            result: "(sdfsdf)",
             conditions: {
                 operator: ">",
                 gameTime: {
@@ -20,7 +19,6 @@ export const event999test: GameEvent = {
         },
         {
             label: "Ich darf nur erscheinen bei Nacht",
-            result: "()",
             conditions: {
                 operator: "=",
                 gameTime: {
@@ -34,7 +32,6 @@ export const event999test: GameEvent = {
         },
         {
             label: "Ich darf nur zwischen 15:00 und 16:00 erscheinen",
-            result: "()",
             conditions: {
                 operator: "=",
                 gameTime: {
@@ -49,7 +46,6 @@ export const event999test: GameEvent = {
         },
         {
             label: "Ich darf nur außerhalb von 15:00 und 16:00 erscheinen",
-            result: "()",
             conditions: {
                 operator: "=",
                 gameTime: {

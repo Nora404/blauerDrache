@@ -20,6 +20,12 @@ const Editor: React.FC = () => {
         <div className="flex-row">
           <ActionButton
             onClick={() => {
+              handleClick(3);
+            }}
+            label="Admincenter"
+          />
+          <ActionButton
+            onClick={() => {
               handleClick(1);
             }}
             label="Event Editor"
@@ -29,12 +35,6 @@ const Editor: React.FC = () => {
               handleClick(2);
             }}
             label="Quest Editor"
-          />
-          <ActionButton
-            onClick={() => {
-              handleClick(3);
-            }}
-            label="Admincenter"
           />
         </div>
 
