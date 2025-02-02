@@ -44,10 +44,10 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
 
   const showText = () => {
     return canBuy() ? (
-      <GradientText colors={["#53E8AD"]}>du es dir leisten kannst</GradientText>
+      <GradientText colors={["#53E8AD"]}>es dir leisten kannst</GradientText>
     ) : (
       <GradientText colors={["#DB6575"]}>
-        du es dir nicht leisten kannst
+        es dir nicht leisten kannst
       </GradientText>
     );
   };
@@ -59,7 +59,7 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
       <h2>Waffen kaufen</h2>
 
       <p className="mb-1 text-left">
-        Du zeigst interesse an <b>{localWeapon.name}</b> und liest an einem kleinen Schild, dass es <Talk color="rot">{localWeapon.ek}</Talk> {SYSTEM.Gold} kostet. Nach einem Blick in deinen Geldbeutel erkennst du {showText()}. Der Verkäufer schaut dich erwartungsvoll an. Seine Blicke wandern zu deiner Hand, in der sich <b>{currentWeapon.name}</b> befindet. Er sagt: <GradientText colors={["#D1813B"]}>"Ich nehme es dir gerne ab, für</GradientText> <Talk color="grün">{refund}</Talk> {SYSTEM.Gold}."
+        Du zeigst interesse an <b>{localWeapon.name}</b> und liest an einem kleinen Schild, dass es <Talk color="rot">{localWeapon.ek}</Talk> {SYSTEM.Gold} kostet. Nach einem Blick in deinen Geldbeutel erkennst du dass, du {showText()}. Der Verkäufer schaut dich erwartungsvoll an. Seine Blicke wandern zu deiner Hand, in der sich <b>{currentWeapon.name}</b> befindet. Er sagt: <GradientText colors={["#D1813B"]}>"Ich nehme es dir gerne ab, für</GradientText> <Talk color="grün">{refund}</Talk> {SYSTEM.Gold}."
       </p>
 
       <div className="category-section">
