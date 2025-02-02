@@ -167,6 +167,16 @@
       rgba(60, 120, 150, 0.15));
 }
 
+.btn-border:active {
+  border: 1px solid rgba(153, 201, 224, 0.637);
+  background: linear-gradient(135deg,
+      rgba(153, 201, 224, 0.15),
+      rgba(212, 191, 98, 0.02) 20%,
+      rgba(212, 191, 98, 0.05) 50%,
+      rgba(212, 191, 98, 0.02) 80%,
+      rgba(153, 201, 224, 0.15));
+}
+
 .questcontainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
