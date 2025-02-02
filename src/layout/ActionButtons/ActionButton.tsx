@@ -24,7 +24,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     }
 
     return (
-        <button className="btn-border" onClick={handleClick}>
+        <button className="btn-border" onClick={handleClick} disabled={disable}>
             {disable
                 ? <GradientText colors={['#999999']}>{label}</GradientText>
                 : <MultiColoredLetters colors={color}>{label}</MultiColoredLetters>}
