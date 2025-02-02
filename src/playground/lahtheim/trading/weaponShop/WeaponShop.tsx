@@ -1,18 +1,9 @@
 //#region [imports]
-import React, { useState } from "react";
+import React, { } from "react";
 import { GradientText } from "../../../../utility/Formatted/GradientText";
 
 import ActionButton from "../../../../layout/ActionButtons/ActionButton";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../../../../store";
-import { SYSTEM } from "../../../../data/helper/colorfullStrings";
-import Talk from "../../../../utility/Formatted/Talk";
-import {
-  Weapon,
-  emptyWeaponObj,
-  WeaponName,
-  weapons,
-} from "../../../../data/gameItems/weaponData";
 import { useNavigate } from "react-router-dom";
 //#endregion
 

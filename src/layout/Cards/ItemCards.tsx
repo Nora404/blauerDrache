@@ -17,19 +17,21 @@ type ItemCardProps = {
   item: Item | Weapon | Armor | Consum;
   quantity?: number;
   mode?: ItemCardMode;
+  onClick?: (item: Item) => void;
 };
 
 const ItemCard: React.FC<ItemCardProps> = ({
   item,
   quantity,
   mode = "view",
+  onClick,
 }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   const handleClick = () => {
     setShowDetails((prev) => !prev);
+    onClick?.(item);
   };
-
 
   return (
     <div
@@ -49,7 +51,6 @@ const ItemCard: React.FC<ItemCardProps> = ({
 };
 
 export default ItemCard;
-
 
 export function getItemEffectText(item: Item) {
   const effectElements = [];
