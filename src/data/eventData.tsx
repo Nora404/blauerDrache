@@ -54,7 +54,12 @@ export type WeightedEvent = {
 
 export type Conditions = {
   operator?: "<" | ">" | "=";
-  gameTime?: Partial<GameTime>;
+  gameTime?: {
+    fromTime?: string;
+    toTime?: string;
+    mode?: "inside" | "outside";
+    gameDay?: "Tag" | "Nacht";
+  };
   gameState?: Partial<GameState>;
   playerStats?: Partial<PlayerStats>;
   playerBase?: Partial<PlayerBase>;

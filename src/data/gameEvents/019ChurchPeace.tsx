@@ -36,5 +36,5 @@ const message0 = (
 
 Du bleibst sitzen, lauscht dem leisen Echo der Zeit und spürst, wie die Anspannung allmählich abnimmt. Der Augenblick wird zu einer stillen Meditation, in der du dich selbst wiederfindest. 
 
-Deine Stimmung ist {Talk|weiß}Normal{/Talk} und die hast 1 {SYSTEM.Aktionen} {Talk|rot}weniger{/Talk}`
+Deine Stimmung ist {Talk|weiß}Normal{/Talk} und du hast 1 {SYSTEM.Aktionen} {Talk|rot}weniger{/Talk}`
 );

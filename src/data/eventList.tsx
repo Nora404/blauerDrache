@@ -23,7 +23,7 @@ import { event020ChurchTalk1 } from "./gameEvents/020ChurchTalk1";
 import { event020ChurchTalk2 } from "./gameEvents/020ChurchTalk2";
 import { event020ChurchTalk3 } from "./gameEvents/020ChurchTalk3";
 import { event020ChurchTalk4 } from "./gameEvents/020ChurchTalk4";
-import { event999Test } from "./gameEvents/999Text";
+import { event999test } from "./gameEvents/999Text";
 import { gameQuestEvents } from "./questList";
 
 export const randomEvents: GameEvent[] = [
@@ -51,7 +51,7 @@ export const randomEvents: GameEvent[] = [
   event020ChurchTalk2,
   event020ChurchTalk3,
   event020ChurchTalk4,
-  event999Test,
+  event999test,
 ];
 
 export const gameEvents: GameEvent[] = [...randomEvents, ...gameQuestEvents];

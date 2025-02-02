@@ -219,40 +219,40 @@ function checkGameTime(
   conditions: Partial<Conditions>,
   gameTimeData: Partial<GameTime>
 ): boolean {
-  // Helper-Funktion: Wandelt "HH:MM" in eine Zahl um
-  const convertTimeToNumber = (time: string): number => {
+  // Hilfsfunktion: Wandelt "HH:MM" in Minuten um
+  const convertTimeToMinutes = (time: string): number => {
     const [hours, minutes] = time.split(":").map(Number);
-    return hours * 100 + minutes;
+    return hours * 60 + minutes;
   };
 
-  // Überprüfung von gameTime
-  if (conditions.gameTime?.gameTime !== undefined) {
-    const conditionTime = convertTimeToNumber(
-      conditions.gameTime.gameTime ?? ""
-    );
-    const currentTime = convertTimeToNumber(gameTimeData.gameTime ?? "");
-    const operator = conditions.operator || "=";
+  if (conditions.gameTime) {
+    if (conditions.gameTime.fromTime && conditions.gameTime.toTime) {
+      const currentTime = convertTimeToMinutes(gameTimeData.gameTime ?? "");
+      const fromTime = convertTimeToMinutes(conditions.gameTime.fromTime);
+      const toTime = convertTimeToMinutes(conditions.gameTime.toTime);
+      const mode = conditions.gameTime.mode || "inside";
 
-    switch (operator) {
-      case "<":
-        if (!(currentTime < conditionTime)) return false;
-        break;
-      case ">":
-        if (!(currentTime > conditionTime)) return false;
-        break;
-      default:
-        if (!(currentTime === conditionTime)) return false;
+      if (mode === "inside") {
+        // Bedingung erfüllt, wenn currentTime zwischen fromTime und toTime liegt (inklusive)
+        if (!(currentTime >= fromTime && currentTime <= toTime)) {
+          return false;
+        }
+      } else if (mode === "outside") {
+        // Bedingung erfüllt, wenn currentTime außerhalb des Intervalls liegt
+        if (!(currentTime < fromTime || currentTime > toTime)) {
+          return false;
+        }
+      }
     }
   }
 
-  // Überprüfung von gameDay
+  // Überprüfung von gameDay (unverändert)
   if (conditions.gameTime?.gameDay !== undefined) {
-    if (conditions.gameTime?.gameDay !== gameTimeData.gameDay) {
+    if (conditions.gameTime.gameDay !== gameTimeData.gameDay) {
       return false;
     }
   }
 
-  // Alle Bedingungen erfüllt
   return true;
 }
 //#endregion

@@ -1,161 +1,102 @@
 import React, { useState } from "react";
 import { useEditorContext } from "../Context/EventContext";
-// Passe Pfade an dein Projekt an
 import { NextEventOption, Conditions } from "../../../data/eventData";
 import { mapConditionsConfigToConditions } from "../../Helper/ConditionsMapper";
 import { buffMap } from "../../../data/buffData";
 import { debuffMap } from "../../../data/debuffData";
 
-
-
 const GenerateEventCode: React.FC = () => {
-  const [generatedCode, setGeneratedCode] = useState("");
-
+  const [generatedCode, setGeneratedCode] = useState<string>("");
   const { eventId, label, description, buttons, places } = useEditorContext();
 
-  // --------------------------------------------
-  // Hilfsfunktion: String für Code sauber machen
-  // (Escaping, Ersetzen von Backticks etc.)
-  // --------------------------------------------
-  function escapeForTS(str: string) {
+  // Hilfsfunktion: Ersetzt Backslashes und Backticks
+  const escapeForTS = (str: string): string => {
     return str.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
-  }
+  };
 
-  // --------------------------------------------
-  // formatConditions: final "Conditions" -> str
-  // (leichte JSON-Aufbereitung)
-  // --------------------------------------------
-  function formatConditions(conditions: Conditions, indent = 2): string {
+  // Formatierung der Conditions als JSON (Keys ohne Anführungszeichen)
+  const formatConditions = (conditions: Conditions, indent = 2): string => {
     let str = JSON.stringify(conditions, null, indent);
-    // Keys ohne Anführungszeichen
     str = str.replace(/"([^"]+)":/g, "$1:");
     return str;
-  }
+  };
 
-  // --------------------------------------------
-  // Hauptroutine zum Generieren
-  // --------------------------------------------
-  const generateCode = () => {
-    const messages: string[] = [];
-    let descriptionFn = "";
-
-    // Falls "description" vorhanden:
-    if (description.trim()) {
-      const escapedDesc = escapeForTS(description);
-      descriptionFn = `
+  // Beschreibung (description) immer definieren, auch wenn leer
+  const escapedDesc = escapeForTS(description);
+  const descriptionFn = `
 function descriptionText() {
-    return (
-        \`${escapedDesc}\`
-    );
+    return \`${escapedDesc}\`;
 }
 `;
-    }
 
-    // --------------------------------------------
-    // Buttons
-    // --------------------------------------------
+  // generateCode-Funktion definieren
+  const generateCode = () => {
+    // --- Buttons erzeugen ---
+    const messages: string[] = [];
     const buttonEntries = buttons.map((b, buttonIndex) => {
       const lines: string[] = [];
 
-      // 1) label
+      // (1) label und result
       lines.push(`label: "${escapeForTS(b.label)}"`);
       lines.push(`result: "${escapeForTS(b.result ?? "")}"`);
 
-      // 2) conditions
-      // wenn "conditionsEnabled" aktiv und b.conditions existiert
+      // (2) Conditions – wenn aktiviert, werden alle Keys ausgegeben (auch 0‑Werte)
       if (b.conditionsEnabled && b.conditions) {
-        // Mappen auf finales "Conditions"
         const finalCond = mapConditionsConfigToConditions(b.conditions);
-        // Nur wenn das Objekt nicht leer ist
-        if (Object.keys(finalCond).length > 0) {
-          const condStr = formatConditions(finalCond, 4);
-          lines.push(`conditions: ${condStr}`);
-        }
+        const condStr = formatConditions(finalCond, 4);
+        lines.push(`conditions: ${condStr}`);
       }
 
-      // 3) getAction
+      // (3) getAction: Action-Teile zusammenbauen
       const actionParts: string[] = [];
 
-      // itemsDelta
+      // itemsDelta: Alle Einträge (0 wird NICHT ausgeschlossen)
       if (b.itemsDeltaEnabled && b.itemsDelta.length > 0) {
         const itemsObj: Record<string, number> = {};
         for (const entry of b.itemsDelta) {
-          if (entry.itemName && entry.quantity !== 0) {
-            itemsObj[entry.itemName] = (itemsObj[entry.itemName] || 0) + entry.quantity;
+          if (entry.itemName) {
+            itemsObj[entry.itemName] = (itemsObj[entry.itemName] ?? 0) + entry.quantity;
           }
         }
-        if (Object.keys(itemsObj).length > 0) {
-          actionParts.push(`itemsDelta: ${JSON.stringify(itemsObj)}`);
-        }
+        actionParts.push(`itemsDelta: ${JSON.stringify(itemsObj)}`);
       }
 
-      // economyDelta
+      // economyDelta: Alle Werte übernehmen
       if (b.economyDeltaEnabled) {
-        const eco = { ...b.economyDelta };
-        (Object.keys(eco) as Array<keyof typeof eco>).forEach((k) => {
-          if (eco[k] === 0) delete eco[k];
-        });
-        if (Object.keys(eco).length > 0) {
-          actionParts.push(`economyDelta: ${JSON.stringify(eco)}`);
-        }
+        actionParts.push(`economyDelta: ${JSON.stringify(b.economyDelta)}`);
       }
 
-      // fluxDelta
+      // fluxDelta: Werte übernehmen, sofern nicht leer
       if (b.fluxDeltaEnabled) {
         const fluxResult: Record<string, any> = {};
-
-        // 1) feeling, item, etc. falls du brauchst
-        if (b.fluxDelta.feeling) fluxResult.feeling = b.fluxDelta.feeling;
-        if (b.fluxDelta.item) fluxResult.item = b.fluxDelta.item;
-        // ...
-
-        // 2) buff => record { buffName: duration }
-        if (b.fluxDelta.buff) {
-          const buffName = b.fluxDelta.buff;    // z.B. "Gütig"
-          const buffObj = buffMap[buffName];    // => { name: "Gütig", duration: 4, ... }
-          if (buffObj) {
-            fluxResult.buff = { [buffName]: buffObj.duration };
-          }
+        if (b.fluxDelta.feeling !== "") fluxResult.feeling = b.fluxDelta.feeling;
+        if (b.fluxDelta.item !== "") fluxResult.item = b.fluxDelta.item;
+        if (b.fluxDelta.buff !== "") {
+          const buffName = b.fluxDelta.buff;
+          const buffObj = buffMap[buffName];
+          fluxResult.buff = buffObj ? { [buffName]: buffObj.duration } : buffName;
         }
-
-        // 3) debuff => record { debuffName: duration }
-        if (b.fluxDelta.debuff) {
+        if (b.fluxDelta.debuff !== "") {
           const debuffName = b.fluxDelta.debuff;
           const debuffObj = debuffMap[debuffName];
-          if (debuffObj) {
-            fluxResult.debuff = { [debuffName]: debuffObj.duration };
-          }
+          fluxResult.debuff = debuffObj ? { [debuffName]: debuffObj.duration } : debuffName;
         }
-
-        // 4) Falls nix übrig => skip
         if (Object.keys(fluxResult).length > 0) {
           actionParts.push(`fluxDelta: ${JSON.stringify(fluxResult)}`);
         }
       }
 
-      // stateDelta
+      // stateDelta: Alle Werte übernehmen
       if (b.stateDeltaEnabled) {
-        const st = { ...b.stateDelta };
-        (Object.keys(st) as Array<keyof typeof st>).forEach((k) => {
-          if (st[k] === 0) delete st[k];
-        });
-        if (Object.keys(st).length > 0) {
-          actionParts.push(`stateDelta: ${JSON.stringify(st)}`);
-        }
+        actionParts.push(`stateDelta: ${JSON.stringify(b.stateDelta)}`);
       }
 
-      // baseDelta
+      // baseDelta: Alle Werte übernehmen
       if (b.baseDeltaEnabled) {
-        const base = { ...b.baseDelta };
-        (Object.keys(base) as Array<keyof typeof base>).forEach((k) => {
-          if (base[k] === 0) delete base[k];
-        });
-        if (Object.keys(base).length > 0) {
-          actionParts.push(`baseDelta: ${JSON.stringify(base)}`);
-        }
+        actionParts.push(`baseDelta: ${JSON.stringify(b.baseDelta)}`);
       }
 
-      // TriggerGroup
+      // Trigger: triggerQuest, endQuest oder nextEvents
       if (b.triggerGroup === "triggerQuest" && b.triggerQuest.trim() !== "") {
         actionParts.push(`triggerQuest: "${escapeForTS(b.triggerQuest.trim())}"`);
       } else if (b.triggerGroup === "endQuest" && b.endQuest.trim() !== "") {
@@ -165,92 +106,58 @@ function descriptionText() {
           .filter((n: NextEventOption) => n.eventId.trim() !== "")
           .map((n: NextEventOption) => ({
             eventId: n.eventId.trim(),
-            probability: Number(n.probability) || 100,
+            probability: n.probability !== undefined ? Number(n.probability) : 100,
           }));
         if (cleanedNext.length > 0) {
           actionParts.push(`nextEvents: ${JSON.stringify(cleanedNext)}`);
         }
       }
 
-      // message
+      // message: Variable definieren und in getAction einbinden
       if (b.message.trim() !== "") {
         const escapedMsg = escapeForTS(b.message);
         const msgVarName = `message${buttonIndex}`;
-        messages.push(`const ${msgVarName} = (\n    \`${escapedMsg}\`\n);`);
+        messages.push(`const ${msgVarName} = \`${escapedMsg}\`;`);
         actionParts.push(`message: ${msgVarName}`);
       }
 
-      // Falls wir Aktionsteile haben -> getAction
       if (actionParts.length > 0) {
-        const actionString = actionParts.join(",\n                ");
-        lines.push(`getAction: () => ({\n                ${actionString}\n            })`);
+        lines.push(
+          `getAction: () => ({\n                ${actionParts.join(
+            ",\n                "
+          )}\n            })`
+        );
       }
 
       return `{\n            ${lines.join(",\n            ")}\n        }`;
     });
 
-    // --------------------------------------------
-    // Places
-    // --------------------------------------------
-    let placesString = "";
-    if (places.length > 0) {
-      const cleanedPlaces = places
-        .filter((p) => p.place.trim() !== "")
-        .map((p) => ({
-          place: p.place.trim(),
-          probability: Number(p.probability) || 100,
-        }));
-      if (cleanedPlaces.length > 0) {
-        placesString = JSON.stringify(cleanedPlaces, null, 4)
-          .replace(/"([^"]+)":/g, "$1:")
-          .replace(/"/g, `"`)
-          .trim();
-      }
-    }
+    // --- Places: Auch wenn das Array leer ist, immer ausgeben ---
+    const cleanedPlaces = places.map((p) => ({
+      place: p.place.trim(),
+      probability: p.probability !== undefined ? Number(p.probability) : 100,
+    }));
+    const placesString = JSON.stringify(cleanedPlaces, null, 4)
+      .replace(/"([^"]+)":/g, "$1:")
+      .trim();
 
-    // --------------------------------------------
-    // Finalen Code-String aufbauen
-    // --------------------------------------------
+    // --- Finalen Code-String zusammenbauen ---
     let code = `import { GameEvent } from "../eventData";
 
-//#region [events]
 export const event${eventId || "NewEvent"}: GameEvent = {
-    id: "event${escapeForTS(eventId)}",
-    label: "${escapeForTS(label)}",`;
-
-    if (description.trim()) {
-      code += `
-    description: descriptionText(),`;
-    }
-
-    if (buttonEntries.length > 0) {
-      code += `
+    id: "${escapeForTS(eventId)}",
+    label: "${escapeForTS(label)}",
+    description: descriptionText(),
     buttons: [
         ${buttonEntries.join(",\n        ")}
-    ],`;
-    }
-
-    if (placesString) {
-      code += `
-    places: ${placesString},`;
-    } else {
-      code += `\nplaces: []`
-    }
-
-    code += `
+    ],
+    places: ${placesString}
 };
-//#endregion
 `;
 
-    if (description.trim()) {
-      code += `
-${descriptionFn}
-`;
-    }
-
+    code += descriptionFn;
     if (messages.length > 0) {
-      code += messages.join("\n\n");
-      code += "\n";
+      code += "\n" + messages.join("\n\n") + "\n";
     }
 
     setGeneratedCode(code);
@@ -275,7 +182,6 @@ ${descriptionFn}
       <button onClick={generateCode} className="generate-button">
         Code generieren
       </button>
-
       {generatedCode && (
         <div className="output-container">
           <h2>Generierter Code</h2>

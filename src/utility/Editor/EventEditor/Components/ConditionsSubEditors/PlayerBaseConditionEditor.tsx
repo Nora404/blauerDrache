@@ -30,7 +30,7 @@ const PlayerBaseConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
                 />
             </div>
             <div className="form-group m-15">
-                <label>EXP: </label>
+                <label>Erfahrung: </label>
                 <input
                     type="number"
                     value={base.exp ?? ""}
@@ -38,7 +38,7 @@ const PlayerBaseConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
                 />
             </div>
             <div className="form-group m-15">
-                <label>Standing: </label>
+                <label>Leumund: </label>
                 <input
                     type="number"
                     value={base.standing ?? ""}

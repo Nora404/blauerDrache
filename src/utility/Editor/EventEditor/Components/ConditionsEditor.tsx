@@ -15,6 +15,7 @@ import PlayerFluxConditionEditor from "./ConditionsSubEditors/PlayerFluxConditio
 import PlayerMetaConditionEditor from "./ConditionsSubEditors/PlayerMetaConditionEditor";
 import PlayerEconomyConditionEditor from "./ConditionsSubEditors/PlayerEconomyConditionEditor";
 import HeaderSmall from "../../../../layout/Header/HeaderSmall";
+import Talk from "../../../Formatted/Talk";
 
 
 interface ConditionsEditorProps {
@@ -69,7 +70,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("gameTimeEnabled")}
                     className="mb-3"
                 />
-                Zeit
+                Muss eine bestimmte <Talk>Zeit</Talk> im Spiel sein?
             </label>
             {conditions.gameTimeEnabled && (
                 <>
@@ -85,7 +86,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("gameStateEnabled")}
                     className="mb-3"
                 />
-                Wetter
+                Muss im Spiel ein bestimmtes <Talk>Wetter</Talk> herrschen?
             </label>
             {conditions.gameStateEnabled && (
                 <>
@@ -101,7 +102,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerStatsEnabled")}
                     className="mb-3"
                 />
-                Spielerwerte
+                Muss der Spieler bestimmte <Talk>Werte</Talk> haben?
             </label>
             {conditions.playerStatsEnabled && (
                 <>
@@ -117,7 +118,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerBaseEnabled")}
                     className="mb-3"
                 />
-                Spielererfahrung
+                Welche <Talk>Erfahrungen</Talk> muss der Spieler haben?
             </label>
             {conditions.playerBaseEnabled && (
                 <>
@@ -133,7 +134,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerFluxEnabled")}
                     className="mb-3"
                 />
-                Spielerausrüstung
+                Was muss der Spieler <Talk>ausgerüstet</Talk> haben?
             </label>
             {conditions.playerFluxEnabled && (
                 <>
@@ -149,7 +150,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerMetaEnabled")}
                     className="mb-3"
                 />
-                Spielerhintergrund
+                Welchen <Talk>Hintergrund</Talk> muss der Spieler haben?
             </label>
             {conditions.playerMetaEnabled && (
                 <>
@@ -165,7 +166,7 @@ const ConditionsEditor: React.FC<ConditionsEditorProps> = ({ button, index }) =>
                     onChange={() => toggleFlag("playerEconomyEnabled")}
                     className="mb-3"
                 />
-                Währungen
+                Was braucht der Spieler als <Talk>Währungen</Talk>?
             </label>
             {conditions.playerEconomyEnabled && (
                 <>

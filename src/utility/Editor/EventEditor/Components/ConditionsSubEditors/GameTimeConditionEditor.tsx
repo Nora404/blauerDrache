@@ -1,9 +1,19 @@
-// ConditionsSubEditors/GameTimeConditionEditor.tsx
 import React from "react";
-import { ConditionsConfig } from "../../../Context/EventContext"; // Pfad anpassen
+import { ConditionsConfig } from "../../../Context/EventContext";
 
-// Nutze deine Arr-Liste für Tag/Nacht, falls du sie in einer Konstante hast.
-// Falls du nur "Tag" | "Nacht" manuell abfragst, kannst du es auch so lassen.
+const generateTimeOptions = (): string[] => {
+    const times: string[] = [];
+    for (let h = 0; h < 24; h++) {
+        for (let m = 0; m < 60; m += 10) {
+            const hh = h.toString().padStart(2, "0");
+            const mm = m.toString().padStart(2, "0");
+            times.push(`${hh}:${mm}`);
+        }
+    }
+    return times;
+};
+const timeOptions = generateTimeOptions();
+
 const dayNightOptions = ["Tag", "Nacht"] as const;
 
 interface SubEditorProps {
@@ -12,13 +22,33 @@ interface SubEditorProps {
 }
 
 const GameTimeConditionEditor: React.FC<SubEditorProps> = ({ conditions, updateConditions }) => {
+    // Wir erwarten, dass conditions.gameTime nun folgende Felder enthält:
+    // fromTime, toTime, mode und gameDay
     const gameTime = conditions.gameTime || {};
 
-    const handleGameTimeChange = (value: string) => {
+    const handleFromTimeChange = (value: string) => {
         updateConditions({
             gameTime: {
                 ...gameTime,
-                gameTime: value,
+                fromTime: value,
+            },
+        });
+    };
+
+    const handleToTimeChange = (value: string) => {
+        updateConditions({
+            gameTime: {
+                ...gameTime,
+                toTime: value,
+            },
+        });
+    };
+
+    const handleModeChange = (value: "inside" | "outside") => {
+        updateConditions({
+            gameTime: {
+                ...gameTime,
+                mode: value,
             },
         });
     };
@@ -35,13 +65,46 @@ const GameTimeConditionEditor: React.FC<SubEditorProps> = ({ conditions, updateC
     return (
         <div className="nested-section flex-warp -m-1 gradient">
             <div className="form-group m-15">
-                <label>Uhrzeit (HH:MM): </label>
-                <input
-                    type="text"
-                    value={gameTime.gameTime || ""}
-                    onChange={(e) => handleGameTimeChange(e.target.value)}
-                    placeholder="z.B. 12:00"
-                />
+                <label>Von (Uhrzeit): </label>
+                <select
+                    value={gameTime.fromTime || ""}
+                    onChange={(e) => handleFromTimeChange(e.target.value)}
+                >
+                    <option value="">-- auswählen --</option>
+                    {timeOptions.map((t) => (
+                        <option key={t} value={t}>
+                            {t}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="form-group m-15">
+                <label>Bis (Uhrzeit): </label>
+                <select
+                    value={gameTime.toTime || ""}
+                    onChange={(e) => handleToTimeChange(e.target.value)}
+                >
+                    <option value="">-- auswählen --</option>
+                    {timeOptions.map((t) => (
+                        <option key={t} value={t}>
+                            {t}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="form-group m-15">
+                <label>Bedingung: </label>
+                <select
+                    value={gameTime.mode || "inside"}
+                    onChange={(e) =>
+                        handleModeChange(e.target.value as "inside" | "outside")
+                    }
+                >
+                    <option value="inside">Innerhalb der Zeitspanne</option>
+                    <option value="outside">Außerhalb der Zeitspanne</option>
+                </select>
             </div>
 
             <div className="form-group m-15">

@@ -37,7 +37,7 @@ const PlayerFluxConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
         <div className="nested-section flex-warp -m-1 gradient">
             {/* Feeling */}
             <div className="form-group m-15">
-                <label>Feeling: </label>
+                <label>Stimmung: </label>
                 <select
                     value={flux.feeling || ""}
                     onChange={(e) => setFlux("feeling", e.target.value)}
@@ -53,7 +53,7 @@ const PlayerFluxConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
 
             {/* Weapon */}
             <div className="form-group m-15">
-                <label>Weapon: </label>
+                <label>Waffe: </label>
                 <select
                     value={flux.weapon || ""}
                     onChange={(e) => setFlux("weapon", e.target.value)}
@@ -69,7 +69,7 @@ const PlayerFluxConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
 
             {/* Armor */}
             <div className="form-group m-15">
-                <label>Armor: </label>
+                <label>Ausrüstung: </label>
                 <select
                     value={flux.armor || ""}
                     onChange={(e) => setFlux("armor", e.target.value)}
@@ -107,7 +107,7 @@ const PlayerFluxConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
                         checked={conditions.haveBuffs || false}
                         onChange={(e) => setConditionFlag("haveBuffs", e.target.checked)}
                     />
-                    Haben Buffs
+                    Die Spieler hat laufende Buffs
                 </label>
                 <br />
                 <label>
@@ -116,7 +116,7 @@ const PlayerFluxConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
                         checked={conditions.haveDebuffs || false}
                         onChange={(e) => setConditionFlag("haveDebuffs", e.target.checked)}
                     />
-                    Haben Debuffs
+                    Der Spieler hat laufende Debuffs
                 </label>
             </div>
 

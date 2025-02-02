@@ -21,7 +21,9 @@ export const DEFAULT_CONDITIONS: ConditionsConfig = {
   playerItemsEnabled: false,
 
   // Die Teil-Objekte leer anlegen:
-  gameTime: {},
+  gameTime: {
+    mode: "inside", // Standard: Innerhalb der Zeitspanne
+  },
   gameState: {},
   playerStats: {},
   playerBase: {},
@@ -85,7 +87,9 @@ export interface ConditionsConfig {
   playerItemsEnabled?: boolean;
 
   gameTime?: {
-    gameTime?: string;    // z.B. "12:00"
+    fromTime?: string;
+    toTime?: string;
+    mode?: "inside" | "outside"; // "inside" = innerhalb, "outside" = außerhalb
     gameDay?: "Tag" | "Nacht";
   };
 

@@ -14,18 +14,27 @@ export function mapConditionsConfigToConditions(cfg: ConditionsConfig): Conditio
 
     // 2) gameTime (nur, wenn enabled & Werte vorhanden)
     if (cfg.gameTimeEnabled && cfg.gameTime) {
-        const { gameTime, gameDay } = cfg.gameTime;
-        // Falls mindestens eines definiert
-        if (gameTime || gameDay) {
+        const { fromTime, toTime, mode, gameDay } = cfg.gameTime;
+        // Falls mindestens einer dieser Werte gesetzt ist:
+        if ((fromTime && fromTime.trim() !== "") ||
+            (toTime && toTime.trim() !== "") ||
+            (gameDay === "Tag" || gameDay === "Nacht")) {
             finalCond.gameTime = {};
-            if (typeof gameTime === "string" && gameTime.trim() !== "") {
-                finalCond.gameTime.gameTime = gameTime;
+            if (fromTime && fromTime.trim() !== "") {
+                finalCond.gameTime.fromTime = fromTime;
+            }
+            if (toTime && toTime.trim() !== "") {
+                finalCond.gameTime.toTime = toTime;
+            }
+            if (mode === "inside" || mode === "outside") {
+                finalCond.gameTime.mode = mode;
             }
             if (gameDay === "Tag" || gameDay === "Nacht") {
                 finalCond.gameTime.gameDay = gameDay;
             }
         }
     }
+
 
     // 3) gameState
     if (cfg.gameStateEnabled && cfg.gameState) {

@@ -1,36 +1,79 @@
 import { GameEvent } from "../eventData";
 
-//#region [events]
-export const event999Test: GameEvent = {
-    id: "event999Test",
-    label: "Das Label",
+export const event999test: GameEvent = {
+    id: "999test",
+    label: "Teste Bedingungen",
     description: descriptionText(),
     buttons: [
         {
-            label: "Button Label (mindestens Level 10)",
+            label: "Ich darf nur erscheinen bei Tage",
+            result: "(sdfsdf)",
             conditions: {
-                playerBase: {
-                    level: 7
-                },
-                operator: ">"
+                operator: ">",
+                gameTime: {
+                    gameDay: "Tag"
+                }
             },
             getAction: () => ({
-                economyDelta: { "gold": 1 },
                 message: message0
+            })
+        },
+        {
+            label: "Ich darf nur erscheinen bei Nacht",
+            result: "()",
+            conditions: {
+                operator: "=",
+                gameTime: {
+                    mode: "inside",
+                    gameDay: "Nacht"
+                }
+            },
+            getAction: () => ({
+                message: message1
+            })
+        },
+        {
+            label: "Ich darf nur zwischen 15:00 und 16:00 erscheinen",
+            result: "()",
+            conditions: {
+                operator: "=",
+                gameTime: {
+                    fromTime: "15:00",
+                    toTime: "16:00",
+                    mode: "inside"
+                }
+            },
+            getAction: () => ({
+                message: message2
+            })
+        },
+        {
+            label: "Ich darf nur außerhalb von 15:00 und 16:00 erscheinen",
+            result: "()",
+            conditions: {
+                operator: "=",
+                gameTime: {
+                    fromTime: "15:00",
+                    toTime: "16:00",
+                    mode: "outside"
+                }
+            },
+            getAction: () => ({
+                message: message3
             })
         }
     ],
     places: []
 };
-//#endregion
-
 
 function descriptionText() {
-    return (
-        `Die Beschreibung {SYSTEM.Erfahrung} mit verschiedenen {CREATURE.geflügelteWesen} in verschiedenen {PLACES.Ostmauer} Und auch Komponenten wie {GradientText|greenColors}DeinText{/GradientText} oder {MultiColoredLetters|greenColors}DeinText{/MultiColoredLetters}`
-    );
+    return ``;
 }
 
-const message0 = (
-    `Button Beschreibung und ein {SYSTEM.Gold}`
-);
+const message0 = `Test Bestanden`;
+
+const message1 = `Test Bestanden`;
+
+const message2 = `Test Bestanden`;
+
+const message3 = `Test Bestanden`;

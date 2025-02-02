@@ -28,7 +28,7 @@ const PlayerMetaConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
         <div className="nested-section flex-warp -m-1 gradient">
             {/* Race */}
             <div className="form-group m-15">
-                <label>Race: </label>
+                <label>Volk: </label>
                 <select
                     value={meta.race || ""}
                     onChange={(e) => setMeta("race", e.target.value)}
@@ -44,7 +44,7 @@ const PlayerMetaConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
 
             {/* Origin */}
             <div className="form-group m-15">
-                <label>Origin: </label>
+                <label>Herkunft: </label>
                 <select
                     value={meta.origin || ""}
                     onChange={(e) => setMeta("origin", e.target.value)}
@@ -60,7 +60,7 @@ const PlayerMetaConditionEditor: React.FC<SubEditorProps> = ({ conditions, updat
 
             {/* Calling */}
             <div className="form-group m-15">
-                <label>Calling: </label>
+                <label>Berufung: </label>
                 <select
                     value={meta.calling || ""}
                     onChange={(e) => setMeta("calling", e.target.value)}

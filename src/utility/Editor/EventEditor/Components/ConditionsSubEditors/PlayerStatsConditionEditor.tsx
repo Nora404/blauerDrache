@@ -22,7 +22,7 @@ const PlayerStatsConditionEditor: React.FC<SubEditorProps> = ({ conditions, upda
     return (
         <div className="nested-section flex-warp -m-1 gradient">
             <div className="form-group m-15">
-                <label>Life: </label>
+                <label>Leben: </label>
                 <input
                     type="number"
                     value={stats.life ?? ""}
@@ -38,7 +38,7 @@ const PlayerStatsConditionEditor: React.FC<SubEditorProps> = ({ conditions, upda
                 />
             </div>
             <div className="form-group m-15">
-                <label>Attack: </label>
+                <label>Angriff: </label>
                 <input
                     type="number"
                     value={stats.attack ?? ""}
@@ -46,7 +46,7 @@ const PlayerStatsConditionEditor: React.FC<SubEditorProps> = ({ conditions, upda
                 />
             </div>
             <div className="form-group m-15">
-                <label>Defense: </label>
+                <label>Verteidigung: </label>
                 <input
                     type="number"
                     value={stats.defense ?? ""}
@@ -54,7 +54,7 @@ const PlayerStatsConditionEditor: React.FC<SubEditorProps> = ({ conditions, upda
                 />
             </div>
             <div className="form-group m-15">
-                <label>Luck: </label>
+                <label>Glück: </label>
                 <input
                     type="number"
                     value={stats.luck ?? ""}
