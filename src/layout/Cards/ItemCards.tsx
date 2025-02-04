@@ -18,6 +18,7 @@ type ItemCardProps = {
   quantity?: number;
   mode?: ItemCardMode;
   onClick?: (item: Item) => void;
+  isActive?: boolean;
 };
 
 const ItemCard: React.FC<ItemCardProps> = ({
@@ -25,6 +26,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
   quantity,
   mode = "view",
   onClick,
+  isActive = false
 }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
@@ -35,7 +37,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
   return (
     <div
-      className="btn-border item-card text-left"
+      className={`btn-border item-card text-left ${isActive ? "glow" : ""}`}
       onClick={handleClick}
       style={{ display: "inline-block" }}
     >

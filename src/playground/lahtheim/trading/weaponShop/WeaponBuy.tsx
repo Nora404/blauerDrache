@@ -65,7 +65,7 @@ const WeaponBuy: React.FC<WeaponBuyProps> = observer(() => {
       <div className="category-section">
         {weapons.map((weapon: Item) =>
           weapon.name !== "Nichts" ? (
-            <ItemCard item={weapon} mode="buy" key={weapon.name} onClick={handleClick} />
+            <ItemCard item={weapon} mode="buy" key={weapon.name} onClick={handleClick} isActive={localWeapon.name === weapon.name} />
           ) : null
         )}
       </div>

@@ -60,7 +60,7 @@ export const weapons: Weapon[] = [
   {
     name: "Besenstiel",
     label: <GradientText>Besenstiel</GradientText>,
-    description: "Nicht nur für Hexen – auch für handfeste Argumente.",
+    description: "Nicht nur für Hexen - auch für handfeste Argumente.",
     category: "Waffen",
     attack: 5,
     ek: 58,
@@ -100,7 +100,7 @@ export const weapons: Weapon[] = [
   {
     name: "Heckenschere",
     label: <GradientText>Heckenschere</GradientText>,
-    description: "Zum Filetieren von Fleisch… und Feinden mit gutem Geschmack.",
+    description: "Für gepflegte Hecken - und unordentliche Gegner.",
     category: "Waffen",
     attack: 15,
     ek: 492,
