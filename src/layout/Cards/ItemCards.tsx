@@ -40,7 +40,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
       style={{ display: "inline-block" }}
     >
       {mode === "buy" && (
-        <BuyCard item={item} showDetails={showDetails} />
+        <BuyCard item={item} />
       )}
 
       {mode === "view" && (

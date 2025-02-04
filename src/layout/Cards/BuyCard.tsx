@@ -1,8 +1,6 @@
 import React from 'react';
 import { Item } from '../../data/gameItems/ItemData';
-import Talk from '../../utility/Formatted/Talk';
-import { SYSTEM } from '../../data/helper/colorfullStrings';
-import { BuyButton, SwapButton } from '../ActionButtons/ActionButton';
+import { SmallBuyButton, SmallSwapButton } from '../ActionButtons/ActionButton';
 import { useRootStore } from '../../store';
 import { getItemEffectText } from './ItemCards';
 import { WeaponName } from '../../data/gameItems/weaponData';
@@ -10,10 +8,9 @@ import { ArmorName } from '../../data/gameItems/armorData';
 
 type BuyCardProps = {
     item: Item;
-    showDetails: boolean;
 };
 
-const BuyCard: React.FC<BuyCardProps> = ({ item, showDetails }) => {
+const BuyCard: React.FC<BuyCardProps> = ({ item }) => {
     const { playerFlux, playerEconomy, getPlayerObj } = useRootStore();
 
     const getPlayerItem = () => {
@@ -58,17 +55,11 @@ const BuyCard: React.FC<BuyCardProps> = ({ item, showDetails }) => {
                 <div><b>{item.name}</b></div>
                 <div>{getItemEffectText(item)}</div>
                 <div style={{ textAlign: "left" }}>{item.description}</div>
-                <div style={{ textAlign: "right" }}>Kaufen für: <Talk>{buyPrice}</Talk> {SYSTEM.Gold}</div>
+                <div style={{ textAlign: "right" }}>
+                    <SmallBuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} /><br />
+                    <SmallSwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
+                </div>
             </div>
-
-            {showDetails && (
-                <> <hr className='hr-space' />
-                    <div className='flex-row'>
-                        <BuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} />
-                        <SwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
-                    </div>
-                </>
-            )}
         </div>
     );
 };

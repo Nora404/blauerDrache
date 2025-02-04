@@ -3,6 +3,8 @@ import MultiColoredLetters from '../../utility/Formatted/MultiColoredLetters';
 import { blueColors, greenColors, orangeColors, redColors, yellowColors } from '../../data/helper/colorMappingData';
 import { GradientText } from '../../utility/Formatted/GradientText';
 import { parseDescription } from '../../utility/Helper/ParseTextToJSX';
+import { SYSTEM } from '../../data/helper/colorfullStrings';
+import Talk from '../../utility/Formatted/Talk';
 
 type ActionButtonProps = {
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -57,10 +59,13 @@ export const BuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, res
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} result={resultText} />;
 }
-
-export const SellButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
+export const SmallBuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result = 0 }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
-    const originalLabel = "Verkaufen";
+
+    const resultLabel = <><Talk color='rot'>{-result}</Talk> {SYSTEM.Gold}</>
+    const originalLabel = <>Kaufen: {resultLabel}</>;
+    const disableLabel = <><Talk color='gray'>Zu teuer: {-result} Gold</Talk></>;
+    const displayLabel = showSuccess ? <Talk color='grün'>Erfolg</Talk> : originalLabel;
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!disable) {
@@ -70,11 +75,10 @@ export const SellButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) 
         }
     };
 
-    const displayLabel = showSuccess ? "Erfolg" : originalLabel;
-    const displayColor = showSuccess ? greenColors : blueColors;
 
-    return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
-};
+    return (<button className='btn-small-right' onClick={handleClick} disabled={disable}>
+        {disable ? disableLabel : displayLabel}</button>);
+}
 
 export const SwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
@@ -101,7 +105,45 @@ export const SwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, re
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} result={resultText} />;
 };
+export const SmallSwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result = 0 }) => {
+    const [showSuccess, setShowSuccess] = React.useState(false);
 
+    const textColor = result > 0 ? <Talk color='rot'>{-result}</Talk> : <Talk color='grün'>+{-result}</Talk>;
+    const resultLabel = <>{textColor} {SYSTEM.Gold}</>
+    const originalLabel = <>Tauschen: {resultLabel}</>;
+    const disableLabel = <><Talk color='gray'>Kein Tausch: {-result} Gold</Talk></>;
+    const displayLabel = showSuccess ? <Talk color='grün'>Erfolg</Talk> : originalLabel;
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!disable) {
+            setShowSuccess(true);
+            onClick(e);
+            setTimeout(() => setShowSuccess(false), 1000);
+        }
+    };
+
+
+    return (<button className='btn-small-right' onClick={handleClick} disabled={disable}>
+        {disable ? disableLabel : displayLabel}</button>);
+}
+
+export const SellButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
+    const [showSuccess, setShowSuccess] = React.useState(false);
+    const originalLabel = "Verkaufen";
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!disable) {
+            setShowSuccess(true);
+            onClick(e);
+            setTimeout(() => setShowSuccess(false), 1000);
+        }
+    };
+
+    const displayLabel = showSuccess ? "Erfolg" : originalLabel;
+    const displayColor = showSuccess ? greenColors : blueColors;
+
+    return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
+};
 
 export const EquipButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);

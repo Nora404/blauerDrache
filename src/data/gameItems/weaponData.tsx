@@ -26,7 +26,7 @@ export type Weapon = Item & {
 export const emptyWeaponObj: Weapon = {
   name: "Nichts",
   label: <GradientText>Nichts</GradientText>,
-  description: "Eine Waffe",
+  description: "Willst du deine Gegner mit Worten besiegen?",
   category: "Waffen",
   attack: 0,
   ek: 0,
@@ -36,7 +36,7 @@ export const weapons: Weapon[] = [
   {
     name: "Nichts",
     label: <GradientText>Nichts</GradientText>,
-    description: "Eine Waffe",
+    description: "Willst du deine Gegner mit Worten besiegen?",
     category: "Waffen",
     attack: 0,
     ek: 0,
@@ -44,7 +44,7 @@ export const weapons: Weapon[] = [
   {
     name: "Brotmeser",
     label: <GradientText>Brotmeser</GradientText>,
-    description: "Eine Waffe",
+    description: "Schneidet durch Butter. Bei Gegnern ist es weniger effektiv.",
     category: "Waffen",
     attack: 1,
     ek: 25,
@@ -52,7 +52,7 @@ export const weapons: Weapon[] = [
   {
     name: "Glasflasche",
     label: <GradientText>Glasflasche</GradientText>,
-    description: "Eine Waffe",
+    description: "Ideal für spontane Kneipenschlägereien oder improvisierte Alchemie.",
     category: "Waffen",
     attack: 3,
     ek: 38,
@@ -60,7 +60,7 @@ export const weapons: Weapon[] = [
   {
     name: "Besenstiel",
     label: <GradientText>Besenstiel</GradientText>,
-    description: "Eine Waffe",
+    description: "Nicht nur für Hexen – auch für handfeste Argumente.",
     category: "Waffen",
     attack: 5,
     ek: 58,
@@ -68,7 +68,7 @@ export const weapons: Weapon[] = [
   {
     name: "Heugabel",
     label: <GradientText>Heugabel</GradientText>,
-    description: "Eine Waffe",
+    description: "Perfekt für Mist. Und für Gegner, die welchen erzählen.",
     category: "Waffen",
     attack: 7,
     ek: 89,
@@ -76,7 +76,7 @@ export const weapons: Weapon[] = [
   {
     name: "Übungsschwert",
     label: <GradientText>Übungsschwert</GradientText>,
-    description: "Eine Waffe",
+    description: "Ideal für Anfänger. Und für Gegner, die’s bleiben.",
     category: "Waffen",
     attack: 9,
     ek: 137,
@@ -84,7 +84,7 @@ export const weapons: Weapon[] = [
   {
     name: "Holzfälleraxt",
     label: <GradientText>Holzfälleraxt</GradientText>,
-    description: "Eine Waffe",
+    description: "Fällt Bäume und Feinde gleichermaßen gut.",
     category: "Waffen",
     attack: 11,
     ek: 210,
@@ -92,7 +92,7 @@ export const weapons: Weapon[] = [
   {
     name: "Tranchiermesser",
     label: <GradientText>Tranchiermesser</GradientText>,
-    description: "Eine Waffe",
+    description: "Für präzise Schnitte - in Obst, Gemüse und Feinden.",
     category: "Waffen",
     attack: 13,
     ek: 322,
@@ -100,7 +100,7 @@ export const weapons: Weapon[] = [
   {
     name: "Heckenschere",
     label: <GradientText>Heckenschere</GradientText>,
-    description: "Eine Waffe",
+    description: "Zum Filetieren von Fleisch… und Feinden mit gutem Geschmack.",
     category: "Waffen",
     attack: 15,
     ek: 492,
@@ -108,7 +108,7 @@ export const weapons: Weapon[] = [
   {
     name: "Schleuder",
     label: <GradientText>Schleuder</GradientText>,
-    description: "Eine Waffe",
+    description: "David besiegte Goliath. Vielleicht hast du ja auch Glück.",
     category: "Waffen",
     attack: 17,
     ek: 755,
@@ -116,7 +116,7 @@ export const weapons: Weapon[] = [
   {
     name: "Kurzschwert",
     label: <GradientText>Kurzschwert</GradientText>,
-    description: "Eine Waffe",
+    description: "Klein, aber gemein. Genauso wie du nach wenig Schlaf.",
     category: "Waffen",
     attack: 19,
     ek: 1156,
@@ -124,7 +124,7 @@ export const weapons: Weapon[] = [
   {
     name: "Hellebarde",
     label: <GradientText>Hellebarde</GradientText>,
-    description: "Eine Waffe",
+    description: "Lanze, Axt und Spazierstock in einem - für den anspruchsvollen Ritter.",
     category: "Waffen",
     attack: 21,
     ek: 1770,
@@ -132,7 +132,7 @@ export const weapons: Weapon[] = [
   {
     name: "Kriegshammer",
     label: <GradientText>Kriegshammer</GradientText>,
-    description: "Eine Waffe",
+    description: "Die elegante Lösung für hartnäckige Probleme. Und Gegner.",
     category: "Waffen",
     attack: 23,
     ek: 2710,
@@ -140,7 +140,7 @@ export const weapons: Weapon[] = [
   {
     name: "Langschwert",
     label: <GradientText>Langschwert</GradientText>,
-    description: "Eine Waffe",
+    description: "Ein Klassiker. Funktioniert seit Jahrhunderten.",
     category: "Waffen",
     attack: 25,
     ek: 4141,
@@ -148,7 +148,7 @@ export const weapons: Weapon[] = [
   {
     name: "Morgenstern",
     label: <GradientText>Morgenstern</GradientText>,
-    description: "Eine Waffe",
+    description: "Perfekt für Morgenmuffel mit Gewaltpotenzial.",
     category: "Waffen",
     attack: 27,
     ek: 6340,
@@ -156,7 +156,7 @@ export const weapons: Weapon[] = [
   {
     name: "Drachentöter",
     label: <GradientText>Drachentöter</GradientText>,
-    description: "Eine Waffe",
+    description: "Noch nie an einem Drachen getestet. Willst du den Anfang machen?",
     category: "Waffen",
     attack: 29,
     ek: 10000,
