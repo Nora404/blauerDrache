@@ -144,6 +144,21 @@ export const SellButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) 
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
 };
+export const SmallSellButton: React.FC<DefaultButtonsProps> = ({ onClick, result = 0 }) => {
+    const [showSuccess, setShowSuccess] = React.useState(false);
+
+    const resultLabel = <><Talk color='grün'>+{result}</Talk> {SYSTEM.Gold}</>
+    const originalLabel = <>Verkaufen: {resultLabel}</>;
+    const displayLabel = showSuccess ? <Talk color='grün'>Erfolg</Talk> : originalLabel;
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setShowSuccess(true);
+        onClick(e);
+        setTimeout(() => setShowSuccess(false), 1000);
+    }
+
+    return <button className='btn-small-right' onClick={handleClick}>{displayLabel}</button>;
+};
 
 export const EquipButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);

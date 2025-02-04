@@ -10,6 +10,7 @@ import { debuffMap } from "../../data/debuffData";
 import { renderBuffDuration } from "../../utility/Helper/RenderData";
 import BuyCard from "./BuyCard";
 import ViewCard from "./ViewCard";
+import SellCard from "./SellCard";
 
 type ItemCardMode = "view" | "buy" | "sell";
 
@@ -47,6 +48,10 @@ const ItemCard: React.FC<ItemCardProps> = ({
 
       {mode === "view" && (
         <ViewCard item={item} showDetails={showDetails} quantity={quantity} />
+      )}
+
+      {mode === "sell" && (
+        <SellCard item={item} quantity={quantity} />
       )}
     </div>
   );
