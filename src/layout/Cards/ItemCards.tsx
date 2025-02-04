@@ -11,6 +11,7 @@ import { renderBuffDuration } from "../../utility/Helper/RenderData";
 import BuyCard from "./BuyCard";
 import ViewCard from "./ViewCard";
 import SellCard from "./SellCard";
+import { useRootStore } from "../../store";
 
 type ItemCardMode = "view" | "buy" | "sell";
 
@@ -30,11 +31,20 @@ const ItemCard: React.FC<ItemCardProps> = ({
   isActive = false
 }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const { getPlayerObj } = useRootStore();
 
   const handleClick = () => {
     setShowDetails((prev) => !prev);
     onClick?.(item);
   };
+
+  const getPlayerItem = () => {
+    if (item.category === "Waffen") { return getPlayerObj().weapon; }
+    if (item.category === "Ausrüstung") { return getPlayerObj().armor; }
+    return getPlayerObj().item;
+  };
+  const playerItem = getPlayerItem();
+  const isEquipped = playerItem.name === item.name;
 
   return (
     <div
@@ -43,15 +53,15 @@ const ItemCard: React.FC<ItemCardProps> = ({
       style={{ display: "inline-block" }}
     >
       {mode === "buy" && (
-        <BuyCard item={item} />
+        <BuyCard item={item} isEquipped={isEquipped} />
       )}
 
       {mode === "view" && (
-        <ViewCard item={item} showDetails={showDetails} quantity={quantity} />
+        <ViewCard item={item} showDetails={showDetails} quantity={quantity} isEquipped={isEquipped} />
       )}
 
       {mode === "sell" && (
-        <SellCard item={item} quantity={quantity} />
+        <SellCard item={item} quantity={quantity} isEquipped={isEquipped} />
       )}
     </div>
   );

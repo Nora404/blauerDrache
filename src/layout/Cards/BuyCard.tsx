@@ -5,12 +5,14 @@ import { useRootStore } from '../../store';
 import { getItemEffectText } from './ItemCards';
 import { WeaponName } from '../../data/gameItems/weaponData';
 import { ArmorName } from '../../data/gameItems/armorData';
+import Talk from '../../utility/Formatted/Talk';
 
 type BuyCardProps = {
     item: Item;
+    isEquipped?: boolean;
 };
 
-const BuyCard: React.FC<BuyCardProps> = ({ item }) => {
+const BuyCard: React.FC<BuyCardProps> = ({ item, isEquipped }) => {
     const { playerFlux, playerEconomy, getPlayerObj } = useRootStore();
 
     const getPlayerItem = () => {
@@ -52,10 +54,13 @@ const BuyCard: React.FC<BuyCardProps> = ({ item }) => {
     return (
         <div>
             <div className='grid-row-buy'>
-                <div><b>{item.name}</b></div>
+                <div>
+                    <b>{item.name}</b><br />
+                    {isEquipped && <Talk color='grün'>Ausgerüstet</Talk>}
+                </div>
                 <div>{getItemEffectText(item)}</div>
                 <div style={{ textAlign: "left" }}>{item.description}</div>
-                <div style={{ textAlign: "right" }}>
+                <div className='flex-col-right'>
                     <SmallBuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} /><br />
                     <SmallSwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
                 </div>

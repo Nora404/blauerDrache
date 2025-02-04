@@ -5,14 +5,16 @@ import { useRootStore } from '../../store';
 import { getItemEffectText } from './ItemCards';
 import { WeaponName } from '../../data/gameItems/weaponData';
 import { ArmorName } from '../../data/gameItems/armorData';
+import Talk from '../../utility/Formatted/Talk';
 
 type ViewCardProps = {
     item: Item;
     showDetails: boolean;
     quantity?: number;
+    isEquipped?: boolean;
 };
 
-const ViewCard: React.FC<ViewCardProps> = ({ item, showDetails, quantity }) => {
+const ViewCard: React.FC<ViewCardProps> = ({ item, showDetails, quantity, isEquipped }) => {
     const { playerFlux, playerEconomy, getPlayerObj } = useRootStore();
 
     const getPlayerItem = () => {
@@ -71,13 +73,16 @@ const ViewCard: React.FC<ViewCardProps> = ({ item, showDetails, quantity }) => {
     return (
         <div>
             <div className='grid-row-view'>
-                <div><b>{item.name}</b> (x{quantity})</div>
+                <div>
+                    <b>{item.name}</b> (x{quantity})<br />
+                    {isEquipped && <Talk color='grün'>Ausgerüstet</Talk>}
+                </div>
                 <div>{getItemEffectText(item)}</div>
                 <div style={{ textAlign: "left" }}>{item.description}</div>
             </div>
             {showDetails && (
                 <> <hr className='hr-space' />
-                    <div className='flex-row'>
+                    <div className='toggleRowCol'>
                         {item.category === "Nahrung" && <UseButton onClick={handleUse} disable={false} />}
                         <EquipButton onClick={handleItem} disable={false} />
                         {item.name === playerItem.name && <DropButton onClick={handleDrop} disable={false} />}
