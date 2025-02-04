@@ -51,7 +51,7 @@ const BuyCard: React.FC<BuyCardProps> = ({ item }) => {
 
     return (
         <div>
-            <div className='grid-row-00X0'>
+            <div className='grid-row-buy'>
                 <div><b>{item.name}</b></div>
                 <div>{getItemEffectText(item)}</div>
                 <div style={{ textAlign: "left" }}>{item.description}</div>

@@ -33,7 +33,7 @@ const SellCard: React.FC<SellCardProps> = ({ item, quantity }) => {
 
     return (
         <div>
-            <div className='grid-row-00X0'>
+            <div className='grid-row-sell'>
                 <div><b>{item.name}</b> (x{quantity})</div>
                 <div>{getItemEffectText(item)}</div>
                 <div style={{ textAlign: "left" }}>{item.description}</div>

@@ -124,14 +124,24 @@
   align-items: center;
 }
 
-.grid-row-00X0 {
+.grid-row-buy {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 150px 120px 1fr 150px;
   align-items: center;
   gap: 10px;
 }
 
-.grid-row-00X {
+.grid-row-sell {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 180px 120px 1fr 150px;
+  align-items: center;
+  gap: 10px;
+}
+
+.grid-row-view {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 180px 120px 1fr;
   align-items: center;
@@ -180,6 +190,7 @@
 }
 
 .btn-border {
+  box-sizing: border-box;
   border: 1px solid rgba(95, 173, 209, 0.2);
   border-radius: 8px;
   margin: 7px 0 7px 0;
