@@ -26,8 +26,14 @@ export default function EventCreationForm() {
 
       <Places />
 
+      <h3>Event Registrieren</h3>
       <p className='mb-1 text-left'>
         Damit ein Event im Spiel benutzt werden kann mus im Ordner "data" unter "gameEvents" eine neue Datei erstellt werden. Jedes Event hat eine eigene Datei, der Name ist der gleiche wie die ID des Events. In data gibt es auch eine Datei die "questList" heißt. Dort wird das neue Event registriert, heißt es wird in die Liste aufgenommen. Bei normalen Events kann die ID einfach in die Liste randomEvent hinzugefügt werden. Gehört das Event zu einer Quest wird es stattdessen in der Datei "questList" aufgenommen. Das soll dazu dienen die Listen übersichtlicher zu halten. Jetzt kann es überall genutzt werden :-)
+      </p>
+
+      <h3>Event einbauen</h3>
+      <p className='mb-1 text-left'>
+        Es gibt drei Möglichkeiten ein Event ins Spiel zu bringen. Hier im Editor kann man ein Event einem Ort zuweisen, dann wird es, sobald das Event registriert ist, automatisch im Spiel auftauchen. Auch wenn du es als Folgeevent einträgst, wird es automatisch im Spiel auftauchen. Die zweite Möglichkeit ist es das Event auf einer Orts Seite in die Liste "possibleEvents" einzutragen. Dann wird es per Zufall und nach einer Gewichtung an diesem Ort auftauchen. Die dritte Möglichkeit ist es das Event an einen Button zu binden. Dann wird es nur aufgerufen wenn der Spieler auf den Button klickt. Fast jeder Ort hat Unterseiten welche die Komponente "PlaceTemplate" benutzt. Hier kannst du das Event einbauen. Die Komponente "PlaceTemplate" hat die Props "possibleEvents" und "buttons". In "possibleEvents" trägst du das Event ein, in "buttons" kannst du einen Button erstellen der das Event auslöst.
       </p>
 
       <GenerateEventCode />

@@ -27,7 +27,7 @@ const FountainWarrior: React.FC<FountainWarriorProps> = observer(() => {
             <PlaceTemplate
                 title={<>Mit einem Krieger sprechen</>}
                 description={description}
-                backPath="/fountain-warrior"
+                backPath="/fountain"
                 possibleEvents={possibleEvents}
                 buttons={[{ label: 'Verlorene Tasche', startEventId: '007Bag' }]}
             />
