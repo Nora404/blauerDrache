@@ -7,10 +7,22 @@ import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./GameEventChain";
 import Header from "./Header/Header";
 
+/*         Titel
+ * '''''''''''''''''''''
+ * beschreibung der Seite
+ * mit bunten Wörtern
+ * 
+ * [Button] [Button] [Button]
+ * 
+ * [Event] [Event] [Event]
+ * 
+ * [sich abwenden]
+ */
+
 type ButtonConfig = {
   label: string;
   onClick?: () => void;
-  startEvent?: string;
+  startEventId?: string;
 };
 
 type PlaceTemplateProps = {
@@ -23,6 +35,15 @@ type PlaceTemplateProps = {
   possibleEvents: WeightedEvent[];
 };
 
+/**
+ * @param title (?) - Überschrift mit <hr> Linie
+ * @param description (?) - Beschreibungstext
+ * @param buttons (?) - Array von {label, onClick?, startEventId?}
+ * @param noEventHappend (?) - Text, der angezeigt wird, wenn kein Event stattfindet
+ * @param chanceOfAnyEvent (?) - Wahrscheinlichkeit, dass ein Event stattfindet 0.1 = 10%
+ * @param backPath - Pfad, zu dem zurückgegangen wird
+ * @param possibleEvents - Array von {eventId, probability, questId?, conditions?}
+ */
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
   ({
     title,
@@ -45,8 +66,8 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
 
     const handleClick = (btn: ButtonConfig) => {
       btn.onClick?.();
-      if (btn.startEvent) {
-        handleForceEvent(btn.startEvent);
+      if (btn.startEventId) {
+        handleForceEvent(btn.startEventId);
       }
     };
 

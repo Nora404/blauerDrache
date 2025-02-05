@@ -29,7 +29,7 @@ const FountainWarrior: React.FC<FountainWarriorProps> = observer(() => {
                 description={description}
                 backPath="/fountain-warrior"
                 possibleEvents={possibleEvents}
-                buttons={[{ label: 'Verlorene Tasche', startEvent: '007Bag' }]}
+                buttons={[{ label: 'Verlorene Tasche', startEventId: '007Bag' }]}
             />
         </div>
     );
