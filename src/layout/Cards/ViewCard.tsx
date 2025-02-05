@@ -78,11 +78,12 @@ const ViewCard: React.FC<ViewCardProps> = ({ item, showDetails, quantity, isEqui
                     {isEquipped && <Talk color='grün'>Ausgerüstet</Talk>}
                 </div>
                 <div>{getItemEffectText(item)}</div>
-                <div style={{ textAlign: "left" }}>{item.description}</div>
+                <div className='text-left showOnlyDesktop'>{item.description}</div>
             </div>
             {showDetails && (
                 <> <hr className='hr-space' />
                     <div className='toggleRowCol'>
+                        <div className='text-left showOnlyMobile'>{item.description}</div>
                         {item.category === "Nahrung" && <UseButton onClick={handleUse} disable={false} />}
                         <EquipButton onClick={handleItem} disable={false} />
                         {item.name === playerItem.name && <DropButton onClick={handleDrop} disable={false} />}

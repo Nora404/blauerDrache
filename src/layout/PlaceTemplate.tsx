@@ -7,9 +7,16 @@ import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./GameEventChain";
 import Header from "./Header/Header";
 
+type ButtonConfig = {
+  label: string;
+  onClick?: () => void;
+  startEvent?: string;
+};
+
 type PlaceTemplateProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
+  buttons?: ButtonConfig[];
   noEventHappend?: React.ReactNode;
   chanceOfAnyEvent?: number;
   backPath: string;
@@ -20,6 +27,7 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
   ({
     title,
     description,
+    buttons,
     backPath,
     possibleEvents,
     noEventHappend = "",
@@ -32,12 +40,29 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
       handleBack,
       handleFinishEvent,
       handleFinishQuest,
+      handleForceEvent,
     } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
+
+    const handleClick = (btn: ButtonConfig) => {
+      btn.onClick?.();
+      if (btn.startEvent) {
+        handleForceEvent(btn.startEvent);
+      }
+    };
+
 
     return (
       <div className="max-width">
         <h2>{title}</h2>
         <div className="mb-1">{description}</div>
+
+        {!localRandomEvent && buttons && buttons?.length > 0 && (buttons.map((button) => (
+          <ActionButton
+            key={button.label}
+            onClick={() => handleClick(button)}
+            label={button.label}
+          />
+        )))}
 
         {localRandomEvent && (
           <>

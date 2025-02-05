@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WeightedEvent } from "../../data/eventData";
 import { useRootStore } from "../../store";
-import { filterEventsByConditions } from "../Helper/TriggerEvent";
+import { filterEventsByConditions, getGameEventById } from "../Helper/TriggerEvent";
 import { pickRandomEvent } from "../Random/RandomPickedEvent";
 import { getQuestByEventId } from "../../data/questData";
 
@@ -86,6 +86,15 @@ export function useLocationEvents(
     navigate("/quest/" + firstEvent + "" + backPath);
   };
 
+  const handleForceEvent = (forcedEventId: string) => {
+    const event = getGameEventById(forcedEventId);
+    if (!event) {
+      console.error("Ungültige Event-ID:", forcedEventId);
+      return;
+    }
+    setLocalRandomEvent(forcedEventId);
+  };
+
   return {
     localRandomEvent,
     firstEvent,
@@ -93,5 +102,6 @@ export function useLocationEvents(
     handleBack,
     handleFinishEvent,
     handleFinishQuest,
+    handleForceEvent,
   };
 }

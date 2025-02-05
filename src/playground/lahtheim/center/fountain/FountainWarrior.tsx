@@ -1,34 +1,39 @@
 // #region [imports]
 import React from 'react';
-import ActionButton from '../../../../layout/ActionButtons/ActionButton';
-import { useNavigate } from 'react-router-dom';
+import { WeightedEvent } from '../../../../data/eventData';
+import { observer } from 'mobx-react-lite';
+import PlaceTemplate from '../../../../layout/PlaceTemplate';
 // #endregion
 
 // #region [prepare]
-type FountainWarriorProps = {
-};
+type FountainWarriorProps = {};
 
-const FountainWarrior: React.FC<FountainWarriorProps> = () => {
-    const navigate = useNavigate();
+const FountainWarrior: React.FC<FountainWarriorProps> = observer(() => {
+
+    const possibleEvents: WeightedEvent[] = [];
+
+    const description =
+        <>
+            <p className='mb-1 text-left'>
+                Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
+            </p>
+        </>;
     // #endregion
 
-    // #region [handler]
-    const handleBack = () => {
-        navigate('/fountain');
-    };
-    // #endregion
 
     // #region [jsx]
     return (
         <div className='max-width'>
-            <h2>Mit einem Krieger sprechen</h2>
-            <p className='mb-1 text-left'>
-                Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
-            </p><br />
-            <ActionButton onClick={handleBack} label='Sich abwenden' />
+            <PlaceTemplate
+                title={<>Mit einem Krieger sprechen</>}
+                description={description}
+                backPath="/fountain-warrior"
+                possibleEvents={possibleEvents}
+                buttons={[{ label: 'Verlorene Tasche', startEvent: '007Bag' }]}
+            />
         </div>
     );
     // #endregion
-};
+});
 
 export default FountainWarrior;

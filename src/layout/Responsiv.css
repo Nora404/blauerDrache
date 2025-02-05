@@ -143,7 +143,13 @@
     overflow-y: auto;
 }
 
+.showOnlyDesktop {
+    display: block;
+}
 
+.showOnlyMobile {
+    display: none;
+}
 
 @media (min-width: 1920px) {
     #content {
@@ -256,6 +262,14 @@
         margin-bottom: -20px;
         display: block;
         /* text-align: center; */
+    }
+
+    .showOnlyDesktop {
+        display: none;
+    }
+
+    .showOnlyMobile {
+        display: block;
     }
 }
 

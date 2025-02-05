@@ -26,7 +26,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     }
 
     return (
-        <button className="btn-border" onClick={handleClick} disabled={disable} style={{ marginLeft: "10px", marginRight: "10px", boxSizing: "border-box" }}>
+        <button className="btn-border" onClick={handleClick} disabled={disable} >
             {disable
                 ? <GradientText colors={['#999999']}>{label}</GradientText>
                 : <MultiColoredLetters colors={color}>{label}</MultiColoredLetters>}
@@ -42,6 +42,8 @@ type DefaultButtonsProps = {
     disable?: boolean;
     result?: number;
 };
+
+//#region [BUY]
 export const BuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Kaufen";
@@ -59,6 +61,7 @@ export const BuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, res
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} result={resultText} />;
 }
+
 export const SmallBuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result = 0 }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
 
@@ -74,12 +77,12 @@ export const SmallBuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable
             setTimeout(() => setShowSuccess(false), 1000);
         }
     };
-
-
     return (<button className='btn-small-right' onClick={handleClick} disabled={disable}>
         {disable ? disableLabel : displayLabel}</button>);
 }
+//#endregion
 
+//#region [SWAP]
 export const SwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Tauschen";
@@ -105,6 +108,7 @@ export const SwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, re
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} result={resultText} />;
 };
+
 export const SmallSwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, result = 0 }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
 
@@ -126,7 +130,9 @@ export const SmallSwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disabl
     return (<button className='btn-small-right' onClick={handleClick} disabled={disable}>
         {disable ? disableLabel : displayLabel}</button>);
 }
+//#endregion
 
+//#region [SELL]
 export const SellButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Verkaufen";
@@ -144,6 +150,7 @@ export const SellButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) 
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
 };
+
 export const SmallSellButton: React.FC<DefaultButtonsProps> = ({ onClick, result = 0 }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
 
@@ -159,7 +166,9 @@ export const SmallSellButton: React.FC<DefaultButtonsProps> = ({ onClick, result
 
     return <button className='btn-small-right' onClick={handleClick}>{displayLabel}</button>;
 };
+//#endregion
 
+//#region [EQUIP]
 export const EquipButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Ausrüsten";
@@ -177,7 +186,9 @@ export const EquipButton: React.FC<DefaultButtonsProps> = ({ onClick, disable })
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
 };
+//#endregion
 
+//#region [USE]
 export const UseButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Benutzen";
@@ -195,7 +206,9 @@ export const UseButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) =
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
 };
+//#endregion
 
+//#region [DROP]
 export const DropButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Ablegen";
@@ -213,7 +226,9 @@ export const DropButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) 
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
 };
+//#endregion
 
+//#region [REMOVE]
 export const RemoveButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }) => {
     const [showSuccess, setShowSuccess] = React.useState(false);
     const originalLabel = "Wegwerfen";
@@ -231,3 +246,4 @@ export const RemoveButton: React.FC<DefaultButtonsProps> = ({ onClick, disable }
 
     return <ActionButton onClick={handleClick} label={displayLabel} disable={disable} color={displayColor} />;
 };
+//#endregion
