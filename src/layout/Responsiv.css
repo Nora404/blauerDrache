@@ -304,3 +304,36 @@
         display: none;
     }
 }
+
+
+.toggleRowCol {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggleColRow {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+    .toggleRowCol {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .toggleColRow {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .flex-col-right {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+}

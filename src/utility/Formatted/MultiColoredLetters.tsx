@@ -17,7 +17,7 @@ const MultiColoredLetters: React.FC<MultiColoredLettersProps> = ({
             : defaultColor;
 
         return (
-            <span key={idx} style={{ color: appliedColor }}>
+            <span key={idx} style={{ color: appliedColor, transition: 'color 0.3s ease' }}>
                 {char}
             </span>
         );

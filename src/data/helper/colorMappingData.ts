@@ -89,6 +89,19 @@ export const blueColors: string[] = [
   "#6C97D4",
 ];
 
+export const darkBlueColors: string[] = [
+  "#455072",
+  "#515363",
+  "#596672",
+  "#4f5159",
+  "#4a4b59",
+  "#595972",
+  "#555259",
+  "#5f6272",
+  "#4d4859",
+  "#555772",
+];
+
 export const greenColors: string[] = [
   "#A1FA4F",
   "#54D650",
@@ -135,6 +148,7 @@ export const colorPalettes: Record<string, string[]> = {
   rosaColors,
   lilaColors,
   blueColors,
+  darkBlueColors,
   greenColors,
   braunColors,
   rainbowColors,

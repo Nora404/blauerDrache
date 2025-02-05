@@ -30,11 +30,9 @@ const ItemCard: React.FC<ItemCardProps> = ({
   onClick,
   isActive = false
 }) => {
-  const [showDetails, setShowDetails] = useState<boolean>(false);
   const { getPlayerObj } = useRootStore();
 
   const handleClick = () => {
-    setShowDetails((prev) => !prev);
     onClick?.(item);
   };
 
@@ -50,14 +48,14 @@ const ItemCard: React.FC<ItemCardProps> = ({
     <div
       className={`btn-border item-card text-left ${isActive ? "glow" : ""}`}
       onClick={handleClick}
-      style={{ display: "inline-block" }}
+      style={{ display: "inline-block", paddingTop: "2px", paddingBottom: "2px" }}
     >
       {mode === "buy" && (
         <BuyCard item={item} isEquipped={isEquipped} />
       )}
 
       {mode === "view" && (
-        <ViewCard item={item} showDetails={showDetails} quantity={quantity} isEquipped={isEquipped} />
+        <ViewCard item={item} quantity={quantity} isEquipped={isEquipped} />
       )}
 
       {mode === "sell" && (

@@ -1,9 +1,9 @@
 import React from "react";
 import { ButtonConfig, useEditorContext } from "../../Context/EventContext";
 import { GameQuest } from "../../../../data/questData";
-import { randomEvents } from "../../../../data/eventList";
 import { gameQuests, gameQuestEvents } from "../../../../data/questList";
 import HeaderSmall from "../../../../layout/Header/HeaderSmall";
+import { randomEvents } from "../../../../data/gameEvents/randoms/randomEventList";
 
 type TriggerGroupProps = {
   button: ButtonConfig;
