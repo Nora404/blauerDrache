@@ -1,4 +1,4 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../../eventData";
 
 //#region [events]
 export const event019ChurchPeace: GameEvent = {
@@ -8,7 +8,7 @@ export const event019ChurchPeace: GameEvent = {
     buttons: [
         {
             label: "Ausruhen",
-            result: "(-4 {SYSTEM.Aktionen})",
+            result: "-4 {SYSTEM.Aktionen}",
             conditions: {
                 operator: ">",
                 playerStats: { "actionPoints": 3 },

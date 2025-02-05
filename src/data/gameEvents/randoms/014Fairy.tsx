@@ -1,23 +1,23 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
-export const event007Bag: GameEvent = {
-  id: "007Bag",
-  label: "Du findest einen Beutel",
+export const event014Fairy: GameEvent = {
+  id: "014Fairy",
+  label: "Eine Fee ist aufgetaucht",
   description: descriptionText(),
   buttons: [
     {
-      label: "Beutel aufheben und öffnen",
+      label: "Fee verfolgen",
       getAction: () => ({
         message: message1,
         nextEvents: [
-          { eventId: "008BagFull", probability: 10 },
-          { eventId: "009BagEmpty", probability: 50 },
+          { eventId: "015FairyLost", probability: 80 },
+          { eventId: "016FairyWish", probability: 20 },
         ],
       }),
     },
     {
-      label: "Liegen lassen",
+      label: "Fee anstarren",
       getAction: () => ({
         message: message2,
       }),
@@ -26,11 +26,11 @@ export const event007Bag: GameEvent = {
   places: [
     {
       place: "Wald",
-      probability: 50,
+      probability: 30,
     },
     {
-      place: "Weg",
-      probability: 20,
+      place: "Waldrand",
+      probability: 10,
     },
   ],
 };

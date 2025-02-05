@@ -1,21 +1,22 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
-export const event009BagEmpty: GameEvent = {
-  id: "009BagEmpty",
-  label: "Der Beutel ist leer",
+export const event012ChestGold: GameEvent = {
+  id: "event012ChestGold",
+  label: "In der Truhe lag Gold",
   description: descriptionText(),
   buttons: [
     {
-      label: "Den leeren Beutel weg werfen",
+      label: "Gold nehmen",
       getAction: () => ({
+        economyDelta: { gold: 50 },
+        tempStatsDelta: { luck: 5 },
         message: message1,
       }),
     },
     {
-      label: "Den leeren Beutel einstecken",
+      label: "Truhe schließen",
       getAction: () => ({
-        itemsDelta: { Lederstück: 1 },
         message: message2,
       }),
     },

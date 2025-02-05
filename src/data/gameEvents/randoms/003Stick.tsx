@@ -1,20 +1,20 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
-export const event004Flower: GameEvent = {
-    id: "004Flower",
-    label: "Dort ist eine schöne Blume",
+export const event003Stick: GameEvent = {
+    id: "003Stick",
+    label: "Du stolperst über ein Stöckchen",
     description: descriptionText(),
     buttons: [
         {
-            label: "Blume pflücken",
+            label: "Stock aufheben",
             getAction: () => ({
-                itemsDelta: { Blume: 1 },
+                itemsDelta: { Stock: 1 },
                 message: message1,
             }),
         },
         {
-            label: "Anschauen und stehen lassen",
+            label: "Stock liegen lassen",
             getAction: () => ({
                 message: message2,
             }),
@@ -27,7 +27,11 @@ export const event004Flower: GameEvent = {
         },
         {
             place: "Waldrand",
-            probability: 30,
+            probability: 50,
+        },
+        {
+            place: "Wald",
+            probability: 80,
         },
     ],
 };
@@ -35,14 +39,14 @@ export const event004Flower: GameEvent = {
 
 function descriptionText() {
     return (
-            "Beschreibung"
+        "Beschreibung"
     );
 }
 
 const message1 = (
-        "Button 1 gedrückt"
+    "Button 1 gedrückt"
 );
 
 const message2 = (
-        "Button 2 gedrückt"
+    "Button 2 gedrückt"
 );

@@ -1,4 +1,4 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../../eventData";
 
 //#region [events]
 export const event018Donate: GameEvent = {

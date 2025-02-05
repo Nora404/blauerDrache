@@ -1,9 +1,9 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
-export const event015FairyLost: GameEvent = {
-  id: "015FairyLost",
-  label: "Du hast die Fee verloren",
+export const event013ChestEmpty: GameEvent = {
+  id: "013ChestEmpty",
+  label: "Die Truhe war leer",
   description: descriptionText(),
   buttons: [
     {

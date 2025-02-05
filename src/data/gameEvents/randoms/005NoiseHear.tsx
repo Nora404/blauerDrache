@@ -1,4 +1,4 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
 export const event005NoiseHear: GameEvent = {
@@ -37,14 +37,14 @@ export const event005NoiseHear: GameEvent = {
 
 function descriptionText() {
     return (
-            "Beschreibung"
+        "Beschreibung"
     );
 }
 
 const message1 = (
-        "Button 1 gedrückt"
+    "Button 1 gedrückt"
 );
 
 const message2 = (
-        "Button 2 gedrückt"
+    "Button 2 gedrückt"
 );

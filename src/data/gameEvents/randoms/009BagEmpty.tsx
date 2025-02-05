@@ -1,21 +1,21 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
-export const event006NoiseFollow: GameEvent = {
-  id: "006NoiseFollow",
-  label: "Dem Geräusch nachgehen",
+export const event009BagEmpty: GameEvent = {
+  id: "009BagEmpty",
+  label: "Der Beutel ist leer",
   description: descriptionText(),
   buttons: [
     {
-      label: "Weiter suchen",
+      label: "Den leeren Beutel weg werfen",
       getAction: () => ({
-        statsDelta: { actionPoints: -1 },
         message: message1,
       }),
     },
     {
-      label: "Aufgeben",
+      label: "Den leeren Beutel einstecken",
       getAction: () => ({
+        itemsDelta: { Lederstück: 1 },
         message: message2,
       }),
     },

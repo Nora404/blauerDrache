@@ -26,9 +26,14 @@ export default function EventCreationForm() {
 
       <Places />
 
-      <h3>Event Registrieren</h3>
+      <h3>Event speichern</h3>
       <p className='mb-1 text-left'>
-        Damit ein Event im Spiel benutzt werden kann mus im Ordner "data" unter "gameEvents" eine neue Datei erstellt werden. Jedes Event hat eine eigene Datei, der Name ist der gleiche wie die ID des Events. In data gibt es auch eine Datei die "questList" heißt. Dort wird das neue Event registriert, heißt es wird in die Liste aufgenommen. Bei normalen Events kann die ID einfach in die Liste randomEvent hinzugefügt werden. Gehört das Event zu einer Quest wird es stattdessen in der Datei "questList" aufgenommen. Das soll dazu dienen die Listen übersichtlicher zu halten. Jetzt kann es überall genutzt werden :-)
+        Leider kann der Event Editor nicht das erstelle Event speichern. Dafür musst du den Code kopieren und eine neue Datei erstellen. Gehe dafür in den Ordner "data" und dann in den Unterordner "gameEvents". Es gibt dort weitere Ordner die nach den verschiedenen Orten benannt sind. Suche den Ordner andem du dein Event benutzten möchtest. Dort erstellst du eine neue Datei mit der ID des Events und der Endung tsx. In diese Datei fügst du den kopierten Code ein. Es kann sein das die Importe oben rot unterkringelt werden. Passe die Pfade an, ich lösche die oft und sagt der IDE das sie die Importe neu hinzufügen soll.
+      </p>
+
+      <h3>Event registrieren</h3>
+      <p className='mb-1 text-left'>
+        Jedes Event hat eine eigene Datei, der Name ist der gleiche wie die ID des Events. In "data" gibt es auch eine Datei die "questList" heißt. Dort werden verschiedene Listen von Events gesammelt zu einer sehr großen Liste. Das neue Event muss in der Liste in seinem Order wo es sich befindet redistriert, also hineingeschrieben werden. Die verschiedenen Listen helfen es übersichtlicher zu halten. Hast du zum beispiel ein Event erstellt das zufällig an einen Ort erscheinen soll, speichere es unter "randoms" und trage es in "randomEventList" ein. Es muss dort auch importiert werden. Jetzt kann es überall genutzt werden :-)
       </p>
 
       <h3>Event einbauen</h3>

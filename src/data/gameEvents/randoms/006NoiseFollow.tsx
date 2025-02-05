@@ -1,21 +1,20 @@
-import { GameEvent } from "../eventData";
+import { GameEvent } from "../../eventData";
 
 //#region [events]
-export const event012ChestGold: GameEvent = {
-  id: "event012ChestGold",
-  label: "In der Truhe lag Gold",
+export const event006NoiseFollow: GameEvent = {
+  id: "006NoiseFollow",
+  label: "Dem Geräusch nachgehen",
   description: descriptionText(),
   buttons: [
     {
-      label: "Gold nehmen",
+      label: "Weiter suchen",
       getAction: () => ({
-        economyDelta: { gold: 50 },
-        tempStatsDelta: { luck: 5 },
+        statsDelta: { actionPoints: -1 },
         message: message1,
       }),
     },
     {
-      label: "Truhe schließen",
+      label: "Aufgeben",
       getAction: () => ({
         message: message2,
       }),
