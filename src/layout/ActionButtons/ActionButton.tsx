@@ -344,3 +344,22 @@ export const SmallScanButton: React.FC<DefaultButtonsProps> = ({ onClick, disabl
         <MultiColoredLetters colors={displayColor}>{displayLabel}</MultiColoredLetters>
     </button>;
 }
+export const SmallBackButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, active }) => {
+    const [showSuccess, setShowSuccess] = React.useState(false);
+    const originalLabel = "Buttons";
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!disable) {
+            setShowSuccess(true);
+            onClick(e);
+            setTimeout(() => setShowSuccess(false), 1000);
+        }
+    };
+
+    const displayLabel = showSuccess ? "Tschüs!" : originalLabel;
+    const displayColor = active ? blueColors : darkBlueColors;
+
+    return <button className='btn-small' onClick={handleClick} disabled={disable}>
+        <MultiColoredLetters colors={displayColor}>{displayLabel}</MultiColoredLetters>
+    </button>;
+}

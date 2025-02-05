@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Armor } from "../../data/gameItems/armorData";
 import { Item } from "../../data/gameItems/ItemData";
 import { Weapon } from "../../data/gameItems/weaponData";

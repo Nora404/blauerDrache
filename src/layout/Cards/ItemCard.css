@@ -13,8 +13,9 @@
 .grid-row-buy {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 150px 120px 1fr 150px;
+  grid-template-columns: 180px 120px 1fr 150px;
   align-items: center;
+  min-height: 60px;
   gap: 10px;
 }
 
@@ -23,6 +24,7 @@
   display: grid;
   grid-template-columns: 180px 120px 1fr 150px;
   align-items: center;
+  min-height: 60px;
   gap: 10px;
 }
 

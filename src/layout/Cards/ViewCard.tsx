@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Item, itemMap } from '../../data/gameItems/ItemData';
-import { SmallDropButton, SmallEquipButton, SmallRemoveButton, SmallScanButton, SmallUseButton } from '../ActionButtons/ActionButton';
+import { SmallBackButton, SmallDropButton, SmallEquipButton, SmallRemoveButton, SmallScanButton, SmallUseButton } from '../ActionButtons/ActionButton';
 import { useRootStore } from '../../store';
 import { getItemEffectText } from './ItemCards';
 import { WeaponName } from '../../data/gameItems/weaponData';
 import { ArmorName } from '../../data/gameItems/armorData';
 import Talk from '../../utility/Formatted/Talk';
+import { set } from 'mobx';
 
 type ViewCardProps = {
     item: Item;
@@ -17,6 +18,7 @@ const ViewCard: React.FC<ViewCardProps> = ({ item, quantity, isEquipped }) => {
     const { playerFlux, playerEconomy, getPlayerObj } = useRootStore();
     const [isActive, setIsActive] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [showDescription, setShowDescription] = useState(false);
 
     // Beim Mounten prüfen, ob es ein mobiles Gerät ist
     useEffect(() => {
@@ -81,6 +83,11 @@ const ViewCard: React.FC<ViewCardProps> = ({ item, quantity, isEquipped }) => {
         playerEconomy.updateItems(item.name, -1);
     };
 
+    const handleShowDescription = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowDescription(prev => !prev);
+    }
+
     return (
         <div
             onMouseEnter={handleMouseEnter}
@@ -92,16 +99,23 @@ const ViewCard: React.FC<ViewCardProps> = ({ item, quantity, isEquipped }) => {
                     {isEquipped && <Talk color='grün'>Ausgerüstet</Talk>}
                 </div>
                 <div>{getItemEffectText(item)}</div>
-                <div className='flex-row-right'>
-                    <SmallScanButton onClick={handleRemove} active={isMobile || isActive} />
-                    {item.category === "Nahrung" &&
-                        <SmallUseButton onClick={handleUse} active={isMobile || isActive} />}
-                    {playerItem.name === item.name &&
-                        <SmallDropButton onClick={handleDrop} active={isMobile || isActive} />}
-                    {playerItem.name !== item.name &&
-                        <SmallEquipButton onClick={handleItem} active={isMobile || isActive} />}
-                    <SmallRemoveButton onClick={handleRemove} active={isMobile || isActive} />
-                </div>
+
+                {showDescription
+                    ? <div className='flex-row'>
+                        <div style={{ textAlign: "left" }}>{item.description}</div>
+                        <SmallBackButton onClick={handleShowDescription} active={isMobile || isActive} />
+                    </div>
+                    :
+                    <div className='flex-row-right'>
+                        <SmallScanButton onClick={handleShowDescription} active={isMobile || isActive} />
+                        {item.category === "Nahrung" &&
+                            <SmallUseButton onClick={handleUse} active={isMobile || isActive} />}
+                        {playerItem.name === item.name &&
+                            <SmallDropButton onClick={handleDrop} active={isMobile || isActive} />}
+                        {playerItem.name !== item.name &&
+                            <SmallEquipButton onClick={handleItem} active={isMobile || isActive} />}
+                        <SmallRemoveButton onClick={handleRemove} active={isMobile || isActive} />
+                    </div>}
             </div>
         </div>
     );
