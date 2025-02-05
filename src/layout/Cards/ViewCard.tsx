@@ -6,7 +6,6 @@ import { getItemEffectText } from './ItemCards';
 import { WeaponName } from '../../data/gameItems/weaponData';
 import { ArmorName } from '../../data/gameItems/armorData';
 import Talk from '../../utility/Formatted/Talk';
-import { set } from 'mobx';
 
 type ViewCardProps = {
     item: Item;

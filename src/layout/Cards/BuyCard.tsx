@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Item } from '../../data/gameItems/ItemData';
-import { SmallBuyButton, SmallSwapButton } from '../ActionButtons/ActionButton';
+import { SmallBackButton, SmallBuyButton, SmallScanButton, SmallSwapButton } from '../ActionButtons/ActionButton';
 import { useRootStore } from '../../store';
 import { getItemEffectText } from './ItemCards';
 import { WeaponName } from '../../data/gameItems/weaponData';
@@ -14,6 +14,7 @@ type BuyCardProps = {
 
 const BuyCard: React.FC<BuyCardProps> = ({ item, isEquipped }) => {
     const { playerFlux, playerEconomy, getPlayerObj } = useRootStore();
+    const [showDescription, setShowDescription] = useState(false);
 
     const getPlayerItem = () => {
         if (item.category === "Waffen") { return getPlayerObj().weapon; }
@@ -51,6 +52,11 @@ const BuyCard: React.FC<BuyCardProps> = ({ item, isEquipped }) => {
         else { playerFlux.updateInHand(item.name); }
     };
 
+    const handleShowDescription = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowDescription(prev => !prev);
+    }
+
     return (
         <div>
             <div className='grid-row-buy'>
@@ -59,11 +65,18 @@ const BuyCard: React.FC<BuyCardProps> = ({ item, isEquipped }) => {
                     {isEquipped && <Talk color='grün'>Ausgerüstet</Talk>}
                 </div>
                 <div>{getItemEffectText(item)}</div>
-                <div style={{ textAlign: "left" }}>{item.description}</div>
-                <div className='flex-col-right'>
-                    <SmallBuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} /><br />
-                    <SmallSwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
-                </div>
+
+                {showDescription ?
+                    <div className='flex-row'>
+                        <div style={{ textAlign: "left" }}>{item.description}</div>
+                        <SmallBackButton onClick={handleShowDescription} active={true} />
+                    </div>
+                    :
+                    <div className='flex-row-right'>
+                        <SmallScanButton onClick={handleShowDescription} active={true} />
+                        <SmallBuyButton onClick={handleBuy} disable={!canBuy} result={buyPrice} />
+                        <SmallSwapButton onClick={handleSwap} disable={!canSwap} result={swapCost} />
+                    </div>}
             </div>
         </div>
     );

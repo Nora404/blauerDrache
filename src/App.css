@@ -203,17 +203,19 @@
 .btn-small-left {
   text-align: left;
   font-size: 80%;
+  width: 160px;
 }
 
 .btn-small-right {
   text-align: right;
   font-size: 80%;
+  width: 160px;
 }
 
 .btn-small {
   text-align: center;
   font-size: 80%;
-  width: 80px;
+  width: 100px;
 }
 
 @media (max-width: 800px) {
@@ -224,6 +226,12 @@
   }
 
   .btn-small-right {
+    border: 1px dotted rgba(220, 211, 125, 0.8);
+    margin: 5px;
+    text-align: center;
+  }
+
+  .btn-small {
     border: 1px dotted rgba(220, 211, 125, 0.8);
     margin: 5px;
     text-align: center;

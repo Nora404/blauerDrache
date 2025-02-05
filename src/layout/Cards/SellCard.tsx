@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Item } from '../../data/gameItems/ItemData';
-import { SmallSellButton } from '../ActionButtons/ActionButton';
+import { SmallBackButton, SmallScanButton, SmallSellButton } from '../ActionButtons/ActionButton';
 import { useRootStore } from '../../store';
 import { getItemEffectText } from './ItemCards';
 import Talk from '../../utility/Formatted/Talk';
@@ -13,6 +13,7 @@ type SellCardProps = {
 
 const SellCard: React.FC<SellCardProps> = ({ item, quantity, isEquipped }) => {
     const { playerFlux, playerEconomy } = useRootStore();
+    const [showDescription, setShowDescription] = useState(false);
 
     const sellPrice = item.ek ? Number((item.ek / 1.2).toFixed()) : 0;
 
@@ -33,6 +34,11 @@ const SellCard: React.FC<SellCardProps> = ({ item, quantity, isEquipped }) => {
         }
     };
 
+    const handleShowDescription = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowDescription(prev => !prev);
+    }
+
     return (
         <div>
             <div className='grid-row-sell'>
@@ -41,10 +47,19 @@ const SellCard: React.FC<SellCardProps> = ({ item, quantity, isEquipped }) => {
                     {isEquipped && <Talk color='grün'>Ausgerüstet</Talk>}
                 </div>
                 <div>{getItemEffectText(item)}</div>
-                <div style={{ textAlign: "left" }}>{item.description}</div>
-                <div className='toggleRowCol' style={{ textAlign: "right" }}>
-                    <SmallSellButton onClick={handleSell} result={sellPrice} /><br />
-                </div>
+
+                {showDescription ?
+                    <div className='flex-row'>
+                        <div style={{ textAlign: "left" }}>{item.description}</div>
+                        <SmallBackButton onClick={handleShowDescription} active={true} />
+                    </div>
+                    :
+                    <div className='flex-row-right'>
+                        <SmallScanButton onClick={handleShowDescription} active={true} />
+                        <SmallSellButton onClick={handleSell} result={sellPrice} /><br />
+                    </div>
+                }
+
             </div>
         </div>
     );

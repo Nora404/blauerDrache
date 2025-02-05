@@ -13,7 +13,7 @@
 .grid-row-buy {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 180px 120px 1fr 150px;
+  grid-template-columns: 180px 120px 1fr;
   align-items: center;
   min-height: 60px;
   gap: 10px;
@@ -22,7 +22,7 @@
 .grid-row-sell {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 180px 120px 1fr 150px;
+  grid-template-columns: 180px 120px 1fr;
   align-items: center;
   min-height: 60px;
   gap: 10px;
