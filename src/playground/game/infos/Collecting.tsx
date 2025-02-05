@@ -106,15 +106,7 @@ type CollectItemProps = {
 
 const CollectItem: React.FC<CollectItemProps> = ({ itemName, description }) => {
   return (
-    <button
-      className="btn-border"
-      style={{
-        width: "190px",
-        height: "135px",
-        padding: "10px",
-        margin: "10px",
-      }}
-    >
+    <button className="btn-border collectionCards">
       {itemName ? (
         <>
           {itemName}
