@@ -31,15 +31,15 @@ export type UseItem = { item: ItemName; place: string };
 export type KillEnemy = { enemy: string; need: number; count: number };
 
 export type Task = {
-  label?: string; // Falls benötigt um Orte oder Personen zu beschreiben
-  talkWith?: string; // Begegnung (path)
-  haveItem?: HaveItem[]; // Besorgen
-  useItem?: UseItem; // Benutzten (path)
-  goTo?: string; // Besuchen (path)
-  enemy?: KillEnemy[]; // Besiegen
-  base?: Partial<PlayerBase>; // Erfahrung
-  stats?: Partial<PlayerStats>; // Verbessern
-  switch?: Partial<Record<string, boolean>>; // Geheimnis
+  label?: string;                             // Falls benötigt um Orte oder Personen zu beschreiben
+  talkWith?: string;                          // Begegnung (path)
+  haveItem?: HaveItem[];                      // Besorgen
+  useItem?: UseItem;                          // Benutzten (path)
+  goTo?: string;                              // Erkunden (path)
+  enemy?: KillEnemy[];                        // Besiegen
+  base?: Partial<PlayerBase>;                 // Erfahrung
+  stats?: Partial<PlayerStats>;               // Verbessern
+  switch?: Partial<Record<string, boolean>>;  // Geheimnis
 };
 export type Progress = {
   type: TaskType;
