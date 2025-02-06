@@ -4,14 +4,14 @@ import { ItemName } from "./gameItems/ItemData";
 import { gameQuests } from "./questList";
 
 export type TaskType =
-  | "Begegnung" // talk
-  | "Besorgen" // item
-  | "Benutzten" // use
-  | "Besuchen" // go
-  | "Besiegen" // kill
-  | "Erfahrung" // base
-  | "Verbessern" // stats
-  | "Geheimnis"; //switch
+  | "Begegnung"   // talk
+  | "Besorgen"    // item
+  | "Benutzten"   // use
+  | "Erkunden"    // go
+  | "Besiegen"    // kill
+  | "Erfahrung"   // base
+  | "Verbessern"  // stats
+  | "Geheimnis";  //switch
 
 //region
 export type GameQuest = {
