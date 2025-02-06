@@ -11,7 +11,6 @@ import { Item } from "../../../../data/gameItems/ItemData";
 import ItemCard from "../../../../layout/Cards/ItemCards";
 // #endregion
 
-
 const WeaponSell: React.FC = observer(() => {
   const [localArmor, setLocalArmor] = useState<Item>(emptyArmorObj);
   const { playerEconomy } = useRootStore();
@@ -25,12 +24,13 @@ const WeaponSell: React.FC = observer(() => {
     setLocalArmor(armor);
   };
 
-  const getItemsByCategory = () => Object.values(playerEconomy.data.items)
-    .filter(entry => entry.item.category === "Waffen")
-    .map(entry => ({
-      item: entry.item,
-      quantity: entry.quantity
-    }));
+  const getItemsByCategory = () =>
+    Object.values(playerEconomy.data.items)
+      .filter((entry) => entry.item.category === "Waffen")
+      .map((entry) => ({
+        item: entry.item,
+        quantity: entry.quantity,
+      }));
 
   const haveItem = getItemsByCategory();
 
@@ -40,28 +40,29 @@ const WeaponSell: React.FC = observer(() => {
       <p className="mb-1 text-left">
         Enttäuscht stellst du fest, dass die{" "}
         <MultiColoredLetters colors={yellowColors}>Autorin</MultiColoredLetters>{" "}
-        der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter,
-        aber das hilft dir auch nicht weiter.
+        der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar
+        Wörter, aber das hilft dir auch nicht weiter.
       </p>
       <br />
 
-      {haveItem.length > 0
-        ? haveItem.map(({ item, quantity }) => (
+      {haveItem.length > 0 ? (
+        haveItem.map(({ item: armor, quantity }) => (
           <ItemCard
-            key={item.name}
-            item={item}
+            key={armor.name}
+            item={armor}
             quantity={quantity}
-            onClick={() => handleClick(item)}
+            onClick={() => handleClick(armor)}
             mode="sell"
+            isActive={localArmor.name === armor.name}
           />
         ))
-        : <>Du hast keine Waffen zum Verkaufen.</>
-      }
+      ) : (
+        <>Du hast keine Waffen zum Verkaufen.</>
+      )}
 
       <ActionButton onClick={handleBack} label="Sich abwenden" />
     </div>
   );
 });
-
 
 export default WeaponSell;
