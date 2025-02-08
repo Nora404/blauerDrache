@@ -10,6 +10,11 @@ input[type="text"]:focus {
     outline: none;
 }
 
+textarea:focus {
+    box-shadow: 0 0 10px rgba(98, 176, 212);
+    outline: none;
+}
+
 td {
     text-align: left;
 }
