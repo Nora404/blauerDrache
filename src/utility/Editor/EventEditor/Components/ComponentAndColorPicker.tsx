@@ -58,8 +58,8 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
     onInsert(selectedComponent, colorProp);
 
     // Reset
-    setSelectedComponent("");
-    setSelectedColor("");
+    // setSelectedComponent("");
+    // setSelectedColor("");
   };
 
   // Falls du plus-Buttons für custom-Farben hast:
