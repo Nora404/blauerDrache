@@ -44,7 +44,7 @@ export class TimeStore {
 
     updateGameTime() {
         // neu: Anstatt Systemzeit zu berechnen, zählen wir die Spielsekunden hoch
-        this.data.accumulatedSeconds += 1;
+        this.data.accumulatedSeconds += 24;
 
         // Wie viele Sekunden sind in diesem Spiel-"Tag" (24h = 86400s) bereits vergangen?
         const daySeconds = this.data.accumulatedSeconds % 86400;
