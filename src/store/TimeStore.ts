@@ -85,6 +85,8 @@ export class TimeStore {
 
         // neu: Wochentag anhand countDays bestimmen (z.B. countDays % 7)
         this.data.dayName = WEEKDAY_NAMES[this.data.countDays % WEEKDAY_NAMES.length];
+        this.data.gameTime = "06:00";
+        this.data.gameDay = "Tag";
 
         // Rest wie gehabt
         const feeling = getRandomFeeling();
