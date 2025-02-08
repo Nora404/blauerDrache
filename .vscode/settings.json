@@ -22,15 +22,19 @@
     },
     {
       "folderPath": "blauerDrache\\src\\utility\\",
-      "color": "foldercolorizer.color_99cc33"
+      "color": "foldercolorizer.color_cccc33"
     },
     {
       "folderPath": "blauerDrache\\src\\assets\\",
-      "color": "foldercolorizer.color_cc9900"
+      "color": "foldercolorizer.color_cc0066"
     },
     {
       "folderPath": "blauerDrache\\src\\store\\",
       "color": "foldercolorizer.color_00aa00"
+    },
+    {
+      "folderPath": "blauerDrache\\src\\styles\\",
+      "color": "foldercolorizer.color_99cc33"
     }
   ],
   "workbench.colorCustomizations": {

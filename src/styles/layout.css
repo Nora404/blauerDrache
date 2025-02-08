@@ -1,0 +1,97 @@
+/****************************************** Effekt *******************************************/
+.milchglas {
+    backdrop-filter: blur(5px);
+    background: #1e2331ad;
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.glow {
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(98, 176, 212);
+}
+
+
+/****************************************** Other *******************************************/
+.max-width {
+    max-width: 900px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.hr-space {
+    border: 1px dotted rgba(220, 211, 125, 0.8);
+    border-radius: 5px;
+    height: 0;
+    margin: 10px 0 10px 0;
+}
+
+
+/****************************************** Ränder *******************************************/
+.border-bd {
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.4);
+}
+
+.border-bs {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+
+.padding-left {
+    padding-left: 20px;
+}
+
+.padding-right {
+    padding-right: 20px;
+}
+
+.padding-x {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.mb-1 {
+    margin-bottom: 15px;
+}
+
+.mb-2 {
+    margin-bottom: 30px;
+}
+
+.mb-3 {
+    margin-bottom: 20px;
+}
+
+.m-15 {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+
+/****************************************** Bilder *******************************************/
+.arrow {
+    align-items: center;
+    border: 1px dotted rgba(98, 176, 212);
+    border-radius: 50%;
+    color: rgb(131, 205, 240);
+    display: inline-flex;
+    height: 20px;
+    justify-content: center;
+    margin-right: 8px;
+    padding: 2px;
+    position: relative;
+    top: -2px;
+    vertical-align: middle;
+    width: 20px;
+}
+
+.arrow-icon {
+    /* Größe des SVGs */
+    height: 14px;
+    width: 14px;
+}

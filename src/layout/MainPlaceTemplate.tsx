@@ -1,3 +1,4 @@
+//#region [imports]
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../store";
@@ -6,7 +7,9 @@ import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./GameEventChain";
 import Header from "./Header/Header";
+//#endregion
 
+//#region [prepare]
 type ButtonConfig = {
   label: string;
   onClick: () => void;
@@ -27,6 +30,18 @@ type MainPlaceTemplateProps = {
   backPath?: string;
 };
 
+
+/**
+ * @param title - Überschrift mit <hr> Linie
+ * @param description (?) - Beschreibungstext
+ * @param dayDescription - Beschreibung wenn Tag und Nacht wenn keine Nacht übergeben wird
+ * @param dayButtons - Buttons wenn Tag und Nacht wenn keine Nacht übergeben wird
+ * @param nightDescription (?) - Beschreibung wenn Nacht
+ * @param nightButtons (?) - Buttons wenn Nacht
+ * @param possibleEvents - Array von {eventId, probability, questId?, conditions?}
+ * @param chanceOfAnyEvent - Wahrscheinlichkeit, dass ein Event stattfindet 0.1 = 10%
+ * @param backPath - Pfad, zu dem zurückgegangen wird
+ */
 export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
   ({
     title,
@@ -49,7 +64,9 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
 
     // Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
     const showDayBlock = isDay || !canUseNachtInhalte;
+    //#endregion
 
+    //#region [hook]
     const {
       localRandomEvent,
       firstEvent,
@@ -57,7 +74,9 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
       handleFinishEvent,
       handleFinishQuest,
     } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
+    //#endregion
 
+    //#region [jsx]
     return (
       <div className="max-width">
         <h2>{title}</h2>
@@ -110,3 +129,4 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     );
   }
 );
+//#endregion

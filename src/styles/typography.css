@@ -1,0 +1,91 @@
+b {
+    color: rgb(121, 217, 241);
+}
+
+em {
+    color: rgb(157, 121, 241);
+}
+
+a {
+    color: rgba(98, 176, 212);
+    font-weight: 500;
+    padding: 3px;
+    text-decoration: inherit;
+}
+
+a:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(98, 176, 212);
+    color: rgb(130, 255, 234);
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+
+
+.text-left {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-green {
+    color: rgb(32, 170, 32);
+}
+
+.text-red {
+    color: rgb(209, 47, 47);
+}
+
+.text-blue {
+    color: rgb(152, 180, 240);
+}
+
+.text-blue-light {
+    color: #C7FAFF;
+}
+
+.text-blue-dark {
+    color: rgb(62, 120, 173);
+}
+
+.text-gray {
+    color: gray;
+}
+
+.text-glow {
+    text-shadow: 0 0 2px rgba(98, 176, 212);
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-small {
+    font-size: 0.8rem;
+}
+
+
+.mono-text {
+    display: inline-block;
+    font-family: monospace;
+    line-height: 90%;
+    text-align: center;
+}
+
+
+@media (max-width: 800px) {
+    h2 {
+        margin-top: 0;
+    }
+}

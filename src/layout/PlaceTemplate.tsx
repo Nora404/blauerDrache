@@ -1,4 +1,4 @@
-// PlaceTemplate.tsx
+//#region [imports]
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { WeightedEvent } from "../data/eventData";
@@ -6,19 +6,9 @@ import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./GameEventChain";
 import Header from "./Header/Header";
+//#endregion
 
-/*         Titel
- * '''''''''''''''''''''
- * beschreibung der Seite
- * mit bunten Wörtern
- * 
- * [Button] [Button] [Button]
- * 
- * [Event] [Event] [Event]
- * 
- * [sich abwenden]
- */
-
+//#region [prepare]
 type ButtonConfig = {
   label: string;
   onClick?: () => void;
@@ -54,6 +44,9 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
     noEventHappend = "",
     chanceOfAnyEvent,
   }) => {
+    //#endregion
+
+    //#region [hook]
     const {
       localRandomEvent,
       firstEvent,
@@ -63,15 +56,18 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
       handleFinishQuest,
       handleForceEvent,
     } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
+    //#endregion
 
+    //#region [handler]
     const handleClick = (btn: ButtonConfig) => {
       btn.onClick?.();
       if (btn.startEventId) {
         handleForceEvent(btn.startEventId);
       }
     };
+    //#endregion
 
-
+    //#region [jsx]
     return (
       <div className="max-width">
         <h2>{title}</h2>
@@ -114,10 +110,11 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
     );
   }
 );
+//#endregion
 
 export default PlaceTemplate;
 
-// EINBINDEN
+//#region [example]
 
 // const possibleEvents: WeightedEvent[] = [
 //     { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
@@ -133,3 +130,4 @@ export default PlaceTemplate;
 //     />
 //   );
 // });
+//#endregion
