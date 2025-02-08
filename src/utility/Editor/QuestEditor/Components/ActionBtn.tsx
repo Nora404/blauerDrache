@@ -11,6 +11,8 @@ type ActionBtnProps = {
 const ActionBtn: React.FC<ActionBtnProps> = ({ buttons, setButtons, label }) => {
   // ... deine Logik (addButton, removeButton, etc.), aber eben nur für das mitgebrachte State
   // ... 
+
+  console.log(buttons, setButtons);
   return (
     <div>
       <h3>{label || "Buttons"}</h3>

@@ -5,17 +5,18 @@ import ActionButton from "../../../../layout/ActionButtons/ActionButton";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store";
 import { Armor, emptyArmorObj, ArmorName, armors } from "../../../../data/gameItems/armorData";
+import { Item } from "../../../../data/gameItems/ItemData";
 //#endregion
 
 //#region [prepare]
 type EquipmentShopProps = {};
 
 const EquipmentShop: React.FC<EquipmentShopProps> = observer(() => {
-  const [localArmor, setLocalArmor] = useState<Armor>(emptyArmorObj);
+  const [localArmor, setLocalArmor] = useState<Item>(emptyArmorObj);
   const { playerEconomy, playerFlux, getPlayerObj } = useRootStore();
   const selected = getPlayerObj();
 
-  const exchangePrice = (selected.armor.ek / 1.2).toFixed();
+  const exchangePrice = (selected.armor.ek ?? 0 / 1.2).toFixed();
   //#endregion
 
   //#region [handler]
@@ -25,7 +26,7 @@ const EquipmentShop: React.FC<EquipmentShopProps> = observer(() => {
 
   const handleBuy = () => {
     playerEconomy.updatePlayerEconomy({
-      gold: Number(exchangePrice) - localArmor.ek,
+      gold: Number(exchangePrice) - 0,
     });
     playerEconomy.updateItems(localArmor.name, 1);
     playerFlux.updateArmor(localArmor.name as ArmorName);
@@ -34,7 +35,7 @@ const EquipmentShop: React.FC<EquipmentShopProps> = observer(() => {
 
   //#region [helper]
   const canBuy = () => {
-    const canBuy = playerEconomy.data.gold - localArmor.ek;
+    const canBuy = playerEconomy.data.gold - 0;
     return canBuy >= 0 ? true : false;
   };
 

@@ -4,7 +4,7 @@ import { ItemName, getRandomItem } from "../../gameItems/ItemData";
 const possibleItems: ItemName[] = [
   "Plunder",
   "Kupfererz",
-  "Leere Flasche",
+  "LeereFlasche",
   "Wasserflasche",
   "Lederstück",
 ];

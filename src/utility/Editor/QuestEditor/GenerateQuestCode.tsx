@@ -1,5 +1,5 @@
 // QuestCodeGenerator.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuestCreatorContext } from "../Context/QuestContext";
 
 // Einfache Escape-Funktion

@@ -61,7 +61,7 @@ const YouHave: React.FC = observer(() => {
         </tbody>
       </table>
 
-      {selected.item.effects && (
+      {selected.item.life || selected.item.actionPoints && (
         <button
           className="btn-border"
           style={{ width: "90%" }}
