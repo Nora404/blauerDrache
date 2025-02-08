@@ -65,7 +65,15 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
   // Falls du plus-Buttons für custom-Farben hast:
   const handleAddCustomColor = () => {
     if (!newColor) return;
-    setCustomColors([...customColors, newColor]);
+    if (selectedComponent === "Talk") {
+      setCustomColors([newColor]); // Ersetzen bei Talk
+    } else {
+      setCustomColors([...customColors, newColor]); // Hinzufügen sonst
+    }
+  };
+
+  const handleRemoveCustomColor = (colorToRemove: string) => {
+    setCustomColors(customColors.filter((col) => col !== colorToRemove));
   };
 
   // Render
@@ -170,11 +178,11 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
               marginRight: 5,
               width: 30,
               height: 30,
-              backgroundColor: "white",
+              background: "linear-gradient(45deg, red, yellow, green)",
               cursor: "pointer",
             }}
           >
-            C
+
           </button>
         </div>
       )}
@@ -214,10 +222,10 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
               marginRight: 5,
               width: 30,
               height: 30,
-              backgroundColor: "white",
+              background: "linear-gradient(45deg, red, yellow, green)",
             }}
           >
-            C
+
           </button>
         </div>
       )}
@@ -238,6 +246,7 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
             {customColors.map((col, i) => (
               <div
                 key={i}
+                onClick={() => handleRemoveCustomColor(col)} // Farbe entfernen bei Klick
                 style={{
                   width: 10,
                   height: 20,
@@ -245,6 +254,7 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
                   borderRadius: "5px",
                   backgroundColor: col,
                   border: "1px solid black",
+                  cursor: "pointer",
                 }}
               />
             ))}

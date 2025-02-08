@@ -32,18 +32,33 @@ type TalkProps = {
 };
 
 const Talk: React.FC<TalkProps> = ({ children, color = "#C7FAFF" }) => {
+  const isValidHex = (hex: string): boolean =>
+    /^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/.test(hex);
+
   const resolveColor = (inputColor: ColorProp): string => {
     if (typeof inputColor === "string") {
+      // Neuer Abschnitt: Prüfe auf "custom:"-Prefix
+      if (inputColor.startsWith("custom:")) {
+        const customHex = inputColor.slice("custom:".length); // // custom: entfernen
+        if (isValidHex(customHex)) { // Prüfen, ob der restliche String ein gültiger Hexcode ist
+          return customHex;
+        }
+      }
+      if (isValidHex(inputColor)) { // Falls inputColor ein gültiger Hexcode ist
+        return inputColor;
+      }
       if (inputColor in textColors) {
         return textColors[inputColor];
       }
       if (inputColor in talkingColors) {
         return talkingColors[inputColor];
       }
-      return inputColor;
     }
     return "#C7FAFF";
   };
+
+  console.log("color ", color);
+  console.log("isValHex ", isValidHex(color));
 
   const actualColor = resolveColor(color);
 

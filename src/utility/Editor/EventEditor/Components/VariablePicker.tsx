@@ -66,7 +66,7 @@ const VariablePicker: React.FC<VariablePickerProps> = ({ value, onChange, placeh
                     <option value="PLACES">PLACES</option>
                 </select>
                 <button className="add-button w-100px" onClick={handleInsertVariable}>
-                    Insert Var
+                    Hinzufügen
                 </button>
             </div>
 

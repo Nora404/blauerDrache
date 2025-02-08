@@ -123,7 +123,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({
           <option value="PLACES">PLACES</option>
         </select>
         <button className="add-button w-100px" onClick={handleInsertVariable}>
-          Insert Var
+          Hinzufügen
         </button>
       </div>
 
