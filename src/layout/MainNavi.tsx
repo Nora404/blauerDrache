@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import navigationMap from "../NavigationList";
 import GameNavi from "../playground/game/game/GameNavi";
@@ -34,11 +34,13 @@ const MainNavi: React.FC = observer(() => {
   }, [location.pathname]);
 
   return (
-    <div>
-      <GameNavi />
-      {gameState.data.creating && currentNav}
-      {gameState.data.creating && <InfoNavi />}
-    </div>
+    <Suspense fallback={<div>Lädt…</div>}>
+      <div>
+        <GameNavi />
+        {gameState.data.creating && currentNav}
+        {gameState.data.creating && <InfoNavi />}
+      </div>
+    </Suspense>
   );
 });
 

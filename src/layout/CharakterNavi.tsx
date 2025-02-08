@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Header from "./Header/Header";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../store";
@@ -11,18 +11,20 @@ const CharakterNavi: React.FC = observer(() => {
   if (!gameState) return;
 
   return (
-    <div>
-      {gameState.data.creating && (
-        <>
-          <YouAre />
-          <YouCan />
-          <YouHave />
-        </>
-      )}
-      {!gameState.data.creating && (
-        <Header>Noch kein Charakter erstellt</Header>
-      )}
-    </div>
+    <Suspense fallback={<div>Lädt…</div>}>
+      <div>
+        {gameState.data.creating && (
+          <>
+            <YouAre />
+            <YouCan />
+            <YouHave />
+          </>
+        )}
+        {!gameState.data.creating && (
+          <Header>Noch kein Charakter erstellt</Header>
+        )}
+      </div>
+    </Suspense>
   );
 });
 

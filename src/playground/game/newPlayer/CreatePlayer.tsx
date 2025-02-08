@@ -49,7 +49,14 @@ const CreatePlayer: React.FC = observer(() => {
     const handleGoNext = () => setCurrentStep((prev) => prev + 1);
     const handleGoBack = () => setCurrentStep((prev) => prev - 1);
     const handleLastBtn = () => {
+        startTransition(() => {
+            gameState.setGameState({ creating: true });
+        });
         navigate("/north-gate");
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 1);
     }
 
     const mergeAndSum = <T extends object>(...objs: Partial<T>[]): Partial<T> => {
@@ -97,24 +104,21 @@ const CreatePlayer: React.FC = observer(() => {
         const initialLevel = combinedBase.level;
         const initialNextLevel = requiredExpForLevel(initialLevel ?? 1);
 
-        // Diese Funktion verarbeitet mehrere asynchrone Aufgaben
-        // Ohne dass das UI dabei durcheinander kommt
-        startTransition(() => {
-            playerBase.setPlayerBase({
-                ...combinedBase,
-                nextLevel: initialNextLevel,
-            });
-            playerStats.setPlayerStats(combinedStats);
-            playerEconomy.setPlayerEconomy(combinedEconomy);
-            playerMeta.setPlayerMeta({
-                name: wizardData.name,
-                race: wizardData.race.name as RaceName,
-                origin: wizardData.origin.name as OriginName,
-                calling: wizardData.calling.name as CallingName,
-            });
-            setCurrentStep((prev) => prev + 1);
-            gameState.setGameState({ creating: true });
+
+        playerBase.setPlayerBase({
+            ...combinedBase,
+            nextLevel: initialNextLevel,
         });
+        playerStats.setPlayerStats(combinedStats);
+        playerEconomy.setPlayerEconomy(combinedEconomy);
+        playerMeta.setPlayerMeta({
+            name: wizardData.name,
+            race: wizardData.race.name as RaceName,
+            origin: wizardData.origin.name as OriginName,
+            calling: wizardData.calling.name as CallingName,
+        });
+
+        setCurrentStep((prev) => prev + 1);
     };
     //#endregion
 
@@ -127,7 +131,7 @@ const CreatePlayer: React.FC = observer(() => {
             {currentStep === 1 && (<ChooseOriginText />)}
             {currentStep === 2 && (<ChooseCallingText />)}
             {currentStep === 3 && (<ChooseNameText />)}
-            {currentStep > 3 && (<FinalText />)}
+            {currentStep === 4 && (<FinalText />)}
 
             {currentStep === 0 && (
                 <div className='flex-row max-width padding-x'>
@@ -180,7 +184,7 @@ const CreatePlayer: React.FC = observer(() => {
                     onFinalize={handleFinalize}
                 />
             )}
-            {currentStep > 3 && (
+            {currentStep === 4 && (
                 <>
                     <button className="btn-border" onClick={handleLastBtn}>Reise beginnen</button>
                 </>

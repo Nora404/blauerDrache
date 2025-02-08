@@ -57,9 +57,6 @@ const Talk: React.FC<TalkProps> = ({ children, color = "#C7FAFF" }) => {
     return "#C7FAFF";
   };
 
-  console.log("color ", color);
-  console.log("isValHex ", isValidHex(color));
-
   const actualColor = resolveColor(color);
 
   return (
