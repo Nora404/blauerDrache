@@ -117,8 +117,8 @@ export type Delta = {
 // Beispiel-Objekte, wie du sie hattest
 export const defaultGameStore: GameStore = {
   gameTime: {
-    gameTime: "12:00",
-    gameDay: "Tag",
+    gameTime: "00:00",
+    gameDay: "Nacht",
     accumulatedSeconds: 0,
     countDays: 0,
     dayName: "Motag",

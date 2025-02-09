@@ -8,7 +8,7 @@ export const event018Donate: GameEvent = {
   buttons: [
     {
       label: "Lege ein Goldstück in die Schale",
-      result: "(-1 {SYSTEM.Gold})",
+      result: "-1 {SYSTEM.Gold}",
       conditions: {
         operator: ">",
         playerEconomy: {
@@ -23,7 +23,7 @@ export const event018Donate: GameEvent = {
     },
     {
       label: "Lege ein paar Goldstücke in die Schale",
-      result: "(-10 {SYSTEM.Gold})",
+      result: "-10 {SYSTEM.Gold}",
       conditions: {
         operator: ">",
         playerEconomy: {
@@ -38,7 +38,7 @@ export const event018Donate: GameEvent = {
     },
     {
       label: "Lege eine Handvoll Goldstücke in die Schale",
-      result: "(-50 {SYSTEM.Gold})",
+      result: "-50 {SYSTEM.Gold}",
       conditions: {
         operator: ">",
         playerEconomy: {
@@ -63,12 +63,12 @@ function descriptionText() {
 
 const message0 = `Zögernd öffnest du deinen Beutel, greifst nach einem Goldstück und blickst dich noch einmal um. Langsam näherst du dich der Schale und legst deine Spende behutsam hinein. Du achtest darauf, keine Geräusche zu verursachen. Als du dich zufrieden abwendest, erfüllt dich ein warmes Gefühl. Deine Erfahrungen sind gewachsen.
 
-Du {Talk|grün}erhältst etwas{/Talk} {SYSTEM.Erfahrung} und bist um ein {SYSTEM.Gold} {Talk|rot}leichter{/Talk}`;
+Du {Talk|grün}erhältst etwas{/Talk} {SYSTEM.Erfahrung} und bist um ein {SYSTEM.Gold} {Talk|rot}leichter{/Talk}.`;
 
-const message1 = `Du öffnest deinen Beutel und lässt deine Finger durch die Münzen gleiten. Dabei drehst du dich um deine eigene Achse, um die Blicke, die auf dir ruhen, zu erwidern. Doch nicht einmal die {NPC.dunkleGestalt} in der Ecke ist zu erkennen - sie scheint sich in einer der schlecht ausgeleuchteten Nischen der {PLACES.Kirche} zu verbergen. In Gedanken versunken, hast du ein paar Goldstücke herausgezogen. Nachdem du sie in die Schale gelegt hast, durchflutet dich eine {MultiColoredLetters|yellowColors}angenehme Wärme{/MultiColoredLetters}
+const message1 = `Du öffnest deinen Beutel und lässt deine Finger durch die Münzen gleiten. Dabei drehst du dich um deine eigene Achse, um die Blicke, die auf dir ruhen, zu erwidern. Doch nicht einmal die {NPC.dunkleGestalt} in der Ecke ist zu erkennen - sie scheint sich in einer der schlecht ausgeleuchteten Nischen der {PLACES.Kirche} zu verbergen. In Gedanken versunken hast du ein paar Goldstücke herausgezogen. Nachdem du sie in die Schale gelegt hast, durchflutet dich eine {MultiColoredLetters|yellowColors}angenehme Wärme{/MultiColoredLetters}.
 
-Dein {SYSTEM.Leumund} und deine {SYSTEM.Erfahrung} sind {Talk|grün}gestiegen{/Talk}. Du bist um ein paar {SYSTEM.Gold} {Talk|rot}leichter{/Talk}`;
+Dein {SYSTEM.Leumund} und deine {SYSTEM.Erfahrung} sind {Talk|grün}gestiegen{/Talk}. Du bist um ein paar {SYSTEM.Gold} {Talk|rot}leichter{/Talk}.`;
 
 const message2 = `Mit festem Schritt näherst du dich der Schale. Mit einer schnellen Handbewegung öffnest du deinen Beutel und greifst beherzt hinein. Niemand soll dich für geizig halten - diese Blicke sollen sehen, wie großzügig du bist, während die Münzen klirrend in die Schale fallen. Mit einem lauten Aufprall hüpfen die Goldstücke kurz auf, bevor sie zur Ruhe kommen. Zufrieden wendest du dich ab. Plötzlich erscheint dir die {PLACES.Kirche} {MultiColoredLetters|yellowColors}hell und warm{/MultiColoredLetters}. Du spürst die Veränderung - eine Art Versprechen, dass dich ein schöner Tag erwartet.
 
-Dein {SYSTEM.Leumund} ist {Talk|grün}gestiegen{/Talk} und du hast den Buff {Talk|gelb}Gütig{/Talk} für heute {Talk|grün}erhalten{/Talk}. Du bist aber auch um eine Handvoll {SYSTEM.Gold} {Talk|rot}leichter{/Talk}`;
+Dein {SYSTEM.Leumund} ist {Talk|grün}gestiegen{/Talk} und du hast den Buff {Talk|gelb}Gütig{/Talk} für heute {Talk|grün}erhalten{/Talk}. Du bist aber auch um eine Handvoll {SYSTEM.Gold} {Talk|rot}leichter{/Talk}.`;

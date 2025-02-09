@@ -52,7 +52,7 @@ const CreatePlayer: React.FC = observer(() => {
         startTransition(() => {
             gameState.setGameState({ creating: true });
         });
-        navigate("/north-gate");
+        navigate("/");
 
         setTimeout(() => {
             window.location.reload();

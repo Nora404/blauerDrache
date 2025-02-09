@@ -1,0 +1,3 @@
+Events im Editor sollen auch eine bedingung haben
+Code soll per click an e-mail verschickt werden
+Ob es auch ohne routing geht, das mit der url funktioniert nicht so gut
