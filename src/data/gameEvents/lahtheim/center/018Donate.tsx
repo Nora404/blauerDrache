@@ -72,3 +72,4 @@ Dein {SYSTEM.Leumund} und deine {SYSTEM.Erfahrung} sind {Talk|grün}gestiegen{/T
 const message2 = `Mit festem Schritt näherst du dich der Schale. Mit einer schnellen Handbewegung öffnest du deinen Beutel und greifst beherzt hinein. Niemand soll dich für geizig halten - diese Blicke sollen sehen, wie großzügig du bist, während die Münzen klirrend in die Schale fallen. Mit einem lauten Aufprall hüpfen die Goldstücke kurz auf, bevor sie zur Ruhe kommen. Zufrieden wendest du dich ab. Plötzlich erscheint dir die {PLACES.Kirche} {MultiColoredLetters|yellowColors}hell und warm{/MultiColoredLetters}. Du spürst die Veränderung - eine Art Versprechen, dass dich ein schöner Tag erwartet.
 
 Dein {SYSTEM.Leumund} ist {Talk|grün}gestiegen{/Talk} und du hast den Buff {Talk|gelb}Gütig{/Talk} für heute {Talk|grün}erhalten{/Talk}. Du bist aber auch um eine Handvoll {SYSTEM.Gold} {Talk|rot}leichter{/Talk}.`;
+

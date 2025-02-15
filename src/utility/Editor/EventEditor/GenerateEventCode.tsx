@@ -163,6 +163,16 @@ export const event${eventId || "NewEvent"}: GameEvent = {
     setGeneratedCode(code);
   };
 
+
+  const handleEmailClick = () => {
+    const recipient = "ina.verena.zuta@gmail.com";
+    const subject = "Neues Event"; // <-- Hier kannst du den Betreff setzen
+    const body = generatedCode; // <-- Dein Textinhalt
+    // URL-encoding ist wichtig, um Sonderzeichen korrekt zu übertragen
+    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  };
+
   // Copy-Funktion
   const copyToClipboard = () => {
     if (generatedCode) {
@@ -189,6 +199,7 @@ export const event${eventId || "NewEvent"}: GameEvent = {
           <button onClick={copyToClipboard} className="copy-button">
             In die Zwischenablage kopieren
           </button>
+          <button onClick={handleEmailClick}>E-Mail senden</button>
         </div>
       )}
     </div>
