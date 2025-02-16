@@ -1,0 +1,42 @@
+Zeichnung des Dungeons
+
+- Jeder Raum besteht aus 3x3 Zeichen
+- Er kann bis zu vier Türen haben
+- Er ist unerforscht, besucht oder besondert (Treppen)
+
+┌ ─ ┐
+│   │ Normaler geschlossener Raum
+└ ─ ┘ 
+┌ + ┐
+│   + Raum mit geschlossenen Türen
+└ ─ ┘ 
+┌   ┐
+│     Raum mit geöffneten Türen
+└ ─ ┘ 
+┌ ─ ┐
+│ ? │ Unbekannter Raum
+└ ─ ┘ 
+┌ ─ ┐
+│ ▲ │ Treppe nach oben
+└ ─ ┘ 
+┌ ─ ┐
+│ ▼ │ Treppe nach unten
+└ ─ ┘ 
+┌ ─ ┐
+│ @ │ Aktuelle Position
+└ ─ ┘
+┌ ─ ┐
+│ X │ Nicht passierbar
+└ ─ ┘ 
+┌ ─ ┐
+│ ♥ │ Buff
+└ ─ ┘
+┌ ─ ┐
+│ □ │ Item
+└ ─ ┘ 
+┌ ─ ┐
+│ ! │ Event
+└ ─ ┘ 
+┌ ─ ┐
+│ Ω │ Kampf
+└ ─ ┘ 
