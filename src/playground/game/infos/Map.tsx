@@ -40,9 +40,9 @@ const Map: React.FC = () => {
 
             <img
                 src={karte3}
-                style={{ width: '100%', maxWidth: '800px' }}
+                style={{ width: '100%', maxWidth: '600px' }}
                 alt="Karte"
-            />
+            /><br /><br />
 
             <Header>Lahtheim und Umland</Header>
             <div>
@@ -58,7 +58,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img02} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Weg</b>
+                        <b>Umland</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -80,7 +80,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img04} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>See</b>
+                        <b>Drachensee</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -153,7 +153,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img12} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Sylvanienwald</b>
+                        <b>Fayloria</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -169,7 +169,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img14} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Fenrilwald</b>
+                        <b>Tekron</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -208,7 +208,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img18} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Echsenland</b>
+                        <b>Lager</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -247,7 +247,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img22} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Felkinland</b>
+                        <b>Perlen</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -256,7 +256,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img23} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Zwerkenland</b>
+                        <b>Konyur</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
@@ -269,7 +269,7 @@ const Map: React.FC = () => {
                 <div className='flex-row mb-2'>
                     <img src={img24} alt="Lahtheim" style={{ width: "150px" }} />
                     <div className='text-left flex-top padding-x'>
-                        <b>Finsterland</b>
+                        <b>Unbekannt</b>
                         <p>
                             Die Hauptstadt Lahtheim ist ein Ort des Handels und der Kultur. Hier leben die meisten Menschen und es gibt viele Geschäfte und Tavernen.
                         </p>
