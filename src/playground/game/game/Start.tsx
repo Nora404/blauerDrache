@@ -19,6 +19,7 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../store";
 import Talk from "../../../utility/Formatted/Talk";
 import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
+import Combat from "../../../layout/Combat";
 //#endregion
 
 //#region [prepare]
@@ -66,8 +67,8 @@ const Start: React.FC<StartProps> = observer(() => {
           <p className="mb-1">
             Du stehst vor den Toren von Lahtheim Es ist mitlerweile{" "}
             {gameTime.data.gameDay}, du spürst die {gameState.data.temperature}e
-            Luft auf deinem Gesicht. Bevor du auch nur einen Schritt gehen kannst,
-            kommt ein kleines{" "}
+            Luft auf deinem Gesicht. Bevor du auch nur einen Schritt gehen
+            kannst, kommt ein kleines{" "}
             <GradientText colors={["#CF388F", "#8839CF"]}>
               geflügeltes Wesen
             </GradientText>{" "}
@@ -149,8 +150,13 @@ const Start: React.FC<StartProps> = observer(() => {
         <br />
         <br />
 
-        <SparklingText numStars={6} color="#ff00ff">Stars</SparklingText>
+        <SparklingText numStars={6} color="#ff00ff">
+          Stars
+        </SparklingText>
+        <br />
+        <br />
 
+        <Combat enemyName="Ratte" difficulty="normal" level={5} />
       </div>
     </Suspense>
   );
