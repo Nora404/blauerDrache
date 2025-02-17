@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { EnemyName, Difficulty, Enemy, setEnemyLevel } from "../data/enemyData";
 import { useRootStore } from "../store";
+import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
 //#endregion
 
 //#region prepare
@@ -14,7 +15,6 @@ type CombatProps = {
 const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   const { playerMeta, playerBase, playerFlux, getCombinedStats } = useRootStore();
 
-
   const [playerLife, setPlayerLife] = useState<number>(100);
   const [enemy, setEnemy] = useState<Enemy | null>(null);
   const [rounds, setRounds] = useState<string[][]>([]);
@@ -23,9 +23,11 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   const [selectedRound, setSelectedRound] = useState<number>(1);
   const [combatEnded, setCombatEnded] = useState<boolean>(false);
   const [playerTurn, setPlayerTurn] = useState<boolean>(true);
-  //#endregion
+  // Neuer State: Steuert, ob die Angriff-Animation angezeigt wird
+  const [showAttackAnimation, setShowAttackAnimation] = useState<boolean>(false);
+//#endregion
 
-  //#region useEffect
+//#region useEffect
   useEffect(() => {
     const initEnemy = setEnemyLevel(enemyName, level, difficulty);
     setEnemy(initEnemy);
@@ -37,55 +39,58 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     setCombatEnded(false);
     setPlayerLife(100);
     setPlayerTurn(true);
+    setShowAttackAnimation(false);
   }, [enemyName, difficulty, level]);
-  //#endregion
+//#endregion
 
-  //#region functions
+//#region functions
   const finishRound = () => {
-    setRounds((prev) => [...prev, currentRoundLogs]);
+    const finishedLogs = [...currentRoundLogs];
+    setRounds((prev) => [...prev, finishedLogs]);
+    setSelectedRound(currentRoundNumber);
+    setCurrentRoundLogs([]);
     setCurrentRoundNumber((prevRound) => {
       if (prevRound >= 10) {
         setCombatEnded(true);
         return prevRound;
-      } else {
-        const newRound = prevRound + 1;
-        setSelectedRound(newRound);
-        setCurrentRoundLogs([]); // Log für die neue Runde leeren
-        setPlayerTurn(true);
-        return newRound;
       }
+      return prevRound + 1;
     });
+    setPlayerTurn(true);
   };
 
+  // Wird beim Klick auf "Angreifen" aufgerufen – statt den Schaden direkt zu berechnen, 
+  // aktivieren wir zunächst die Animation.
   const playerAttack = () => {
     if (!enemy || combatEnded) return;
     setPlayerTurn(false);
+    setShowAttackAnimation(true);
+  };
 
+  // Diese Funktion wird aufgerufen, sobald die Animation fertig ist.
+  const completePlayerAttack = () => {
+    setShowAttackAnimation(false);
     const damage = Math.floor(Math.random() * 4) + 1;
     setCurrentRoundLogs((prev) => [
       ...prev,
       `Du greifst an und verursachst ${damage} Schaden.`,
     ]);
-    const updatedEnemy = { ...enemy, life: enemy.life - damage };
+    const updatedEnemy = { ...enemy!, life: enemy!.life - damage };
     setEnemy(updatedEnemy);
-
-    // Log: verbleibende Lebenspunkte des Gegners
     setCurrentRoundLogs((prev) => [
       ...prev,
-      `${enemy.name} hat noch ${updatedEnemy.life > 0 ? updatedEnemy.life : 0
-      } LP.`,
+      `${enemy!.name} hat noch ${updatedEnemy.life > 0 ? updatedEnemy.life : 0} LP.`,
     ]);
-
     if (updatedEnemy.life <= 0) {
       setCurrentRoundLogs((prev) => [
         ...prev,
-        `${enemy.name} wurde besiegt! Du erhältst ${enemy.exp} EP und ${enemy.gold} Gold.`,
+        `${enemy!.name} wurde besiegt! Du erhältst ${enemy!.exp} EP und ${enemy!.gold} Gold.`,
       ]);
       setCombatEnded(true);
       finishRound();
       return;
     }
-    // Nach 1 Sekunde greift der Gegner an
+    // Gegner greift nach 1 Sekunde an
     setTimeout(enemyAttack, 1000);
   };
 
@@ -94,17 +99,14 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     const damage = Math.floor(Math.random() * 3) + 1;
     setCurrentRoundLogs((prev) => [
       ...prev,
-      `${enemy.name} greift an und verursacht ${damage} Schaden.`,
+      `${enemy!.name} greift an und verursacht ${damage} Schaden.`,
     ]);
     const newPlayerLife = playerLife - damage;
     setPlayerLife(newPlayerLife);
-
-    // Log: verbleibende Lebenspunkte des Spielers
     setCurrentRoundLogs((prev) => [
       ...prev,
       `Du hast noch ${newPlayerLife > 0 ? newPlayerLife : 0} LP.`,
     ]);
-
     if (newPlayerLife <= 0) {
       setCurrentRoundLogs((prev) => [...prev, `Du bist besiegt!`]);
       setCombatEnded(true);
@@ -165,15 +167,18 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     }
     return buttons;
   };
-  //#endregion
+//#endregion
 
-  //#region jsx
+//#region jsx
   return (
     <div className="w-full" style={{ width: "100%" }}>
-
       <div style={{ display: "flex", alignItems: "center" }}>
         <div style={{ flex: "1 1 0", textAlign: "left" }}>
-          <p>{playerMeta.data.name} (Level {playerBase.data.level})<br /><span style={{ fontSize: "150%" }}>LP: {playerLife}</span></p>
+          <p>
+            {playerMeta.data.name} (Level {playerBase.data.level})
+            <br />
+            <span style={{ fontSize: "150%" }}>LP: {playerLife}</span>
+          </p>
         </div>
         <div style={{ flex: "0 1 auto", textAlign: "center", padding: "0 10px" }}>
           <strong>VS</strong>
@@ -181,24 +186,37 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
         <div style={{ flex: "1 1 0", textAlign: "right" }}>
           {enemy && (
             <p>
-              {enemy.name} (Level {enemy.level})<br /><span style={{ fontSize: "150%" }}>LP: {enemy.life}</span>
+              {enemy.name} (Level {enemy.level})
+              <br />
+              <span style={{ fontSize: "150%" }}>LP: {enemy.life}</span>
             </p>
           )}
         </div>
       </div>
 
-
       <hr className="w-full" />
 
       {/* Gegnerbeschreibung */}
       <div className="enemy-description">
-        {enemy && <p>{enemy.description}{enemy.description}{enemy.description}{enemy.description}</p>}
+        {enemy && (
+          <p>
+            {enemy.description}
+            {enemy.description}
+            {enemy.description}
+            {enemy.description}
+          </p>
+        )}
       </div>
 
       {/* Rundennavigation */}
       <div className="round-buttons flex-row" style={{ marginBottom: "1rem" }}>
         {renderRoundButtons()}
       </div>
+
+      {/* Hier wird die Animation angezeigt, falls aktiv */}
+      {showAttackAnimation && (
+        <AttackAnimation duration={1000} onComplete={completePlayerAttack} />
+      )}
 
       {/* Anzeige des Logs der ausgewählten Runde */}
       <div className="felx-top">
@@ -213,7 +231,11 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
         {!combatEnded && (
           <div className="battle-actions">
             <div className="battle-actions-col">
-              <button onClick={playerAttack} className="btn-border battle-actions-btn">
+              <button
+                onClick={playerAttack}
+                className="btn-border battle-actions-btn"
+                disabled={!playerTurn || showAttackAnimation}
+              >
                 Mit {playerFlux.data.weapon} Angreifen
               </button>
               <button className="btn-border battle-actions-btn">
@@ -235,7 +257,6 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
               </button>
             </div>
           </div>
-
         )}
         {combatEnded && <p>Kampf beendet.</p>}
       </div>
