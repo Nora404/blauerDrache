@@ -3,6 +3,8 @@ import { PlayerBase, PlayerStats } from "../store/types";
 import { ItemName } from "./gameItems/ItemData";
 import { gameQuests } from "./questList";
 
+// test, diese Zeile kann wieder weg
+
 export type TaskType =
   | "Begegnung"   // talk
   | "Besorgen"    // item
