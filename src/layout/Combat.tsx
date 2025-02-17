@@ -12,8 +12,8 @@ type CombatProps = {
 };
 
 const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
-  const { playerMeta, playerBase, playerFlux, getCombinedStats} = useRootStore();
-  
+  const { playerMeta, playerBase, playerFlux, getCombinedStats } = useRootStore();
+
 
   const [playerLife, setPlayerLife] = useState<number>(100);
   const [enemy, setEnemy] = useState<Enemy | null>(null);
@@ -25,7 +25,7 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   const [playerTurn, setPlayerTurn] = useState<boolean>(true);
   //#endregion
 
-//#region useEffect
+  //#region useEffect
   useEffect(() => {
     const initEnemy = setEnemyLevel(enemyName, level, difficulty);
     setEnemy(initEnemy);
@@ -38,9 +38,9 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     setPlayerLife(100);
     setPlayerTurn(true);
   }, [enemyName, difficulty, level]);
-//#endregion
+  //#endregion
 
-//#region functions
+  //#region functions
   const finishRound = () => {
     setRounds((prev) => [...prev, currentRoundLogs]);
     setCurrentRoundNumber((prevRound) => {
@@ -72,8 +72,7 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     // Log: verbleibende Lebenspunkte des Gegners
     setCurrentRoundLogs((prev) => [
       ...prev,
-      `${enemy.name} hat noch ${
-        updatedEnemy.life > 0 ? updatedEnemy.life : 0
+      `${enemy.name} hat noch ${updatedEnemy.life > 0 ? updatedEnemy.life : 0
       } LP.`,
     ]);
 
@@ -166,30 +165,30 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     }
     return buttons;
   };
-//#endregion
+  //#endregion
 
-//#region jsx
+  //#region jsx
   return (
-    <div className="w-full" style={{width: "100%"}}>
+    <div className="w-full" style={{ width: "100%" }}>
 
-<div style={{ display: "flex", alignItems: "center" }}>
-  <div style={{ flex: "1 1 0", textAlign: "left" }}>
-    <p>{playerMeta.data.name} (Level {playerBase.data.level})<br/><span style={{fontSize: "150%"}}>LP: {playerLife}</span></p>
-  </div>
-  <div style={{ flex: "0 1 auto", textAlign: "center", padding: "0 10px" }}>
-    <strong>VS</strong>
-  </div>
-  <div style={{ flex: "1 1 0", textAlign: "right" }}>
-    {enemy && (
-      <p>
-        {enemy.name} (Level {enemy.level})<br/><span style={{fontSize: "150%"}}>LP: {enemy.life}</span>
-      </p>
-    )}
-  </div>
-</div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ flex: "1 1 0", textAlign: "left" }}>
+          <p>{playerMeta.data.name} (Level {playerBase.data.level})<br /><span style={{ fontSize: "150%" }}>LP: {playerLife}</span></p>
+        </div>
+        <div style={{ flex: "0 1 auto", textAlign: "center", padding: "0 10px" }}>
+          <strong>VS</strong>
+        </div>
+        <div style={{ flex: "1 1 0", textAlign: "right" }}>
+          {enemy && (
+            <p>
+              {enemy.name} (Level {enemy.level})<br /><span style={{ fontSize: "150%" }}>LP: {enemy.life}</span>
+            </p>
+          )}
+        </div>
+      </div>
 
 
-      <hr className="w-full"/>
+      <hr className="w-full" />
 
       {/* Gegnerbeschreibung */}
       <div className="enemy-description">
@@ -213,29 +212,29 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
       <div className="combat-actions">
         {!combatEnded && (
           <div className="battle-actions">
-  <div className="battle-actions-col">
-    <button onClick={playerAttack} className="btn-border battle-actions-btn">
-      Mit {playerFlux.data.weapon} Angreifen
-    </button>
-    <button className="btn-border battle-actions-btn">
-      Mit {playerFlux.data.armor} Verteidigen
-    </button>
-    <button className="btn-border battle-actions-btn">
-      Fähigkeit einsetzen
-    </button>
-  </div>
-  <div className="battle-actions-col">
-    <button className="btn-border battle-actions-btn">
-      Aus dem Beutel nutzen
-    </button>
-    <button className="btn-border battle-actions-btn">
-      {playerFlux.data.item} nutzen
-    </button>
-    <button onClick={flee} className="btn-border battle-actions-btn">
-      Fliehen
-    </button>
-  </div>
-</div>
+            <div className="battle-actions-col">
+              <button onClick={playerAttack} className="btn-border battle-actions-btn">
+                Mit {playerFlux.data.weapon} Angreifen
+              </button>
+              <button className="btn-border battle-actions-btn">
+                Mit {playerFlux.data.armor} Verteidigen
+              </button>
+              <button className="btn-border battle-actions-btn">
+                Fähigkeit einsetzen
+              </button>
+            </div>
+            <div className="battle-actions-col">
+              <button className="btn-border battle-actions-btn">
+                Aus dem Beutel nutzen
+              </button>
+              <button className="btn-border battle-actions-btn">
+                {playerFlux.data.item} nutzen
+              </button>
+              <button onClick={flee} className="btn-border battle-actions-btn">
+                Fliehen
+              </button>
+            </div>
+          </div>
 
         )}
         {combatEnded && <p>Kampf beendet.</p>}
