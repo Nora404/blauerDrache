@@ -103,11 +103,11 @@ export function setEnemyLevel(
   return {
     ...baseEnemy,
     level: level,
-    life: baseEnemy.life + level * LIFE_SCALE * multiplier,
-    attack: baseEnemy.attack + level * ATTACK_SCALE * multiplier,
-    defense: baseEnemy.defense + level * DEFENSE_SCALE * multiplier,
-    luck: baseEnemy.luck + level * LUCK_SCALE * multiplier,
-    exp: baseEnemy.exp + level * EXP_SCALE * multiplier,
-    gold: baseEnemy.gold + level * GOLD_SCALE * multiplier,
+    life: Math.round(baseEnemy.life + level * LIFE_SCALE * multiplier),
+    attack: Math.round(baseEnemy.attack + level * ATTACK_SCALE * multiplier),
+    defense: Math.round(baseEnemy.defense + level * DEFENSE_SCALE * multiplier),
+    luck: Math.round(baseEnemy.luck + level * LUCK_SCALE * multiplier),
+    exp: Math.round(baseEnemy.exp + level * EXP_SCALE * multiplier),
+    gold: Math.round(baseEnemy.gold + level * GOLD_SCALE * multiplier),
   };
 }
