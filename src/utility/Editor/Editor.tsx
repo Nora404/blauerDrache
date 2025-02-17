@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import EventCreationForm from "./EventEditor/GenerateEvents";
 import { EditorContextProvider } from "./Context/EventContext";
 import ActionButton from "../../layout/ActionButtons/ActionButton";
-import GenerateQuest from "./QuestEditor/GenerateQuest";
 import Admincenter from "./Admincenter";
-
+import Combat from "../../layout/Combat";
 
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(3);
@@ -34,12 +33,14 @@ const Editor: React.FC = () => {
             onClick={() => {
               handleClick(2);
             }}
-            label="Quest Editor"
+            label="Kampf Testen"
           />
         </div>
 
         {side === 1 && <EventCreationForm />}
-        {side === 2 && <GenerateQuest />}
+        {side === 2 && (
+          <Combat enemyName="Ratte" difficulty="normal" level={5} />
+        )}
         {side === 3 && <Admincenter />}
       </div>
     </EditorContextProvider>

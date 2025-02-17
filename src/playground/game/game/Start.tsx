@@ -155,8 +155,6 @@ const Start: React.FC<StartProps> = observer(() => {
         </SparklingText>
         <br />
         <br />
-
-        <Combat enemyName="Ratte" difficulty="normal" level={5} />
       </div>
     </Suspense>
   );

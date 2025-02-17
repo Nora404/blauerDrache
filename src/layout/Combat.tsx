@@ -82,7 +82,7 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   return (
     <div className="combat-component">
       {/* Kopfzeile: Spieler & Gegner */}
-      <div className="combat-header">
+      <div className="combat-header flex-row">
         <div className="player-info">
           <p>Deine Lebenspunkte: {playerLife}</p>
         </div>
@@ -91,12 +91,9 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
         </div>
         <div className="enemy-info">
           {enemy && (
-            <>
-              <p>
-                {enemy.name} (Level {enemy.level})
-              </p>
-              <p>Lebenspunkte: {enemy.life}</p>
-            </>
+            <p>
+              {enemy.name} (Level {enemy.level}) Lebenspunkte: {enemy.life}
+            </p>
           )}
         </div>
       </div>
@@ -118,8 +115,12 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
       <div className="combat-actions">
         {playerTurn && !combatEnded && (
           <>
-            <button onClick={playerAttack}>Angreifen</button>
-            <button onClick={flee}>Fliehen</button>
+            <button onClick={playerAttack} className="btn-border">
+              Angreifen
+            </button>
+            <button onClick={flee} className="btn-border">
+              Fliehen
+            </button>
             {/* Optional: Button für Item-Nutzung */}
           </>
         )}
