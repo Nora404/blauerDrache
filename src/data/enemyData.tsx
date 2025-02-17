@@ -77,3 +77,24 @@ export const enemyMap: Record<string, Enemy> = enemies.reduce((map, enemy) => {
   map[enemy.name] = enemy;
   return map;
 }, {} as Record<string, Enemy>);
+
+const LIFE_SCALE = 8.8; // Kommentar: Skalierungsfaktor für Leben
+const ATTACK_SCALE = 4.4; // Kommentar: Skalierungsfaktor für Angriff
+const DEFENSE_SCALE = 4.4; // Kommentar: Skalierungsfaktor für Verteidigung
+const LUCK_SCALE = 3.3; // Kommentar: Skalierungsfaktor für Glück
+const EXP_SCALE = 5.5; // Kommentar: Skalierungsfaktor für Erfahrung
+const GOLD_SCALE = 5.5; // Kommentar: Skalierungsfaktor für Gold
+
+export function setEnemyLevel(enemy: EnemyName, level: number = 1) {
+  const baseEnemy = enemyMap[enemy];
+  return {
+    ...baseEnemy,
+    level: level,
+    life: baseEnemy.life + level * LIFE_SCALE,
+    attack: baseEnemy.attack + level * ATTACK_SCALE,
+    defense: baseEnemy.defense + level * DEFENSE_SCALE,
+    luck: baseEnemy.luck + level * LUCK_SCALE,
+    exp: baseEnemy.exp + level * EXP_SCALE,
+    gold: baseEnemy.gold + level * GOLD_SCALE,
+  };
+}
