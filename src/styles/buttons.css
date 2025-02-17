@@ -72,6 +72,26 @@ button:active {
     width: 100px;
 }
 
+.battle-actions {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px; /* Abstand zwischen den beiden Spalten */
+}
+
+.battle-actions-col {
+    display: flex;
+    flex-direction: column;
+    width: 50%; /* Jede Spalte nimmt die Hälfte der Breite ein */
+    gap: 5px; /* Abstand zwischen den Buttons */
+}
+
+.battle-actions-btn {
+    width: 100%; /* Alle Buttons füllen ihre Spalte komplett aus */
+    text-align: center;
+}
+
+
 @media (max-width: 800px) {
     .btn-small-left {
         border: 1px dotted rgba(220, 211, 125, 0.8);

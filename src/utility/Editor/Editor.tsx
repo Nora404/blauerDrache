@@ -14,9 +14,9 @@ const Editor: React.FC = () => {
 
   return (
     <EditorContextProvider>
-      <div className="max-widht">
+      <div className="max-widht" style={{width: "100%"}}>
         <h2>Editor</h2>
-        <div className="flex-row">
+        <div className="flex-row w-full">
           <ActionButton
             onClick={() => {
               handleClick(3);
