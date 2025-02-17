@@ -85,16 +85,29 @@ const LUCK_SCALE = 3.3; // Kommentar: Skalierungsfaktor für Glück
 const EXP_SCALE = 5.5; // Kommentar: Skalierungsfaktor für Erfahrung
 const GOLD_SCALE = 5.5; // Kommentar: Skalierungsfaktor für Gold
 
-export function setEnemyLevel(enemy: EnemyName, level: number = 1) {
-  const baseEnemy = enemyMap[enemy];
+export type Difficulty = "weak" | "normal" | "strong" | "elite" | "boss";
+
+export function setEnemyLevel(
+  enemyName: EnemyName,
+  level: number = 1,
+  difficulty: Difficulty = "normal"
+): Enemy {
+  const baseEnemy = enemyMap[enemyName];
+
+  let multiplier = 1;
+  if (difficulty === "weak") multiplier = 0.8;
+  else if (difficulty === "strong") multiplier = 1.2;
+  else if (difficulty === "elite") multiplier = 1.5;
+  else if (difficulty === "boss") multiplier = 1.8;
+
   return {
     ...baseEnemy,
     level: level,
-    life: baseEnemy.life + level * LIFE_SCALE,
-    attack: baseEnemy.attack + level * ATTACK_SCALE,
-    defense: baseEnemy.defense + level * DEFENSE_SCALE,
-    luck: baseEnemy.luck + level * LUCK_SCALE,
-    exp: baseEnemy.exp + level * EXP_SCALE,
-    gold: baseEnemy.gold + level * GOLD_SCALE,
+    life: baseEnemy.life + level * LIFE_SCALE * multiplier,
+    attack: baseEnemy.attack + level * ATTACK_SCALE * multiplier,
+    defense: baseEnemy.defense + level * DEFENSE_SCALE * multiplier,
+    luck: baseEnemy.luck + level * LUCK_SCALE * multiplier,
+    exp: baseEnemy.exp + level * EXP_SCALE * multiplier,
+    gold: baseEnemy.gold + level * GOLD_SCALE * multiplier,
   };
 }
