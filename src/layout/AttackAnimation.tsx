@@ -44,7 +44,9 @@ const AttackAnimation: React.FC<AttackAnimationProps> = ({
   }, [frameInterval, onComplete, totalFrames]);
 
   return (
-    <pre style={{ fontFamily: "monospace", textAlign: "center" }}>
+    <pre
+      style={{ fontFamily: "monospace", textAlign: "center", fontSize: "150%" }}
+    >
       {attackFrames[currentFrame]}
     </pre>
   );

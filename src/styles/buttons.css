@@ -1,118 +1,157 @@
 button {
-    background: none;
-    border: none;
-    color: rgba(98, 176, 212);
-    font-size: medium;
-    line-height: 170%;
-    margin: 0;
-    padding: 4px;
-    width: 100%;
+  background: none;
+  border: none;
+  color: rgba(98, 176, 212);
+  font-size: medium;
+  line-height: 170%;
+  margin: 0;
+  padding: 4px;
+  width: 100%;
 }
 
 button:hover {
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(98, 176, 212);
-    color: rgb(130, 255, 234);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(98, 176, 212);
+  color: rgb(130, 255, 234);
 }
 
 button:active {
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
 .btn-border {
-    background: linear-gradient(135deg,
-            rgba(60, 120, 150, 0.15),
-            rgba(98, 176, 212, 0.02) 20%,
-            rgba(98, 176, 212, 0.05) 50%,
-            rgba(98, 176, 212, 0.02) 80%,
-            rgba(60, 120, 150, 0.15));
-    border: 1px solid rgba(95, 173, 209, 0.2);
-    border-radius: 8px;
-    box-sizing: border-box;
-    margin: 7px 0 7px 0;
+  background: linear-gradient(
+    135deg,
+    rgba(60, 120, 150, 0.15),
+    rgba(98, 176, 212, 0.02) 20%,
+    rgba(98, 176, 212, 0.05) 50%,
+    rgba(98, 176, 212, 0.02) 80%,
+    rgba(60, 120, 150, 0.15)
+  );
+  border: 1px solid rgba(95, 173, 209, 0.2);
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: 7px 0 7px 0;
 }
 
 .btn-border:active {
-    background: linear-gradient(135deg,
-            rgba(153, 201, 224, 0.15),
-            rgba(212, 191, 98, 0.02) 20%,
-            rgba(212, 191, 98, 0.05) 50%,
-            rgba(212, 191, 98, 0.02) 80%,
-            rgba(153, 201, 224, 0.15));
-    border: 1px solid rgba(153, 201, 224, 0.637);
+  background: linear-gradient(
+    135deg,
+    rgba(153, 201, 224, 0.15),
+    rgba(212, 191, 98, 0.02) 20%,
+    rgba(212, 191, 98, 0.05) 50%,
+    rgba(212, 191, 98, 0.02) 80%,
+    rgba(153, 201, 224, 0.15)
+  );
+  border: 1px solid rgba(153, 201, 224, 0.637);
 }
 
-
 .systemBtn {
-    cursor: pointer;
-    font-size: 110%;
+  cursor: pointer;
+  font-size: 110%;
 }
 
 .systemBtn:hover {
-    cursor: pointer;
-    font-size: 120%;
+  cursor: pointer;
+  font-size: 120%;
 }
 
-
 .btn-small-left {
-    font-size: 80%;
-    text-align: left;
-    width: 160px;
+  font-size: 80%;
+  text-align: left;
+  width: 160px;
 }
 
 .btn-small-right {
-    font-size: 80%;
-    text-align: right;
-    width: 160px;
+  font-size: 80%;
+  text-align: right;
+  width: 160px;
 }
 
 .btn-small {
-    font-size: 80%;
-    text-align: center;
-    width: 100px;
+  font-size: 80%;
+  text-align: center;
+  width: 100px;
 }
 
 .battle-actions {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 10px; /* Abstand zwischen den beiden Spalten */
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px; /* Abstand zwischen den beiden Spalten */
 }
 
 .battle-actions-col {
-    display: flex;
-    flex-direction: column;
-    width: 50%; /* Jede Spalte nimmt die Hälfte der Breite ein */
-    gap: 5px; /* Abstand zwischen den Buttons */
+  display: flex;
+  flex-direction: column;
+  width: 50%; /* Jede Spalte nimmt die Hälfte der Breite ein */
+  gap: 5px; /* Abstand zwischen den Buttons */
 }
 
 .battle-actions-btn {
-    width: 100%; /* Alle Buttons füllen ihre Spalte komplett aus */
-    text-align: center;
+  width: 100%; /* Alle Buttons füllen ihre Spalte komplett aus */
+  text-align: center;
 }
 
+.battle-btn-inactive {
+  color: darkslategrey;
+}
+.battle-btn-active {
+  background: linear-gradient(
+    135deg,
+    rgba(60, 120, 150, 0.25),
+    rgba(98, 176, 212, 0.12) 20%,
+    rgba(98, 176, 212, 0.15) 50%,
+    rgba(98, 176, 212, 0.12) 80%,
+    rgba(60, 120, 150, 0.25)
+  );
+}
+.battle-btn-current {
+  background: linear-gradient(
+    135deg,
+    rgba(48, 233, 162, 0.35),
+    rgba(60, 150, 97, 0.22) 20%,
+    rgba(60, 150, 97, 0.25) 50%,
+    rgba(60, 150, 97, 0.22) 80%,
+    rgba(48, 233, 162, 0.35)
+  );
+}
+.battle-btn-finished {
+  background: linear-gradient(
+    135deg,
+    rgba(60, 120, 150, 0.25),
+    rgba(161, 98, 212, 0.12) 20%,
+    rgba(212, 98, 98, 0.15) 50%,
+    rgba(212, 201, 98, 0.12) 80%,
+    rgba(70, 150, 60, 0.25)
+  );
+}
+.battle-btn {
+  margin: 5px;
+  /* clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%); */
+}
 
 @media (max-width: 800px) {
-    .btn-small-left {
-        border: 1px dotted rgba(220, 211, 125, 0.8);
-        margin: 5px;
-        text-align: center;
-    }
+  .btn-small-left {
+    border: 1px dotted rgba(220, 211, 125, 0.8);
+    margin: 5px;
+    text-align: center;
+  }
 
-    .btn-small-right {
-        border: 1px dotted rgba(220, 211, 125, 0.8);
-        margin: 5px;
-        text-align: center;
-    }
+  .btn-small-right {
+    border: 1px dotted rgba(220, 211, 125, 0.8);
+    margin: 5px;
+    text-align: center;
+  }
 
-    .btn-small {
-        border: 1px dotted rgba(220, 211, 125, 0.8);
-        margin: 5px;
-        text-align: center;
-    }
+  .btn-small {
+    border: 1px dotted rgba(220, 211, 125, 0.8);
+    margin: 5px;
+    text-align: center;
+  }
 
-    button {
-        padding: 8px;
-        font-size: large;
-    }
+  button {
+    padding: 8px;
+    font-size: large;
+  }
 }
