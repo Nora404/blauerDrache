@@ -40,7 +40,7 @@ const Editor: React.FC = () => {
 
         {side === 1 && <EventCreationForm />}
         {side === 2 && (
-          <Combat3 enemyName="Ratte" difficulty="normal" level={5} />
+          <Combat3 enemyName="Ratte" difficulty="normal" level={1} />
         )}
         {side === 3 && <Admincenter />}
       </div>

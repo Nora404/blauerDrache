@@ -27,21 +27,22 @@ const AttackAnimation: React.FC<AttackAnimationProps> = ({
   const totalFrames = attackFrames.length;
   const frameInterval = duration / totalFrames;
 
+  // # Änderung: SetInterval so anpassen, dass es nur den currentFrame erhöht
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentFrame((prev) => {
-        if (prev < totalFrames - 1) {
-          return prev + 1;
-        } else {
-          clearInterval(interval);
-          if (onComplete) onComplete();
-          return prev;
-        }
-      });
+      setCurrentFrame((prev) => Math.min(prev + 1, totalFrames - 1));
     }, frameInterval);
 
     return () => clearInterval(interval);
-  }, [frameInterval, onComplete, totalFrames]);
+  }, [frameInterval, totalFrames]);
+
+  // # Änderung: Neuer useEffect, der onComplete asynchron aufruft, wenn die Animation fertig ist
+  useEffect(() => {
+    if (currentFrame === totalFrames - 1 && onComplete) {
+      const timer = setTimeout(() => onComplete(), frameInterval);
+      return () => clearTimeout(timer);
+    }
+  }, [currentFrame, totalFrames, frameInterval, onComplete]);
 
   return (
     <pre

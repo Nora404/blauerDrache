@@ -1,6 +1,12 @@
 //#region imports
 import React, { useState, useEffect } from "react";
-import { EnemyName, Difficulty, Enemy, setEnemyLevel } from "../data/enemyData";
+import {
+  EnemyName,
+  Difficulty,
+  Enemy,
+  setEnemyLevel,
+  emptyEnemyObj,
+} from "../data/enemyData";
 import { useRootStore } from "../store";
 import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
 //#endregion
@@ -16,15 +22,17 @@ type CombatProps = {
 };
 
 const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
-  const { playerMeta, playerBase, playerFlux, getCombinedStats } =
+  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } =
     useRootStore();
+
   const combinedStats = getCombinedStats();
 
-  const [enemy, setEnemy] = useState<Enemy | null>(null);
+  const [enemy, setEnemy] = useState<Enemy>(emptyEnemyObj);
   const [rounds, setRounds] = useState<number>(0);
 
   const [logs, setLogs] = useState<Record<number, React.ReactNode>>({});
-  const [selectedLog, setSelectedLog] = useState<number>(1);
+  const [tempLog, setTempLog] = useState<string>("");
+  const [selectedLog, setSelectedLog] = useState<number>(0);
 
   const [isCombatEnded, setIsCombatEnded] = useState<boolean>(false);
   const [showAttackAnimation, setShowAttackAnimation] =
@@ -41,19 +49,32 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   }, [enemyName, difficulty, level]);
   //#endregion
 
-  //#region processRound
+  //#region helper
   const rollDice = () => Math.floor(Math.random() * 100) + 1;
 
+  const multiplier = (bonus: number) => {
+    const result = rollDice() - bonus;
+    if (result > 40) return 0.4;
+    if (result > 20) return 0.8;
+    if (result >= -20) return 1;
+    if (result >= -40) return 1.4;
+    return 1.8;
+  };
+  //#endregion
+
+  //#region processRound
   const startRound = () => {
     if (!enemy || isCombatEnded) return;
+    setTempLog(""); // Log-Text für neuen Round zurücksetzen
     setShowAttackAnimation(true);
     setRounds((prev) => prev + 1);
   };
 
   const processRound = () => {
     setShowAttackAnimation(false);
-
     if (enemy) {
+      let roundLog = ""; // Lokale Variable für den Log-Text
+
       const playerFirstStrike =
         (combinedStats.luck || 0) + (playerBase.data.level - enemy.level);
       const enemyFirstStrike =
@@ -69,27 +90,43 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
         playerChance >= enemyChance ? "player" : "enemy";
 
       if (firstStrike === "player") {
-        playerAttack();
-        enemyAttack();
+        roundLog += "Du hast den Erstschlag! ";
+        roundLog += playerAttack(); // attack gibt Log-Text zurück
+        roundLog += enemyAttack();
       } else {
-        enemyAttack();
-        playerAttack();
+        roundLog += "Dein Gegner hat den Erstschlag! ";
+        roundLog += enemyAttack();
+        roundLog += playerAttack();
       }
-    }
 
+      // Setze den kompletten Log-Text einmalig
+      setTempLog(roundLog);
+    }
     finishRound();
   };
 
+  // Attack-Funktionen so anpassen, dass sie den Log-Text zurückgeben
   const enemyAttack = () => {
-    const updatedEnemy = { ...enemy!, life: enemy!.life - 0 };
-    setEnemy(updatedEnemy);
+    const rawAttack = Math.floor(enemy.attack * multiplier(enemy.luck));
+    const attack = Math.max(0, rawAttack - combinedStats.defense); // negative Werte vermeiden
+    playerStats.updateLife(-attack);
+    return `Dein Gegner hat ${attack} Schaden angerichtet. `;
   };
 
-  const playerAttack = () => {};
+  const playerAttack = () => {
+    const rawAttack = Math.floor(
+      combinedStats.attack * multiplier(combinedStats.luck)
+    );
+    const attack = Math.max(0, rawAttack - enemy.defense);
+    const updatedEnemy = { ...enemy, life: enemy.life - attack };
+    setEnemy(updatedEnemy);
+    return `Du hast ${attack} Schaden verteilt. `;
+  };
 
   const finishRound = () => {
+    console.log("🔍 tempLog: ", tempLog);
     createLog();
-    setSelectedLog(rounds - 1);
+    setSelectedLog(rounds);
     if (rounds === 10) {
       setIsCombatEnded(true);
     }
@@ -98,7 +135,13 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
 
   //#region log
   const createLog = () => {
-    const log = <div>Du hast dich für {interaction} entschieden.</div>;
+    const log = (
+      <div>
+        Du hast dich für {interaction} entschieden.
+        <br />
+        {tempLog}
+      </div>
+    );
     setLogs((prev) => ({ ...prev, [rounds]: log }));
   };
 
@@ -207,7 +250,7 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
         {showAttackAnimation ? (
           <AttackAnimation duration={1000} onComplete={processRound} />
         ) : (
-          <h3>Runden-Log (Runde {selectedLog}):</h3>
+          <h3>Log der letzten Runde (Runde {selectedLog}):</h3>
         )}
       </div>
 
