@@ -6,6 +6,9 @@ import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
 //#endregion
 
 //#region prepare
+
+type Interaction = "attack" | "defense" | "skill" | "item" | "hand" | "flee";
+
 type CombatProps = {
   enemyName: EnemyName;
   difficulty: Difficulty;
@@ -15,16 +18,18 @@ type CombatProps = {
 const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   const { playerMeta, playerBase, playerFlux, getCombinedStats } =
     useRootStore();
+  const combinedStats = getCombinedStats();
 
   const [enemy, setEnemy] = useState<Enemy | null>(null);
   const [rounds, setRounds] = useState<number>(0);
 
-  const [logs, setLogs] = useState < Record<number, React.ReactNode>({});
+  const [logs, setLogs] = useState<Record<number, React.ReactNode>>({});
   const [selectedLog, setSelectedLog] = useState<number>(1);
 
-  const [isCombatRunning, setIsCombatRunning] = useState<boolean>(false);
+  const [isCombatEnded, setIsCombatEnded] = useState<boolean>(false);
   const [showAttackAnimation, setShowAttackAnimation] =
     useState<boolean>(false);
+  const [interaction, setInteraction] = useState<Interaction>("attack");
   //#endregion
 
   //#region useEffect
@@ -36,54 +41,133 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   }, [enemyName, difficulty, level]);
   //#endregion
 
-  //#region functions
-  const finishRound = () => {};
+  //#region processRound
+  const rollDice = () => Math.floor(Math.random() * 100) + 1;
 
-  const playerAttack = () => {
-    if (!enemy || isCombatRunning) return;
+  const startRound = () => {
+    if (!enemy || isCombatEnded) return;
     setShowAttackAnimation(true);
+    setRounds((prev) => prev + 1);
   };
 
-  // Diese Funktion wird aufgerufen, sobald die Animation fertig ist.
-  const completePlayerAttack = () => {
+  const processRound = () => {
     setShowAttackAnimation(false);
 
-    const damage = Math.floor(Math.random() * 4) + 1;
-    const updatedEnemy = { ...enemy!, life: enemy!.life - damage };
+    if (enemy) {
+      const playerFirstStrike =
+        (combinedStats.luck || 0) + (playerBase.data.level - enemy.level);
+      const enemyFirstStrike =
+        (enemy.luck || 0) + (enemy.level - playerBase.data.level);
+
+      const playerRoll = rollDice();
+      const enemyRoll = rollDice();
+
+      const playerChance = playerRoll + playerFirstStrike;
+      const enemyChance = enemyRoll + enemyFirstStrike;
+
+      const firstStrike: "player" | "enemy" =
+        playerChance >= enemyChance ? "player" : "enemy";
+
+      if (firstStrike === "player") {
+        playerAttack();
+        enemyAttack();
+      } else {
+        enemyAttack();
+        playerAttack();
+      }
+    }
+
+    finishRound();
+  };
+
+  const enemyAttack = () => {
+    const updatedEnemy = { ...enemy!, life: enemy!.life - 0 };
     setEnemy(updatedEnemy);
   };
 
-  const enemyAttack = () => {};
+  const playerAttack = () => {};
 
-  const flee = () => {};
+  const finishRound = () => {
+    createLog();
+    setSelectedLog(rounds - 1);
+    if (rounds === 10) {
+      setIsCombatEnded(true);
+    }
+  };
+  //#endregion
 
-  const getSelectedRoundLogs = () => {};
+  //#region log
+  const createLog = () => {
+    const log = <div>Du hast dich für {interaction} entschieden.</div>;
+    setLogs((prev) => ({ ...prev, [rounds]: log }));
+  };
+
+  const getSelectedRoundLogs = () => {
+    return logs[selectedLog] || <div>Kein Log für diese Runde</div>;
+  };
 
   const renderRoundButtons = () => {
-    const buttons = [];
-    for (let i = 1; i <= 10; i++) {
+    return Array.from({ length: 10 }, (_, i) => {
+      const roundNumber = i + 1;
       let bgColor = "battle-btn-inactive";
-      if (i < currentRoundNumber) {
+
+      if (roundNumber < rounds) {
         bgColor = "battle-btn-active"; // Abgeschlossene Runde: grün
-      } else if (i === currentRoundNumber && !combatEnded) {
+      } else if (roundNumber === rounds && !isCombatEnded) {
         bgColor = "battle-btn-current"; // Aktuelle Runde: blau
-      } else if (combatEnded && i === currentRoundNumber) {
-        bgColor = "battle-btn-finished"; // Bei Kampfende als abgeschlossen markieren
+      } else if (isCombatEnded && roundNumber === rounds) {
+        bgColor = "battle-btn-finished"; // Kampf ist beendet
       }
-      buttons.push(
+
+      return (
         <button
-          key={i}
+          key={roundNumber}
           className={`btn-border battle-btn ${bgColor}`}
           onClick={() => {
-            if (i <= currentRoundNumber) setSelectedLog(i);
+            if (roundNumber <= rounds) {
+              setSelectedLog(roundNumber);
+            }
           }}
         >
-          {i}
+          {roundNumber}
         </button>
       );
-    }
-    return buttons;
+    });
   };
+
+  //#endregion
+
+  //#region interaction
+  const handleAttack = () => {
+    setInteraction("attack");
+    startRound();
+  };
+
+  const handleDefense = () => {
+    setInteraction("defense");
+    startRound();
+  };
+
+  const handleSkill = () => {
+    setInteraction("skill");
+    startRound();
+  };
+
+  const handleItem = () => {
+    setInteraction("item");
+    startRound();
+  };
+
+  const handleHand = () => {
+    setInteraction("hand");
+    startRound();
+  };
+
+  const handleFlee = () => {
+    setInteraction("flee");
+    startRound();
+  };
+
   //#endregion
 
   //#region jsx
@@ -94,7 +178,7 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
           <p>
             {playerMeta.data.name} (Level {playerBase.data.level})
             <br />
-            <span style={{ fontSize: "150%" }}>LP: {playerLife}</span>
+            <span style={{ fontSize: "150%" }}>LP: {combinedStats.life}</span>
           </p>
         </div>
         <div
@@ -121,52 +205,62 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
       {/* Hier wird die Animation angezeigt, falls aktiv */}
       <div style={{ height: "40px", padding: 0, margin: 0 }}>
         {showAttackAnimation ? (
-          <AttackAnimation duration={1000} onComplete={completePlayerAttack} />
+          <AttackAnimation duration={1000} onComplete={processRound} />
         ) : (
           <h3>Runden-Log (Runde {selectedLog}):</h3>
         )}
       </div>
 
       {/* Anzeige des Logs der ausgewählten Runde */}
-      <div className="felx-top">
-        {getSelectedRoundLogs().map((entry, index) => (
-          <p key={index}>{entry}</p>
-        ))}
-      </div>
+      <div className="flex-top">{getSelectedRoundLogs()}</div>
 
       {/* Aktionsbuttons */}
       <div className="combat-actions">
-        {!combatEnded && (
+        {!isCombatEnded && (
           <div className="battle-actions">
             <div className="battle-actions-col">
               <button
-                onClick={playerAttack}
+                onClick={handleAttack}
                 className="btn-border battle-actions-btn"
-                disabled={!playerTurn || showAttackAnimation}
               >
                 Mit {playerFlux.data.weapon} Angreifen
               </button>
-              <button className="btn-border battle-actions-btn">
+              <button
+                onClick={handleDefense}
+                className="btn-border battle-actions-btn"
+              >
                 Mit {playerFlux.data.armor} Verteidigen
               </button>
-              <button className="btn-border battle-actions-btn">
+              <button
+                onClick={handleSkill}
+                className="btn-border battle-actions-btn"
+              >
                 Fähigkeit einsetzen
               </button>
             </div>
             <div className="battle-actions-col">
-              <button className="btn-border battle-actions-btn">
+              <button
+                onClick={handleItem}
+                className="btn-border battle-actions-btn"
+              >
                 Aus dem Beutel nutzen
               </button>
-              <button className="btn-border battle-actions-btn">
+              <button
+                onClick={handleHand}
+                className="btn-border battle-actions-btn"
+              >
                 {playerFlux.data.item} nutzen
               </button>
-              <button onClick={flee} className="btn-border battle-actions-btn">
+              <button
+                onClick={handleFlee}
+                className="btn-border battle-actions-btn"
+              >
                 Fliehen
               </button>
             </div>
           </div>
         )}
-        {combatEnded && <p>Kampf beendet.</p>}
+        {isCombatEnded && <p>Kampf beendet.</p>}
       </div>
       <p style={{ color: "#151820" }}>
         .......................................................................................................

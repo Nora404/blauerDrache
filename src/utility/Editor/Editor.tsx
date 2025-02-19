@@ -4,6 +4,7 @@ import { EditorContextProvider } from "./Context/EventContext";
 import ActionButton from "../../layout/ActionButtons/ActionButton";
 import Admincenter from "./Admincenter";
 import Combat from "../../layout/Combat";
+import Combat3 from "../../layout/Combat3";
 
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(3);
@@ -39,7 +40,7 @@ const Editor: React.FC = () => {
 
         {side === 1 && <EventCreationForm />}
         {side === 2 && (
-          <Combat enemyName="Ratte" difficulty="normal" level={5} />
+          <Combat3 enemyName="Ratte" difficulty="normal" level={5} />
         )}
         {side === 3 && <Admincenter />}
       </div>
