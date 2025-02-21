@@ -23,7 +23,8 @@ type CombatProps = {
 };
 
 const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
-  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } = useRootStore();
+  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } =
+    useRootStore();
 
   const combinedStats = getCombinedStats();
 
@@ -35,7 +36,8 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   let tempLog = "";
 
   const [isCombatEnded, setIsCombatEnded] = useState<boolean>(false);
-  const [showAttackAnimation, setShowAttackAnimation] = useState<boolean>(false);
+  const [showAttackAnimation, setShowAttackAnimation] =
+    useState<boolean>(false);
   const [interaction, setInteraction] = useState<Interaction>("attack");
   //#endregion
 
@@ -61,11 +63,11 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     const effective = r + bonus * 0.01;
     console.log("effective score for " + name, effective);
 
-    if (effective < 0.075) return 0.4;  // 0 bis 0.075: extreme Schwäche -> 0.4 (7,5%)
-    if (effective < 0.200) return 0.8;  // 0.075 bis 0.200: moderat schwach -> 0.8 (12,5%)
-    if (effective < 0.800) return 1;    // 0.200 bis 0.800: normal -> 1 (60%)
-    if (effective < 0.925) return 1.4;  // 0.800 bis 0.925: moderat stark -> 1.4 (12,5%) 
-    return 1.8;                         // 0.925 bis 1: extreme Stärke -> 1.8 (7,5%)
+    if (effective < 0.075) return 0.4; // 0 bis 0.075: extreme Schwäche -> 0.4 (7,5%)
+    if (effective < 0.2) return 0.8; // 0.075 bis 0.200: moderat schwach -> 0.8 (12,5%)
+    if (effective < 0.8) return 1; // 0.200 bis 0.800: normal -> 1 (60%)
+    if (effective < 0.925) return 1.4; // 0.800 bis 0.925: moderat stark -> 1.4 (12,5%)
+    return 1.8; // 0.925 bis 1: extreme Stärke -> 1.8 (7,5%)
   };
 
   //#endregion
@@ -118,10 +120,11 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     const rawAttack = Math.floor(enemy.attack * multi);
     const attack = Math.max(0, rawAttack - combinedStats.defense);
 
-    let roundLog = ""
+    let roundLog = "";
     switch (multi) {
       case 0.4:
-        roundLog = "{Talk|custom:#6cc180}Der Angriff war besonders schwach!{/Talk}";
+        roundLog =
+          "{Talk|custom:#6cc180}Der Angriff war besonders schwach!{/Talk}";
         break;
       case 0.8:
         roundLog = "{Talk|custom:#9ac7ba}Der Angriff war schwach!{/Talk}";
@@ -144,10 +147,11 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
     const rawAttack = Math.floor(combinedStats.attack * multi);
     const attack = Math.max(1, rawAttack - enemy.defense);
 
-    let roundLog = ""
+    let roundLog = "";
     switch (multi) {
       case 0.4:
-        roundLog = "{Talk|custom:#cb6380}Dein Angriff war besonders schwach!{/Talk}";
+        roundLog =
+          "{Talk|custom:#cb6380}Dein Angriff war besonders schwach!{/Talk}";
         break;
       case 0.8:
         roundLog = "{Talk|custom:#c998ae}Dein Angriff war schwach!{/Talk}";
@@ -168,22 +172,22 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
 
   const finishRound = () => {
     createLog();
-    if (rounds === 10) {
-      setLogs(prev => ({
+    if (combinedStats.life <= 0) {
+      setLogs((prev) => ({
         ...prev,
-        [rounds]: prev[rounds] + "\nDer Gegner ist entkommen!"
+        [rounds]: prev[rounds] + "\nDu hast verloren!",
       }));
       setIsCombatEnded(true);
     } else if (enemy.life <= 0) {
-      setLogs(prev => ({
+      setLogs((prev) => ({
         ...prev,
-        [rounds]: prev[rounds] + "\nDu hast gewonnen!"
+        [rounds]: prev[rounds] + "\nDu hast gewonnen!",
       }));
       setIsCombatEnded(true);
-    } else if (combinedStats.life <= 0) {
-      setLogs(prev => ({
+    } else if (rounds === 10) {
+      setLogs((prev) => ({
         ...prev,
-        [rounds]: prev[rounds] + "\nDu hast verloren!"
+        [rounds]: prev[rounds] + "\nDer Gegner ist entkommen!",
       }));
       setIsCombatEnded(true);
     }
@@ -274,9 +278,12 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
           <p>
             {playerMeta.data.name} (Level {playerBase.data.level})
             <br />
-            <span style={{ fontSize: "150%" }}>LP: {combinedStats.life}</span><br />
-            Angriff: {combinedStats.attack}<br />
-            Verteidigung: {combinedStats.defense}<br />
+            <span style={{ fontSize: "150%" }}>LP: {combinedStats.life}</span>
+            <br />
+            Angriff: {combinedStats.attack}
+            <br />
+            Verteidigung: {combinedStats.defense}
+            <br />
           </p>
         </div>
         <div
@@ -289,9 +296,12 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
             <p>
               {enemy.name} (Level {enemy.level})
               <br />
-              <span style={{ fontSize: "150%" }}>LP: {enemy.life}</span><br />
-              Angriff: {enemy.attack}<br />
-              Verteidigung: {enemy.defense}<br />
+              <span style={{ fontSize: "150%" }}>LP: {enemy.life}</span>
+              <br />
+              Angriff: {enemy.attack}
+              <br />
+              Verteidigung: {enemy.defense}
+              <br />
             </p>
           )}
         </div>
@@ -312,7 +322,9 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
       </div>
 
       {/* Anzeige des Logs der ausgewählten Runde */}
-      <div className="flex-top mb-2">{parseDescription(getSelectedRoundLogs())}</div>
+      <div className="flex-top mb-2">
+        {parseDescription(getSelectedRoundLogs())}
+      </div>
 
       {/* Aktionsbuttons */}
       <div className="combat-actions">
