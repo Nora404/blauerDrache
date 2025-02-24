@@ -26,13 +26,14 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p> <br />
             <p className='mb-1 text-left questcontainer'>
-                <div className='text-left questbox'><strong>Begegnung</strong><br />Finde die gesuchte Person und rede mit ihr</div>
-                <div className='text-left questbox'><strong>Besorgen</strong><br />Bestimmte Gegenstände müsen besorgt werden</div>
-                <div className='text-left questbox'><strong>Erkundung</strong><br />Ein bestimmter Ort muss erreicht werden</div>
-                <div className='text-left questbox'><strong>Benutzten</strong><br />An einem bestimmten Ort muss etwas benutzt werden</div>
-                <div className='text-left questbox'><strong>Besiegen</strong><br />Es gibt ein Kopfgeld auf bestimmte Gegner</div>
-                <div className='text-left questbox'><strong>Erfahrung</strong><br />Jemand sucht nach Personen mit Erfahrung</div>
-                <div className='text-left questbox'><strong>Verbessern</strong><br />Zeige das du dich verbessern und stärker werden kannst</div>
+                <div className='questbox'><strong>Begegnung</strong><br />Finde die gesuchte Person und rede mit ihr</div>
+                <div className='questbox'><strong>Besorgen</strong><br />Bestimmte Gegenstände müsen besorgt werden</div>
+                <div className='questbox'><strong>Erkundung</strong><br />Ein bestimmter Ort muss erreicht werden</div>
+                <div className='questbox'><strong>Benutzten</strong><br />An einem bestimmten Ort muss etwas benutzt werden</div>
+                <div className='questbox'><strong>Besiegen</strong><br />Es gibt ein Kopfgeld auf bestimmte Gegner</div>
+                <div className='questbox'><strong>Erfahrung</strong><br />Jemand sucht nach Personen mit Erfahrung</div>
+                <div className='questbox'><strong>Verbessern</strong><br />Zeige das du dich verbessern und stärker werden kannst</div>
+                <div className='questbox'><strong>Schalter</strong><br />Irgendetwas wird diese Welt verändern!</div>
             </p><br />
             <ActionButton onClick={handleBack} label='Sich abwenden' />
         </div>
