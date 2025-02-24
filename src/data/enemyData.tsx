@@ -1,3 +1,4 @@
+import { Difficulty } from "./battleData";
 import { ItemName } from "./gameItems/ItemData";
 
 export type EnemyName = "Nichts" | "Ratte" | "Dieb";
@@ -84,8 +85,6 @@ const DEFENSE_SCALE = 4.4; // Kommentar: Skalierungsfaktor für Verteidigung
 const LUCK_SCALE = 3.3; // Kommentar: Skalierungsfaktor für Glück
 const EXP_SCALE = 5.5; // Kommentar: Skalierungsfaktor für Erfahrung
 const GOLD_SCALE = 5.5; // Kommentar: Skalierungsfaktor für Gold
-
-export type Difficulty = "weak" | "normal" | "strong" | "elite" | "boss";
 
 export function setEnemyLevel(
   enemyName: EnemyName,

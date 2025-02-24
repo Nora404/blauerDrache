@@ -1,8 +1,6 @@
 //#region imports
 import React, { useState, useEffect } from "react";
 import {
-  EnemyName,
-  Difficulty,
   Enemy,
   setEnemyLevel,
   emptyEnemyObj,
@@ -10,6 +8,7 @@ import {
 import { useRootStore } from "../store";
 import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
 import { parseDescription } from "../utility/Helper/ParseTextToJSX";
+import { getGameBattleById } from "../data/battleData";
 //#endregion
 
 //#region prepare
@@ -17,14 +16,11 @@ import { parseDescription } from "../utility/Helper/ParseTextToJSX";
 type Interaction = "attack" | "defense" | "skill" | "item" | "hand" | "flee";
 
 type CombatProps = {
-  enemyName: EnemyName;
-  difficulty: Difficulty;
-  level: number;
+  battleId: string;
 };
 
-const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
-  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } =
-    useRootStore();
+const Combat: React.FC<CombatProps> = ({ battleId }) => {
+  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } = useRootStore();
 
   const combinedStats = getCombinedStats();
 
@@ -36,18 +32,22 @@ const Combat: React.FC<CombatProps> = ({ enemyName, difficulty, level }) => {
   let tempLog = "";
 
   const [isCombatEnded, setIsCombatEnded] = useState<boolean>(false);
-  const [showAttackAnimation, setShowAttackAnimation] =
-    useState<boolean>(false);
+  const [showAttackAnimation, setShowAttackAnimation] = useState<boolean>(false);
   const [interaction, setInteraction] = useState<Interaction>("attack");
   //#endregion
 
   //#region useEffect
   useEffect(() => {
-    const initEnemy = setEnemyLevel(enemyName, level, difficulty);
+    const battle = getGameBattleById(battleId);
+    if (!battle) return;
+
+    const enemyLevel = battle.level || playerBase.data.level;
+    const initEnemy = setEnemyLevel(battle.enemy, enemyLevel, battle.difficulty);
     setEnemy(initEnemy);
-    const intro = `Du begegnest ${initEnemy.name}: ${initEnemy.description}`;
+    
+    const intro = `Du begegnest ${initEnemy.name}: ${battle.description}`;
     setLogs({ 0: intro });
-  }, [enemyName, difficulty, level]);
+  }, [battleId, playerBase.data.level]);
   //#endregion
 
   //#region helper

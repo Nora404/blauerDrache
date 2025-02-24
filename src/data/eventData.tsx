@@ -21,6 +21,7 @@ export type GameAction = {
   stateDelta?: Partial<PlayerStats>;
   baseDelta?: Partial<PlayerBase>;
 
+  triggerBattle?: string;
   triggerQuest?: string;
   endQuest?: string;
   nextEvents?: NextEventOption[];
