@@ -19,8 +19,7 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../store";
 import Talk from "../../../utility/Formatted/Talk";
 import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
-import Combat from "../../../layout/Combat";
-import { callings } from "../../../data/callingData";
+import { multiplier } from "../../../utility/Helper/CombatHelper";
 //#endregion
 
 //#region [prepare]
@@ -156,6 +155,14 @@ const Start: React.FC<StartProps> = observer(() => {
         </SparklingText>
         <br />
         <br />
+
+        <button
+          onClick={() => {
+            console.log("🔍 multiplikator: ", multiplier(0));
+          }}
+        >
+          Teste
+        </button>
       </div>
     </Suspense>
   );

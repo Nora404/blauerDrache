@@ -1,14 +1,12 @@
 //#region imports
 import React, { useState, useEffect } from "react";
-import {
-  Enemy,
-  setEnemyLevel,
-  emptyEnemyObj,
-} from "../data/enemyData";
+import { Enemy, setEnemyLevel, emptyEnemyObj } from "../data/enemyData";
 import { useRootStore } from "../store";
 import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
 import { parseDescription } from "../utility/Helper/ParseTextToJSX";
 import { getGameBattleById } from "../data/battleData";
+import { rollDice100 } from "../utility/Helper/RollDice";
+import { multiplier } from "../utility/Helper/CombatHelper";
 //#endregion
 
 //#region prepare
@@ -20,7 +18,8 @@ type CombatProps = {
 };
 
 const Combat: React.FC<CombatProps> = ({ battleId }) => {
-  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } = useRootStore();
+  const { playerMeta, playerBase, playerFlux, playerStats, getCombinedStats } =
+    useRootStore();
 
   const combinedStats = getCombinedStats();
 
@@ -32,7 +31,8 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
   let tempLog = "";
 
   const [isCombatEnded, setIsCombatEnded] = useState<boolean>(false);
-  const [showAttackAnimation, setShowAttackAnimation] = useState<boolean>(false);
+  const [showAttackAnimation, setShowAttackAnimation] =
+    useState<boolean>(false);
   const [interaction, setInteraction] = useState<Interaction>("attack");
   //#endregion
 
@@ -42,41 +42,24 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
     if (!battle) return;
 
     const enemyLevel = battle.level || playerBase.data.level;
-    const initEnemy = setEnemyLevel(battle.enemy, enemyLevel, battle.difficulty);
+    const initEnemy = setEnemyLevel(
+      battle.enemy,
+      enemyLevel,
+      battle.difficulty
+    );
     setEnemy(initEnemy);
-    
+
     const intro = `Du begegnest ${initEnemy.name}: ${battle.description}`;
     setLogs({ 0: intro });
   }, [battleId, playerBase.data.level]);
   //#endregion
 
-  //#region helper
-  const rollDice = () => Math.floor(Math.random() * 100) + 1;
-
-  const multiplier = (bonus: number, name: string) => {
-    const dice = rollDice();
-    console.log("raw dice roll for " + name, dice);
-
-    const r = (dice - 1) / 99; // Normalisiert: 0 bis 1
-
-    //  Bonus 5 verschiebt z. B. um 0,05 nach oben. Passe den Faktor ggf. an.
-    const effective = r + bonus * 0.01;
-    console.log("effective score for " + name, effective);
-
-    if (effective < 0.075) return 0.4; // 0 bis 0.075: extreme Schwäche -> 0.4 (7,5%)
-    if (effective < 0.2) return 0.8; // 0.075 bis 0.200: moderat schwach -> 0.8 (12,5%)
-    if (effective < 0.8) return 1; // 0.200 bis 0.800: normal -> 1 (60%)
-    if (effective < 0.925) return 1.4; // 0.800 bis 0.925: moderat stark -> 1.4 (12,5%)
-    return 1.8; // 0.925 bis 1: extreme Stärke -> 1.8 (7,5%)
-  };
-
-  //#endregion
-
   //#region processRound
-  const startRound = () => {
+  const startRound = (interaction: Interaction) => {
     if (!enemy || isCombatEnded) return;
     tempLog = "";
     setShowAttackAnimation(true);
+    setInteraction(interaction);
     setRounds((prev) => prev + 1);
   };
 
@@ -90,8 +73,8 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
       const enemyFirstStrike =
         (enemy.luck || 0) + (enemy.level - playerBase.data.level);
 
-      const playerRoll = rollDice();
-      const enemyRoll = rollDice();
+      const playerRoll = rollDice100();
+      const enemyRoll = rollDice100();
 
       const playerChance = playerRoll + playerFirstStrike;
       const enemyChance = enemyRoll + enemyFirstStrike;
@@ -116,7 +99,7 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
 
   // Attack-Funktionen so anpassen, dass sie den Log-Text zurückgeben
   const enemyAttack = () => {
-    const multi = multiplier(enemy.luck, enemy.name);
+    const multi = multiplier(enemy.luck);
     const rawAttack = Math.floor(enemy.attack * multi);
     const attack = Math.max(0, rawAttack - combinedStats.defense);
 
@@ -143,7 +126,7 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
   };
 
   const playerAttack = () => {
-    const multi = multiplier(combinedStats.luck, playerMeta.data.name);
+    const multi = multiplier(combinedStats.luck);
     const rawAttack = Math.floor(combinedStats.attack * multi);
     const attack = Math.max(1, rawAttack - enemy.defense);
 
@@ -239,33 +222,27 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
 
   //#region interaction
   const handleAttack = () => {
-    setInteraction("attack");
-    startRound();
+    startRound("attack");
   };
 
   const handleDefense = () => {
-    setInteraction("defense");
-    startRound();
+    startRound("defense");
   };
 
   const handleSkill = () => {
-    setInteraction("skill");
-    startRound();
+    startRound("skill");
   };
 
   const handleItem = () => {
-    setInteraction("item");
-    startRound();
+    startRound("item");
   };
 
   const handleHand = () => {
-    setInteraction("hand");
-    startRound();
+    startRound("hand");
   };
 
   const handleFlee = () => {
-    setInteraction("flee");
-    startRound();
+    startRound("flee");
   };
 
   //#endregion
@@ -327,48 +304,30 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
       </div>
 
       {/* Aktionsbuttons */}
-      <div className="combat-actions">
+      <div className="combat-actions">        
         {!isCombatEnded && (
           <div className="battle-actions">
             <div className="battle-actions-col">
-              <button
-                onClick={handleAttack}
-                className="btn-border battle-actions-btn"
-              >
-                Mit {playerFlux.data.weapon} Angreifen
-              </button>
-              <button
-                onClick={handleDefense}
-                className="btn-border battle-actions-btn"
-              >
-                Mit {playerFlux.data.armor} Verteidigen
-              </button>
-              <button
-                onClick={handleSkill}
-                className="btn-border battle-actions-btn"
-              >
-                Fähigkeit einsetzen
-              </button>
+              {[
+                { label: `Mit ${playerFlux.data.weapon} Angreifen`, handler: handleAttack },
+                { label: `Mit ${playerFlux.data.armor} Verteidigen`, handler: handleDefense },
+                { label: "Fähigkeit einsetzen", handler: handleSkill },
+              ].map(({ label, handler }) => (
+                <button key={label} onClick={handler} className="btn-border battle-actions-btn">
+                  {label}
+                </button>
+              ))}
             </div>
             <div className="battle-actions-col">
-              <button
-                onClick={handleItem}
-                className="btn-border battle-actions-btn"
-              >
-                Aus dem Beutel nutzen
-              </button>
-              <button
-                onClick={handleHand}
-                className="btn-border battle-actions-btn"
-              >
-                {playerFlux.data.item} nutzen
-              </button>
-              <button
-                onClick={handleFlee}
-                className="btn-border battle-actions-btn"
-              >
-                Fliehen
-              </button>
+              {[
+                { label: "Aus dem Beutel nutzen", handler: handleItem },
+                { label: `${playerFlux.data.item} nutzen`, handler: handleHand },
+                { label: "Fliehen", handler: handleFlee },
+              ].map(({ label, handler }) => (
+                <button key={label} onClick={handler} className="btn-border battle-actions-btn">
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
         )}
