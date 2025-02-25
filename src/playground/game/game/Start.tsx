@@ -20,6 +20,7 @@ import { useRootStore } from "../../../store";
 import Talk from "../../../utility/Formatted/Talk";
 import SparklingText from "../../../utility/Formatted/Sparkling/SparklingText";
 import Combat from "../../../layout/Combat";
+import { callings } from "../../../data/callingData";
 //#endregion
 
 //#region [prepare]
