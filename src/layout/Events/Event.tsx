@@ -1,3 +1,4 @@
+//#region [import]
 import { useState } from "react";
 import { GameEvent, GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
@@ -6,7 +7,9 @@ import {
   pickRandomNextEvent,
 } from "../../utility/Helper/TriggerEvent";
 import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
+//#endregion
 
+//#region [prepare]
 type EventProps = {
   eventId: string;
   onTriggerBattle: (battleId: string) => void;
@@ -26,34 +29,27 @@ const Event: React.FC<EventProps> = ({
     event || null
   );
 
-  // Falls das Event nicht gefunden wird
   if (!currentEvent) {
     return <div>Unbekanntes Event: {eventId}</div>;
   }
-
-  // Beschreibungstext parsen
   const descriptionJSX = parseDescription(currentEvent.description);
+  //#endregion
 
-  // [NEU] Wenn der Spieler einen Button klickt
+  //#region [handle]
   const handleButtonClick = (getAction: () => GameAction) => {
     const action = getAction();
-
-    // Aktion ausführen (Buffs, Stats, Items usw.)
     applyGameAction(action);
 
-    // Falls ein Kampf getriggert wird
     if (action.triggerBattle) {
       onTriggerBattle(action.triggerBattle);
       return;
     }
 
-    // Falls eine Quest gestartet wird
     if (action.triggerQuest) {
       onTriggerQuest(action.triggerQuest);
       return;
     }
 
-    // Falls ein Folge-Event kommt
     if (action.nextEvents && action.nextEvents.length > 0) {
       const nextEventId = pickRandomNextEvent(action.nextEvents);
       if (nextEventId) {
@@ -65,11 +61,11 @@ const Event: React.FC<EventProps> = ({
       }
     }
 
-    // Wenn nichts mehr folgt, sind wir fertig
     onFinish();
   };
+  //#endregion
 
-  // [NEU] Renderer
+  //#region [jsx]
   return (
     <div className="max-width">
       <h3>{currentEvent.label || currentEvent.id}</h3>
@@ -86,6 +82,7 @@ const Event: React.FC<EventProps> = ({
       ))}
     </div>
   );
+  //#endregion
 };
 
 export default Event;
