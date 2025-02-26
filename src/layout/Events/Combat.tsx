@@ -1,12 +1,12 @@
 //#region imports
 import React, { useState, useEffect } from "react";
-import { Enemy, setEnemyLevel, emptyEnemyObj } from "../data/enemyData";
-import { useRootStore } from "../store";
+import { Enemy, setEnemyLevel, emptyEnemyObj } from "../../data/enemyData";
+import { useRootStore } from "../../store";
 import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
-import { parseDescription } from "../utility/Helper/ParseTextToJSX";
-import { getGameBattleById } from "../data/battleData";
-import { rollDice100 } from "../utility/Helper/RollDice";
-import { multiplier } from "../utility/Helper/CombatHelper";
+import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
+import { getGameBattleById } from "../../data/battleData";
+import { rollDice100 } from "../../utility/Helper/RollDice";
+import { multiplier } from "../../utility/Helper/CombatHelper";
 //#endregion
 
 //#region prepare
@@ -304,16 +304,26 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
       </div>
 
       {/* Aktionsbuttons */}
-      <div className="combat-actions">        
+      <div className="combat-actions">
         {!isCombatEnded && (
           <div className="battle-actions">
             <div className="battle-actions-col">
               {[
-                { label: `Mit ${playerFlux.data.weapon} Angreifen`, handler: handleAttack },
-                { label: `Mit ${playerFlux.data.armor} Verteidigen`, handler: handleDefense },
+                {
+                  label: `Mit ${playerFlux.data.weapon} Angreifen`,
+                  handler: handleAttack,
+                },
+                {
+                  label: `Mit ${playerFlux.data.armor} Verteidigen`,
+                  handler: handleDefense,
+                },
                 { label: "Fähigkeit einsetzen", handler: handleSkill },
               ].map(({ label, handler }) => (
-                <button key={label} onClick={handler} className="btn-border battle-actions-btn">
+                <button
+                  key={label}
+                  onClick={handler}
+                  className="btn-border battle-actions-btn"
+                >
                   {label}
                 </button>
               ))}
@@ -321,10 +331,17 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
             <div className="battle-actions-col">
               {[
                 { label: "Aus dem Beutel nutzen", handler: handleItem },
-                { label: `${playerFlux.data.item} nutzen`, handler: handleHand },
+                {
+                  label: `${playerFlux.data.item} nutzen`,
+                  handler: handleHand,
+                },
                 { label: "Fliehen", handler: handleFlee },
               ].map(({ label, handler }) => (
-                <button key={label} onClick={handler} className="btn-border battle-actions-btn">
+                <button
+                  key={label}
+                  onClick={handler}
+                  className="btn-border battle-actions-btn"
+                >
                   {label}
                 </button>
               ))}

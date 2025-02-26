@@ -9,7 +9,7 @@ import {
 import { getEventByPlace } from "../../utility/Helper/TriggerEvent";
 import "./Transit.css";
 import TwoActionButton from "../ActionButtons/TwoActionButton";
-import { GameEventChain } from "../GameEventChain";
+import { GameEventChain } from "../Events/GameEventChain";
 //#endregion
 
 //#region [prepare]

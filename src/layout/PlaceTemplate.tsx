@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
-import { GameEventChain } from "./GameEventChain";
+import { GameEventChain } from "./Events/GameEventChain";
 import Header from "./Header/Header";
 //#endregion
 
@@ -73,13 +73,16 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
         <h2>{title}</h2>
         <div className="mb-1">{description}</div>
 
-        {!localRandomEvent && buttons && buttons?.length > 0 && (buttons.map((button) => (
-          <ActionButton
-            key={button.label}
-            onClick={() => handleClick(button)}
-            label={button.label}
-          />
-        )))}
+        {!localRandomEvent &&
+          buttons &&
+          buttons?.length > 0 &&
+          buttons.map((button) => (
+            <ActionButton
+              key={button.label}
+              onClick={() => handleClick(button)}
+              label={button.label}
+            />
+          ))}
 
         {localRandomEvent && (
           <>

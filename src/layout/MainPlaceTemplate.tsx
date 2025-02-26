@@ -5,7 +5,7 @@ import { useRootStore } from "../store";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
-import { GameEventChain } from "./GameEventChain";
+import { GameEventChain } from "./Events/GameEventChain";
 import Header from "./Header/Header";
 //#endregion
 
@@ -29,7 +29,6 @@ type MainPlaceTemplateProps = {
   chanceOfAnyEvent?: number;
   backPath?: string;
 };
-
 
 /**
  * @param title - Überschrift mit <hr> Linie

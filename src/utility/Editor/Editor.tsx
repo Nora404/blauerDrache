@@ -3,7 +3,7 @@ import EventCreationForm from "./EventEditor/GenerateEvents";
 import { EditorContextProvider } from "./Context/EventContext";
 import ActionButton from "../../layout/ActionButtons/ActionButton";
 import Admincenter from "./Admincenter";
-import Combat3 from "../../layout/Combat3";
+import Combat3 from "../../layout/Events/Combat";
 
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(3);

@@ -37,7 +37,7 @@ const PlayerInventory = lazy(
 );
 const Collecting = lazy(() => import("../playground/game/infos/Collecting"));
 const QuestLog = lazy(() => import("../playground/game/infos/QuestLog"));
-const Quest = lazy(() => import("../layout/Quest"));
+const Quest = lazy(() => import("../layout/Events/Quest"));
 
 const WhatIs = lazy(() => import("../playground/game/game/AboutGame"));
 const Chronic = lazy(() => import("../playground/game/infos/Chronic"));

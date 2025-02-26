@@ -1,16 +1,16 @@
 //#region [imports]
 import React, { useState } from "react";
-import { GameAction, GameEvent } from "../data/eventData";
-import { parseDescription } from "../utility/Helper/ParseTextToJSX";
+import { GameAction, GameEvent } from "../../data/eventData";
+import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
   pickRandomNextEvent,
   getGameEventById,
   checkAllConditions,
-} from "../utility/Helper/TriggerEvent";
-import { useApplyGameAction } from "../utility/Hooks/ApplyGameAction";
-import ActionButton from "./ActionButtons/ActionButton";
-import HeaderSmall from "./Header/HeaderSmall";
-import { useRootStore } from "../store";
+} from "../../utility/Helper/TriggerEvent";
+import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
+import ActionButton from "../ActionButtons/ActionButton";
+import HeaderSmall from "../Header/HeaderSmall";
+import { useRootStore } from "../../store";
 
 //#endregion
 
