@@ -1,9 +1,11 @@
 //#region [import]
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GameEvent, GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
+  getBattleTiggerById,
   getGameEventById,
+  getQuestTriggerById,
   pickRandomNextEvent,
 } from "../../utility/Helper/TriggerEvent";
 import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
@@ -23,11 +25,19 @@ const Event: React.FC<EventProps> = ({
   onTriggerQuest,
   onFinish,
 }) => {
-  const event = getGameEventById(eventId);
+  const event =
+    getGameEventById(eventId) ||
+    getQuestTriggerById(eventId) ||
+    getBattleTiggerById(eventId);
+
   const { applyGameAction } = useApplyGameAction();
   const [currentEvent, setCurrentEvent] = useState<GameEvent | null>(
     event || null
   );
+
+  useEffect(() => {
+    console.log("🔍 useEffekt Event: ", currentEvent);
+  }, [currentEvent]);
 
   if (!currentEvent) {
     return <div>Unbekanntes Event: {eventId}</div>;

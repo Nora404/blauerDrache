@@ -18,7 +18,12 @@ import {
 } from "../../store/types";
 import { gameEvents } from "../../data/eventList";
 import { gameQuestEvents } from "../../data/questList";
-import { ItemCartegoryName, ItemName, items } from "../../data/gameItems/ItemData";
+import {
+  ItemCartegoryName,
+  ItemName,
+  items,
+} from "../../data/gameItems/ItemData";
+import { gameBattles } from "../../data/battleList";
 
 //#region [event by place]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
@@ -59,6 +64,10 @@ export function getGameEventById(id: string): GameEvent | undefined {
 export function getQuestTriggerById(id: string): GameEvent | undefined {
   return gameQuestEvents.find((event) => event.id === id);
 }
+
+export function getBattleTiggerById(id: string): GameEvent | undefined {
+  return gameBattles.find((event) => event.id === id);
+}
 //#endregion
 
 //#region [random next event]
@@ -98,9 +107,8 @@ export function checkAllConditions(
   playerBaseData: PlayerBase,
   playerFluxData: PlayerFlux,
   playerMetaData: PlayerMeta,
-  playerEconomyData: PlayerEconomy,
+  playerEconomyData: PlayerEconomy
 ): boolean {
-
   console.log("CheckAllFN: ", playerEconomyData);
 
   // Falls gar keine conditions gesetzt sind, ist alles ok:
@@ -135,7 +143,11 @@ export function checkAllConditions(
   }
 
   // 5) playerFlux check
-  if (conditions.playerFlux || conditions.haveBuffs !== undefined || conditions.haveDebuffs !== undefined) {
+  if (
+    conditions.playerFlux ||
+    conditions.haveBuffs !== undefined ||
+    conditions.haveDebuffs !== undefined
+  ) {
     if (!checkPlayerFlux(conditions, playerFluxData)) {
       return false;
     }
@@ -167,13 +179,12 @@ export function filterEventsByConditions(
   playerFluxData: PlayerFlux,
   playerMetaData: PlayerMeta,
   playerQuestData: PlayerQuest,
-  playerEconomyData: PlayerEconomy,
+  playerEconomyData: PlayerEconomy
 ): WeightedEvent[] {
   return events.filter((evt) => {
     console.log("FilterFN: ", playerEconomyData);
     // Falls das Event gar keine conditions hat, ist es direkt ok
     if (!evt.conditions) return true;
-
 
     const pass = checkAllConditions(
       evt.conditions,
@@ -183,7 +194,7 @@ export function filterEventsByConditions(
       playerBaseData,
       playerFluxData,
       playerMetaData,
-      playerEconomyData,
+      playerEconomyData
     );
     if (!pass) return false;
 
@@ -592,10 +603,13 @@ function checkPlayerEconomy(
     operator: "<" | ">" | "="
   ): boolean {
     switch (operator) {
-      case "<": return actualValue < neededValue;
-      case ">": return actualValue > neededValue;
+      case "<":
+        return actualValue < neededValue;
+      case ">":
+        return actualValue > neededValue;
       case "=":
-      default: return actualValue === neededValue;
+      default:
+        return actualValue === neededValue;
     }
   }
 
