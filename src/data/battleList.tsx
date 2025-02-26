@@ -1,6 +1,4 @@
-import { GameBattle } from "./battleData";
-import { battle001RatOnStreet } from "./gameBattle/001RatOnStreet";
+import { GameEvent } from "./eventData";
+import { event001RatOnStreet } from "./gameBattle/001RatOnStreet";
 
-export const gameBattles: GameBattle[] = [
-  battle001RatOnStreet,
-]
+export const gameBattles: GameEvent[] = [event001RatOnStreet];
