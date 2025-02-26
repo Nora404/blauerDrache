@@ -23,7 +23,7 @@ import {
   ItemName,
   items,
 } from "../../data/gameItems/ItemData";
-import { gameBattles } from "../../data/battleList";
+import { gameBattlesEvents } from "../../data/battleList";
 
 //#region [event by place]
 export function getEventByPlace(currentPlace: PlacesKeys): GameEvent | null {
@@ -66,7 +66,7 @@ export function getQuestTriggerById(id: string): GameEvent | undefined {
 }
 
 export function getBattleTiggerById(id: string): GameEvent | undefined {
-  return gameBattles.find((event) => event.id === id);
+  return gameBattlesEvents.find((event) => event.id === id);
 }
 //#endregion
 

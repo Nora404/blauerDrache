@@ -1,5 +1,5 @@
 //#region [import]
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GameEvent, GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
@@ -35,10 +35,6 @@ const Event: React.FC<EventProps> = ({
     event || null
   );
 
-  useEffect(() => {
-    console.log("🔍 useEffekt Event: ", currentEvent);
-  }, [currentEvent]);
-
   if (!currentEvent) {
     return <div>Unbekanntes Event: {eventId}</div>;
   }
@@ -51,6 +47,7 @@ const Event: React.FC<EventProps> = ({
     applyGameAction(action);
 
     if (action.triggerBattle) {
+      console.log("🔍 trigger battle: ", action.triggerBattle);
       onTriggerBattle(action.triggerBattle);
       return;
     }

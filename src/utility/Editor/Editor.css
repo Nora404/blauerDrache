@@ -19,6 +19,13 @@
   margin-bottom: -10px;
 }
 
+.m-1-e {
+  margin-bottom: 10px;
+}
+.m-2-e {
+  margin-bottom: 20px;
+}
+
 .color-picker {
   height: 27px;
   width: 30px;

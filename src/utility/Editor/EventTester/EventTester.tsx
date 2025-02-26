@@ -62,10 +62,10 @@ export const TestEventManager: React.FC = () => {
   return (
     <div>
       <h2>Test Event Manager</h2>
+<div className="flex-row m-2-e">
       <div>
-        <label>Events: </label>
-        <select value={selectedEventId} onChange={handleEventChange}>
-          <option value="">Nichts ausgewählt</option>
+        <select value={selectedEventId} onChange={handleEventChange} style={{width:"250px"}}>
+          <option value="">Wähle ein Event</option>
           {gameEvents.map((ev) => (
             <option key={ev.id} value={ev.id}>
               {ev.label || ev.id}
@@ -74,9 +74,8 @@ export const TestEventManager: React.FC = () => {
         </select>
       </div>
       <div>
-        <label>Battles: </label>
-        <select value={selectedBattleId} onChange={handleBattleChange}>
-          <option value="">Nichts ausgewählt</option>
+        <select value={selectedBattleId} onChange={handleBattleChange} style={{width:"250px"}}>
+          <option value="">Wähle ein Battle</option>
           {gameBattles.map((b) => (
             <option key={b.id} value={b.id}>
               {b.label || b.id}
@@ -85,17 +84,22 @@ export const TestEventManager: React.FC = () => {
         </select>
       </div>
       <div>
-        <label>Quests: </label>
-        <select value={selectedQuestId} onChange={handleQuestChange}>
-          <option value="">Nichts ausgewählt</option>
-          {gameQuestEvents.map((q) => (
-            <option key={q.id} value={q.id}>
-              {q.label || q.id}
-            </option>
-          ))}
+        <select value={selectedQuestId} onChange={handleQuestChange} style={{width:"250px"}}>
+          <option value="">Wähle eine Quest</option>
+          {gameQuestEvents
+            .filter((q) => q.id.endsWith("Trigger"))
+            .map((q) => (
+              <option key={q.id} value={q.id}>
+                {q.label || q.id}
+              </option>
+            ))}
         </select>
+        </div>
       </div>
-      <button onClick={handleStart}>Start</button>
+      <div className="flex-row">
+        <button onClick={handleStart} className="btn-border add-button">Start</button>
+        <button onClick={handleFinish} className="btn-border remove-button">Reset</button>
+      </div>
       <hr />
       {/* Falls forcedId gesetzt und showManager true ist, wird der EventManager gerendert */}
       {showManager && forcedId && (
@@ -105,6 +109,12 @@ export const TestEventManager: React.FC = () => {
           onFinish={handleFinish}
         />
       )}
+
+      <p style={{ color: "#151820" }}>
+        .......................................................................................................
+        .......................................................................................................
+        .......................................................................................................
+      </p>
     </div>
   );
 };
