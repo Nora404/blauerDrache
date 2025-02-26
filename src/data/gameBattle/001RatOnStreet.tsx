@@ -11,7 +11,7 @@ export const battle001RatOnStreet: GameBattle = {
 };
 
 export const event001RatOnStreet: GameEvent = {
-  id: "B001RatOnStreetTrigger",
+  id: "E001RatOnStreetTrigger",
   label: "Ratte auf der Straße",
   description: "Eine Ratte läuft über die Straße.",
   buttons: [

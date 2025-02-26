@@ -3,7 +3,7 @@ import EventCreationForm from "./EventEditor/GenerateEvents";
 import { EditorContextProvider } from "./Context/EventContext";
 import ActionButton from "../../layout/ActionButtons/ActionButton";
 import Admincenter from "./Admincenter";
-import Combat3 from "../../layout/Events/Combat";
+import { TestEventManager } from "./EventTester/EventTester";
 
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(3);
@@ -33,12 +33,12 @@ const Editor: React.FC = () => {
             onClick={() => {
               handleClick(2);
             }}
-            label="Kampf Testen"
+            label="Event Testen"
           />
         </div>
 
         {side === 1 && <EventCreationForm />}
-        {side === 2 && <Combat3 battleId="B001RatOnStreet" />}
+        {side === 2 && <TestEventManager />}
         {side === 3 && <Admincenter />}
       </div>
     </EditorContextProvider>
