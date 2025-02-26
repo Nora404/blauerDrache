@@ -1,5 +1,5 @@
 //#region [imports]
-import React from "react";
+import React, { useState } from "react";
 import { GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
@@ -30,8 +30,10 @@ const Event: React.FC<EventProps> = ({
   onFinish,
 }) => {
   const { applyGameAction } = useApplyGameAction();
+  // Localer State, um die finale Outcome-Message zu speichern,
+  // wenn kein Folgeevent mehr existiert.
+  const [finalOutcome, setFinalOutcome] = useState<React.ReactNode | null>(null);
 
-  // Suche das Event in den Listen (Game, Quest, Battle)
   const event =
     getGameEventById(eventId) ||
     getQuestTriggerById(eventId) ||
@@ -47,7 +49,6 @@ const Event: React.FC<EventProps> = ({
     const action = getAction();
     applyGameAction(action);
 
-    // Falls ein Kampf oder eine Quest getriggert wird, an den Manager weitergeben
     if (action.triggerBattle) {
       onTriggerBattle?.(action.triggerBattle);
       return;
@@ -65,11 +66,14 @@ const Event: React.FC<EventProps> = ({
       nextEventId = action.nextEvents[0].eventId;
     }
 
+    const outcomeMsg = parseDescription(action.message || "");
+
     if (nextEventId) {
-      // Statt die gesamte Kette lokal zu pflegen, übergeben wir den nächsten Event
+      // Folgeevent vorhanden – an den Manager übergeben
       onNextEvent?.(nextEventId);
     } else {
-      onFinish();
+      // Kein Folgeevent: Zeige die finale Outcome-Message
+      setFinalOutcome(outcomeMsg);
     }
   };
 
@@ -77,14 +81,20 @@ const Event: React.FC<EventProps> = ({
     <div className="max-width">
       {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
       <p className="mb-1 text-left">{descriptionJSX}</p>
-      {event.buttons.map((btn) => (
-        <ActionButton
-          key={btn.label}
-          onClick={() => handleButtonClick(btn.getAction)}
-          label={btn.label}
-          result={btn.result}
-        />
-      ))}
+      {finalOutcome === null ? (
+        event.buttons.map((btn) => (
+          <ActionButton
+            key={btn.label}
+            onClick={() => handleButtonClick(btn.getAction)}
+            label={btn.label}
+            result={btn.result}
+          />
+        ))
+      ) : (
+        <p className="mb-1 text-left" style={{ color: "#aaffff" }}>
+          {finalOutcome}
+        </p>
+      )}
       <ActionButton onClick={onFinish} label="Sich abwenden" />
     </div>
   );
