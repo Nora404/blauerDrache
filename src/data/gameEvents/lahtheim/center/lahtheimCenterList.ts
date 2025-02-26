@@ -16,3 +16,9 @@ export const lahtheimCenterEvents: GameEvent[] = [
     event020ChurchTalk3,
     event020ChurchTalk4,
 ];
+
+export const lahtheimCenterTriggerEvents: GameEvent[] = [
+    event018Donate,
+    event019ChurchPeace,
+    event020ChurchTalk,
+];

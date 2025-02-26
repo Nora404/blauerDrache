@@ -4,6 +4,8 @@ import { gameBattles, gameBattlesEvents } from "../../../data/battleList";
 import { gameEvents } from "../../../data/eventList";
 import { gameQuestEvents } from "../../../data/questList";
 import { EventManager } from "../../../layout/Events/EventManager";
+import { randomTriggerEvents } from "../../../data/gameEvents/randoms/randomEventList";
+import { lahtheimCenterTriggerEvents } from "../../../data/gameEvents/lahtheim/center/lahtheimCenterList";
 
 export const TestEventManager: React.FC = () => {
   // State für die drei Dropdowns
@@ -62,11 +64,11 @@ export const TestEventManager: React.FC = () => {
   return (
     <div className="max-width">
       <h2>Test Event Manager</h2>
-      <div className="flex-row m-2-e">
+      <div className="flex-warp m-2-e">
         <div>
-          <select value={selectedEventId} onChange={handleEventChange} style={{ width: "250px" }}>
-            <option value="">Wähle ein Event</option>
-            {gameEvents.map((ev) => (
+          <select value={selectedEventId} onChange={handleEventChange}>
+            <option value="">Wähle ein Random Event</option>
+            {randomTriggerEvents.map((ev) => (
               <option key={ev.id} value={ev.id}>
                 {ev.label || ev.id}
               </option>
@@ -74,7 +76,17 @@ export const TestEventManager: React.FC = () => {
           </select>
         </div>
         <div>
-          <select value={selectedBattleId} onChange={handleBattleChange} style={{ width: "250px" }}>
+          <select value={selectedEventId} onChange={handleEventChange}>
+            <option value="">Wähle aus Lahtheim</option>
+            {lahtheimCenterTriggerEvents.map((ev) => (
+              <option key={ev.id} value={ev.id}>
+                {ev.label || ev.id}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <select value={selectedBattleId} onChange={handleBattleChange}>
             <option value="">Wähle ein Battle</option>
             {gameBattlesEvents.map((b) => (
               <option key={b.id} value={b.id}>
@@ -84,7 +96,7 @@ export const TestEventManager: React.FC = () => {
           </select>
         </div>
         <div>
-          <select value={selectedQuestId} onChange={handleQuestChange} style={{ width: "250px" }}>
+          <select value={selectedQuestId} onChange={handleQuestChange}>
             <option value="">Wähle eine Quest</option>
             {gameQuestEvents
               .filter((q) => q.id.endsWith("Trigger"))

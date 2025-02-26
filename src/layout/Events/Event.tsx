@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
+  checkAllConditions,
   getBattleTiggerById,
   getGameEventById,
   getQuestTriggerById,
@@ -11,6 +12,7 @@ import {
 import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
 import ActionButton from "../ActionButtons/ActionButton";
 import HeaderSmall from "../Header/HeaderSmall";
+import { useRootStore } from "../../store";
 //#endregion
 
 //#region [prepare]
@@ -29,10 +31,18 @@ const Event: React.FC<EventProps> = ({
   onNextEvent,
   onFinish,
 }) => {
+
   const { applyGameAction } = useApplyGameAction();
-  // Localer State, um die finale Outcome-Message zu speichern,
-  // wenn kein Folgeevent mehr existiert.
   const [finalOutcome, setFinalOutcome] = useState<React.ReactNode | null>(null);
+  const {
+    gameTime,
+    gameState,
+    playerStats,
+    playerBase,
+    playerFlux,
+    playerMeta,
+    playerEconomy,
+  } = useRootStore();
 
   const event =
     getGameEventById(eventId) ||
@@ -44,6 +54,18 @@ const Event: React.FC<EventProps> = ({
   }
 
   const descriptionJSX = parseDescription(event.description);
+  const validButtons = event.buttons.filter((btn) => {
+    return checkAllConditions(
+      btn.conditions,
+      gameTime.data,
+      gameState.data,
+      playerStats.data,
+      playerBase.data,
+      playerFlux.data,
+      playerMeta.data,
+      playerEconomy.data
+    );
+  });
 
   const handleButtonClick = (getAction: () => GameAction) => {
     const action = getAction();
@@ -58,7 +80,6 @@ const Event: React.FC<EventProps> = ({
       return;
     }
 
-    // Ermitteln des Folge-Events (falls vorhanden)
     let nextEventId: string | null = null;
     if (action.nextEvents && action.nextEvents.length > 0) {
       nextEventId = pickRandomNextEvent(action.nextEvents);
@@ -69,10 +90,8 @@ const Event: React.FC<EventProps> = ({
     const outcomeMsg = parseDescription(action.message || "");
 
     if (nextEventId) {
-      // Folgeevent vorhanden – an den Manager übergeben
       onNextEvent?.(nextEventId);
     } else {
-      // Kein Folgeevent: Zeige die finale Outcome-Message
       setFinalOutcome(outcomeMsg);
     }
   };
@@ -82,7 +101,7 @@ const Event: React.FC<EventProps> = ({
       {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
       <p className="mb-1 text-left">{descriptionJSX}</p>
       {finalOutcome === null ? (
-        event.buttons.map((btn) => (
+        validButtons.map((btn) => (
           <ActionButton
             key={btn.label}
             onClick={() => handleButtonClick(btn.getAction)}

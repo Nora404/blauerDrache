@@ -38,3 +38,14 @@ export const randomEvents: GameEvent[] = [
     event017ChestTrap,
     event999test,
 ];
+
+export const randomTriggerEvents: GameEvent[] = [
+    event001StoneCoin,
+    event002Mashroom,
+    event003Stick,
+    event004Flower,
+    event005NoiseHear,
+    event007Bag,
+    event010WoodenChest,
+    event014Fairy,
+];
