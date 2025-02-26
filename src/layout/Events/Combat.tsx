@@ -31,8 +31,7 @@ const Combat: React.FC<CombatProps> = ({ battleId }) => {
   let tempLog = "";
 
   const [isCombatEnded, setIsCombatEnded] = useState<boolean>(false);
-  const [showAttackAnimation, setShowAttackAnimation] =
-    useState<boolean>(false);
+  const [showAttackAnimation, setShowAttackAnimation] = useState<boolean>(false);
   const [interaction, setInteraction] = useState<Interaction>("attack");
   //#endregion
 

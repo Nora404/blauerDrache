@@ -1,6 +1,6 @@
 // [NEU] Datei: TestEventManager.tsx
 import React, { useState } from "react";
-import { gameBattles } from "../../../data/battleList";
+import { gameBattles, gameBattlesEvents } from "../../../data/battleList";
 import { gameEvents } from "../../../data/eventList";
 import { gameQuestEvents } from "../../../data/questList";
 import { EventManager } from "../../../layout/Events/EventManager";
@@ -60,47 +60,47 @@ export const TestEventManager: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="max-width">
       <h2>Test Event Manager</h2>
-<div className="flex-row m-2-e">
-      <div>
-        <select value={selectedEventId} onChange={handleEventChange} style={{width:"250px"}}>
-          <option value="">Wähle ein Event</option>
-          {gameEvents.map((ev) => (
-            <option key={ev.id} value={ev.id}>
-              {ev.label || ev.id}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <select value={selectedBattleId} onChange={handleBattleChange} style={{width:"250px"}}>
-          <option value="">Wähle ein Battle</option>
-          {gameBattles.map((b) => (
-            <option key={b.id} value={b.id}>
-              {b.label || b.id}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <select value={selectedQuestId} onChange={handleQuestChange} style={{width:"250px"}}>
-          <option value="">Wähle eine Quest</option>
-          {gameQuestEvents
-            .filter((q) => q.id.endsWith("Trigger"))
-            .map((q) => (
-              <option key={q.id} value={q.id}>
-                {q.label || q.id}
+      <div className="flex-row m-2-e">
+        <div>
+          <select value={selectedEventId} onChange={handleEventChange} style={{ width: "250px" }}>
+            <option value="">Wähle ein Event</option>
+            {gameEvents.map((ev) => (
+              <option key={ev.id} value={ev.id}>
+                {ev.label || ev.id}
               </option>
             ))}
-        </select>
+          </select>
+        </div>
+        <div>
+          <select value={selectedBattleId} onChange={handleBattleChange} style={{ width: "250px" }}>
+            <option value="">Wähle ein Battle</option>
+            {gameBattlesEvents.map((b) => (
+              <option key={b.id} value={b.id}>
+                {b.label || b.id}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <select value={selectedQuestId} onChange={handleQuestChange} style={{ width: "250px" }}>
+            <option value="">Wähle eine Quest</option>
+            {gameQuestEvents
+              .filter((q) => q.id.endsWith("Trigger"))
+              .map((q) => (
+                <option key={q.id} value={q.id}>
+                  {q.label || q.id}
+                </option>
+              ))}
+          </select>
         </div>
       </div>
-      <div className="flex-row">
+      <div className="flex-row m-2-e">
         <button onClick={handleStart} className="btn-border add-button">Start</button>
         <button onClick={handleFinish} className="btn-border remove-button">Reset</button>
       </div>
-      <hr />
+      <hr /><br />
       {/* Falls forcedId gesetzt und showManager true ist, wird der EventManager gerendert */}
       {showManager && forcedId && (
         <EventManager

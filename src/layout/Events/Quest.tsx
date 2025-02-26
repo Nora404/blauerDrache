@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { GameEventChain } from "./GameEventChain";
 import { useNavigate, useParams } from "react-router-dom";
+import Event from "./Event";
 
 type QuestProps = {
   questId: string;
@@ -13,8 +13,7 @@ const Quest: React.FC<QuestProps> = observer(({ questId }) => {
     backPath: string;
   }>();
 
-  console.log(backPath);
-  console.log(questId);
+
   const handleFinishEvent = () => {
     navigate(`/${backPath}`, { replace: true });
   };
@@ -22,9 +21,9 @@ const Quest: React.FC<QuestProps> = observer(({ questId }) => {
   // #region [jsx]
   return (
     <div className="max-width">
-      <GameEventChain
-        initialEventName={eventId || ""}
-        onFinishChain={handleFinishEvent}
+      <Event
+        eventId={questId || ""}
+        onFinish={handleFinishEvent}
       />
     </div>
   );

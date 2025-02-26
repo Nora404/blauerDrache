@@ -1,5 +1,5 @@
-//#region [import]
-import React, { useState, useEffect } from "react";
+//#region [imports]
+import React, { useEffect, useState } from "react";
 import { WeightedEvent } from "../../data/eventData";
 import {
   filterEventsByConditions,
@@ -37,31 +37,25 @@ export const EventManager: React.FC<EventManagerProps> = ({
   const [currentBattleId, setCurrentBattleId] = useState<string | null>(null);
   const [currentQuestId, setCurrentQuestId] = useState<string | null>(null);
   const [currentEventId, setCurrentEventId] = useState<string | null>(null);
-  //#endregion
 
-  //#region [useEffekt]
   useEffect(() => {
-    if (events.length === 0 && forcedEventId === undefined) return;
+    if (events.length === 0 && !forcedEventId) return;
 
-    const validEvents = filterEventsByConditions(
-      events,
-      gameTime.data,
-      gameState.data,
-      playerStats.data,
-      playerBase.data,
-      playerFlux.data,
-      playerMeta.data,
-      playerQuest.data,
-      playerEconomy.data
-    );
-
-    let chosenEventId: string | null = null;
-    if (forcedEventId) {
-      chosenEventId = forcedEventId;
-    } else {
+    let chosenEventId: string | null = forcedEventId || null;
+    if (!chosenEventId) {
+      const validEvents = filterEventsByConditions(
+        events,
+        gameTime.data,
+        gameState.data,
+        playerStats.data,
+        playerBase.data,
+        playerFlux.data,
+        playerMeta.data,
+        playerQuest.data,
+        playerEconomy.data
+      );
       chosenEventId = pickRandomNextEvent(validEvents);
     }
-
     if (chosenEventId) {
       setCurrentEventId(chosenEventId);
     } else {
@@ -80,9 +74,7 @@ export const EventManager: React.FC<EventManagerProps> = ({
     playerEconomy.data,
     onFinish,
   ]);
-  //#endregion
 
-  //#region [jsx]
   if (currentBattleId) {
     return <Combat battleId={currentBattleId} />;
   }
@@ -97,11 +89,12 @@ export const EventManager: React.FC<EventManagerProps> = ({
         eventId={currentEventId}
         onTriggerBattle={setCurrentBattleId}
         onTriggerQuest={setCurrentQuestId}
+        onNextEvent={(nextId) => setCurrentEventId(nextId)}
         onFinish={onFinish}
       />
     );
   }
 
   return <div>Kein Event verfügbar</div>;
-  //#endregion
 };
+//#endregion

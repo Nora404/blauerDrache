@@ -1,30 +1,24 @@
-//#region [import]
-import { useState } from "react";
-import { GameEvent, GameAction } from "../../data/eventData";
+//#region [imports]
+import React from "react";
+import { GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
-  checkAllConditions,
   getBattleTiggerById,
   getGameEventById,
   getQuestTriggerById,
   pickRandomNextEvent,
 } from "../../utility/Helper/TriggerEvent";
 import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
-import { useRootStore } from "../../store";
 import ActionButton from "../ActionButtons/ActionButton";
 import HeaderSmall from "../Header/HeaderSmall";
 //#endregion
 
 //#region [prepare]
-type ChainItem = {
-  eventId: string;
-  outcomeMessage: React.ReactNode;
-};
-
 type EventProps = {
   eventId: string;
-  onTriggerBattle: (battleId: string) => void;
-  onTriggerQuest: (questId: string) => void;
+  onTriggerBattle?: (battleId: string) => void;
+  onTriggerQuest?: (questId: string) => void;
+  onNextEvent?: (nextEventId: string) => void;
   onFinish: () => void;
 };
 
@@ -32,40 +26,38 @@ const Event: React.FC<EventProps> = ({
   eventId,
   onTriggerBattle,
   onTriggerQuest,
+  onNextEvent,
   onFinish,
 }) => {
   const { applyGameAction } = useApplyGameAction();
-  const [chain, setChain] = useState<ChainItem[]>([
-    { eventId: eventId, outcomeMessage: null },
-  ]);
 
-  const {
-    gameTime,
-    gameState,
-    playerStats,
-    playerBase,
-    playerFlux,
-    playerMeta,
-    playerEconomy,
-  } = useRootStore();
+  // Suche das Event in den Listen (Game, Quest, Battle)
+  const event =
+    getGameEventById(eventId) ||
+    getQuestTriggerById(eventId) ||
+    getBattleTiggerById(eventId);
 
-  const handleButtonClick = (
-    chainIndex: number,
-    getAction: () => GameAction
-  ) => {
+  if (!event) {
+    return <div>Unbekanntes Event: {eventId}</div>;
+  }
+
+  const descriptionJSX = parseDescription(event.description);
+
+  const handleButtonClick = (getAction: () => GameAction) => {
     const action = getAction();
     applyGameAction(action);
 
+    // Falls ein Kampf oder eine Quest getriggert wird, an den Manager weitergeben
     if (action.triggerBattle) {
-      onTriggerBattle(action.triggerBattle);
+      onTriggerBattle?.(action.triggerBattle);
       return;
     }
     if (action.triggerQuest) {
-      onTriggerQuest(action.triggerQuest);
+      onTriggerQuest?.(action.triggerQuest);
       return;
     }
 
-    const outcomeMsg = parseDescription(action.message || "");
+    // Ermitteln des Folge-Events (falls vorhanden)
     let nextEventId: string | null = null;
     if (action.nextEvents && action.nextEvents.length > 0) {
       nextEventId = pickRandomNextEvent(action.nextEvents);
@@ -73,63 +65,30 @@ const Event: React.FC<EventProps> = ({
       nextEventId = action.nextEvents[0].eventId;
     }
 
-    setChain((prevChain) => {
-      const updated = [...prevChain];
-      updated[chainIndex] = {
-        ...updated[chainIndex],
-        outcomeMessage: outcomeMsg,
-      };
-      if (nextEventId) {
-        updated.push({ eventId: nextEventId, outcomeMessage: null });
-      }
-      return updated;
-    });
+    if (nextEventId) {
+      // Statt die gesamte Kette lokal zu pflegen, übergeben wir den nächsten Event
+      onNextEvent?.(nextEventId);
+    } else {
+      onFinish();
+    }
   };
 
   return (
     <div className="max-width">
-      {chain.map((item, index) => {
-        const event = getGameEventById(item.eventId);
-        if (!event) {
-          return <p key={index}>Unbekanntes Event: {item.eventId}</p>;
-        }
-        const description = parseDescription(event.description);
-        const validButtons = event.buttons.filter((btn) =>
-          checkAllConditions(
-            btn.conditions,
-            gameTime.data,
-            gameState.data,
-            playerStats.data,
-            playerBase.data,
-            playerFlux.data,
-            playerMeta.data,
-            playerEconomy.data
-          )
-        );
-        return (
-          <div key={index}>
-            {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
-            <p className="mb-1 text-left">{description}</p>
-            {item.outcomeMessage ? (
-              <p className="mb-1 text-left" style={{ color: "#aaffff" }}>
-                {item.outcomeMessage}
-              </p>
-            ) : (
-              validButtons.map((btn) => (
-                <ActionButton
-                  key={btn.label}
-                  onClick={() => handleButtonClick(index, btn.getAction)}
-                  label={btn.label}
-                  result={btn.result}
-                />
-              ))
-            )}
-          </div>
-        );
-      })}
+      {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
+      <p className="mb-1 text-left">{descriptionJSX}</p>
+      {event.buttons.map((btn) => (
+        <ActionButton
+          key={btn.label}
+          onClick={() => handleButtonClick(btn.getAction)}
+          label={btn.label}
+          result={btn.result}
+        />
+      ))}
       <ActionButton onClick={onFinish} label="Sich abwenden" />
     </div>
   );
 };
 
 export default Event;
+//#endregion
