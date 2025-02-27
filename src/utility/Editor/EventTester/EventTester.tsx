@@ -1,130 +1,94 @@
-// [NEU] Datei: TestEventManager.tsx
 import React, { useState } from "react";
-import { gameBattles, gameBattlesEvents } from "../../../data/battleList";
-import { gameEvents } from "../../../data/eventList";
+import { gameBattlesEvents } from "../../../data/battleList";
 import { gameQuestEvents } from "../../../data/questList";
 import { EventManager } from "../../../layout/Events/EventManager";
 import { randomTriggerEvents } from "../../../data/gameEvents/randoms/randomEventList";
 import { lahtheimCenterTriggerEvents } from "../../../data/gameEvents/lahtheim/center/lahtheimCenterList";
 
 export const TestEventManager: React.FC = () => {
-  // State für die drei Dropdowns
-  const [selectedEventId, setSelectedEventId] = useState<string>("");
-  const [selectedBattleId, setSelectedBattleId] = useState<string>("");
-  const [selectedQuestId, setSelectedQuestId] = useState<string>("");
+	const [selectedEventType, setSelectedEventType] = useState<string>("");
+	const [selectedEventId, setSelectedEventId] = useState<string>("");
 
-  // State, ob der EventManager angezeigt werden soll und welcher forcedEventId übergeben wird
-  const [showManager, setShowManager] = useState(false);
-  const [forcedId, setForcedId] = useState<string | undefined>(undefined);
+	const [showManager, setShowManager] = useState(false);
+	const [forcedId, setForcedId] = useState<string | undefined>(undefined);
 
-  // Dropdown-Handler: Beim Ändern eines Werts werden die anderen zurückgesetzt
-  const handleEventChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelectedEventId(value);
-    setSelectedBattleId("");
-    setSelectedQuestId("");
-  };
+	const filteredEvents = React.useMemo(() => {
+		switch (selectedEventType) {
+			case "random":
+				return randomTriggerEvents;
+			case "lahtheim":
+				return lahtheimCenterTriggerEvents;
+			case "battle":
+				return gameBattlesEvents;
+			case "quest":
+				return gameQuestEvents.filter((q) => q.id.endsWith("Trigger"));
+			default:
+				return [];
+		}
+	}, [selectedEventType]);
 
-  const handleBattleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelectedBattleId(value);
-    setSelectedEventId("");
-    setSelectedQuestId("");
-  };
+	const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setSelectedEventType(e.target.value);
+		setSelectedEventId("");
+	};
 
-  const handleQuestChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelectedQuestId(value);
-    setSelectedEventId("");
-    setSelectedBattleId("");
-  };
+	const handleStart = () => {
+		if (selectedEventId) {
+			setForcedId(selectedEventId);
+			setShowManager(true);
+		}
+	};
 
-  // Beim Drücken von "Start" wird der jeweilige forcedEventId gesetzt und der Manager angezeigt
-  const handleStart = () => {
-    let id = "";
-    if (selectedEventId) {
-      id = selectedEventId;
-    } else if (selectedBattleId) {
-      id = selectedBattleId;
-    } else if (selectedQuestId) {
-      id = selectedQuestId;
-    }
-    if (id) {
-      setForcedId(id);
-      setShowManager(true);
-    }
-  };
+	const handleFinish = () => {
+		setShowManager(false);
+		setForcedId(undefined);
+	};
 
-  // Wird vom EventManager über onFinish aufgerufen – dann wird der Manager wieder ausgeblendet
-  const handleFinish = () => {
-    setShowManager(false);
-    setForcedId(undefined);
-  };
+	return (
+		<div className="max-width">
+			<h2>Test Event Manager</h2>
+			<div className="flex-row m-2-e" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+				<select value={selectedEventType} onChange={handleTypeChange} style={{ flex: 1 }}>
+					<option value="">Wähle eine Eventart</option>
+					<option value="random">Random</option>
+					<option value="lahtheim">Lahtheim</option>
+					<option value="battle">Battle</option>
+					<option value="quest">Quest</option>
+				</select>
 
-  return (
-    <div className="max-width">
-      <h2>Test Event Manager</h2>
-      <div className="flex-warp m-2-e">
-        <div>
-          <select value={selectedEventId} onChange={handleEventChange}>
-            <option value="">Wähle ein Random Event</option>
-            {randomTriggerEvents.map((ev) => (
-              <option key={ev.id} value={ev.id}>
-                {ev.label || ev.id}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <select value={selectedEventId} onChange={handleEventChange}>
-            <option value="">Wähle aus Lahtheim</option>
-            {lahtheimCenterTriggerEvents.map((ev) => (
-              <option key={ev.id} value={ev.id}>
-                {ev.label || ev.id}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <select value={selectedBattleId} onChange={handleBattleChange}>
-            <option value="">Wähle ein Battle</option>
-            {gameBattlesEvents.map((b) => (
-              <option key={b.id} value={b.id}>
-                {b.label || b.id}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <select value={selectedQuestId} onChange={handleQuestChange}>
-            <option value="">Wähle eine Quest</option>
-            {gameQuestEvents
-              .filter((q) => q.id.endsWith("Trigger"))
-              .map((q) => (
-                <option key={q.id} value={q.id}>
-                  {q.label || q.id}
-                </option>
-              ))}
-          </select>
-        </div>
-      </div>
-      <div className="flex-row m-2-e">
-        <button onClick={handleStart} className="btn-border add-button">Start</button>
-        <button onClick={handleFinish} className="btn-border remove-button">Reset</button>
-      </div>
-      <hr /><br />
-      {/* Falls forcedId gesetzt und showManager true ist, wird der EventManager gerendert */}
-      {showManager && forcedId && (
-        <EventManager
-          events={[]}
-          forcedEventId={forcedId}
-          onFinish={handleFinish}
-        />
-      )}
+				<select
+					value={selectedEventId}
+					onChange={(e) => setSelectedEventId(e.target.value)}
+					style={{ flex: 1 }}>
+					<option value="">Wähle ein Event</option>
+					{filteredEvents.map((ev) => (
+						<option key={ev.id} value={ev.id}>
+							{ev.label || ev.id}
+						</option>
+					))}
+				</select>
 
-      <p style={{ color: "rgba(0, 0, 0, 0.0)" }}>
-        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-      </p>
-    </div>
-  );
+				<button onClick={handleStart} className="btn-border add-button w-100px">
+					Start
+				</button>
+				<button onClick={handleFinish} className="btn-border remove-button w-100px">
+					Reset
+				</button>
+			</div>
+
+			<hr />
+			<br />
+			{/* Falls forcedId gesetzt und showManager true ist, wird der EventManager gerendert */}
+			{showManager && forcedId && (
+				<EventManager events={[]} forcedEventId={forcedId} onFinish={handleFinish} />
+			)}
+
+			<p style={{ color: "rgba(0, 0, 0, 0.0)" }}>
+				. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+				. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+				. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+				. . . . . . . . . . . . . . .
+			</p>
+		</div>
+	);
 };
