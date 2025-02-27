@@ -1,7 +1,10 @@
 import { useMemo } from "react";
 import { useRootStore } from "../../store";
-import { WeightedEvent } from "../../data/eventData";
-import { filterEventsByConditions } from "../Helper/TriggerEvent";
+import { EventActionButtons, WeightedEvent } from "../../data/eventData";
+import {
+  checkAllConditions,
+  filterEventsByConditions,
+} from "../Helper/TriggerEvent";
 
 export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
   const {
@@ -40,4 +43,31 @@ export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
   ]);
 
   return filteredEvents;
+}
+
+export function useButtonFilter(buttons: EventActionButtons[]) {
+  const {
+    gameTime,
+    gameState,
+    playerStats,
+    playerBase,
+    playerFlux,
+    playerMeta,
+    playerEconomy,
+  } = useRootStore();
+
+  const filterButtons = buttons.filter((btn) => {
+    return checkAllConditions(
+      btn.conditions,
+      gameTime.data,
+      gameState.data,
+      playerStats.data,
+      playerBase.data,
+      playerFlux.data,
+      playerMeta.data,
+      playerEconomy.data
+    );
+  });
+
+  return filterButtons;
 }

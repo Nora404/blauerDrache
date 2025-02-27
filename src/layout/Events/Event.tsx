@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { GameAction } from "../../data/eventData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import {
-  checkAllConditions,
   getBattleTiggerById,
   getGameEventById,
   getQuestTriggerById,
@@ -12,7 +11,7 @@ import {
 import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
 import ActionButton from "../ActionButtons/ActionButton";
 import HeaderSmall from "../Header/HeaderSmall";
-import { useRootStore } from "../../store";
+import { useButtonFilter } from "../../utility/Hooks/EventFilter";
 //#endregion
 
 //#region [prepare]
@@ -31,42 +30,27 @@ const Event: React.FC<EventProps> = ({
   onNextEvent,
   onFinish,
 }) => {
-
   const { applyGameAction } = useApplyGameAction();
-  const [finalOutcome, setFinalOutcome] = useState<React.ReactNode | null>(null);
-  const {
-    gameTime,
-    gameState,
-    playerStats,
-    playerBase,
-    playerFlux,
-    playerMeta,
-    playerEconomy,
-  } = useRootStore();
+  const [finalOutcome, setFinalOutcome] = useState<React.ReactNode | null>(
+    null
+  );
 
   const event =
     getGameEventById(eventId) ||
     getQuestTriggerById(eventId) ||
     getBattleTiggerById(eventId);
 
+  // Hooks müssen vor Bedingungen/Early-Return aufgerufen werden
+  const validButtons = useButtonFilter(event ? event.buttons : []);
+
   if (!event) {
     return <div>Unbekanntes Event: {eventId}</div>;
   }
 
   const descriptionJSX = parseDescription(event.description);
-  const validButtons = event.buttons.filter((btn) => {
-    return checkAllConditions(
-      btn.conditions,
-      gameTime.data,
-      gameState.data,
-      playerStats.data,
-      playerBase.data,
-      playerFlux.data,
-      playerMeta.data,
-      playerEconomy.data
-    );
-  });
+  //#endregion
 
+  //#region [handler]
   const handleButtonClick = (getAction: () => GameAction) => {
     const action = getAction();
     applyGameAction(action);
@@ -87,7 +71,7 @@ const Event: React.FC<EventProps> = ({
       nextEventId = action.nextEvents[0].eventId;
     }
 
-    const outcomeMsg = parseDescription(action.message || "");
+    const outcomeMsg = parseDescription(action.message ?? "");
 
     if (nextEventId) {
       onNextEvent?.(nextEventId);
@@ -95,7 +79,9 @@ const Event: React.FC<EventProps> = ({
       setFinalOutcome(outcomeMsg);
     }
   };
+  //#endregion
 
+  //#region [jsx]
   return (
     <div className="max-width">
       {event.label && <HeaderSmall>{event.label}</HeaderSmall>}
