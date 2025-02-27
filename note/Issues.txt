@@ -1,0 +1,30 @@
+WICHTIG
+  - Allen Hauptplätzen von Lahtheim Texte verpassen 
+  - Allen Hauptplätzen Events verpassen
+  - Monster: Zombie, Ratte, Dieb, Wachen
+  - Neuen EventManager einbauen
+  - Quests starten/beenden
+  - Alle Questarten einbauen
+  - Ausrüstungen Shop anpassen
+  - Krämer und Verkaufen einbauen
+  - Battel: Verteidigung, Items, Hand, Fliehen
+
+SOLLTE
+  - Mehr Monster und Varianten
+  - Playernamen muss ein farbiges dynamisches Label bekommen
+  - Farben für Playernamen änderbar machen
+  - Beute "Leben in Lahtheim" verteilen
+  - Layout bei allen drei Auflösungen fixen
+
+NICE
+  - Transit mit verschiedenen Richtungen 
+  - Vorhandene Random Events ausschreiben
+  - Titels einbauen
+
+SPÄTER
+  - Dungeons
+  - Icons 
+  - Housing
+  - Skills
+  - Liveskills
+  - Bessere Worldmap
