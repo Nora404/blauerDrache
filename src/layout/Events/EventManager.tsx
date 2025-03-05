@@ -1,7 +1,7 @@
 //#region [imports]
 import React, { useState, useEffect } from "react";
 import { WeightedEvent } from "../../data/eventData";
-import { pickRandomNextEvent } from "../../utility/Helper/TriggerEvent";
+import { pickRandomNextEvent } from "../../utility/Event/TriggerEvent";
 import { useEventFilter } from "../../utility/Hooks/EventFilter";
 import Combat from "./Combat";
 import Quest from "./Quest";

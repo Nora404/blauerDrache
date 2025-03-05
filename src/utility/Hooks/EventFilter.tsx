@@ -4,7 +4,7 @@ import { EventActionButtons, WeightedEvent } from "../../data/eventData";
 import {
   checkAllConditions,
   filterEventsByConditions,
-} from "../Helper/TriggerEvent";
+} from "../Event/TriggerEvent";
 
 export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
   const {

@@ -6,7 +6,7 @@ import {
   getPlaceLabelFromRoute,
   getPlaceNameFromRoute,
 } from "../../routings/mappingPathToLabel";
-import { getEventByPlace } from "../../utility/Helper/TriggerEvent";
+import { getEventByPlace } from "../../utility/Event/TriggerEvent";
 import "./Transit.css";
 import TwoActionButton from "../ActionButtons/TwoActionButton";
 import { GameEventChain } from "../Events/GameEventChain";
