@@ -13,9 +13,7 @@ type ChurchTalkProps = {
 
 //#region [prepare]
 const ChurchTalk: React.FC<ChurchTalkProps> = () => {
-    const possibleEvents: WeightedEvent[] = [
-        { eventId: "event020ChurchTalk", probability: 100 },
-    ];
+    const possibleEvents: WeightedEvent[] = [];
 
     const description = (
         <p className="mb-1 text-left">
@@ -36,6 +34,7 @@ const ChurchTalk: React.FC<ChurchTalkProps> = () => {
                 description={description}
                 backPath="/church"
                 possibleEvents={possibleEvents}
+                forcedEventId='event020ChurchTalk'
                 chanceOfAnyEvent={1}
             />
         </div>

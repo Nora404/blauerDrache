@@ -72,7 +72,7 @@ export function getBattleTiggerById(id: string): GameEvent | undefined {
 }
 //#endregion
 
-//#region [random next event]
+//#region [random event]
 export function pickRandomNextEvent(
   eventOptions: NextEventOption[]
 ): string | null {
@@ -98,6 +98,34 @@ export function pickRandomNextEvent(
 
   return null;
 }
+
+export function pickRandomEvent(
+  eventPool: WeightedEvent[],
+  options?: { allowNoEvent?: boolean; chanceOfAnyEvent?: number }
+): string | null {
+  const allowNoEvent = options?.allowNoEvent ?? true;
+  const chanceOfNoEvent = options?.chanceOfAnyEvent ?? 0.5;
+
+  if (allowNoEvent && Math.random() < chanceOfNoEvent) {
+    console.log("No Event");
+    return null;
+  }
+
+  const totalWeight = eventPool.reduce((sum, e) => sum + e.probability, 0);
+  if (totalWeight <= 0) return null;
+  console.log("TotalWeight: ", totalWeight);
+
+  let randomValue = Math.random() * totalWeight;
+  for (const e of eventPool) {
+    if (randomValue < e.probability) {
+      return e.eventId;
+    }
+    randomValue -= e.probability;
+  }
+
+  return eventPool[eventPool.length - 1].eventId;
+}
+
 //#endregion
 
 //#region [check conditions]

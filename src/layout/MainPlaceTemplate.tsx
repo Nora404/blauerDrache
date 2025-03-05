@@ -7,6 +7,7 @@ import ActionButton from "../layout/ActionButtons/ActionButton";
 import { useLocationEvents } from "../utility/Hooks/LocationEvents";
 import { GameEventChain } from "./Events/GameEventChain";
 import Header from "./Header/Header";
+import { EventManager } from "./Events/EventManager";
 //#endregion
 
 //#region [prepare]
@@ -27,6 +28,7 @@ type MainPlaceTemplateProps = {
 
   possibleEvents?: WeightedEvent[];
   chanceOfAnyEvent?: number;
+  allowNoEvent?: boolean;
   backPath?: string;
 };
 
@@ -50,6 +52,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     nightDescription,
     nightButtons,
     possibleEvents = [],
+    allowNoEvent,
     backPath = "/",
     chanceOfAnyEvent,
   }) => {
@@ -66,13 +69,13 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     //#endregion
 
     //#region [hook]
-    const {
-      localRandomEvent,
-      firstEvent,
-      questName,
-      handleFinishEvent,
-      handleFinishQuest,
-    } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
+    // const {
+    //   localRandomEvent,
+    //   firstEvent,
+    //   questName,
+    //   handleFinishEvent,
+    //   handleFinishQuest,
+    // } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
     //#endregion
 
     //#region [jsx]
@@ -105,7 +108,13 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
           </>
         )}
 
-        {localRandomEvent && (
+        <EventManager
+          events={possibleEvents}
+          backPath={backPath}
+          chanceOfAnyEvent={chanceOfAnyEvent}
+          allowNoEvent={allowNoEvent} />
+
+        {/* {localRandomEvent && (
           <>
             <GameEventChain
               initialEventName={localRandomEvent}
@@ -123,7 +132,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
               label={"Aufgabe (" + questName + ") abgeben"}
             />
           </>
-        )}
+        )} */}
       </div>
     );
   }

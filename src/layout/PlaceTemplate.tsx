@@ -3,9 +3,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
-import { useLocationEvents } from "../utility/Hooks/LocationEvents";
-import { GameEventChain } from "./Events/GameEventChain";
-import Header from "./Header/Header";
+import { EventManager } from "./Events/EventManager";
 //#endregion
 
 //#region [prepare]
@@ -19,10 +17,11 @@ type PlaceTemplateProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
   buttons?: ButtonConfig[];
-  noEventHappend?: React.ReactNode;
   chanceOfAnyEvent?: number;
+  allowNoEvent?: boolean;
   backPath: string;
   possibleEvents: WeightedEvent[];
+  forcedEventId?: string;
 };
 
 /**
@@ -41,30 +40,10 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
     buttons,
     backPath,
     possibleEvents,
-    noEventHappend = "",
     chanceOfAnyEvent,
+    allowNoEvent,
+    forcedEventId,
   }) => {
-    //#endregion
-
-    //#region [hook]
-    const {
-      localRandomEvent,
-      firstEvent,
-      questName,
-      handleBack,
-      handleFinishEvent,
-      handleFinishQuest,
-      handleForceEvent,
-    } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
-    //#endregion
-
-    //#region [handler]
-    const handleClick = (btn: ButtonConfig) => {
-      btn.onClick?.();
-      if (btn.startEventId) {
-        handleForceEvent(btn.startEventId);
-      }
-    };
     //#endregion
 
     //#region [jsx]
@@ -73,42 +52,24 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
         <h2>{title}</h2>
         <div className="mb-1">{description}</div>
 
-        {!localRandomEvent &&
-          buttons &&
+        {buttons &&
           buttons?.length > 0 &&
           buttons.map((button) => (
             <ActionButton
               key={button.label}
-              onClick={() => handleClick(button)}
+              onClick={button.onClick}
               label={button.label}
             />
           ))}
 
-        {localRandomEvent && (
-          <>
-            <GameEventChain
-              initialEventName={localRandomEvent}
-              onFinishChain={handleFinishEvent}
-            />
-            <br />
-          </>
-        )}
-        {!localRandomEvent && (
-          <>
-            {noEventHappend}
-            <ActionButton onClick={handleBack} label="Sich abwenden" />
-            <br />
-          </>
-        )}
-        {firstEvent && (
-          <>
-            <Header>Fertige Aufgaben</Header>
-            <ActionButton
-              onClick={handleFinishQuest}
-              label={"Aufgabe (" + questName + ") abgeben"}
-            />
-          </>
-        )}
+        <EventManager
+          events={possibleEvents}
+          backPath={backPath}
+          chanceOfAnyEvent={chanceOfAnyEvent}
+          allowNoEvent={allowNoEvent}
+          backBtn={true}
+          forcedEventId={forcedEventId}
+        />
       </div>
     );
   }
@@ -116,21 +77,3 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
 //#endregion
 
 export default PlaceTemplate;
-
-//#region [example]
-
-// const possibleEvents: WeightedEvent[] = [
-//     { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
-//     { eventId: "004Flower", probability: 10 },
-//   ];
-
-//   return (
-//     <PlaceTemplate
-//       title="Mit einem der Leute sprechen"
-//       description="Endtäuschst stellst du fest..."
-//       backPath="/fountain"
-//       possibleEvents={possibleEvents}
-//     />
-//   );
-// });
-//#endregion
