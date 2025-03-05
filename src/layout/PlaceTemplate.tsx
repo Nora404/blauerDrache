@@ -1,5 +1,5 @@
 //#region [imports]
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
@@ -44,6 +44,18 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
     allowNoEvent,
     forcedEventId,
   }) => {
+
+    const [newForcedEventId, setNewForcedEventId] = useState(forcedEventId);
+    const [eventActive, setEventActive] = useState(false);
+    //#endregion
+
+    //#region [handler]
+    const handleClick = (btn: ButtonConfig) => {
+      btn.onClick?.();
+      if (btn.startEventId) {
+        setNewForcedEventId(btn.startEventId);
+      }
+    };
     //#endregion
 
     //#region [jsx]
@@ -52,12 +64,12 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
         <h2>{title}</h2>
         <div className="mb-1">{description}</div>
 
-        {buttons &&
+        {!eventActive && buttons &&
           buttons?.length > 0 &&
           buttons.map((button) => (
             <ActionButton
               key={button.label}
-              onClick={button.onClick}
+              onClick={() => handleClick(button)}
               label={button.label}
             />
           ))}
@@ -68,7 +80,9 @@ const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
           chanceOfAnyEvent={chanceOfAnyEvent}
           allowNoEvent={allowNoEvent}
           backBtn={true}
-          forcedEventId={forcedEventId}
+          forcedEventId={newForcedEventId}
+          onEventStart={() => setEventActive(true)}
+          onEventEnd={() => setEventActive(false)}
         />
       </div>
     );

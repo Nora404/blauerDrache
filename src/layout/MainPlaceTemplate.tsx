@@ -4,9 +4,6 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../store";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
-import { useLocationEvents } from "../utility/Hooks/LocationEvents";
-import { GameEventChain } from "./Events/GameEventChain";
-import Header from "./Header/Header";
 import { EventManager } from "./Events/EventManager";
 //#endregion
 
@@ -68,16 +65,6 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     const showDayBlock = isDay || !canUseNachtInhalte;
     //#endregion
 
-    //#region [hook]
-    // const {
-    //   localRandomEvent,
-    //   firstEvent,
-    //   questName,
-    //   handleFinishEvent,
-    //   handleFinishQuest,
-    // } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
-    //#endregion
-
     //#region [jsx]
     return (
       <div className="max-width">
@@ -113,26 +100,6 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
           backPath={backPath}
           chanceOfAnyEvent={chanceOfAnyEvent}
           allowNoEvent={allowNoEvent} />
-
-        {/* {localRandomEvent && (
-          <>
-            <GameEventChain
-              initialEventName={localRandomEvent}
-              onFinishChain={handleFinishEvent}
-            />
-            <br />
-            <br />
-          </>
-        )}
-        {firstEvent && (
-          <>
-            <Header>Fertige Aufgaben</Header>
-            <ActionButton
-              onClick={handleFinishQuest}
-              label={"Aufgabe (" + questName + ") abgeben"}
-            />
-          </>
-        )} */}
       </div>
     );
   }

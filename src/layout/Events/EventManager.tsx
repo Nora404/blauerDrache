@@ -8,6 +8,7 @@ import Quest from "./Quest";
 import Event from "./Event";
 import { useNavigate } from "react-router-dom";
 import ActionButton from "../ActionButtons/ActionButton";
+import { useQuestIsDone } from "../../utility/Hooks/QuestEvents";
 //#endregion
 
 //#region [prepare]
@@ -19,6 +20,8 @@ type EventManagerProps = {
   allowNoEvent?: boolean;
   backBtn?: boolean;
   onFinish?: () => void;
+  onEventStart?: () => void;
+  onEventEnd?: () => void;
 };
 
 export const EventManager: React.FC<EventManagerProps> = ({
@@ -29,21 +32,34 @@ export const EventManager: React.FC<EventManagerProps> = ({
   backPath = "/",
   backBtn = false,
   onFinish,
+  onEventStart,
+  onEventEnd,
 }) => {
 
   const navigate = useNavigate();
   const validEvents = useEventFilter(events);
+  const questDone = useQuestIsDone();
+
   const [currentBattleId, setCurrentBattleId] = useState<string | null>(null);
   const [currentQuestId, setCurrentQuestId] = useState<string | null>(null);
   const [currentEventId, setCurrentEventId] = useState<string | null>(null);
 
   const handleFinishEvent = () => {
+    onEventEnd && onEventEnd();
+    currentEventId && setCurrentEventId(null);
+
     if (onFinish) {
       onFinish();
     } else {
       navigate(backPath);
     }
   }
+
+  useEffect(() => {
+    if (currentEventId !== null) {
+      onEventStart && onEventStart();
+    }
+  }, [currentEventId, onEventStart]);
 
   // Entweder das forcedEventId oder ein zufälliges Event auswählen
   useEffect(() => {
@@ -70,18 +86,26 @@ export const EventManager: React.FC<EventManagerProps> = ({
 
   if (currentEventId) {
     return (
-      <Event
-        eventId={currentEventId}
-        onTriggerBattle={setCurrentBattleId}
-        onTriggerQuest={setCurrentQuestId}
-        onNextEvent={(nextId) => {
-          setCurrentEventId(nextId);
-        }}
-        onFinish={handleFinishEvent}
-      />
+      <>
+        <Event
+          eventId={currentEventId}
+          onTriggerBattle={setCurrentBattleId}
+          onTriggerQuest={setCurrentQuestId}
+          onNextEvent={(nextId) => {
+            setCurrentEventId(nextId);
+          }}
+          onFinish={handleFinishEvent}
+        />
+
+        <p>
+          {questDone && <ActionButton onClick={() => setCurrentEventId(questDone.eventByEnd)} label="Quest abgeben" />}
+        </p>
+      </>
     );
   }
 
-  return <>{backBtn && <ActionButton onClick={handleFinishEvent} label="Sich abwenden" />}</>;
+  return <>
+    {backBtn && <ActionButton onClick={handleFinishEvent} label="Sich abwenden" />}
+  </>;
 };
 //#endregion

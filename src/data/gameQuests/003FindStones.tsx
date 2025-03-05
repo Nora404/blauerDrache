@@ -8,7 +8,7 @@ export const quest003FindStone: GameQuest = {
     "Die Leute am {PLACES.Brunnen} brauchen Hilfe Steine zu besorgen.",
   reward:
     "Du wirst etwas {SYSTEM.Gold} bekommen und dein {SYSTEM.Ruf} verbessern.",
-  eventByEnd: "E003ThreeStoneEnd",
+  eventByEnd: "E003FindStoneEnd",
   progress: {
     type: "Besorgen",
     path: "/fountain-people",
