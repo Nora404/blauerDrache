@@ -1,13 +1,13 @@
 WICHTIG
-  - Allen Hauptplätzen von Lahtheim Texte verpassen 
-  - Allen Hauptplätzen Events verpassen
-  - Monster: Zombie, Ratte, Dieb, Wachen
   - Neuen EventManager einbauen
   - Quests starten/beenden
   - Alle Questarten einbauen
+  - Allen Hauptplätzen von Lahtheim Texte verpassen 
+  - Allen Hauptplätzen Events verpassen
   - Ausrüstungen Shop anpassen
   - Krämer und Verkaufen einbauen
   - Battel: Verteidigung, Items, Hand, Fliehen
+  - Monster: Zombie, Ratte, Dieb, Wachen
 
 SOLLTE
   - Mehr Monster und Varianten
@@ -15,6 +15,7 @@ SOLLTE
   - Farben für Playernamen änderbar machen
   - Beute "Leben in Lahtheim" verteilen
   - Layout bei allen drei Auflösungen fixen
+  - Überarbeitung Charaktererstellung
 
 NICE
   - Transit mit verschiedenen Richtungen 
