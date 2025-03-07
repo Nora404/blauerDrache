@@ -73,11 +73,11 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	}, [forcedEventId, events, validEvents, onFinish]);
 
 	if (currentBattleId) {
-		return <Combat battleId={currentBattleId} />;
+		return <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
 	}
 
 	if (currentQuestId) {
-		return <Quest questId={currentQuestId} />;
+		return <Quest questId={currentQuestId} onFinish={handleFinishEvent} />;
 	}
 
 	if (currentEventId) {
