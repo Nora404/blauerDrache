@@ -1,107 +1,105 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { WeightedEvent } from "../../data/eventData";
-import { useRootStore } from "../../store";
-import { filterEventsByConditions, getGameEventById } from "../Event/TriggerEvent";
-import { pickRandomEvent } from "../Random/RandomPickedEvent";
-import { getQuestByEventId } from "../../data/questData";
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { WeightedEvent } from "../../data/eventData";
+// import { useRootStore } from "../../store";
+// import { filterEventsByConditions, getGameEventById } from "../Event/TriggerEvent";
+// import { pickRandomEvent } from "../Random/RandomPickedEvent";
+// import { getQuestByEventId } from "../../data/questData";
 
-export function useLocationEvents(
-  possibleEvents: WeightedEvent[],
-  backPath: string,
-  chanceOfAnyEvent?: number,
-) {
-  const {
-    gameTime,
-    gameState,
-    playerStats,
-    playerBase,
-    playerFlux,
-    playerMeta,
-    playerQuest,
-    playerEconomy,
-  } = useRootStore();
+// export function useLocationEvents(
+//   possibleEvents: WeightedEvent[],
+//   backPath: string,
+//   chanceOfAnyEvent?: number,
+// ) {
+//   const {
+//     gameTime,
+//     gameState,
+//     playerStats,
+//     playerBase,
+//     playerFlux,
+//     playerMeta,
+//     playerQuest,
+//     playerEconomy,
+//   } = useRootStore();
 
-  const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
-  const [questName, setQuestName] = useState<string | null>(null);
-  const navigate = useNavigate();
+//   const [localRandomEvent, setLocalRandomEvent] = useState<string | null>(null);
+//   const [questName, setQuestName] = useState<string | null>(null);
+//   const navigate = useNavigate();
 
-  const queue = gameState.data.currentEventQueue;
-  const path = gameState.data.currentPath;
-  const firstEvent =
-    Object.entries(queue).find(([_, eventPath]) => {
-      return eventPath === path;
-    })?.[0] || null;
+//   const queue = gameState.data.currentEventQueue;
+//   const path = gameState.data.currentPath;
+//   const firstEvent =
+//     Object.entries(queue).find(([_, eventPath]) => {
+//       return eventPath === path;
+//     })?.[0] || null;
 
-  useEffect(() => {
-    if (firstEvent !== null) {
-      const questObj = getQuestByEventId(firstEvent);
-      // setLocalRandomEvent(null);
-      setQuestName(questObj?.label || null);
-      return;
-    }
+//   useEffect(() => {
+//     if (firstEvent !== null) {
+//       const questObj = getQuestByEventId(firstEvent);
+//       setQuestName(questObj?.label || null);
+//       return;
+//     }
 
-    if (!possibleEvents.length) {
-      return;
-    }
+//     if (!possibleEvents.length) {
+//       return;
+//     }
 
-    const filtered = filterEventsByConditions(
-      possibleEvents,
-      gameTime.data,
-      gameState.data,
-      playerStats.data,
-      playerBase.data,
-      playerFlux.data,
-      playerMeta.data,
-      playerQuest.data,
-      playerEconomy.data,
-    );
-    if (!filtered.length) return;
+//     const filtered = filterEventsByConditions(
+//       possibleEvents,
+//       gameTime.data,
+//       gameState.data,
+//       playerStats.data,
+//       playerBase.data,
+//       playerFlux.data,
+//       playerMeta.data,
+//       playerQuest.data,
+//       playerEconomy.data,
+//     );
+//     if (!filtered.length) return;
 
-    const randomEventId = pickRandomEvent(filtered, chanceOfAnyEvent);
-    if (!randomEventId) return;
+//     const randomEventId = pickRandomEvent(filtered, chanceOfAnyEvent);
+//     if (!randomEventId) return;
 
-    const foundEvent = filtered.find((e) => e.eventId === randomEventId);
-    if (foundEvent?.questId) {
-      const isQuestActive = !!playerQuest.data.activeQuests[foundEvent.questId];
-      if (isQuestActive) {
-        // setLocalRandomEvent(null);
-        return;
-      }
-    }
+//     const foundEvent = filtered.find((e) => e.eventId === randomEventId);
+//     if (foundEvent?.questId) {
+//       const isQuestActive = !!playerQuest.data.activeQuests[foundEvent.questId];
+//       if (isQuestActive) {
+//         return;
+//       }
+//     }
 
-    setLocalRandomEvent(randomEventId);
-  }, [firstEvent, possibleEvents, gameTime.data, gameState.data, playerStats.data, playerBase.data, playerFlux.data, playerMeta.data, playerQuest.data, playerEconomy.data, chanceOfAnyEvent]);
+//     setLocalRandomEvent(randomEventId);
+//   }, [firstEvent, possibleEvents, gameTime.data, gameState.data, playerStats.data, playerBase.data, playerFlux.data, playerMeta.data, playerQuest.data, playerEconomy.data, chanceOfAnyEvent]);
 
-  const handleBack = () => {
-    navigate(backPath);
-  };
+//   const handleBack = () => {
+//     navigate(backPath);
+//   };
 
-  const handleFinishEvent = () => {
-    setLocalRandomEvent(null);
-    navigate(backPath);
-  };
+//   const handleFinishEvent = () => {
+//     setLocalRandomEvent(null);
+//     navigate(backPath);
+//   };
 
-  const handleFinishQuest = () => {
-    navigate("/quest/" + firstEvent + "" + backPath);
-  };
+//   const handleFinishQuest = () => {
+//     navigate("/quest/" + firstEvent + "" + backPath);
+//   };
 
-  const handleForceEvent = (forcedEventId: string) => {
-    const event = getGameEventById(forcedEventId);
-    if (!event) {
-      console.error("Ungültige Event-ID:", forcedEventId);
-      return;
-    }
-    setLocalRandomEvent(forcedEventId);
-  };
+//   const handleForceEvent = (forcedEventId: string) => {
+//     const event = getGameEventById(forcedEventId);
+//     if (!event) {
+//       console.error("Ungültige Event-ID:", forcedEventId);
+//       return;
+//     }
+//     setLocalRandomEvent(forcedEventId);
+//   };
 
-  return {
-    localRandomEvent,
-    firstEvent,
-    questName,
-    handleBack,
-    handleFinishEvent,
-    handleFinishQuest,
-    handleForceEvent,
-  };
-}
+//   return {
+//     localRandomEvent,
+//     firstEvent,
+//     questName,
+//     handleBack,
+//     handleFinishEvent,
+//     handleFinishQuest,
+//     handleForceEvent,
+//   };
+// }
