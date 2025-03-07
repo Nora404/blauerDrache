@@ -6,7 +6,7 @@ import {
   pickRandomNextEvent,
   getGameEventById,
   checkAllConditions,
-} from "../../utility/Helper/TriggerEvent";
+} from "../../utility/Event/TriggerEvent";
 import { useApplyGameAction } from "../../utility/Hooks/ApplyGameAction";
 import ActionButton from "../ActionButtons/ActionButton";
 import HeaderSmall from "../Header/HeaderSmall";

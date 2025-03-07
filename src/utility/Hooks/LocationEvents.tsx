@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WeightedEvent } from "../../data/eventData";
 import { useRootStore } from "../../store";
-import { filterEventsByConditions, getGameEventById } from "../Helper/TriggerEvent";
+import { filterEventsByConditions, getGameEventById } from "../Event/TriggerEvent";
 import { pickRandomEvent } from "../Random/RandomPickedEvent";
 import { getQuestByEventId } from "../../data/questData";
 

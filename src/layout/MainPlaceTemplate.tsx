@@ -4,9 +4,7 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../store";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
-import { useLocationEvents } from "../utility/Hooks/LocationEvents";
-import { GameEventChain } from "./Events/GameEventChain";
-import Header from "./Header/Header";
+import { EventManager } from "./Events/EventManager";
 //#endregion
 
 //#region [prepare]
@@ -27,6 +25,7 @@ type MainPlaceTemplateProps = {
 
   possibleEvents?: WeightedEvent[];
   chanceOfAnyEvent?: number;
+  allowNoEvent?: boolean;
   backPath?: string;
 };
 
@@ -50,6 +49,7 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
     nightDescription,
     nightButtons,
     possibleEvents = [],
+    allowNoEvent,
     backPath = "/",
     chanceOfAnyEvent,
   }) => {
@@ -63,16 +63,6 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
 
     // Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
     const showDayBlock = isDay || !canUseNachtInhalte;
-    //#endregion
-
-    //#region [hook]
-    const {
-      localRandomEvent,
-      firstEvent,
-      questName,
-      handleFinishEvent,
-      handleFinishQuest,
-    } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
     //#endregion
 
     //#region [jsx]
@@ -105,25 +95,11 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
           </>
         )}
 
-        {localRandomEvent && (
-          <>
-            <GameEventChain
-              initialEventName={localRandomEvent}
-              onFinishChain={handleFinishEvent}
-            />
-            <br />
-            <br />
-          </>
-        )}
-        {firstEvent && (
-          <>
-            <Header>Fertige Aufgaben</Header>
-            <ActionButton
-              onClick={handleFinishQuest}
-              label={"Aufgabe (" + questName + ") abgeben"}
-            />
-          </>
-        )}
+        <EventManager
+          events={possibleEvents}
+          backPath={backPath}
+          chanceOfAnyEvent={chanceOfAnyEvent}
+          allowNoEvent={allowNoEvent} />
       </div>
     );
   }

@@ -115,7 +115,7 @@ textarea {
 }
 
 input[type="number"] {
-  width: 100px;
+  width: 80px;
 }
 
 .w-100 {
@@ -151,7 +151,7 @@ input[type="number"] {
 }
 
 .w100c {
-  width: 200px;
+  width: 130px;
   text-align: center;
   border: 1px dotted gray;
 }

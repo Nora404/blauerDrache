@@ -1,44 +1,77 @@
 //#region [imports]
 import React, { useState, useEffect } from "react";
 import { WeightedEvent } from "../../data/eventData";
-import { pickRandomNextEvent } from "../../utility/Helper/TriggerEvent";
+import { pickRandomEvent } from "../../utility/Event/TriggerEvent";
 import { useEventFilter } from "../../utility/Hooks/EventFilter";
 import Combat from "./Combat";
 import Quest from "./Quest";
 import Event from "./Event";
+import { useNavigate } from "react-router-dom";
+import ActionButton from "../ActionButtons/ActionButton";
+import { useQuestIsDone } from "../../utility/Hooks/QuestEvents";
 //#endregion
 
 //#region [prepare]
 type EventManagerProps = {
   events: WeightedEvent[];
   forcedEventId?: string;
-  onFinish: () => void;
+  backPath?: string,
+  chanceOfAnyEvent?: number;
+  allowNoEvent?: boolean;
+  backBtn?: boolean;
+  onFinish?: () => void;
+  onEventStart?: () => void;
+  onEventEnd?: () => void;
 };
 
 export const EventManager: React.FC<EventManagerProps> = ({
   events,
   forcedEventId,
+  chanceOfAnyEvent = 0.50,
+  allowNoEvent = false,
+  backPath = "/",
+  backBtn = false,
   onFinish,
+  onEventStart,
+  onEventEnd,
 }) => {
 
+  const navigate = useNavigate();
   const validEvents = useEventFilter(events);
+  const questDone = useQuestIsDone();
+
   const [currentBattleId, setCurrentBattleId] = useState<string | null>(null);
   const [currentQuestId, setCurrentQuestId] = useState<string | null>(null);
   const [currentEventId, setCurrentEventId] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Wenn bereits ein Event ausgewählt wurde (z. B. Folgeevent), nicht neu berechnen!
-    if (currentEventId !== null) return;
+  const handleFinishEvent = () => {
+    onEventEnd && onEventEnd();
+    currentEventId && setCurrentEventId(null);
 
-    // Falls weder Events noch forcedEvent vorhanden sind, nichts tun
+    if (onFinish) {
+      onFinish();
+    } else {
+      navigate(backPath);
+    }
+  }
+
+  useEffect(() => {
+    if (currentEventId !== null) {
+      onEventStart && onEventStart();
+    }
+  }, [currentEventId, onEventStart]);
+
+  // Entweder das forcedEventId oder ein zufälliges Event auswählen
+  useEffect(() => {
+    if (currentEventId !== null) return;
     if (events.length === 0 && !forcedEventId) return;
 
-    // Falls forcedEventId existiert, diesen nutzen – ansonsten zufällig aus den gefilterten Events wählen
-    const chosenEventId = forcedEventId ? forcedEventId : pickRandomNextEvent(validEvents);
+    const options = { allowNoEvent, chanceOfAnyEvent };
+    const chosenEventId = forcedEventId ? forcedEventId : pickRandomEvent(validEvents, options);
     if (chosenEventId) {
       setCurrentEventId(chosenEventId);
     } else {
-      onFinish();
+      handleFinishEvent();
     }
     // Wichtig: currentEventId ist nicht als Dependency, damit einmalig gewählt wird.
   }, [forcedEventId, events, validEvents, onFinish]);
@@ -53,18 +86,26 @@ export const EventManager: React.FC<EventManagerProps> = ({
 
   if (currentEventId) {
     return (
-      <Event
-        eventId={currentEventId}
-        onTriggerBattle={setCurrentBattleId}
-        onTriggerQuest={setCurrentQuestId}
-        onNextEvent={(nextId) => {
-          setCurrentEventId(nextId);
-        }}
-        onFinish={onFinish}
-      />
+      <>
+        <Event
+          eventId={currentEventId}
+          onTriggerBattle={setCurrentBattleId}
+          onTriggerQuest={setCurrentQuestId}
+          onNextEvent={(nextId) => {
+            setCurrentEventId(nextId);
+          }}
+          onFinish={handleFinishEvent}
+        />
+
+        <p>
+          {questDone && <ActionButton onClick={() => setCurrentEventId(questDone.eventByEnd)} label="Quest abgeben" />}
+        </p>
+      </>
     );
   }
 
-  return <div>Kein Event verfügbar</div>;
+  return <>
+    {backBtn && <ActionButton onClick={handleFinishEvent} label="Sich abwenden" />}
+  </>;
 };
 //#endregion

@@ -52,6 +52,7 @@ const Fountain: React.FC<FountainProps> = observer(() => {
     { label: 'Schwarzes Brett untersuchen', onClick: () => navigate('/fountain-board') },
     { label: 'Nach verlorenen Schätzen suchen', onClick: () => navigate('/fountain-treasure') },
     { label: 'Mit einem der Leute sprechen', onClick: () => navigate('/fountain-people') },
+    { label: 'Mit einem der Krieger sprechen', onClick: () => navigate('/fountain-warrior') },
   ];
   //#endregion
 
