@@ -9,24 +9,23 @@ import { EventManager } from "./Events/EventManager";
 
 //#region [prepare]
 type ButtonConfig = {
-  label: string;
-  onClick: () => void;
+	label: string;
+	onClick: () => void;
 };
 
 type MainPlaceTemplateProps = {
-  title: React.ReactNode;
-  description?: React.ReactNode;
+	title: React.ReactNode;
+	description?: React.ReactNode;
 
-  dayDescription: React.ReactNode;
-  dayButtons: ButtonConfig[];
+	dayDescription: React.ReactNode;
+	dayButtons: ButtonConfig[];
 
-  nightDescription?: React.ReactNode;
-  nightButtons?: ButtonConfig[];
+	nightDescription?: React.ReactNode;
+	nightButtons?: ButtonConfig[];
 
-  possibleEvents?: WeightedEvent[];
-  chanceOfAnyEvent?: number;
-  allowNoEvent?: boolean;
-  backPath?: string;
+	possibleEvents?: WeightedEvent[];
+	noEventProbability?: number;
+	backPath?: string;
 };
 
 /**
@@ -41,67 +40,58 @@ type MainPlaceTemplateProps = {
  * @param backPath - Pfad, zu dem zurückgegangen wird
  */
 export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
-  ({
-    title,
-    description,
-    dayDescription,
-    dayButtons,
-    nightDescription,
-    nightButtons,
-    possibleEvents = [],
-    allowNoEvent,
-    backPath = "/",
-    chanceOfAnyEvent,
-  }) => {
-    const { gameTime } = useRootStore();
-    const isDay = gameTime.data.gameDay === "Tag";
+	({
+		title,
+		description,
+		dayDescription,
+		dayButtons,
+		nightDescription,
+		nightButtons,
+		possibleEvents = [],
+		backPath = "/",
+		noEventProbability,
+	}) => {
+		const { gameTime } = useRootStore();
+		const isDay = gameTime.data.gameDay === "Tag";
 
-    // Wenn nightDescription bzw. nightButtons fehlen oder leer, fallback auf Tag
-    const hasNightDescription = !!nightDescription;
-    const hasNightButtons = !!nightButtons && nightButtons.length > 0;
-    const canUseNachtInhalte = hasNightDescription && hasNightButtons;
+		// Wenn nightDescription bzw. nightButtons fehlen oder leer, fallback auf Tag
+		const hasNightDescription = !!nightDescription;
+		const hasNightButtons = !!nightButtons && nightButtons.length > 0;
+		const canUseNachtInhalte = hasNightDescription && hasNightButtons;
 
-    // Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
-    const showDayBlock = isDay || !canUseNachtInhalte;
-    //#endregion
+		// Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
+		const showDayBlock = isDay || !canUseNachtInhalte;
+		//#endregion
 
-    //#region [jsx]
-    return (
-      <div className="max-width">
-        <h2>{title}</h2>
-        <div className="mb-1">{description}</div>
+		//#region [jsx]
+		return (
+			<div className="max-width">
+				<h2>{title}</h2>
+				<div className="mb-1">{description}</div>
 
-        {showDayBlock ? (
-          <>
-            {dayDescription}
-            {dayButtons.map((btn, index) => (
-              <ActionButton
-                key={index}
-                onClick={btn.onClick}
-                label={btn.label}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {nightDescription}
-            {nightButtons?.map((btn, index) => (
-              <ActionButton
-                key={index}
-                onClick={btn.onClick}
-                label={btn.label}
-              />
-            ))}
-          </>
-        )}
+				{showDayBlock ? (
+					<>
+						{dayDescription}
+						{dayButtons.map((btn, index) => (
+							<ActionButton key={index} onClick={btn.onClick} label={btn.label} />
+						))}
+					</>
+				) : (
+					<>
+						{nightDescription}
+						{nightButtons?.map((btn, index) => (
+							<ActionButton key={index} onClick={btn.onClick} label={btn.label} />
+						))}
+					</>
+				)}
 
-        <EventManager
-          events={possibleEvents}
-          backPath={backPath}
-          chanceOfAnyEvent={chanceOfAnyEvent}
-          allowNoEvent={allowNoEvent} />
-      </div>
-    );
-  }
+				<EventManager
+					events={possibleEvents}
+					backPath={backPath}
+					noEventProbability={noEventProbability}
+				/>
+			</div>
+		);
+	}
 );
 //#endregion

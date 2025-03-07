@@ -8,20 +8,19 @@ import { EventManager } from "./Events/EventManager";
 
 //#region [prepare]
 type ButtonConfig = {
-  label: string;
-  onClick?: () => void;
-  startEventId?: string;
+	label: string;
+	onClick?: () => void;
+	startEventId?: string;
 };
 
 type PlaceTemplateProps = {
-  title?: React.ReactNode;
-  description?: React.ReactNode;
-  buttons?: ButtonConfig[];
-  chanceOfAnyEvent?: number;
-  allowNoEvent?: boolean;
-  backPath: string;
-  possibleEvents: WeightedEvent[];
-  forcedEventId?: string;
+	title?: React.ReactNode;
+	description?: React.ReactNode;
+	buttons?: ButtonConfig[];
+	noEventProbability?: number;
+	backPath: string;
+	possibleEvents: WeightedEvent[];
+	forcedEventId?: string;
 };
 
 /**
@@ -34,59 +33,57 @@ type PlaceTemplateProps = {
  * @param possibleEvents - Array von {eventId, probability, questId?, conditions?}
  */
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
-  ({
-    title,
-    description,
-    buttons,
-    backPath,
-    possibleEvents,
-    chanceOfAnyEvent,
-    allowNoEvent,
-    forcedEventId,
-  }) => {
+	({
+		title,
+		description,
+		buttons,
+		backPath,
+		possibleEvents,
+		noEventProbability,
+		forcedEventId,
+	}) => {
+		const [newForcedEventId, setNewForcedEventId] = useState(forcedEventId);
+		const [eventActive, setEventActive] = useState(false);
+		//#endregion
 
-    const [newForcedEventId, setNewForcedEventId] = useState(forcedEventId);
-    const [eventActive, setEventActive] = useState(false);
-    //#endregion
+		//#region [handler]
+		const handleClick = (btn: ButtonConfig) => {
+			btn.onClick?.();
+			if (btn.startEventId) {
+				setNewForcedEventId(btn.startEventId);
+			}
+		};
+		//#endregion
 
-    //#region [handler]
-    const handleClick = (btn: ButtonConfig) => {
-      btn.onClick?.();
-      if (btn.startEventId) {
-        setNewForcedEventId(btn.startEventId);
-      }
-    };
-    //#endregion
+		//#region [jsx]
+		return (
+			<div className="max-width">
+				<h2>{title}</h2>
+				<div className="mb-1">{description}</div>
 
-    //#region [jsx]
-    return (
-      <div className="max-width">
-        <h2>{title}</h2>
-        <div className="mb-1">{description}</div>
+				{!eventActive &&
+					buttons &&
+					buttons?.length > 0 &&
+					buttons.map((button) => (
+						<ActionButton
+							key={button.label}
+							onClick={() => handleClick(button)}
+							label={button.label}
+						/>
+					))}
 
-        {!eventActive && buttons &&
-          buttons?.length > 0 &&
-          buttons.map((button) => (
-            <ActionButton
-              key={button.label}
-              onClick={() => handleClick(button)}
-              label={button.label}
-            />
-          ))}
-
-        <EventManager
-          events={possibleEvents}
-          backPath={backPath}
-          chanceOfAnyEvent={chanceOfAnyEvent}
-          allowNoEvent={allowNoEvent}
-          backBtn={true}
-          forcedEventId={newForcedEventId}
-          onEventStart={() => setEventActive(true)}
-          onEventEnd={() => setEventActive(false)}
-        />
-      </div>
-    );
-  }
+				<EventManager
+					events={possibleEvents}
+					backPath={backPath}
+					noEventProbability={noEventProbability}
+					backBtn={true}
+					forcedEventId={newForcedEventId}
+					onEventStart={() => setEventActive(true)}
+					onEventEnd={() => setEventActive(false)}
+				/>
+			</div>
+		);
+	}
 );
 //#endregion
 

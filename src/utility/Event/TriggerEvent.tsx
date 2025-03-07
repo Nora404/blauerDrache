@@ -68,44 +68,19 @@ export function getBattleTiggerById(id: string): GameEvent | undefined {
 //#endregion
 
 //#region [random event]
-export function pickRandomNextEvent(eventOptions: NextEventOption[]): string | null {
-	const totalProbability = eventOptions.reduce((sum, option) => sum + option.probability, 0);
-	if (totalProbability <= 0) {
-		return null;
-	}
 
-	let randomValue = Math.random() * totalProbability;
-
-	// Ist probability < randomValue wenn ja dann hat das Event gewonnen
-	// Wenn nein wird probability vom randomValue abgezogen und die Schleife geht weiter
-	// Je größer die Warscheinlichkeit des Events umso mehr "Bereich" hat es in randomValue
-	for (const option of eventOptions) {
-		if (randomValue < option.probability) {
-			return option.eventId;
-		}
-		randomValue -= option.probability;
-	}
-
-	return null;
-}
-
-export function pickRandomEvent(
-	eventPool: WeightedEvent[],
-	options?: { allowNoEvent?: boolean; chanceOfAnyEvent?: number }
-): string | null {
-	const allowNoEvent = options?.allowNoEvent ?? true;
-	const chanceOfNoEvent = options?.chanceOfAnyEvent ?? 0.5;
-
-	if (allowNoEvent && Math.random() < chanceOfNoEvent) {
-		console.log("No Event");
-		return null;
-	}
-
+/**
+ * @param eventPool - Array von gewichteten Events
+ * @param noEventProbability - 0 bis 100 wobei 0 = immer ein Event auslösen
+ */
+export function pickRandomEvent(eventPool: WeightedEvent[], noEventProbability: number = 0) {
 	const totalWeight = eventPool.reduce((sum, e) => sum + e.probability, 0);
+
+	if (Math.random() < noEventProbability) return null;
 	if (totalWeight <= 0) return null;
-	console.log("TotalWeight: ", totalWeight);
 
 	let randomValue = Math.random() * totalWeight;
+
 	for (const e of eventPool) {
 		if (randomValue < e.probability) {
 			return e.eventId;
@@ -113,7 +88,7 @@ export function pickRandomEvent(
 		randomValue -= e.probability;
 	}
 
-	return eventPool[eventPool.length - 1].eventId;
+	return null;
 }
 
 //#endregion
