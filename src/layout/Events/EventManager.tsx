@@ -1,5 +1,5 @@
 //#region [imports]
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { WeightedEvent } from "../../data/eventData";
 import { pickRandomEvent } from "../../utility/Event/TriggerEvent";
 import { useEventFilter } from "../../utility/Hooks/EventFilter";
@@ -40,38 +40,47 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	const [currentBattleId, setCurrentBattleId] = useState<string | null>(null);
 	const [currentQuestId, setCurrentQuestId] = useState<string | null>(null);
 	const [currentEventId, setCurrentEventId] = useState<string | null>(null);
+	//#endregion
 
-	const handleFinishEvent = () => {
-		onEventEnd && onEventEnd();
-		currentEventId && setCurrentEventId(null);
+	//#region [handler]
 
+	const handleFinishEvent = useCallback(() => {
+		onEventEnd?.();
+		if (currentEventId) setCurrentEventId(null);
 		if (onFinish) {
 			onFinish();
 		} else {
 			navigate(backPath);
 		}
-	};
+	}, [onEventEnd, onFinish, currentEventId, navigate, backPath]);
 
-	useEffect(() => {
-		if (currentEventId !== null) {
-			onEventStart && onEventStart();
-		}
-	}, [currentEventId, onEventStart]);
-
-	// Entweder das forcedEventId oder ein zufälliges Event auswählen
-	useEffect(() => {
-		if (currentEventId !== null) return;
+	const handleSelectEvent = useCallback(() => {
 		if (events.length === 0 && !forcedEventId) return;
-
 		const chosenEventId = forcedEventId || pickRandomEvent(validEvents, noEventProbability);
 		if (chosenEventId) {
 			setCurrentEventId(chosenEventId);
 		} else {
 			handleFinishEvent();
 		}
-		// Wichtig: currentEventId ist nicht als Dependency, damit einmalig gewählt wird.
-	}, [forcedEventId, events, validEvents, onFinish]);
+	}, [events, forcedEventId, validEvents, noEventProbability, handleFinishEvent]);
 
+	//#endregion
+
+	//#region [useEffect]
+	useEffect(() => {
+		if (currentEventId !== null) {
+			onEventStart?.();
+		}
+	}, [currentEventId, onEventStart]);
+
+	useEffect(() => {
+		if (currentEventId === null) {
+			handleSelectEvent();
+		}
+	}, [currentEventId, handleSelectEvent]);
+	//#endregion
+
+	//#region [rendern]
 	if (currentBattleId) {
 		return <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
 	}
@@ -87,24 +96,23 @@ export const EventManager: React.FC<EventManagerProps> = ({
 					eventId={currentEventId}
 					onTriggerBattle={setCurrentBattleId}
 					onTriggerQuest={setCurrentQuestId}
-					onNextEvent={(nextId) => {
-						setCurrentEventId(nextId);
-					}}
+					onNextEvent={setCurrentEventId}
 					onFinish={handleFinishEvent}
 				/>
 
-				<p>
-					{questDone && (
+				{/* Zeige Button, falls Quest abgeschlossen */}
+				{questDone && (
+					<p>
 						<ActionButton
 							onClick={() => setCurrentEventId(questDone.eventByEnd)}
 							label="Quest abgeben"
 						/>
-					)}
-				</p>
+					</p>
+				)}
 			</>
 		);
 	}
+	//#endregion
 
 	return <>{backBtn && <ActionButton onClick={handleFinishEvent} label="Sich abwenden" />}</>;
 };
-//#endregion
