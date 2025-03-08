@@ -16,6 +16,11 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
     const handleBack = () => {
         navigate('/fountain');
     };
+
+    const handleClick = (link: string) => {
+        const goTo = '/fountain-board-' + link;
+        navigate(goTo);;
+    }
     // #endregion
 
     // #region [jsx]
@@ -25,15 +30,17 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
             <p className='mb-1 text-left'>
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
             </p> <br />
-            <p className='mb-1 text-left questcontainer'>
-                <div className='questbox'><strong>Begegnung</strong><br />Finde die gesuchte Person und rede mit ihr</div>
-                <div className='questbox'><strong>Besorgen</strong><br />Bestimmte Gegenstände müsen besorgt werden</div>
-                <div className='questbox'><strong>Erkundung</strong><br />Ein bestimmter Ort muss erreicht werden</div>
-                <div className='questbox'><strong>Benutzten</strong><br />An einem bestimmten Ort muss etwas benutzt werden</div>
-                <div className='questbox'><strong>Besiegen</strong><br />Es gibt ein Kopfgeld auf bestimmte Gegner</div>
-                <div className='questbox'><strong>Erfahrung</strong><br />Jemand sucht nach Personen mit Erfahrung</div>
-                <div className='questbox'><strong>Verbessern</strong><br />Zeige das du dich verbessern und stärker werden kannst</div>
-                <div className='questbox'><strong>Schalter</strong><br />Irgendetwas wird diese Welt verändern!</div>
+            <p className='mb-1 text-left category-section'>
+                <div className='questbox paper'><strong>Begegnung</strong><br />Finde die gesuchte Person und rede mit ihr</div>
+                <button className='questbox paper' onClick={() => handleClick('item')}>
+                    <strong>Besorgen</strong><br />Bestimmte Gegenstände müsen besorgt werden
+                </button>
+                <div className='questbox paper'><strong>Erkundung</strong><br />Ein bestimmter Ort muss erreicht werden</div>
+                <div className='questbox paper'><strong>Benutzten</strong><br />An einem bestimmten Ort muss etwas benutzt werden</div>
+                <div className='questbox paper'><strong>Besiegen</strong><br />Es gibt ein Kopfgeld auf bestimmte Gegner</div>
+                <div className='questbox paper'><strong>Erfahrung</strong><br />Jemand sucht nach Personen mit Erfahrung</div>
+                <div className='questbox paper'><strong>Verbessern</strong><br />Zeige das du dich verbessern und stärker werden kannst</div>
+                <div className='questbox paper'><strong>Schalter</strong><br />Irgendetwas wird diese Welt verändern!</div>
             </p><br />
             <ActionButton onClick={handleBack} label='Sich abwenden' />
         </div>

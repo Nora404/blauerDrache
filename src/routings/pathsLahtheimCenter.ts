@@ -4,6 +4,7 @@ import { RouteConfig } from "../routes";
 export enum PathsLahtheimCenter {
     Fountain = '/fountain',
     FountainBoard = '/fountain-board',
+    FountainBoardItem = '/fountain-board-item',
     FountainPeople = '/fountain-people',
     FountainWarrior = '/fountain-warrior',
     FountainTreasure = '/fountain-treasure',
@@ -44,10 +45,12 @@ const CourtyardTreasure = lazy(() => import('../playground/lahtheim/center/court
 
 const FountainNavi = lazy(() => import('../playground/lahtheim/center/fountain/FountainNavi'));
 const Fountain = lazy(() => import('../playground/lahtheim/center/fountain/Fountain'));
-const FountainBoard = lazy(() => import('../playground/lahtheim/center/fountain/FountainBoard'));
 const FountainPeople = lazy(() => import('../playground/lahtheim/center/fountain/FountainPeople'));
 const FountainWarrior = lazy(() => import('../playground/lahtheim/center/fountain/FountainWarrior'));
 const FountainTreasure = lazy(() => import('../playground/lahtheim/center/fountain/FountainTreasure'));
+const FountainBoard = lazy(() => import('../playground/lahtheim/center/fountain/FountainBoard'));
+const FountainBoardItem =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardItem'));
 
 const GraveyardNavi = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardNavi'));
 const Graveyard = lazy(() => import('../playground/lahtheim/center/graveyard/Graveyard'));
@@ -118,6 +121,11 @@ export const routesLahtheimCenter: RouteConfig[] = [
     {
         path: PathsLahtheimCenter.FountainBoard,
         element: FountainBoard,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardItem,
+        element: FountainBoardItem,
         navigation: FountainNavi,
     },
     {
