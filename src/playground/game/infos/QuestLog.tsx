@@ -9,6 +9,7 @@ import ActionButton from "../../../layout/ActionButtons/ActionButton";
 import { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../store";
+import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
 // #endregion
 
 // #region [prepare]
@@ -47,14 +48,14 @@ const Questlog: React.FC = observer(() => {
             ([questId, currentProgress]) => {
               const questObject = getGameQuestById(questId) || emptyQuest;
               return (
-                <div key={questId} className="text-left questbox">
+                <div key={questId} className="text-left questbox paper">
                   ({questObject.progress.type}){" "}
                   <strong>{questObject.label}</strong>
                   <p className="mb-1">
-                    {questObject.description}
-                    <br />
-                    {questObject.reward}
-                    <br />
+                    {parseDescription(questObject.description)}
+                  </p>
+                  <p className="mb-1">
+                    {parseDescription(questObject.reward)}
                   </p>
                   <p
                     className={
@@ -68,7 +69,7 @@ const Questlog: React.FC = observer(() => {
                     onClick={() => {
                       handleAbandon(questObject.id);
                     }}
-                    label="aufgeben"
+                    label="xXx Aufgeben xXx"
                   />
                 </div>
               );
@@ -78,8 +79,7 @@ const Questlog: React.FC = observer(() => {
       ) : (
         <p>Keine aktiven Aufgaben</p>
       )}
-      <br /> <hr />
-      <button onClick={handleClick}>Zeige Store</button>
+      <br />
     </div>
   );
   // #endregion

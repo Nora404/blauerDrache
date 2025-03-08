@@ -12,6 +12,12 @@
   letter-spacing: -5px;
 }
 
+.paper {
+  border: 10px solid transparent;
+  padding: 15px;
+  border-image: url(../assets/border2.svg) 10% round;
+}
+
 /****************************************** Flexbox *******************************************/
 .flex-row {
   align-items: center;
@@ -97,26 +103,20 @@
 }
 
 .questbox {
-  background: linear-gradient(
-    135deg,
-    rgba(60, 120, 150, 0.15),
-    rgba(98, 176, 212, 0.02) 20%,
-    rgba(98, 176, 212, 0.05) 50%,
-    rgba(98, 176, 212, 0.02) 80%,
-    rgba(60, 120, 150, 0.15)
-  );
-  border: 1px solid rgba(95, 173, 209, 0.2);
-  border-radius: 8px;
+  background: linear-gradient(135deg,
+      rgba(60, 120, 150, 0.25),
+      rgba(98, 176, 212, 0.12) 20%,
+      rgba(98, 176, 212, 0.15) 50%,
+      rgba(98, 176, 212, 0.12) 80%,
+      rgba(60, 120, 150, 0.25));
+  /* border: 1px solid rgba(95, 173, 209, 0.2);
+  border-radius: 8px; */
   box-sizing: border-box;
   margin-bottom: 0px;
   min-height: 100px;
   padding: 10px;
+  max-width: 300px;
   text-align: left;
-}
-
-.questbox:hover {
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(98, 176, 212);
 }
 
 .category-section {
@@ -205,7 +205,7 @@
     text-align: center;
   }
 
-  .flex-row-right > * {
+  .flex-row-right>* {
     width: 100%;
   }
 
@@ -216,7 +216,7 @@
     text-align: center;
   }
 
-  .flex-row > * {
+  .flex-row>* {
     width: 100%;
   }
 
