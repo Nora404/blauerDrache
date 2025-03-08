@@ -40,6 +40,10 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	const [currentBattleId, setCurrentBattleId] = useState<string | null>(null);
 	const [currentQuestId, setCurrentQuestId] = useState<string | null>(null);
 	const [currentEventId, setCurrentEventId] = useState<string | null>(null);
+
+	const [showQuestButton, setShowQuestButton] = useState<boolean>(() => {
+		return questDone !== undefined ? true : false;
+	});
 	//#endregion
 
 	//#region [handler]
@@ -55,8 +59,19 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	}, [onEventEnd, onFinish, currentEventId, navigate, backPath]);
 
 	const handleSelectEvent = useCallback(() => {
+		// Wenn keine Events vorhanden sind, wird nichts gerendert.
 		if (events.length === 0 && !forcedEventId) return;
-		const chosenEventId = forcedEventId || pickRandomEvent(validEvents, noEventProbability);
+
+		// default: nimm die gefilterten Events als Basis
+		let selectionPool = validEvents;
+
+		// Ist der Original-Array nicht leer, aber der gefilterte Event-Array leer geworden?
+		if (events.length > 0 && validEvents.length === 0) {
+			selectionPool = [{ eventId: "000Nothing", probability: 100 }];
+		}
+
+		// Wähle ein Event aus der Auswahl der gefilterten Events
+		const chosenEventId = forcedEventId || pickRandomEvent(selectionPool, noEventProbability);
 		if (chosenEventId) {
 			setCurrentEventId(chosenEventId);
 		} else {
@@ -64,9 +79,18 @@ export const EventManager: React.FC<EventManagerProps> = ({
 		}
 	}, [events, forcedEventId, validEvents, noEventProbability, handleFinishEvent]);
 
+	const handleQuestButton = useCallback((eventId: string) => {
+		setCurrentEventId(eventId);
+		setShowQuestButton(false);
+	}, [questDone]);
+
 	//#endregion
 
 	//#region [useEffect]
+	useEffect(() => {
+		setShowQuestButton(questDone !== undefined ? true : false);
+	}, [questDone]);
+
 	useEffect(() => {
 		if (currentEventId !== null) {
 			onEventStart?.();
@@ -101,17 +125,19 @@ export const EventManager: React.FC<EventManagerProps> = ({
 				/>
 
 				{/* Zeige Button, falls Quest abgeschlossen */}
-				{questDone && (
+				{showQuestButton && questDone && (
 					<p>
 						<ActionButton
-							onClick={() => setCurrentEventId(questDone.eventByEnd)}
+							onClick={() => handleQuestButton(questDone.eventByEnd)}
 							label="Quest abgeben"
 						/>
 					</p>
 				)}
 			</>
 		);
+
 	}
+
 	//#endregion
 
 	return <>{backBtn && <ActionButton onClick={handleFinishEvent} label="Sich abwenden" />}</>;

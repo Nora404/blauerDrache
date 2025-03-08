@@ -1,5 +1,6 @@
 import { GameEvent } from "../../eventData";
 import { event999test } from "../999Text";
+import { event000Nothing } from "./000Nothing";
 import { event001StoneCoin } from "./001StoneCoin";
 import { event002Mashroom } from "./002Mushroom";
 import { event003Stick } from "./003Stick";
@@ -19,6 +20,7 @@ import { event016FairyWish } from "./016FairyWish";
 import { event017ChestTrap } from "./017ChestTrap";
 
 export const randomEvents: GameEvent[] = [
+    event000Nothing,
     event001StoneCoin,
     event002Mashroom,
     event003Stick,
@@ -40,6 +42,7 @@ export const randomEvents: GameEvent[] = [
 ];
 
 export const randomTriggerEvents: GameEvent[] = [
+    event000Nothing,
     event001StoneCoin,
     event002Mashroom,
     event003Stick,

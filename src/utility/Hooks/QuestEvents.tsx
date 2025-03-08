@@ -36,7 +36,6 @@ export function useQuestIsDone() {
         Object.entries(queue).find(([_, eventPath]) => {
             return eventPath === path;
         })?.[0] || null;
-    console.log(firstEvent);
 
     const questObj = firstEvent ? getQuestByEventId(firstEvent) : undefined;
 

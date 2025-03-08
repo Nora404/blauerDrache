@@ -18,7 +18,6 @@ export class GameStateStore {
   }
 
   setCurrentPath(path: string) {
-    console.log("setCurrentPath", path);
     this.data.currentPath = path;
     this.rootStore.saveToLocalStorage();
   }

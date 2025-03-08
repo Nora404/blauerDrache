@@ -36,8 +36,29 @@ export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
 
 	const filteredEvents = useMemo(() => {
 		return events.filter((evt) => {
+			// Prüfung ob eine mögliche Quest bereits abgeschlossen ist oder aktiv ist.
+			if (evt.questId) {
+				const questDef = getGameQuestById(evt.questId);
+				console.log("questDef", questDef);
+				if (questDef) {
+					const isDone = playerQuest.data.completedQuest.includes(evt.questId);
+					if (isDone && questDef.repeat === false) {
+						return false;
+					}
+
+					const isActive = Boolean(playerQuest.data.activeQuests[evt.questId]);
+					console.log("isActive", playerQuest.data.activeQuests[evt.questId]);
+					console.log("isActive", isActive);
+					if (isActive) {
+						return false;
+					}
+				}
+			}
+
+			// Gibt es keine Bedingungen ist das Event immer gültig.
 			if (!evt.conditions) return true;
 
+			// Prüfung
 			const pass = checkAllConditions(
 				evt.conditions,
 				gameTime.data,
@@ -50,16 +71,8 @@ export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
 			);
 			if (!pass) return false;
 
-			if (evt.questId) {
-				const questDef = getGameQuestById(evt.questId);
-				if (questDef) {
-					const isDone = playerQuest.data.completedQuest.includes(evt.questId);
-					if (isDone && questDef.repeat === false) {
-						return false;
-					}
-				}
-			}
-
+			// Wenn alle Bedingungen erfüllt sind,
+			// wird das Event in die Liste der gültigen Events aufgenommen.
 			return true;
 		});
 	}, [events, gameState.data, gameTime.data, playerBase.data, playerEconomy.data, playerFlux.data, playerMeta.data, playerQuest.data.completedQuest, playerStats.data]);
