@@ -10,6 +10,7 @@ import { useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../store";
 import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
+import { redColors } from "../../../data/helper/colorMappingData";
 // #endregion
 
 // #region [prepare]
@@ -69,7 +70,9 @@ const Questlog: React.FC = observer(() => {
                     onClick={() => {
                       handleAbandon(questObject.id);
                     }}
-                    label="xXx Aufgeben xXx"
+                    color={redColors}
+                    bgColor="red"
+                    label="Aufgeben"
                   />
                 </div>
               );

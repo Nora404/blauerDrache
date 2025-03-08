@@ -1,7 +1,8 @@
 import { observer } from "mobx-react-lite";
 import ActionButton from "../ActionButtons/ActionButton";
-import { getGameQuestById } from "../../data/questData";
+import { emptyQuest, getGameQuestById } from "../../data/questData";
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
+import { greenColors } from "../../data/helper/colorMappingData";
 
 type QuestProps = {
 	questId: string;
@@ -19,18 +20,22 @@ const Quest: React.FC<QuestProps> = observer(({ questId, onFinish }) => {
 	// 	navigate(`/${backPath}`, { replace: true });
 	// };
 
-	const quest = getGameQuestById(questId);
+	const quest = getGameQuestById(questId) || emptyQuest;
 	const label = parseDescription(quest?.label || "Unbekannte Aufgabe");
 	const description = parseDescription(quest?.description || "");
 	const reward = parseDescription(quest?.reward || "");
 
 	// #region [jsx]
 	return (
-		<div className="max-width">
-			<div>{label}</div>
-			<div>{description}</div>
-			<div className="mb-1">{reward}</div>
-			<ActionButton onClick={onFinish} label="Aufgabe notiert" />
+		<div className="max-width flex-center">
+			<div className="text-left questbox paper">
+				({quest.progress.type}) <strong>{quest.label}</strong>
+				<p>{label}</p>
+				<p className="mb-1">{description}</p>
+				<p className="mb-1">{reward}</p>
+				<ActionButton onClick={onFinish} color={greenColors} bgColor="green" label="Aufgabe notiert" />
+			</div>
+
 		</div>
 	);
 	// #endregion
