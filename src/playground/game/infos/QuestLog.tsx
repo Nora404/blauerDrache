@@ -83,12 +83,6 @@ const Questlog: React.FC = observer(() => {
         <p>Keine aktiven Aufgaben</p>
       )}
       <br />
-      <ActionButton
-        onClick={handleClick}
-        color={redColors}
-        bgColor="red"
-        label="Debug"
-      />
     </div>
   );
   // #endregion

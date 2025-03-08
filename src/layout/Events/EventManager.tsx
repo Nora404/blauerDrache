@@ -129,7 +129,7 @@ export const EventManager: React.FC<EventManagerProps> = ({
 					<p>
 						<ActionButton
 							onClick={() => handleQuestButton(questDone.eventByEnd)}
-							label="Quest abgeben"
+							label={"Quest abgeben: " + questDone.label}
 						/>
 					</p>
 				)}
