@@ -8,7 +8,7 @@ import Quest from "./Quest";
 import Event from "./Event";
 import { useNavigate } from "react-router-dom";
 import ActionButton from "../ActionButtons/ActionButton";
-import { useQuestIsDone } from "../../utility/Hooks/QuestEvents";
+import { useQuestsIsDone } from "../../utility/Hooks/QuestEvents";
 //#endregion
 
 //#region [prepare]
@@ -35,14 +35,14 @@ export const EventManager: React.FC<EventManagerProps> = ({
 }) => {
 	const navigate = useNavigate();
 	const validEvents = useEventFilter(events);
-	const questDone = useQuestIsDone();
+	const questsDone = useQuestsIsDone();
 
 	const [currentBattleId, setCurrentBattleId] = useState<string | null>(null);
 	const [currentQuestId, setCurrentQuestId] = useState<string | null>(null);
 	const [currentEventId, setCurrentEventId] = useState<string | null>(null);
 
 	const [showQuestButton, setShowQuestButton] = useState<boolean>(() => {
-		return questDone !== undefined ? true : false;
+		return questsDone !== undefined ? true : false;
 	});
 	//#endregion
 
@@ -82,14 +82,14 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	const handleQuestButton = useCallback((eventId: string) => {
 		setCurrentEventId(eventId);
 		setShowQuestButton(false);
-	}, [questDone]);
+	}, [questsDone]);
 
 	//#endregion
 
 	//#region [useEffect]
 	useEffect(() => {
-		setShowQuestButton(questDone !== undefined ? true : false);
-	}, [questDone]);
+		setShowQuestButton(questsDone !== undefined ? true : false);
+	}, [questsDone]);
 
 	useEffect(() => {
 		if (currentEventId !== null) {
@@ -105,40 +105,55 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	//#endregion
 
 	//#region [rendern]
-	const questBtn = () => {
-		return questDone ?
-			<ActionButton
-				onClick={() => handleQuestButton(questDone.eventByEnd)}
-				bgColor="yellow"
-				label={"Quest abgeben: " + questDone.label} /> : <></>;
-	}
+	const questsBtn = () => {
+		if (!questsDone || questsDone.length === 0) return null;
 
-	let eventView = null;
+		return (
+			<>
+				{questsDone.map((quest) => {
+					return (
+						<p key={quest.id}>
+							<ActionButton
+								onClick={() => handleQuestButton(quest.eventByEnd)}
+								bgColor="yellow"
+								label={"Quest abgeben: " + quest.label}
+							/>
+						</p>
+					);
+				})}
+			</>
+		);
+	}
 
 	if (currentBattleId) {
-		eventView = <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
+		return <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
 	}
 
-	else if (currentQuestId) {
-		eventView = <Quest questId={currentQuestId} onFinish={handleFinishEvent} />;
+	if (currentQuestId) {
+		return <Quest questId={currentQuestId} onFinish={handleFinishEvent} />;
 	}
 
-	else if (currentEventId) {
-		eventView = (
-			<Event
-				eventId={currentEventId}
-				onTriggerBattle={setCurrentBattleId}
-				onTriggerQuest={setCurrentQuestId}
-				onNextEvent={setCurrentEventId} />
+	if (currentEventId) {
+		return (
+			<>
+				<p><Event
+					eventId={currentEventId}
+					onTriggerBattle={setCurrentBattleId}
+					onTriggerQuest={setCurrentQuestId}
+					onNextEvent={setCurrentEventId}
+				/></p>
+				<p>{showQuestButton && questsBtn()}</p>
+				<p>{backBtn && <ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />}</p>
+			</>
 		);
+
 	}
 
 	//#endregion
 
 	return (
 		<>
-			<p>{eventView}</p>
-			<p>{showQuestButton && questBtn()}</p>
+			<p>{showQuestButton && questsBtn()}</p>
 			<p>{backBtn && <ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />}</p>
 		</>
 	);

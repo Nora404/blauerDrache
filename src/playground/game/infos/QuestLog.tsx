@@ -44,14 +44,13 @@ const Questlog: React.FC = observer(() => {
       </p>
       <br />
       {playerQuest.data.activeQuests ? (
-        <div>
+        <div className="flex-warp">
           {Object.entries(playerQuest.data.activeQuests).map(
             ([questId, currentProgress]) => {
               const questObject = getGameQuestById(questId) || emptyQuest;
               return (
-                <div key={questId} className="text-left questbox paper">
-                  ({questObject.progress.type}){" "}
-                  <strong>{questObject.label}</strong>
+                <div key={questId} className="text-center questbox paper">
+                  <strong className="text-yellow">{questObject.label}</strong>
                   <p className="mb-1">
                     {parseDescription(questObject.description)}
                   </p>
@@ -60,7 +59,7 @@ const Questlog: React.FC = observer(() => {
                   </p>
                   <p
                     className={
-                      currentProgress.isDone ? "text-green" : "text-blue"
+                      currentProgress.isDone ? "text-green" : "text-white"
                     }
                   >
                     {renderTask(currentProgress)}

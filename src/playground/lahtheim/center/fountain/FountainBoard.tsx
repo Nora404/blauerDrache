@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PLACES } from '../../../../data/helper/colorfullStrings';
 import { EventManager } from '../../../../layout/Events/EventManager';
+import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 // #endregion
 
 // #region [prepare]
@@ -41,6 +42,7 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
                 <div className='questbox paper'><strong>Schalter</strong><br />Irgendetwas wird diese Welt verändern!</div>
             </p><br />
 
+            <ActionButton onClick={() => handleClick('service')} label='Aufträge abgeben' bgColor='yellow' />
             <EventManager events={[]} backPath={'/fountain'} backBtn={true} />
         </div>
     );

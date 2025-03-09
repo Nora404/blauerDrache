@@ -5,6 +5,7 @@ export enum PathsLahtheimCenter {
     Fountain = '/fountain',
     FountainBoard = '/fountain-board',
     FountainBoardItem = '/fountain-board-item',
+    FountainBoardService = '/fountain-board-service',
     FountainPeople = '/fountain-people',
     FountainWarrior = '/fountain-warrior',
     FountainTreasure = '/fountain-treasure',
@@ -51,6 +52,8 @@ const FountainTreasure = lazy(() => import('../playground/lahtheim/center/founta
 const FountainBoard = lazy(() => import('../playground/lahtheim/center/fountain/FountainBoard'));
 const FountainBoardItem =
     lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardItem'));
+const FountainBoardService =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardService'));
 
 const GraveyardNavi = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardNavi'));
 const Graveyard = lazy(() => import('../playground/lahtheim/center/graveyard/Graveyard'));
@@ -126,6 +129,11 @@ export const routesLahtheimCenter: RouteConfig[] = [
     {
         path: PathsLahtheimCenter.FountainBoardItem,
         element: FountainBoardItem,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardService,
+        element: FountainBoardService,
         navigation: FountainNavi,
     },
     {

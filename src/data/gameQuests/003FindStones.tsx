@@ -7,11 +7,11 @@ export const quest003FindStone: GameQuest = {
   description:
     "Jemand benötigt für den Bau seines Kellers drei faustgroße Steine. Bringe sie zur Truhe am schwarzen Brett beim {PLACES.Brunnen}.",
   reward:
-    "Du wirst etwas {SYSTEM.Gold} bekommen und dein {SYSTEM.Ruf} verbessern.",
+    "Du wirst etwas {SYSTEM.Gold} {Talk|grün}bekommen{/Talk} und dein {SYSTEM.Ruf} {Talk|grün}verbessern{/Talk}.",
   eventByEnd: "E003FindStoneEnd",
   progress: {
     type: "Besorgen",
-    path: "/fountain-board",
+    path: "/fountain-board-service",
     eventByEnd: "E003FindStoneEnd",
     isDone: false,
     task: { haveItem: [{ item: "Stein", need: 3, count: 0 }] },
@@ -55,7 +55,7 @@ export const event003FindStoneEnd: GameEvent = {
       label: "gern geschehen",
       getAction: () => {
         return {
-          message: "Du hast für die Steine 5 {SYSTEM.Gold} bekommen und deinen {SYSTEM.Ruf} um 3 verbessert.",
+          message: "Du hast für die Steine 5 {SYSTEM.Gold} {Talk|grün}bekommen{/Talk} und deinen {SYSTEM.Ruf} um 3 {Talk|grün}verbessern{/Talk}.",
           endQuest: "Q003FindStone",
           itemsDelta: { Stein: -3 },
           economyDelta: { gold: 5 },

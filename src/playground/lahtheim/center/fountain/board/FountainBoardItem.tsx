@@ -14,6 +14,7 @@ const FountainBoardItem: React.FC<FountainBoardItemProps> = observer(() => {
 
     const possibleEvents: WeightedEvent[] = [
         { eventId: "E003FindStoneTrigger", probability: 100, questId: "Q003FindStone" },
+        { eventId: "E004OneTrashTrigger", probability: 100, questId: "Q004OneTrash" },
     ];
 
     const description =
