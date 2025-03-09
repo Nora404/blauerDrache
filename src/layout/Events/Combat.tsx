@@ -6,7 +6,7 @@ import AttackAnimation from "./AttackAnimation"; // Pfad ggf. anpassen
 import { parseDescription } from "../../utility/Helper/ParseTextToJSX";
 import { getGameBattleById } from "../../data/battleData";
 import { rollDice100 } from "../../utility/Helper/RollDice";
-import { multiplier } from "../../utility/Helper/CombatHelper";
+import { generateAttackLog, multiplier } from "../../utility/Helper/CombatHelper";
 import ActionButton from "../ActionButtons/ActionButton";
 //#endregion
 
@@ -62,7 +62,7 @@ const Combat: React.FC<CombatProps> = ({ battleId, onFinish }) => {
 	const processRound = () => {
 		setShowAttackAnimation(false);
 		if (enemy) {
-			let roundLog = ""; // Lokale Variable für den Log-Text
+			let roundLog = "";
 
 			const playerFirstStrike = (combinedStats.luck || 0) + (playerBase.data.level - enemy.level);
 			const enemyFirstStrike = (enemy.luck || 0) + (enemy.level - playerBase.data.level);
@@ -78,10 +78,12 @@ const Combat: React.FC<CombatProps> = ({ battleId, onFinish }) => {
 			if (firstStrike === "player") {
 				roundLog += "Du hast den Erstschlag!\n";
 				roundLog += playerAttack();
+				checkIsFinish();
 				roundLog += enemyAttack();
 			} else {
 				roundLog += enemy.name + " hat den Erstschlag!\n";
 				roundLog += enemyAttack();
+				checkIsFinish();
 				roundLog += playerAttack();
 			}
 
@@ -90,28 +92,12 @@ const Combat: React.FC<CombatProps> = ({ battleId, onFinish }) => {
 		finishRound();
 	};
 
-	// Attack-Funktionen so anpassen, dass sie den Log-Text zurückgeben
 	const enemyAttack = () => {
 		const multi = multiplier(enemy.luck);
 		const rawAttack = Math.floor(enemy.attack * multi);
 		const attack = Math.max(0, rawAttack - combinedStats.defense);
 
-		let roundLog = "";
-		switch (multi) {
-			case 0.4:
-				roundLog = "{Talk|custom:#6cc180}Der Angriff war besonders schwach!{/Talk}";
-				break;
-			case 0.8:
-				roundLog = "{Talk|custom:#9ac7ba}Der Angriff war schwach!{/Talk}";
-				break;
-			case 1.4:
-				roundLog = "{Talk|custom:#c998ae}Der Angriff war gut!{/Talk}";
-				break;
-			case 1.8:
-				roundLog = "{Talk|custom:#cb6380}Volltreffer!{/Talk}";
-				break;
-			default:
-		}
+		const roundLog = generateAttackLog(multi, "enemy");
 
 		playerStats.updateLife(-attack);
 		return `${enemy.name} hat {Talk|rot}${attack} Schaden{/Talk} angerichtet. ${roundLog}\n`;
@@ -122,22 +108,7 @@ const Combat: React.FC<CombatProps> = ({ battleId, onFinish }) => {
 		const rawAttack = Math.floor(combinedStats.attack * multi);
 		const attack = Math.max(1, rawAttack - enemy.defense);
 
-		let roundLog = "";
-		switch (multi) {
-			case 0.4:
-				roundLog = "{Talk|custom:#cb6380}Dein Angriff war besonders schwach!{/Talk}";
-				break;
-			case 0.8:
-				roundLog = "{Talk|custom:#c998ae}Dein Angriff war schwach!{/Talk}";
-				break;
-			case 1.4:
-				roundLog = "{Talk|custom:#9ac7ba}Dein Angriff war gut!{/Talk}";
-				break;
-			case 1.8:
-				roundLog = "{Talk|custom:#6cc180}Volltreffer!{/Talk}";
-				break;
-			default:
-		}
+		const roundLog = generateAttackLog(multi, "player");
 
 		const updatedEnemy = { ...enemy, life: enemy.life - attack };
 		setEnemy(updatedEnemy);
@@ -168,6 +139,14 @@ const Combat: React.FC<CombatProps> = ({ battleId, onFinish }) => {
 		setSelectedLog(rounds);
 	};
 
+	const checkIsFinish = () => {
+		if (combinedStats.life <= 0) {
+			finishRound();
+		}
+		if (enemy.life <= 0) {
+			finishRound();
+		}
+	}
 	//#endregion
 
 	//#region log
