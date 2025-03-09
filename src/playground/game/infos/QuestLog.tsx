@@ -38,9 +38,7 @@ const Questlog: React.FC = observer(() => {
     <div className="max-width">
       <h2>Deine Aufgaben</h2>
       <p className="mb-1 text-left">
-        Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen
-        Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch
-        nicht weiter.
+        Du hast ein kleines Büchlein bei dir, doch anstatt Einkaufszettel oder Gedichte hältst du darin deine Aufgaben fest. Wer könnte sich schon all die Orte und Namen ohne Hilfsmittel merken? Zwischen den Seiten stecken die abgerissenen Zettel deiner Auftraggeber, sorgsam verwahrt, damit du keinen Auftrag aus den Augen verlierst.
       </p>
       <br />
       {playerQuest.data.activeQuests ? (

@@ -20,7 +20,11 @@ export class PlayerQuestStore {
 
   updateQuest(questId: string, remove: boolean) {
     if (remove) {
-      // Quest aus activeQuests entfernen
+      const questProgress = this.data.activeQuests[questId];
+      if (questProgress && questProgress.eventByEnd) {
+        this.rootStore.gameState.removeFromEventQueue(questProgress.eventByEnd);
+      }
+
       const { [questId]: _, ...remainingActiveQuests } = this.data.activeQuests;
       this.data.activeQuests = remainingActiveQuests;
       this.rootStore.saveToLocalStorage();
