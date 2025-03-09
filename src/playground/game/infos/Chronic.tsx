@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ActionButton from "../../../layout/ActionButtons/ActionButton";
 import Header from "../../../layout/Header/Header";
+import finalBattle from "../../../assets/finalBattle.webp";
 
 type ChronicProps = {
   title?: string;
@@ -18,12 +18,17 @@ const Chronic: React.FC<ChronicProps> = () => {
     <div className="max-width">
       <h2>Chroniken von Aurendia</h2>
 
-      <div className="flex-row">
-        <ActionButton onClick={() => { handleClick(1) }} label="Band I: Das Erwachen" />
-        <ActionButton onClick={() => { handleClick(2) }} label="Band II: Hüter der Quelle" />
-        <ActionButton onClick={() => { handleClick(3) }} label="Band III: Der ewige Ruf" />
+      <div className="toggleRowCol">
+        <div className="flex-col w-full">
+          <button onClick={() => { handleClick(1) }} className="btn-border">Band I: Das Erwachen</button>
+          <button onClick={() => { handleClick(2) }} className="btn-border">Band II: Hüter der Quelle</button>
+          <button onClick={() => { handleClick(3) }} className="btn-border">Band III: Der ewige Ruf</button>
+          <button onClick={() => { handleClick(3) }} className="btn-border">Die Völker des blauen Drachen</button>
+          <button onClick={() => { handleClick(3) }} className="btn-border">Die Länder des blauen Drachen</button>
+          <button onClick={() => { handleClick(3) }} className="btn-border">Glossar</button>
+        </div>
+        <img src={finalBattle} alt="finalBattle" style={{ width: "50%", marginLeft: "30px" }} />
       </div>
-
 
 
       {side === 1 && <div>
