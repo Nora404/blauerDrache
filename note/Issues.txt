@@ -1,6 +1,4 @@
 WICHTIG
-  - Neuen EventManager einbauen
-  - Quests starten/beenden
   - Alle Questarten einbauen
   - Allen Hauptplätzen von Lahtheim Texte verpassen 
   - Allen Hauptplätzen Events verpassen

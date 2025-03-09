@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { PLACES } from '../../../../data/helper/colorfullStrings';
 import { EventManager } from '../../../../layout/Events/EventManager';
 import ActionButton from '../../../../layout/ActionButtons/ActionButton';
+import MultiColoredLetters from '../../../../utility/Formatted/MultiColoredLetters';
+import { blueColors, braunColors, greenColors, lilaColors, orangeColors, redColors, rosaColors, yellowColors } from '../../../../data/helper/colorMappingData';
 // #endregion
 
 // #region [prepare]
@@ -30,16 +32,31 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
                 Am Fuß des <b>schwarzen Bretts</b> steht eine kleine Truhe, die auf dich irgendwie verführerisch einladend wirkt. Ein Schutzzauber verhindert jedoch die unbefugte Entnahme - Diebe haben hier keine Chance.
             </p>
             <p className='mb-1 text-left category-section'>
-                <div className='questbox paper'><strong>Begegnung</strong><br />Finde die gesuchte Person und rede mit ihr</div>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={greenColors}>Begegnung</MultiColoredLetters><br />
+                    Finde die gesuchte Person und rede mit ihr</button>
                 <button className='questbox paper' onClick={() => handleClick('item')}>
-                    <strong>Besorgen</strong><br />Bestimmte Gegenstände müsen besorgt werden
+                    <MultiColoredLetters colors={orangeColors}>Besorgen</MultiColoredLetters><br />
+                    Bestimmte Gegenstände müsen besorgt werden
                 </button>
-                <div className='questbox paper'><strong>Erkundung</strong><br />Ein bestimmter Ort muss erreicht werden</div>
-                <div className='questbox paper'><strong>Benutzten</strong><br />An einem bestimmten Ort muss etwas benutzt werden</div>
-                <div className='questbox paper'><strong>Besiegen</strong><br />Es gibt ein Kopfgeld auf bestimmte Gegner</div>
-                <div className='questbox paper'><strong>Erfahrung</strong><br />Jemand sucht nach Personen mit Erfahrung</div>
-                <div className='questbox paper'><strong>Verbessern</strong><br />Zeige das du dich verbessern und stärker werden kannst</div>
-                <div className='questbox paper'><strong>Schalter</strong><br />Irgendetwas wird diese Welt verändern!</div>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={lilaColors}>Erkundung</MultiColoredLetters><br />
+                    Ein bestimmter Ort muss erreicht werden</button>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={blueColors}>Benutzten</MultiColoredLetters><br />
+                    An einem bestimmten Ort muss etwas benutzt werden</button>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={braunColors}>Besiegen</MultiColoredLetters><br />
+                    Es gibt ein Kopfgeld auf bestimmte Gegner</button>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={rosaColors}>Erfahrung</MultiColoredLetters><br />
+                    Jemand sucht nach Personen mit Erfahrung</button>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={yellowColors}>Verbessern</MultiColoredLetters><br />
+                    Zeige das du dich verbessern und stärker werden kannst</button>
+                <button className='questbox paper'>
+                    <MultiColoredLetters colors={redColors}>Schalter</MultiColoredLetters><br />
+                    Irgendetwas wird diese Welt verändern!</button>
             </p><br />
 
             <ActionButton onClick={() => handleClick('service')} label='Aufträge abgeben' bgColor='yellow' />
