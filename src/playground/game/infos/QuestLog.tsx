@@ -27,8 +27,8 @@ const Questlog: React.FC = observer(() => {
   );
 
   const handleClick = () => {
-    console.log("Aktive: ", Object.keys(playerQuest.data.activeQuests));
-    console.log("Wartet: ", Object.keys(gameState.data.currentEventQueue));
+    console.log("Aktive: ", Object.entries(playerQuest.data.activeQuests));
+    console.log("Wartet: ", Object.entries(gameState.data.currentEventQueue));
     console.log("Fertig: ", Object.keys(playerQuest.data.completedQuest));
   };
   // #endregion
@@ -83,6 +83,7 @@ const Questlog: React.FC = observer(() => {
         <p>Keine aktiven Aufgaben</p>
       )}
       <br />
+      <ActionButton onClick={handleClick} label="Debug" />
     </div>
   );
   // #endregion

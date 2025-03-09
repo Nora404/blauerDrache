@@ -11,7 +11,7 @@ type ActionButtonProps = {
     label: string;
     disable?: boolean;
     color?: string[];
-    bgColor?: "blue" | "green" | "red";
+    bgColor?: "blue" | "green" | "red" | "yellow";
     result?: string;
 };
 
@@ -35,6 +35,8 @@ const ActionButton: React.FC<ActionButtonProps> = ({
                 return "btn-border-green";
             case "red":
                 return "btn-border-red";
+            case "yellow":
+                return "btn-border-yellow";
             default:
                 return "btn-border";
         }

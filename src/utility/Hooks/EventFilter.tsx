@@ -39,7 +39,6 @@ export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
 			// Prüfung ob eine mögliche Quest bereits abgeschlossen ist oder aktiv ist.
 			if (evt.questId) {
 				const questDef = getGameQuestById(evt.questId);
-				console.log("questDef", questDef);
 				if (questDef) {
 					const isDone = playerQuest.data.completedQuest.includes(evt.questId);
 					if (isDone && questDef.repeat === false) {
@@ -47,8 +46,6 @@ export function useEventFilter(events: WeightedEvent[]): WeightedEvent[] {
 					}
 
 					const isActive = Boolean(playerQuest.data.activeQuests[evt.questId]);
-					console.log("isActive", playerQuest.data.activeQuests[evt.questId]);
-					console.log("isActive", isActive);
 					if (isActive) {
 						return false;
 					}

@@ -105,40 +105,41 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	//#endregion
 
 	//#region [rendern]
+	const questBtn = () => {
+		return questDone ?
+			<ActionButton
+				onClick={() => handleQuestButton(questDone.eventByEnd)}
+				bgColor="yellow"
+				label={"Quest abgeben: " + questDone.label} /> : <></>;
+	}
+
+	let eventView = null;
+
 	if (currentBattleId) {
-		return <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
+		eventView = <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
 	}
 
-	if (currentQuestId) {
-		return <Quest questId={currentQuestId} onFinish={handleFinishEvent} />;
+	else if (currentQuestId) {
+		eventView = <Quest questId={currentQuestId} onFinish={handleFinishEvent} />;
 	}
 
-	if (currentEventId) {
-		return (
-			<>
-				<Event
-					eventId={currentEventId}
-					onTriggerBattle={setCurrentBattleId}
-					onTriggerQuest={setCurrentQuestId}
-					onNextEvent={setCurrentEventId}
-					onFinish={handleFinishEvent}
-				/>
-
-				{/* Zeige Button, falls Quest abgeschlossen */}
-				{showQuestButton && questDone && (
-					<p>
-						<ActionButton
-							onClick={() => handleQuestButton(questDone.eventByEnd)}
-							label={"Quest abgeben: " + questDone.label}
-						/>
-					</p>
-				)}
-			</>
+	else if (currentEventId) {
+		eventView = (
+			<Event
+				eventId={currentEventId}
+				onTriggerBattle={setCurrentBattleId}
+				onTriggerQuest={setCurrentQuestId}
+				onNextEvent={setCurrentEventId} />
 		);
-
 	}
 
 	//#endregion
 
-	return <>{backBtn && <ActionButton onClick={handleFinishEvent} label="Sich abwenden" />}</>;
+	return (
+		<>
+			<p>{eventView}</p>
+			<p>{showQuestButton && questBtn()}</p>
+			<p>{backBtn && <ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />}</p>
+		</>
+	);
 };

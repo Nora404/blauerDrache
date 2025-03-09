@@ -13,8 +13,7 @@ type FountainPeopleProps = {};
 
 const FountainPeople: React.FC<FountainPeopleProps> = observer(() => {
 	const possibleEvents: WeightedEvent[] = [
-		// { eventId: "999test", probability: 100 },
-		{ eventId: "E003FindStoneTrigger", probability: 100, questId: "Q003FindStone" },
+		{ eventId: "999test", probability: 100 },
 	];
 
 	const description = (

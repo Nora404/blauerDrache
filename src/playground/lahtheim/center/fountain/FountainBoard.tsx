@@ -1,7 +1,8 @@
 // #region [imports]
 import React from 'react';
-import ActionButton from '../../../../layout/ActionButtons/ActionButton';
 import { useNavigate } from 'react-router-dom';
+import { PLACES } from '../../../../data/helper/colorfullStrings';
+import { EventManager } from '../../../../layout/Events/EventManager';
 // #endregion
 
 // #region [prepare]
@@ -13,10 +14,6 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
     // #endregion
 
     // #region [handler]
-    const handleBack = () => {
-        navigate('/fountain');
-    };
-
     const handleClick = (link: string) => {
         const goTo = '/fountain-board-' + link;
         navigate(goTo);;
@@ -28,8 +25,9 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
         <div className='max-width'>
             <h2><b>Schwarzes Brett</b></h2>
             <p className='mb-1 text-left'>
-                Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
-            </p> <br />
+                Du näherst dich dem <b>schwarzen Brett</b> der Stadt Lahtheim. Ein stabiles hölzernes Gerüst umrahmt ein Brett, auf dem mehrere Zettel befestigt sind. Die Bewohner nutzen es, um Aufträge zu vergeben, ohne sich mit der Bürokratie des {PLACES.Rathaus} herumschlagen zu müssen. Jeder kann einen Auftrag annehmen und erledigen.
+                Am Fuß des <b>schwarzen Bretts</b> steht eine kleine Truhe, die auf dich irgendwie verführerisch einladend wirkt. Ein Schutzzauber verhindert jedoch die unbefugte Entnahme - Diebe haben hier keine Chance.
+            </p>
             <p className='mb-1 text-left category-section'>
                 <div className='questbox paper'><strong>Begegnung</strong><br />Finde die gesuchte Person und rede mit ihr</div>
                 <button className='questbox paper' onClick={() => handleClick('item')}>
@@ -42,7 +40,8 @@ const FountainBoard: React.FC<FountainBoardProps> = () => {
                 <div className='questbox paper'><strong>Verbessern</strong><br />Zeige das du dich verbessern und stärker werden kannst</div>
                 <div className='questbox paper'><strong>Schalter</strong><br />Irgendetwas wird diese Welt verändern!</div>
             </p><br />
-            <ActionButton onClick={handleBack} label='Sich abwenden' />
+
+            <EventManager events={[]} backPath={'/fountain'} backBtn={true} />
         </div>
     );
     // #endregion

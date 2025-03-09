@@ -20,7 +20,6 @@ type EventProps = {
 	onTriggerBattle?: (battleId: string) => void;
 	onTriggerQuest?: (questId: string) => void;
 	onNextEvent?: (nextEventId: string) => void;
-	onFinish: () => void;
 };
 
 const Event: React.FC<EventProps> = ({
@@ -28,7 +27,6 @@ const Event: React.FC<EventProps> = ({
 	onTriggerBattle,
 	onTriggerQuest,
 	onNextEvent,
-	onFinish,
 }) => {
 	const { applyGameAction } = useApplyGameAction();
 	const [finalOutcome, setFinalOutcome] = useState<React.ReactNode | null>(null);
@@ -96,7 +94,7 @@ const Event: React.FC<EventProps> = ({
 					{finalOutcome}
 				</p>
 			)}
-			<ActionButton onClick={onFinish} label="Sich abwenden" />
+			{/* <ActionButton onClick={onFinish} label="Sich abwenden" /> */}
 		</div>
 	);
 };
