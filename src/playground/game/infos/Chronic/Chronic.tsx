@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "../../../layout/Header/Header";
-import finalBattle from "../../../assets/finalBattle.webp";
+import Header from "../../../../layout/Header/Header";
+import finalBattle from "../../../../assets/finalBattle.webp";
 
 type ChronicProps = {
   title?: string;
@@ -23,9 +23,9 @@ const Chronic: React.FC<ChronicProps> = () => {
           <button onClick={() => { handleClick(1) }} className="btn-border">Band I: Das Erwachen</button>
           <button onClick={() => { handleClick(2) }} className="btn-border">Band II: Hüter der Quelle</button>
           <button onClick={() => { handleClick(3) }} className="btn-border">Band III: Der ewige Ruf</button>
-          <button onClick={() => { handleClick(3) }} className="btn-border">Die Völker des blauen Drachen</button>
-          <button onClick={() => { handleClick(3) }} className="btn-border">Die Länder des blauen Drachen</button>
-          <button onClick={() => { handleClick(3) }} className="btn-border">Glossar</button>
+          <button onClick={() => { handleClick(4) }} className="btn-border">Die Völker des blauen Drachen</button>
+          <button onClick={() => { handleClick(5) }} className="btn-border">Die Länder des blauen Drachen</button>
+          <button onClick={() => { handleClick(6) }} className="btn-border">Glossar</button>
         </div>
         <img src={finalBattle} alt="finalBattle" style={{ width: "50%", marginLeft: "30px" }} />
       </div>

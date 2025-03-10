@@ -40,7 +40,7 @@ const QuestLog = lazy(() => import("../playground/game/infos/QuestLog"));
 const Quest = lazy(() => import("../layout/Events/Quest"));
 
 const WhatIs = lazy(() => import("../playground/game/game/AboutGame"));
-const Chronic = lazy(() => import("../playground/game/infos/Chronic"));
+const Chronic = lazy(() => import("../playground/game/infos/Chronic/Chronic"));
 const NewDay = lazy(() => import("../playground/game/infos/NewDay"));
 const Map = lazy(() => import("../playground/game/infos/Map"));
 const Transit = lazy(() => import("../layout/Transit/Transit"));
