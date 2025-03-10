@@ -4,7 +4,14 @@ import { RouteConfig } from "../routes";
 export enum PathsLahtheimCenter {
     Fountain = '/fountain',
     FountainBoard = '/fountain-board',
+    FountainBoardBase = '/fountain-board-base',
+    FountainBoardGo = '/fountain-board-go',
     FountainBoardItem = '/fountain-board-item',
+    FountainBoardKill = '/fountain-board-kill',
+    FountainBoardStats = '/fountain-board-stats',
+    FountainBoardSwitch = '/fountain-board-switch',
+    FountainBoardTalk = '/fountain-board-talk',
+    FountainBoardUse = '/fountain-board-use',
     FountainBoardService = '/fountain-board-service',
     FountainPeople = '/fountain-people',
     FountainWarrior = '/fountain-warrior',
@@ -50,8 +57,22 @@ const FountainPeople = lazy(() => import('../playground/lahtheim/center/fountain
 const FountainWarrior = lazy(() => import('../playground/lahtheim/center/fountain/FountainWarrior'));
 const FountainTreasure = lazy(() => import('../playground/lahtheim/center/fountain/FountainTreasure'));
 const FountainBoard = lazy(() => import('../playground/lahtheim/center/fountain/FountainBoard'));
+const FountainBoardBase =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardBase'));
+const FountainBoardGo =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardGo'));
 const FountainBoardItem =
     lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardItem'));
+const FountainBoardKill =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardKill'));
+const FountainBoardStats =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardStats'));
+const FountainBoardSwitch =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardSwitch'));
+const FountainBoardTalk =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardTalk'));
+const FountainBoardUse =
+    lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardUse'));
 const FountainBoardService =
     lazy(() => import('../playground/lahtheim/center/fountain/board/FountainBoardService'));
 
@@ -127,8 +148,43 @@ export const routesLahtheimCenter: RouteConfig[] = [
         navigation: FountainNavi,
     },
     {
+        path: PathsLahtheimCenter.FountainBoardBase,
+        element: FountainBoardBase,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardGo,
+        element: FountainBoardGo,
+        navigation: FountainNavi,
+    },
+    {
         path: PathsLahtheimCenter.FountainBoardItem,
         element: FountainBoardItem,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardKill,
+        element: FountainBoardKill,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardStats,
+        element: FountainBoardStats,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardSwitch,
+        element: FountainBoardSwitch,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardTalk,
+        element: FountainBoardTalk,
+        navigation: FountainNavi,
+    },
+    {
+        path: PathsLahtheimCenter.FountainBoardUse,
+        element: FountainBoardUse,
         navigation: FountainNavi,
     },
     {
