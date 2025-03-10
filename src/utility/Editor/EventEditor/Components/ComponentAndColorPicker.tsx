@@ -225,7 +225,7 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 						value={newColor}
 						onChange={(e) => setNewColor(e.target.value)}
 					/>
-					<button onClick={handleAddCustomColor} className="greenBtn1">
+					<button onClick={handleAddCustomColor} style={{ width: "25px" }} className="greenBtn1">
 						+
 					</button>
 					<div className="flex-row">
