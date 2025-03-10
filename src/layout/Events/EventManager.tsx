@@ -23,6 +23,16 @@ type EventManagerProps = {
 	onEventEnd?: () => void;
 };
 
+/**
+ * @param {Array<WeightedEvent>} events - Array von möglichen Events.
+ * @param {string} [forcedEventId] - Optional: ID eines zu erzwingenden Events.
+ * @param {string} [backPath="/"] - Optional: Pfad, zu dem zurückgekehrt wird, wenn ein Event abgeschlossen ist.
+ * @param {number} [noEventProbability] - Optional: Wahrscheinlichkeit, dass KEIN Event stattfindet (z. B. 0.1 für 10%).
+ * @param {boolean} [backBtn=false] - Optional: Flag, ob ein Button zum Abbrechen/Zurückgehen angezeigt wird.
+ * @param {Function} [onFinish] - Optionaler Callback, der ausgeführt wird, wenn ein Event abgeschlossen ist.
+ * @param {Function} [onEventStart] - Optionaler Callback, der ausgeführt wird, wenn ein Event startet.
+ * @param {Function} [onEventEnd] - Optionaler Callback, der ausgeführt wird, wenn ein Event endet.
+ */
 export const EventManager: React.FC<EventManagerProps> = ({
 	events,
 	forcedEventId,
@@ -42,7 +52,7 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	const [currentEventId, setCurrentEventId] = useState<string | null>(null);
 
 	const [showQuestButton, setShowQuestButton] = useState<boolean>(() => {
-		return questsDone !== undefined ? true : false;
+		return questsDone !== undefined;
 	});
 	//#endregion
 
@@ -82,13 +92,13 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	const handleQuestButton = useCallback((eventId: string) => {
 		setCurrentEventId(eventId);
 		setShowQuestButton(false);
-	}, [questsDone]);
+	}, []);
 
 	//#endregion
 
 	//#region [useEffect]
 	useEffect(() => {
-		setShowQuestButton(questsDone !== undefined ? true : false);
+		setShowQuestButton(questsDone !== undefined);
 	}, [questsDone]);
 
 	useEffect(() => {
@@ -123,7 +133,7 @@ export const EventManager: React.FC<EventManagerProps> = ({
 				})}
 			</>
 		);
-	}
+	};
 
 	if (currentBattleId) {
 		return <Combat battleId={currentBattleId} onFinish={handleFinishEvent} />;
@@ -136,17 +146,22 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	if (currentEventId) {
 		return (
 			<>
-				<p><Event
-					eventId={currentEventId}
-					onTriggerBattle={setCurrentBattleId}
-					onTriggerQuest={setCurrentQuestId}
-					onNextEvent={setCurrentEventId}
-				/></p>
+				<p>
+					<Event
+						eventId={currentEventId}
+						onTriggerBattle={setCurrentBattleId}
+						onTriggerQuest={setCurrentQuestId}
+						onNextEvent={setCurrentEventId}
+					/>
+				</p>
 				<p>{showQuestButton && questsBtn()}</p>
-				<p>{backBtn && <ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />}</p>
+				<p>
+					{backBtn && (
+						<ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />
+					)}
+				</p>
 			</>
 		);
-
 	}
 
 	//#endregion
@@ -154,7 +169,11 @@ export const EventManager: React.FC<EventManagerProps> = ({
 	return (
 		<>
 			<p>{showQuestButton && questsBtn()}</p>
-			<p>{backBtn && <ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />}</p>
+			<p>
+				{backBtn && (
+					<ActionButton onClick={handleFinishEvent} bgColor={"red"} label="Sich abwenden" />
+				)}
+			</p>
 		</>
 	);
 };

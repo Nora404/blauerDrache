@@ -24,13 +24,13 @@ type PlaceTemplateProps = {
 };
 
 /**
- * @param title (?) - Überschrift mit <hr> Linie
- * @param description (?) - Beschreibungstext
- * @param buttons (?) - Array von {label, onClick?, startEventId?}
- * @param noEventHappend (?) - Text, der angezeigt wird, wenn kein Event stattfindet
- * @param chanceOfAnyEvent (?) - Wahrscheinlichkeit, dass ein Event stattfindet 0.1 = 10%
- * @param backPath - Pfad, zu dem zurückgegangen wird
- * @param possibleEvents - Array von {eventId, probability, questId?, conditions?}
+ * @param {React.ReactNode} [title] - Überschrift (wird oberhalb mit <hr> angezeigt).
+ * @param {React.ReactNode} [description] - Beschreibungstext.
+ * @param {Array<{label: string, onClick?: () => void, startEventId?: string}>} [buttons] - Array von Button-Konfigurationen.
+ * @param {number} [noEventProbability] - Wahrscheinlichkeit (z. B. 0.1 für 10%), dass KEIN Event stattfindet.
+ * @param {string} backPath - Pfad, zu dem zurückgekehrt wird.
+ * @param {Array<WeightedEvent>} possibleEvents - Array von möglichen Events.
+ * @param {string} [forcedEventId] - Optional: ID eines zu erzwingenden Events.
  */
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
 	({

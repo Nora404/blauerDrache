@@ -22,12 +22,13 @@ type EventProps = {
 	onNextEvent?: (nextEventId: string) => void;
 };
 
-const Event: React.FC<EventProps> = ({
-	eventId,
-	onTriggerBattle,
-	onTriggerQuest,
-	onNextEvent,
-}) => {
+/**
+ * @param {string} eventId - ID des Events, das geladen wird.
+ * @param {function} [onTriggerBattle] - Optionaler Callback, der aufgerufen wird, wenn ein Kampf-Trigger ausgelöst wird (erhält die Battle-ID).
+ * @param {function} [onTriggerQuest] - Optionaler Callback, der aufgerufen wird, wenn ein Quest-Trigger ausgelöst wird (erhält die Quest-ID).
+ * @param {function} [onNextEvent] - Optionaler Callback, der aufgerufen wird, um das nächste Event zu starten (erhält die ID des nächsten Events).
+ */
+const Event: React.FC<EventProps> = ({ eventId, onTriggerBattle, onTriggerQuest, onNextEvent }) => {
 	const { applyGameAction } = useApplyGameAction();
 	const [finalOutcome, setFinalOutcome] = useState<React.ReactNode | null>(null);
 
@@ -94,7 +95,6 @@ const Event: React.FC<EventProps> = ({
 					{finalOutcome}
 				</p>
 			)}
-			{/* <ActionButton onClick={onFinish} label="Sich abwenden" /> */}
 		</div>
 	);
 };

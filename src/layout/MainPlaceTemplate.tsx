@@ -29,15 +29,15 @@ type MainPlaceTemplateProps = {
 };
 
 /**
- * @param title - Überschrift mit <hr> Linie
- * @param description (?) - Beschreibungstext
- * @param dayDescription - Beschreibung wenn Tag und Nacht wenn keine Nacht übergeben wird
- * @param dayButtons - Buttons wenn Tag und Nacht wenn keine Nacht übergeben wird
- * @param nightDescription (?) - Beschreibung wenn Nacht
- * @param nightButtons (?) - Buttons wenn Nacht
- * @param possibleEvents - Array von {eventId, probability, questId?, conditions?}
- * @param chanceOfAnyEvent - Wahrscheinlichkeit, dass ein Event stattfindet 0.1 = 10%
- * @param backPath - Pfad, zu dem zurückgegangen wird
+ * @param {React.ReactNode} title - Überschrift (wird oberhalb mit <hr> angezeigt).
+ * @param {React.ReactNode} [description] - Optionaler Beschreibungstext.
+ * @param {React.ReactNode} dayDescription - Beschreibung für den Tag (und als Fallback, wenn keine Nachtinhalte vorhanden sind).
+ * @param {Array<{label: string, onClick: () => void}>} dayButtons - Array von Button-Konfigurationen für den Tag.
+ * @param {React.ReactNode} [nightDescription] - Optional: Beschreibung für die Nacht.
+ * @param {Array<{label: string, onClick: () => void}>} [nightButtons] - Optional: Array von Button-Konfigurationen für die Nacht.
+ * @param {Array<WeightedEvent>} [possibleEvents] - Optionales Array von möglichen Events.
+ * @param {number} [noEventProbability] - Optional: Wahrscheinlichkeit, dass KEIN Event stattfindet (z. B. 0.1 für 10%).
+ * @param {string} [backPath="/"] - Optional: Pfad, zu dem zurückgekehrt wird.
  */
 export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
 	({
@@ -58,8 +58,6 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
 		const hasNightDescription = !!nightDescription;
 		const hasNightButtons = !!nightButtons && nightButtons.length > 0;
 		const canUseNachtInhalte = hasNightDescription && hasNightButtons;
-
-		// Bestimmen, ob wir Nacht-Inhalte benutzen oder Tag fallback
 		const showDayBlock = isDay || !canUseNachtInhalte;
 		//#endregion
 
@@ -72,15 +70,15 @@ export const MainPlaceTemplate: React.FC<MainPlaceTemplateProps> = observer(
 				{showDayBlock ? (
 					<>
 						{dayDescription}
-						{dayButtons.map((btn, index) => (
-							<ActionButton key={index} onClick={btn.onClick} label={btn.label} />
+						{dayButtons.map((btn) => (
+							<ActionButton key={btn.label} onClick={btn.onClick} label={btn.label} />
 						))}
 					</>
 				) : (
 					<>
 						{nightDescription}
-						{nightButtons?.map((btn, index) => (
-							<ActionButton key={index} onClick={btn.onClick} label={btn.label} />
+						{nightButtons?.map((btn) => (
+							<ActionButton key={btn.label} onClick={btn.onClick} label={btn.label} />
 						))}
 					</>
 				)}
