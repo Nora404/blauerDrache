@@ -26,7 +26,7 @@ export type GameQuest = {
 
 //#region
 export type HaveItem = { item: ItemName; need: number; count: number };
-export type UseItem = { item: ItemName; place: string; need: number; count: number };
+export type UseItem = { item: ItemName; place: string[]; need: number; count: number };
 export type KillEnemy = { enemy: string; need: number; count: number };
 
 export type Task = {
