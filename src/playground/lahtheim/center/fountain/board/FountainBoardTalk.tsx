@@ -31,7 +31,7 @@ const FountainBoardTalk: React.FC = observer(() => {
 	return (
 		<div className="max-width">
 			<PlaceTemplate
-				title={<>PLACES.vergessen</>}
+				title={<b>Begegnung</b>}
 				description={description}
 				backPath="/fountain-board"
 				possibleEvents={possibleEvents}

@@ -29,7 +29,7 @@ const FountainBoardGo: React.FC = observer(() => {
 	return (
 		<div className="max-width">
 			<PlaceTemplate
-				title={<>PLACES.vergessen</>}
+				title={<b>Erkundung</b>}
 				description={description}
 				backPath="/fountain-board"
 				possibleEvents={possibleEvents}
