@@ -4,6 +4,7 @@ import { ComponentButton } from "./ComponentButton";
 import { CustomColorInput } from "./CustomColorInput";
 import { FormatColoredButton, FormatGradientButton } from "./FormatButton";
 import { PaletteButton } from "./PaletteButton";
+import { SYSTEM, CREATURE, NPC, PLACES } from "../../../../../data/helper/colorfullStrings";
 import { SingleColorButton } from "./SingleColorButton";
 
 interface ComponentAndColorPickerProps {
@@ -28,13 +29,24 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 	const [selectedComponent, setSelectedComponent] = useState<string>("ColoredText");
 	const [selectedColor, setSelectedColor] = useState<string>("");
 	const [selectedGradient, setSelectedGradient] = useState<"two" | "three" | "multi">("two");
+	const [selectedVarGroup, setSelectedVarGroup] = useState<string>("");
+	const [selectedVarKey, setSelectedVarKey] = useState<string>("");
 
+	const variableLists = { SYSTEM, CREATURE, NPC, PLACES };
 	const paletteKeys = Object.keys(colorPalettes);
 	const singleColorKeys = Object.keys(textColors);
 
 	const handleAdd = () => {
-		if (!selectedComponent || !selectedColor) return;
+		if (selectedComponent === "Variable") {
+			if (!selectedVarGroup || !selectedVarKey) return;
 
+			const variablePlaceholder = `${selectedVarGroup}.${selectedVarKey}`;
+
+			onInsert("Variable", variablePlaceholder);
+			return;
+		}
+
+		if (!selectedComponent || !selectedColor) return;
 		let colorProp = "";
 		if (selectedColor === "custom") {
 			colorProp =
@@ -135,6 +147,18 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 						}}
 						backgroundStyle={{ backgroundColor: "red" }}
 					/>
+
+					<ComponentButton
+						componentName="Variable"
+						isSelected={selectedComponent === "Variable"}
+						onSelect={(comp) => {
+							setSelectedComponent(comp);
+							setSelectedColor(""); // lösche evtl. Farbauswahl
+							setSelectedVarGroup(""); // und Variable-Selektoren zurücksetzen
+							setSelectedVarKey("");
+						}}
+						backgroundStyle={{ backgroundColor: "#ccc" }}
+					/>
 				</div>
 
 				{/* Farb-/Format-Auswahl */}
@@ -232,20 +256,59 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 					</div>
 				)}
 
-				<CustomColorInput
-					newColor={newColor}
-					customColors={customColors}
-					onNewColorChange={setNewColor}
-					onAddCustomColor={handleAddCustomColor}
-					onRemoveCustomColor={handleRemoveCustomColor}
-					onSelectCustom={() => setSelectedColor("custom")}
-					isSelected={selectedColor === "custom"}
-				/>
+				{selectedComponent === "Variable" && (
+					<div className="flex-col">
+						<select
+							style={{ width: "200px", marginBottom: 0 }}
+							value={selectedVarGroup}
+							onChange={(e) => {
+								setSelectedVarGroup(e.target.value);
+								setSelectedVarKey(""); // Key zurücksetzen, wenn Gruppe wechselt
+							}}>
+							<option value="">-- Variable wählen --</option>
+							<option value="SYSTEM">SYSTEM</option>
+							<option value="CREATURE">CREATURE</option>
+							<option value="NPC">NPC</option>
+							<option value="PLACES">PLACES</option>
+						</select>
+						<select
+							style={{ width: "200px", marginBottom: 0 }}
+							value={selectedVarKey}
+							onChange={(e) => setSelectedVarKey(e.target.value)}
+							disabled={!selectedVarGroup}>
+							<option value="">-- Key --</option>
+							{selectedVarGroup &&
+								Object.keys(variableLists[selectedVarGroup as keyof typeof variableLists]).map(
+									(k) => (
+										<option key={k} value={k}>
+											{k}
+										</option>
+									)
+								)}
+						</select>
+					</div>
+				)}
+
+				{selectedComponent !== "Variable" && (
+					<CustomColorInput
+						newColor={newColor}
+						customColors={customColors}
+						onNewColorChange={setNewColor}
+						onAddCustomColor={handleAddCustomColor}
+						onRemoveCustomColor={handleRemoveCustomColor}
+						onSelectCustom={() => setSelectedColor("custom")}
+						isSelected={selectedColor === "custom"}
+					/>
+				)}
 			</div>
 
 			<button
 				onClick={handleAdd}
-				disabled={!selectedComponent || !selectedColor}
+				disabled={
+					selectedComponent === "Variable"
+						? !selectedVarGroup || !selectedVarKey
+						: !selectedComponent || !selectedColor
+				}
 				className="add-button w-100px">
 				Hinzufügen
 			</button>

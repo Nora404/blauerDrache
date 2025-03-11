@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from "react";
 import { parseDescription } from "../../../../Helper/ParseTextToJSX";
-import { SYSTEM, CREATURE, NPC, PLACES } from "../../../../../data/helper/colorfullStrings";
 import MenuPanel from "./MenuPanel";
 
 interface TextEditorProps {
@@ -11,57 +10,27 @@ interface TextEditorProps {
 }
 
 const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
-	const variableLists: Record<string, Record<string, JSX.Element>> = {
-		SYSTEM,
-		CREATURE,
-		NPC,
-		PLACES,
-	};
-
 	const [customColors, setCustomColors] = useState<string[]>([]);
 	const [newColor, setNewColor] = useState("#ff0000");
 	const [selectedFormat, setSelectedFormat] = useState<"normal" | "bold" | "italic">("italic");
 
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-	// ### Variablen-Selects
-	const [selectedVarList, setSelectedVarList] = useState("");
-	const [selectedVarKey, setSelectedVarKey] = useState("");
-
-	const handleInsertVariable = () => {
-		if (!selectedVarList || !selectedVarKey) return;
-		const textarea = textAreaRef.current;
-		if (!textarea) return;
-
-		const start = textarea.selectionStart;
-		const end = textarea.selectionEnd;
-
-		const placeholder = `{${selectedVarList}.${selectedVarKey}}`;
-		const newVal = value.slice(0, start) + placeholder + value.slice(end);
-		onChange(newVal);
-
-		const newPos = start + placeholder.length;
-		setTimeout(() => {
-			textarea.focus();
-			textarea.setSelectionRange(newPos, newPos);
-		}, 0);
-	};
-
-	// ### Hier fängt die neue onInsert-Funktion an (für unsere 3 Komponenten):
-	//    "componentName" z.B. "GradientText"
-	//    "colorKeyOrPalette" z.B. "redColors" oder "custom:#ff0000,#ffff00" oder "gelb"
 	const handleInsertComponent = (componentName: string, colorKeyOrPalette: string) => {
 		const textarea = textAreaRef.current;
 		if (!textarea) return;
 
 		const start = textarea.selectionStart;
 		const end = textarea.selectionEnd;
-		// Markierten Text als InnerText?
-		const selectedText = value.substring(start, end) || "DeinText";
+		// Bei Variablen ignorieren wir den ausgewählten Text – ansonsten wie gehabt
+		const selectedText =
+			componentName === "Variable" ? "" : value.substring(start, end) || "DeinText";
 
 		let placeholder = "";
 
-		if (componentName === "ColoredText") {
+		if (componentName === "Variable") {
+			placeholder = `{${colorKeyOrPalette}}`;
+		} else if (componentName === "ColoredText") {
 			placeholder = `{ColoredText|${colorKeyOrPalette}|${selectedFormat}}${selectedText}{/ColoredText}`;
 		} else if (componentName === "GradientText" || componentName === "MultiColoredLetters") {
 			placeholder = `{${componentName}|${colorKeyOrPalette}}${selectedText}{/${componentName}}`;
@@ -79,42 +48,6 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 
 	return (
 		<div>
-			{/* ------------------------------ 
-          1) Variable-Selects 
-          ------------------------------ */}
-			<div className="flex-row-right">
-				{/* Falls eine Variable-Liste gewählt, zeig die Keys */}
-				{selectedVarList && (
-					<select
-						style={{ width: "150px" }}
-						value={selectedVarKey}
-						onChange={(e) => setSelectedVarKey(e.target.value)}>
-						<option value="">-- Key --</option>
-						{Object.keys(variableLists[selectedVarList]).map((k) => (
-							<option key={k} value={k}>
-								{k}
-							</option>
-						))}
-					</select>
-				)}
-				<select
-					style={{ width: "150px" }}
-					value={selectedVarList}
-					onChange={(e) => setSelectedVarList(e.target.value)}>
-					<option value="">-- Variable wählen --</option>
-					<option value="SYSTEM">SYSTEM</option>
-					<option value="CREATURE">CREATURE</option>
-					<option value="NPC">NPC</option>
-					<option value="PLACES">PLACES</option>
-				</select>
-				<button className="add-button w-100px" onClick={handleInsertVariable}>
-					Hinzufügen
-				</button>
-			</div>
-
-			{/* ------------------------------ 
-          2) Unsere neue Komponente
-          ------------------------------ */}
 			<MenuPanel
 				onInsert={handleInsertComponent}
 				customColors={customColors}
@@ -125,9 +58,6 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 				setSelectedFormat={setSelectedFormat}
 			/>
 
-			{/* ------------------------------ 
-          3) Textarea + Preview 
-          ------------------------------ */}
 			<div>
 				<textarea
 					className="w-full"
