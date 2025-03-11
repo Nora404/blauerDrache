@@ -118,15 +118,11 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 					<div className="flex-row">
 						<div className="grid-7">
 							{paletteKeys.map((key) => {
-								const originalFirstColor = colorPalettes[key][0];
-								const originalLastColor = colorPalettes[key][colorPalettes[key].length - 1];
+								// Hilfsfunktion, die aus dem Array von Farben einen linearen Verlauf baut
+								const buildGradientStyle = (colors: string[]): string =>
+									`linear-gradient(45deg, ${colors.join(", ")})`;
 
-								// Heller machen der ersten Farbe um 10%
-								const lighterColor = lighten(originalFirstColor, 30);
-
-								// Dunkler machen der zweiten Farbe um 10%
-								const darkerColor = darken(originalLastColor, 30);
-
+								const palette = colorPalettes[key];
 								return (
 									<button
 										key={key}
@@ -136,7 +132,7 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 											borderRadius: "50%",
 											width: 30,
 											height: 30,
-											background: `linear-gradient(to right, ${lighterColor}, ${darkerColor})`,
+											background: buildGradientStyle(palette),
 											cursor: "pointer",
 										}}
 									/>
