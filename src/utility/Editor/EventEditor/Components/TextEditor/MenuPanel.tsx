@@ -157,7 +157,9 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 							setSelectedVarGroup(""); // und Variable-Selektoren zurücksetzen
 							setSelectedVarKey("");
 						}}
-						backgroundStyle={{ backgroundColor: "#ccc" }}
+						backgroundStyle={{
+							backgroundImage: "repeating-linear-gradient(0deg, #ccc, #ccc 10px, #fff 10px, #fff 20px, #999 20px, #999 30px)"
+						}}
 					/>
 				</div>
 
@@ -197,35 +199,35 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 						<div className="grid-7">
 							{selectedGradient === "multi"
 								? paletteKeys.map((key) => (
-										<PaletteButton
-											key={key}
-											paletteKey={key}
-											palette={colorPalettes[key]}
-											isSelected={selectedColor === key}
-											onSelect={setSelectedColor}
-										/>
-								  ))
+									<PaletteButton
+										key={key}
+										paletteKey={key}
+										palette={colorPalettes[key]}
+										isSelected={selectedColor === key}
+										onSelect={setSelectedColor}
+									/>
+								))
 								: singleColorKeys.map((key) => {
-										const colorValue = textColors[key];
-										let label = "";
-										if (selectedGradient === "two") {
-											if (customColors[0] === colorValue) label = "1";
-											else if (customColors[1] === colorValue) label = "2";
-										} else if (selectedGradient === "three") {
-											if (customColors[0] === colorValue) label = "A";
-											else if (customColors[1] === colorValue) label = "I";
-										}
-										return (
-											<SingleColorButton
-												key={key}
-												colorKey={key}
-												color={colorValue}
-												isSelected={customColors.includes(colorValue)}
-												onSelect={() => handleGradientColorClick(key)}
-												text={label} // Zeigt "1"/"2" bei "two" bzw. "A"/"I" bei "three"
-											/>
-										);
-								  })}
+									const colorValue = textColors[key];
+									let label = "";
+									if (selectedGradient === "two") {
+										if (customColors[0] === colorValue) label = "1";
+										else if (customColors[1] === colorValue) label = "2";
+									} else if (selectedGradient === "three") {
+										if (customColors[0] === colorValue) label = "A";
+										else if (customColors[1] === colorValue) label = "I";
+									}
+									return (
+										<SingleColorButton
+											key={key}
+											colorKey={key}
+											color={colorValue}
+											isSelected={customColors.includes(colorValue)}
+											onSelect={() => handleGradientColorClick(key)}
+											text={label} // Zeigt "1"/"2" bei "two" bzw. "A"/"I" bei "three"
+										/>
+									);
+								})}
 						</div>
 					</div>
 				)}

@@ -17,14 +17,15 @@ export const CustomColorInput: React.FC<CustomColorInputProps> = ({
 	onSelectCustom,
 	isSelected,
 }) => (
-	<div className="flex-col-left">
-		<div>
-			<button
-				onClick={onSelectCustom}
-				className={isSelected ? "circle circleActiveBorder" : "circle"}>
-				c
-			</button>
-		</div>
+	<div className="flex-row">
+
+		<button
+			onClick={onSelectCustom}
+			style={{ marginRight: "8px" }}
+			className={isSelected ? "circle circleActiveBorder" : "circle"}>
+			c
+		</button>
+
 		<div className="flex-row">
 			<input
 				className="color-picker"

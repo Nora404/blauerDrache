@@ -20,27 +20,26 @@ button:active {
 }
 
 .circle {
-	height: 30px;
-	width: 30px;
+	height: 27px;
+	width: 27px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border: 2px solid rgba(98, 176, 212);
 	border-radius: 50%;
 }
+
 .circleActiveBorder {
 	border: 2px solid white;
 }
 
 .btn-border {
-	background: linear-gradient(
-		135deg,
-		rgba(60, 120, 150, 0.15),
-		rgba(98, 176, 212, 0.02) 20%,
-		rgba(98, 176, 212, 0.05) 50%,
-		rgba(98, 176, 212, 0.02) 80%,
-		rgba(60, 120, 150, 0.15)
-	);
+	background: linear-gradient(135deg,
+			rgba(60, 120, 150, 0.15),
+			rgba(98, 176, 212, 0.02) 20%,
+			rgba(98, 176, 212, 0.05) 50%,
+			rgba(98, 176, 212, 0.02) 80%,
+			rgba(60, 120, 150, 0.15));
 	border: 1px solid rgba(95, 173, 209, 0.2);
 	border-radius: 8px;
 	box-sizing: border-box;
@@ -48,26 +47,22 @@ button:active {
 }
 
 .btn-border:active {
-	background: linear-gradient(
-		135deg,
-		rgba(153, 201, 224, 0.15),
-		rgba(212, 191, 98, 0.02) 20%,
-		rgba(212, 191, 98, 0.05) 50%,
-		rgba(212, 191, 98, 0.02) 80%,
-		rgba(153, 201, 224, 0.15)
-	);
+	background: linear-gradient(135deg,
+			rgba(153, 201, 224, 0.15),
+			rgba(212, 191, 98, 0.02) 20%,
+			rgba(212, 191, 98, 0.05) 50%,
+			rgba(212, 191, 98, 0.02) 80%,
+			rgba(153, 201, 224, 0.15));
 	border: 1px solid rgba(153, 201, 224, 0.637);
 }
 
 .btn-border-red {
-	background: linear-gradient(
-		135deg,
-		rgba(140, 50, 160, 0.25),
-		rgba(212, 98, 98, 0.12) 20%,
-		rgba(212, 98, 98, 0.15) 50%,
-		rgba(212, 98, 98, 0.12) 80%,
-		rgba(140, 50, 160, 0.25)
-	);
+	background: linear-gradient(135deg,
+			rgba(140, 50, 160, 0.25),
+			rgba(212, 98, 98, 0.12) 20%,
+			rgba(212, 98, 98, 0.15) 50%,
+			rgba(212, 98, 98, 0.12) 80%,
+			rgba(140, 50, 160, 0.25));
 	border: 1px solid rgba(95, 173, 209, 0.2);
 	border-radius: 8px;
 	box-sizing: border-box;
@@ -75,14 +70,12 @@ button:active {
 }
 
 .btn-border-green {
-	background: linear-gradient(
-		135deg,
-		rgba(60, 150, 100, 0.25),
-		rgba(60, 180, 130, 0.12) 20%,
-		rgba(60, 180, 130, 0.15) 50%,
-		rgba(60, 180, 130, 0.12) 80%,
-		rgba(60, 150, 100, 0.25)
-	);
+	background: linear-gradient(135deg,
+			rgba(60, 150, 100, 0.25),
+			rgba(60, 180, 130, 0.12) 20%,
+			rgba(60, 180, 130, 0.15) 50%,
+			rgba(60, 180, 130, 0.12) 80%,
+			rgba(60, 150, 100, 0.25));
 	border: 1px solid rgba(95, 173, 209, 0.2);
 	border-radius: 8px;
 	box-sizing: border-box;
@@ -90,14 +83,12 @@ button:active {
 }
 
 .btn-border-yellow {
-	background: linear-gradient(
-		135deg,
-		rgba(220, 170, 50, 0.2),
-		rgba(240, 210, 90, 0.07) 20%,
-		rgba(240, 210, 90, 0.1) 50%,
-		rgba(240, 210, 90, 0.07) 80%,
-		rgba(220, 170, 50, 0.2)
-	);
+	background: linear-gradient(135deg,
+			rgba(220, 170, 50, 0.2),
+			rgba(240, 210, 90, 0.07) 20%,
+			rgba(240, 210, 90, 0.1) 50%,
+			rgba(240, 210, 90, 0.07) 80%,
+			rgba(220, 170, 50, 0.2));
 	border: 1px solid rgba(95, 173, 209, 0.2);
 	border-radius: 8px;
 	box-sizing: border-box;
@@ -160,36 +151,30 @@ button:active {
 }
 
 .battle-btn-active {
-	background: linear-gradient(
-		135deg,
-		rgba(60, 120, 150, 0.25),
-		rgba(98, 176, 212, 0.12) 20%,
-		rgba(98, 176, 212, 0.15) 50%,
-		rgba(98, 176, 212, 0.12) 80%,
-		rgba(60, 120, 150, 0.25)
-	);
+	background: linear-gradient(135deg,
+			rgba(60, 120, 150, 0.25),
+			rgba(98, 176, 212, 0.12) 20%,
+			rgba(98, 176, 212, 0.15) 50%,
+			rgba(98, 176, 212, 0.12) 80%,
+			rgba(60, 120, 150, 0.25));
 }
 
 .battle-btn-current {
-	background: linear-gradient(
-		135deg,
-		rgba(48, 233, 162, 0.35),
-		rgba(60, 150, 97, 0.22) 20%,
-		rgba(60, 150, 97, 0.25) 50%,
-		rgba(60, 150, 97, 0.22) 80%,
-		rgba(48, 233, 162, 0.35)
-	);
+	background: linear-gradient(135deg,
+			rgba(48, 233, 162, 0.35),
+			rgba(60, 150, 97, 0.22) 20%,
+			rgba(60, 150, 97, 0.25) 50%,
+			rgba(60, 150, 97, 0.22) 80%,
+			rgba(48, 233, 162, 0.35));
 }
 
 .battle-btn-finished {
-	background: linear-gradient(
-		135deg,
-		rgba(60, 120, 150, 0.25),
-		rgba(161, 98, 212, 0.12) 20%,
-		rgba(212, 98, 98, 0.15) 50%,
-		rgba(212, 201, 98, 0.12) 80%,
-		rgba(70, 150, 60, 0.25)
-	);
+	background: linear-gradient(135deg,
+			rgba(60, 120, 150, 0.25),
+			rgba(161, 98, 212, 0.12) 20%,
+			rgba(212, 98, 98, 0.15) 50%,
+			rgba(212, 201, 98, 0.12) 80%,
+			rgba(70, 150, 60, 0.25));
 }
 
 .battle-btn {
