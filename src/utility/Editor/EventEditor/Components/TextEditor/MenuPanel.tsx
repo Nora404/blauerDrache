@@ -2,7 +2,7 @@ import { useState } from "react";
 import { colorPalettes, textColors } from "../../../../../data/helper/colorMappingData";
 import { ComponentButton } from "./ComponentButton";
 import { CustomColorInput } from "./CustomColorInput";
-import { FormatButton } from "./FormatButton";
+import { FormatColoredButton, FormatGradientButton } from "./FormatButton";
 import { PaletteButton } from "./PaletteButton";
 import { SingleColorButton } from "./SingleColorButton";
 
@@ -27,10 +27,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 }) => {
 	const [selectedComponent, setSelectedComponent] = useState<string>("ColoredText");
 	const [selectedColor, setSelectedColor] = useState<string>("");
-
-	const isGradientOrMulti =
-		selectedComponent === "GradientText" || selectedComponent === "MultiColoredLetters";
-	const isColoredText = selectedComponent === "ColoredText";
+	const [selectedGradient, setSelectedGradient] = useState<"two" | "three" | "multi">("two");
 
 	const paletteKeys = Object.keys(colorPalettes);
 	const singleColorKeys = Object.keys(textColors);
@@ -98,7 +95,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 				</div>
 
 				{/* Farb-/Format-Auswahl */}
-				{isGradientOrMulti && (
+				{selectedComponent === "MultiColoredLetters" && (
 					<div className="flex-row">
 						<div className="grid-7">
 							{paletteKeys.map((key) => (
@@ -114,11 +111,37 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 					</div>
 				)}
 
-				{isColoredText && (
+				{selectedComponent === "GradientText" && (
+					<div className="flex-row">
+						<div className="grid-2">
+							{(["two", "three", "multi"] as const).map((format) => (
+								<FormatGradientButton
+									key={format}
+									format={format}
+									isSelected={selectedGradient === format}
+									onSelect={setSelectedGradient}
+								/>
+							))}
+						</div>
+						<div className="grid-7">
+							{paletteKeys.map((key) => (
+								<PaletteButton
+									key={key}
+									paletteKey={key}
+									palette={colorPalettes[key]}
+									isSelected={selectedColor === key}
+									onSelect={setSelectedColor}
+								/>
+							))}
+						</div>
+					</div>
+				)}
+
+				{selectedComponent === "ColoredText" && (
 					<div className="flex-row">
 						<div className="grid-2">
 							{(["normal", "bold", "italic"] as const).map((format) => (
-								<FormatButton
+								<FormatColoredButton
 									key={format}
 									format={format}
 									isSelected={selectedFormat === format}

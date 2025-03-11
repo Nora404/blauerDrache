@@ -3,7 +3,6 @@
 import React, { useRef, useState } from "react";
 import { parseDescription } from "../../../../Helper/ParseTextToJSX";
 import { SYSTEM, CREATURE, NPC, PLACES } from "../../../../../data/helper/colorfullStrings";
-import ComponentAndColorPicker from "./ComponentAndColorPicker";
 import MenuPanel from "./MenuPanel";
 
 interface TextEditorProps {
