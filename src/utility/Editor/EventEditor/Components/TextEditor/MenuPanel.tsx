@@ -267,7 +267,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 								setSelectedVarGroup(e.target.value);
 								setSelectedVarKey(""); // Key zurücksetzen, wenn Gruppe wechselt
 							}}>
-							<option value="">-- Variable wählen --</option>
+							<option value="">-- Liste wählen --</option>
 							<option value="SYSTEM">SYSTEM</option>
 							<option value="CREATURE">CREATURE</option>
 							<option value="NPC">NPC</option>
@@ -278,7 +278,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 							value={selectedVarKey}
 							onChange={(e) => setSelectedVarKey(e.target.value)}
 							disabled={!selectedVarGroup}>
-							<option value="">-- Key --</option>
+							<option value="">-- Wort wählen --</option>
 							{selectedVarGroup &&
 								Object.keys(variableLists[selectedVarGroup as keyof typeof variableLists]).map(
 									(k) => (
