@@ -1,7 +1,7 @@
 //#region [import]
 import React, { useState } from "react";
-import { colorPalettes, textColors } from "../../../../data/helper/colorMappingData";
-import { lighten, darken } from "../../../Helper/ColorLightenDarken";
+import { colorPalettes, textColors } from "../../../../../data/helper/colorMappingData";
+import { lighten, darken } from "../../../../Helper/ColorLightenDarken";
 //#endregion
 
 //#region [prerare]

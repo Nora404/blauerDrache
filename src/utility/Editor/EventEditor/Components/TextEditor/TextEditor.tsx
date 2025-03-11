@@ -1,16 +1,17 @@
 // DescriptionEditor.tsx
 
 import React, { useRef, useState } from "react";
-import { parseDescription } from "../../../Helper/ParseTextToJSX";
-import { SYSTEM, CREATURE, NPC, PLACES } from "../../../../data/helper/colorfullStrings";
+import { parseDescription } from "../../../../Helper/ParseTextToJSX";
+import { SYSTEM, CREATURE, NPC, PLACES } from "../../../../../data/helper/colorfullStrings";
 import ComponentAndColorPicker from "./ComponentAndColorPicker";
+import MenuPanel from "./MenuPanel";
 
-interface DescriptionEditorProps {
+interface TextEditorProps {
 	value: string;
 	onChange: (newVal: string) => void;
 }
 
-const DescriptionEditor: React.FC<DescriptionEditorProps> = ({ value, onChange }) => {
+const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 	const variableLists: Record<string, Record<string, JSX.Element>> = {
 		SYSTEM,
 		CREATURE,
@@ -115,7 +116,7 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({ value, onChange }
 			{/* ------------------------------ 
           2) Unsere neue Komponente
           ------------------------------ */}
-			<ComponentAndColorPicker
+			<MenuPanel
 				onInsert={handleInsertComponent}
 				customColors={customColors}
 				setCustomColors={setCustomColors}
@@ -147,4 +148,4 @@ const DescriptionEditor: React.FC<DescriptionEditorProps> = ({ value, onChange }
 	);
 };
 
-export default DescriptionEditor;
+export default TextEditor;
