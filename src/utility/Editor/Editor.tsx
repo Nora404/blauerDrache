@@ -37,6 +37,7 @@ const Editor: React.FC = () => {
           />
         </div>
 
+
         {side === 1 && <EventCreationForm />}
         {side === 2 && <TestEventManager />}
         {side === 3 && <Admincenter />}

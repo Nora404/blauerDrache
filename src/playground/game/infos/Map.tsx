@@ -1,5 +1,5 @@
 import React from 'react';
-import karte3 from "../../../assets/karte3.png";
+import karte from "../../../assets/karte4.png";
 import Header from '../../../layout/Header/Header';
 
 import img01 from '../../../assets/img/lahtheim.webp';
@@ -39,8 +39,8 @@ const Map: React.FC = () => {
             <h2>Karte von Lahtheim</h2>
 
             <img
-                src={karte3}
-                style={{ width: '100%', maxWidth: '600px' }}
+                src={karte}
+                style={{ width: '100%' }}
                 alt="Karte"
             /><br /><br />
 
