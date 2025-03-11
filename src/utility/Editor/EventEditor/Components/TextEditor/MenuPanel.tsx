@@ -32,25 +32,22 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 	const paletteKeys = Object.keys(colorPalettes);
 	const singleColorKeys = Object.keys(textColors);
 
-	// Änderung in handleAdd:
 	const handleAdd = () => {
 		if (!selectedComponent || !selectedColor) return;
+
 		let colorProp = "";
 		if (selectedColor === "custom") {
 			colorProp =
 				customColors.length === 0 && newColor
-					? "custom:" + newColor
-					: "custom:" + customColors.join(",");
+					? `custom:${newColor}`
+					: `custom:${customColors.join(",")}`;
+		} else if (
+			selectedComponent === "GradientText" &&
+			(selectedGradient === "two" || selectedGradient === "three")
+		) {
+			colorProp = `custom:${selectedColor}`;
 		} else {
-			if (
-				selectedComponent === "GradientText" &&
-				(selectedGradient === "two" || selectedGradient === "three")
-			) {
-				// Für GradientText (nicht-custom) wird "custom:" vorangestellt
-				colorProp = "custom:" + selectedColor;
-			} else {
-				colorProp = selectedColor;
-			}
+			colorProp = selectedColor;
 		}
 		onInsert(selectedComponent, colorProp);
 	};
@@ -58,7 +55,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 	const handleAddCustomColor = () => {
 		if (!newColor) return;
 		if (selectedComponent === "ColoredText") {
-			setCustomColors([newColor]); // Ersetzen bei ColoredText
+			setCustomColors([newColor]);
 		} else {
 			setCustomColors([...customColors, newColor]);
 		}
@@ -68,41 +65,36 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 		setCustomColors(customColors.filter((_, i) => i !== index));
 	};
 
-	// Änderung in handleGradientColorClick:
 	const handleGradientColorClick = (key: string) => {
-		// Setze zunächst selectedColor auf "custom" als Flag
 		setSelectedColor("custom");
 		const hex = textColors[key];
-		// Falls schon drei Elemente vorhanden sind, reduziere auf zwei (äußere und innere Farbe)
-		let newSelection =
-			selectedGradient === "three" && customColors.length === 3
-				? [customColors[0], customColors[1]]
-				: [...customColors];
-		const index = newSelection.indexOf(hex);
-		if (index !== -1) {
-			// Wurde bereits ausgewählt, so tauschen wir die Reihenfolge (nur wenn zwei Farben vorhanden sind)
-			if (newSelection.length === 2) {
-				newSelection = [newSelection[1], newSelection[0]];
-			}
-		} else {
-			if (newSelection.length < 2) {
-				newSelection.push(hex);
-			} else {
-				// Bei bereits zwei ausgewählten Farben wird die erste Farbe ersetzt
-				newSelection[0] = hex;
-			}
-		}
+
 		if (selectedGradient === "two") {
+			let newSelection = [...customColors].slice(0, 2);
+			const index = newSelection.indexOf(hex);
+
+			if (index !== -1 && newSelection.length === 2) {
+				newSelection = [newSelection[1], newSelection[0]];
+			} else if (index === -1) {
+				newSelection = newSelection.length < 2 ? [...newSelection, hex] : [hex, newSelection[1]];
+			}
+
 			setCustomColors(newSelection);
 			setSelectedColor(newSelection.join(","));
 		} else if (selectedGradient === "three") {
+			let newSelection = [...customColors].slice(0, 2);
+			const index = newSelection.indexOf(hex);
+
+			if (index !== -1 && newSelection.length === 2) {
+				newSelection = [newSelection[1], newSelection[0]];
+			} else if (index === -1) {
+				newSelection = newSelection.length < 2 ? [...newSelection, hex] : [hex, newSelection[1]];
+			}
+
+			setCustomColors(newSelection);
 			if (newSelection.length === 2) {
-				// Erstelle ein Array mit drei Elementen: [A, I, A]
-				const threeSelection = [newSelection[0], newSelection[1], newSelection[0]];
-				setCustomColors(threeSelection);
-				setSelectedColor(threeSelection.join(","));
+				setSelectedColor([newSelection[0], newSelection[1], newSelection[0]].join(","));
 			} else {
-				setCustomColors(newSelection);
 				setSelectedColor(newSelection.join(","));
 			}
 		}
