@@ -1,11 +1,10 @@
-// ComponentAndColorPicker.tsx
-
+//#region [import]
 import React, { useState } from "react";
 import { colorPalettes, textColors } from "../../../../data/helper/colorMappingData";
 import { lighten, darken } from "../../../Helper/ColorLightenDarken";
+//#endregion
 
-// Pfade anpassen!
-
+//#region [prerare]
 interface ComponentAndColorPickerProps {
 	onInsert: (componentName: string, colorKeyOrPalette: string) => void;
 	customColors: string[];
@@ -26,38 +25,36 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 	setSelectedFormat,
 }) => {
 	// Welcher Komponententyp? ("GradientText" | "MultiColoredLetters" | "ColoredText" | "")
-	const [selectedComponent, setSelectedComponent] = useState<string>("");
+	const [selectedComponent, setSelectedComponent] = useState<string>("ColoredText");
 
 	// Welche Palette/Farbe? ("redColors" | "pink" | "" | "custom" etc.)
 	const [selectedColor, setSelectedColor] = useState<string>("");
 
-	// Einfache Hilfsfunktionen, um zu wissen was gerade ausgewählt ist
 	const isGradientOrMulti =
 		selectedComponent === "GradientText" || selectedComponent === "MultiColoredLetters";
 	const isColoredText = selectedComponent === "ColoredText";
 
-	// Paletten-Keys (z.B. ["grayColors", "yellowColors", ...])
 	const paletteKeys = Object.keys(colorPalettes);
-	// Einzel-Farb-Keys (z.B. ["weiß","gelb","orange","rot",...])
 	const singleColorKeys = Object.keys(textColors);
+	//#endregion
 
-	// Handler: wenn der User auf den „Hinzufügen“-Button klickt
+	//#region [handler]
 	const handleAdd = () => {
-		if (!selectedComponent) return; // oder Feeback an User
+		if (!selectedComponent) return;
 		if (!selectedColor) return;
 
-		// FALL: "custom" muss noch in z.B. "custom:#ff0000,#ffff00" übersetzt werden
 		let colorProp = selectedColor;
 		if (selectedColor === "custom") {
-			// Mach hier aus dem Array `customColors` einen String
-			colorProp = "custom:" + customColors.join(",");
+			if (customColors.length === 0 && newColor) {
+				colorProp = "custom:" + newColor;
+			} else {
+				colorProp = "custom:" + customColors.join(",");
+			}
 		}
 
-		// Dann an den parent:
 		onInsert(selectedComponent, colorProp);
 	};
 
-	// Falls du plus-Buttons für custom-Farben hast:
 	const handleAddCustomColor = () => {
 		if (!newColor) return;
 		if (selectedComponent === "ColoredText") {
@@ -67,11 +64,12 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 		}
 	};
 
-	const handleRemoveCustomColor = (colorToRemove: string) => {
-		setCustomColors(customColors.filter((col) => col !== colorToRemove));
+	const handleRemoveCustomColor = (indexToRemove: number) => {
+		setCustomColors(customColors.filter((_, index) => index !== indexToRemove));
 	};
+	//#endregion
 
-	// Render
+	//#region [jsx]
 	return (
 		<div className="flex-row w-full">
 			<div className="flex-row-right">
@@ -116,7 +114,6 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 					/>
 				</div>
 
-				{/* Jetzt die Farbauswahl – abhängig vom Komponententyp */}
 				{isGradientOrMulti && (
 					<div className="flex-row">
 						<div className="grid-7">
@@ -146,18 +143,6 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 								);
 							})}
 						</div>
-
-						{/* Custom-Button */}
-						<button
-							onClick={() => setSelectedColor("custom")}
-							style={{
-								border: selectedColor === "custom" ? "2px solid white" : "2px solid black",
-								borderRadius: "50%",
-								width: 30,
-								height: 30,
-								background: "linear-gradient(45deg, red, yellow, green)",
-								cursor: "pointer",
-							}}></button>
 					</div>
 				)}
 
@@ -199,22 +184,22 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 								);
 							})}
 						</div>
+					</div>
+				)}
 
-						{/* Custom (einzelne Farbe) */}
+				<div className="flex-col-left">
+					<div>
 						<button
 							onClick={() => setSelectedColor("custom")}
 							style={{
-								border: selectedColor === "custom" ? "2px solid white" : "1px solid black",
-								borderRadius: "50px",
+								border: selectedColor === "custom" ? "2px solid white" : "2px solid black",
+								borderRadius: "50%",
 								width: 30,
 								height: 30,
 								background: "linear-gradient(45deg, red, yellow, green)",
 							}}></button>
 					</div>
-				)}
 
-				{/* Wenn "custom" ausgewählt, zeigen wir evtl. ein Farbwähler-UI */}
-				{selectedColor === "custom" && (
 					<div className="flex-row">
 						<input
 							className="color-picker"
@@ -222,14 +207,17 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 							value={newColor}
 							onChange={(e) => setNewColor(e.target.value)}
 						/>
-						<button onClick={handleAddCustomColor} style={{ width: "25px" }} className="greenBtn1">
+						<button
+							onClick={handleAddCustomColor}
+							style={{ width: "20px", height: "25px", marginTop: "5px" }}
+							className="greenBtn1">
 							+
 						</button>
 						<div className="flex-row">
 							{customColors.map((col, i) => (
 								<div
 									key={i}
-									onClick={() => handleRemoveCustomColor(col)} // Farbe entfernen bei Klick
+									onClick={() => handleRemoveCustomColor(i)}
 									style={{
 										width: 10,
 										height: 20,
@@ -242,10 +230,9 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 							))}
 						</div>
 					</div>
-				)}
+				</div>
 			</div>
 
-			{/* Hinzufügen-Button */}
 			<button
 				onClick={handleAdd}
 				disabled={!selectedComponent || !selectedColor}
@@ -254,6 +241,7 @@ const ComponentAndColorPicker: React.FC<ComponentAndColorPickerProps> = ({
 			</button>
 		</div>
 	);
+	//#endregion
 };
 
 export default ComponentAndColorPicker;
