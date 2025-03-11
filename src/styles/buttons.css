@@ -27,7 +27,6 @@ button:active {
 	justify-content: center;
 	border: 2px solid rgba(98, 176, 212);
 	border-radius: 50%;
-	margin: 2px;
 }
 .circleActiveBorder {
 	border: 2px solid white;
