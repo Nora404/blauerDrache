@@ -32,14 +32,25 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 	const paletteKeys = Object.keys(colorPalettes);
 	const singleColorKeys = Object.keys(textColors);
 
+	// Änderung in handleAdd:
 	const handleAdd = () => {
 		if (!selectedComponent || !selectedColor) return;
-		let colorProp = selectedColor;
+		let colorProp = "";
 		if (selectedColor === "custom") {
 			colorProp =
 				customColors.length === 0 && newColor
 					? "custom:" + newColor
 					: "custom:" + customColors.join(",");
+		} else {
+			if (
+				selectedComponent === "GradientText" &&
+				(selectedGradient === "two" || selectedGradient === "three")
+			) {
+				// Für GradientText (nicht-custom) wird "custom:" vorangestellt
+				colorProp = "custom:" + selectedColor;
+			} else {
+				colorProp = selectedColor;
+			}
 		}
 		onInsert(selectedComponent, colorProp);
 	};
@@ -55,6 +66,46 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 
 	const handleRemoveCustomColor = (index: number) => {
 		setCustomColors(customColors.filter((_, i) => i !== index));
+	};
+
+	// Änderung in handleGradientColorClick:
+	const handleGradientColorClick = (key: string) => {
+		// Setze zunächst selectedColor auf "custom" als Flag
+		setSelectedColor("custom");
+		const hex = textColors[key];
+		// Falls schon drei Elemente vorhanden sind, reduziere auf zwei (äußere und innere Farbe)
+		let newSelection =
+			selectedGradient === "three" && customColors.length === 3
+				? [customColors[0], customColors[1]]
+				: [...customColors];
+		const index = newSelection.indexOf(hex);
+		if (index !== -1) {
+			// Wurde bereits ausgewählt, so tauschen wir die Reihenfolge (nur wenn zwei Farben vorhanden sind)
+			if (newSelection.length === 2) {
+				newSelection = [newSelection[1], newSelection[0]];
+			}
+		} else {
+			if (newSelection.length < 2) {
+				newSelection.push(hex);
+			} else {
+				// Bei bereits zwei ausgewählten Farben wird die erste Farbe ersetzt
+				newSelection[0] = hex;
+			}
+		}
+		if (selectedGradient === "two") {
+			setCustomColors(newSelection);
+			setSelectedColor(newSelection.join(","));
+		} else if (selectedGradient === "three") {
+			if (newSelection.length === 2) {
+				// Erstelle ein Array mit drei Elementen: [A, I, A]
+				const threeSelection = [newSelection[0], newSelection[1], newSelection[0]];
+				setCustomColors(threeSelection);
+				setSelectedColor(threeSelection.join(","));
+			} else {
+				setCustomColors(newSelection);
+				setSelectedColor(newSelection.join(","));
+			}
+		}
 	};
 
 	return (
@@ -119,20 +170,46 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 									key={format}
 									format={format}
 									isSelected={selectedGradient === format}
-									onSelect={setSelectedGradient}
+									onSelect={(format) => {
+										setSelectedGradient(format);
+										setCustomColors([]); // Reset der Gradient-Auswahl beim Wechseln
+										setSelectedColor(""); // Reset der selektierten Farbe
+									}}
 								/>
 							))}
 						</div>
 						<div className="grid-7">
-							{paletteKeys.map((key) => (
-								<PaletteButton
-									key={key}
-									paletteKey={key}
-									palette={colorPalettes[key]}
-									isSelected={selectedColor === key}
-									onSelect={setSelectedColor}
-								/>
-							))}
+							{selectedGradient === "multi"
+								? paletteKeys.map((key) => (
+										<PaletteButton
+											key={key}
+											paletteKey={key}
+											palette={colorPalettes[key]}
+											isSelected={selectedColor === key}
+											onSelect={setSelectedColor}
+										/>
+								  ))
+								: singleColorKeys.map((key) => {
+										const colorValue = textColors[key];
+										let label = "";
+										if (selectedGradient === "two") {
+											if (customColors[0] === colorValue) label = "1";
+											else if (customColors[1] === colorValue) label = "2";
+										} else if (selectedGradient === "three") {
+											if (customColors[0] === colorValue) label = "A";
+											else if (customColors[1] === colorValue) label = "I";
+										}
+										return (
+											<SingleColorButton
+												key={key}
+												colorKey={key}
+												color={colorValue}
+												isSelected={customColors.includes(colorValue)}
+												onSelect={() => handleGradientColorClick(key)}
+												text={label} // Zeigt "1"/"2" bei "two" bzw. "A"/"I" bei "three"
+											/>
+										);
+								  })}
 						</div>
 					</div>
 				)}
