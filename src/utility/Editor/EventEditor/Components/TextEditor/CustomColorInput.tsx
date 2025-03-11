@@ -20,14 +20,10 @@ export const CustomColorInput: React.FC<CustomColorInputProps> = ({
 	<div className="flex-col-left">
 		<div>
 			<button
-				onClick={onSelectCustom} // // Änderung: Eigene Funktion zum Setzen von "custom"
-				style={{
-					border: isSelected ? "2px solid white" : "2px solid black",
-					borderRadius: "50%",
-					width: 30,
-					height: 30,
-					background: "linear-gradient(45deg, red, yellow, green)",
-				}}></button>
+				onClick={onSelectCustom}
+				className={isSelected ? "circle circleActiveBorder" : "circle"}>
+				c
+			</button>
 		</div>
 		<div className="flex-row">
 			<input
@@ -44,8 +40,8 @@ export const CustomColorInput: React.FC<CustomColorInputProps> = ({
 			</button>
 			<div className="flex-row">
 				{customColors.map((col, i) => (
-					<div
-						key={i}
+					<button
+						key={col}
 						onClick={() => onRemoveCustomColor(i)}
 						style={{
 							width: 10,

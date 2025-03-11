@@ -14,7 +14,7 @@ export const ComponentButton: React.FC<ComponentButtonProps> = ({
 }) => (
 	<button
 		onClick={() => {
-			onSelect(componentName); // // Änderung: Logik aus dem JSX ausgelagert
+			onSelect(componentName);
 		}}
 		style={{
 			...backgroundStyle,

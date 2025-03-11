@@ -29,7 +29,7 @@ export const FormatGradientButton: React.FC<FormatGradientButtonProps> = ({
 	isSelected,
 	onSelect,
 }) => {
-	const content = format === "two" ? "2" : format === "three" ? <b>3</b> : <i>m</i>;
+	const content = format === "two" ? "2" : format === "three" ? "3" : "m";
 	return (
 		<button
 			onClick={() => onSelect(format)}
