@@ -140,18 +140,60 @@ export const rainbowColors: string[] = [
 	"#9EE05C", // Gelbgrün
 ];
 
+export const whiteColors: string[] = [
+	"#FFFFFF",
+	"#FAFAFA",
+	"#F5F5F5",
+	"#F0F0F0",
+	"#EBEBEB",
+	"#E6E6E6",
+	"#E0E0E0",
+	"#DBDBDB",
+	"#D6D6D6",
+	"#D1D1D1",
+];
+
+export const petrolColors: string[] = [
+	"#25B2A2",
+	"#24837b",
+	"#1885a0",
+	"#23cc99",
+	"#118f7a",
+	"#369daf",
+	"#25B2A2",
+	"#37d6a1",
+	"#0e9982",
+	"#106b77",
+];
+
+export const pastelColors: string[] = [
+	"#FFB3BA",
+	"#FFDFBA",
+	"#FFFFBA",
+	"#BAFFC9",
+	"#BAE1FF",
+	"#D1BAFF",
+	"#FFC9DE",
+	"#F0BAFF",
+	"#BAFFD1",
+	"#C9BAFF",
+];
+
 export const colorPalettes: Record<string, string[]> = {
+	whiteColors,
 	grayColors,
+	darkBlueColors,
 	yellowColors,
 	orangeColors,
 	redColors,
 	rosaColors,
 	lilaColors,
 	blueColors,
-	darkBlueColors,
+	petrolColors,
 	greenColors,
 	braunColors,
 	rainbowColors,
+	pastelColors,
 };
 
 export const textColors: Record<string, string> = {
