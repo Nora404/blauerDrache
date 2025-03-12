@@ -14,7 +14,7 @@ const PlayerPreview: React.FC = () => {
 			<p className="text-left">
 				Name: {name}
 				<br />
-				Rasse: {race.label}, {race.bonus}
+				Volk: {race.label}, {race.bonus}
 				<br />
 				Herkunft: {origin.label}, {origin.bonus}
 				<br />

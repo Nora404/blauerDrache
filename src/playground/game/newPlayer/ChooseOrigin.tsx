@@ -4,6 +4,8 @@ import Header from "../../../layout/Header/Header";
 import { emptyOriginObj, origins } from "../../../data/originData";
 import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
 import { HiddenLine } from "../../../layout/HiddenLine";
+import { CREATURE } from "../../../data/helper/colorfullStrings";
+import Talk from "../../../utility/Formatted/Talk";
 
 interface ChooseOriginProps {
 	page: number;
@@ -25,7 +27,20 @@ const ChooseOrigin: React.FC<ChooseOriginProps> = ({ page, onNext, onBack }) => 
 	return (
 		<div className="max-width">
 			<Header>Was ist dein Hintergrund?</Header>
-			<p>Dies ist ein kurzer Text.</p>
+			<div className="text-left">
+				<p className="mb-1">
+					<Talk color="rotesWesen">
+						"Glaubst du wir sind blind, das wir das nicht selbst schon erkannt haben?"{" "}
+					</Talk>
+					Höhnt das {CREATURE.roteWesen} während es langsam um dich herum schwebt. Das{" "}
+					{CREATURE.blaueWesen} flattert zu dir und schupst das {CREATURE.roteWesen} weg.
+				</p>
+				<p className="mb-1">
+					<Talk color="blauesWesen">
+						"Er will nur wissen woher du kommst, welchen Hintergund du hast."
+					</Talk>
+				</p>
+			</div>
 
 			<div className="mb-2">
 				{origins
