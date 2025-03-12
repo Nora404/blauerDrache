@@ -27,12 +27,12 @@ const Chronic: React.FC<ChronicProps> = () => {
 
       <div className="toggleRowCol">
         <div className="flex-col w-full">
-          <button onClick={() => { handleClick(1) }} className="btn-border">Band I: Das Erwachen</button>
-          <button onClick={() => { handleClick(2) }} className="btn-border">Band II: Hüter der Quelle</button>
-          <button onClick={() => { handleClick(3) }} className="btn-border">Band III: Der ewige Ruf</button>
-          <button onClick={() => { handleClick(4) }} className="btn-border">Die Völker des blauen Drachen</button>
-          <button onClick={() => { handleClick(5) }} className="btn-border">Die Länder des blauen Drachen</button>
-          <button onClick={() => { handleClick(6) }} className="btn-border">Glossar</button>
+          <button onClick={() => { handleClick(1) }} className={`btn-border ${side === 1 && "glow"}`}>Band I: Das Erwachen</button>
+          <button onClick={() => { handleClick(2) }} className={`btn-border ${side === 2 && "glow"}`}>Band II: Hüter der Quelle</button>
+          <button onClick={() => { handleClick(3) }} className={`btn-border ${side === 3 && "glow"}`}>Band III: Der ewige Ruf</button>
+          <button onClick={() => { handleClick(4) }} className={`btn-border ${side === 4 && "glow"}`}>Die Völker des blauen Drachen</button>
+          <button onClick={() => { handleClick(5) }} className={`btn-border ${side === 5 && "glow"}`}>Die Länder des blauen Drachen</button>
+          <button onClick={() => { handleClick(6) }} className={`btn-border ${side === 6 && "glow"}`}>Glossar</button>
         </div>
         <img src={finalBattle} alt="finalBattle" style={{ width: "50%", marginLeft: "30px" }} />
       </div>
