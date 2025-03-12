@@ -38,6 +38,7 @@ const FinalCreating: React.FC = () => {
 				}
 			);
 			playerQuest.updateQuest("Q001StartAdventure", false);
+			playerQuest.updateQuest("Q002GoToDiplomatic", false);
 		});
 	}, []);
 
