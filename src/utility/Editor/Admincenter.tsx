@@ -8,7 +8,7 @@ import HeaderSmall from "../../layout/Header/HeaderSmall";
 import { TEMPERATURE, WEATHER } from "../../data/helper/weatherStrings";
 import { races } from "../../data/raceData";
 import { callings } from "../../data/callingData";
-import { origin } from "../../data/originData";
+import { origins } from "../../data/originData";
 import { BuffName, buffs } from "../../data/buffData";
 import { DebuffName, debuffs } from "../../data/debuffData";
 import { feelings } from "../../data/feelingData";
@@ -324,7 +324,7 @@ const Admincenter: React.FC<AdmincenterProps> = observer(() => {
 								value={playerMeta.data.origin || ""}
 								onChange={(e) => handlePlayerMeta("origin", e.target.value)}>
 								<option value="">(keine Auswahl)</option>
-								{origin.map((o) => (
+								{origins.map((o) => (
 									<option key={o.name} value={o.name}>
 										{o.name}
 									</option>

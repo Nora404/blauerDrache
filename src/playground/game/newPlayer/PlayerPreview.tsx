@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Header from "../../../layout/Header/Header";
 import { CreatePlayerContext } from "./context";
+import { HiddenLine } from "../../../layout/HiddenLine";
 
 const PlayerPreview: React.FC = () => {
 	const playerContext = useContext(CreatePlayerContext);
@@ -21,11 +22,7 @@ const PlayerPreview: React.FC = () => {
 				<br />
 			</p>
 
-			<p style={{ color: "#00000000", height: 0 }}>
-				.......................................................................................................
-				.......................................................................................................
-				.......................................................................................................
-			</p>
+			<HiddenLine />
 		</div>
 	);
 };

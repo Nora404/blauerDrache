@@ -5,6 +5,7 @@ import Header from "../../../layout/Header/Header";
 import Talk from "../../../utility/Formatted/Talk";
 import { CREATURE } from "../../../data/helper/colorfullStrings";
 import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
+import { HiddenLine } from "../../../layout/HiddenLine";
 
 interface ChooseRaceProps {
 	page: number;
@@ -83,6 +84,8 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
 					Weiter
 				</button>
 			</div>
+
+			<HiddenLine />
 		</div>
 	);
 };
