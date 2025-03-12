@@ -135,6 +135,13 @@
 	text-align: left;
 }
 
+.flex-quest {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: space-between;
+	justify-content: center;
+}
+
 .paper {
 	border: 10px solid transparent;
 	padding: 15px;
