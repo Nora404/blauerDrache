@@ -128,7 +128,7 @@
 	);
 
 	box-sizing: border-box;
-	margin-bottom: 0px;
+	margin: 10px;
 	min-height: 100px;
 	padding: 10px;
 	max-width: 340px;
@@ -153,7 +153,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 20px;
+	/* gap: 20px; */
 }
 
 .collectionCards {

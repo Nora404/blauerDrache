@@ -13,7 +13,7 @@ SOLLTE
   - Farben für Playernamen änderbar machen
   - Beute "Leben in Lahtheim" verteilen
   - Layout bei allen drei Auflösungen fixen
-  - Überarbeitung Charaktererstellung
+  x Überarbeitung Charaktererstellung
 
 NICE
   - Transit mit verschiedenen Richtungen 
