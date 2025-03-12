@@ -6,6 +6,8 @@ import Talk from "../../../utility/Formatted/Talk";
 import { CREATURE } from "../../../data/helper/colorfullStrings";
 import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
 import { HiddenLine } from "../../../layout/HiddenLine";
+import { GradientText } from "../../../utility/Formatted/GradientText";
+import { darkBlueColors } from "../../../data/helper/colorMappingData";
 
 interface ChooseRaceProps {
 	page: number;
@@ -76,8 +78,8 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
 			</div>
 
 			<div className="flex-row">
-				<button className="btn-border-red w-150" onClick={onBack}>
-					Zurück
+				<button className="btn-border w-150" disabled={true}>
+					<GradientText colors={darkBlueColors}>Zurück</GradientText>
 				</button>
 				<span>Frage: {page}</span>
 				<button className="btn-border-green w-150" onClick={onNext}>
