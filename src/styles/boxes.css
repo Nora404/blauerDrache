@@ -171,6 +171,7 @@
 	border: 1px solid rgba(95, 173, 209, 0.2);
 	border-radius: 8px;
 	box-sizing: border-box;
+	margin: 10px;
 }
 
 /* Auf und zuklappen von New Day */
