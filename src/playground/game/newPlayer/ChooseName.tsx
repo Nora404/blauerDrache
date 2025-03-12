@@ -1,68 +1,37 @@
-//#region [imports]
-import React from "react";
-import { WizardData } from "./CreatePlayer";
-import Header from "../../../layout/Header/Header";
-import TwoActionButton from "../../../layout/ActionButtons/TwoActionButton";
-import Talk from "../../../utility/Formatted/Talk";
-//#endregion
+import React, { useContext } from "react";
+import { races } from "../../../data/raceData";
+import { CreatePlayerContext } from "./context";
 
-//#region [prepare]
-type ChooseNameProps = {
-  wizardData: WizardData;
-  setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
-  onBack: () => void;
-  onFinalize: () => void;
-};
+interface ChooseNameProps {
+	page: number;
+	onNext: () => void;
+	onBack: () => void;
+}
 
-const ChooseName: React.FC<ChooseNameProps> = ({
-  wizardData,
-  setWizardData,
-  onBack,
-  onFinalize,
-}) => {
-  //#endregion
+const ChooseName: React.FC<ChooseNameProps> = ({ page, onNext, onBack }) => {
+	const playerContext = useContext(CreatePlayerContext);
+	if (!playerContext) return;
 
-  //#region [handler]
-  const handleNameChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setWizardData((prev) => ({
-      ...prev,
-      name: evt.target.value,
-    }));
-  };
-  //#endregion
+	const { setRace } = playerContext;
 
-  //#region [jsx]
-  return (
-    <div>
-      <Header>Beantworte die Frage der Wächter Wesen</Header>
-      <br />
+	return (
+		<div>
+			<h1>Header</h1>
+			<p>Dies ist ein kurzer Text.</p>
 
-      <input
-        type="text"
-        value={wizardData.name}
-        onChange={handleNameChange}
-        placeholder="Name"
-        style={{ width: 250, textAlign: "center" }}
-      />
-      <br />
+			{races.map((option) => (
+				<button key={option.name} onClick={() => setRace(option)}>
+					{option.name}
+				</button>
+			))}
 
-      <div>
-        <br />
-        Du schaust selbstsicher zu den beiden Wesen und sagst:{" "}
-        <Talk>"Ich heiße {wizardData.name}"</Talk>
-        <br />
-      </div>
-      <br />
-
-      <TwoActionButton
-        onLeftAction={onBack}
-        leftBtn="zurück"
-        onRightAction={onFinalize}
-        rightBtn="fertig"
-      />
-    </div>
-  );
-  //#endregion
+			<div>
+				<button onClick={onBack}>Zurück</button>
+				<span>Frage: {page}</span>
+				<button onClick={onNext}>Weiter</button>
+			</div>
+		</div>
+	);
 };
 
 export default ChooseName;

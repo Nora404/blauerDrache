@@ -1,84 +1,37 @@
-//region [imports]
-import React from "react";
-import { RaceName } from "../../../data/raceData";
-import Header from "../../../layout/Header/Header";
-import { WizardData } from "./CreatePlayer";
-import {
-  getOriginByRaces,
-  originMap,
-  OriginName,
-} from "../../../data/originData";
-import TwoActionButton from "../../../layout/ActionButtons/TwoActionButton";
-import Talk from "../../../utility/Formatted/Talk";
-//#endregion
+import React, { useContext } from "react";
+import { races } from "../../../data/raceData";
+import { CreatePlayerContext } from "./context";
 
-//#region [prepare]
-type ChooseOriginProps = {
-  wizardData: WizardData;
-  setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
-  onBack: () => void;
-  onNext: () => void;
-};
+interface ChooseOriginProps {
+	page: number;
+	onNext: () => void;
+	onBack: () => void;
+}
 
-const ChooseOrigin: React.FC<ChooseOriginProps> = ({
-  wizardData,
-  setWizardData,
-  onBack,
-  onNext,
-}) => {
-  const origins = getOriginByRaces(wizardData.race.name as RaceName);
-  //#endregion
+const ChooseOrigin: React.FC<ChooseOriginProps> = ({ page, onNext, onBack }) => {
+	const playerContext = useContext(CreatePlayerContext);
+	if (!playerContext) return;
 
-  //#region [handler]
-  const handleOrigin = (originName: OriginName) => {
-    setWizardData((prev) => ({
-      ...prev,
-      origin: originMap[originName],
-    }));
-  };
-  //#endregion
+	const { setRace } = playerContext;
 
-  //#region [jsx]
-  return (
-    <div className="max-width">
-      <Header>Beantworte die Frage der Wächter Wesen</Header>
-      <br />
+	return (
+		<div>
+			<h1>Header</h1>
+			<p>Dies ist ein kurzer Text.</p>
 
-      {origins.map((origin) => (
-        <div className="mb-1 w-full" key={origin.name}>
-          <button
-            className={`text-left w-full ${
-              origin.name === wizardData.origin.name ? "glow" : ""
-            }`}
-            onClick={() => handleOrigin(origin.name as OriginName)}
-          >
-            {origin.label}
-            <br />
-            {origin.description}
-            <br />
-            <span style={{ color: "#4BC7AA" }}> {origin.bonus} </span>
-          </button>
-        </div>
-      ))}
-      <br />
+			{races.map((option) => (
+				<button key={option.name} onClick={() => setRace(option)}>
+					{option.name}
+				</button>
+			))}
 
-      <div>
-        <br />
-        Du schaust selbstsicher zu den beiden Wesen und sagst:{" "}
-        <Talk>"Ich bin ein {wizardData.origin.label}"</Talk>
-        <br />
-      </div>
-      <br />
-
-      <TwoActionButton
-        onLeftAction={onBack}
-        leftBtn="zurück"
-        onRightAction={onNext}
-        rightBtn="weiter"
-      />
-    </div>
-  );
-  //#endregion
+			<div>
+				<button onClick={onBack}>Zurück</button>
+				<span>Frage: {page}</span>
+				<button onClick={onNext}>Weiter</button>
+			</div>
+		</div>
+	);
 };
 
 export default ChooseOrigin;

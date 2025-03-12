@@ -1,70 +1,57 @@
-//#region [imports]
-import React from "react";
-import { RaceName, races, racesMap } from "../../../data/raceData";
-import { WizardData } from "./CreatePlayer";
+import React, { useContext } from "react";
+import { races } from "../../../data/raceData";
+import { CreatePlayerContext } from "./context";
 import Header from "../../../layout/Header/Header";
-import ActionButton from "../../../layout/ActionButtons/ActionButton";
 import Talk from "../../../utility/Formatted/Talk";
-//#endregion
+import { CREATURE } from "../../../data/helper/colorfullStrings";
 
-//#region [prepare]
-type ChooseRaceProps = {
-  wizardData: WizardData;
-  setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
-  onNext: () => void;
-};
+interface ChooseRaceProps {
+	page: number;
+	onNext: () => void;
+	onBack: () => void;
+}
 
-const ChooseRace: React.FC<ChooseRaceProps> = ({
-  wizardData,
-  setWizardData,
-  onNext,
-}) => {
-  //#endregion
+const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
+	const playerContext = useContext(CreatePlayerContext);
+	if (!playerContext) return;
 
-  //#region [handler]
-  const handleRase = (raceName: RaceName) => {
-    setWizardData((prev) => ({
-      ...prev,
-      race: racesMap[raceName],
-    }));
-  };
-  //#endregion
+	const { setRace } = playerContext;
 
-  //#region [jsx]
-  return (
-    <div className="max-width">
-      <Header>Beantworte die Frage der Wächter Wesen</Header>
-      <br />
+	return (
+		<div className="max-width">
+			<Header>Zu welchem Volk gehörst du?</Header>
+			<div className="text-left">
+				<p className="mb-1">
+					<Talk color="rotesWesen">
+						"Glaubst du wir sind blind, das wir das nicht selbst schon erkannt haben?"{" "}
+					</Talk>
+					Höhnt das {CREATURE.roteWesen} während es langsam um dich herum schwebt. Das{" "}
+					{CREATURE.blaueWesen} flattert zu dir und schupst das {CREATURE.roteWesen} weg.
+				</p>
+				<p className="mb-1">
+					<Talk color="blauesWesen">
+						"Er will nur wissen woher du kommst, zu welcher Gruppe du gehörst."
+					</Talk>
+				</p>
+			</div>
 
-      {races.map((races) => (
-        <div className="mb-1 w-full" key={races.name}>
-          <button
-            className={`text-left w-full ${
-              races.name === wizardData.race.name ? "glow" : ""
-            }`}
-            onClick={() => handleRase(races.name as RaceName)}
-          >
-            {races.label}
-            <br />
-            {races.description}
-            <br />
-            <span style={{ color: "#4BC7AA" }}> {races.bonus} </span>
-          </button>
-        </div>
-      ))}
-      <br />
+			{races.map((option) => (
+				<button className="btn-border" key={option.name} onClick={() => setRace(option)}>
+					{option.name}
+				</button>
+			))}
 
-      <div>
-        Du schaust selbstsicher zu den beiden Wesen und sagst:{" "}
-        <Talk>"Ich bin geboren als {wizardData.race.label}"</Talk>
-        <br />
-      </div>
-      <br />
-
-      <ActionButton onClick={onNext} label="weiter" />
-    </div>
-  );
-  //#endregion
+			<div className="flex-row">
+				<button className="btn-border-red w-150" onClick={onBack}>
+					Zurück
+				</button>
+				<span>Frage: {page}</span>
+				<button className="btn-border-green w-150" onClick={onNext}>
+					Weiter
+				</button>
+			</div>
+		</div>
+	);
 };
 
 export default ChooseRace;

@@ -1,78 +1,37 @@
-//#region [imports]
-import React from "react";
-import { WizardData } from "./CreatePlayer";
-import Header from "../../../layout/Header/Header";
-import { callingMap, CallingName, callings } from "../../../data/callingData";
-import TwoActionButton from "../../../layout/ActionButtons/TwoActionButton";
-import Talk from "../../../utility/Formatted/Talk";
-//endregion
+import React, { useContext } from "react";
+import { races } from "../../../data/raceData";
+import { CreatePlayerContext } from "./context";
 
-//#region [prepare]
-type ChooseCallingProps = {
-  wizardData: WizardData;
-  setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
-  onBack: () => void;
-  onNext: () => void;
-};
+interface ChooseCallingProps {
+	page: number;
+	onNext: () => void;
+	onBack: () => void;
+}
 
-const ChooseCalling: React.FC<ChooseCallingProps> = ({
-  wizardData,
-  setWizardData,
-  onBack,
-  onNext,
-}) => {
-  //#endregion
+const ChooseCalling: React.FC<ChooseCallingProps> = ({ page, onNext, onBack }) => {
+	const playerContext = useContext(CreatePlayerContext);
+	if (!playerContext) return;
 
-  //#region [handler]
-  const handleCalling = (callingName: CallingName) => {
-    setWizardData((prev) => ({
-      ...prev,
-      calling: callingMap[callingName],
-    }));
-  };
-  //#endregion
+	const { setRace } = playerContext;
 
-  //#region [jsx]
-  return (
-    <div className="max-width">
-      <Header>Beantworte die Frage der Wächter Wesen</Header>
-      <br />
+	return (
+		<div>
+			<h1>Header</h1>
+			<p>Dies ist ein kurzer Text.</p>
 
-      {callings.map((callings) => (
-        <div className="mb-1 w-full" key={callings.name}>
-          <button
-            className={`text-left w-full ${
-              callings.name === wizardData.calling.name ? "glow" : ""
-            }`}
-            onClick={() => handleCalling(callings.name as CallingName)}
-          >
-            {callings.label}
-            <br />
-            {callings.description}
-            <br />
-            <span style={{ color: "#4BC7AA" }}> {callings.bonus} </span>
-          </button>
-        </div>
-      ))}
-      <br />
+			{races.map((option) => (
+				<button key={option.name} onClick={() => setRace(option)}>
+					{option.name}
+				</button>
+			))}
 
-      <div>
-        <br />
-        Du schaust selbstsicher zu den beiden Wesen und sagst:{" "}
-        <Talk>"Ich bin gekommen um {wizardData.calling.label} zu werden"</Talk>
-        <br />
-      </div>
-      <br />
-
-      <TwoActionButton
-        onLeftAction={onBack}
-        leftBtn="zurück"
-        onRightAction={onNext}
-        rightBtn="weiter"
-      />
-    </div>
-  );
-  //#endregion
+			<div>
+				<button onClick={onBack}>Zurück</button>
+				<span>Frage: {page}</span>
+				<button onClick={onNext}>Weiter</button>
+			</div>
+		</div>
+	);
 };
 
 export default ChooseCalling;

@@ -1,9 +1,26 @@
+Dieses Template ist eslint und sonarqube freundlich
+ 
 ```typescript
-import React, { createContext, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 
-export const MyContext = createContext();
+interface MyContextType {
+  str1: string;
+  setStr1: React.Dispatch<React.SetStateAction<string>>;
+  str2: string;
+  setStr2: React.Dispatch<React.SetStateAction<string>>;
+  str3: string;
+  setStr3: React.Dispatch<React.SetStateAction<string>>;
+  num1: number;
+  setNum1: React.Dispatch<React.SetStateAction<number>>;
+  num2: number;
+  setNum2: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export const MyProvider = ({ children }) => {
+// eslint-disable-next-line react-refresh/only-export-components
+export const MyContext = createContext<MyContextType | undefined>(undefined);
+
+type ChildrenType = { children: ReactNode};
+export const MyProvider = ({ children }: ChildrenType) => {
   // Initialisierung der 3 Strings und 2 Zahlen
   const [str1, setStr1] = useState("Hallo");
   const [str2, setStr2] = useState("Welt");
@@ -12,13 +29,13 @@ export const MyProvider = ({ children }) => {
   const [num2, setNum2] = useState(100);
 
   // Der Context-Wert enthält sowohl die Werte als auch die Setter
-  const value = {
+  const value = useMemo(() => ({
     str1, setStr1, // String 1
     str2, setStr2, // String 2
     str3, setStr3, // String 3
     num1, setNum1, // Number 1
     num2, setNum2  // Number 2
-  };
+  }), [str1, str2, str3, num1, num2]);
 
   return (
     <MyContext.Provider value={value}>
