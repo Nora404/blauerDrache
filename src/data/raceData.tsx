@@ -32,7 +32,7 @@ export type RaceName =
 	| "Waldgeist";
 
 export type Race = {
-	name: RaceName | string;
+	name: RaceName | "Unbekant";
 	label: JSX.Element;
 	ascii: JSX.Element;
 	description: string;
