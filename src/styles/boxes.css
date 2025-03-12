@@ -12,6 +12,22 @@
 	letter-spacing: -5px;
 }
 
+.grid-7 {
+	display: grid;
+	grid-template-columns: repeat(7, auto);
+	gap: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	gap: 3px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 /****************************************** Flexbox *******************************************/
 .flex-row {
 	align-items: center;

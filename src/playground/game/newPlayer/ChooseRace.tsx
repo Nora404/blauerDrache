@@ -15,7 +15,7 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
 	const playerContext = useContext(CreatePlayerContext);
 	if (!playerContext) return;
 
-	const { setRace } = playerContext;
+	const { race, setRace } = playerContext;
 
 	return (
 		<div className="max-width">
@@ -23,23 +23,26 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
 			<div className="text-left">
 				<p className="mb-1">
 					<Talk color="rotesWesen">
-						"Glaubst du wir sind blind, das wir das nicht selbst schon erkannt haben?"{" "}
-					</Talk>
-					Höhnt das {CREATURE.roteWesen} während es langsam um dich herum schwebt. Das{" "}
-					{CREATURE.blaueWesen} flattert zu dir und schupst das {CREATURE.roteWesen} weg.
-				</p>
-				<p className="mb-1">
-					<Talk color="blauesWesen">
-						"Er will nur wissen woher du kommst, zu welcher Gruppe du gehörst."
-					</Talk>
+						"Gut, dann fangen wir mal an. Zuerst musst du dich hier anmelden. Dafür brauchen wir
+						deinen Namen, deine Herkunft und so weiter."
+					</Talk>{" "}
+					beginnt das {CREATURE.rotesWesen} seinen Text herunter zu rattern. Zeitgleich holt das{" "}
+					{CREATURE.blauesWesen} einen Notizblock und zaubert eine Füllfeder aus dem Nichts heraus.
+					Es macht sich bereit zu schreiben ...
 				</p>
 			</div>
 
-			{races.map((option) => (
-				<button className="btn-border" key={option.name} onClick={() => setRace(option)}>
-					{option.name}
-				</button>
-			))}
+			<div className="grid-2 mb-2" style={{ gap: "15px" }}>
+				{races.map((option) => (
+					<button
+						className={`btn-border ${option.name === race.name && "glow"}`}
+						style={{ margin: 0 }}
+						key={option.name}
+						onClick={() => setRace(option)}>
+						{option.label}
+					</button>
+				))}
+			</div>
 
 			<div className="flex-row">
 				<button className="btn-border-red w-150" onClick={onBack}>
