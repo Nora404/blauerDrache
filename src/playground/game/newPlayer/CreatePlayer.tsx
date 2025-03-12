@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ChooseRace from "./ChooseRace";
 import ChooseOrigin from "./ChooseOrigin";
@@ -7,9 +7,16 @@ import ChooseName from "./ChooseName";
 import { CreatePlayerProvider } from "./context";
 import PlayerPreview from "./PlayerPreview";
 import FinalCreating from "./FinalCreating";
+import { useRootStore } from "../../../store";
 
 const CreatePlayer = () => {
 	const [page, setPage] = useState(1);
+
+	// Erst einmal alle Daten Löschen
+	const { resetGameData } = useRootStore();
+	useEffect(() => {
+		resetGameData();
+	}, [resetGameData]);
 
 	const onNext = () => setPage((prev) => prev + 1);
 	const onBack = () => setPage((prev) => Math.max(prev - 1, 1));
