@@ -3,7 +3,6 @@ import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { SYSTEM } from "./helper/colorfullStrings";
 import {
 	braunColors,
-	greenColors,
 	lilaColors,
 	pastelColors,
 	petrolColors,
@@ -61,8 +60,12 @@ export const races: Race[] = [
 		name: "Mensch",
 		label: <GradientText colors={petrolColors}>Mensch</GradientText>,
 		ascii: <HumanAscii />,
-		description:
-			"In den Ebenen der Stadt Lahtheim ist die Heimat der Menschen zu finden. Viele leben in der Stadt selbst oder in den kleineren Dörfern. Sie treiben gerne Handel untereinander, sind aber Fremden gegenüber eher misstrauisch. Sie können sehr viel, aber nichts wirklich außergewöhnlich gut. Ein Sprichwort lautet: Menschen sind das Wasser der Suppe",
+		description: `In den weiten Ebenen rund um die Stadt Lahtheim liegt die Heimat der Menschen. Viele leben innerhalb der Stadtmauern, andere in den verstreuten Dörfern der Umgebung. Die Siedlungen sind durch Wege aus festgetretener Erde verbunden, auf denen Händler, Reisende und Abenteurer einander begegnen.
+
+        Als Gründer von Lahtheim genießen die Menschen einen guten Ruf - sie sind anpassungsfähig, erfinderisch und vielseitig. Doch ein altes Sprichwort sagt: „Menschen sind das Wasser der Suppe.“ Sie können vieles, doch nichts wirklich außergewöhnlich gut.
+        
+        Ihr derzeitiger Herrscher ist ein betagter Mann namens Günter Me Drag, der sich nur selten in der Öffentlichkeit blicken lässt. Stattdessen regeln seine Vertreter die Angelegenheiten des Reiches, allerdings mit wenig Begeisterung für Veränderungen. Die Bürokratie blüht, und jeder Bürger kann im Rathaus Anträge einreichen, um sein Anliegen vorzutragen. Menschen scheinen Gefallen an solchen Formalitäten zu finden.
+        `,
 		bonus: <>Du erhältst einen Bonus auf {SYSTEM.Leben}</>,
 		base: {
 			level: 1,

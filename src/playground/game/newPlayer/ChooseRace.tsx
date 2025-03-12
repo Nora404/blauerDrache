@@ -4,6 +4,7 @@ import { CreatePlayerContext } from "./context";
 import Header from "../../../layout/Header/Header";
 import Talk from "../../../utility/Formatted/Talk";
 import { CREATURE } from "../../../data/helper/colorfullStrings";
+import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
 
 interface ChooseRaceProps {
 	page: number;
@@ -21,7 +22,7 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
 		<div className="max-width">
 			<Header>Zu welchem Volk gehörst du?</Header>
 			<div className="text-left">
-				<p className="mb-1">
+				<p className="mb-2">
 					<Talk color="rotesWesen">
 						"Gut, dann fangen wir mal an. Zuerst musst du dich hier anmelden. Dafür brauchen wir
 						deinen Namen, deine Herkunft und so weiter."
@@ -40,8 +41,15 @@ const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
 						key={option.name}
 						onClick={() => setRace(option)}>
 						{option.label}
+						<br />
+						{option.bonus}
 					</button>
 				))}
+			</div>
+
+			<div className="text-left mb-2">
+				<Header>{race.label}</Header>
+				{parseDescription(race.description)}
 			</div>
 
 			<div className="flex-row">
