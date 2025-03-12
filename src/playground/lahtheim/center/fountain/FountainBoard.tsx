@@ -82,7 +82,7 @@ const FountainBoard: React.FC = () => {
 				<button className="questbox paper" onClick={() => handleClick("switch")}>
 					<MultiColoredLetters colors={redColors}>Schalter</MultiColoredLetters>
 					<br />
-					Irgendetwas wird diese Welt verändern!
+					Irgendetwas, das du tust, wird diese Welt verändern!
 				</button>
 			</p>
 			<br />
