@@ -6,6 +6,7 @@ import ChooseCalling from "./ChooseCalling";
 import ChooseName from "./ChooseName";
 import { CreatePlayerProvider } from "./context";
 import PlayerPreview from "./PlayerPreview";
+import FinalCreating from "./FinalCreating";
 
 const CreatePlayer = () => {
 	const [page, setPage] = useState(1);
@@ -23,6 +24,8 @@ const CreatePlayer = () => {
 				return <ChooseCalling page={page} onNext={onNext} onBack={onBack} />;
 			case 4:
 				return <ChooseName page={page} onNext={onNext} onBack={onBack} />;
+			case 5:
+				return <FinalCreating />;
 			default:
 				return <div>Ungültige Seite</div>;
 		}
