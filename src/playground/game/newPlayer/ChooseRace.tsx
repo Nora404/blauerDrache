@@ -12,10 +12,9 @@ import { darkBlueColors } from "../../../data/helper/colorMappingData";
 interface ChooseRaceProps {
 	page: number;
 	onNext: () => void;
-	onBack: () => void;
 }
 
-const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext, onBack }) => {
+const ChooseRace: React.FC<ChooseRaceProps> = ({ page, onNext }) => {
 	const playerContext = useContext(CreatePlayerContext);
 	if (!playerContext) return;
 

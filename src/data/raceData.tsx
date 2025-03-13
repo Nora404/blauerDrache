@@ -288,7 +288,7 @@ export const races: Race[] = [
 			gold: 100,
 			edelsteine: 0,
 		},
-		subraces: ["Astläufer", "Blumenkind", "Lebenshüter"],
+		subraces: ["Astläufer", "Blütenlicht", "Lebenshüter"],
 	},
 ];
 

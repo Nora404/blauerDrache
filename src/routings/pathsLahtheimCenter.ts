@@ -85,11 +85,11 @@ const GraveyardDGrave = lazy(() => import('../playground/lahtheim/center/graveya
 const GraveyardZombie = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardZombie'));
 const GraveyardNGrave = lazy(() => import('../playground/lahtheim/center/graveyard/GraveyardNGrave'));
 
-const TownhallNavi = lazy(() => import('../playground/lahtheim/center/townHall/TownHallNavi'));
-const Townhall = lazy(() => import('../playground/lahtheim/center/townHall/TownHall'));
-const TownhallColor = lazy(() => import('../playground/lahtheim/center/townHall/TownHallColor'));
-const TownhallHome = lazy(() => import('../playground/lahtheim/center/townHall/TownHallHome'));
-const TownhallCalling = lazy(() => import('../playground/lahtheim/center/townHall/TownHallCalling'));
+const TownhallNavi = lazy(() => import('../playground/lahtheim/center/townhall/TownHallNavi'));
+const Townhall = lazy(() => import('../playground/lahtheim/center/townhall/TownHall'));
+const TownhallColor = lazy(() => import('../playground/lahtheim/center/townhall/TownHallColor'));
+const TownhallHome = lazy(() => import('../playground/lahtheim/center/townhall/TownHallHome'));
+const TownhallCalling = lazy(() => import('../playground/lahtheim/center/townhall/TownHallCalling'));
 
 export const routesLahtheimCenter: RouteConfig[] = [
     {

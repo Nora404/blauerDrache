@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { Suspense, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import navigationMap from "../NavigationList";
 import GameNavi from "../playground/game/game/GameNavi";

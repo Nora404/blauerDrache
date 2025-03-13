@@ -24,7 +24,7 @@ const CreatePlayer = () => {
 	const renderStep = () => {
 		switch (page) {
 			case 1:
-				return <ChooseRace page={page} onNext={onNext} onBack={onBack} />;
+				return <ChooseRace page={page} onNext={onNext} />;
 			case 2:
 				return <ChooseOrigin page={page} onNext={onNext} onBack={onBack} />;
 			case 3:
