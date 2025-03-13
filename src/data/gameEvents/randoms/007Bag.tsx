@@ -26,12 +26,12 @@ export const event007Bag: GameEvent = {
 	],
 	places: [
 		{
-			place: "Wald",
+			place: "Weg",
 			probability: 50,
 		},
 		{
-			place: "Weg",
-			probability: 20,
+			place: "Nordtor",
+			probability: 70,
 		},
 	],
 };
