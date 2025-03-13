@@ -66,7 +66,7 @@ const Event: React.FC<EventProps> = ({ eventId, onTriggerBattle, onTriggerQuest,
 			nextEventId = action.nextEvents[0].eventId;
 		}
 
-		const outcomeMsg = parseDescription(action.message ?? "");
+		const outcomeMsg = createOutcomeMessage(action);
 
 		if (nextEventId) {
 			onNextEvent?.(nextEventId);
@@ -101,3 +101,61 @@ const Event: React.FC<EventProps> = ({ eventId, onTriggerBattle, onTriggerQuest,
 
 export default Event;
 //#endregion
+
+// Ändere den Rückgabetyp von string zu React.ReactNode
+export function createOutcomeMessage(action: GameAction): React.ReactNode {
+	const messages: string[] = [];
+	if (action.message) {
+		messages.push(action.message);
+	}
+
+	if (action.itemsDelta) {
+		const itemMessages = Object.entries(action.itemsDelta)
+			.filter(([_, delta]) => delta !== 0)
+			.map(([item, delta]) => {
+				const verb = delta > 0 ? "{SYSTEM.erhalten}" : "{SYSTEM.abgegeben}";
+				return `${Math.abs(delta)} ${item} ${verb}`;
+			});
+		if (itemMessages.length > 0) {
+			messages.push(`\n${itemMessages.join(", ")}`);
+		}
+	}
+
+	if (action.economyDelta) {
+		const econMessages: string[] = [];
+		if (typeof action.economyDelta.gold === "number" && action.economyDelta.gold !== 0) {
+			const verb = action.economyDelta.gold > 0 ? "{SYSTEM.erhalten}" : "{SYSTEM.bezahlt}";
+			econMessages.push(`\n${Math.abs(action.economyDelta.gold)} {SYSTEM.Gold} ${verb}`);
+		}
+		if (
+			typeof action.economyDelta.edelsteine === "number" &&
+			action.economyDelta.edelsteine !== 0
+		) {
+			const verb = action.economyDelta.edelsteine > 0 ? "{SYSTEM.erhalten}" : "{SYSTEM.bezahlt}";
+			econMessages.push(
+				`\n${Math.abs(action.economyDelta.edelsteine)} {SYSTEM.Edelsteine} ${verb}`
+			);
+		}
+		if (econMessages.length > 0) {
+			messages.push(econMessages.join(", "));
+		}
+	}
+
+	if (action.baseDelta) {
+		if (typeof action.baseDelta.leumund === "number" && action.baseDelta.leumund !== 0) {
+			const verb = action.baseDelta.leumund > 0 ? "{SYSTEM.verbessert}" : "{SYSTEM.verschlechtert}";
+			messages.push(`\nDein Leumund hat sich ${verb} um ${Math.abs(action.baseDelta.leumund)}`);
+		}
+	}
+
+	// Falls es sowohl eine action.message als auch weitere generierte Nachrichten gibt,
+	// trenne diese mit einem doppelten Zeilenumbruch ("\n\n")
+	let fullMsg = "";
+	if (action.message && messages.length > 1) {
+		fullMsg = [messages[0], messages.slice(1).join(". ")].join("\n");
+	} else {
+		fullMsg = messages.join(". ");
+	}
+
+	return parseDescription(fullMsg);
+}

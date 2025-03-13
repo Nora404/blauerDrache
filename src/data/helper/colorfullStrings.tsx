@@ -1,4 +1,6 @@
+import ColoredText from "../../utility/Formatted/ColoredText";
 import { GradientText } from "../../utility/Formatted/GradientText";
+import { greenColors } from "./colorMappingData";
 
 type SystemKeys =
   | 'Level'
@@ -16,7 +18,13 @@ type SystemKeys =
   | 'Rüstung'
   | 'HandDer'
   | 'HandDie'
-  | 'Inventar';
+  | 'Inventar'
+  | 'erhalten'
+  | 'verbessert'
+  | 'gestiegen'
+  | 'abgegeben'
+  | 'bezahlt'
+  | 'verschlechtert';
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   Level: <GradientText colors={['#F7A131', '#57C6DD']}>Level</GradientText>,
   Erfahrung: <GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung</GradientText>,
@@ -34,6 +42,12 @@ export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   HandDer: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>In der Hand</GradientText></i>,
   HandDie: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>In die Hand</GradientText></i>,
   Inventar: <i><GradientText colors={['#69B26E', '#B3C709', '#69B26E']}>Inventar</GradientText></i>,
+  erhalten: <ColoredText color="grün" format="italic">erhalten</ColoredText>,
+  verbessert: <ColoredText color="grün" format="italic">verbessert</ColoredText>,
+  gestiegen: <ColoredText color="grün" format="italic">gestiegen</ColoredText>,
+  abgegeben: <ColoredText color="rot" format="italic">abgegeben</ColoredText>,
+  bezahlt: <ColoredText color="rot" format="italic">bezahlt</ColoredText>,
+  verschlechtert: <ColoredText color="rot" format="italic">verschlechtert</ColoredText>,
 }
 
 type CreatureKeys =
