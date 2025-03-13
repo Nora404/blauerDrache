@@ -3,6 +3,7 @@ import MultiColoredLetters from "../utility/Formatted/MultiColoredLetters";
 import { SYSTEM } from "./helper/colorfullStrings";
 import {
 	braunColors,
+	grayColors,
 	lilaColors,
 	pastelColors,
 	petrolColors,
@@ -120,7 +121,7 @@ export const races: Race[] = [
 		name: "Zwerg",
 		label: (
 			<b style={{ fontSize: "85%" }}>
-				<GradientText colors={["#A3D8FF", "#ffffff"]}>Zwerg</GradientText>
+				<MultiColoredLetters colors={grayColors}>Zwerg</MultiColoredLetters>
 			</b>
 		),
 		ascii: <DwarfAscii />,
