@@ -10,6 +10,7 @@ import { event006NoiseFollow } from "./006NoiseFollow";
 import { event007Bag } from "./007Bag";
 import { event008BagFull } from "./008BagFull";
 import { event009BagEmpty } from "./009BagEmpty";
+import { event010BagToxic } from "./010BagToxic";
 import { event010WoodenChest } from "./010WoodenChest";
 import { event011ChestJunk } from "./011ChestJunk";
 import { event012ChestGold } from "./012ChestGold";
@@ -20,35 +21,36 @@ import { event016FairyWish } from "./016FairyWish";
 import { event017ChestTrap } from "./017ChestTrap";
 
 export const randomEvents: GameEvent[] = [
-    event000Nothing,
-    event001StoneCoin,
-    event002Mashroom,
-    event003Stick,
-    event004Flower,
-    event005NoiseHear,
-    event006NoiseFollow,
-    event007Bag,
-    event008BagFull,
-    event009BagEmpty,
-    event010WoodenChest,
-    event011ChestJunk,
-    event012ChestGold,
-    event013ChestEmpty,
-    event014Fairy,
-    event015FairyLost,
-    event016FairyWish,
-    event017ChestTrap,
-    event999test,
+	event000Nothing,
+	event001StoneCoin,
+	event002Mashroom,
+	event003Stick,
+	event004Flower,
+	event005NoiseHear,
+	event006NoiseFollow,
+	event007Bag,
+	event008BagFull,
+	event009BagEmpty,
+	event010BagToxic,
+	event010WoodenChest,
+	event011ChestJunk,
+	event012ChestGold,
+	event013ChestEmpty,
+	event014Fairy,
+	event015FairyLost,
+	event016FairyWish,
+	event017ChestTrap,
+	event999test,
 ];
 
 export const randomTriggerEvents: GameEvent[] = [
-    event000Nothing,
-    event001StoneCoin,
-    event002Mashroom,
-    event003Stick,
-    event004Flower,
-    event005NoiseHear,
-    event007Bag,
-    event010WoodenChest,
-    event014Fairy,
+	event000Nothing,
+	event001StoneCoin,
+	event002Mashroom,
+	event003Stick,
+	event004Flower,
+	event005NoiseHear,
+	event007Bag,
+	event010WoodenChest,
+	event014Fairy,
 ];

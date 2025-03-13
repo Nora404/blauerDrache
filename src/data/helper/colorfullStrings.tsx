@@ -22,9 +22,12 @@ type SystemKeys =
   | 'erhalten'
   | 'verbessert'
   | 'gestiegen'
+  | 'erhöht'
   | 'abgegeben'
   | 'bezahlt'
-  | 'verschlechtert';
+  | 'verschlechtert'
+  | 'verringert'
+  | 'verloren';
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   Level: <GradientText colors={['#F7A131', '#57C6DD']}>Level</GradientText>,
   Erfahrung: <GradientText colors={['#bbbbbb', '#57C6DD']}>Erfahrung</GradientText>,
@@ -45,9 +48,12 @@ export const SYSTEM: Record<SystemKeys, JSX.Element> = {
   erhalten: <ColoredText color="grün" format="italic">erhalten</ColoredText>,
   verbessert: <ColoredText color="grün" format="italic">verbessert</ColoredText>,
   gestiegen: <ColoredText color="grün" format="italic">gestiegen</ColoredText>,
+  erhöht: <ColoredText color="grün" format="italic">erhöht</ColoredText>,
   abgegeben: <ColoredText color="rot" format="italic">abgegeben</ColoredText>,
   bezahlt: <ColoredText color="rot" format="italic">bezahlt</ColoredText>,
   verschlechtert: <ColoredText color="rot" format="italic">verschlechtert</ColoredText>,
+  verringert: <ColoredText color="rot" format="italic">verringert</ColoredText>,
+  verloren: <ColoredText color="rot" format="italic">verloren</ColoredText>,
 }
 
 type CreatureKeys =

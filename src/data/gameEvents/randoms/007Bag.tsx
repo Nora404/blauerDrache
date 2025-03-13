@@ -11,8 +11,9 @@ export const event007Bag: GameEvent = {
 			getAction: () => ({
 				message: message1,
 				nextEvents: [
-					{ eventId: "008BagFull", probability: 50 },
-					{ eventId: "009BagEmpty", probability: 50 },
+					{ eventId: "008BagFull", probability: 33 },
+					{ eventId: "009BagEmpty", probability: 33 },
+					{ eventId: "010BagToxic", probability: 33 },
 				],
 			}),
 		},
