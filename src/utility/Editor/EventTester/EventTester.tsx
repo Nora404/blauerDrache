@@ -4,6 +4,7 @@ import { gameQuestEvents } from "../../../data/questList";
 import { EventManager } from "../../../layout/Events/EventManager";
 import { randomTriggerEvents } from "../../../data/gameEvents/randoms/randomEventList";
 import { lahtheimCenterTriggerEvents } from "../../../data/gameEvents/lahtheim/center/lahtheimCenterList";
+import { HiddenLine } from "../../../layout/HiddenLine";
 
 export const TestEventManager: React.FC = () => {
 	const [selectedEventType, setSelectedEventType] = useState<string>("");
@@ -80,15 +81,10 @@ export const TestEventManager: React.FC = () => {
 			<br />
 			{/* Falls forcedId gesetzt und showManager true ist, wird der EventManager gerendert */}
 			{showManager && forcedId && (
-				<EventManager events={[]} forcedEventId={forcedId} onFinish={handleFinish} />
+				<EventManager events={[]} forcedEventId={forcedId} onFinish={handleFinish} backBtn={true} />
 			)}
 
-			<p style={{ color: "rgba(0, 0, 0, 0.0)" }}>
-				. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-				. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-				. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-				. . . . . . . . . . . . . . .
-			</p>
+			<HiddenLine />
 		</div>
 	);
 };

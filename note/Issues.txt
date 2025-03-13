@@ -1,11 +1,20 @@
 WICHTIG
   - Alle Questarten einbauen
+  - MainQuest darf man nicht aufgeben dürfen
   - Allen Hauptplätzen von Lahtheim Texte verpassen 
   - Allen Hauptplätzen Events verpassen
   - Ausrüstungen Shop anpassen
   - Krämer und Verkaufen einbauen
   - Battel: Verteidigung, Items, Hand, Fliehen
   - Monster: Zombie, Ratte, Dieb, Wachen
+  - Buffs: Dauer in Runden oder Tatendrang?
+
+BUG 
+  x Transit: Events zeigen danach keine Buttons
+  - Transit: Abwenden Button wird immer angezeigt  
+  - QuestService: Questabgeben Button bleibt
+  - Battle: Erkennt die Letzte Runde zu spät
+  - Admincenter: Zeit verändern klappt nicht
 
 SOLLTE
   - Mehr Monster und Varianten

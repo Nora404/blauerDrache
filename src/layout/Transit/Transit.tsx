@@ -140,7 +140,7 @@ const Transit: React.FC = () => {
 			{currentSteps <= 0 && <p>Du hast dein Ziel erreicht ...</p>}
 			<br />
 			{eventChainActive ? (
-				<EventManager events={eventChainActive} onFinish={handleFinishEventChain} />
+				<EventManager events={eventChainActive} onFinish={handleFinishEventChain} backBtn={true} />
 			) : (
 				<p className="mb-1 text-left">
 					Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und
