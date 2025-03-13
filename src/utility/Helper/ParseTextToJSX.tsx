@@ -45,7 +45,6 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
 		let element: React.ReactNode;
 
 		if (compName === "GradientText") {
-			// Kommentierung hier: NEU
 			let colors = colorPalettes[paletteOrColor];
 			if (!colors) {
 				if (paletteOrColor.startsWith("custom:")) {
