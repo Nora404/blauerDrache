@@ -1,6 +1,6 @@
 WICHTIG
   - Alle Questarten einbauen
-  - MainQuest darf man nicht aufgeben dürfen
+  x MainQuest darf man nicht aufgeben dürfen
   - Allen Hauptplätzen von Lahtheim Texte verpassen 
   - Allen Hauptplätzen Events verpassen
   - Ausrüstungen Shop anpassen
@@ -28,6 +28,7 @@ NICE
   - Transit mit verschiedenen Richtungen 
   - Vorhandene Random Events ausschreiben
   - Titels einbauen
+  - Täglich/Globaler Count von Werten (Schaden/Heilung/Spenden...)
 
 SPÄTER
   - Dungeons
