@@ -56,7 +56,7 @@ export const event004OneTrashEnd: GameEvent = {
 			getAction: () => {
 				return {
 					message:
-						"Du hast für den Plunder 15 {SYSTEM.Gold} {Talk|grün}bekommen{/Talk} aber dein {SYSTEM.Ruf} {Talk|rot}sinkt{/Talk} um 3.",
+						"Du bist den Plunder los geworden, leider auch deinen guten Ruf ... Warum hast du das nochmal gemacht?",
 					endQuest: "Q004OneTrash",
 					itemsDelta: { Plunder: -3 },
 					economyDelta: { gold: 15 },

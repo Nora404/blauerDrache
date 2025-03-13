@@ -56,7 +56,7 @@ export const event003FindStoneEnd: GameEvent = {
 			getAction: () => {
 				return {
 					message:
-						"Du hast für die Steine 5 {SYSTEM.Gold} {Talk|grün}bekommen{/Talk} und deinen {SYSTEM.Ruf} um 3 {Talk|grün}verbessern{/Talk}.",
+						"Zufrieden steckst du deinen Lohn ein. {Talk|Player}„Wirklich leicht verdientes Gold!“{/Talk} murmelst du zufrieden",
 					endQuest: "Q003FindStone",
 					itemsDelta: { Stein: -3 },
 					economyDelta: { gold: 5 },
