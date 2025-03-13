@@ -1,3 +1,4 @@
+import { getRandomValue } from "../../../utility/Random/RandomValue";
 import { GameEvent } from "../../eventData";
 import { ItemName, getRandomItem } from "../../gameItems/ItemData";
 
@@ -8,7 +9,6 @@ const possibleItems: ItemName[] = [
 	"Wasserflasche",
 	"Lederstück",
 ];
-const randomItem: ItemName = getRandomItem(possibleItems);
 
 //#region [events]
 export const event008BagFull: GameEvent = {
@@ -19,8 +19,8 @@ export const event008BagFull: GameEvent = {
 		{
 			label: "Inhalt einstecken",
 			getAction: () => ({
-				itemsDelta: { [randomItem]: 1 },
-				economyDelta: { gold: 5 },
+				itemsDelta: { [getRandomItem(possibleItems)]: 1 },
+				economyDelta: { gold: getRandomValue(1, 9) },
 				message: message1,
 			}),
 		},
