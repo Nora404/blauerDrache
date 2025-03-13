@@ -21,6 +21,7 @@ export type GameQuest = {
 	eventByEnd: string; // Dieses Event verteilt die Belohnung
 	progress: Progress;
 	repeat: boolean;
+	noAbort?: boolean; // Wenn true, darf man die Quest nicht aufgeben
 };
 //#endregion
 
@@ -62,6 +63,7 @@ export const emptyQuest: GameQuest = {
 		task: {},
 	},
 	repeat: false,
+	noAbort: false,
 };
 //#endregion
 

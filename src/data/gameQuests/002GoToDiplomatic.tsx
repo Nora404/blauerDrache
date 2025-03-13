@@ -18,6 +18,7 @@ export const quest002GoToDiplomatic: GameQuest = {
 	},
 
 	repeat: true,
+	noAbort: true,
 };
 
 export const event002GoToDiplomaticEnd: GameEvent = {

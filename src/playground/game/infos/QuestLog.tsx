@@ -55,14 +55,16 @@ const Questlog: React.FC = observer(() => {
 										{renderTask(currentProgress)}
 										<br />
 									</p>
-									<ActionButton
-										onClick={() => {
-											handleAbandon(questObject.id);
-										}}
-										color={redColors}
-										bgColor="red"
-										label="Aufgeben"
-									/>
+									{!questObject.noAbort && (
+										<ActionButton
+											onClick={() => {
+												handleAbandon(questObject.id);
+											}}
+											color={redColors}
+											bgColor="red"
+											label="Aufgeben"
+										/>
+									)}
 								</div>
 							</div>
 						);

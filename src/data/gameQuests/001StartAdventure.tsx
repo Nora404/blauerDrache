@@ -18,6 +18,7 @@ export const quest001StartAdventure: GameQuest = {
 	},
 
 	repeat: true,
+	noAbort: true,
 };
 
 export const event001StartAdventureEnd: GameEvent = {
