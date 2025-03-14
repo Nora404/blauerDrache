@@ -21,6 +21,7 @@ type ActionButtonProps = {
 	bgColor?: "blue" | "green" | "red" | "yellow";
 	result?: string;
 	style?: object;
+	icon?: React.ReactNode;
 };
 
 const ActionButton: React.FC<ActionButtonProps> = ({
@@ -31,6 +32,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 	bgColor = "blue",
 	style = {},
 	result,
+	icon,
 }) => {
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		onClick?.(e);
@@ -52,7 +54,12 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 	};
 
 	return (
-		<button className={bgColorClass()} style={style} onClick={handleClick} disabled={disable}>
+		<button
+			className={`flex-row-left ${bgColorClass()}`}
+			style={style}
+			onClick={handleClick}
+			disabled={disable}>
+			{icon && <div className="mx-1 flex-center">{icon}</div>}
 			{disable ? (
 				<GradientText colors={["#999999"]}>{label}</GradientText>
 			) : (
@@ -112,11 +119,7 @@ export const SmallBuyButton: React.FC<DefaultButtonsProps> = ({ onClick, disable
 			<MultiColoredLetters colors={blueColors}>Kaufen:</MultiColoredLetters> {resultLabel}
 		</>
 	);
-	const disableLabel = (
-		<>
-			<Talk color="gray">Zu teuer: {-result} Gold</Talk>
-		</>
-	);
+	const disableLabel = <Talk color="gray">Zu teuer: {-result} Gold</Talk>;
 	const displayLabel = showSuccess ? <Talk color="grün">Erfolg</Talk> : originalLabel;
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -187,11 +190,7 @@ export const SmallSwapButton: React.FC<DefaultButtonsProps> = ({
 			<MultiColoredLetters colors={blueColors}>Tauschen</MultiColoredLetters>: {resultLabel}
 		</>
 	);
-	const disableLabel = (
-		<>
-			<Talk color="gray">Kein Tausch: {-result} Gold</Talk>
-		</>
-	);
+	const disableLabel = <Talk color="gray">Kein Tausch: {-result} Gold</Talk>;
 	const displayLabel = showSuccess ? <Talk color="grün">Erfolg</Talk> : originalLabel;
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {

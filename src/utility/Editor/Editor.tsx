@@ -10,19 +10,29 @@ import { GenerateBattels } from "./06-BattelCreation/GenerateBattels";
 import EventCreationForm from "./04-EventsCreation/GenerateEvents";
 import { GenerateDeBuff } from "./08-DeBuffsCreator/GenerateDeBuff";
 import GenerateQuests from "./05-QuestEditor/GenerateQuest";
+import {
+	Baseline,
+	BookOpen,
+	BugIcon,
+	Clover,
+	FlaskConical,
+	ShieldAlert,
+	Star,
+	Swords,
+} from "lucide-react";
 
 const Editor: React.FC = () => {
 	const [side, setSide] = useState<number>(1);
 
 	const buttons = [
-		{ action: 1, label: "Admincenter" },
-		{ action: 2, label: "Text Editor" },
-		{ action: 3, label: "Event Testen" },
-		{ action: 4, label: "Events Creation" },
-		{ action: 5, label: "Quest Creation" },
-		{ action: 6, label: "Battel Creation" },
-		{ action: 7, label: "Items Creation" },
-		{ action: 8, label: "DeBuffs Creation" },
+		{ action: 1, label: "Admincenter", icon: <BugIcon /> },
+		{ action: 2, label: "Text Editor", icon: <Baseline /> },
+		{ action: 3, label: "Event Testen", icon: <FlaskConical /> },
+		{ action: 4, label: "Events Creation", icon: <BookOpen /> },
+		{ action: 5, label: "Quest Creation", icon: <ShieldAlert /> },
+		{ action: 6, label: "Battel Creation", icon: <Swords /> },
+		{ action: 7, label: "Items Creation", icon: <Clover /> },
+		{ action: 8, label: "DeBuffs Creation", icon: <Star /> },
 	];
 
 	const handleClick = (side: number) => {
@@ -39,9 +49,12 @@ const Editor: React.FC = () => {
 							style={{ margin: 0 }}
 							onClick={() => handleClick(btn.action)}
 							label={btn.label}
+							icon={btn.icon}
 						/>
 					))}
 				</div>
+
+				<hr className="my-2" />
 
 				{side === 1 && <Admincenter />}
 				{side === 2 && <SingelTextEditor />}

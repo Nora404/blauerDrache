@@ -48,19 +48,22 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 
 	return (
 		<div>
-			<MenuPanel
-				onInsert={handleInsertComponent}
-				customColors={customColors}
-				setCustomColors={setCustomColors}
-				newColor={newColor}
-				setNewColor={setNewColor}
-				selectedFormat={selectedFormat}
-				setSelectedFormat={setSelectedFormat}
-			/>
+			<div className="mb-1">
+				<MenuPanel
+					onInsert={handleInsertComponent}
+					customColors={customColors}
+					setCustomColors={setCustomColors}
+					newColor={newColor}
+					setNewColor={setNewColor}
+					selectedFormat={selectedFormat}
+					setSelectedFormat={setSelectedFormat}
+				/>
+			</div>
 
 			<div>
 				<textarea
 					className="w-full"
+					style={{ resize: "vertical" }}
 					ref={textAreaRef}
 					value={value}
 					placeholder="Beschreibung"
@@ -68,7 +71,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 					rows={5}
 				/>
 
-				<div>
+				<div className="text-left mx-1">
 					<strong>Vorschau:</strong>
 					<div>{parseDescription(value)}</div>
 				</div>
