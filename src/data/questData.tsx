@@ -14,13 +14,13 @@ export type TaskType =
 
 //region
 export type GameQuest = {
-	id: string;
-	label: string;
-	description: string;
-	reward: string;
+	id: string; // Interne Identifikation
+	label: string; // Überschrift im Questlog
+	description: string; // Beschreibung die im Questlog angezeigt wird
+	reward: string; // Kurzer Satz der im Questlog angezeigt wird
 	eventByEnd: string; // Dieses Event verteilt die Belohnung
-	progress: Progress;
-	repeat: boolean;
+	progress: Progress; // Fortschritt
+	repeat: boolean; // Kann die Quest wiederholt werden?
 	noAbort?: boolean; // Wenn true, darf man die Quest nicht aufgeben
 };
 //#endregion
@@ -31,7 +31,7 @@ export type UseItem = { item: ItemName; place: string[]; need: number; count: nu
 export type KillEnemy = { enemy: string; need: number; count: number };
 
 export type Task = {
-	label?: string; // Falls benötigt um Orte oder Personen zu beschreiben
+	label?: string; // Questlog: "Triff dich mit {label}"
 	talkWith?: string; // Begegnung (path)
 	haveItem?: HaveItem[]; // Besorgen
 	useItem?: UseItem; // Benutzten (path)

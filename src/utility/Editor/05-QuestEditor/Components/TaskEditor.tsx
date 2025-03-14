@@ -14,7 +14,7 @@ export default function TaskEditor() {
   };
 
   return (
-    <div style={{ margin: "1rem 0", padding: "10px", border: "1px dashed #999" }}>
+    <div style={{ margin: "1rem 0", padding: "10px" }}>
       <h4>Task-Details</h4>
 
       <div className="form-group">

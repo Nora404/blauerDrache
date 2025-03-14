@@ -1,6 +1,29 @@
 import ColoredText from "../../utility/Formatted/ColoredText";
 import { GradientText } from "../../utility/Formatted/GradientText";
 
+type VerbKeys =
+	| "erhalten"
+	| "verbessert"
+	| "gestiegen"
+	| "erhöht"
+	| "abgegeben"
+	| "bezahlt"
+	| "verschlechtert"
+	| "verringert"
+	| "verloren";
+
+export const VERB: Record<VerbKeys, JSX.Element> = {
+	erhalten: (<ColoredText color="grün" format="italic"> erhalten </ColoredText>),
+	verbessert: (<ColoredText color="grün" format="italic"> verbessert </ColoredText>),
+	gestiegen: (<ColoredText color="grün" format="italic"> gestiegen </ColoredText>),
+	erhöht: (<ColoredText color="grün" format="italic"> erhöht </ColoredText>),
+	abgegeben: (<ColoredText color="rot" format="italic"> abgegeben </ColoredText>),
+	bezahlt: (<ColoredText color="rot" format="italic"> bezahlt </ColoredText>),
+	verschlechtert: (<ColoredText color="rot" format="italic"> verschlechtert </ColoredText>),
+	verringert: (<ColoredText color="rot" format="italic"> verringert </ColoredText>),
+	verloren: (<ColoredText color="rot" format="italic"> verloren </ColoredText>),
+};
+
 type SystemKeys =
 	| "Level"
 	| "Erfahrung"
@@ -17,116 +40,24 @@ type SystemKeys =
 	| "Rüstung"
 	| "HandDer"
 	| "HandDie"
-	| "Inventar"
-	| "erhalten"
-	| "verbessert"
-	| "gestiegen"
-	| "erhöht"
-	| "abgegeben"
-	| "bezahlt"
-	| "verschlechtert"
-	| "verringert"
-	| "verloren";
+	| "Inventar";
 export const SYSTEM: Record<SystemKeys, JSX.Element> = {
 	Level: <GradientText colors={["#F7A131", "#57C6DD"]}>Level</GradientText>,
 	Erfahrung: <GradientText colors={["#bbbbbb", "#57C6DD"]}>Erfahrung</GradientText>,
-	Ruf: (
-		<i>
-			<GradientText colors={["#E54387", "#FF92BF", "#E54387"]}>Ruf</GradientText>
-		</i>
-	),
-	Leumund: (
-		<i>
-			<GradientText colors={["#45DBA0", "#57C6DD", "#45DBA0"]}>Leumund</GradientText>
-		</i>
-	),
+	Ruf: (<i> <GradientText colors={["#E54387", "#FF92BF", "#E54387"]}>Ruf</GradientText> </i>),
+	Leumund: (<i> <GradientText colors={["#45DBA0", "#57C6DD", "#45DBA0"]}>Leumund</GradientText> </i>),
 	Leben: <GradientText colors={["#74dd4f", "#57C6DD"]}>Leben</GradientText>,
 	Aktionen: <GradientText colors={["#C742DD", "#57C6DD"]}>Aktionen</GradientText>,
 	Angriff: <GradientText colors={["#DD2C2C", "#57C6DD"]}>Angriff</GradientText>,
-	Verteidigung: (
-		<GradientText colors={["#6D36F2", "#C7F288", "#57C6DD"]}>Verteidigung</GradientText>
-	),
+	Verteidigung: (<GradientText colors={["#6D36F2", "#C7F288", "#57C6DD"]}>Verteidigung</GradientText>),
 	Glück: <GradientText colors={["#F2D828", "#57C6DD"]}>Glück</GradientText>,
-	Gold: (
-		<i>
-			<GradientText colors={["#FFC705", "#dddddd", "#FFC705"]}>Gold</GradientText>
-		</i>
-	),
-	Edelsteine: (
-		<i>
-			<GradientText colors={["#CB4BCF", "#dddddd", "#CB4BCF"]}>Edelstein</GradientText>
-		</i>
-	),
-	Waffe: (
-		<i>
-			<GradientText colors={["#BA4545", "#B97A57", "#BA4545"]}>Waffe</GradientText>
-		</i>
-	),
-	Rüstung: (
-		<i>
-			<GradientText colors={["#6f55E7", "#B97A57", "#6f55E7"]}>Rüstung</GradientText>
-		</i>
-	),
-	HandDer: (
-		<i>
-			<GradientText colors={["#69B26E", "#B3C709", "#69B26E"]}>In der Hand</GradientText>
-		</i>
-	),
-	HandDie: (
-		<i>
-			<GradientText colors={["#69B26E", "#B3C709", "#69B26E"]}>In die Hand</GradientText>
-		</i>
-	),
-	Inventar: (
-		<i>
-			<GradientText colors={["#69B26E", "#B3C709", "#69B26E"]}>Inventar</GradientText>
-		</i>
-	),
-	erhalten: (
-		<ColoredText color="grün" format="italic">
-			erhalten
-		</ColoredText>
-	),
-	verbessert: (
-		<ColoredText color="grün" format="italic">
-			verbessert
-		</ColoredText>
-	),
-	gestiegen: (
-		<ColoredText color="grün" format="italic">
-			gestiegen
-		</ColoredText>
-	),
-	erhöht: (
-		<ColoredText color="grün" format="italic">
-			erhöht
-		</ColoredText>
-	),
-	abgegeben: (
-		<ColoredText color="rot" format="italic">
-			abgegeben
-		</ColoredText>
-	),
-	bezahlt: (
-		<ColoredText color="rot" format="italic">
-			bezahlt
-		</ColoredText>
-	),
-	verschlechtert: (
-		<ColoredText color="rot" format="italic">
-			verschlechtert
-		</ColoredText>
-	),
-	verringert: (
-		<ColoredText color="rot" format="italic">
-			verringert
-		</ColoredText>
-	),
-	verloren: (
-		<ColoredText color="rot" format="italic">
-			verloren
-		</ColoredText>
-	),
+	Gold: (<i> <GradientText colors={["#FFC705", "#dddddd", "#FFC705"]}>Gold</GradientText> </i>),
+	Edelsteine: (<i> <GradientText colors={["#CB4BCF", "#dddddd", "#CB4BCF"]}>Edelstein</GradientText> </i>),
+	Waffe: (<i> <GradientText colors={["#BA4545", "#B97A57", "#BA4545"]}>Waffe</GradientText> </i>),
+	Rüstung: (<i> <GradientText colors={["#6f55E7", "#B97A57", "#6f55E7"]}>Rüstung</GradientText> </i>),
+	HandDer: (<i> <GradientText colors={["#69B26E", "#B3C709", "#69B26E"]}>In der Hand</GradientText> </i>),
+	HandDie: (<i> <GradientText colors={["#69B26E", "#B3C709", "#69B26E"]}>In die Hand</GradientText> </i>),
+	Inventar: (<i> <GradientText colors={["#69B26E", "#B3C709", "#69B26E"]}>Inventar</GradientText> </i>),
 };
 
 type CreatureKeys =
@@ -147,21 +78,9 @@ export const CREATURE: Record<CreatureKeys, JSX.Element> = {
 	blauesWesen: <GradientText colors={["#A3D8FF", "#ffffff"]}>blaues Wesen</GradientText>,
 	blaueWesen: <GradientText colors={["#A3D8FF", "#ffffff"]}>blaue Wesen</GradientText>,
 
-	grünerDrache: (
-		<b>
-			<GradientText colors={["#46CF25", "#29CF72"]}>grüner Drache</GradientText>
-		</b>
-	),
-	blauerDrache: (
-		<b>
-			<GradientText colors={["#1ECECF", "#1763CF"]}>blauer Drache</GradientText>
-		</b>
-	),
-	blauenDrachen: (
-		<b>
-			<GradientText colors={["#1ECECF", "#1763CF"]}>blauen Drachen</GradientText>
-		</b>
-	),
+	grünerDrache: (<b> <GradientText colors={["#46CF25", "#29CF72"]}>grüner Drache</GradientText> </b>),
+	blauerDrache: (<b> <GradientText colors={["#1ECECF", "#1763CF"]}>blauer Drache</GradientText> </b>),
+	blauenDrachen: (<b> <GradientText colors={["#1ECECF", "#1763CF"]}>blauen Drachen</GradientText> </b>),
 };
 
 type NpcKeys =

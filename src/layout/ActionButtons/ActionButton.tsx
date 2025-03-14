@@ -55,7 +55,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 
 	return (
 		<button
-			className={`flex-row-left ${bgColorClass()}`}
+			className={`${icon && "flex-row-left"} ${bgColorClass()}`}
 			style={style}
 			onClick={handleClick}
 			disabled={disable}>
@@ -157,7 +157,7 @@ export const SwapButton: React.FC<DefaultButtonsProps> = ({ onClick, disable, re
 	const resultText =
 		result && !showSuccess
 			? (result > 0 ? `{Talk|rot}${-result}{/Talk}` : `{Talk|grün}+${-result}{/Talk}`) +
-			  " {SYSTEM.Gold}"
+			" {SYSTEM.Gold}"
 			: "";
 
 	return (

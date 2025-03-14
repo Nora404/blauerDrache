@@ -8,7 +8,7 @@ export default function QuestEndEventForm() {
 		useQuestCreatorContext();
 
 	return (
-		<div style={{ border: "1px solid #ccc", padding: 10, margin: "10px 0" }}>
+		<div className="border-dotted" style={{ padding: 10, margin: "10px 0" }}>
 			<h4>End-Event ({endEventId || "?"})</h4>
 			<label>Beschreibung:</label>
 			<TextEditor value={endDescription} onChange={(val) => setEndDescription(val)} />

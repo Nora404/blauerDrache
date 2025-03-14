@@ -21,6 +21,8 @@ type QuestCreatorContextType = {
   setReward: React.Dispatch<React.SetStateAction<string>>;
   repeat: boolean;
   setRepeat: React.Dispatch<React.SetStateAction<boolean>>;
+  abort: boolean;
+  setAbort: React.Dispatch<React.SetStateAction<boolean>>;
 
   // progress
   progress: Progress;
@@ -51,31 +53,33 @@ const defaultProgress: Progress = {
 
 const defaultContextValue: QuestCreatorContextType = {
   baseId: "",
-  setBaseId: () => {},
+  setBaseId: () => { },
 
   questId: "",
   label: "",
-  setLabel: () => {},
+  setLabel: () => { },
   description: "",
-  setDescription: () => {},
+  setDescription: () => { },
   reward: "",
-  setReward: () => {},
+  setReward: () => { },
   repeat: false,
-  setRepeat: () => {},
+  setAbort: () => { },
+  abort: false,
+  setRepeat: () => { },
   progress: defaultProgress,
-  setProgress: () => {},
+  setProgress: () => { },
 
   triggerEventId: "",
   triggerDescription: "",
-  setTriggerDescription: () => {},
+  setTriggerDescription: () => { },
   triggerButtons: [],
-  setTriggerButtons: () => {},
+  setTriggerButtons: () => { },
 
   endEventId: "",
   endDescription: "",
-  setEndDescription: () => {},
+  setEndDescription: () => { },
   endButtons: [],
-  setEndButtons: () => {},
+  setEndButtons: () => { },
 };
 
 const QuestCreatorContext = createContext<QuestCreatorContextType>(defaultContextValue);
@@ -93,6 +97,7 @@ export const QuestCreatorProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [description, setDescription] = useState("");
   const [reward, setReward] = useState("");
   const [repeat, setRepeat] = useState(false);
+  const [abort, setAbort] = useState(false);
 
   const [progress, setProgress] = useState<Progress>(defaultProgress);
 
@@ -116,6 +121,8 @@ export const QuestCreatorProvider: React.FC<{ children: ReactNode }> = ({ childr
         setDescription,
         reward,
         setReward,
+        abort,
+        setAbort,
         repeat,
         setRepeat,
         progress,

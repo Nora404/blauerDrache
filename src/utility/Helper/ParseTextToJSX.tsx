@@ -1,6 +1,6 @@
 //#region [imports]
 import React from "react";
-import { SYSTEM, CREATURE, NPC, PLACES } from "../../data/helper/colorfullStrings";
+import { SYSTEM, CREATURE, NPC, PLACES, VERB } from "../../data/helper/colorfullStrings";
 import { colorPalettes } from "../../data/helper/colorMappingData";
 import { GradientText } from "../Formatted/GradientText";
 import MultiColoredLetters from "../Formatted/MultiColoredLetters";
@@ -111,6 +111,7 @@ function parseCustomComponents(text: string): Array<string | React.ReactNode> {
 function parseVariables(nodes: Array<string | React.ReactNode>): Array<string | React.ReactNode> {
 	const variableLists: Record<string, Record<string, JSX.Element>> = {
 		SYSTEM,
+		VERB,
 		CREATURE,
 		NPC,
 		PLACES,

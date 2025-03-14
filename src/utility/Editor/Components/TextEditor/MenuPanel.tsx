@@ -4,7 +4,7 @@ import { CustomColorInput } from "./CustomColorInput";
 import { FormatColoredButton, FormatGradientButton } from "./FormatButton";
 import { PaletteButton } from "./PaletteButton";
 import { SingleColorButton } from "./SingleColorButton";
-import { SYSTEM, CREATURE, NPC, PLACES } from "../../../../data/helper/colorfullStrings";
+import { SYSTEM, CREATURE, NPC, PLACES, VERB } from "../../../../data/helper/colorfullStrings";
 import { colorPalettes, textColors } from "../../../../data/helper/colorMappingData";
 
 interface ComponentAndColorPickerProps {
@@ -32,7 +32,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 	const [selectedVarGroup, setSelectedVarGroup] = useState<string>("");
 	const [selectedVarKey, setSelectedVarKey] = useState<string>("");
 
-	const variableLists = { SYSTEM, CREATURE, NPC, PLACES };
+	const variableLists = { SYSTEM, VERB, CREATURE, NPC, PLACES };
 	const paletteKeys = Object.keys(colorPalettes);
 	const singleColorKeys = Object.keys(textColors);
 
@@ -200,35 +200,35 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 						<div className="grid-7">
 							{selectedGradient === "multi"
 								? paletteKeys.map((key) => (
-										<PaletteButton
-											key={key}
-											paletteKey={key}
-											palette={colorPalettes[key]}
-											isSelected={selectedColor === key}
-											onSelect={setSelectedColor}
-										/>
-								  ))
+									<PaletteButton
+										key={key}
+										paletteKey={key}
+										palette={colorPalettes[key]}
+										isSelected={selectedColor === key}
+										onSelect={setSelectedColor}
+									/>
+								))
 								: singleColorKeys.map((key) => {
-										const colorValue = textColors[key];
-										let label = "";
-										if (selectedGradient === "two") {
-											if (customColors[0] === colorValue) label = "1";
-											else if (customColors[1] === colorValue) label = "2";
-										} else if (selectedGradient === "three") {
-											if (customColors[0] === colorValue) label = "A";
-											else if (customColors[1] === colorValue) label = "I";
-										}
-										return (
-											<SingleColorButton
-												key={key}
-												colorKey={key}
-												color={colorValue}
-												isSelected={customColors.includes(colorValue)}
-												onSelect={() => handleGradientColorClick(key)}
-												text={label} // Zeigt "1"/"2" bei "two" bzw. "A"/"I" bei "three"
-											/>
-										);
-								  })}
+									const colorValue = textColors[key];
+									let label = "";
+									if (selectedGradient === "two") {
+										if (customColors[0] === colorValue) label = "1";
+										else if (customColors[1] === colorValue) label = "2";
+									} else if (selectedGradient === "three") {
+										if (customColors[0] === colorValue) label = "A";
+										else if (customColors[1] === colorValue) label = "I";
+									}
+									return (
+										<SingleColorButton
+											key={key}
+											colorKey={key}
+											color={colorValue}
+											isSelected={customColors.includes(colorValue)}
+											onSelect={() => handleGradientColorClick(key)}
+											text={label} // Zeigt "1"/"2" bei "two" bzw. "A"/"I" bei "three"
+										/>
+									);
+								})}
 						</div>
 					</div>
 				)}
@@ -270,6 +270,7 @@ const MenuPanel: React.FC<ComponentAndColorPickerProps> = ({
 							}}>
 							<option value="">-- Liste wählen --</option>
 							<option value="SYSTEM">SYSTEM</option>
+							<option value="VERB">VERBEN</option>
 							<option value="CREATURE">CREATURE</option>
 							<option value="NPC">NPC</option>
 							<option value="PLACES">PLACES</option>

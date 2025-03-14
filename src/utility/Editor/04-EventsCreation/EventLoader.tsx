@@ -35,10 +35,10 @@ const EventLoader: React.FC = () => {
 				itemsDelta: Array.isArray(action.itemsDelta)
 					? action.itemsDelta
 					: (Object.entries(action.itemsDelta || {}).map(([itemName, quantity]) => ({
-							category: "" as ItemCartegoryName, // Hier ggf. anpassen, wenn du eine Kategorie ermitteln kannst
-							itemName,
-							quantity: Number(quantity) || 0,
-					  })) as ButtonConfig["itemsDelta"]),
+						category: "" as ItemCartegoryName, // Hier ggf. anpassen, wenn du eine Kategorie ermitteln kannst
+						itemName,
+						quantity: Number(quantity) || 0,
+					})) as ButtonConfig["itemsDelta"]),
 				economyDeltaEnabled: !!action.economyDelta,
 				economyDelta: {
 					gold: action.economyDelta?.gold ?? 0,
@@ -67,10 +67,10 @@ const EventLoader: React.FC = () => {
 				triggerGroup: action.triggerQuest
 					? "triggerQuest"
 					: action.endQuest
-					? "endQuest"
-					: action.nextEvents && action.nextEvents.length > 0
-					? "nextEvents"
-					: "",
+						? "endQuest"
+						: action.nextEvents && action.nextEvents.length > 0
+							? "nextEvents"
+							: "",
 				triggerQuest: action.triggerQuest || "",
 				endQuest: action.endQuest || "",
 				nextEvents: action.nextEvents || [],
@@ -86,7 +86,7 @@ const EventLoader: React.FC = () => {
 	return (
 		<div className="mb-1">
 			<button
-				className="btn-border-green w-100px"
+				className="add-button w-100px"
 				style={{ marginTop: "20px" }}
 				onClick={() => setShowDropdown((prev) => !prev)}>
 				Event laden
@@ -100,7 +100,7 @@ const EventLoader: React.FC = () => {
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 					<select
-						style={{ width: "100%" }}
+						style={{ width: "100%", backgroundColor: "transparent", border: "none" }}
 						size={5}
 						onChange={(e) => {
 							const selectedId = e.target.value;

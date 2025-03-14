@@ -6,10 +6,18 @@ import QuestBaseForm from "./Components/QuestBaseForm";
 import QuestEndEventForm from "./Components/QuestEndEventForm";
 import QuestProgressForm from "./Components/QuestProgressForm";
 import QuestTriggerEventForm from "./Components/QuestTriggerEventForm";
-
+import { useState } from "react";
 
 
 export default function GenerateQuests() {
+  const [showTask, setShowTask] = useState(false);
+  const [showTrigger, setShowTrigger] = useState(false);
+  const [showEnd, setShowEnd] = useState(false);
+
+  const toggleTask = () => setShowTask(prev => !prev);
+  const toggleTrigger = () => setShowTrigger(prev => !prev);
+  const toggleEnd = () => setShowEnd(prev => !prev);
+
   return (
     <QuestCreatorProvider>
       <div className="text-left max-width">
@@ -19,21 +27,32 @@ export default function GenerateQuests() {
           dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies</p>
 
         <QuestBaseForm />
-        <QuestProgressForm />
 
-        <details open>
-          <summary>
-            <b>Trigger-Event</b>
-          </summary>
-          <QuestTriggerEventForm />
-        </details>
 
-        <details open>
-          <summary>
-            <b>End-Event</b>
-          </summary>
-          <QuestEndEventForm />
-        </details>
+        <button
+          className={showTask ? "remove-button" : "add-button"}
+          onClick={toggleTask}
+        >
+          Aufgabe {showTask ? "verstecken" : "erstellen"}
+        </button>
+        {showTask && <QuestProgressForm />}
+
+        <button
+          className={showTrigger ? "remove-button" : "add-button"}
+          onClick={toggleTrigger}
+        >
+          Trigger Event {showTrigger ? "verstecken" : "erstellen"}
+        </button>
+        {showTrigger && <QuestTriggerEventForm />}
+
+        <button
+          className={showEnd ? "remove-button" : "add-button"}
+          onClick={toggleEnd}
+        >
+          End Event {showEnd ? "verstecken" : "erstellen"}
+        </button>
+        {showEnd && <QuestEndEventForm />}
+
 
         <QuestCodeGenerator />
       </div>

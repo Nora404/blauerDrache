@@ -89,8 +89,8 @@ ${endObj}
   };
 
   return (
-    <div>
-      <button onClick={generateCode}>Code generieren</button>
+    <div className="my-1">
+      <button className="generate-button" onClick={generateCode}>Code generieren</button>
       {generatedCode && (
         <div>
           <pre style={{ whiteSpace: "pre-wrap", background: "#f0f0f0" }}>

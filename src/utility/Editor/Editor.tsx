@@ -42,28 +42,30 @@ const Editor: React.FC = () => {
 	return (
 		<EditorContextProvider>
 			<div className="max-widht">
-				<div className="grid-3 w-full">
-					{buttons.map((btn, index) => (
-						<ActionButton
-							key={index}
-							style={{ margin: 0 }}
-							onClick={() => handleClick(btn.action)}
-							label={btn.label}
-							icon={btn.icon}
-						/>
-					))}
+				<div className="flex-col">
+					<div className="grid-3 w-full">
+						{buttons.map((btn, index) => (
+							<ActionButton
+								key={index}
+								style={{ margin: 0 }}
+								onClick={() => handleClick(btn.action)}
+								label={btn.label}
+								icon={btn.icon}
+							/>
+						))}
+					</div>
+
+					<hr className="my-2 w-full" />
+
+					{side === 1 && <Admincenter />}
+					{side === 2 && <SingelTextEditor />}
+					{side === 3 && <TestEventManager />}
+					{side === 4 && <EventCreationForm />}
+					{side === 5 && <GenerateQuests />}
+					{side === 6 && <GenerateBattels />}
+					{side === 7 && <GenerateItems />}
+					{side === 8 && <GenerateDeBuff />}
 				</div>
-
-				<hr className="my-2" />
-
-				{side === 1 && <Admincenter />}
-				{side === 2 && <SingelTextEditor />}
-				{side === 3 && <TestEventManager />}
-				{side === 4 && <EventCreationForm />}
-				{side === 5 && <GenerateQuests />}
-				{side === 6 && <GenerateBattels />}
-				{side === 7 && <GenerateItems />}
-				{side === 8 && <GenerateDeBuff />}
 			</div>
 
 			<HiddenLine />

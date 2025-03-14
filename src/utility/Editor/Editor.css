@@ -15,6 +15,10 @@
 	margin-bottom: 1rem;
 }
 
+.border-dotted {
+	border: 1px dashed #999
+}
+
 .-m-1 {
 	margin-bottom: -10px;
 }
@@ -22,6 +26,7 @@
 .m-1-e {
 	margin-bottom: 10px;
 }
+
 .m-2-e {
 	margin-bottom: 20px;
 }
