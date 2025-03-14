@@ -8,12 +8,12 @@ import StateDelta from "./StateDelta";
 import FluxDelta from "./FluxDelta";
 import EconomyDelta from "./EconomyDelta";
 import ItemsDelta from "./ItemsDelta";
-import TextEditor from "./TextEditor/TextEditor";
 
 // <-- NEU:
 import ConditionsEditor from "./ConditionsEditor";
 import HeaderSmall from "../../../../layout/Header/HeaderSmall";
 import VariablePicker from "./VariablePicker";
+import TextEditor from "../../Components/TextEditor/TextEditor";
 
 const ActionBtn: React.FC = () => {
 	const { buttons, setButtons, addButton, removeButton } = useEditorContext();

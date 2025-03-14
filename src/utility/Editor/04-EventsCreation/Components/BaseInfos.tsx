@@ -1,7 +1,7 @@
 // BaseInfo.tsx
 import React from "react";
 import { useEditorContext } from "../../Context/EventContext";
-import TextEditor from "./TextEditor/TextEditor";
+import TextEditor from "../../Components/TextEditor/TextEditor";
 
 const BaseInfo: React.FC = () => {
 	const { eventId, label, description, setEventId, setLabel, setDescription } = useEditorContext();

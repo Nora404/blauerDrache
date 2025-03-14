@@ -1,25 +1,25 @@
 // #region [imports]
 import React, { useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../../store";
-import { SYSTEM } from "../../data/helper/colorfullStrings";
-import TableRow from "../../playground/game/infos/PlayerInfo/TableRow";
-import HeaderSmall from "../../layout/Header/HeaderSmall";
-import { TEMPERATURE, WEATHER } from "../../data/helper/weatherStrings";
-import { races } from "../../data/raceData";
-import { callings } from "../../data/callingData";
-import { origins } from "../../data/originData";
-import { BuffName, buffs } from "../../data/buffData";
-import { DebuffName, debuffs } from "../../data/debuffData";
-import { feelings } from "../../data/feelingData";
-import { armors } from "../../data/gameItems/armorData";
+import { useRootStore } from "../../../store";
+import { SYSTEM } from "../../../data/helper/colorfullStrings";
+import TableRow from "../../../playground/game/infos/PlayerInfo/TableRow";
+import HeaderSmall from "../../../layout/Header/HeaderSmall";
+import { TEMPERATURE, WEATHER } from "../../../data/helper/weatherStrings";
+import { races } from "../../../data/raceData";
+import { callings } from "../../../data/callingData";
+import { origins } from "../../../data/originData";
+import { BuffName, buffs } from "../../../data/buffData";
+import { DebuffName, debuffs } from "../../../data/debuffData";
+import { feelings } from "../../../data/feelingData";
+import { armors } from "../../../data/gameItems/armorData";
 import {
 	ItemCartegoryName,
 	getItemCategories,
 	itemMap,
 	items,
-} from "../../data/gameItems/ItemData";
-import { weapons } from "../../data/gameItems/weaponData";
+} from "../../../data/gameItems/ItemData";
+import { weapons } from "../../../data/gameItems/weaponData";
 // #endregion
 
 // #region [prepare]

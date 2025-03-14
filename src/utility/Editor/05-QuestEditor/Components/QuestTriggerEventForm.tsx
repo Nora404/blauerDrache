@@ -1,6 +1,6 @@
 // QuestTriggerEventForm.tsx
 
-import TextEditor from "../../EventEditor/Components/TextEditor/TextEditor";
+import TextEditor from "../../Components/TextEditor/TextEditor";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
 import ActionBtn from "./ActionBtn";
 

@@ -1,8 +1,8 @@
 // DescriptionEditor.tsx
 
 import React, { useRef, useState } from "react";
-import { parseDescription } from "../../../../Helper/ParseTextToJSX";
 import MenuPanel from "./MenuPanel";
+import { parseDescription } from "../../../Helper/ParseTextToJSX";
 
 interface TextEditorProps {
 	value: string;

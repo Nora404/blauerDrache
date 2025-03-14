@@ -1,6 +1,6 @@
 // Pfad anpassen! Reuse deinen Editor, wenn du möchtest.
 
-import TextEditor from "../../EventEditor/Components/TextEditor/TextEditor";
+import TextEditor from "../../Components/TextEditor/TextEditor";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
 
 export default function QuestBaseForm() {

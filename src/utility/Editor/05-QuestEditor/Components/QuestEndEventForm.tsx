@@ -1,7 +1,7 @@
 // QuestEndEventForm.tsx
 import ActionBtn from "./ActionBtn";
-import TextEditor from "../../EventEditor/Components/TextEditor/TextEditor";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
+import TextEditor from "../../Components/TextEditor/TextEditor";
 
 export default function QuestEndEventForm() {
 	const { endEventId, endDescription, setEndDescription, endButtons, setEndButtons } =

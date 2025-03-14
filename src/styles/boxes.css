@@ -20,6 +20,12 @@
 	margin-right: 10px;
 }
 
+.grid-3 {
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	gap: 5px;
+}
+
 .grid-2 {
 	display: grid;
 	grid-template-columns: repeat(2, auto);

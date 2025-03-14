@@ -1,11 +1,9 @@
 // ConditionsSubEditors/PlayerMetaConditionEditor.tsx
 import React from "react";
-import { ConditionsConfig } from "../../../Context/EventContext";
-
-// Importiere deine Arrays
-import { races } from "../../../../../data/raceData";
-import { origins } from "../../../../../data/originData"; // <-- Falls du "origins" Array hast
-import { callings } from "../../../../../data/callingData";
+import { ConditionsConfig } from "../../Context/EventContext";
+import { callings } from "../../../../data/callingData";
+import { origins } from "../../../../data/originData";
+import { races } from "../../../../data/raceData";
 
 interface SubEditorProps {
 	conditions: ConditionsConfig;
