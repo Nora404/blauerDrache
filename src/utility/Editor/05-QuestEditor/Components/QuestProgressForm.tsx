@@ -19,7 +19,7 @@ export default function QuestProgressForm() {
     <div className="border-dotted" style={{ padding: "10px", margin: "1rem 0" }}>
       <h3>Progress / Aufgabe</h3>
       <div className="form-group">
-        Type:
+        Welchen Type hat die Quest?
         <select
           value={progress.type}
           onChange={(e) => handleTypeChange(e.target.value as TaskType)}

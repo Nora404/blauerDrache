@@ -18,13 +18,13 @@ interface PathSelectorProps {
 const pathLists: Record<string, string[]> = {
     "Lahtheim Zentrum": Object.values(PathsLahtheimCenter),
     "Lahtheim Stadtrand": Object.values(PathsLahtheimCityLimit),
-    LahtheimResidential: Object.values(PathsLahtheimResidential),
-    LahtheimTrading: Object.values(PathsLahtheimTrading),
-    WorldCaves: Object.values(PathsWorldCaves),
-    WorldForest: Object.values(PathsWorldForest),
-    WorldMountains: Object.values(PathsWorldMountain),
-    WorldSurroundings: Object.values(PathsWorldSurroundings),
-    WorldWaters: Object.values(PathsWorldWaters),
+    "Lahtheim Wohnen": Object.values(PathsLahtheimResidential),
+    "Lahtheim Handel": Object.values(PathsLahtheimTrading),
+    "Welt Höhlen": Object.values(PathsWorldCaves),
+    "Welt Wald": Object.values(PathsWorldForest),
+    "Welt Berge": Object.values(PathsWorldMountain),
+    "Welt Umgebung": Object.values(PathsWorldSurroundings),
+    "Welt Wasser": Object.values(PathsWorldWaters),
 };
 
 const PathSelector: React.FC<PathSelectorProps> = ({ onChange }) => {
@@ -47,7 +47,7 @@ const PathSelector: React.FC<PathSelectorProps> = ({ onChange }) => {
     const availablePaths = selectedList ? (pathLists[selectedList] || []) : [];
 
     return (
-        <div style={{ marginLeft: "5px" }}>
+        <div>
             <div className="flex-row-left">
                 <select value={selectedList} onChange={handleListChange} className="w-200">
                     <option value="">-- Liste wählen --</option>

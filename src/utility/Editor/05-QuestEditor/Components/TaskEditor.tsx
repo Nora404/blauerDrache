@@ -1,6 +1,8 @@
 // TaskEditor.tsx
 
 import { Task } from "../../../../data/questData";
+import PathSelector from "../../Components/PathSelector/PathSelector";
+import VariableInput from "../../Components/VariableInputText/VariableInput";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
 
 
@@ -13,29 +15,31 @@ export default function TaskEditor() {
     setProgress({ ...progress, task: { ...task, ...newTask } });
   };
 
+  const handlePathChangeTalkWith = (newPath: string) => {
+    const newTask = { ...task, talkWith: newPath };
+    setProgress({ ...progress, task: newTask });
+  }
+  const handleLabelChange = (newLabel: string) => {
+    const newTask = { ...task, label: newLabel };
+    setProgress({ ...progress, task: newTask });
+  };
+
   return (
-    <div style={{ margin: "1rem 0", padding: "10px" }}>
+    <div>
       <h4>Task-Details</h4>
-
-      <div className="form-group">
-        <label>Task-Label (Anweisung im Questlog):</label>
-        <input
-          type="text"
-          value={task.label || ""}
-          onChange={(e) => updateTask({ label: e.target.value })}
-        />
-      </div>
-
 
 
       {type === "Begegnung" && <div className="form-group">
-        <label>Begegnung:</label>
-        <input
-          type="text"
-          value={task.talkWith || ""}
-          onChange={(e) => updateTask({ talkWith: e.target.value })}
-        />
+        <div className="form-group">
+          <label>Begegnung (Wird als Path gespeichert, es muss also eine Seite geben):</label>
+          <PathSelector onChange={handlePathChangeTalkWith} />
+        </div>
+        <div className="form-group">
+          <label>Task-Label (Anweisung im Questlog):</label>
+          <VariableInput value={task.label || ""} onChange={handleLabelChange} />
+        </div>
       </div>}
+
 
       {type === "Erkunden" && <div className="form-group">
         <label>Erkunden:</label>
