@@ -37,7 +37,7 @@ export const ${questId}: GameQuest = {
   progress: {
     type: "${progress.type}",
     path: "${progress.path}",
-    eventByEnd: "${progress.eventByEnd}",
+    eventByEnd: "${endEventId}",
     isDone: false,
     task: ${formatTask(progress.task)}
   },
@@ -92,8 +92,8 @@ ${endObj}
     <div className="my-1">
       <button className="generate-button" onClick={generateCode}>Code generieren</button>
       {generatedCode && (
-        <div>
-          <pre style={{ whiteSpace: "pre-wrap", background: "#f0f0f0" }}>
+        <div className="output-container">
+          <pre className="output-pre text-left">
             {generatedCode}
           </pre>
           <button onClick={copyToClipboard}>Kopieren</button>

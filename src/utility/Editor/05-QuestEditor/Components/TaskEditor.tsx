@@ -6,7 +6,7 @@ import { useQuestCreatorContext } from "../../Context/QuestContext";
 
 export default function TaskEditor() {
   const { progress, setProgress } = useQuestCreatorContext();
-  const { task } = progress;
+  const { task, type } = progress;
 
   // Hilfsfunktion, um setProgress(task: {...}) zu machen
   const updateTask = (newTask: Partial<Task>) => {
@@ -18,7 +18,7 @@ export default function TaskEditor() {
       <h4>Task-Details</h4>
 
       <div className="form-group">
-        <label>Task-Label (kleiner Text):</label>
+        <label>Task-Label (Anweisung im Questlog):</label>
         <input
           type="text"
           value={task.label || ""}
@@ -26,30 +26,28 @@ export default function TaskEditor() {
         />
       </div>
 
-      <div className="form-group">
-        <label>talkWith:</label>
+
+
+      {type === "Begegnung" && <div className="form-group">
+        <label>Begegnung:</label>
         <input
           type="text"
           value={task.talkWith || ""}
           onChange={(e) => updateTask({ talkWith: e.target.value })}
         />
-      </div>
+      </div>}
 
-      <div className="form-group">
-        <label>goTo:</label>
+      {type === "Erkunden" && <div className="form-group">
+        <label>Erkunden:</label>
         <input
           type="text"
           value={task.goTo || ""}
           onChange={(e) => updateTask({ goTo: e.target.value })}
         />
-      </div>
+      </div>}
 
-      {/* haveItem, useItem usw. 
-          Du könntest hier separate Sub-Formen machen, 
-          so wie bei ItemsDelta. Nur zur Demonstration:
-      */}
-      <div className="form-group">
-        <label>haveItem: (JSON-Eingabe oder Liste?)</label>
+      {type === "Besorgen" && <div className="form-group">
+        <label>Besorgen</label>
         <input
           type="text"
           value={
@@ -64,10 +62,10 @@ export default function TaskEditor() {
             }
           }}
         />
-      </div>
+      </div>}
 
-      <div className="form-group">
-        <label>useItem: (JSON-Eingabe oder Einzelfelder?)</label>
+      {type === "Benutzten" && <div className="form-group">
+        <label>Benutzten</label>
         <input
           type="text"
           value={task.useItem ? JSON.stringify(task.useItem) : ""}
@@ -78,12 +76,10 @@ export default function TaskEditor() {
             } catch { }
           }}
         />
-      </div>
+      </div>}
 
-      {/* baseDelta, stateDelta => evtl. wiederverwendbare Components */}
-      {/* switch -> ein Beispiel: Task hat switch?: Record<string, boolean> */}
-      <div className="form-group">
-        <label>switch (Key=string, Value=boolean):</label>
+      {type === "Geheimnis" && <div className="form-group">
+        <label>Geheimnis</label>
         <input
           type="text"
           value={task.switch ? JSON.stringify(task.switch) : ""}
@@ -94,7 +90,49 @@ export default function TaskEditor() {
             } catch { }
           }}
         />
-      </div>
+      </div>}
+
+      {type === "Besiegen" && <div className="form-group">
+        <label>Besiegen</label>
+        <input
+          type="text"
+          value={task.enemy ? JSON.stringify(task.enemy) : ""}
+          onChange={(e) => {
+            try {
+              const arr = JSON.parse(e.target.value);
+              updateTask({ enemy: arr });
+            } catch { }
+          }}
+        />
+      </div>}
+
+      {type === "Erfahrung" && <div className="form-group">
+        <label>Erfahrung</label>
+        <input
+          type="text"
+          value={task.base ? JSON.stringify(task.base) : ""}
+          onChange={(e) => {
+            try {
+              const obj = JSON.parse(e.target.value);
+              updateTask({ base: obj });
+            } catch { }
+          }}
+        />
+      </div>}
+
+      {type === "Verbessern" && <div className="form-group">
+        <label>Verbessern</label>
+        <input
+          type="text"
+          value={task.stats ? JSON.stringify(task.stats) : ""}
+          onChange={(e) => {
+            try {
+              const obj = JSON.parse(e.target.value);
+              updateTask({ stats: obj });
+            } catch { }
+          }}
+        />
+      </div>}
     </div>
   );
 }

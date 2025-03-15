@@ -38,6 +38,14 @@
 	width: 200px;
 }
 
+.w-250 {
+	width: 250px;
+}
+
+.w-300 {
+	width: 300px;
+}
+
 .hr-space {
 	border: 1px dotted rgba(220, 211, 125, 0.8);
 	border-radius: 5px;

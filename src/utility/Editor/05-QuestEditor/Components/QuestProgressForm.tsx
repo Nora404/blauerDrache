@@ -2,6 +2,7 @@
 import TaskEditor from "./TaskEditor";
 import { TaskType } from "../../../../data/questData";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
+import PathSelector from "../../Components/PathSelector/PathSelector";
 
 export default function QuestProgressForm() {
   const { progress, setProgress } = useQuestCreatorContext();
@@ -10,11 +11,15 @@ export default function QuestProgressForm() {
     setProgress({ ...progress, type: newType });
   };
 
+  const handlePathChange = (newPath: string) => {
+    setProgress({ ...progress, path: newPath });
+  }
+
   return (
     <div className="border-dotted" style={{ padding: "10px", margin: "1rem 0" }}>
       <h3>Progress / Aufgabe</h3>
       <div className="form-group">
-        <label>Type:</label>
+        Type:
         <select
           value={progress.type}
           onChange={(e) => handleTypeChange(e.target.value as TaskType)}
@@ -31,24 +36,10 @@ export default function QuestProgressForm() {
       </div>
 
       <div className="form-group">
-        <label>path (wo schließt man ab?):</label>
-        <input
-          type="text"
-          value={progress.path}
-          onChange={(e) => setProgress({ ...progress, path: e.target.value })}
-        />
+        Wo wird das Abschließende Event getriggert?
+        <PathSelector onChange={handlePathChange} />
       </div>
 
-      <div className="form-group">
-        <label>eventByEnd:</label>
-        <input
-          type="text"
-          value={progress.eventByEnd}
-          onChange={(e) =>
-            setProgress({ ...progress, eventByEnd: e.target.value })
-          }
-        />
-      </div>
 
       {/* TaskEditor für label, talkWith, haveItem usw. */}
       <TaskEditor />

@@ -48,7 +48,7 @@ export default function QuestBaseForm() {
 			</div>
 
 			<div className="form-group">
-				<label>Belohnung:</label>
+				<label>Beschreibung der Belohnung:</label>
 				<VariableInput value={reward} onChange={(newVal) => setReward(newVal)} />
 			</div>
 
