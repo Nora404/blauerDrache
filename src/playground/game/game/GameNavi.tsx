@@ -26,7 +26,7 @@ const GameNavi: React.FC<GameNaviProps> = observer(({ mobilePop }) => {
                     {!gameState.data.creating && <><Link onClick={handleClick} to="/new-player" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Erstelle neuen Charakter</MultiColoredLetters></Link><br /></>}
                     <Link onClick={handleClick} to="/whatIs" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Über dieses Spiel</MultiColoredLetters></Link><br />
                     <Link onClick={handleClick} to="/map" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Karte von Lahtheim</MultiColoredLetters></Link><br />
-                    <Link onClick={handleClick} to="/chronic" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Chroniken von Aurendia</MultiColoredLetters></Link><br />
+                    <Link onClick={handleClick} to="/chronic" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Wissen des Drachens</MultiColoredLetters></Link><br />
                     <Link onClick={handleClick} to="/setting" className='mobileBtn'><MultiColoredLetters colors={blueColors}>Einstellungen</MultiColoredLetters></Link><br />
                 </p>
             </div>
