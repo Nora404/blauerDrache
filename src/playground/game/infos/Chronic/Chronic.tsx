@@ -24,7 +24,7 @@ const Chronic: React.FC<ChronicProps> = () => {
 
   return (
     <div className="max-width">
-      <h2>Chroniken von Aurendia</h2>
+      <h2>Wissen des Drachens</h2>
 
       <div className="toggleRowCol">
         <div className="flex-col w-300">

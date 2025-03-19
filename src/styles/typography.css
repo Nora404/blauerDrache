@@ -24,7 +24,13 @@ h1 {
     line-height: 1.1;
 }
 
+.big-header {
+    color: rgba(220, 210, 125);
+    margin: 2px;
+    font-size: x-large;
+  }
 
+  
 
 .text-left {
     margin-bottom: 25px;

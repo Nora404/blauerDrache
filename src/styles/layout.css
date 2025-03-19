@@ -1,7 +1,7 @@
 /****************************************** Effekt *******************************************/
 .milchglas {
-	backdrop-filter: blur(5px);
-	background: #1e2331ad;
+	backdrop-filter: blur(6px);
+	background: #1e2331b6;
 	-webkit-backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 20px;
@@ -73,6 +73,14 @@
 .padding-x {
 	padding-left: 20px;
 	padding-right: 20px;
+}
+
+.p-1 {
+	padding: 10px;
+}
+
+.p-2 {
+	padding: 20px;
 }
 
 .mb-1 {

@@ -1,0 +1,82 @@
+
+:root {
+    
+    --clr-text-default: rgb(98, 176, 212);
+    --clr-text-link: rgb(130, 255, 234);
+    --clr-text-akzent: rgba(220, 210, 125);
+
+    --border-default: 1px solid rgb(98, 176, 212);
+    --border-dark: 1px solid rgba(98, 176, 212, 0.2);
+    --border-glass: 1px solid rgba(255, 255, 255, 0.2);
+    --border-active: 1px solid rgba(153, 201, 224, 0.6);
+
+    --border-akzent: 1px solid rgba(220, 210, 125);
+    --border-dotted: 1px dotted rgba(220, 211, 125, 0.8);
+
+    --shadow-glow: 0 0 10px rgba(98, 176, 212);
+    --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    --gradient-blue: linear-gradient(
+        135deg,
+        rgba(60, 120, 150, 0.25),
+        rgba(98, 176, 212, 0.12) 20%,
+        rgba(98, 176, 212, 0.15) 50%,
+        rgba(98, 176, 212, 0.12) 80%,
+        rgba(60, 120, 150, 0.25)
+      );
+    
+      --gradient-red: linear-gradient(
+        135deg,
+        rgba(140, 50, 160, 0.25),
+        rgba(212, 98, 98, 0.12) 20%,
+        rgba(212, 98, 98, 0.15) 50%,
+        rgba(212, 98, 98, 0.12) 80%,
+        rgba(140, 50, 160, 0.25)
+      );
+    
+      --gradient-green: linear-gradient(
+        135deg,
+        rgba(60, 150, 100, 0.25),
+        rgba(60, 180, 130, 0.12) 20%,
+        rgba(60, 180, 130, 0.15) 50%,
+        rgba(60, 180, 130, 0.12) 80%,
+        rgba(60, 150, 100, 0.25)
+      );
+    
+      --gradient-yellow: linear-gradient(
+        135deg,
+        rgba(220, 170, 50, 0.2),
+        rgba(240, 210, 90, 0.07) 20%,
+        rgba(240, 210, 90, 0.1) 50%,
+        rgba(240, 210, 90, 0.07) 80%,
+        rgba(220, 170, 50, 0.2)
+      );
+
+      --gradient-black: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.12) 20%,
+        rgba(0, 0, 0, 0.15) 50%,
+        rgba(0, 0, 0, 0.12) 80%,
+        rgba(0, 0, 0, 0.25)
+      );
+  }
+  
+  .path-theme {
+    --clr-text: rgb(255, 100, 100);
+    --clr-text-alpha: rgba(255, 100, 100, 0.65);
+    --clr-link: rgba(255, 140, 140, 1);
+  }
+  
+  .edge-theme {
+    --clr-text: #ff6600;
+    --clr-text-alpha: rgba(255, 102, 0, 0.65);
+    --clr-link: rgba(255, 140, 70, 1);
+  }
+  
+  .forest-theme {
+    --clr-text: #0033ff;
+    --clr-text-alpha: rgba(0, 51, 255, 0.65);
+    --clr-link: rgba(70, 110, 255, 1);
+  }
+  
