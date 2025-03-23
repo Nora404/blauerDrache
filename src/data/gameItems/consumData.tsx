@@ -5,9 +5,8 @@ import { Item } from "./ItemData";
 
 export type ConsumName =
   // Nahrung
-  | "Pilz"
-  | "Apfel"
   | "Wasserflasche"
+
   // Kampf
   | "Giftpfeil"
   | "Wurfmesser"
@@ -29,25 +28,6 @@ export const emptyConsumObj: Consum = {
 };
 
 export const food: Consum[] = [
-  {
-    name: "Pilz",
-    label: <GradientText>Pilz</GradientText>,
-    category: "Nahrung",
-    description: "Ein essbarer Pilz. Sieht aber giftig aus.",
-    actionPoints: 1,
-    life: -25,
-    ek: 10,
-    vk: 5,
-  },
-  {
-    name: "Apfel",
-    label: <GradientText>Apfel</GradientText>,
-    category: "Nahrung",
-    description: "Ein roter Apfel. Er sieht sogar lecker aus.",
-    life: 5,
-    ek: 10,
-    vk: 5,
-  },
   {
     name: "Wasserflasche",
     label: <GradientText>Wasserflasche</GradientText>,

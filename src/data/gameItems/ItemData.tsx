@@ -5,12 +5,24 @@ import { CollectingName, collections } from "./collectionData";
 import { ConsumName, fight, food } from "./consumData";
 import { BuffName } from "../buffData";
 import { DebuffName } from "../debuffData";
+import { RawMaterialName, rawMaterials } from "./rawMaterialData";
+
+export type ToolName =
+	| "Axt" // Holz 
+	| "Spitzhacke" // Stein, Erz
+	| "Sichel" // Pflanzen
+	| "Messer" // Fleisch, Leder
+	| "Hacke" // Samen
+	| "Eimer" // Wasser
+	| "Angel" // Fisch
+	| "Schaufel" // Erde, Sand
 
 export type ItemName =
 	| WeaponName
 	| ArmorName
 	| CollectingName
 	| ConsumName
+	| RawMaterialName
 	| "Nichts"
 	| "Stein"
 	| "Stock"
@@ -23,7 +35,7 @@ export type ItemName =
 export type ItemCartegoryName =
 	| "Zeug" // Stuff
 	| "Nahrung" // Consum
-	| "Rohstoff" // Resource
+	| "Rohstoff" // RawMaterial
 	| "Material" // Material
 	| "Kampf" // Consum
 	| "Werkzeug" // Tool
@@ -144,6 +156,7 @@ export const items: Item[] = [
 	...collections,
 	...weapons,
 	...armors,
+	...rawMaterials,
 ];
 
 export const itemMap: Record<string, Item> = items.reduce((map, item) => {

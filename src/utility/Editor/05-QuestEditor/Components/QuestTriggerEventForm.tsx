@@ -1,11 +1,5 @@
-// QuestTriggerEventForm.tsx
-
 import TextEditor from "../../Components/TextEditor/TextEditor";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
-import ActionBtn from "./ActionBtn";
-
-//   ^ dein existierendes Buttons-UI, falls du es recyceln willst
-//   oder du schreibst eine eigene Komponente, die "triggerButtons" statt "buttons" verwendet.
 
 export default function QuestTriggerEventForm() {
 	const {
@@ -22,9 +16,41 @@ export default function QuestTriggerEventForm() {
 			<label>Beschreibung:</label>
 			<TextEditor value={triggerDescription} onChange={(val) => setTriggerDescription(val)} />
 
-			{/* Buttons: Du kannst dein ActionBtn anpassen, 
-          damit es statt useEditorContext() den "triggerButtons" state nutzt */}
-			<ActionBtn buttons={triggerButtons} setButtons={setTriggerButtons} label="Trigger-Buttons" />
+			<h4>Button: Annehmen</h4>
+			<div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+				<label>Label</label>
+				<input
+					type="text"
+					placeholder="Annehmen"
+					value="Annehmen"
+					style={{ width: "auto" }}
+				/>
+				<label>Beschreibung</label>
+				<input
+					type="text"
+					placeholder="Beschreibung"
+					value="Du hast die Quest angenommen."
+					style={{ flex: 1 }}
+				/>
+			</div>
+
+			<h4>Button: Ablehnen</h4>
+			<div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+				<label>Label</label>
+				<input
+					type="text"
+					placeholder="Ablehnen"
+					value="Ablehnen"
+					style={{ width: "auto" }}
+				/>
+				<label>Beschreibung</label>
+				<input
+					type="text"
+					placeholder="Beschreibung"
+					value="Du lehnst ab..."
+					style={{ flex: 1 }}
+				/>
+			</div>
 		</div>
 	);
 }
