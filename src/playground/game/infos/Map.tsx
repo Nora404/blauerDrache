@@ -17,8 +17,28 @@ const Map: React.FC = () => {
                 src={karte}
                 style={{ width: '100%', marginTop: '10px' }}
                 alt="Karte"
+                className='mb-2'
             /><br /><br />
 
+
+            <Header>Die Städte</Header>
+            <div className='flex-warp-left' style={{ textAlign: 'left' }}>
+                <ul>
+                    <li className="boundaries">Grenzen und Übergänge</li>
+                    <li className="administration">Verwaltung und Öffentliches</li>
+                    <li className="paths">Wege und Plätze</li>
+                </ul><ul>
+                    <li className="crafting">Handwerk und Herstellung</li>
+                    <li className="resurrection">Wiederbelebung</li>
+                    <li className="homebase">Eigene Basis</li>
+                </ul><ul>
+                    <li className="commerce">Handel und Tausch</li>
+                    <li className="darkzones">Dunkle Zonen</li>
+                    <li>
+                        <span className="waterways">Wasser</span> und <span className="nature">Natur</span>
+                    </li>
+                </ul>
+            </div>
 
             <img
                 src={lahtheim}

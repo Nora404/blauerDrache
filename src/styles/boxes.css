@@ -94,6 +94,14 @@
 	justify-content: center;
 }
 
+.flex-warp-left {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 5px;
+	justify-content: start;
+}
+
 .flex-center {
 	align-items: center;
 	display: flex;

@@ -103,3 +103,69 @@ h1 {
         margin-top: 0;
     }
 }
+
+
+
+
+/* Map Farben */
+
+/* Grenzen / Übergänge */
+.boundaries {
+    color: #E1D5E7;
+    font-weight: bold;
+  }
+  
+  /* Öffentliche Gebäude & Verwaltung */
+  .administration {
+    color: #FFE599;
+    font-weight: bold;
+  }
+  
+  /* Wege, Pfade & Plätze */
+  .paths {
+    color: #009999;
+    font-weight: bold;
+  }
+  
+  /* Handwerk & Herstellung */
+  .crafting {
+    color: #8F60CC;
+    font-weight: bold;
+  }
+  
+  /* Wiederbelebung / Erneuerung */
+  .resurrection {
+    color: #62B0D4;
+    font-weight: bold;
+  }
+  
+  /* Eigene Basis / Heimat */
+  .homebase {
+    color: #B9E0A5;
+    font-weight: bold;
+  }
+  
+  /* Handel & Geschäfte */
+  .commerce {
+    color: #CDA2BE;
+    font-weight: bold;
+  }
+  
+  /* Dunkle Zonen / Schattenbereiche */
+  .darkzones {
+    color: #004C99;
+    font-weight: bold;
+  }
+  
+  /* Wasserwege & Gewässer */
+  .waterways {
+    color: #3399FF;
+    font-weight: bold;
+  }
+  
+  /* Natur / Grünflächen */
+  .nature {
+    color: #6ECC7B;
+    font-weight: bold;
+  }
+  
