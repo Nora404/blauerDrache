@@ -10,11 +10,11 @@ const PathNavi: React.FC<PathNaviProps> = () => {
         <div>
             <Header>Weg</Header>
             <p className='mb-1 text-left'>
-                <Link to="/transit/forest-edge/path/5" state={{ from: location.pathname }}>Weiter Richtung {PLACES.Waldrand} gehen</Link><br />
+                <Link to="/transit/path/S/forest-edge/NW/5" state={{ from: location.pathname }}>Weiter Richtung {PLACES.Waldrand} gehen</Link><br />
             </p>
             <p className='text-left'>
                 <Link to="/path"><b>Umgebung</b> untersuchen</Link><br />
-                <Link to="/transit/north-gate/path/6">Zum {PLACES.Nordtor} zurück gehen</Link><br />
+                <Link to="/transit/path/N/north-gate/S/7">Zum {PLACES.Nordtor} zurück gehen</Link><br />
             </p>
         </div>
     );

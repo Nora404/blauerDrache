@@ -21,7 +21,7 @@ const NorthGateNavi: React.FC<NorthGateNaviProps> = observer(() => {
             <Header>Nordtor</Header>
             <p className='mb-1 text-left'>
                 <Link to="/north-gate" className='mobileBtn' onClick={handleCloseMobilePop}><Arrow /><b>Umgebung</b> untersuchen</Link><br />
-                <Link to="/transit/path/north-gate/6" state={{ from: location.pathname }} className='mobileBtn'><Arrow type='n' />Dem {PLACES.Weg} folgen</Link><br />
+                <Link to="/transit/north-gate/S/path/N/7" state={{ from: location.pathname }} className='mobileBtn'><Arrow type='n' />Dem {PLACES.Weg} folgen</Link><br />
                 <Link to="/fountain" className='mobileBtn'><Arrow type='s' />Richtung {PLACES.Brunnen} gehen</Link><br />
             </p>
         </div>

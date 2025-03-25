@@ -11,11 +11,11 @@ const ForestEdgeNavi: React.FC<ForestEdgeNaviProps> = () => {
         <div>
             <Header>Waldrand</Header>
             <p className='mb-1 text-left'>
-                <Link to="/transit/forest/forest-edge/3">In den {PLACES.Wald} gehen</Link><br />
+                <Link to="/transit/forest-edge/SE/forest/N/3">In den {PLACES.Wald} gehen</Link><br />
             </p>
             <p className='text-left'>
                 <Link to="/forest-edge"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
-                <Link to="/transit/path/forest-edge/5">Zurück dem {PLACES.Weg} folgen</Link><br />
+                <Link to="/transit/forest-edge/NW/path/S/5">Zurück dem {PLACES.Weg} folgen</Link><br />
             </p>
         </div>
     );

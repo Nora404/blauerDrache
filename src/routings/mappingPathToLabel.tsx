@@ -99,6 +99,9 @@ export function getPlaceLabelFromRoute(route: string): JSX.Element {
     }
     return PLACES[placeKey];
 }
+export function getPlaceTextFromRoute(route: string): string {
+    return routeToPlaceKey[route] ?? route;
+}
 
 export function getPlaceNameFromRoute(route: string | undefined): PlacesKeys {
     if (!route) {

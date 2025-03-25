@@ -14,7 +14,7 @@ export enum PathsGame {
 	QuestLog = "/questlog",
 	Settings = "/setting",
 	Map = "/map",
-	Transit = "/transit/:targetPath/:startPath/:steps",
+	Transit = "/transit/:startPath/:startPos/:targetPath/:targetPos/:steps",
 	Quest = "/quest/:eventId/:backPath",
 	NotFound = "*",
 }
@@ -37,7 +37,7 @@ const WhatIs = lazy(() => import("../playground/game/game/AboutGame"));
 const Chronic = lazy(() => import("../playground/game/infos/Chronic/Chronic"));
 const NewDay = lazy(() => import("../playground/game/infos/NewDay"));
 const Map = lazy(() => import("../playground/game/infos/Map"));
-const Transit = lazy(() => import("../layout/Transit/Transit"));
+const Transit = lazy(() => import("../layout/Transit/TransitCopy"));
 const Settings = lazy(() => import("../playground/game/game/Settings"));
 
 export const routesGame: RouteConfig[] = [

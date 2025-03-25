@@ -4,6 +4,11 @@ import lahtheim from "../../../assets/lahtheim.png";
 import fayloria from "../../../assets/fayloria.png";
 import tekron from "../../../assets/tekron.png";
 import paras from "../../../assets/paras.png";
+import naruz from "../../../assets/naruz.png";
+import lager from "../../../assets/Lager.png";
+import perlen from "../../../assets/perlen.png";
+import konyur from "../../../assets/konyur.png";
+import nothing from "../../../assets/nothing.png";
 import Header from '../../../layout/Header/Header';
 
 const Map: React.FC = () => {
@@ -63,6 +68,36 @@ const Map: React.FC = () => {
 
             <img
                 src={paras}
+                style={{ width: '100%', marginTop: '30px' }}
+                alt="Karte"
+            /><br /><br />
+
+            <img
+                src={naruz}
+                style={{ width: '100%', marginTop: '30px' }}
+                alt="Karte"
+            /><br /><br />
+
+            <img
+                src={lager}
+                style={{ width: '100%', marginTop: '30px' }}
+                alt="Karte"
+            /><br /><br />
+
+            <img
+                src={perlen}
+                style={{ width: '100%', marginTop: '30px' }}
+                alt="Karte"
+            /><br /><br />
+
+            <img
+                src={konyur}
+                style={{ width: '100%', marginTop: '30px' }}
+                alt="Karte"
+            /><br /><br />
+
+            <img
+                src={nothing}
                 style={{ width: '100%', marginTop: '30px' }}
                 alt="Karte"
             /><br /><br />

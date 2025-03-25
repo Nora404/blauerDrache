@@ -32,3 +32,11 @@
     background-color: rgba(98, 176, 212);
     transition: background-color 0.3s ease;
 }
+
+
+.octagon-container {
+    margin: 0 auto;
+    /* Falls du lieber eine feste Größe willst, 
+       kannst du width/height hier statt inline style angeben */
+    position: relative;
+  }

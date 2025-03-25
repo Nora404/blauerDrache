@@ -15,7 +15,7 @@ const ForestNavi: React.FC<ForestNaviProps> = () => {
             </p>
             <p className='text-left'>
                 <Link to="/forest"><ColoredLetter>Umgebung</ColoredLetter> untersuchen</Link><br />
-                <Link to="/transit/forest-edge/forest/3">Zum {PLACES.Waldrand}, den Wald verlassen</Link><br />
+                <Link to="/transit/forest/N/forest-edge/SE/3">Zum {PLACES.Waldrand}, den Wald verlassen</Link><br />
             </p>
         </div>
     );
