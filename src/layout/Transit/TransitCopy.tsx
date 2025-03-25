@@ -198,8 +198,8 @@ const Transit: React.FC = () => {
 		backgroundSize: "100% 100%",
 		backgroundRepeat: "no-repeat",
 		position: "relative",
-		width: "400px",
-		height: "400px",
+		maxWidth: "400px",
+		maxHeight: "400px",
 		margin: "0 auto",
 	};
 	//#endregion
@@ -238,7 +238,7 @@ const Transit: React.FC = () => {
 
 			{/* [NEU] Unser Container mit Oktagon und Farbverläufen */}
 			<div className="octagon-container" style={octagonBackgroundStyle}>
-				<svg viewBox="0 0 100 100" style={{ width: "100%", height: "100%" }}>
+				<svg viewBox="0 0 100 100" style={{ width: "100%", height: "100%" }} >
 					{/* Linie Start -> Mitte */}
 					<line
 						x1={startDirPos.x}

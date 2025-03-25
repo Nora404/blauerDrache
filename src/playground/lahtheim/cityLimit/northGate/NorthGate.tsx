@@ -2,7 +2,7 @@
 import React from "react";
 import { GradientText } from "../../../../utility/Formatted/GradientText";
 import { CREATURE, PLACES } from "../../../../data/helper/colorfullStrings";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../../../store";
 import { WeightedEvent } from "../../../../data/eventData";
@@ -64,6 +64,10 @@ const NorthGate: React.FC<NorthGateProps> = observer(() => {
       onClick: () => navigate("/north-gate-plaque"),
     },
   ];
+
+  const handleGoToPath = () => {
+    navigate("/transit/north-gate/S/path/N/7", { state: { from: location.pathname } });
+  };
   //#endregion
 
   //#region [jsx]
@@ -75,6 +79,9 @@ const NorthGate: React.FC<NorthGateProps> = observer(() => {
         dayButtons={dayButtons}
         possibleEvents={possibleEvents}
       />
+      <button className="btn-border" style={{ padding: "5px" }} onClick={handleGoToPath}>
+        Dem {PLACES.Weg} folgen
+      </button>
     </div>
   );
   //#endregion
