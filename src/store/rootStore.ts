@@ -70,15 +70,39 @@ export class RootStore {
             if (!saved) return;
             const parsed = JSON.parse(saved);
 
-            // Wende parse auf alle Substores an:
-            this.gameTime.data = parsed.gameTime ?? defaultGameStore.gameTime;
-            this.gameState.data = parsed.gameState ?? defaultGameStore.gameState;
-            this.playerMeta.data = parsed.playerMeta ?? defaultGameStore.playerMeta;
-            this.playerStats.data = parsed.playerStats ?? defaultGameStore.playerStats;
-            this.playerBase.data = parsed.playerBase ?? defaultGameStore.playerBase;
-            this.playerFlux.data = parsed.playerFlux ?? defaultGameStore.playerFlux;
-            this.playerEconomy.data = parsed.playerEconomy ?? defaultGameStore.playerEconomy;
-            this.playerQuest.data = parsed.playerQuest ?? defaultGameStore.playerQuest;
+            this.gameTime.data = {
+                ...defaultGameStore.gameTime,
+                ...(parsed.gameTime ?? {}),
+            };
+
+            this.gameState.data = {
+                ...defaultGameStore.gameState,
+                ...(parsed.gameState ?? {}),
+            };
+            this.playerMeta.data = {
+                ...defaultGameStore.playerMeta,
+                ...(parsed.playerMeta ?? {}),
+            };
+            this.playerStats.data = {
+                ...defaultGameStore.playerStats,
+                ...(parsed.playerStats ?? {}),
+            };
+            this.playerBase.data = {
+                ...defaultGameStore.playerBase,
+                ...(parsed.playerBase ?? {}),
+            };
+            this.playerFlux.data = {
+                ...defaultGameStore.playerFlux,
+                ...(parsed.playerFlux ?? {}),
+            };
+            this.playerEconomy.data = {
+                ...defaultGameStore.playerEconomy,
+                ...(parsed.playerEconomy ?? {}),
+            };
+            this.playerQuest.data = {
+                ...defaultGameStore.playerQuest,
+                ...(parsed.playerQuest ?? {}),
+            };
         } catch (error) {
             console.error("Error loading store:", error);
         }

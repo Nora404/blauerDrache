@@ -6,9 +6,7 @@ import PlaceTemplate from '../../../../layout/PlaceTemplate';
 // #endregion
 
 // #region [prepare]
-type CourtyardStandProps = {};
-
-const CourtyardStand: React.FC<CourtyardStandProps> = observer(() => {
+const CourtyardStand: React.FC = observer(() => {
 
     const possibleEvents: WeightedEvent[] = [];
 
@@ -16,13 +14,6 @@ const CourtyardStand: React.FC<CourtyardStandProps> = observer(() => {
         <>
             <p className='mb-1 text-left'>
                 Endtäuschst stellst du fest das die Autorin der Texte hier noch keinen Inhalt hinzugefügt hat. Außer diese paar Wörter, aber das hilft dir auch nicht weiter.
-            </p>
-        </>;
-
-    const noEventHappend =
-        <>
-            <p className='mb-1 text-left'>
-                Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die letzten Schritte waren.
             </p>
         </>;
     // #endregion
@@ -34,7 +25,6 @@ const CourtyardStand: React.FC<CourtyardStandProps> = observer(() => {
             <PlaceTemplate
                 title="Einen der Stände besuchen"
                 description={description}
-                noEventHappend={noEventHappend}
                 backPath="/courtyard"
                 possibleEvents={possibleEvents}
             />

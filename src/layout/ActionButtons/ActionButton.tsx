@@ -11,6 +11,7 @@ type ActionButtonProps = {
     label: string;
     disable?: boolean;
     color?: string[];
+    bgColor?: "blue" | "green" | "red" | "yellow";
     result?: string;
 };
 
@@ -19,14 +20,30 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     label,
     disable,
     color = blueColors,
+    bgColor = "blue",
     result }) => {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         onClick?.(e);
     }
 
+    const bgColorClass = () => {
+        switch (bgColor) {
+            case "blue":
+                return "btn-border";
+            case "green":
+                return "btn-border-green";
+            case "red":
+                return "btn-border-red";
+            case "yellow":
+                return "btn-border-yellow";
+            default:
+                return "btn-border";
+        }
+    };
+
     return (
-        <button className="btn-border" onClick={handleClick} disabled={disable} >
+        <button className={bgColorClass()} onClick={handleClick} disabled={disable} >
             {disable
                 ? <GradientText colors={['#999999']}>{label}</GradientText>
                 : <MultiColoredLetters colors={color}>{label}</MultiColoredLetters>}

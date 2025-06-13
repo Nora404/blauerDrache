@@ -1,99 +1,99 @@
-
 import { PlayerBase, PlayerStats } from "../store/types";
 import { ItemName } from "./gameItems/ItemData";
 import { gameQuests } from "./questList";
 
 
 export type TaskType =
-  | "Begegnung"   // talk
-  | "Besorgen"    // item
-  | "Benutzten"   // use
-  | "Erkunden"    // go
-  | "Besiegen"    // kill
-  | "Erfahrung"   // base
-  | "Verbessern"  // stats
-  | "Geheimnis";  //switch
+	| "Begegnung" // talk
+	| "Besorgen" // item
+	| "Benutzten" // use
+	| "Erkunden" // go
+	| "Besiegen" // kill
+	| "Erfahrung" // base
+	| "Verbessern" // stats
+	| "Geheimnis"; //switch
 
 //region
 export type GameQuest = {
-  id: string;
-  label: string;
-  description: string;
-  reward: string;
-  eventByEnd: string; // Dieses Event verteilt die Belohnung
-  progress: Progress;
-  repeat: boolean;
+	id: string;
+	label: string;
+	description: string;
+	reward: string;
+	eventByEnd: string; // Dieses Event verteilt die Belohnung
+	progress: Progress;
+	repeat: boolean;
+	noAbort?: boolean; // Wenn true, darf man die Quest nicht aufgeben
 };
 //#endregion
 
 //#region
 export type HaveItem = { item: ItemName; need: number; count: number };
-export type UseItem = { item: ItemName; place: string };
+export type UseItem = { item: ItemName; place: string[]; need: number; count: number };
 export type KillEnemy = { enemy: string; need: number; count: number };
 
 export type Task = {
-  label?: string;                             // Falls benötigt um Orte oder Personen zu beschreiben
-  talkWith?: string;                          // Begegnung (path)
-  haveItem?: HaveItem[];                      // Besorgen
-  useItem?: UseItem;                          // Benutzten (path)
-  goTo?: string;                              // Erkunden (path)
-  enemy?: KillEnemy[];                        // Besiegen
-  base?: Partial<PlayerBase>;                 // Erfahrung
-  stats?: Partial<PlayerStats>;               // Verbessern
-  switch?: Partial<Record<string, boolean>>;  // Geheimnis
+	label?: string; // Falls benötigt um Orte oder Personen zu beschreiben
+	talkWith?: string; // Begegnung (path)
+	haveItem?: HaveItem[]; // Besorgen
+	useItem?: UseItem; // Benutzten (path)
+	goTo?: string; // Erkunden (path)
+	enemy?: KillEnemy[]; // Besiegen
+	base?: Partial<PlayerBase>; // Erfahrung
+	stats?: Partial<PlayerStats>; // Verbessern
+	switch?: Partial<Record<string, boolean>>; // Geheimnis
 };
 export type Progress = {
-  type: TaskType;
-  path: string; // Hier beendet man die Aufgabe
-  eventByEnd: string; // EventID
-  isDone: boolean;
-  task: Task;
+	type: TaskType;
+	path: string; // Hier beendet man die Aufgabe
+	eventByEnd: string; // EventID
+	isDone: boolean;
+	task: Task;
 };
 
 export const emptyQuest: GameQuest = {
-  id: "000",
-  label: "Nichts",
-  description: "",
-  reward: "",
-  eventByEnd: "000",
-  progress: {
-    type: "Geheimnis",
-    path: "/",
-    eventByEnd: "000",
-    isDone: false,
-    task: {},
-  },
-  repeat: false,
+	id: "000",
+	label: "Nichts",
+	description: "",
+	reward: "",
+	eventByEnd: "000",
+	progress: {
+		type: "Geheimnis",
+		path: "/",
+		eventByEnd: "000",
+		isDone: false,
+		task: {},
+	},
+	repeat: false,
+	noAbort: false,
 };
 //#endregion
 
 //#region [gray]
 export function getGameQuestById(id: string): GameQuest | undefined {
-  return gameQuests.find((quest) => quest.id === id);
+	return gameQuests.find((quest) => quest.id === id);
 }
 
 export function resetQuestProgress(progress: Progress): Progress {
-  return {
-    ...progress,
-    isDone: false,
-    task: {
-      ...progress.task,
-      haveItem: progress.task.haveItem
-        ? progress.task.haveItem.map((item) => ({ ...item, count: 0 }))
-        : undefined,
-      enemy: progress.task.enemy
-        ? progress.task.enemy.map((enemy) => ({ ...enemy, count: 0 }))
-        : undefined,
-    },
-  };
+	return {
+		...progress,
+		isDone: false,
+		task: {
+			...progress.task,
+			haveItem: progress.task.haveItem
+				? progress.task.haveItem.map((item) => ({ ...item, count: 0 }))
+				: undefined,
+			enemy: progress.task.enemy
+				? progress.task.enemy.map((enemy) => ({ ...enemy, count: 0 }))
+				: undefined,
+		},
+	};
 }
 
 export function getQuestByEventId(eventId: string) {
-  const quest = gameQuests.find(
-    (quest) =>
-      quest.eventByEnd === eventId || quest.progress?.eventByEnd === eventId
-  );
-  return quest;
+	const quest = gameQuests.find(
+		(quest) => quest.eventByEnd === eventId || quest.progress?.eventByEnd === eventId
+	);
+	return quest;
 }
 
 //#endregion

@@ -24,7 +24,7 @@ export type Armor = Item & {
   defense: number;
 };
 
-export const emptyArmorObj: Armor = {
+export const emptyArmorObj: Item = {
   name: "Nichts",
   label: <GradientText>Nichts</GradientText>,
   description: "Etwas zum Schutz",

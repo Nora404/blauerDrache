@@ -23,4 +23,3 @@ function descriptionText() {
 
 const message1 = "Button 1 gedrückt";
 
-const message2 = "Button 2 gedrückt";

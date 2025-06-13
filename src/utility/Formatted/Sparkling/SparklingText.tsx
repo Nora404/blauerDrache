@@ -107,7 +107,7 @@ const SparklingText: React.FC<SparklingTextProps> = ({
       style={{ position: "relative", display: "inline-block" }}
     >
       {/* Sterne */}
-      {stars.map((star, i) => {
+      {stars.map((_, i) => {
         const style: CSSProperties = {
           position: "absolute",
           top: stars[i].y - 10,

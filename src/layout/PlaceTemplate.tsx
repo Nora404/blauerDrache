@@ -1,133 +1,90 @@
 //#region [imports]
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { WeightedEvent } from "../data/eventData";
 import ActionButton from "../layout/ActionButtons/ActionButton";
-import { useLocationEvents } from "../utility/Hooks/LocationEvents";
-import { GameEventChain } from "./GameEventChain";
-import Header from "./Header/Header";
+import { EventManager } from "./Events/EventManager";
 //#endregion
 
 //#region [prepare]
 type ButtonConfig = {
-  label: string;
-  onClick?: () => void;
-  startEventId?: string;
+	label: string;
+	onClick?: () => void;
+	startEventId?: string;
 };
 
 type PlaceTemplateProps = {
-  title?: React.ReactNode;
-  description?: React.ReactNode;
-  buttons?: ButtonConfig[];
-  noEventHappend?: React.ReactNode;
-  chanceOfAnyEvent?: number;
-  backPath: string;
-  possibleEvents: WeightedEvent[];
+	title?: React.ReactNode;
+	description?: React.ReactNode;
+	buttons?: ButtonConfig[];
+	noEventProbability?: number;
+	backPath: string;
+	possibleEvents: WeightedEvent[];
+	forcedEventId?: string;
 };
 
 /**
- * @param title (?) - Überschrift mit <hr> Linie
- * @param description (?) - Beschreibungstext
- * @param buttons (?) - Array von {label, onClick?, startEventId?}
- * @param noEventHappend (?) - Text, der angezeigt wird, wenn kein Event stattfindet
- * @param chanceOfAnyEvent (?) - Wahrscheinlichkeit, dass ein Event stattfindet 0.1 = 10%
- * @param backPath - Pfad, zu dem zurückgegangen wird
- * @param possibleEvents - Array von {eventId, probability, questId?, conditions?}
+ * @param {React.ReactNode} [title] - Überschrift (wird oberhalb mit <hr> angezeigt).
+ * @param {React.ReactNode} [description] - Beschreibungstext.
+ * @param {Array<{label: string, onClick?: () => void, startEventId?: string}>} [buttons] - Array von Button-Konfigurationen.
+ * @param {number} [noEventProbability] - Wahrscheinlichkeit (z. B. 0.1 für 10%), dass KEIN Event stattfindet.
+ * @param {string} backPath - Pfad, zu dem zurückgekehrt wird.
+ * @param {Array<WeightedEvent>} possibleEvents - Array von möglichen Events.
+ * @param {string} [forcedEventId] - Optional: ID eines zu erzwingenden Events.
  */
 const PlaceTemplate: React.FC<PlaceTemplateProps> = observer(
-  ({
-    title,
-    description,
-    buttons,
-    backPath,
-    possibleEvents,
-    noEventHappend = "",
-    chanceOfAnyEvent,
-  }) => {
-    //#endregion
+	({
+		title,
+		description,
+		buttons,
+		backPath,
+		possibleEvents,
+		noEventProbability,
+		forcedEventId,
+	}) => {
+		const [newForcedEventId, setNewForcedEventId] = useState(forcedEventId);
+		const [eventActive, setEventActive] = useState(false);
+		//#endregion
 
-    //#region [hook]
-    const {
-      localRandomEvent,
-      firstEvent,
-      questName,
-      handleBack,
-      handleFinishEvent,
-      handleFinishQuest,
-      handleForceEvent,
-    } = useLocationEvents(possibleEvents, backPath, chanceOfAnyEvent);
-    //#endregion
+		//#region [handler]
+		const handleClick = (btn: ButtonConfig) => {
+			btn.onClick?.();
+			if (btn.startEventId) {
+				setNewForcedEventId(btn.startEventId);
+			}
+		};
+		//#endregion
 
-    //#region [handler]
-    const handleClick = (btn: ButtonConfig) => {
-      btn.onClick?.();
-      if (btn.startEventId) {
-        handleForceEvent(btn.startEventId);
-      }
-    };
-    //#endregion
+		//#region [jsx]
+		return (
+			<div className="max-width">
+				<h2>{title}</h2>
+				<div className="mb-1">{description}</div>
 
-    //#region [jsx]
-    return (
-      <div className="max-width">
-        <h2>{title}</h2>
-        <div className="mb-1">{description}</div>
+				{!eventActive &&
+					buttons &&
+					buttons?.length > 0 &&
+					buttons.map((button) => (
+						<ActionButton
+							key={button.label}
+							onClick={() => handleClick(button)}
+							label={button.label}
+						/>
+					))}
 
-        {!localRandomEvent && buttons && buttons?.length > 0 && (buttons.map((button) => (
-          <ActionButton
-            key={button.label}
-            onClick={() => handleClick(button)}
-            label={button.label}
-          />
-        )))}
-
-        {localRandomEvent && (
-          <>
-            <GameEventChain
-              initialEventName={localRandomEvent}
-              onFinishChain={handleFinishEvent}
-            />
-            <br />
-          </>
-        )}
-        {!localRandomEvent && (
-          <>
-            {noEventHappend}
-            <ActionButton onClick={handleBack} label="Sich abwenden" />
-            <br />
-          </>
-        )}
-        {firstEvent && (
-          <>
-            <Header>Fertige Aufgaben</Header>
-            <ActionButton
-              onClick={handleFinishQuest}
-              label={"Aufgabe (" + questName + ") abgeben"}
-            />
-          </>
-        )}
-      </div>
-    );
-  }
+				<EventManager
+					events={possibleEvents}
+					backPath={backPath}
+					noEventProbability={noEventProbability}
+					backBtn={true}
+					forcedEventId={newForcedEventId}
+					onEventStart={() => setEventActive(true)}
+					onEventEnd={() => setEventActive(false)}
+				/>
+			</div>
+		);
+	}
 );
 //#endregion
 
 export default PlaceTemplate;
-
-//#region [example]
-
-// const possibleEvents: WeightedEvent[] = [
-//     { eventId: "E001ThreeStoneTrigger", probability: 90, questId: "Q001ThreeStone" },
-//     { eventId: "004Flower", probability: 10 },
-//   ];
-
-//   return (
-//     <PlaceTemplate
-//       title="Mit einem der Leute sprechen"
-//       description="Endtäuschst stellst du fest..."
-//       backPath="/fountain"
-//       possibleEvents={possibleEvents}
-//     />
-//   );
-// });
-//#endregion

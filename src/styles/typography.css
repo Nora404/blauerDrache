@@ -63,6 +63,14 @@ h1 {
     color: gray;
 }
 
+.text-yellow {
+    color: rgb(209, 186, 52);
+}
+
+.text-white {
+    color: white;
+}
+
 .text-glow {
     text-shadow: 0 0 2px rgba(98, 176, 212);
 }

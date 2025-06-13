@@ -50,7 +50,7 @@ const InfoNavi: React.FC<InfoNaviProps> = observer(({ mobilePop }) => {
       <p className="text-left">
         Zeit: <b>{gameTime.data.gameTime}</b>
         <br />
-        Es ist: <b>{gameTime.data.gameDay}</b>
+        Es ist: <b>{gameTime.data.dayName}: {gameTime.data.gameDay}</b>
         <br />
         Wetter: <b>{gameState.data.weather}</b>
         <br />

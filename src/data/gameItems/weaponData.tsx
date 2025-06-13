@@ -124,7 +124,7 @@ export const weapons: Weapon[] = [
   {
     name: "Hellebarde",
     label: <GradientText>Hellebarde</GradientText>,
-    description: "Lanze, Axt und Spazierstock in einem - für den anspruchsvollen Ritter.",
+    description: "Lanze, Axt und Spazierstock in einem - für den anspruchsvollen Helden.",
     category: "Waffen",
     attack: 21,
     ek: 1770,

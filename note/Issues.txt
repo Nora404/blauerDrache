@@ -1,0 +1,39 @@
+WICHTIG
+  - Alle Questarten einbauen
+  x MainQuest darf man nicht aufgeben dürfen
+  - Allen Hauptplätzen von Lahtheim Texte verpassen 
+  - Allen Hauptplätzen Events verpassen
+  - Ausrüstungen Shop anpassen
+  - Krämer und Verkaufen einbauen
+  - Battel: Verteidigung, Items, Hand, Fliehen
+  - Monster: Zombie, Ratte, Dieb, Wachen
+  - Buffs: Dauer in Runden oder Tatendrang?
+
+BUG 
+  x Transit: Events zeigen danach keine Buttons
+  - Transit: Abwenden Button wird immer angezeigt  
+  - QuestService: Questabgeben Button bleibt
+  - Battle: Erkennt die Letzte Runde zu spät
+  - Admincenter: Zeit verändern klappt nicht
+
+SOLLTE
+  - Mehr Monster und Varianten
+  - Playernamen muss ein farbiges dynamisches Label bekommen
+  - Farben für Playernamen änderbar machen
+  - Beute "Leben in Lahtheim" verteilen
+  - Layout bei allen drei Auflösungen fixen
+  x Überarbeitung Charaktererstellung
+
+NICE
+  - Transit mit verschiedenen Richtungen 
+  - Vorhandene Random Events ausschreiben
+  - Titels einbauen
+  - Täglich/Globaler Count von Werten (Schaden/Heilung/Spenden...)
+
+SPÄTER
+  - Dungeons
+  - Icons 
+  - Housing
+  - Skills
+  - Liveskills
+  - Bessere Worldmap

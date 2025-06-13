@@ -7,9 +7,7 @@ import { NPC } from '../../../../data/helper/colorfullStrings';
 // #endregion
 
 // #region [prepare]
-type CourtyardBardProps = {};
-
-const CourtyardBard: React.FC<CourtyardBardProps> = observer(() => {
+const CourtyardBard: React.FC = observer(() => {
 
     const possibleEvents: WeightedEvent[] = [];
 
@@ -20,12 +18,6 @@ const CourtyardBard: React.FC<CourtyardBardProps> = observer(() => {
             </p>
         </>;
 
-    const noEventHappend =
-        <>
-            <p className='mb-1 text-left'>
-                Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die letzten Schritte waren.
-            </p>
-        </>;
     // #endregion
 
 
@@ -35,7 +27,6 @@ const CourtyardBard: React.FC<CourtyardBardProps> = observer(() => {
             <PlaceTemplate
                 title={<>Dem {NPC.Barde} zuhören</>}
                 description={description}
-                noEventHappend={noEventHappend}
                 backPath="/courtyard"
                 possibleEvents={possibleEvents}
             />

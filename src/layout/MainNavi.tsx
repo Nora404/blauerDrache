@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import navigationMap from "../NavigationList";
 import GameNavi from "../playground/game/game/GameNavi";
@@ -11,34 +11,29 @@ const MainNavi: React.FC = observer(() => {
   const location = useLocation();
   const { gameState } = useRootStore();
 
-  const [currentNav, setCurrentNav] = useState<JSX.Element | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
+  const currentNav = useMemo(() => {
     const pathName = location.pathname.split("/");
-
-    const NavComponent = navigationMap[gameState.data.currentPath];
-    if (NavComponent && pathName.length <= 2) {
-      setCurrentNav(<NavComponent />);
-    } else if (pathName.length > 2) {
-      const navi = (
-        <TransitNavi
-          target={pathName[2]}
-          start={pathName[3]}
-          steps={pathName[4]}
-        />
-      );
-      setCurrentNav(navi);
+    if (pathName.length <= 2) {
+      const NavComponent = navigationMap[gameState.data.currentPath];
+      return NavComponent ? <NavComponent /> : undefined;
     }
-  }, [location.pathname]);
+    return (
+      <TransitNavi
+        target={pathName[2]}
+        start={pathName[3]}
+        steps={pathName[4]}
+      />
+    );
+  }, [location.pathname, gameState.data.currentPath]);
 
   return (
-    <div>
-      <GameNavi />
-      {gameState.data.creating && currentNav}
-      {gameState.data.creating && <InfoNavi />}
-    </div>
+    <Suspense fallback={<div>Lädt…</div>}>
+      <div>
+        <GameNavi />
+        {gameState.data.creating && currentNav}
+        {gameState.data.creating && <InfoNavi />}
+      </div>
+    </Suspense>
   );
 });
 

@@ -6,9 +6,7 @@ import PlaceTemplate from '../../../../layout/PlaceTemplate';
 // #endregion
 
 // #region [prepare]
-type CourtyardBenchProps = {};
-
-const CourtyardBench: React.FC<CourtyardBenchProps> = observer(() => {
+const CourtyardBench: React.FC = observer(() => {
 
     const possibleEvents: WeightedEvent[] = [
         { eventId: "event999Test", probability: 100 }
@@ -21,12 +19,6 @@ const CourtyardBench: React.FC<CourtyardBenchProps> = observer(() => {
             </p>
         </>;
 
-    const noEventHappend =
-        <>
-            <p className='mb-1 text-left'>
-                Links von dir ist Umgebung, rechts von dir ist Umgebung – alles sieht völlig normal und unauffällig aus. Es ist schon fast langweilig, wie ereignislos die letzten Schritte waren.
-            </p>
-        </>;
     // #endregion
 
 
@@ -36,7 +28,6 @@ const CourtyardBench: React.FC<CourtyardBenchProps> = observer(() => {
             <PlaceTemplate
                 title="Auf eine Bank setzten"
                 description={description}
-                noEventHappend={noEventHappend}
                 backPath="/courtyard"
                 possibleEvents={possibleEvents}
             />

@@ -1,78 +1,89 @@
-//#region [imports]
-import React from "react";
-import { WizardData } from "./CreatePlayer";
+import React, { useContext } from "react";
+import { CreatePlayerContext } from "./context";
 import Header from "../../../layout/Header/Header";
-import { callingMap, CallingName, callings } from "../../../data/callingData";
-import TwoActionButton from "../../../layout/ActionButtons/TwoActionButton";
+import { callings, emptyCallingObj } from "../../../data/callingData";
+import { parseDescription } from "../../../utility/Helper/ParseTextToJSX";
+import { HiddenLine } from "../../../layout/HiddenLine";
+import { CREATURE } from "../../../data/helper/colorfullStrings";
 import Talk from "../../../utility/Formatted/Talk";
-//endregion
 
-//#region [prepare]
-type ChooseCallingProps = {
-  wizardData: WizardData;
-  setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
-  onBack: () => void;
-  onNext: () => void;
-};
+interface ChooseCallingProps {
+	page: number;
+	onNext: () => void;
+	onBack: () => void;
+}
 
-const ChooseCalling: React.FC<ChooseCallingProps> = ({
-  wizardData,
-  setWizardData,
-  onBack,
-  onNext,
-}) => {
-  //#endregion
+const ChooseCalling: React.FC<ChooseCallingProps> = ({ page, onNext, onBack }) => {
+	const playerContext = useContext(CreatePlayerContext);
+	if (!playerContext) return;
 
-  //#region [handler]
-  const handleCalling = (callingName: CallingName) => {
-    setWizardData((prev) => ({
-      ...prev,
-      calling: callingMap[callingName],
-    }));
-  };
-  //#endregion
+	const { calling, setCalling } = playerContext;
 
-  //#region [jsx]
-  return (
-    <div className="max-width">
-      <Header>Beantworte die Frage der Wächter Wesen</Header>
-      <br />
+	const handleBack = () => {
+		setCalling(emptyCallingObj);
+		onBack();
+	};
 
-      {callings.map((callings) => (
-        <div className="mb-1 w-full" key={callings.name}>
-          <button
-            className={`text-left w-full ${
-              callings.name === wizardData.calling.name ? "glow" : ""
-            }`}
-            onClick={() => handleCalling(callings.name as CallingName)}
-          >
-            {callings.label}
-            <br />
-            {callings.description}
-            <br />
-            <span style={{ color: "#4BC7AA" }}> {callings.bonus} </span>
-          </button>
-        </div>
-      ))}
-      <br />
+	return (
+		<div>
+			<Header>Was hat dich nach Lahtheim geführt?</Header>
+			<div className="text-left">
+				<p className="mb-1">
+					<Talk color="blauesWesen">
+						"Oh wie schön! Das hatten wir schon lange nicht mehr hier."{" "}
+					</Talk>
+					Das {CREATURE.roteWesen} schaut ungläubig das {CREATURE.blaueWesen} an.
+				</p>
+				<p className="mb-1">
+					<Talk color="rotesWesen">
+						"Das meinst du nicht ernst oder? Von denen hier laufen doch hunderte herum und tun so
+						als wären sie einzigartig und die 'Auserwählten' um unser reich vor den Drachen zu
+						retten!"
+					</Talk>
+				</p>
+				<p className="mb-1">
+					<Talk color="blauesWesen">
+						"Drachen sind so freundliche Wesen, niemand braucht uns vor ihnen zu retten. Sei doch
+						einmal etwas freundlicher!"
+					</Talk>{" "}
+					sagt das {CREATURE.blaueWesen} empört. Die Beiden tauschen noch weitere nicht ganz so
+					freundliche Worte aus. In der Zeit überlegst du warum es dich nach Lahtheim verschleppt
+					hat. Was ist deine Berufung?
+				</p>
+			</div>
 
-      <div>
-        <br />
-        Du schaust selbstsicher zu den beiden Wesen und sagst:{" "}
-        <Talk>"Ich bin gekommen um {wizardData.calling.label} zu werden"</Talk>
-        <br />
-      </div>
-      <br />
+			<div className="grid-2 mb-2" style={{ gap: "15px" }}>
+				{callings.map((option) => (
+					<button
+						className={`btn-border ${option.name === calling.name && "glow"}`}
+						style={{ margin: 0 }}
+						key={option.name}
+						onClick={() => setCalling(option)}>
+						{option.label}
+						<br />
+						{option.bonus}
+					</button>
+				))}
+			</div>
 
-      <TwoActionButton
-        onLeftAction={onBack}
-        leftBtn="zurück"
-        onRightAction={onNext}
-        rightBtn="weiter"
-      />
-    </div>
-  );
-  //#endregion
+			<div className="text-left mb-2">
+				<Header>{calling.label}</Header>
+				{parseDescription(calling.description)}
+			</div>
+
+			<div className="flex-row">
+				<button className="btn-border-red w-150" onClick={handleBack}>
+					Zurück
+				</button>
+				<span>Frage: {page}</span>
+				<button className="btn-border-green w-150" onClick={onNext}>
+					Weiter
+				</button>
+			</div>
+
+			<HiddenLine />
+		</div>
+	);
 };
 
 export default ChooseCalling;

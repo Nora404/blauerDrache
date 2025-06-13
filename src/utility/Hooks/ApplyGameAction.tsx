@@ -15,8 +15,6 @@ export function useApplyGameAction() {
   } = useRootStore();
 
   function applyGameAction(action: GameAction) {
-    console.log("im hook: ", action);
-
     if (action.itemsDelta) {
       Object.entries(action.itemsDelta).forEach(([name, count]) => {
         if (count !== undefined) {

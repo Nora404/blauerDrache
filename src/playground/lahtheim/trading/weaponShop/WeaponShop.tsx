@@ -40,7 +40,7 @@ const WeaponShop: React.FC = observer(() => {
         <br />
         <GradientText colors={["#D1813B"]}>
           {" "}
-          „Wie kann ich dir helfen? Brauchst du Waffen, um auf's Feld zu ziehen
+          „Wie kann ich dir helfen? Brauchst du Waffen, um ins Feld zu ziehen
           oder finden deine Schlachten in der Küche statt, was meiner Meinung
           nach VIEL gefährlicher ist!“{" "}
         </GradientText>

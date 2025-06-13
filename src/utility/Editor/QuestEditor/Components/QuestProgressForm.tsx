@@ -1,6 +1,4 @@
 // QuestProgressForm.tsx
-import React, { useState } from "react";
-
 import TaskEditor from "./TaskEditor";
 import { TaskType } from "../../../../data/questData";
 import { useQuestCreatorContext } from "../../Context/QuestContext";

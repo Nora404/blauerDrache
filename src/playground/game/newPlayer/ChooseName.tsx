@@ -1,68 +1,61 @@
-//#region [imports]
-import React from "react";
-import { WizardData } from "./CreatePlayer";
+import React, { useContext } from "react";
+import { CreatePlayerContext } from "./context";
 import Header from "../../../layout/Header/Header";
-import TwoActionButton from "../../../layout/ActionButtons/TwoActionButton";
+import { CREATURE } from "../../../data/helper/colorfullStrings";
 import Talk from "../../../utility/Formatted/Talk";
-//#endregion
 
-//#region [prepare]
-type ChooseNameProps = {
-  wizardData: WizardData;
-  setWizardData: React.Dispatch<React.SetStateAction<WizardData>>;
-  onBack: () => void;
-  onFinalize: () => void;
-};
+interface ChooseNameProps {
+	page: number;
+	onNext: () => void;
+	onBack: () => void;
+}
 
-const ChooseName: React.FC<ChooseNameProps> = ({
-  wizardData,
-  setWizardData,
-  onBack,
-  onFinalize,
-}) => {
-  //#endregion
+const ChooseName: React.FC<ChooseNameProps> = ({ page, onNext, onBack }) => {
+	const playerContext = useContext(CreatePlayerContext);
+	if (!playerContext) return;
 
-  //#region [handler]
-  const handleNameChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setWizardData((prev) => ({
-      ...prev,
-      name: evt.target.value,
-    }));
-  };
-  //#endregion
+	const { name, setName } = playerContext;
 
-  //#region [jsx]
-  return (
-    <div>
-      <Header>Beantworte die Frage der Wächter Wesen</Header>
-      <br />
+	const handleNameChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+		setName(evt.target.value);
+	};
 
-      <input
-        type="text"
-        value={wizardData.name}
-        onChange={handleNameChange}
-        placeholder="Name"
-        style={{ width: 250, textAlign: "center" }}
-      />
-      <br />
+	return (
+		<div>
+			<Header>Wie lautet dein Name?</Header>
+			<div className="text-left">
+				<p className="mb-1">
+					Nachdem du deine Berufung offenbart hast lassen die beiden streitenden Wesen von einander
+					ab und wenden sich wieder dir zu. Das {CREATURE.blaueWesen} nickt zufrieden.
+					<Talk color="blauesWesen">"Sehr gut, ich notiere das ..." </Talk> Nachdem es mit
+					dramatischer Bewegung den letzten Strich gezogen hat, das {CREATURE.roteWesen} rollt mit
+					den Augen, fragt es dich mit verheißungsvoller Stimme:
+				</p>
+				<p className="mb-1">
+					<Talk color="blauesWesen">"Und wie ist dein Name?"</Talk>
+				</p>
+			</div>
 
-      <div>
-        <br />
-        Du schaust selbstsicher zu den beiden Wesen und sagst:{" "}
-        <Talk>"Ich heiße {wizardData.name}"</Talk>
-        <br />
-      </div>
-      <br />
+			<input
+				type="text"
+				value={name}
+				onChange={handleNameChange}
+				placeholder="Name"
+				style={{ width: 250, textAlign: "center" }}
+			/>
+			<br />
 
-      <TwoActionButton
-        onLeftAction={onBack}
-        leftBtn="zurück"
-        onRightAction={onFinalize}
-        rightBtn="fertig"
-      />
-    </div>
-  );
-  //#endregion
+			<div className="flex-row">
+				<button className="btn-border-red w-150" onClick={onBack}>
+					Zurück
+				</button>
+				<span>Frage: {page}</span>
+				<button className="btn-border-green w-150" onClick={onNext}>
+					Weiter
+				</button>
+			</div>
+		</div>
+	);
 };
 
 export default ChooseName;

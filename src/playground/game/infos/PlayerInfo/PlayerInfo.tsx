@@ -13,6 +13,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
     getCombinedStats,
     getPlayerObj,
     getDelta,
+    gameTime,
 
     playerStats,
     playerBase,
@@ -155,6 +156,7 @@ const PlayerInfo: React.FC<PlayerInfoProps> = observer(() => {
         {reputationMessage()}<br />
         Dein Geist und deine Stimmung sind heute {selected.feeling.label}.{" "}
         {selected.feeling.bonus}. <br />
+        Vor <b>{gameTime.data.countDays}</b> Tagen bist du in Lahtheim angekommen.
       </div>
 
 

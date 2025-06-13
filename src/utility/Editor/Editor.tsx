@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import EventCreationForm from "./EventEditor/GenerateEvents";
 import { EditorContextProvider } from "./Context/EventContext";
 import ActionButton from "../../layout/ActionButtons/ActionButton";
-import GenerateQuest from "./QuestEditor/GenerateQuest";
 import Admincenter from "./Admincenter";
-
+import { TestEventManager } from "./EventTester/EventTester";
 
 const Editor: React.FC = () => {
   const [side, setSide] = useState<number>(3);
@@ -15,9 +14,9 @@ const Editor: React.FC = () => {
 
   return (
     <EditorContextProvider>
-      <div className="max-widht">
+      <div className="max-widht" style={{ width: "100%" }}>
         <h2>Editor</h2>
-        <div className="flex-row">
+        <div className="flex-row w-full">
           <ActionButton
             onClick={() => {
               handleClick(3);
@@ -34,12 +33,13 @@ const Editor: React.FC = () => {
             onClick={() => {
               handleClick(2);
             }}
-            label="Quest Editor"
+            label="Event Testen"
           />
         </div>
 
+
         {side === 1 && <EventCreationForm />}
-        {side === 2 && <GenerateQuest />}
+        {side === 2 && <TestEventManager />}
         {side === 3 && <Admincenter />}
       </div>
     </EditorContextProvider>

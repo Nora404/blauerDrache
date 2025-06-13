@@ -1,5 +1,5 @@
 //#region [imports]
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import "./MobilePop.css";
 import GameNavi from "../../playground/game/game/GameNavi";
 import InfoNavi from "../../playground/game/infos/InfoNavi";
@@ -89,7 +89,7 @@ const MobileFooter: React.FC = observer(() => {
 
   //#region [jsx]
   return (
-    <>
+    <Suspense fallback={<div>Lädt…</div>}>
       <div
         className={`handyPop custom-scrollbar ${showGame ? "open" : "closed"}`}
       >
@@ -106,9 +106,8 @@ const MobileFooter: React.FC = observer(() => {
         {gameState.data.creating && currentNav}
       </div>
       <div
-        className={`handyPop custom-scrollbar ${
-          showPlayer ? "open" : "closed"
-        }`}
+        className={`handyPop custom-scrollbar ${showPlayer ? "open" : "closed"
+          }`}
       >
         <CharakterNavi />
       </div>
@@ -141,7 +140,7 @@ const MobileFooter: React.FC = observer(() => {
         colorTwo="#F7445C"
         setOne={!showPlayer}
       />
-    </>
+    </Suspense>
   );
   //#endregion
 });

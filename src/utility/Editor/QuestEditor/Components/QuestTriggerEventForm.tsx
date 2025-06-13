@@ -1,6 +1,6 @@
 // QuestTriggerEventForm.tsx
 
-import DescriptionEditor from "../../EventEditor/Components/DescriptionEditor";
+import TextEditor from "../../EventEditor/Components/TextEditor/TextEditor";
 import { useQuestCreatorContext } from "../../Context/QuestContext";
 import ActionBtn from "./ActionBtn";
 
@@ -8,30 +8,23 @@ import ActionBtn from "./ActionBtn";
 //   oder du schreibst eine eigene Komponente, die "triggerButtons" statt "buttons" verwendet.
 
 export default function QuestTriggerEventForm() {
-  const {
-    triggerEventId,
-    triggerDescription,
-    setTriggerDescription,
-    triggerButtons,
-    setTriggerButtons,
-  } = useQuestCreatorContext();
+	const {
+		triggerEventId,
+		triggerDescription,
+		setTriggerDescription,
+		triggerButtons,
+		setTriggerButtons,
+	} = useQuestCreatorContext();
 
-  return (
-    <div style={{ border: "1px solid #ccc", padding: 10, margin: "10px 0" }}>
-      <h4>Trigger-Event ({triggerEventId || "?"})</h4>
-      <label>Beschreibung:</label>
-      <DescriptionEditor
-        value={triggerDescription}
-        onChange={(val) => setTriggerDescription(val)}
-      />
+	return (
+		<div style={{ border: "1px solid #ccc", padding: 10, margin: "10px 0" }}>
+			<h4>Trigger-Event ({triggerEventId || "?"})</h4>
+			<label>Beschreibung:</label>
+			<TextEditor value={triggerDescription} onChange={(val) => setTriggerDescription(val)} />
 
-      {/* Buttons: Du kannst dein ActionBtn anpassen, 
+			{/* Buttons: Du kannst dein ActionBtn anpassen, 
           damit es statt useEditorContext() den "triggerButtons" state nutzt */}
-      <ActionBtn
-        buttons={triggerButtons}
-        setButtons={setTriggerButtons}
-        label="Trigger-Buttons"
-      />
-    </div>
-  );
+			<ActionBtn buttons={triggerButtons} setButtons={setTriggerButtons} label="Trigger-Buttons" />
+		</div>
+	);
 }

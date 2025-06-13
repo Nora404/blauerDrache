@@ -1,36 +1,42 @@
-import React from 'react';
-import Header from '../../../layout/Header/Header';
-import { useNavigate } from 'react-router-dom';
-import { GradientText } from '../../../utility/Formatted/GradientText';
-import FullscreenToggleButton from '../../../layout/ActionButtons/FullscreenButton';
+import React from "react";
+import Header from "../../../layout/Header/Header";
+import { useNavigate } from "react-router-dom";
+import { GradientText } from "../../../utility/Formatted/GradientText";
+import FullscreenToggleButton from "../../../layout/ActionButtons/FullscreenButton";
+import { HiddenLine } from "../../../layout/HiddenLine";
 
-type SettingsProps = {
-};
+type SettingsProps = {};
 
 const Settings: React.FC<SettingsProps> = () => {
+	const handleResetCharakter = () => {
+		navigation("/new-player");
+	};
+	const navigation = useNavigate();
 
-    const handleResetCharakter = () => {
-        navigation("/new-player")
-    }
-    const navigation = useNavigate();
+	return (
+		<div className="max-width">
+			<h2>Einstellungen</h2>
 
-    return (
-        <div className='max-width'>
-            <h2>Einstellungen</h2>
+			<Header>Charakter</Header>
+			<p className="mb-1 text-left">
+				Du kannst hier deinen Charakter zurück setzten. Aber{" "}
+				<GradientText colors={["#ff0000"]}>Achtung!</GradientText> Das wird deinen aktuellen
+				Charakter löschen.
+			</p>
 
-            <Header>Charakter</Header>
-            <p className='mb-1 text-left'>
-                Du kannst hier deinen Charakter zurück setzten.
-                Aber <GradientText colors={['#ff0000']}>Achtung!</GradientText> Das wird deinen aktuellen Charakter löschen.
-            </p>
+			<button className="btn-border" onClick={handleResetCharakter}>
+				Neuer Charakter
+				<br />
+				(Dein aktueller Charakter wird gelöscht)
+			</button>
+			<br />
+			<br />
+			<Header>Anzeige</Header>
 
-            <button className="btn-border" onClick={handleResetCharakter}>Neuer Charakter<br />(Dein aktueller Charakter wird gelöscht)</button><br />
-            <br />
-            <Header>Anzeige</Header>
-
-            <FullscreenToggleButton />
-        </div>
-    );
+			<FullscreenToggleButton />
+			<HiddenLine />
+		</div>
+	);
 };
 
 export default Settings;

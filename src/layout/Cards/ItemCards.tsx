@@ -1,3 +1,4 @@
+//#region [import]
 import { Armor } from "../../data/gameItems/armorData";
 import { Item } from "../../data/gameItems/ItemData";
 import { Weapon } from "../../data/gameItems/weaponData";
@@ -11,131 +12,143 @@ import BuyCard from "./BuyCard";
 import ViewCard from "./ViewCard";
 import SellCard from "./SellCard";
 import { useRootStore } from "../../store";
+//#endregion
 
+//#region [prepare]
 type ItemCardMode = "view" | "buy" | "sell";
 
 type ItemCardProps = {
-  item: Item | Weapon | Armor | Consum;
-  quantity?: number;
-  mode?: ItemCardMode;
-  onClick?: (item: Item) => void;
-  isActive?: boolean;
+	item: Item | Weapon | Armor | Consum;
+	quantity?: number;
+	mode?: ItemCardMode;
+	onClick?: (item: Item) => void;
+	isActive?: boolean;
 };
 
+/**
+ * @param {Item|Weapon|Armor|Consum} item - Das anzuzeigende Item.
+ * @param {number} [quantity] - Optional: Anzahl des Items.
+ * @param {"view"|"buy"|"sell"} [mode] - Optional: Darstellungsmodus; Standardwert "view".
+ * @param {function} [onClick] - Optionaler Callback, der beim Klick auf die Karte ausgeführt wird (erhält das Item).
+ * @param {boolean} [isActive] - Optional: Flag, ob die Karte als aktiv markiert werden soll.
+ */
 const ItemCard: React.FC<ItemCardProps> = ({
-  item,
-  quantity,
-  mode = "view",
-  onClick,
-  isActive = false
+	item,
+	quantity,
+	mode = "view",
+	onClick,
+	isActive = false,
 }) => {
-  const { getPlayerObj } = useRootStore();
+	const { getPlayerObj } = useRootStore();
+	//#endregion
 
-  const handleClick = () => {
-    onClick?.(item);
-  };
+	//#region [handler]
+	const handleClick = () => {
+		onClick?.(item);
+	};
+	//#endregion
 
-  const getPlayerItem = () => {
-    if (item.category === "Waffen") { return getPlayerObj().weapon; }
-    if (item.category === "Ausrüstung") { return getPlayerObj().armor; }
-    return getPlayerObj().item;
-  };
-  const playerItem = getPlayerItem();
-  const isEquipped = playerItem.name === item.name;
+	//#region [helper]
+	const getPlayerItem = () => {
+		if (item.category === "Waffen") {
+			return getPlayerObj().weapon;
+		}
+		if (item.category === "Ausrüstung") {
+			return getPlayerObj().armor;
+		}
+		return getPlayerObj().item;
+	};
+	const playerItem = getPlayerItem();
+	const isEquipped = playerItem.name === item.name;
+	//#endregion
 
-  return (
-    <div
-      className={`btn-border item-card text-left ${isActive ? "glow" : ""}`}
-      onClick={handleClick}
-      style={{ display: "inline-block", paddingTop: "2px", paddingBottom: "2px" }}
-    >
-      {mode === "buy" && (
-        <BuyCard item={item} isEquipped={isEquipped} />
-      )}
+	//#region [jsx]
+	return (
+		<div
+			className={`btn-border item-card text-left ${isActive ? "glow" : ""}`}
+			onClick={handleClick}
+			style={{ display: "inline-block", paddingTop: "2px", paddingBottom: "2px" }}>
+			{mode === "buy" && <BuyCard item={item} isEquipped={isEquipped} />}
 
-      {mode === "view" && (
-        <ViewCard item={item} quantity={quantity} isEquipped={isEquipped} />
-      )}
+			{mode === "view" && <ViewCard item={item} quantity={quantity} isEquipped={isEquipped} />}
 
-      {mode === "sell" && (
-        <SellCard item={item} quantity={quantity} isEquipped={isEquipped} />
-      )}
-    </div>
-  );
+			{mode === "sell" && <SellCard item={item} quantity={quantity} isEquipped={isEquipped} />}
+		</div>
+	);
 };
+//#endregion
 
 export default ItemCard;
 
-
+//#region [helper fn]
 function formatWithSign(value: number): string {
-  return value >= 0 ? `+${value}` : `${value}`;
+	return value >= 0 ? `+${value}` : `${value}`;
 }
-
 
 export function getItemEffectText(item: Item) {
-  const effectElements = [];
+	const effectElements = [];
 
-  if (item.life) {
-    effectElements.push(
-      <>
-        {SYSTEM.Leben}: {formatWithSign(item.life)} {/* Änderung */}
-        <br />
-      </>
-    );
-  }
-  if (item.actionPoints) {
-    effectElements.push(
-      <>
-        {SYSTEM.Aktionen}: {formatWithSign(item.actionPoints)} {/* Änderung */}
-        <br />
-      </>
-    );
-  }
-  if (item.attack) {
-    effectElements.push(
-      <>
-        {SYSTEM.Angriff}: {formatWithSign(item.attack)} {/* Änderung */}
-        <br />
-      </>
-    );
-  }
-  if (item.defense) {
-    effectElements.push(
-      <>
-        {SYSTEM.Verteidigung}: {formatWithSign(item.defense)} {/* Änderung */}
-        <br />
-      </>
-    );
-  }
-  if (item.luck) {
-    effectElements.push(
-      <>
-        {SYSTEM.Glück}: {formatWithSign(item.luck)} {/* Änderung */}
-        <br />
-      </>
-    );
-  }
-  if (item.buff) {
-    effectElements.push(
-      <>
-        {buffMap[item.buff].name}
-        <br />
-        {renderBuffDuration(buffMap[item.buff])}
-        <br />
-      </>
-    );
-  }
-  if (item.debuff) {
-    effectElements.push(
-      <>
-        {debuffMap[item.debuff].name}
-        <br />
-        {renderBuffDuration(debuffMap[item.debuff])}
-        <br />
-      </>
-    );
-  }
+	if (item.life) {
+		effectElements.push(
+			<>
+				{SYSTEM.Leben}: {formatWithSign(item.life)} {/* Änderung */}
+				<br />
+			</>
+		);
+	}
+	if (item.actionPoints) {
+		effectElements.push(
+			<>
+				{SYSTEM.Aktionen}: {formatWithSign(item.actionPoints)} {/* Änderung */}
+				<br />
+			</>
+		);
+	}
+	if (item.attack) {
+		effectElements.push(
+			<>
+				{SYSTEM.Angriff}: {formatWithSign(item.attack)} {/* Änderung */}
+				<br />
+			</>
+		);
+	}
+	if (item.defense) {
+		effectElements.push(
+			<>
+				{SYSTEM.Verteidigung}: {formatWithSign(item.defense)} {/* Änderung */}
+				<br />
+			</>
+		);
+	}
+	if (item.luck) {
+		effectElements.push(
+			<>
+				{SYSTEM.Glück}: {formatWithSign(item.luck)} {/* Änderung */}
+				<br />
+			</>
+		);
+	}
+	if (item.buff) {
+		effectElements.push(
+			<>
+				{buffMap[item.buff].name}
+				<br />
+				{renderBuffDuration(buffMap[item.buff])}
+				<br />
+			</>
+		);
+	}
+	if (item.debuff) {
+		effectElements.push(
+			<>
+				{debuffMap[item.debuff].name}
+				<br />
+				{renderBuffDuration(debuffMap[item.debuff])}
+				<br />
+			</>
+		);
+	}
 
-  return <>{effectElements}</>;
+	return <>{effectElements}</>;
 }
-
+//#endregion

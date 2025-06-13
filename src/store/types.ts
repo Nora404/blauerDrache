@@ -9,10 +9,21 @@ import { OriginName } from "../data/originData";
 import { Progress } from "../data/questData";
 import { RaceName } from "../data/raceData";
 
+export type DayNames =
+  | "Motag"
+  | "Litag"
+  | "Metag"
+  | "Watag"
+  | "Dutag"
+  | "Widtag"
+  | "Fetag";
 
 export type GameTime = {
   gameTime: string; // z.B. "12:00"
   gameDay: "Tag" | "Nacht";
+  accumulatedSeconds: number; // Neu: totale akkumulierte Spielzeit in Sekunden
+  countDays: number;         // Neu: Anzahl vergangener Spieltage
+  dayName: DayNames;
 };
 
 export type GameState = {
@@ -106,8 +117,11 @@ export type Delta = {
 // Beispiel-Objekte, wie du sie hattest
 export const defaultGameStore: GameStore = {
   gameTime: {
-    gameTime: "12:00",
-    gameDay: "Tag",
+    gameTime: "00:00",
+    gameDay: "Nacht",
+    accumulatedSeconds: 0,
+    countDays: 0,
+    dayName: "Motag",
   },
   gameState: {
     weather: "sonnig",

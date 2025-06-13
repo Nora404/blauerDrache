@@ -53,43 +53,43 @@ const Collecting: React.FC = () => {
       </p>
 
       <Header>Konflikte in den Wäldern</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
 
       <Header>Wächter der Quelle</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
 
       <Header>Glaube und Ruinen</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
 
       <Header>Das was man sät</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
 
       <Header>Vom Winde verweht</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
 
       <Header>Spielplatz der Berge</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
 
       <Header>Reichtümer der Erde</Header>
-      <p className="mb-2">
+      <p className="mb-2 category-section">
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
         <CollectItem /> <CollectItem /> <CollectItem /> <CollectItem />
       </p>
@@ -106,7 +106,7 @@ type CollectItemProps = {
 
 const CollectItem: React.FC<CollectItemProps> = ({ itemName, description }) => {
   return (
-    <button className="btn-border collectionCards">
+    <button className="collectionCards">
       {itemName ? (
         <>
           {itemName}

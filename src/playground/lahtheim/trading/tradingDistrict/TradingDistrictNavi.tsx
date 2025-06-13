@@ -22,7 +22,7 @@ const TradingDistrictNavi: React.FC<TradingDistrictNaviProps> = observer(() => {
                 <Link to="/trading-district" className='mobileBtn' onClick={handleCloseMobilePop}><Arrow /><b>Umgebung</b> untersuchen</Link><br />
                 <Link to="/general-shop" className='mobileBtn'><Arrow type='no' />Zum {PLACES.Krämer} gehen</Link><br />
                 <Link to="/equipment-shop" className='mobileBtn'><Arrow type='o' />Den {PLACES.Ausrüstungsladen} besuchen</Link><br />
-                <Link to="/weapon-shop" className='mobileBtn'><Arrow type='o' />Sich im {PLACES.Waffenladen} umsehen</Link><br />
+                <Link to="/weapon-shop" className='mobileBtn'><Arrow type='o' />Den {PLACES.Waffenladen} besuchen</Link><br />
                 <Link to="/east-wall" className='mobileBtn'><Arrow type='so' />Die {PLACES.Ostmauer} besichtigen</Link><br />
                 <Link to="/fountain" className='mobileBtn'><Arrow type='w' />Zurück zum {PLACES.Brunnen} gehen</Link><br />
             </p>

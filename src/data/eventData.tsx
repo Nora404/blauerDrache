@@ -21,22 +21,25 @@ export type GameAction = {
   stateDelta?: Partial<PlayerStats>;
   baseDelta?: Partial<PlayerBase>;
 
+  triggerBattle?: string;
   triggerQuest?: string;
   endQuest?: string;
   nextEvents?: NextEventOption[];
   message?: string;
 };
 
+export type EventActionButtons = {
+  label: string;
+  result?: string;
+  getAction: () => GameAction;
+  conditions?: Conditions;
+};
+
 export type GameEvent = {
   id: string; // z.B. 001Stone
   label?: string; // z.B "Stein gefunden"
   description: string;
-  buttons: {
-    label: string;
-    result?: string;
-    getAction: () => GameAction;
-    conditions?: Conditions;
-  }[];
+  buttons: EventActionButtons[];
   places: {
     place: PlacesKeys;
     probability: number; // 1-100 wobei 100 = immer möglich
