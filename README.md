@@ -2,6 +2,8 @@
 
 Okay okay! Ich schreibe ja schon ein Readme ...
 
+🔗 [Live-Demo auf Vercel ansehen](https://blauer-drache.vercel.app)
+
 ### Einleitung
 
 Dieses Browserspiel heißt "Legende des blauen Drachen", ich wollte schon lange ein Browserspiel machen und nun zu einem Wettbewerb, indem es darum geht ein Spiel zu klonen habe ich endlich damit angefangen. Mein großes Vorbild ist "Legende des grünen Drachen". Allerdings ist dieses Spiel schon sooo groß das ich nur eine vereinfachte Variante schreibe.
